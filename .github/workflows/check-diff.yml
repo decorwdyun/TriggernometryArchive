@@ -1,0 +1,77 @@
+name: Initialize, Check XML Changes, and Process XML Files
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  initialize-check-process:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl jq
+
+      - name: Initialize and Check XML Files
+        id: initialize-and-check
+        run: |
+          set -e
+          mkdir -p origin dist
+
+          while IFS=, read -r filename url || [ -n "$filename" ]; do
+            echo "Processing: $filename from $url"
+
+            if [ -z "$filename" ] || [ -z "$url" ]; then
+              echo "Warning: Missing filename or URL in list.txt"
+              continue
+            fi
+
+            filepath="origin/$filename"
+
+            if [ ! -f "$filepath" ]; then
+              echo "Initializing: $filename (downloading)"
+              curl -s -o "$filepath" "$url" || { echo "Failed to download $url"; exit 1; }
+              echo "Downloaded $filename to $filepath"
+            else
+              echo "$filename already exists, checking for updates."
+              # Use conditional GET to check for updates
+              curl -s -z "$filepath" -o "$filepath" "$url"
+              if [ $? -eq 0 ]; then
+                echo "Updated $filename"
+              else
+                echo "No changes detected for $filename"
+              fi
+            fi
+          done < list.txt
+
+      - name: Process XML Files
+        run: |
+          echo "Processing XML files in origin/ and outputting to dist/"
+          mkdir -p dist
+
+          for file in origin/*.xml; do
+            filename=$(basename "$file")
+            echo "Processing $filename"
+            python remove_attributes.py "$file" "dist/$filename"
+          done
+
+      - name: Commit and Push Changes
+        run: |
+          echo "Committing and pushing changes..."
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add origin/ dist/
+
+          # Check if there are any changes to commit
+          if git diff-index --quiet HEAD --; then
+            echo "No changes detected. No updates to commit."
+          else
+            git commit -m "Update XML files and process outputs"
+            git push
+          fi
