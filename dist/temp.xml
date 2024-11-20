@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TriggernometryExport PluginVersion="1.2.0.715">
+<ExportedFolder Id="ec334ba8-a8bc-4de9-be12-031af0f2f613" Name="临时" Enabled="true">
+<Folders>
+<Folder Id="aaf33a07-6da4-47f8-a413-44483bd4ba55" Name="风脉" Enabled="true">
+<Folders>
+<Folder Id="264e7f22-9429-4524-acf7-b2f7a346af0d" Name="如果使用转圈圈标点则开启这个分组" Enabled="true">
+<Folders />
+<Triggers>
+<Trigger Enabled="true" Name="循环" Id="091233f7-b94b-42af-adf2-acfb2a6320d3" RegularExpression="^风脉_loop" PrevActions="Interrupt">
+<Actions>
+<Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="action: place&#13;&#10;// 每五秒标一次 A（与风脉重合）&#13;&#10;${if: ${_systemtimems} % 5000 &lt; 25 ? &quot;A&quot; : &quot;_&quot; }: ${v:风脉_center}&#13;&#10;1: ${v:风脉_center} + 5 * sin(${_systemtimems} / 314) + 5&#13;&#10;---&#13;&#10;action: circle&#13;&#10;center: ${v:风脉_center} + 5 * sin(${_systemtimems} / 314) + 5&#13;&#10;waymarks: BCD234&#13;&#10;r: 60 * sin(${_systemtimems} / 942)&#13;&#10;θ: ${_systemtimems} / 1570" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${ev:风脉_center}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="2" LogMessageText="风脉_loop" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="16" Asynchronous="False" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${ev:风脉_center}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Name="无剩余风脉 重置" Id="7ba2a2a3-162c-4b8c-ae8b-4b3e2e23940e" RegularExpression="^.{15}\S+ 29:00:E81:" PrevActions="Interrupt">
+<Actions>
+<Action OrderNumber="1" VariableName="风脉_center" ActionType="Variable" Asynchronous="False" />
+<Action OrderNumber="2" NamedCallbackName="place" NamedCallbackParam="clear" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" />
+<Action OrderNumber="3" NamedCallbackName="place" NamedCallbackParam="clear" ActionType="NamedCallback" ExecutionDelayExpression="100" Asynchronous="False" DescBgColor="dff" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="手动停止" Id="146cde97-c099-42f2-bd3e-9957a6c908d3" RegularExpression="^.{15}\S+ 00:0038:: *(风脉|[Ff][Mm]) +[Oo][Ff][Ff]">
+<Actions>
+<Action OrderNumber="1" VariableOp="SetString" VariableName="tmp_center" VariableExpression="${v:风脉_center}" ActionType="Variable" Asynchronous="False" />
+<Action OrderNumber="2" VariableName="风脉_center" ActionType="Variable" Asynchronous="False" />
+<Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="action: place&#13;&#10;A: ${v:tmp_center}&#13;&#10;---&#13;&#10;action: circle&#13;&#10;center: ${v:tmp_center}&#13;&#10;waymarks: BCD1234&#13;&#10;r: 25" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" />
+<Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="action: place&#13;&#10;A: ${v:tmp_center}&#13;&#10;---&#13;&#10;action: circle&#13;&#10;center: ${v:tmp_center}&#13;&#10;waymarks: BCD1234&#13;&#10;r: 25" ActionType="NamedCallback" ExecutionDelayExpression="100" Asynchronous="False" DescBgColor="dff" />
+<Action OrderNumber="5" VariableName="tmp_center" ActionType="Variable" Asynchronous="False" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="false" Source="None" Name="说明" Id="a06e8591-7aae-448d-a666-e6856390c42e" RegularExpression="">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="使用风脉仪时自动标记对应风脉的位置。" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Placeholder" Description="需要鲶鱼精邮差及高级标点工具箱。" DescriptionOverride="True" />
+<Action OrderNumber="3" ActionType="Placeholder" Description="如果没有反应，使用远程触发器中的自检工具自行检查" DescTextColor="26f" DescriptionOverride="True" />
+<Action OrderNumber="4" MessageBoxIconType="Information" MessageBoxText="鲶鱼精邮差标点回调：${if: ${ecallback:place} ? 已注册 : 未注册，使用自检工具检查鲶鱼精邮差 }&#13;&#10;高级标点工具箱回调：${if: ${ecallback:AdvWm} ? 已注册 : 未注册，使用自检工具检查高级标点工具箱 }" ActionType="MessageBox" Description="或右键此行 - 测试动作 - 使用实时值 检查" DescTextColor="26f" DescriptionOverride="True" />
+<Action OrderNumber="5" ActionType="Placeholder" DescriptionOverride="True" />
+<Action OrderNumber="6" ActionType="Placeholder" Description="使用风脉仪时根据距离和方位查找风脉。" DescriptionOverride="True" />
+<Action OrderNumber="7" ActionType="Placeholder" Description="会精确定位到一个风脉（偶尔可能有两个）" DescriptionOverride="True" />
+<Action OrderNumber="8" ActionType="Placeholder" Description="启用“转圈圈标点”的分组时会用标点转圈持续动态标记这个风脉，否则只会标记一次" DescriptionOverride="True" />
+<Action OrderNumber="9" ActionType="Placeholder" Description="摸风脉后自动停止转圈；也可以手动使用 &quot;/e 风脉 off&quot; 或 &quot;/e fm off&quot; 停止" DescriptionOverride="True" />
+<Action OrderNumber="10" ActionType="Placeholder" DescriptionOverride="True" />
+<Action OrderNumber="11" ActionType="Placeholder" Description="by 阿洛   感谢 AtmoOmen 的技术支持" DescriptionOverride="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="1. 使用风脉仪" Id="46af5c1c-72c8-4e4d-bb44-180d2dd2d162" RegularExpression="^.{15}\S+ 29:00:E80:02:(?&lt;dir&gt;[^:]+):(?&lt;distance&gt;[^:]+)">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="校验手动执行" DescriptionOverride="True" />
+<Action OrderNumber="2" MessageBoxIconType="Error" MessageBoxText="直接用风脉仪。⏎不要手动执行。" ActionType="MessageBox" Asynchronous="False">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_event}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" TriggerOp="CancelTrigger" TriggerId="46af5c1c-72c8-4e4d-bb44-180d2dd2d162" ActionType="Trigger" Asynchronous="False">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_event}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description="dir 正北顺1-8" DescriptionOverride="True" />
+<Action OrderNumber="5" VariableOp="SetString" VariableName="tmp_zoneId" VariableExpression="${_ffxivzoneid}" ActionType="Variable" Asynchronous="False" />
+<Action OrderNumber="6" DictVariableOp="GetEntityById" DictVariableName="tmp_me" DictVariableValue="${_me.id}" ActionType="DictVariable" Asynchronous="False" />
+<Action OrderNumber="7" ActionType="Placeholder" Asynchronous="False" Description="读入地图风脉坐标" DescriptionOverride="True" />
+<Action OrderNumber="8" TableVariableName="tmp_风脉" ActionType="TableVariable" Asynchronous="False" Description="397" />
+<Action OrderNumber="9" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  402.029,  561.425,  191.536&#13;&#10;  424.958, -536.905,  164.308&#13;&#10; -332.888,   -29.952,  126.844&#13;&#10; -660.144, -376.630,  135.546" ActionType="TableVariable" Asynchronous="False" Description="397" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="397" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="10" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  765.011,  289.082,  -15.852&#13;&#10;  433.554, -286.244,  -47.766&#13;&#10; -480.278,  -425.284,   -5.969&#13;&#10;  406.760,  686.610,  -89.794" ActionType="TableVariable" Asynchronous="False" Description="398" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="398" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="11" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  729.228,  150.908,  134.966&#13;&#10;   98.909, -174.361,   73.094&#13;&#10; -487.471,  -285.335,  144.667&#13;&#10; -452.378,  678.215,  138.125" ActionType="TableVariable" Asynchronous="False" Description="399" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="399" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="12" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  421.164,  661.768,  -43.059&#13;&#10;  -93.794,  223.842,   -6.754&#13;&#10; -775.265,   243.702,  123.763&#13;&#10;  340.021, -130.535,  -25.367" ActionType="TableVariable" Asynchronous="False" Description="400" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="400" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="13" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10; -747.097,  163.836,  -57.098&#13;&#10; -759.426, -110.857,   -9.197&#13;&#10; -180.315,  -543.114,  -14.916&#13;&#10; -564.813, -349.081,  -36.685" ActionType="TableVariable" Asynchronous="False" Description="401" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="401" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="14" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10; -487.266, -249.561,   76.726&#13;&#10;  155.842, -499.431,   53.352&#13;&#10;  322.591,    10.513,   88.983&#13;&#10;  743.033, -214.052,  181.007" ActionType="TableVariable" Asynchronous="False" Description="612" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="612" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="15" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  423.562,  801.565,   15.833&#13;&#10;   21.286, -623.621,   24.011&#13;&#10;  694.769,   -53.464,    1.913&#13;&#10; -805.781,  235.215,   36.580" ActionType="TableVariable" Asynchronous="False" Description="613" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="613" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="16" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  202.874, -753.119,  133.925&#13;&#10; -271.229, -280.232,  157.942&#13;&#10; -485.211,   247.414,  304.469&#13;&#10;  146.627,  460.821,  303.757" ActionType="TableVariable" Asynchronous="False" Description="620" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="620" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="17" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  497.307,  402.487,   16.362&#13;&#10;  163.583,  -11.910,  144.635&#13;&#10;  457.511,  822.415,   32.383&#13;&#10;  -97.419,  563.723,   13.279" ActionType="TableVariable" Asynchronous="False" Description="614" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="614" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="18" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10; -380.191,   16.919,   10.061&#13;&#10;  109.605,  788.632,   42.005&#13;&#10;  261.534,   69.963,   78.400&#13;&#10;  683.406,  521.172,   70.000" ActionType="TableVariable" Asynchronous="False" Description="621" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="621" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="19" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  570.277,  438.175,  -19.508&#13;&#10;  232.005, -515.794,   93.392&#13;&#10;  105.608,  -49.699,  116.043&#13;&#10; -693.830,  658.899,    7.263" ActionType="TableVariable" Asynchronous="False" Description="622" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="622" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="20" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  554.280,  352.102,   17.950&#13;&#10;  613.245, -231.128,   24.020&#13;&#10; -149.798, -102.495,   15.281&#13;&#10; -619.637, -199.096,   51.501" ActionType="TableVariable" Asynchronous="False" Description="813" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="813" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="21" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  446.079, -523.687,  -60.552&#13;&#10;  344.683,  538.940,  -66.530&#13;&#10; -343.801, -235.432,   46.985&#13;&#10;  158.804,  674.891,  -61.095" ActionType="TableVariable" Asynchronous="False" Description="815" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="815" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="22" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10; -231.414,  160.844,    4.702&#13;&#10;   12.854, -851.247,  110.753&#13;&#10;  432.481, -770.400,   90.441&#13;&#10;   -8.999, -247.640,   89.309" ActionType="TableVariable" Asynchronous="False" Description="816" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="816" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="23" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  650.568,  556.390,    0.355&#13;&#10; -651.165,  588.412,    0.000&#13;&#10;  623.752, -555.250,  285.942&#13;&#10;  -62.898,  -16.533,  345.125" ActionType="TableVariable" Asynchronous="False" Description="814" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="814" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="24" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10; -405.955,  506.544,    7.169&#13;&#10; -141.571,   49.763,   -0.882&#13;&#10;  338.635,  203.184,   24.147&#13;&#10;  681.139, -262.754,  -39.196" ActionType="TableVariable" Asynchronous="False" Description="817" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="817" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="25" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  358.212, -715.900,  396.552&#13;&#10;   50.205, -512.073,  380.098&#13;&#10;  339.116, -280.016,  298.717&#13;&#10; -774.229,  -97.710,   63.192" ActionType="TableVariable" Asynchronous="False" Description="818" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="818" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="26" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  346.529, -767.739,  209.352&#13;&#10;  748.562,   66.759,  106.712&#13;&#10; -547.726,  661.873,  -18.023&#13;&#10; -128.069,  676.722,  -20.523" ActionType="TableVariable" Asynchronous="False" Description="956" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="956" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="27" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10; -176.104,  537.835,   21.530&#13;&#10;  -49.267, -710.757,   94.072&#13;&#10;  118.474, -343.866,    4.934&#13;&#10;  550.018, -159.076,   25.476" ActionType="TableVariable" Asynchronous="False" Description="957" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="957" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="28" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10; -184.222,  423.606,   31.937&#13;&#10;  194.816,  644.311,  -12.841&#13;&#10;  382.184, -482.196,   25.901&#13;&#10; -602.030, -325.853,   34.317" ActionType="TableVariable" Asynchronous="False" Description="958" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="958" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="29" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;   42.590, -167.030,  124.015&#13;&#10; -482.744, -595.709, -154.954&#13;&#10;  316.401, -595.519, -154.978&#13;&#10;   29.105, -550.408,  -47.739" ActionType="TableVariable" Asynchronous="False" Description="959" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="959" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="30" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  628.239,  107.902,    8.317&#13;&#10; -754.753,  411.134,  -36.011&#13;&#10; -402.921, -691.323,  327.757&#13;&#10; -555.623,  172.429,  158.118" ActionType="TableVariable" Asynchronous="False" Description="961" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="961" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="31" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10; -333.540, -361.487,  270.851&#13;&#10;   13.118, -756.396,  275.566&#13;&#10;  661.785,  411.757,  439.977&#13;&#10;  539.271,  239.404,  438.001" ActionType="TableVariable" Asynchronous="False" Description="960" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="960" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="32" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  353.570, -238.800, -107.702&#13;&#10; -458.305, -493.919,  -29.648&#13;&#10; -198.460,  -56.540,   23.143&#13;&#10; -812.893,  105.509,   57.482&#13;&#10; -202.800, -199.000,  -72.127&#13;&#10;  414.780, -681.000, -141.037&#13;&#10; -134.576, -582.912,  -93.055&#13;&#10;   70.190,  746.440,    0.659&#13;&#10;  368.360,   -9.230,   61.077&#13;&#10;  398.810,  261.390,   86.005" ActionType="TableVariable" Asynchronous="False" Description="1187" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="1187" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="33" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  299.510, -688.420,    1.414&#13;&#10; -599.553, -179.443,    5.161&#13;&#10; -294.179,  640.009,  110.762&#13;&#10;   48.975,  287.171,  111.338&#13;&#10; -638.039, -486.501,    6.571&#13;&#10;  918.152, -404.091,   10.140&#13;&#10;  516.830, -348.030,   17.990&#13;&#10; -754.104,  122.687,  138.692&#13;&#10;  130.470,  522.930,  115.174&#13;&#10;  485.920,  831.311,  121.404" ActionType="TableVariable" Asynchronous="False" Description="1188" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="1188" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="34" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10; -114.388, -527.111,    5.868&#13;&#10;  416.080, -544.980,   15.531&#13;&#10; -114.320,  623.790, -212.192&#13;&#10;   39.374,   -2.311, -158.612&#13;&#10; -550.591, -137.652,   -4.355&#13;&#10; -184.710, -751.675,   22.936&#13;&#10;  610.773,  233.051,    9.621&#13;&#10; -676.539,  236.164, -163.973&#13;&#10;  205.188,  160.998, -193.591&#13;&#10;  747.188,  712.672, -176.400" ActionType="TableVariable" Asynchronous="False" Description="1189" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="1189" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="35" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  296.071,  504.021,    2.393&#13;&#10; -709.420,  -80.369,   33.407&#13;&#10;  -63.218, -174.853,   18.851&#13;&#10;  380.321, -508.157,  -16.966&#13;&#10; -602.930, -352.377,   37.750&#13;&#10; -192.187,  -53.178,   36.685&#13;&#10; -620.361,  323.397,   -9.057&#13;&#10;  645.594, -417.655,  -11.739&#13;&#10;  183.905,  -59.312,   11.927&#13;&#10;  658.289,   82.994,   21.022" ActionType="TableVariable" Asynchronous="False" Description="1190" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="1190" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="36" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10;  397.890,  224.230,  145.347&#13;&#10;  204.578, -678.492,   58.195&#13;&#10; -585.410, -469.430,   20.169&#13;&#10; -600.090,  267.440,    2.217&#13;&#10;   77.550, -144.940,   93.104&#13;&#10;  606.856, -190.360,  127.574&#13;&#10;  686.000, -516.533,  139.201&#13;&#10; -286.150, -263.620,   59.474&#13;&#10;  -28.990,  335.380,   71.432&#13;&#10; -457.640,  693.130,  -13.396" ActionType="TableVariable" Asynchronous="False" Description="1191" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="1191" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="37" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#13;&#10; -698.848,  472.007,    1.000&#13;&#10;  753.370,  347.051,   45.092&#13;&#10;  509.700, -648.810,   36.999&#13;&#10; -559.590, -508.520,   -6.000&#13;&#10; -516.675,  681.003,    0.050&#13;&#10;  232.360,  544.510,    0.001&#13;&#10;  627.534,  637.736,    9.051&#13;&#10;  315.229, -539.307,   43.732&#13;&#10;  169.581, -308.061,   29.242&#13;&#10; -484.180,  -49.990,   38.000" ActionType="TableVariable" Asynchronous="False" Description="1192" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_zoneId}" ExpressionTypeL="String" ExpressionR="1192" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="38" ActionType="Placeholder" Asynchronous="False" Description="筛选风脉" DescriptionOverride="True" />
+<Action OrderNumber="39" TableVariableOp="FilterLine" TableVariableExpressionType="Numeric" TableVariableName="tmp_风脉" TableVariableTarget="tmp_风脉" TableVariableY="abs(d(${d:tmp_me[x]}, ${d:tmp_me[y]}, ${_row[1]}, ${_row[2]}) - 0x${distance}) &lt; 10 &#13;&#10;&amp;&amp; &#13;&#10;abs((roundvec(${_row[1]} - ${d:tmp_me[x]}, ${_row[2]} - ${d:tmp_me[y]}, 8, 1) + ${dir}) % 8 - 1) &lt; 0.6" ActionType="TableVariable" Asynchronous="False">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${et:tmp_风脉}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="40" ListVariableOp="Build" ListVariableExpression="&amp;${t:tmp_风脉.hjoin(&quot;, &quot;, &quot;&amp;&quot;)}&amp;clear&amp;clear&amp;clear&amp;clear&amp;clear&amp;clear&amp;clear" ListVariableTarget="tmp_风脉" TableVariableExpressionType="Numeric" ActionType="ListVariable" Asynchronous="False">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${t:tmp_风脉.height}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
+</Condition>
+</Action>
+<Action OrderNumber="41" ActionType="Placeholder" Asynchronous="False" Description="播报" DescriptionOverride="True" />
+<Action OrderNumber="42" ActionType="Placeholder" Asynchronous="False" Description="　　有一个：标记位置 + 周围一圈，尝试触发转圈圈" DescriptionOverride="True" />
+<Action OrderNumber="43" NamedCallbackName="AdvWm" NamedCallbackParam="action: place&#13;&#10;A: ${l:tmp_风脉[1]}&#13;&#10;---&#13;&#10;action: circle&#13;&#10;center: ${l:tmp_风脉[1]}&#13;&#10;waymarks: BCD1234&#13;&#10;r: 0x${distance} &gt; 100 ? 50 : 20 " ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${t:tmp_风脉.height}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="44" VariableOp="SetString" VariableName="风脉_center" VariableExpression="${l:tmp_风脉[1]}" ActionType="Variable" Asynchronous="False">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${t:tmp_风脉.height}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="45" LogMessageText="风脉_loop" LogProcess="True" ActionType="LogMessage" Asynchronous="False">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${t:tmp_风脉.height}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="46" ActionType="Placeholder" Asynchronous="False" Description="　　有多个：依次标记" DescriptionOverride="True" />
+<Action OrderNumber="47" NamedCallbackName="AdvWm" NamedCallbackParam="action: place&#13;&#10;A: ${l:tmp_风脉[1]}&#13;&#10;B: ${l:tmp_风脉[2]}&#13;&#10;C: ${l:tmp_风脉[3]}&#13;&#10;D: ${l:tmp_风脉[4]}&#13;&#10;1: ${l:tmp_风脉[5]}&#13;&#10;2: ${l:tmp_风脉[6]}&#13;&#10;3: ${l:tmp_风脉[7]}&#13;&#10;4: ${l:tmp_风脉[8]}" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${t:tmp_风脉.height}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreater" />
+</Condition>
+</Action>
+<Action OrderNumber="48" ActionType="Placeholder" Asynchronous="False" Description="　　没有结果：根据方位提示标记" DescriptionOverride="True" />
+<Action OrderNumber="49" NamedCallbackName="AdvWm" NamedCallbackParam="action: arc&#13;&#10;r: 0x${distance}&#13;&#10;θ: (5 - ${dir}) * π/4&#13;&#10;dθ: 45°&#13;&#10;center: ${d:tmp_me[x]}, ${d:tmp_me[y]}, ${d:tmp_me[z]}&#13;&#10;waymarks: ABCD1234" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${t:tmp_风脉.height}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="50" MessageBoxIconType="Error" MessageBoxText="当前地图 id 为 0，无法确认地图并标记风脉。⏎疑似 ACT 的错误，建议重启 ACT。" ActionType="MessageBox" Asynchronous="False">
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${t:tmp_风脉.height}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="51" NamedCallbackName="command" NamedCallbackParam="/e &lt;se.10&gt; &#13;&#10;尚未录入此地图的风脉：&#13;&#10;· 地图 id：${_ffxivzoneid}&#13;&#10;· 地图名：&quot;${_zone}&quot;&#13;&#10;在 7.0 及之前的地图中不应看到此信息。" ActionType="NamedCallback" Asynchronous="False">
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${t:tmp_风脉.height}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="52" ActionType="Placeholder" Asynchronous="False" DescriptionOverride="True" />
+<Action OrderNumber="53" UseTTSTextExpression="${if: ${el:tmp_风脉} ? 已标记风脉 : 已标记风脉范围 }" ActionType="UseTTS" Asynchronous="False" />
+<Action OrderNumber="54" VariableName="tmp_zoneId" ActionType="Variable" Asynchronous="False" />
+<Action OrderNumber="55" ListVariableName="tmp_风脉" TableVariableExpressionType="Numeric" ActionType="ListVariable" Asynchronous="False" />
+<Action OrderNumber="56" TableVariableExpressionType="Numeric" TableVariableName="tmp_风脉" ActionType="TableVariable" Asynchronous="False" />
+<Action OrderNumber="57" DictVariableValueType="Numeric" DictVariableName="tmp_me" ActionType="DictVariable" Asynchronous="False" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${ecallback:AdvWm}${ecallback:place}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Name="2. 摸风脉" Id="2d20150c-8056-4675-8b3c-207bb0ee00cd" RegularExpression="^.{15}\S+ 29:00:E83:00:00:00">
+<Actions>
+<Action OrderNumber="1" VariableName="风脉_center" ActionType="Variable" Asynchronous="False" />
+<Action OrderNumber="2" NamedCallbackName="place" NamedCallbackParam="clear" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" />
+<Action OrderNumber="3" NamedCallbackName="place" NamedCallbackParam="clear" ActionType="NamedCallback" ExecutionDelayExpression="100" Asynchronous="False" DescBgColor="dff" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${ecallback:AdvWm}${ecallback:place}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1204$" Id="45e1277f-1067-4a65-9d0d-80bd0f394edc" Name="哭哭镇" Enabled="true">
+<Folders />
+<Triggers>
+<Trigger Enabled="true" Name="2. 循环" Id="51aeb3aa-2de1-49c2-833c-02c56c7f6e93" RegularExpression="" PrevActions="Interrupt">
+<Actions>
+<Action OrderNumber="1" NamedCallbackName="好脑袋" ActionType="NamedCallback" Asynchronous="False" />
+<Action OrderNumber="2" TriggerId="51aeb3aa-2de1-49c2-833c-02c56c7f6e93" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="80" Asynchronous="False" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="1. 注册回调" Id="961b5361-12f1-485f-9b03-865f2a0349ce" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:8EB1:">
+<Actions>
+<Action OrderNumber="1" ExecScriptExpression="using System;&#13;&#10;using System.Collections.Generic;&#13;&#10;using System.Globalization;&#13;&#10;using System.Linq;&#13;&#10;using System.Text;&#13;&#10;using static Triggernometry.PluginBridges.BridgeFFXIV;&#13;&#10;using Triggernometry.Variables;&#13;&#10;&#13;&#10;Triggernometry.RealPlugin.plug.RegisterNamedCallback(&quot;好脑袋&quot;, new Action&lt;object, string&gt;(好脑袋.Callback), null, registrant: &quot;哭哭镇宝宝椅&quot;);&#13;&#10;&#13;&#10;public static class 好脑袋&#13;&#10;{&#13;&#10;    // const double X0 = 0; const double Y0 = 150;  const double Z0 = -29.00;&#13;&#10;    const int Size = 8;&#13;&#10;&#13;&#10;    static string[] Waymarks = new string[] { &quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;One&quot;, &quot;Two&quot;, &quot;Three&quot;, &quot;Four&quot; };&#13;&#10;    static List&lt;string&gt; lastIds = new List&lt;string&gt;(new string[Size]);&#13;&#10;&#13;&#10;    static void Solve()&#13;&#10;    {&#13;&#10;        var me = GetIdEntity(PlayerHexId);&#13;&#10;        double myX = me.GetValue(&quot;x&quot;).ToDouble();&#13;&#10;        double myY = me.GetValue(&quot;y&quot;).ToDouble();&#13;&#10;        double myZ = me.GetValue(&quot;z&quot;).ToDouble();&#13;&#10;        List&lt;Head&gt; heads = GetAllEntities()//.Where(c =&gt; !string.IsNullOrEmpty(c.GetValue(&quot;bnpcid&quot;).ToString()))&#13;&#10;            .Where(head =&gt; Head.BNpcIds.Contains(head.GetValue(&quot;bnpcid&quot;).ToString()))&#13;&#10;            .Select(c =&gt; new Head(c))&#13;&#10;            .OrderBy(head =&gt; head.SquaredDistanceTo(myX, myY))&#13;&#10;            .Take(8)&#13;&#10;            .ToList();&#13;&#10;        while (heads.Count &lt; Size)&#13;&#10;        {&#13;&#10;            heads.Add(Head.Placeholder());&#13;&#10;        }&#13;&#10;&#13;&#10;        // 重新排序使已有的实体保持标点不变 防止闪烁&#13;&#10;        var currentIds = heads.Select(h =&gt; h.Id).ToList();&#13;&#10;        var filteredHeads = lastIds.Select(id =&gt; currentIds.Contains(id) ? heads[currentIds.IndexOf(id)] : null).ToList();&#13;&#10;        var remainedHeads = heads.Except(filteredHeads).ToList();&#13;&#10;        foreach (var head in remainedHeads)&#13;&#10;        {&#13;&#10;            filteredHeads[filteredHeads.IndexOf(null)] = head;&#13;&#10;        }&#13;&#10;        lastIds = filteredHeads.Select(h =&gt; h.Id).ToList();&#13;&#10;&#13;&#10;        StringBuilder json = new StringBuilder();&#13;&#10;        json.Append(&quot;{\n&quot;);&#13;&#10;        for (int i = 0; i &lt; Size; i++)&#13;&#10;        {&#13;&#10;            var head = filteredHeads[i];&#13;&#10;            json.Append($&quot;  \&quot;{Waymarks[i]}\&quot;: &quot;);&#13;&#10;            json.Append(!head.IsPlaceholder&#13;&#10;                ? $&quot;{{ \&quot;X\&quot;: {head.FrontX}, \&quot;Y\&quot;: {myZ - 1.5}, \&quot;Z\&quot;: {head.FrontY}, \&quot;Active\&quot;: true}},\n&quot;&#13;&#10;                : &quot;{},\n&quot;&#13;&#10;            );&#13;&#10;        }&#13;&#10;        json.Append(&quot;}&quot;);&#13;&#10;        Triggernometry.RealPlugin.plug.InvokeNamedCallback(&quot;place&quot;, json.ToString());&#13;&#10;        // Log(json);&#13;&#10;    }&#13;&#10;    public static void Callback(object _, string __) =&gt; Solve();&#13;&#10;}&#13;&#10;&#13;&#10;public class Head&#13;&#10;{&#13;&#10;    public static List&lt;string&gt; BNpcIds = new List&lt;string&gt; { &quot;16827&quot;, &quot;16829&quot; };&#13;&#10;    const double FrontDistance = 4;&#13;&#10;&#13;&#10;    public string Id;&#13;&#10;    public bool IsPlaceholder = false;&#13;&#10;&#13;&#10;    public double X;&#13;&#10;    public double Y;&#13;&#10;    public double H;&#13;&#10;    public double FrontX;&#13;&#10;    public double FrontY;&#13;&#10;&#13;&#10;    public Head() { }&#13;&#10;    public Head(VariableDictionary combatant)&#13;&#10;    {&#13;&#10;        Id = combatant.GetValue(&quot;id&quot;).ToString();&#13;&#10;        X = combatant.GetValue(&quot;x&quot;).ToDouble();&#13;&#10;        Y = combatant.GetValue(&quot;y&quot;).ToDouble();&#13;&#10;        H = combatant.GetValue(&quot;h&quot;).ToDouble();&#13;&#10;        FrontX = X + FrontDistance * Math.Sin(H);&#13;&#10;        FrontY = Y + FrontDistance * Math.Cos(H);&#13;&#10;    }&#13;&#10;    public double SquaredDistanceTo(double x, double y) =&gt; IsPlaceholder ? 0 : Math.Pow(x - FrontX, 2) + Math.Pow(y - FrontY, 2);&#13;&#10;&#13;&#10;    static int counter = 0;&#13;&#10;    public static Head Placeholder() =&gt; new Head { Id = $&quot;_{counter++}&quot;, IsPlaceholder = true };&#13;&#10;}&#13;&#10;&#13;&#10;public static double ToDouble(this object obj)&#13;&#10;{&#13;&#10;    return double.Parse(obj.ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);&#13;&#10;}&#13;&#10;&#13;&#10;public static void Log(object o)&#13;&#10;{&#13;&#10;    Triggernometry.RealPlugin.plug.InvokeNamedCallback(&quot;command&quot;, &quot;/e \n&quot; + o.ToString());&#13;&#10;}" ActionType="ExecuteScript">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${ecallback:好脑袋}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="2" TriggerOp="EnableTrigger" TriggerId="51aeb3aa-2de1-49c2-833c-02c56c7f6e93" TriggerForce="regexp,conditions" ActionType="Trigger" Asynchronous="False" />
+<Action OrderNumber="3" TriggerId="51aeb3aa-2de1-49c2-833c-02c56c7f6e93" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="1000" Asynchronous="False" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="3. 终止" Id="5221b223-70a2-485e-97da-2f9dd0d9fe1b" RegularExpression="^.{15}\S+ 104:.:0:.:1">
+<Actions>
+<Action OrderNumber="1" TriggerOp="DisableTrigger" TriggerId="51aeb3aa-2de1-49c2-833c-02c56c7f6e93" TriggerForce="regexp,conditions" ActionType="Trigger" Asynchronous="False" />
+<Action OrderNumber="2" TriggerOp="CancelTrigger" TriggerId="51aeb3aa-2de1-49c2-833c-02c56c7f6e93" TriggerForce="regexp,conditions" ActionType="Trigger" Asynchronous="False" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="true" Name="自动完成探索笔记" Id="8debd3d7-0238-431c-8f30-17eaf086bb47" RegularExpression="^.{15}\S+ 00:0839::(到达了探索笔记的目的地|You have arrived at a vista|探検手帳の目的地に到達した)">
+<Actions>
+<Action OrderNumber="1" NamedCallbackName="queue" NamedCallbackParam="[&#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/target &lt;1&gt;&quot; }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot; }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100 }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100 }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100 }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100 }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100}, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 1000 }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100 }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100 }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100 }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100 }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100}, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 1000 }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100 }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100 }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100 }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100 }, &#13;&#10;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100}&#13;&#10;]&#13;&#10;" ActionType="NamedCallback" />
+</Actions>
+</Trigger>
+</Triggers>
+</ExportedFolder>
+</TriggernometryExport>
