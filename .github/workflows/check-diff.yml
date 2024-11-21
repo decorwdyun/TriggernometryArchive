@@ -2,7 +2,7 @@ name: Initialize, Check XML Changes, and Process XML Files
 
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 */2 * * *'
   workflow_dispatch:
 
 jobs:
@@ -33,20 +33,34 @@ jobs:
             fi
 
             filepath="origin/$filename"
+            temp_filepath="temp_$filename"
 
-            if [ ! -f "$filepath" ]; then
-              echo "Initializing: $filename (downloading)"
-              curl -s -o "$filepath" "$url" || { echo "Failed to download $url"; exit 1; }
-              echo "Downloaded $filename to $filepath"
-            else
-              echo "$filename already exists, checking for updates."
-              # Use conditional GET to check for updates
-              curl -s -z "$filepath" -o "$filepath" "$url"
-              if [ $? -eq 0 ]; then
-                echo "Updated $filename"
+            echo "Downloading $filename from $url"
+            curl -s -o "$temp_filepath" "$url" || { echo "Failed to download $url"; exit 1; }
+            echo "Downloaded $filename to $temp_filepath"
+
+            if [ -f "$filepath" ]; then
+              if cmp -s "$temp_filepath" "$filepath"; then
+                echo "No changes detected in $filename."
+                rm "$temp_filepath"
               else
-                echo "No changes detected for $filename"
+                echo "Changes detected in $filename. Backing up current file and updating origin."
+                cache_dir="cache/$(basename "$filename" .xml)"
+                mkdir -p "$cache_dir"
+                timestamp=$(date +"%Y%m%d%H%M%S")
+                cp "$filepath" "$cache_dir/$filename.$timestamp"
+                backups=($(ls -1t "$cache_dir/$filename."*))
+                if [ "${#backups[@]}" -gt 10 ]; then
+                  echo "More than 10 backups exist for $filename, removing oldest backups."
+                  for backup in "${backups[@]:10}"; do
+                    rm "$backup"
+                  done
+                fi
+                mv "$temp_filepath" "$filepath"
               fi
+            else
+              echo "Origin file for $filename does not exist. Initializing."
+              mv "$temp_filepath" "$filepath"
             fi
           done < list.txt
 
@@ -63,15 +77,20 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          echo "Committing and pushing changes..."
+          echo "Checking for changes..."
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add origin/ dist/
-
-          # Check if there are any changes to commit
-          if git diff-index --quiet HEAD --; then
+      
+          git status
+      
+          git add origin/ dist/ cache/
+      
+          git status
+      
+          if git diff-index --cached --quiet HEAD --; then
             echo "No changes detected. No updates to commit."
           else
+            echo "Changes detected. Committing and pushing..."
             git commit -m "Update XML files and process outputs"
             git push
           fi
