@@ -36,7 +36,10 @@ jobs:
             temp_filepath="temp_$filename"
 
             echo "Downloading $filename from $url"
-            curl -s -o "$temp_filepath" "$url" || { echo "Failed to download $url"; exit 1; }
+            if ! curl -s -o "$temp_filepath" "$url"; then
+              echo "Failed to download $url"
+              continue
+            fi
             echo "Downloaded $filename to $temp_filepath"
 
             if [ -f "$filepath" ]; then
