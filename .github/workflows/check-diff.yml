@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y curl jq
+          sudo apt-get install -y curl jq libxml2-utils
 
       - name: Initialize and Check XML Files
         id: initialize-and-check
@@ -76,6 +76,13 @@ jobs:
             filename=$(basename "$file")
             echo "Processing $filename"
             python remove_attributes.py "$file" "dist/$filename"
+          done
+      - name: Format XML Files
+        run: |
+          echo "Formatting XML files in dist/"
+          for file in dist/*.xml; do
+            echo "Formatting $file"
+            xmllint --format "$file" -o "$file"
           done
 
       - name: Commit and Push Changes
