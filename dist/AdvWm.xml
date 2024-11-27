@@ -732,7 +732,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="078f8a75-2ef6-47b0-808c-675dd305f8be" Name="小队框架 PartyList v2.0" Enabled="true">
+      <Folder Id="078f8a75-2ef6-47b0-808c-675dd305f8be" Name="小队框架 PartyList v2.1" Enabled="true">
         <Folders>
           <Folder Id="82610aea-3097-4a9f-b7fc-4114aea41949" Name="记录完整小队" Enabled="true">
             <Folders/>
@@ -758,6 +758,7 @@
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${d:PartyListPlayerDescs[${_ffxivzoneid}]}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                   <ConditionSingle Enabled="true" ExpressionL="${d:PartyListPlayerDescs[${_ffxivzoneid}]}" ExpressionTypeL="String" ExpressionR="Self" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                  <ConditionSingle Enabled="true" ExpressionL="${el:party}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                 </Condition>
               </Trigger>
               <Trigger Enabled="true" Name="接收：文本指令　　/e party　（非全队模式下提示错误）" Id="6b35dda2-854d-4ae3-98ca-66a8f6b25025" RegularExpression="^.{15}\S+ 00:0038:: *[Pp][Aa][Rr][Tt][Yy] *$">
@@ -800,11 +801,12 @@
                       <ConditionSingle Enabled="true" ExpressionL="${forceOpen}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
                   </Action>
+                  <Action OrderNumber="5" LogMessageText="PartyList:MyIdx8:${v:myIdx}" LogProcess="True" ActionType="LogMessage">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${ev:myIdx}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Action>
                 </Actions>
-                <Condition Enabled="true" Grouping="And">
-                  <ConditionSingle Enabled="true" ExpressionL="${d:PartyListPlayerDescs[${_ffxivzoneid}]}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
-                  <ConditionSingle Enabled="true" ExpressionL="${d:PartyListPlayerDescs[${_ffxivzoneid}]}" ExpressionTypeL="String" ExpressionR="Self" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
-                </Condition>
               </Trigger>
               <Trigger Enabled="true" Name="接收：团灭" Id="46cedb18-cc8c-427e-8243-c4d1dd1421b5" RegularExpression="^.{15}\S+ 21:.{8}:4000000(?&lt;type&gt;[16])">
                 <Actions>
@@ -813,6 +815,7 @@
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${d:PartyListPlayerDescs[${_ffxivzoneid}]}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                   <ConditionSingle Enabled="true" ExpressionL="${d:PartyListPlayerDescs[${_ffxivzoneid}]}" ExpressionTypeL="String" ExpressionR="Self" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                  <ConditionSingle Enabled="true" ExpressionL="${el:party}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                 </Condition>
               </Trigger>
               <Trigger Enabled="true" Name="接收：文本指令　　/e party　（正确）" Id="3397bef6-a5ac-4ffe-94a3-3d87382ac30c" RegularExpression="^.{15}\S+ 00:0038:: *[Pp][Aa][Rr][Tt][Yy] *(?&lt;force&gt; force)?$">
@@ -974,10 +977,9 @@
           <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^997$" Id="95f7fe0c-7b4e-4b41-b1b2-edb2e12c1fea" Name="测试（真小鸟）" Enabled="false">
             <Folders/>
             <Triggers>
-              <Trigger Enabled="true" Name="进本" Id="c8bfa72e-be59-4091-a662-bd75e5f7daad" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
+              <Trigger Enabled="true" Name="小队列表注册区域" Id="75850c21-0624-4eb2-bc3d-5b09d4a42e62" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
                 <Actions>
                   <Action OrderNumber="1" LogMessageText="PartyList:Register:${n: 0x${zoneId} }:MT, ST, H1, H2, D1, D2, D3, D4" LogProcess="True" ActionType="LogMessage"/>
-                  <Action OrderNumber="2" LogMessageText="PartyList:Register:${n: 0x${zoneId} }:Self" LogProcess="True" Enabled="False" ActionType="LogMessage"/>
                 </Actions>
               </Trigger>
             </Triggers>
@@ -1011,15 +1013,53 @@
       <Folder Id="2dfd46f6-eadc-42ef-a9af-fde0db5afbd9" Name="日志转录" Enabled="true">
         <Folders/>
         <Triggers>
-          <Trigger Enabled="true" Sequential="True" Name="10F =&gt; F10F ActorSetPos" Id="f5406bf3-195a-4b36-9e19-eb4e23bc1fc3" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 10F:(?&lt;id&gt;4.{7}):(?&lt;h&gt;[^:]+):[^:]+:[^:]+:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)$">
+          <Trigger Enabled="true" Name="1B Tether" Id="0b1b8b47-994d-4c6e-bb8e-038c9ba7ebe2" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 23:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):(?&lt;tid&gt;1.{7}):(?&lt;tn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]*)">
             <Actions>
-              <Action OrderNumber="1" DictVariableOp="GetEntityById" DictVariableName="tmp_entity_${id}" DictVariableValue="${id}" ActionType="DictVariable"/>
-              <Action OrderNumber="2" LogMessageText="${time} ActorSetPos F10F:${id}:${d:tmp_entity[name]}:${d:tmp_entity_${id}[bnpcnameid]}:${d:tmp_entity_${id}[bnpcid]}:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage">
+              <Action OrderNumber="1" DictVariableOp="GetEntityById" DictVariableName="tmp_src" DictVariableValue="${sid}" ActionType="DictVariable" Asynchronous="False"/>
+              <Action OrderNumber="2" DictVariableOp="GetEntityById" DictVariableName="tmp_tgt" DictVariableValue="${tid}" ActionType="DictVariable" Asynchronous="False"/>
+              <Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="如果是 10xxxxxx =&gt; 40xxxxxx 则交换两者" DescriptionOverride="True"/>
+              <Action OrderNumber="4" LogMessageText="${time} _Tether AAA:23:${type}:${sid}:${sn}:${d:tmp_src[bnpcnameid]}:${d:tmp_src[bnpcid]}:${d:tmp_src[x]}:${d:tmp_src[y]}:${d:tmp_src[z]}:${d:tmp_src[h]}:${tid}:${tn}:${d:tmp_tgt[bnpcnameid]}:${d:tmp_tgt[bnpcid]}:${d:tmp_tgt[x]}:${d:tmp_tgt[y]}:${d:tmp_tgt[z]}:${d:tmp_tgt[h]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${f:startwith(40):${sid}}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" LogMessageText="${time} _Tether AAA:23:${type}:${tid}:${tn}:${d:tmp_tgt[bnpcnameid]}:${d:tmp_tgt[bnpcid]}:${d:tmp_tgt[x]}:${d:tmp_tgt[y]}:${d:tmp_tgt[z]}:${d:tmp_tgt[h]}:${sid}:${sn}:${d:tmp_src[bnpcnameid]}:${d:tmp_src[bnpcid]}:${d:tmp_src[x]}:${d:tmp_src[y]}:${d:tmp_src[z]}:${d:tmp_src[h]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${f:startwith(40):${sid}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" DictVariableValueType="Numeric" DictVariableName="tmp_src" ActionType="DictVariable" Asynchronous="False"/>
+              <Action OrderNumber="7" DictVariableName="tmp_tgt" ActionType="DictVariable" Asynchronous="False"/>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${f:startwith(40):${sid}} || ${f:startwith(40):${tid}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Name="10F ActorSetPos" Id="f5406bf3-195a-4b36-9e19-eb4e23bc1fc3" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 10F:(?&lt;id&gt;4.{7}):(?&lt;h&gt;[^:]+):[^:]+:[^:]+:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)$">
+            <Actions>
+              <Action OrderNumber="1" DictVariableOp="GetEntityById" DictVariableName="tmp_entity" DictVariableValue="${id}" ActionType="DictVariable" Asynchronous="False"/>
+              <Action OrderNumber="2" LogMessageText="${time} _ActorSetPos AAA:10F:${id}:${d:tmp_entity[name]}:${d:tmp_entity[bnpcnameid]}:${d:tmp_entity[bnpcid]}:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
                 <Condition Enabled="false" Grouping="Or">
                   <ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="9020" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                 </Condition>
               </Action>
-              <Action OrderNumber="3" DictVariableName="tmp_entity_${id}" ActionType="DictVariable"/>
+              <Action OrderNumber="3" DictVariableName="tmp_entity" ActionType="DictVariable" Asynchronous="False"/>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Name="111 ActorControl" Id="629d2362-d153-43e7-afe1-46ac6ce6ab99" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 111:(?&lt;id&gt;4.{7}):(?&lt;type&gt;[^:]*):(?&lt;param1&gt;[^:]*):(?&lt;param2&gt;[^:]*)">
+            <Actions>
+              <Action OrderNumber="1" DictVariableOp="Build" DictVariableTarget="ProcessedLog_ActorControl" DictVariableValue="=&#13;&#10;0031=Unknown49 AAA:200:¤{param1}&#13;&#10;003E=AnimationState AAA:201:¤{param1}:¤{param2}&#13;&#10;003F=WeaponId AAA:202:¤{param1}&#13;&#10;0197=PlayActionTimeline:203:¤{param1}&#13;&#10;019D=EObjAnimation:204:¤{param1}&#13;&#10;01F8=StatusUpdate:205:¤{param1}" ActionType="DictVariable" Asynchronous="False">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${ed:ProcessedLog_ActorControl}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="2" DictVariableOp="GetEntityById" DictVariableName="tmp_entity" DictVariableValue="${id}" ActionType="DictVariable" Asynchronous="False"/>
+              <Action OrderNumber="3" LogMessageText="${time} _${d:ProcessedLog_ActorControl[${type}]}:${id}:${d:tmp_entity[name]}:${d:tmp_entity[bnpcnameid]}:${d:tmp_entity[bnpcid]}:${d:tmp_entity[x]}:${d:tmp_entity[y]}:${d:tmp_entity[z]}:${d:tmp_entity[h]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+                <Condition Enabled="false" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="9020" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" DictVariableName="tmp_entity" ActionType="DictVariable" Asynchronous="False"/>
             </Actions>
           </Trigger>
         </Triggers>
