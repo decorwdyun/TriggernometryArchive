@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="1.2.0.718">
+<TriggernometryExport PluginVersion="1.2.0.716">
 <ExportedFolder Id="694b8b01-5a66-4d0e-be03-d1b25df4003f" Name="自检工具箱" Enabled="true" RawEnvironmentVariables="date = 2024.10.27&#xD;&#xA;xiv = 7.05&#xD;&#xA;xivcn = 7.0&#xD;&#xA;trig = 1.2.0.712&#xD;&#xA;namazu = 1.3.5.3&#xD;&#xA;advwm = 4.3&#xD;&#xA;link = https://www.123pan.com/s/1xRXjv-340BH.html&#xD;&#xA;&#xD;&#xA;// 标点自检的参数方程&#xD;&#xA;speed = 0.01&#xD;&#xA;dt = 30&#xD;&#xA;x_t = 16 * sin(${_this}) ^ 3&#xD;&#xA;y_t = -13 * cos(${_this}) + 5 * cos(2 * ${_this}) + 2 * cos(3 * ${_this}) + cos(4 * ${_this})&#xD;&#xA;z_t = 0&#xD;&#xA;center = ${_me.x}, ${_me.y}, ${_me.z}&#xD;&#xA;θ = ${_me.heading}&#xD;&#xA;scale = abs(sin(${_systemtimems} / 1000)) * 0.75 + 0.25">
 <Folders>
-<Folder Id="4098340e-7bb7-4412-883e-5782d5b41315" DisableRemoteExpand="True" DisableRemoteToggle="True" Name="控制" Enabled="true">
+<Folder Id="4098340e-7bb7-4412-883e-5782d5b41315" Name="控制" Enabled="true" DisableRemoteExpand="true" DisableRemoteToggle="true">
 <Folders>
 <Folder Id="09493ea1-7a50-4a45-82e3-a793ec38acc2" Name="3. 检测 OP 日志" Enabled="true">
 <Folders />
@@ -64,39 +64,37 @@
 <Action OrderNumber="8" NamedCallbackName="command" NamedCallbackParam="/e echo test &lt;se.10&gt;" ActionType="NamedCallback" />
 <Action OrderNumber="9" NamedCallbackName="place" NamedCallbackParam="{&#xD;&#xA;  &quot;A&quot;:{&quot;X&quot;:${_me.x}, &quot;Y&quot;:${_me.z}, &quot;Z&quot;:${_me.y}, &quot;Active&quot;:true}, &#xD;&#xA;}" ActionType="NamedCallback" />
 <Action OrderNumber="10" LogProcess="True" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;    &quot;ActorID&quot;: 0x${_me.id},&#xD;&#xA;    &quot;MarkType&quot;: &quot;attack1&quot;,&#xD;&#xA;    &quot;LocalOnly&quot;: false &#xD;&#xA;}" ActionType="NamedCallback" />
-<Action OrderNumber="11" VariableOp="SetString" VariableName="_tmp_myXY" VariableExpression="${_me.xy}" ActionType="Variable" />
-<Action OrderNumber="12" ActionType="Placeholder" ExecutionDelayExpression="1500" />
-<Action OrderNumber="13" ActionType="Placeholder" Description="检查三项是否成功" DescriptionOverride="True" />
-<Action OrderNumber="14" VariableName="tmp_error" ActionType="Variable" />
-<Action OrderNumber="15" VariableOp="SetString" VariableName="tmp_error" VariableExpression="${v:tmp_error}&#xD;&#xA;&#xD;&#xA;&#xA;尝试头顶标记攻击 1，但未检测到标记。" ActionType="Variable">
+<Action OrderNumber="11" ActionType="Placeholder" ExecutionDelayExpression="1500" />
+<Action OrderNumber="12" ActionType="Placeholder" Description="检查三项是否成功" DescriptionOverride="True" />
+<Action OrderNumber="13" VariableName="tmp_error" ActionType="Variable" />
+<Action OrderNumber="14" VariableOp="SetString" VariableName="tmp_error" VariableExpression="${v:tmp_error}&#xD;&#xA;&#xD;&#xA;&#xA;尝试头顶标记攻击 1，但未检测到标记。" ActionType="Variable">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${_tm2id[attack1]}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="16" VariableOp="SetString" VariableName="tmp_error" VariableExpression="${v:tmp_error}&#xD;&#xA;&#xD;&#xA;&#xA;尝试脚下标记 A，但未检测到标记。" ActionType="Variable">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${_wm[A].active}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="distance(${_wm[A].xy}, ${v:_tmp_myXY})" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreater" />
+<Action OrderNumber="15" VariableOp="SetString" VariableName="tmp_error" VariableExpression="${v:tmp_error}&#xD;&#xA;&#xD;&#xA;&#xA;尝试脚下标记 A，但未检测到标记。" ActionType="Variable">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_wm[A].enable}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="distance(${_wm[A].xy}, ${_me.xy})" ExpressionTypeL="Numeric" ExpressionR="3" ExpressionTypeR="String" ConditionType="NumericGreater" />
 </Condition>
 </Action>
-<Action OrderNumber="17" VariableOp="SetString" VariableName="tmp_error" VariableExpression="${v:tmp_error}&#xD;&#xA;&#xD;&#xA;尝试发送默语宏 /e echo test &lt;se.10&gt;，但未检测到默语消息。&#xD;&#xA;检查是否被你关掉了：&#xD;&#xA;聊天栏下方齿轮图标 - 通常 - 消息过滤设置&#xD;&#xA;确保频道启用了默语（通知中的第六个）。&#xD;&#xA;此外，某些魔改聊天栏的插件可能导致此日志失效。" ActionType="Variable">
+<Action OrderNumber="16" VariableOp="SetString" VariableName="tmp_error" VariableExpression="${v:tmp_error}&#xD;&#xA;&#xD;&#xA;尝试发送默语宏 /e echo test &lt;se.10&gt;，但未检测到默语消息。&#xD;&#xA;检查是否被你关掉了：&#xD;&#xA;聊天栏下方齿轮图标 - 通常 - 消息过滤设置&#xD;&#xA;确保至少一个频道启用了默语（通知中的第六个）。&#xD;&#xA;此外，某些魔改聊天栏的插件可能导致此日志失效。" ActionType="Variable">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:echoTest}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="18" MessageBoxIconType="Error" MessageBoxText="部分检测项未通过：${v:tmp_error}&#xD;&#xA;————————————————————&#xD;&#xA;如果游戏闪退，或者以上内容有错误（除默语没开启的问题以外）：&#xD;&#xA;1. 确保鲶鱼精邮差插件页面左侧一排选项框已开启。&#xD;&#xA;2. 鲶鱼精邮差插件页面日志是否无报错。&#xD;&#xA;3. 如果鲶鱼精邮差提示无法注入，且以上无误，尝试重启游戏。&#xD;&#xA;4. 版本更新后有小概率需要等待插件更新，请耐心等待。" ActionType="MessageBox">
+<Action OrderNumber="17" MessageBoxIconType="Error" MessageBoxText="部分检测项未通过：${v:tmp_error}&#xD;&#xA;————————————————————&#xD;&#xA;如果游戏闪退，或者以上内容有错误（除默语没开启的问题以外）：&#xD;&#xA;1. 确保鲶鱼精邮差插件页面左侧一排选项框已开启。&#xD;&#xA;2. 鲶鱼精邮差插件页面日志是否无报错。&#xD;&#xA;3. 如果鲶鱼精邮差提示无法注入，且以上无误，尝试重启游戏。&#xD;&#xA;4. 版本更新后有小概率需要等待插件更新，请耐心等待。" ActionType="MessageBox">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${ev:tmp_error}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="19" MessageBoxIconType="Information" MessageBoxText="鲶鱼精邮差自检无误。&#xD;&#xA;&#xD;&#xA;————————————————————&#xD;&#xA;此外，如果你听到了 &lt;se.10&gt; 提示音，&#xD;&#xA;但没看见聊天栏出现 echo test，&#xD;&#xA;说明你没有在当前频道开启默语，会错过某些提示。&#xD;&#xA;&#xD;&#xA;聊天栏下方齿轮图标 - 通常 - 消息过滤设置&#xD;&#xA;确保频道启用了默语（通知中的第六个）。" ActionType="MessageBox">
+<Action OrderNumber="18" MessageBoxIconType="Information" MessageBoxText="鲶鱼精邮差自检无误。" ActionType="MessageBox">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${ev:tmp_error}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="20" VariableName="_tmp_myXY" ActionType="Variable" />
-<Action OrderNumber="21" VariableName="echoTest" ActionType="Variable" />
-<Action OrderNumber="22" VariableName="tmp_error" ActionType="Variable" />
+<Action OrderNumber="19" VariableName="echoTest" ActionType="Variable" />
+<Action OrderNumber="20" VariableName="tmp_error" ActionType="Variable" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="获取默语测试日志" Id="bcebd834-aafa-48e8-91cb-ef8de0192d1d" RegularExpression="^.{15}\S+ 00:0038::echo test &lt;se\.10&gt;$">
@@ -259,7 +257,7 @@
 </Trigger>
 <Trigger Enabled="true" Sequential="True" Name="７　　鲶鱼精邮差扩展" Id="23b7318e-9895-4c53-894b-f42273aeca1b" RegularExpression="">
 <Actions>
-<Action OrderNumber="1" ExecScriptExpression="using System.Windows.Forms;&#xD;&#xA;using System.Linq;&#xD;&#xA;using Triggernometry;&#xD;&#xA;&#xD;&#xA;public bool IsCafeACT()&#xD;&#xA;{&#xD;&#xA;    Control current = RealPlugin.plug.ui;&#xD;&#xA;    var tabControl = current as TabControl;&#xD;&#xA;    while (current != null &amp;&amp; tabControl == null)&#xD;&#xA;    {&#xD;&#xA;        current = current.Parent;&#xD;&#xA;        tabControl = current as TabControl;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    return tabControl?.TabPages.Cast&lt;TabPage&gt;().Any(tabPage =&gt; tabPage.Text == &quot;插件中心&quot;) ?? false;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;if (IsCafeACT())&#xD;&#xA;    MessageBox.Show(@&quot;【高级功能】&#xD;&#xA;&#xD;&#xA;Cafe 整合版无法使用此功能。&#xD;&#xA;&#xD;&#xA;本功能用于直接调用游戏内的某些视觉内容，&#xD;&#xA;如横幅警告提示、缩放/隐藏实体、视觉特效等。&quot;,&#xD;&#xA;    &quot;鲶鱼精邮差扩展&quot;, MessageBoxButtons.OK, MessageBoxIcon.Error);&#xD;&#xA;else&#xD;&#xA;    MessageBox.Show(@&quot;【高级功能】&#xD;&#xA;&#xD;&#xA;本功能用于直接调用游戏内的某些视觉内容，&#xD;&#xA;如横幅警告提示、缩放/隐藏实体、视觉特效等。&#xD;&#xA;    &#xD;&#xA;你可以在远程触发器 - 运行支持库中，&#xD;&#xA;打开鲶鱼精邮差扩展中的使用说明，&#xD;&#xA;按提示自行测试。&quot;,&#xD;&#xA;  &quot;鲶鱼精邮差扩展&quot;, MessageBoxButtons.OK, MessageBoxIcon.Information);&#xD;&#xA;&#xD;&#xA;" ActionType="ExecuteScript" />
+<Action OrderNumber="1" ExecScriptExpression="using System.Windows.Forms;&#xD;&#xA;using System.Linq;&#xD;&#xA;using Triggernometry;&#xD;&#xA;&#xD;&#xA;public bool IsCafeACT()&#xD;&#xA;{&#xD;&#xA;    Control current = RealPlugin.plug.ui;&#xD;&#xA;    var tabControl = current as TabControl;&#xD;&#xA;    while (current != null &amp;&amp; tabControl == null)&#xD;&#xA;    {&#xD;&#xA;        current = current.Parent;&#xD;&#xA;        tabControl = current as TabControl;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    return tabControl?.TabPages.Cast&lt;TabPage&gt;().Any(tabPage =&gt; tabPage.Text == &quot;插件中心&quot;) ?? false;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;if (IsCafeACT())&#xD;&#xA;    MessageBox.Show(@&quot;【高级功能】&#xD;&#xA;&#xD;&#xA;Cafe 整合版无法使用此功能。&#xD;&#xA;&#xD;&#xA;本功能用于直接调用游戏内的某些视觉内容，&#xD;&#xA;如横幅警告提示、缩放/隐藏实体、视觉特效等。&quot;,&#xD;&#xA;    &quot;鲶鱼精邮差扩展&quot;, MessageBoxButtons.OK, MessageBoxIcon.Error);&#xD;&#xA;else&#xD;&#xA;    MessageBox.Show(@&quot;【高级功能】&#xD;&#xA;&#xD;&#xA;本功能用于直接调用游戏内的某些视觉内容，&#xD;&#xA;如横幅警告提示、缩放/隐藏实体、视觉特效等。&#xD;&#xA;    &#xD;&#xA;你可以在高级标点工具箱中，&#xD;&#xA;打开鲶鱼精邮差扩展中的使用说明，&#xD;&#xA;按提示自行测试。&quot;,&#xD;&#xA;  &quot;鲶鱼精邮差扩展&quot;, MessageBoxButtons.OK, MessageBoxIcon.Information);&#xD;&#xA;&#xD;&#xA;" ActionType="ExecuteScript" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Source="None" Sequential="True" Name="５ａ　鲶鱼精邮差　更新检查" Id="8233a094-d135-4fac-baa5-8c9ee4be6988" RegularExpression="">
