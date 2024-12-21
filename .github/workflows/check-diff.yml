@@ -35,8 +35,18 @@ jobs:
             filepath="origin/$filename"
             temp_filepath="temp_$filename"
 
-           echo "Downloading $filename from $url"
+            echo "Downloading $filename from $url"
+            set +e
             status_code=$(curl -s -o "$temp_filepath" -w "%{http_code}" "$url")
+            curl_exit_code=$?
+            set -e
+
+            if [ $curl_exit_code -ne 0 ]; then
+              echo "Curl command failed with exit code $curl_exit_code. Skipping $filename."
+              rm -f "$temp_filepath"
+              continue
+            fi
+
             if [ "$status_code" -ne 200 ]; then
               echo "Failed to download $url. HTTP status code: $status_code"
               rm -f "$temp_filepath"
