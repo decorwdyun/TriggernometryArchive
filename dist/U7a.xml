@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TriggernometryExport PluginVersion="1.2.0.718">
-  <ExportedFolder Id="624c320a-4f9e-41e5-8308-03fe6250d0e3" Name="绝伊甸宝宝椅 v0.3b" Enabled="true">
+  <ExportedFolder Id="624c320a-4f9e-41e5-8308-03fe6250d0e3" Name="绝伊甸宝宝椅 v0.4a" Enabled="true">
     <Folders>
-      <Folder Id="f99ad2f2-b956-4522-9736-f03ea725962b" Name="" Enabled="true">
+      <Folder Id="f99ad2f2-b956-4522-9736-f03ea725962b" Name="核心" Enabled="true">
         <Folders>
           <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1238$" Id="783e52c2-3842-4611-b2c6-bdc6eafd3de3" Name="区域限制" Enabled="true">
             <Folders>
@@ -176,7 +176,7 @@
                           <Action OrderNumber="1" VariableOp="SetString" VariableName="U7a_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
                           <Action OrderNumber="2" VariableOp="UnsetRegexUniversal" VariableName="^U7a1_四线" ActionType="Variable"/>
                           <Action OrderNumber="3" UseTTSTextExpression="流血AoE" ActionType="UseTTS"/>
-                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100, -2&#13;&#10;A:  0, -5.0&#13;&#10;B:  0, -7.5&#13;&#10;1:  2.17, -5.24&#13;&#10;2: -2.17, -5.24&#13;&#10;C:  0,  5.0&#13;&#10;D:  0,  7.5&#13;&#10;3: -2.17,  5.24&#13;&#10;4:  2.17,  5.24" ActionType="NamedCallback" DescBgColor="dff"/>
+                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;A:  0, -5.0&#13;&#10;B:  0, -7.5&#13;&#10;1:  2.17, -5.24&#13;&#10;2: -2.17, -5.24&#13;&#10;C:  0,  5.0&#13;&#10;D:  0,  7.5&#13;&#10;3: -2.17,  5.24&#13;&#10;4:  2.17,  5.24" ActionType="NamedCallback" DescBgColor="dff"/>
                           <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="34000" DescBgColor="dff"/>
                           <Action OrderNumber="6" UseTTSTextExpression="流血AoE" ActionType="UseTTS"/>
                         </Actions>
@@ -248,19 +248,6 @@
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${l:U7a1_四线_无点名idx.contain(${v:myIdx})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
-                      </Trigger>
-                      <Trigger Enabled="false" Source="None" Name="Debug Log 2024-12-04 06:05" Id="cb77b98c-c28e-4f6f-ae91-7526a11a43fd" RegularExpression="">
-                        <Actions>
-                          <Action OrderNumber="1" LogMessageText="[23:12:59.794] _ActorSetPos AAA:10F:40007D0B:Fatebreaker:9707:17819:100.0000:100.0000:0.0000:-3.1416" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="2.85 * 1000"/>
-                          <Action OrderNumber="3" LogMessageText="[23:13:05.487] Tether 23:40007D0B:Fatebreaker:1087662F:Aak Silver:0000:0000:011F:1087662F:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="1.58 * 1000"/>
-                          <Action OrderNumber="5" LogMessageText="[23:13:08.659] Tether 23:40007CF6:Fatebreaker's Image:106D7095:Erato Asternomos:0000:0000:00F9:106D7095:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="1.25 * 1000"/>
-                          <Action OrderNumber="7" LogMessageText="[23:13:11.159] Tether 23:40007CF5:Fatebreaker's Image:10710F3C:Sui Zhu:0000:0000:011F:10710F3C:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="1.23 * 1000"/>
-                          <Action OrderNumber="9" LogMessageText="[23:13:13.617] Tether 23:40007CF4:Fatebreaker's Image:${_me.id}:Coca- Cola-:0000:0000:011F:107518BC:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                        </Actions>
                       </Trigger>
                     </Triggers>
                   </Folder>
@@ -372,13 +359,20 @@
                       <Action OrderNumber="1" LogMessageText="PartyList:Register:${n: 0x${zoneId} }:MT, ST, H1, H2, D1, D2, D3, D4" LogProcess="True" ActionType="LogMessage"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Name="注册回调" Id="2691fd47-645c-43ee-b400-65745f761df7" RegularExpression="^.{15}\S+ 01">
+                  <Trigger Enabled="true" Name="[F] 注册回调" Id="2691fd47-645c-43ee-b400-65745f761df7" RegularExpression="^.{15}\S+ 01">
                     <Actions>
                       <Action OrderNumber="1" ExecScriptExpression="using System;&#13;&#10;using System.Globalization;&#13;&#10;using static System.Math;&#13;&#10;using static Triggernometry.PluginBridges.BridgeFFXIV;&#13;&#10;using static Triggernometry.Interpreter.StaticHelpers;&#13;&#10;using Triggernometry;&#13;&#10;&#13;&#10;RealPlugin.plug.RegisterNamedCallback(&#13;&#10;    &quot;U7a2_IceSkatingSolver&quot;, &#13;&#10;    new Action&lt;object, string&gt;(U7a2_IceSkatingSolver.Callback), &#13;&#10;    null, &#13;&#10;    registrant: &quot;绝伊甸宝宝椅&quot;&#13;&#10;);&#13;&#10;&#13;&#10;public static class U7a2_IceSkatingSolver&#13;&#10;{&#13;&#10;    static int ShivaDir8;&#13;&#10;    static double Shivaθ;&#13;&#10;&#13;&#10;    public static void Callback(object _, string command)&#13;&#10;    {&#13;&#10;        switch (command.ToLower().Trim())&#13;&#10;        {&#13;&#10;            case &quot;init&quot;: Init(); break;&#13;&#10;            case &quot;solve&quot;: Solve(); break;&#13;&#10;            default: throw new ArgumentException(&quot;U7a2_IceSkatingSolver: Invalid command. Expecting \&quot;init\&quot; or \&quot;solve\&quot;.&quot;);&#13;&#10;        }&#13;&#10;    }&#13;&#10;&#13;&#10;    static void Init()&#13;&#10;    {&#13;&#10;        ShivaDir8 = (int)ParseDouble(GetScalarVariable(false, &quot;U7a2_滑冰_冰dir8&quot;));&#13;&#10;        Shivaθ = (ShivaDir8 - 4) * PI / 4;&#13;&#10;    }&#13;&#10;&#13;&#10;    static void Solve()&#13;&#10;    {&#13;&#10;        var me = GetIdEntity(PlayerHexId);&#13;&#10;        var absPos = new Point { X = ParseDouble(me.GetValue(&quot;x&quot;)), Y = ParseDouble(me.GetValue(&quot;y&quot;)) };&#13;&#10;        var relPos = absPos.AbsToRel();&#13;&#10;        if (relPos.Y &lt; -Abs(relPos.X) - 10) // 背面&#13;&#10;        {&#13;&#10;            RecordState(PositionStateEnum.Back);&#13;&#10;            return;&#13;&#10;        }&#13;&#10;        if (relPos.X * relPos.X + relPos.Y * relPos.Y &lt;= 12 * 12) // 中心&#13;&#10;        {&#13;&#10;            RecordState(PositionStateEnum.Center);&#13;&#10;            return;&#13;&#10;        }&#13;&#10;        if (!CanSkateToShivaBack(relPos.X, relPos.Y))&#13;&#10;        {&#13;&#10;            RecordState(PositionStateEnum.Side);&#13;&#10;            return;&#13;&#10;        }&#13;&#10;        var safestRelθ = SolveSafestAngle(relPos.X, relPos.Y);&#13;&#10;        var safestAbsθ = safestRelθ + (Shivaθ - PI);&#13;&#10;        RecordState(PositionStateEnum.Front, safestAbsθ);&#13;&#10;    }&#13;&#10;&#13;&#10;    enum PositionStateEnum { &#13;&#10;        /// &lt;summary&gt; 希瓦身后 &lt;/summary&gt;&#13;&#10;        Back,&#13;&#10;        /// &lt;summary&gt; 希瓦前方，可一次滑冰到背后的区域 &lt;/summary&gt;&#13;&#10;        Front,&#13;&#10;        /// &lt;summary&gt; 场中 12 米内且不在身后，无解&lt;/summary&gt;&#13;&#10;        Center,&#13;&#10;        /// &lt;summary&gt; 希瓦侧面，不可一次滑冰到背后的区域 &lt;/summary&gt;&#13;&#10;        Side&#13;&#10;    }&#13;&#10;&#13;&#10;    static void RecordState(PositionStateEnum state, double θ = 0)&#13;&#10;    { &#13;&#10;        SetScalarVariable(false, &quot;U7a2_滑冰_PositionState&quot;, state);&#13;&#10;        SetScalarVariable(false, &quot;U7a2_滑冰_Safestθ&quot;, θ.ToString(CultureInfo.InvariantCulture));&#13;&#10;    }&#13;&#10;&#13;&#10;    /// &lt;summary&gt; &#13;&#10;    /// 判断是否可以从指定位置滑向希瓦背后。&lt;br /&gt;&#13;&#10;    /// 判据为希瓦背后的场地边缘上所有点为圆心、半径 32 的圆周在南侧场地形成的包络线，&lt;br /&gt;&#13;&#10;    /// 以抛物线近似计算（留有一定容错）。&#13;&#10;    /// &lt;/summary&gt;&#13;&#10;    static bool CanSkateToShivaBack(double relX, double relY) =&gt; -relY &lt; 0.03 * relX * relX - 12.1;&#13;&#10;&#13;&#10;    /// &lt;summary&gt; 根据指定位置， &lt;/summary&gt;&#13;&#10;    static double SolveSafestAngle(double relX, double relY)&#13;&#10;    {&#13;&#10;        // 希瓦处于相对北 (0, -10)&#13;&#10;        // 若当前处于左半场：对称到右半场计算&#13;&#10;        if (relX &lt; 0)  &#13;&#10;            return -SolveSafestAngle(-relX, relY);&#13;&#10;        // 希瓦处于相对北，身后有三条边缘：上方场地圆周、左侧 y = x - 10，右侧 y = -x - 10&#13;&#10;        // 若当前处于以身后区域右侧尖端为圆心、32 为半径的圆形区域内：&#13;&#10;        //   滑冰角度范围由当前所处位置为圆心、半径 32 的圆周 与 左侧边缘、上方圆周的两个交点确定.&#13;&#10;        // 若当前处于以身后区域右侧尖端为圆心、32 为半径的圆形区域外：&#13;&#10;        //   滑冰角度范围由当前所处位置为圆心、半径 32 的圆周 与 左右两边缘的交点确定.&#13;&#10;        bool isInside = (relX - 8.23) * (relX - 8.23) + (relY + 18.23) * (relY + 18.23) &lt;= 32 * 32;&#13;&#10;        Point left = 滑冰圆与左边界交点(relX, relY);&#13;&#10;        Point right = isInside ? 滑冰圆与场地交点(relX, relY) : 滑冰圆与右边界交点(relX, relY);&#13;&#10;        var leftθ = Atan2(left.X - relX, left.Y - relY);&#13;&#10;        var rightθ = Atan2(right.X - relX, right.Y - relY);&#13;&#10;        var diff = (rightθ - leftθ + 4 * PI) % (2 * PI);&#13;&#10;        if (diff &gt; PI) diff -= 2 * PI;&#13;&#10;        return leftθ + diff / 2;&#13;&#10;    }&#13;&#10;&#13;&#10;    static Point 滑冰圆与左边界交点(double x0, double y0)&#13;&#10;    {&#13;&#10;        // (x-x0)^2 + (y-y0)^2 = 32^2 与 y = x - 10 的交点（靠上的）&#13;&#10;        var a = 2.0;&#13;&#10;        var b = 2 * (10 - x0 - y0);&#13;&#10;        var c = y0 * y0 + (x0 - 10) * (x0 - 10) - 1024;&#13;&#10;        var y = (-b - Sqrt(b * b - 4 * a * c)) / (2 * a);&#13;&#10;        var x = y + 10;&#13;&#10;        return new Point { X = x, Y = y };&#13;&#10;    }&#13;&#10;&#13;&#10;    static Point 滑冰圆与右边界交点(double x0, double y0)&#13;&#10;    {&#13;&#10;        // (x-x0)^2 + (y-y0)^2 = 32^2 与 y = x + 10 的交点（靠上的）&#13;&#10;        var symPoint = 滑冰圆与左边界交点(-x0, y0);&#13;&#10;        return new Point { X = -symPoint.X, Y = symPoint.Y };&#13;&#10;    }&#13;&#10;&#13;&#10;    static Point 滑冰圆与场地交点(double x0, double y0)&#13;&#10;    {&#13;&#10;        // (x-x0)^2 + (y-y0)^2 = 32^2 与 x^2 + y^2 = 20^2 的交点（靠上的）&#13;&#10;        var squareSum = x0 * x0 + y0 * y0;&#13;&#10;        var a = 4 * squareSum;&#13;&#10;        var b = -4 * x0 * (squareSum - 624);&#13;&#10;        var c = (squareSum - 624) * (squareSum - 624) - 1600 * y0 * y0;&#13;&#10;        var x = (-b + Sqrt(b * b - 4 * a * c)) / (2 * a);&#13;&#10;        var y = -Sqrt(400 - x * x);&#13;&#10;        return new Point { X = x, Y = y };&#13;&#10;    }&#13;&#10;&#13;&#10;    struct Point&#13;&#10;    {&#13;&#10;        public double X;&#13;&#10;        public double Y;&#13;&#10;&#13;&#10;        /// &lt;summary&gt; 以场中为中心、希瓦为相对北，将场地坐标转换为相对坐标。&lt;/summary&gt;&#13;&#10;        public Point AbsToRel()&#13;&#10;        {&#13;&#10;            var sin = Sin(Shivaθ);&#13;&#10;            var cos = Cos(Shivaθ);&#13;&#10;            return new Point { &#13;&#10;                X = -(X - 100) * cos + (Y - 100) * sin,&#13;&#10;                Y = -(X - 100) * sin - (Y - 100) * cos,&#13;&#10;            };&#13;&#10;        }&#13;&#10;&#13;&#10;        /// &lt;summary&gt; 以场中为中心、希瓦为相对北，将相对坐标转换为场地坐标。&lt;/summary&gt;&#13;&#10;        public Point RelToAbs()&#13;&#10;        {&#13;&#10;            var sin = Sin(Shivaθ);&#13;&#10;            var cos = Cos(Shivaθ);&#13;&#10;            return new Point&#13;&#10;            {&#13;&#10;                X = -X * cos - Y * sin + 100,&#13;&#10;                Y =  X * sin - Y * cos + 100,&#13;&#10;            };&#13;&#10;        }&#13;&#10;    }&#13;&#10;&#13;&#10;    static double ParseDouble(object s) =&gt; double.Parse(s.ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);&#13;&#10;}" ActionType="ExecuteScript" Asynchronous="False" Description="U7a2_IceSkatingSolver　　　P2 滑冰指示方向" DescriptionOverride="True">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${ecallback:U7a2_IceSkatingSolver}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
+                      <Action OrderNumber="2" ExecScriptExpression="using System;&#13;&#10;using System.Collections.Generic;&#13;&#10;using System.Linq;&#13;&#10;using System.Numerics;&#13;&#10;using System.Globalization;&#13;&#10;using Triggernometry;&#13;&#10;using Triggernometry.FFXIV;&#13;&#10;using static Triggernometry.Debug;&#13;&#10;using static System.Math;&#13;&#10;using static Triggernometry.Interpreter.StaticHelpers;&#13;&#10;using static Triggernometry.PluginBridges.BridgeFFXIV;&#13;&#10;using System.Data;&#13;&#10;&#13;&#10;RealPlugin.plug.RegisterNamedCallback(&#13;&#10;    &quot;U7a3_一运_Analyzer&quot;,&#13;&#10;    new Action&lt;object, string&gt;(U7a3_一运_Analyzer.Callback),&#13;&#10;    null,&#13;&#10;    registrant: &quot;绝伊甸警察&quot;&#13;&#10;);&#13;&#10;&#13;&#10;public class U7a3_一运_Analyzer&#13;&#10;{&#13;&#10;    public static bool Debug = true;&#13;&#10;&#13;&#10;    public static U7a3_一运_Analyzer Instance;&#13;&#10;    public static void Callback(object _, string data)&#13;&#10;    {&#13;&#10;        var args = data.Split('\n')&#13;&#10;            .Select(line =&gt; line.Split(new[] { '=' }, 2))&#13;&#10;            .Where(parts =&gt; parts.Length == 2)&#13;&#10;            .ToDictionary(&#13;&#10;                parts =&gt; parts[0].Trim().ToLower(),&#13;&#10;                parts =&gt; parts[1].Trim()&#13;&#10;            );&#13;&#10;        if (Debug)&#13;&#10;        {&#13;&#10;            Command($&quot;/e [Debug] {string.Join(&quot; | &quot;, args.Select(kv =&gt; kv.Key + &quot; = &quot; + kv.Value))}&quot;);&#13;&#10;        }&#13;&#10;        switch (args[&quot;command&quot;].ToLower())&#13;&#10;        {&#13;&#10;            case &quot;init&quot;: Instance = new U7a3_一运_Analyzer(); break;&#13;&#10;            case &quot;rotate&quot;: Instance.ParseRotate(args); break;&#13;&#10;            case &quot;ability&quot;: Instance.ParseAbility(args); break;&#13;&#10;            case &quot;return&quot;: Instance.ParseReturn(args); break;&#13;&#10;        }&#13;&#10;    }&#13;&#10;&#13;&#10;    /// &lt;summary&gt; 是否为国际服客户端，影响播报简繁体。 &lt;/summary&gt;&#13;&#10;    bool IsGlobal;&#13;&#10;    /// &lt;summary&gt; 按照 MT-D4 排序的八个玩家。 &lt;/summary&gt;&#13;&#10;    List&lt;Player&gt; Party;&#13;&#10;    /// &lt;summary&gt; 按照绝对 Dir8 排序的八个玩家。 &lt;/summary&gt;&#13;&#10;    List&lt;Player&gt; PlayersByDir8;&#13;&#10;    /// &lt;summary&gt; 按照绝对 Dir8 排序的八个沙漏 ID。 &lt;/summary&gt;&#13;&#10;    List&lt;HourGlass&gt; HourGlassesByDir8;&#13;&#10;&#13;&#10;    Dictionary&lt;string, Player&gt; PlayersById = new Dictionary&lt;string, Player&gt;();&#13;&#10;    Dictionary&lt;string, HourGlass&gt; HourGlassesById = new Dictionary&lt;string, HourGlass&gt;();&#13;&#10;    Dictionary&lt;Debuff, Player&gt; PlayersByDebuff = Enum.GetValues(typeof(Debuff)).Cast&lt;Debuff&gt;().ToDictionary(d =&gt; d, d =&gt; (Player)null);&#13;&#10;&#13;&#10;    /// &lt;summary&gt; 连线的相对正北沙漏所处的绝对 Dir8。 &lt;/summary&gt;&#13;&#10;    int NorthDir8;&#13;&#10;&#13;&#10;    /// &lt;summary&gt; 每次技能应判定到的 ID &lt;/summary&gt;&#13;&#10;    HashSet&lt;string&gt; Stack1, Stack2, Stack3, Stack4, Laser1, Laser2, Laser3;&#13;&#10;&#13;&#10;    enum AbilityEnum&#13;&#10;    {&#13;&#10;        黑暗神圣 = 0x9D55,&#13;&#10;        初始激光 = 0x9D2B,&#13;&#10;        旋转激光 = 0x9D64,&#13;&#10;        黑暗狂水 = 0x9D4F,&#13;&#10;        暗炎喷发 = 0x9D52,&#13;&#10;        黑暗爆炎 = 0x9D54,&#13;&#10;        黑暗冰封 = 0x9D57,&#13;&#10;        记录回返,&#13;&#10;    }&#13;&#10;&#13;&#10;    /// &lt;summary&gt; 沙漏连线后，根据触发器存储的变量初始化全部状态（除旋转方向）。 &lt;/summary&gt;&#13;&#10;    U7a3_一运_Analyzer()&#13;&#10;    {&#13;&#10;        IsGlobal = GetMyself().GetValue(&quot;name&quot;).ToString().Contains(&quot; &quot;);&#13;&#10;        NorthDir8 = int.Parse(GetScalarVariable(false, &quot;U7a3_一运_dir8&quot;));&#13;&#10;        var partyIdxToId = GetListVariable(false, &quot;party&quot;).Values.Select(v =&gt; $&quot;{v}&quot;).ToList();&#13;&#10;        var partyIdxToDebuff = GetListVariable(false, &quot;U7a3_一运_全队点名&quot;).Values&#13;&#10;            .Select(v =&gt; (Debuff)int.Parse($&quot;{v}&quot;))&#13;&#10;            .ToList();&#13;&#10;        var 沙漏ByDir8 = GetDictVariable(false, &quot;U7a3_一运_沙漏dir8&quot;).Values&#13;&#10;            .OrderBy(v =&gt; $&quot;{v.Value}&quot;) // 按 Dir8 排序&#13;&#10;            .Select(v =&gt; $&quot;{v.Key}&quot;) // 取 ID&#13;&#10;            .ToList();&#13;&#10;&#13;&#10;        List&lt;Player&gt; players = new List&lt;Player&gt;();&#13;&#10;        List&lt;HourGlass&gt; hourGlasses = new List&lt;HourGlass&gt;();&#13;&#10;&#13;&#10;        for (int idx = 0; idx &lt; 8; idx++)&#13;&#10;        {&#13;&#10;            var playerID = partyIdxToId[idx];&#13;&#10;            var debuff = partyIdxToDebuff[idx];&#13;&#10;            var relDir8 = DebuffToRelDir8[debuff];&#13;&#10;            var dir8 = (relDir8 + NorthDir8) % 8;&#13;&#10;            var vdPlayer = GetIdEntity(playerID);&#13;&#10;            var name = vdPlayer.GetValue(&quot;name&quot;).ToString();&#13;&#10;            var job = Job.GetJob(vdPlayer.GetValue(&quot;jobEN3&quot;).ToString());&#13;&#10;            Player player = new Player&#13;&#10;            {&#13;&#10;                HexID = playerID,&#13;&#10;                Dir8 = dir8,&#13;&#10;                Debuff = debuff,&#13;&#10;                Role = (RoleEnum)idx,&#13;&#10;                Name = name,&#13;&#10;                Job = IsGlobal ? job.NameTCN2 : job.NameCN2&#13;&#10;            };&#13;&#10;            HourGlass hourGlass = new HourGlass&#13;&#10;            {&#13;&#10;                Dir8 = dir8,&#13;&#10;                HexID = 沙漏ByDir8[dir8],&#13;&#10;                Speed = RelDir8ToSpeed[relDir8],&#13;&#10;                Player = player,&#13;&#10;            };&#13;&#10;            player.HourGlass = hourGlass;&#13;&#10;            players.Add(player);&#13;&#10;            hourGlasses.Add(hourGlass);&#13;&#10;            PlayersByDebuff[debuff] = player;&#13;&#10;            PlayersById[playerID] = player;&#13;&#10;            HourGlassesById[沙漏ByDir8[dir8]] = hourGlass;&#13;&#10;        }&#13;&#10;&#13;&#10;        PlayersByDebuff[Debuff.短或冰TH] = PlayersByDebuff[Debuff.短TH] ?? PlayersByDebuff[Debuff.冰TH];&#13;&#10;        PlayersByDebuff[Debuff.长或冰D] = PlayersByDebuff[Debuff.长D] ?? PlayersByDebuff[Debuff.冰D];&#13;&#10;&#13;&#10;        Party = players.OrderBy(p =&gt; p.Role).ToList();&#13;&#10;        PlayersByDir8 = players.OrderBy(p =&gt; p.Dir8).ToList();&#13;&#10;        HourGlassesByDir8 = hourGlasses.OrderBy(h =&gt; h.Dir8).ToList();&#13;&#10;&#13;&#10;        Stack1 = new HashSet&lt;string&gt;(new Debuff[] { Debuff.冰TH, Debuff.中TH, Debuff.长高TH, Debuff.长低TH, Debuff.中D, Debuff.长或冰D }&#13;&#10;            .Select(d =&gt; PlayersByDebuff[d]?.HexID).Where(id =&gt; id != null));&#13;&#10;        Stack2 = new HashSet&lt;string&gt;(new Debuff[] { Debuff.短或冰TH, Debuff.长高TH, Debuff.长低TH, Debuff.短高D, Debuff.短低D, Debuff.长或冰D }&#13;&#10;            .Select(d =&gt; PlayersByDebuff[d]?.HexID).Where(id =&gt; id != null));&#13;&#10;        Stack3 = new HashSet&lt;string&gt;(new Debuff[] { Debuff.短或冰TH, Debuff.中TH, Debuff.短高D, Debuff.短低D, Debuff.中D, Debuff.冰D }.&#13;&#10;            Select(d =&gt; PlayersByDebuff[d]?.HexID).Where(id =&gt; id != null));&#13;&#10;        Stack4 = new HashSet&lt;string&gt;(new Debuff[] { Debuff.长高TH, Debuff.长低TH, Debuff.中D, Debuff.长或冰D }&#13;&#10;            .Select(d =&gt; PlayersByDebuff[d]?.HexID).Where(id =&gt; id != null));&#13;&#10;        Laser1 = new HashSet&lt;string&gt;(new Debuff[] { Debuff.长高TH, Debuff.长低TH, Debuff.长或冰D }&#13;&#10;            .Select(d =&gt; PlayersByDebuff[d]?.HexID).Where(id =&gt; id != null));&#13;&#10;        Laser2 = new HashSet&lt;string&gt;(new Debuff[] { Debuff.短或冰TH, Debuff.短高D, Debuff.短低D }&#13;&#10;            .Select(d =&gt; PlayersByDebuff[d]?.HexID).Where(id =&gt; id != null));&#13;&#10;        Laser3 = new HashSet&lt;string&gt;(new Debuff[] { Debuff.中TH, Debuff.中D }&#13;&#10;            .Select(d =&gt; PlayersByDebuff[d]?.HexID).Where(id =&gt; id != null));&#13;&#10;    }&#13;&#10;&#13;&#10;    /// &lt;summary&gt; 技能的第几次释放。 &lt;/summary&gt;&#13;&#10;    Dictionary&lt;AbilityEnum, int&gt; AbilityCount = Enum.GetValues(typeof(AbilityEnum)).Cast&lt;AbilityEnum&gt;().ToDictionary(ability =&gt; ability, ability =&gt; 0);&#13;&#10;&#13;&#10;    void ParseAbility(Dictionary&lt;string, string&gt; args)&#13;&#10;    {&#13;&#10;        var ability = (AbilityEnum)int.Parse(args[&quot;ability&quot;], NumberStyles.HexNumber);&#13;&#10;        AbilityCount[ability]++;&#13;&#10;        var targetCount = int.Parse(args[&quot;count&quot;]);&#13;&#10;        // if (Debug) Command($&quot;/e [Debug] {ability} #{AbilityCount[ability]}, count = {targetCount}&quot;);&#13;&#10;        if (targetCount == 0) return;&#13;&#10;&#13;&#10;        var target = PlayersById[args[&quot;target&quot;]];&#13;&#10;        var others = Context.SplitArguments(args[&quot;others&quot;]).Select(pid =&gt; PlayersById[pid]).ToList();&#13;&#10;        List&lt;Player&gt; targets = new List&lt;Player&gt; { target }.Concat(others).ToList();&#13;&#10;&#13;&#10;        try&#13;&#10;        {&#13;&#10;            string error;&#13;&#10;            switch (ability)&#13;&#10;            {&#13;&#10;                case AbilityEnum.初始激光:&#13;&#10;                    {&#13;&#10;                        var turn = new int[] { 0, 1, 1, 1, 2, 2, 2, 3, 3 }[AbilityCount[ability]];&#13;&#10;                        var correctPlayers = new HashSet&lt;string&gt;[] { null, Laser1, Laser2, Laser3 }[turn]; // 以防打法不同&#13;&#10;                        var srcPos = GetCurrentRelPos(args[&quot;source&quot;]);&#13;&#10;                        var hourglass = HourGlassesByDir8[(int)Round(Atan2(srcPos.X, srcPos.Y) / PI * 4 + 4) % 8];&#13;&#10;                        var correctPlayer = hourglass.Player;&#13;&#10;                        targets.ForEach(p =&gt; p.UpdatePos());&#13;&#10;                        correctPlayer.UpdatePos();&#13;&#10;&#13;&#10;                        hourglass.BaitPlayer = target;&#13;&#10;                        hourglass.BaitDistance = Vector2.Distance(target.TempRelPos, hourglass.RelPos);&#13;&#10;                        var vec = target.TempRelPos - hourglass.RelPos;&#13;&#10;                        hourglass.Baitθ = ((Atan2(vec.X, vec.Y) - (hourglass.Dir8 / 4 * PI)) % (2 * PI) + 2 * PI) % (2 * PI) - PI;&#13;&#10;&#13;&#10;                        List&lt;string&gt; errors = new List&lt;string&gt;();&#13;&#10;                        bool isDirCorrect = (hourglass.Baitθ * (hourglass.Is顺 ? 1 : -1)) &gt;= 60 / 180 * PI &amp;&amp; (hourglass.Baitθ * (hourglass.Is顺 ? 1 : -1)) &lt;= 90 / 180 * PI;&#13;&#10;                        bool isTargetCorrect = correctPlayers.Contains(target.HexID);&#13;&#10;                        // if (Debug) Command($&quot;/e [Laser1] isDirCorrect = {isDirCorrect}; isTargetCorrect = {isTargetCorrect}; targetCount = {targetCount}&quot;);&#13;&#10;                        if (isDirCorrect &amp;&amp; isTargetCorrect &amp;&amp; targetCount == 1) return;&#13;&#10;&#13;&#10;                        if (!isDirCorrect)&#13;&#10;                        {&#13;&#10;                            if (Abs(hourglass.Baitθ) &gt; PI / 2)&#13;&#10;                                errors.Add($&quot;方向错误：射向场中&quot;);&#13;&#10;                            else if (hourglass.Baitθ * (hourglass.Is顺 ? 1 : -1) &lt; 0)&#13;&#10;                                errors.Add($&quot;方向错误：引导反向&quot;);&#13;&#10;                            else&#13;&#10;                                errors.Add($&quot;方向错误：应偏 ~80°，实偏 {Abs(hourglass.Baitθ):0}°&quot;);&#13;&#10;                            hourglass.BaitDirectionErrorDesc = errors[0];&#13;&#10;                        }&#13;&#10;&#13;&#10;                        if (!isTargetCorrect)&#13;&#10;                        {&#13;&#10;                            if (correctPlayer.TempR &lt; 9.5 || Abs(correctPlayer.TempRelθ) &gt; PI / 8)&#13;&#10;                                errors.Add($&quot;引导者错误：{correctPlayer.Role}（{correctPlayer.Job}）没去引导或距离过远&quot;);&#13;&#10;                            else if (hourglass.BaitDistance &lt;= 4.3)&#13;&#10;                                errors.Add($&quot;引导者错误：{target.Role}（{target.Job}）距沙漏 {hourglass.BaitDistance:0.0} m，不应引导&quot;);&#13;&#10;                            else&#13;&#10;                                errors.Add($&quot;引导者错误：情况复杂，无法判断&quot;);&#13;&#10;&#13;&#10;                        }&#13;&#10;&#13;&#10;                        if (targetCount &gt; 1 &amp;&amp; targetCount &lt;= 3)&#13;&#10;                        {&#13;&#10;                            errors.Add($&quot;命中目标 × {targetCount}：\n　 {string.Join(&quot;\n　》 &quot;, targets.Select(p =&gt; p.TempDesc))}&quot;);&#13;&#10;                        }&#13;&#10;                        else if (targetCount &gt; 3)&#13;&#10;                        {&#13;&#10;                            errors.Add($&quot;命中目标 × {targetCount}：\n　》 {string.Join(&quot;　&quot;, targets.Select(p =&gt; p.Role))}&quot;);&#13;&#10;                        }&#13;&#10;&#13;&#10;                        error = $&quot;【{ability}】错误（{Dir8Desc[hourglass.Dir8]}）\n{string.Join(&quot;\n&quot;, errors)}&quot;;&#13;&#10;                    }&#13;&#10;                    break;&#13;&#10;                case AbilityEnum.旋转激光:&#13;&#10;                    {&#13;&#10;                        var turn = new int[] { 0, 1, 1, 1, 2, 2, 2, 3, 3 }[(int)Ceiling(AbilityCount[ability] / 8.0)];&#13;&#10;                        var subturn = new int[] { 0, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 8, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 8, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8 }[AbilityCount[ability]];&#13;&#10;                        var correctPlayers = new HashSet&lt;string&gt;[] { null, Laser1, Laser2, Laser3 }[turn];&#13;&#10;                        var srcPos = GetCurrentRelPos(args[&quot;source&quot;]);&#13;&#10;                        var hourglass = HourGlassesByDir8[(int)Round(Atan2(srcPos.X, srcPos.Y) / PI * 4 + 4) % 8];&#13;&#10;                        targets.ForEach(p =&gt; p.UpdatePos());&#13;&#10;&#13;&#10;                        error = $&quot;【{ability}】 {new string[] { null, &quot;短&quot;, &quot;中&quot;, &quot;长&quot; }[turn]} #{subturn} 》 {targetCount} 人&quot;;&#13;&#10;&#13;&#10;                        bool isDirCorrect = (hourglass.Baitθ * (hourglass.Is顺 ? 1 : -1)) &gt;= 60 / 180 * PI &amp;&amp; (hourglass.Baitθ * (hourglass.Is顺 ? 1 : -1)) &lt;= 90 / 180 * PI;&#13;&#10;                        if (hourglass.BaitDirectionErrorDesc != null)&#13;&#10;                            error += $&quot;引导{hourglass.BaitDirectionErrorDesc}&quot;;&#13;&#10;                        if (targetCount == 1 &amp;&amp; target == hourglass.BaitPlayer &amp;&amp; hourglass.BaitDistance &lt;= 4.3)&#13;&#10;                            error += $&quot;\n　》 {target.Role}（{target.Job}）引导后没躲开&quot;;&#13;&#10;                        else if (targetCount &lt;= 2)&#13;&#10;                            error += $&quot;\n　》 {string.Join(&quot;\n　》 &quot;, targets.Select(p =&gt; p.TempDesc))}&quot;;&#13;&#10;                        else&#13;&#10;                            error += $&quot;\n　》 {string.Join(&quot;　&quot;, targets.Select(p =&gt; p.Role))}&quot;;&#13;&#10;                    }&#13;&#10;                    break;&#13;&#10;                case AbilityEnum.黑暗冰封:&#13;&#10;                    {&#13;&#10;                        var centerPlayerIds = Stack2;&#13;&#10;                        var ice = PlayersByDebuff[Debuff.冰D] ?? PlayersByDebuff[Debuff.冰TH];&#13;&#10;                        ice.UpdatePos();&#13;&#10;                        targets.ForEach(p =&gt; p.UpdatePos());&#13;&#10;&#13;&#10;                        error = $&quot;【{ability}】》 {targetCount} 人&quot;;&#13;&#10;                        error += $&quot;\n点名 {ice.TempDesc}&quot;;&#13;&#10;&#13;&#10;                        error += targets.Count &gt;= 3&#13;&#10;                            ? $&quot;\n　》 {string.Join(&quot;　&quot;, targets.Select(p =&gt; p.Role))}&quot;&#13;&#10;                            : $&quot;\n　》 {string.Join(&quot;\n　》 &quot;, targets.Select(p =&gt; p.TempDesc))}&quot;;&#13;&#10;&#13;&#10;                        var targetsShouldClose = targets.Where(p =&gt; p.TempR &gt;= 2 &amp;&amp; centerPlayerIds.Contains(p.HexID));&#13;&#10;                        var targetsShouldFar = targets.Where(p =&gt; p.TempR &lt;= 12 &amp;&amp; !centerPlayerIds.Contains(p.HexID));&#13;&#10;                        error += $&quot;\n参考原因：&quot;;&#13;&#10;                        if (ice.TempR &gt;= 3)&#13;&#10;                            error += $&quot;\n　　 {ice.Role} 月环点名站位过远&quot;;&#13;&#10;                        if (targetsShouldClose.Count() &gt; 0)&#13;&#10;                            error += $&quot;\n　　 {string.Join(&quot;　&quot;, targetsShouldClose.Select(p =&gt; p.Role))} 分摊站位过远&quot;;&#13;&#10;                        if (targetsShouldFar.Count() &gt; 0)&#13;&#10;                            error += $&quot;\n　　 {string.Join(&quot;　&quot;, targetsShouldFar.Select(p =&gt; p.Role))} 分散站位过近&quot;;&#13;&#10;                    }&#13;&#10;                    break;&#13;&#10;                case AbilityEnum.黑暗神圣:&#13;&#10;                case AbilityEnum.黑暗狂水:&#13;&#10;                    {&#13;&#10;                        var turn = ability == AbilityEnum.黑暗狂水 ? 4 : AbilityCount[ability];&#13;&#10;                        var correctTargets = new HashSet&lt;string&gt;[] { null, Stack1, Stack2, Stack3, Stack4 }[turn];&#13;&#10;                        var extraPlayers = targets.Where(p =&gt; !correctTargets.Contains(p.HexID)).ToList();&#13;&#10;                        var absentPlayers = correctTargets.Select(id =&gt; PlayersById[id]).Where(p =&gt; !targets.Contains(p)).ToList();&#13;&#10;                        if (Debug) Command($&quot;/e [Stack]\nturn: {turn}\nextra: {string.Join(&quot; &quot;, extraPlayers.Select(p =&gt; p.HexID))}\nabsent: {string.Join(&quot; &quot;, absentPlayers.Select(p =&gt; p.HexID))}&quot;);&#13;&#10;                        if (extraPlayers.Count == 0 &amp;&amp; absentPlayers.Count == 0 || extraPlayers.Count == 0 &amp;&amp; absentPlayers.Count == 1 &amp;&amp; correctTargets.Count == 6) return;&#13;&#10;&#13;&#10;                        targets.Concat(absentPlayers).ToList().ForEach(p =&gt; p.UpdatePos());&#13;&#10;                        error = $&quot;【{ability}】》 {targetCount} 人 （应有 {correctTargets.Count} 人）&quot;;&#13;&#10;                        error += $&quot;\n点名 {target.TempDesc}&quot;;&#13;&#10;                        if (extraPlayers.Count &gt; 0)&#13;&#10;                            error += $&quot;\n多余：\n　》 {string.Join(&quot;\n　》 &quot;, extraPlayers.Select(p =&gt; p.TempDesc))}&quot;;&#13;&#10;                        if (absentPlayers.Count &gt; 0)&#13;&#10;                            error += $&quot;\n缺少：&quot; + (absentPlayers.Count &gt;= 3&#13;&#10;                                ? $&quot;\n　－ {string.Join(&quot;　&quot;, absentPlayers.Select(p =&gt; p.Role))}&quot;&#13;&#10;                                : $&quot;\n　－ {string.Join(&quot;\n　－ &quot;, absentPlayers.Select(p =&gt; p.TempDesc))}&quot;);&#13;&#10;&#13;&#10;                        var extraPlayersClose = extraPlayers.Where(p =&gt; p.TempR &lt;= 8);&#13;&#10;                        var absentPlayersFar = absentPlayers.Where(p =&gt; p.TempR &gt;= 3);&#13;&#10;                        error += $&quot;\n参考原因：&quot;;&#13;&#10;                        if (target.TempR &gt;= 3)&#13;&#10;                            error += $&quot;\n　　 {target.Role} 分摊点名站位过远&quot;;&#13;&#10;                        if (extraPlayersClose.Count() &gt; 0)&#13;&#10;                            error += $&quot;\n　　 {string.Join(&quot;　&quot;, extraPlayersClose.Select(p =&gt; p.Role))} 分散站位过近&quot;;&#13;&#10;                        if (absentPlayersFar.Count() &gt; 0)&#13;&#10;                            error += $&quot;\n　　 {string.Join(&quot;　&quot;, absentPlayersFar.Select(p =&gt; p.Role))} 分摊站位过远&quot;;&#13;&#10;                    }&#13;&#10;                    break;&#13;&#10;                case AbilityEnum.黑暗爆炎:&#13;&#10;                    {&#13;&#10;                        var turn = PlayersByDebuff[Debuff.冰TH] == null&#13;&#10;                            ? new int[] { 0, 1, 1, 1, 2, 2, 3, 3 }[AbilityCount[ability]]&#13;&#10;                            : new int[] { 0, 1, 1, 2, 2, 3, 3, 3 }[AbilityCount[ability]];&#13;&#10;                        var wrongTargets = new HashSet&lt;string&gt;[] { null, Stack1, Stack2, Stack3 }[turn];&#13;&#10;                        if (targetCount == 1) return;&#13;&#10;&#13;&#10;                        targets.ForEach(p =&gt; p.UpdatePos());&#13;&#10;                        string reason;&#13;&#10;                        if (wrongTargets.Contains(target.HexID)) // 第一目标没有点名&#13;&#10;                            reason = &quot;乱点名&quot;;&#13;&#10;                        else if (target.TempR &lt; 12) // 点名者太近&#13;&#10;                            reason = target.TempR &gt; 6 ? $&quot;{target.Role} 出慢了&quot; : $&quot;{target.Role} 未出人群&quot;;&#13;&#10;                        else&#13;&#10;                        {&#13;&#10;                            var furthestPerson = others.OrderByDescending(p =&gt; p.TempR).FirstOrDefault();&#13;&#10;                            if (Abs(target.TempRelθ) &lt; PI / 10) // 点名者站位没错&#13;&#10;                                reason = furthestPerson.TempR &gt; 9.5 ? $&quot;{furthestPerson.Role}方向错误&quot; : furthestPerson.TempR &gt; 3 ? $&quot;{furthestPerson.Role}未贴近中心&quot; : &quot;情况复杂，无法判断&quot;;&#13;&#10;                            else if (furthestPerson.TempR &gt; 9.5)&#13;&#10;                                reason = $&quot;{target.Role}方向错误，误伤 {furthestPerson.Role}&quot;;&#13;&#10;                            else&#13;&#10;                                reason = $&quot;{target.Role}方向错误、{furthestPerson.Role}站位错误&quot;;&#13;&#10;                        }&#13;&#10;                        error = $&quot;【{ability}】》 {targetCount} 人&quot;;&#13;&#10;                        error += $&quot;\n点名 {target.TempDesc}&quot;;&#13;&#10;                        error += targetCount &gt;= 4&#13;&#10;                            ? $&quot;\n　》 {string.Join(&quot;　&quot;, others.Select(p =&gt; p.Role))}&quot;&#13;&#10;                            : $&quot;\n　》 {string.Join(&quot;\n　》 &quot;, others.Select(p =&gt; p.TempDesc))}&quot;;&#13;&#10;                        error += $&quot;\n参考原因：\n　　 {reason}&quot;;&#13;&#10;                    }&#13;&#10;                    break;&#13;&#10;                case AbilityEnum.暗炎喷发:&#13;&#10;                    {&#13;&#10;                        var wrongTargets = Stack4;&#13;&#10;                        if (targetCount == 1) return;&#13;&#10;&#13;&#10;                        targets.ForEach(p =&gt; p.UpdatePos());&#13;&#10;                        string reason;&#13;&#10;                        if (wrongTargets.Contains(target.HexID)) // 第一目标没有点名&#13;&#10;                            reason = &quot;乱点名&quot;;&#13;&#10;                        else if (target.TempR &lt; 8) // 点名者太近&#13;&#10;                            reason = target.TempR &gt; 6 ? $&quot;{target.Role} 记录分散位置过近&quot; : $&quot;{target.Role} 未出人群记录分散&quot;;&#13;&#10;                        else&#13;&#10;                        {&#13;&#10;                            var furthestPerson = others.OrderByDescending(p =&gt; p.TempR).FirstOrDefault();&#13;&#10;                            if (Abs(target.TempRelθ) &lt; PI / 10) // 点名者站位没错&#13;&#10;                                reason = furthestPerson.TempR &gt; 8 ? $&quot;{furthestPerson.Role}方向错误&quot; : furthestPerson.TempR &gt; 3 ? $&quot;{furthestPerson.Role}未贴近中心&quot; : &quot;情况复杂，无法判断&quot;;&#13;&#10;                            else if (furthestPerson.TempR &gt; 8)&#13;&#10;                                reason = $&quot;{target.Role}方向错误，误伤 {furthestPerson.Role}&quot;;&#13;&#10;                            else&#13;&#10;                                reason = $&quot;{target.Role}方向错误、{furthestPerson.Role}站位错误&quot;;&#13;&#10;                        }&#13;&#10;                        error = $&quot;【{ability}】》 {targetCount} 人&quot;;&#13;&#10;                        error += $&quot;\n点名 {target.TempDesc}&quot;;&#13;&#10;                        if (targetCount &gt;= 4)&#13;&#10;                            error += $&quot;\n　》 {string.Join(&quot;　&quot;, others.Select(p =&gt; p.Role))}&quot;;&#13;&#10;                        else&#13;&#10;                            error += $&quot;\n　》 {string.Join(&quot;\n　》 &quot;, others.Select(p =&gt; p.TempDesc))}&quot;;&#13;&#10;                        error += $&quot;\n参考原因：\n　　 {reason}&quot;;&#13;&#10;                    }&#13;&#10;                    break;&#13;&#10;                default:&#13;&#10;                    throw new Exception(&quot;未处理的技能&quot;);&#13;&#10;            }&#13;&#10;            RecordError(ability, error);&#13;&#10;        }&#13;&#10;        catch (Exception e)&#13;&#10;        {&#13;&#10;            throw new Exception($&quot;处理技能 {ability} #{AbilityCount[ability]} 时错误：\n{string.Join(&quot; | &quot;, args.Select(kv =&gt; kv.Key + &quot; = &quot; + kv.Value))}\n{e}&quot;);&#13;&#10;        }&#13;&#10;    }&#13;&#10;&#13;&#10;    void ParseReturn(Dictionary&lt;string, string&gt; args)&#13;&#10;    {&#13;&#10;        Player target = PlayersById[args[&quot;target&quot;]];&#13;&#10;        target.UpdatePos();&#13;&#10;        string errorType = null;&#13;&#10;        if (Stack4.Contains(target.HexID))&#13;&#10;        {&#13;&#10;            if (target.TempR &gt; 2)&#13;&#10;                errorType = &quot;分摊组站位过远&quot;;&#13;&#10;            else if (Abs(target.TempRelθ) &gt; PI / 8)&#13;&#10;                errorType = &quot;方向错误&quot;;&#13;&#10;        }&#13;&#10;        else&#13;&#10;        {&#13;&#10;            if (target.TempR &lt; 8)&#13;&#10;                errorType = target.TempR &gt; 6 ? &quot;分散组站位过近&quot; : &quot;分散组没出人群&quot;;&#13;&#10;            else if (Abs(target.TempRelθ) &gt; PI / 10)&#13;&#10;                errorType = &quot;方向错误&quot;;&#13;&#10;        }&#13;&#10;        if (errorType != null)&#13;&#10;            RecordError(AbilityEnum.记录回返, $&quot;【记录回返】：{errorType}\n　》 {target.TempDesc}&quot;);&#13;&#10;    }&#13;&#10;&#13;&#10;    void ParseRotate(Dictionary&lt;string, string&gt; args)&#13;&#10;    {&#13;&#10;        HourGlass hourglass = HourGlassesById[args[&quot;id&quot;]];&#13;&#10;        bool isCW = MathParser.Parse(args[&quot;cw&quot;]) != 0;&#13;&#10;        hourglass._is顺 = isCW;&#13;&#10;        return;&#13;&#10;    }&#13;&#10;&#13;&#10;    List&lt;string&gt; Errors = new List&lt;string&gt;();&#13;&#10;    Dictionary&lt;AbilityEnum, int&gt; ErrorCounts = Enum.GetValues(typeof(AbilityEnum)).Cast&lt;AbilityEnum&gt;().ToDictionary(a =&gt; a, a =&gt; 0);&#13;&#10;    void RecordError(AbilityEnum ability, string data)&#13;&#10;    {&#13;&#10;        ErrorCounts[ability]++;&#13;&#10;        Errors.Add(data);&#13;&#10;        if (ErrorCounts[ability] &lt;= 3 &amp;&amp; Errors.Count &lt;= 5)&#13;&#10;        {&#13;&#10;            Command(&quot;/e \n&quot; + data);&#13;&#10;        }&#13;&#10;    }&#13;&#10;&#13;&#10;    static void Command(string data)&#13;&#10;    {&#13;&#10;        var chars = data.Select(ch =&gt; SimpToTrad.TryGetValue(ch.ToString(), out var t) ? t : ch.ToString());&#13;&#10;        RealPlugin.plug.InvokeNamedCallback(&quot;command&quot;, string.Concat(chars));&#13;&#10;    }&#13;&#10;&#13;&#10;    static Dictionary&lt;string, string&gt; SimpToTrad = new Dictionary&lt;string, string&gt;&#13;&#10;    {&#13;&#10;        {&quot;圣&quot;, &quot;聖&quot;}, {&quot;转&quot;, &quot;轉&quot;}, {&quot;喷&quot;, &quot;噴&quot;}, {&quot;发&quot;, &quot;發&quot;}, {&quot;长&quot;, &quot;長&quot;}, {&quot;标&quot;, &quot;標&quot;},&#13;&#10;        {&quot;运&quot;, &quot;運&quot;}, {&quot;队&quot;, &quot;隊&quot;}, {&quot;环&quot;, &quot;環&quot;}, {&quot;过&quot;, &quot;過&quot;}, {&quot;远&quot;, &quot;遠&quot;}, {&quot;摊&quot;, &quot;攤&quot;},&#13;&#10;        {&quot;应&quot;, &quot;應&quot;}, {&quot;错&quot;, &quot;錯&quot;}, {&quot;误&quot;, &quot;誤&quot;}, {&quot;贴&quot;, &quot;貼&quot;}, {&quot;复&quot;, &quot;複&quot;}, {&quot;杂&quot;, &quot;雜&quot;},&#13;&#10;        {&quot;伤&quot;, &quot;傷&quot;}, {&quot;记&quot;, &quot;記&quot;}, {&quot;录&quot;, &quot;録&quot;}, {&quot;顺&quot;, &quot;順&quot;}, {&quot;调&quot;, &quot;調&quot;}, {&quot;试&quot;, &quot;試&quot;},&#13;&#10;        {&quot;黑&quot;, &quot;黒&quot;},&#13;&#10;    };&#13;&#10;&#13;&#10;    static string[] Dir8Desc = new string[] { &quot;上北&quot;, &quot;左上&quot;, &quot;左西&quot;, &quot;左下&quot;, &quot;下南&quot;, &quot;右下&quot;, &quot;右东&quot;, &quot;右上&quot; };&#13;&#10;&#13;&#10;    class Player&#13;&#10;    {&#13;&#10;        public string HexID;&#13;&#10;        public string Name;&#13;&#10;        public string Job;&#13;&#10;        public int Dir8;&#13;&#10;        public Debuff Debuff;&#13;&#10;        public HourGlass HourGlass;&#13;&#10;        public RoleEnum Role;&#13;&#10;        public Vector2 TempRelPos;&#13;&#10;        public double TempR, TempRelθ;&#13;&#10;        public string TempDesc;&#13;&#10;        public void UpdatePos()&#13;&#10;        {&#13;&#10;            //ＭＴ（战士）长高Ｔ　@ 6.5 m, 偏 +10°&#13;&#10;            TempRelPos = GetCurrentRelPos(HexID);&#13;&#10;            var rotatedPolarCoord = new PolarCoord(TempRelPos).RotateTo(Dir8);&#13;&#10;            TempR = rotatedPolarCoord.R;&#13;&#10;            TempRelθ = rotatedPolarCoord.θ;&#13;&#10;            TempDesc = $&quot;{Role}（{Job}）{Desc(Debuff, Role)} {rotatedPolarCoord}&quot;;&#13;&#10;        }&#13;&#10;    }&#13;&#10;&#13;&#10;    class HourGlass&#13;&#10;    {&#13;&#10;        public string HexID;&#13;&#10;        public int Dir8;&#13;&#10;        public SpeedEnum Speed;&#13;&#10;        public Player Player;&#13;&#10;        public bool? _is顺;&#13;&#10;        public Player BaitPlayer;&#13;&#10;        public double BaitDistance;&#13;&#10;        public double Baitθ;&#13;&#10;        public string BaitDirectionErrorDesc;&#13;&#10;        public bool Is顺&#13;&#10;        {&#13;&#10;            get&#13;&#10;            {&#13;&#10;                if (_is顺 == null)&#13;&#10;                {&#13;&#10;                    string err = $&quot;程序错误：沙漏 {HexID} (Dir8 = {Dir8}) 未记录旋转方向。&quot;;&#13;&#10;                    if (Debug)&#13;&#10;                    {&#13;&#10;                        Log(RealPlugin.DebugLevelEnum.Error, $&quot;调试：&quot; + err + &quot;使用默认值（顺时针）。&quot;);&#13;&#10;                        _is顺 = true;&#13;&#10;                    }&#13;&#10;                    else throw new Exception(err);&#13;&#10;                }&#13;&#10;                return _is顺.Value;&#13;&#10;            }&#13;&#10;        }&#13;&#10;        public Vector2 RelPos&#13;&#10;        {&#13;&#10;            get&#13;&#10;            {&#13;&#10;                var θ = (Dir8 - 4) * PI / 4;&#13;&#10;                return 9.5f * new Vector2((float)Sin(θ), (float)Cos(θ));&#13;&#10;            }&#13;&#10;        }&#13;&#10;    }&#13;&#10;&#13;&#10;    static Random rnd = new Random();&#13;&#10;    static Vector2 GetCurrentRelPos(string hexId)&#13;&#10;    {&#13;&#10;        var player = GetIdEntity(hexId);&#13;&#10;        if (Debug &amp;&amp; player.GetValue(&quot;name&quot;).ToString() == &quot;&quot;)&#13;&#10;        {&#13;&#10;            var v = new Vector2(rnd.Next(300) / 10.0f - 15, rnd.Next(300) / 10.0f - 15);&#13;&#10;            Log(RealPlugin.DebugLevelEnum.Warning, $&quot;调试模式，生成随机坐标：{hexId} @ {v}&quot;);&#13;&#10;            return v;&#13;&#10;        }&#13;&#10;        var x = float.Parse(player.GetValue(&quot;x&quot;).ToString());&#13;&#10;        var y = float.Parse(player.GetValue(&quot;y&quot;).ToString());&#13;&#10;        return new Vector2(x - 100, y - 100);&#13;&#10;    }&#13;&#10;&#13;&#10;    public enum Debuff&#13;&#10;    {&#13;&#10;        短TH = 0, 冰TH = 1, 中TH = 2, 长高TH = 3, 长低TH = 4,&#13;&#10;        短高D = 5, 短低D = 6, 中D = 7, 长D = 8, 冰D = 9,&#13;&#10;        短或冰TH, 长或冰D,&#13;&#10;    }&#13;&#10;&#13;&#10;    public static string Desc(Debuff debuff, RoleEnum role)&#13;&#10;    {&#13;&#10;        var debuffDesc = debuff.ToString().TrimEnd('T', 'H', 'D');&#13;&#10;        var roleDesc = new string[] { &quot;Ｔ&quot;, &quot;Ｈ&quot;, &quot;Ｄ&quot;, &quot;Ｄ&quot; }[(int)role / 2];&#13;&#10;        return (debuffDesc + roleDesc).PadRight(3, '　');&#13;&#10;    }&#13;&#10;&#13;&#10;&#13;&#10;    static Dictionary&lt;Debuff, int&gt; DebuffToRelDir8 = new Dictionary&lt;Debuff, int&gt;&#13;&#10;    {&#13;&#10;        { Debuff.短TH, 4 }, { Debuff.冰TH, 4 },&#13;&#10;        { Debuff.中TH, 2 },&#13;&#10;        { Debuff.长高TH, 3 }, { Debuff.长低TH, 5 },&#13;&#10;        { Debuff.短高D, 1 }, { Debuff.短低D, 7 },&#13;&#10;        { Debuff.中D, 6 },&#13;&#10;        { Debuff.长D, 0 }, { Debuff.冰D, 0 },&#13;&#10;    };&#13;&#10;&#13;&#10;    public enum RoleEnum { ＭＴ = 0, ＳＴ = 1, Ｈ１ = 2, Ｈ２ = 3, Ｄ１ = 4, Ｄ２ = 5, Ｄ３ = 6, Ｄ４ = 7 }&#13;&#10;&#13;&#10;    public enum SpeedEnum { 短, 中, 长 }&#13;&#10;    static Dictionary&lt;int, SpeedEnum&gt; RelDir8ToSpeed = new Dictionary&lt;int, SpeedEnum&gt;&#13;&#10;    {&#13;&#10;        { 0, SpeedEnum.短 }, { 1, SpeedEnum.中 }, { 2, SpeedEnum.长 }, { 3, SpeedEnum.短 },&#13;&#10;        { 4, SpeedEnum.中 }, { 5, SpeedEnum.短 }, { 6, SpeedEnum.长 }, { 7, SpeedEnum.中 },&#13;&#10;    };&#13;&#10;}&#13;&#10;&#13;&#10;public class PolarCoord&#13;&#10;{&#13;&#10;    public double R;&#13;&#10;    public double θ;&#13;&#10;    public PolarCoord(double R, double θ)&#13;&#10;    {&#13;&#10;        this.R = R;&#13;&#10;        this.θ = θ;&#13;&#10;    }&#13;&#10;    public PolarCoord(Vector2 vec)&#13;&#10;    {&#13;&#10;        R = Sqrt(vec.X * vec.X + vec.Y * vec.Y);&#13;&#10;        θ = Atan2(vec.X, vec.Y);&#13;&#10;    }&#13;&#10;&#13;&#10;    public PolarCoord RotateTo(int dir8)&#13;&#10;    {&#13;&#10;        var newθ = θ - dir8 * PI / 4;&#13;&#10;        return new PolarCoord(R, newθ);&#13;&#10;    }&#13;&#10;&#13;&#10;    public override string ToString()&#13;&#10;    {&#13;&#10;        var degree = θ / PI * 180;&#13;&#10;        degree = (degree % 360 + 360) % 360;&#13;&#10;        if (degree &gt;= 180) degree -= 360;&#13;&#10;        return $&quot;距中心 {R:0.0} m, 偏{(degree &gt;= 0 ? &quot;逆&quot; : &quot;顺&quot;)} {Abs(degree):0}°&quot;;&#13;&#10;    }&#13;&#10;}" ActionType="ExecuteScript" Asynchronous="False" Description="U7a3_一运_Analyzer      P3 一运警察" DescriptionOverride="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${ecallback:U7a3_一运_Analyzer}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" NamedCallbackName="U7a3_一运_Analyzer" NamedCallbackParam="Command = Init" Enabled="False" ActionType="NamedCallback"/>
+                      <Action OrderNumber="4" NamedCallbackName="U7a3_一运_Analyzer" NamedCallbackParam="Command = Parse&#13;&#10;Ability = 9D55&#13;&#10;Source = 4000439A&#13;&#10;Target = 109012A8&#13;&#10;Others = 106D8992,106C2E8F,1078AB54&#13;&#10;Count = 4" Enabled="False" ActionType="NamedCallback"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -552,7 +546,7 @@
                           <Action OrderNumber="11" UseTTSTextExpression="去红镜子" ActionType="UseTTS"/>
                           <Action OrderNumber="12" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100 polar 20, dir2rad(${v:U7a2_镜子_红dir8} + 1, 8)&#13;&#10;θ: dir2rad(${v:U7a2_镜子_红dir8} + 1, 8)&#13;&#10;1: polar 2.75, -85°&#13;&#10;2: polar 2.75, -40°&#13;&#10;3: polar 2.75,   5°&#13;&#10;4: polar 2.75,  85°&#13;&#10;---&#13;&#10;O: 100, 100 polar 20, dir2rad(${v:U7a2_镜子_红dir8} - 1, 8)&#13;&#10;θ: dir2rad(${v:U7a2_镜子_红dir8} - 1, 8)&#13;&#10;A: polar 2.75, -85°&#13;&#10;B: polar 2.75,  -5°&#13;&#10;C: polar 2.75,  40°&#13;&#10;D: polar 2.75,  85°" ActionType="NamedCallback" DescBgColor="dff"/>
                           <Action OrderNumber="13" UseTTSTextExpression="准备分散分摊" ActionType="UseTTS" ExecutionDelayExpression="7000"/>
-                          <Action OrderNumber="14" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="4500" DescBgColor="dff"/>
+                          <Action OrderNumber="14" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;Waymarks: A1D4C3B2&#13;&#10;R: 6&#13;&#10;O: 100, 100" ActionType="NamedCallback" ExecutionDelayExpression="4500" DescBgColor="dff"/>
                           <Action OrderNumber="15" UseTTSTextExpression="八方站位" ActionType="UseTTS" ExecutionDelayExpression="5000"/>
                         </Actions>
                       </Trigger>
@@ -577,6 +571,11 @@
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                         </Condition>
                       </Trigger>
+                      <Trigger Enabled="true" Name="红镜子变白（防止特效遮挡）" Id="60f696df-22c3-4cd8-a39d-a3529fb95e22" RegularExpression="^.{15}\S+ 101:.{8}:02000100:(?&lt;pos&gt;0[1-8])">
+                        <Actions>
+                          <Action OrderNumber="1" NamedCallbackName="MapEffect" NamedCallbackParam="00020001:${pos}" ActionType="NamedCallback" ExecutionDelayExpression="13000"/>
+                        </Actions>
+                      </Trigger>
                     </Triggers>
                   </Folder>
                   <Folder Id="2165486a-0939-4847-a3b1-8b3314d55cbf" Name="D. 光之暴走" Enabled="true" RawEnvironmentVariables="phase = P2光暴">
@@ -594,7 +593,7 @@
                         <Actions>
                           <Action OrderNumber="1" VariableOp="SetString" VariableName="U7a_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
                           <Action OrderNumber="2" VariableOp="UnsetRegexUniversal" VariableName="^U7a2_光暴" ActionType="Variable"/>
-                          <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/${if: (0x${_me.id} &amp; 0xFFFF) = 0x8BF3 ? p : e } &#13;&#10;ＭＴ 　0》　　　　&#13;&#10;ＳＴ 　0》　1》　2》&#13;&#10;Ｈ１ 　1》　2》&#13;&#10;Ｈ２ 　0》　1》　2》&#13;&#10;Ｄ１ 　0》　1》　2》&#13;&#10;Ｄ２ 　0》　1》　2》&#13;&#10;Ｄ３ 　2》&#13;&#10;Ｄ４ 　0》　1》　　" ActionType="NamedCallback"/>
+                          <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/${if: ${f:contain(ia So):${_me}} ? p : e } &#13;&#10;ＭＴ 　0》　　　　&#13;&#10;ＳＴ 　0》　1》　2》&#13;&#10;Ｈ１ 　1》　2》&#13;&#10;Ｈ２ 　0》　1》　2》&#13;&#10;Ｄ１ 　0》　1》　2》&#13;&#10;Ｄ２ 　0》　1》　2》&#13;&#10;Ｄ３ 　2》&#13;&#10;Ｄ４ 　0》　1》　　" ActionType="NamedCallback"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Sequential="True" Name="3. 验证顺序 + 计算 =&gt; 4" Id="9974e140-a910-4d08-b180-027739a751c6" RegularExpression="^U7a2_光暴_环">
@@ -703,20 +702,11 @@
                           <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="2000" Asynchronous="False"/>
                           <Action OrderNumber="6" VariableOp="SetNumeric" VariableName="tmp_is低层数" VariableExpression="${d:U7a2_光暴_初始光[${_me.id}]} + ${l:U7a2_光暴_环_pIdx.contain(${v:myIdx})} &lt;= 1" ActionType="Variable" Asynchronous="False"/>
                           <Action OrderNumber="7" UseTTSTextExpression="穿，${if: ${v:tmp_is低层数} ? 回场中踩塔 : 塔外八方站位 }" ActionType="UseTTS" Asynchronous="False"/>
-                          <Action OrderNumber="8" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff">
-                            <Condition Enabled="true" Grouping="Or">
-                              <ConditionSingle Enabled="true" ExpressionL="${v:tmp_is低层数}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                            </Condition>
-                          </Action>
-                          <Action OrderNumber="9" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;Waymarks: A1D4C3B2&#13;&#10;R: 2.75&#13;&#10;O: 100, 100" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff">
-                            <Condition Enabled="true" Grouping="Or">
-                              <ConditionSingle Enabled="true" ExpressionL="${v:tmp_is低层数}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                            </Condition>
-                          </Action>
-                          <Action OrderNumber="10" VariableName="tmp_is低层数" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="11" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="5000" Asynchronous="False" DescBgColor="dff"/>
-                          <Action OrderNumber="12" UseTTSTextExpression="八方分散" ActionType="UseTTS" ExecutionDelayExpression="5000" Asynchronous="False"/>
-                          <Action OrderNumber="13" UseTTSTextExpression="AoE，靠近场中" ActionType="UseTTS" ExecutionDelayExpression="20000" Asynchronous="False"/>
+                          <Action OrderNumber="8" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;Waymarks: A1D4C3B2&#13;&#10;R: ${v:tmp_is低层数} ? 4 : 8&#13;&#10;O: 100, 100" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
+                          <Action OrderNumber="9" VariableName="tmp_is低层数" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="10" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;Waymarks: A1D4C3B2&#13;&#10;R: 8&#13;&#10;O: 100, 100" ActionType="NamedCallback" ExecutionDelayExpression="6900" Asynchronous="False" DescBgColor="dff"/>
+                          <Action OrderNumber="11" UseTTSTextExpression="八方分散" ActionType="UseTTS" ExecutionDelayExpression="4000" Asynchronous="False"/>
+                          <Action OrderNumber="12" UseTTSTextExpression="AoE，靠近场中" ActionType="UseTTS" ExecutionDelayExpression="18000" Asynchronous="False"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="1. 过量光层数 for 5" Id="0063cce1-4a94-4175-a9c3-d403f5517dd2" RegularExpression="^.{15}\S+ 1A:8D1:[^:]*:[^:]*:.{8}:[^:]*:(?&lt;tid&gt;.{8}):[^:]*:(?&lt;stack&gt;[^:]+):">
@@ -734,23 +724,6 @@
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                         </Condition>
-                      </Trigger>
-                      <Trigger Enabled="false" Source="None" Name="Debug Log 2024-12-09 11:54" Id="1287c55b-1dee-4c1b-8055-52ff6ec9fce5" RegularExpression="">
-                        <Actions>
-                          <Action OrderNumber="1" LogMessageText="[23:05:43.978] StartsCasting 14:400087EA:Usurper of Frost:9D14:Light Rampant:400087EA:Usurper of Frost:4.700:99.99:99.99:0.00:1.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="1.45 * 1000"/>
-                          <Action OrderNumber="3" LogMessageText="[23:05:49.791] Tether 23:106C2E8F:Sui Zhu:10955384:Pepper Shark:0000:0000:006E:10955384:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="4" LogMessageText="[23:05:49.791] Tether 23:10955384:Pepper Shark:108AB8C3:Aak Silver:0000:0000:006E:108AB8C3:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="5" LogMessageText="[23:05:49.791] Tether 23:108AB8C3:Aak Silver:1078AB54:Coca- Cola-:0000:0000:006E:1078AB54:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="6" LogMessageText="[23:05:49.791] Tether 23:1078AB54:Coca- Cola-:108DF818:？:0000:0000:006E:${_me.id}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="7" LogMessageText="[23:05:49.791] Tether 23:108DF818:Reno Shio:108B1B84:?:0000:0000:006E:108DF818:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="8" LogMessageText="[23:05:49.791] Tether 23:108B1B84:？:106C2E8F:Sui Zhu:0000:0000:006E:106C2E8F:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="9" LogMessageText="[23:05:49.791] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::106B9066:Jimothy Wuxiang:02:226089:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="10" LogMessageText="[23:05:49.791] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::1078AB54:Coca- Cola-:01:142328:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="11" LogMessageText="[23:05:49.791] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::10955384:Pepper Shark:01:142389:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="12" LogMessageText="[23:05:49.791] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::108DF818:Reno Shio:01:156987:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="13" LogMessageText="[23:05:49.791] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${_me.id}:Erato Asternomos:01:142359:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                        </Actions>
                       </Trigger>
                     </Triggers>
                   </Folder>
@@ -773,12 +746,18 @@
                       </Trigger>
                       <Trigger Enabled="true" Name="1. 标记光之水晶" Id="f0239002-612d-4814-bb97-c2f120ef7f66" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}17827:([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
                         <Actions>
-                          <Action OrderNumber="1" NamedCallbackName="mark" NamedCallbackParam="{&#13;&#10;    &quot;ActorID&quot;: 0x${id},&#13;&#10;    &quot;MarkType&quot;: &quot;attack${n: (4 - roundvec(${x} - 100, ${y} - 100, 4)) % 4}&quot;,&#13;&#10;    &quot;LocalOnly&quot;: true &#13;&#10;}" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dfd"/>
+                          <Action OrderNumber="1" NamedCallbackName="mark" NamedCallbackParam="{&#13;&#10;    &quot;ActorID&quot;: 0x${id},&#13;&#10;    &quot;MarkType&quot;: &quot;attack${n: (4 - roundvec(${x} - 100, ${y} - 100, 4)) % 4 + 1}&quot;,&#13;&#10;    &quot;LocalOnly&quot;: true &#13;&#10;}" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dfd"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="2. 标记大水晶" Id="5095491e-8f05-4cb6-bf80-f49b1f894af7" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}17829:">
                         <Actions>
-                          <Action OrderNumber="1" NamedCallbackName="mark" NamedCallbackParam="{&#13;&#10;    &quot;ActorID&quot;: 0x${id},&#13;&#10;    &quot;MarkType&quot;: &quot;circle&quot;,&#13;&#10;    &quot;LocalOnly&quot;: true &#13;&#10;}" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dfd"/>
+                          <Action OrderNumber="1" NamedCallbackName="mark" NamedCallbackParam="{&#13;&#10;    &quot;ActorID&quot;: 0x${id},&#13;&#10;    &quot;MarkType&quot;: &quot;triangle&quot;,&#13;&#10;    &quot;LocalOnly&quot;: true &#13;&#10;}" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dfd"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="3. 暗之水晶不可选中" Id="8ff41e55-e662-4a8c-9aa1-9f9f56630a3d" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}17828:([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                        <Actions>
+                          <Action OrderNumber="1" ExecScriptExpression="using static Triggernometry.Utilities.Memory;&#13;&#10;&#13;&#10;IntPtr entity = (IntPtr)0x${_entity[10957356].hexaddress};&#13;&#10;IntPtr renderFlags = entity + 0x118;&#13;&#10;Write&lt;int&gt;(XivProcHandle, renderFlags, 2048);" Enabled="False" ActionType="ExecuteScript"/>
+                          <Action OrderNumber="2" ExecScriptExpression="using static Triggernometry.Utilities.Memory;&#13;&#10;&#13;&#10;IntPtr entity = (IntPtr)0x${_entity[${id}].hexaddress};&#13;&#10;IntPtr renderFlags = entity + 0x118;&#13;&#10;Write&lt;int&gt;(XivProcHandle, renderFlags, 16384);" ActionType="ExecuteScript"/>
                         </Actions>
                       </Trigger>
                     </Triggers>
@@ -901,15 +880,30 @@
                       </Trigger>
                       <Trigger Enabled="true" Name="4. 双剑技" Id="e57794a6-845e-446e-ac02-27d8df7a3c23" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:9D0(?&lt;type&gt;[12]):">
                         <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == 1 ? 先去后，再去前 : 先去前，再去后 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" UseTTSTextExpression="穿" ActionType="UseTTS" ExecutionDelayExpression="${type} == 1 ? 3000 : 2500"/>
-                          <Action OrderNumber="3" VariableOp="SetString" VariableName="U7a2_滑冰_loop" VariableExpression="1" ActionType="Variable" ExecutionDelayExpression="${type} == 1 ? 2500 : 3000"/>
-                          <Action OrderNumber="4" VariableName="U7a2_滑冰_loop" ActionType="Variable"/>
-                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="500" DescBgColor="dff"/>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == 1 ? 留在后面 : 滑到前面 }" ActionType="UseTTS" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_PositionState}" ExpressionTypeL="String" ExpressionR="Back" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="2" UseTTSTextExpression="${if: ${type} == 1 ? 滑到后面 : 留在前面 }" ActionType="UseTTS" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_PositionState}" ExpressionTypeL="String" ExpressionR="Front" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="3" UseTTSTextExpression="${if: ${type} == 1 ? 先去后面 : 先去前面 }" ActionType="UseTTS" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_PositionState}" ExpressionTypeL="String" ExpressionR="Back" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_PositionState}" ExpressionTypeL="String" ExpressionR="Front" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="4" UseTTSTextExpression="穿" ActionType="UseTTS" ExecutionDelayExpression="${type} == 1 ? 3000 : 2500"/>
+                          <Action OrderNumber="5" VariableOp="SetString" VariableName="U7a2_滑冰_loop" VariableExpression="1" ActionType="Variable" ExecutionDelayExpression="${type} == 1 ? 2500 : 3000"/>
                           <Action OrderNumber="6" VariableName="U7a2_滑冰_loop" ActionType="Variable"/>
-                          <Action OrderNumber="7" TextAuraOp="DeactivateAura" TextAuraEffect="Bold" TextAuraFontSize="39.75" TextAuraName="U7a2_滑冰_State" TextAuraFontName="微软雅黑" ActionType="TextAura"/>
-                          <Action OrderNumber="8" UseTTSTextExpression="分摊激光" ActionType="UseTTS" ExecutionDelayExpression="1000"/>
-                          <Action OrderNumber="9" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff"/>
+                          <Action OrderNumber="7" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="500" DescBgColor="dff"/>
+                          <Action OrderNumber="8" VariableName="U7a2_滑冰_loop" ActionType="Variable"/>
+                          <Action OrderNumber="9" TextAuraOp="DeactivateAura" TextAuraEffect="Bold" TextAuraFontSize="39.75" TextAuraName="U7a2_滑冰_State" TextAuraFontName="微软雅黑" ActionType="TextAura"/>
+                          <Action OrderNumber="10" UseTTSTextExpression="分摊激光" ActionType="UseTTS" ExecutionDelayExpression="1000"/>
+                          <Action OrderNumber="11" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="2. 获取冰 → 光分身 for 1" Id="a18e3d88-2c7a-4551-8868-55912f1e7032" RegularExpression="^.{15}\S+ AAA:10F:(?&lt;id&gt;.{8}):[^:]*:12809:17823:(?!100[^:]*:100)(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]*)">
@@ -941,11 +935,11 @@
                   <Folder Id="2707029d-6dd8-46e8-979d-046facd47dca" Name="杂项" Enabled="true">
                     <Folders/>
                     <Triggers>
-                      <Trigger Enabled="true" Name="分散分摊" Id="73d4ad92-9491-4191-8193-639152158b65" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:9D1(?&lt;type&gt;C|D):">
+                      <Trigger Enabled="true" Sequential="True" Name="分散分摊" Id="73d4ad92-9491-4191-8193-639152158b65" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:9D1(?&lt;type&gt;C|D):">
                         <Actions>
-                          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="tmp_is低层数" VariableExpression="${v:U7a_phase} == P2光暴 &amp;&amp; 0${d:U7a2_光暴_初始光[${_me.id}]} + 0${l:U7a2_光暴_环_pIdx.contain(${v:myIdx})} &lt;= 1" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="2" UseTTSTextExpression="${if: ${v:tmp_is低层数} ? 准备 : &quot;&quot; }${if: ${type} == C ? 两人分摊 : 全体分散 }" ActionType="UseTTS" Asynchronous="False"/>
-                          <Action OrderNumber="3" VariableName="tmp_is低层数" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="_tmp_is低层数" VariableExpression="${v:U7a_phase} == P2光暴 &amp;&amp; 0${d:U7a2_光暴_初始光[${_me.id}]} + 0${l:U7a2_光暴_环_pIdx.contain(${v:myIdx})} &lt;= 1" ActionType="Variable"/>
+                          <Action OrderNumber="2" UseTTSTextExpression="${if: ${type} == C ? 两人分摊 : 全体分散 }" ActionType="UseTTS" ExecutionDelayExpression="${v:_tmp_is低层数} ? 1900 : 0"/>
+                          <Action OrderNumber="3" VariableName="_tmp_is低层数" ActionType="Variable"/>
                         </Actions>
                       </Trigger>
                     </Triggers>
@@ -961,9 +955,11 @@
                       <Trigger Enabled="true" Name="0. 初始化 深渊狂水" Id="6bd7e448-e5c6-4101-854b-f646da78979f" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:9D4E:">
                         <Actions>
                           <Action OrderNumber="1" VariableOp="SetString" VariableName="U7a_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
+                          <Action OrderNumber="2" VariableOp="UnsetRegexUniversal" VariableName="^U7a3_二运" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="3" DictVariableOp="Build" DictVariableTarget="U7a3_二运_水" DictVariableValue="=,${l:party.join(&quot;=0,&quot;)}=0" ActionType="DictVariable" Asynchronous="False"/>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Name="3. 地火获取 for 2" Id="6a9150d3-ca2d-4b92-bf90-463b0fc3cba2" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}):.*BNpcID:1EB0FF:.*Heading:(?&lt;h&gt;[^:]*):.*PosX:(?&lt;x&gt;(99|100)[^:]+):PosY:(?&lt;y&gt;[^:]+)">
+                      <Trigger Enabled="true" Name="3. 地火获取 * 2 =&gt; 4" Id="6a9150d3-ca2d-4b92-bf90-463b0fc3cba2" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}):.*BNpcID:1EB0FF:.*Heading:(?&lt;h&gt;[^:]*):.*PosX:(?&lt;x&gt;(99|100)[^:]+):PosY:(?&lt;y&gt;[^:]+)">
                         <Actions>
                           <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="只获取指向 dir8 = 0 1 2 3 的中心实体（判断起始方向），或正南的实体（判断顺逆）" DescriptionOverride="True"/>
                           <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="U7a3_二运_is顺" VariableExpression="cos(${h}) * (${x} - 100) &gt; sin(${h}) * (${y} - 100)" ActionType="Variable" Asynchronous="False">
@@ -976,51 +972,71 @@
                               <ConditionSingle Enabled="true" ExpressionL="round(${y}) = 100" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
                           </Action>
+                          <Action OrderNumber="4" LogMessageText="_U7a3_二运_地火" LogProcess="True" ActionType="LogMessage" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${ev:U7a3_二运_dir8}${ev:U7a3_二运_is顺}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
                         </Actions>
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="round(${y}) = 100 &amp;&amp; roundir(${h}, 8) &lt; 4" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="round(${y}) &gt; 100" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Trigger>
+                      <Trigger Enabled="true" Name="输出2.1 时间轴" Id="33acd693-17d1-4fee-aaa1-a90123cd012d" RegularExpression="^U7a3_二运_地火:is顺:(?&lt;is顺&gt;[01]):dir8:(?&lt;dir8&gt;.):safeDir8:(?&lt;safeDir8&gt;.):safeDir8':(?&lt;safeDir8ST&gt;.)">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Description="3 地火日志 | 10 分摊 | 13 跳 | 23 分散 | 29 分摊 | 32 跳 | 34 击退" DescriptionOverride="True"/>
+                          <Action OrderNumber="2" UseTTSTextExpression="分散站位" ActionType="UseTTS" ExecutionDelayExpression="6800"/>
+                          <Action OrderNumber="3" SystemBeepLengthExpression="200" ExecutionDelayExpression="200"/>
+                          <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="2000"/>
+                          <Action OrderNumber="5" UseTTSTextExpression="${f:pick(${n: (${safeDir8} + (${v:myIdx_isTH} ? 0 : 4)) % 8}): 上北, 左上, 左西, 左下, 下南, 右下, 右东, 右上}分散站位，去 ${?l: 红色A点, 紫色D点, 红色壹点, 紫色四点, 黄色B点, 蓝色C点, 黄色贰点, 蓝色三点 [${v:myIdx}]}" ActionType="UseTTS">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:myIdx} % 4" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="6" UseTTSTextExpression="${f:pick(${n: (${safeDir8ST} + (${v:myIdx_isTH} ? 0 : 4)) % 8}): 上北, 左上, 左西, 左下, 下南, 右下, 右东, 右上}分散站位，去 ${?l: 红色A点, 紫色D点, 红色壹点, 紫色四点, 黄色B点, 蓝色C点, 黄色贰点, 蓝色三点 [${v:myIdx}]}" ActionType="UseTTS">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:myIdx} % 4" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="7" NamedCallbackName="command" NamedCallbackParam="/${if: ${f:contain(ia So):${_me}} ? p : e } &#13;&#10;人群：${f:pick(${safeDir8}): AC, 13, BD, 24}&#13;&#10;ST：${f:pick(${safeDir8ST}): A, 1, D, 4, C, 3, B, 2}&#13;&#10;D2：${f:pick(${safeDir8ST}): C, 3, B, 2, A, 1, D, 4}" ActionType="NamedCallback"/>
+                          <Action OrderNumber="8" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${safeDir8}, 8)&#13;&#10;scaleX: 0${is顺} ? 1 : -1&#13;&#10;A:     0, -10.25&#13;&#10;D: -7.25,  -7.25&#13;&#10;B:     0,  10.25&#13;&#10;C:  7.25,   7.25&#13;&#10;---&#13;&#10;O: 100, 100&#13;&#10;θ: dir2rad(0${safeDir8}, 8)&#13;&#10;1:  3.5, -17.5&#13;&#10;4: -3.5, -17.5&#13;&#10;2: -3.5,  17.5&#13;&#10;3:  3.5,  17.5" ActionType="NamedCallback" DescBgColor="dff"/>
+                          <Action OrderNumber="9" ActionType="Placeholder" ExecutionDelayExpression="17000"/>
+                          <Action OrderNumber="10" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff"/>
+                        </Actions>
+                      </Trigger>
                       <Trigger Enabled="true" Name="1. 水分摊点名 =&gt; 2" Id="500e30ec-d685-401e-8730-b05281ddd793" RegularExpression="^.{15}\S+ 1A:99D:(?:[^:]|: )*:(?&lt;t&gt;(10|29|38)[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
                         <Actions>
                           <Action OrderNumber="1" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="U7a3_二运_水" DictVariableKey="${tid}" DictVariableValue="round(${t} / 13)" ActionType="DictVariable" Asynchronous="False"/>
-                          <Action OrderNumber="2" LogMessageText="U7a3_二运_水" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+                          <Action OrderNumber="2" LogMessageText="_U7a3_二运_水" LogProcess="True" ActionType="LogMessage" Asynchronous="False">
                             <Condition Enabled="true" Grouping="Or">
-                              <ConditionSingle Enabled="true" ExpressionL="${d:U7a3_二运_水.size}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                              <ConditionSingle Enabled="true" ExpressionL="${d:U7a3_二运_水.sum}" ExpressionTypeL="String" ExpressionR="12" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
                           </Action>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="false" Source="None" Name="Debug Log 2024-12-02 10:41" Id="a53ae614-ff82-4ef3-81d4-3ef915f2f574">
+                      <Trigger Enabled="true" Name="2. 处理" Id="f7bff5cb-686e-4e69-83fb-856aab77fdb8" RegularExpression="^_U7a3_二运_水">
                         <Actions>
-                          <Action OrderNumber="1" LogMessageText="[05:37:48.342] StartsCasting 14:4000E295:Oracle of Darkness:9D4E:unknown_9d4e:4000E295:Oracle of Darkness:4.700:99.99:99.99:0.00:2.91" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="1.85 * 1000"/>
-                          <Action OrderNumber="3" LogMessageText="[05:37:53.907] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:10.00:E0000000::103530E3:Aoi Hyuuga:00:142389:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="4" LogMessageText="[05:37:53.907] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:10.00:E0000000::10023B68:Shaking Chloe:00:157017:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="5" LogMessageText="[05:37:53.908] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:29.00:E0000000::1029BABD:Alvitr Cattleya:00:157137:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="6" LogMessageText="[05:37:53.908] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:29.00:E0000000::102F8E76:Pye Yomo:00:225846:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="7" LogMessageText="[05:37:53.908] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::1024A6E0:Lenny Mikery:00:158110:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="8" LogMessageText="[05:37:53.908] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::1028C036:Ghost Sumikage:00:225889:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="9" ActionType="Placeholder" ExecutionDelayExpression="0.80 * 1000"/>
-                          <Action OrderNumber="10" LogMessageText="[05:37:56.277] 261 105:Add:4000E3B0:BNpcID:1EB0FF:BNpcNameID:5003:CastBuffID:6917:CastDurationCurrent:0.0000:CastDurationMax:0.0000:CastGroundTargetX:0.0000:CastGroundTargetY:0.0000:CastGroundTargetZ:0.0000:CastTargetID:5005821:CurrentMP:4587523:Heading:1.5708:IsCasting1:33:Level:241:NPCTargetID:A000000:PosX:100.0000:PosY:114.0000:Radius:0.5000:Type:7:WorldID:2560" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="11" LogMessageText="[05:37:56.277] 261 105:Add:4000E3B4:BNpcID:1EB0FF:BNpcNameID:4508:CastBuffID:21764:CastDurationCurrent:0.0000:CastDurationMax:0.0000:CastGroundTargetX:0.0000:CastGroundTargetY:0.0000:CastGroundTargetZ:0.0000:CastTargetID:900032F:CurrentMP:4325379:Heading:-1.5709:IsCasting1:40:Job:1:Level:51:MaxMP:822083584:NPCTargetID:A000000:PosX:100.0000:PosY:86.0000:Radius:0.5000:Type:7:WorldID:2560" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="12" LogMessageText="[05:37:56.277] 261 105:Add:4000E3B6:BNpcID:1EB0FF:BNpcNameID:3B07:CastBuffID:13831:CastDurationCurrent:0.0000:CastDurationMax:0.0000:CastGroundTargetX:0.0000:CastGroundTargetY:0.0000:CastGroundTargetZ:0.0000:CastTargetID:3000F8C:CurrentMP:4194307:Heading:-0.7855:IsCasting1:140:Job:3:Level:1:NPCTargetID:A000000:PCTargetID:1005E0B:PosX:100.0000:PosY:100.0000:Radius:0.5000:Type:7:WeaponId:12:WorldID:2560" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="13" LogMessageText="[05:37:56.277] 261 105:Add:4000E3B5:BNpcID:1EB0FF:BNpcNameID:1F05:CastBuffID:15111:CastDurationCurrent:0.0000:CastDurationMax:0.0000:CastGroundTargetX:0.0000:CastGroundTargetY:0.0000:CastGroundTargetZ:0.0000:CastTargetID:1800A56F:CurrentMP:4259843:Heading:2.3562:IsCasting1:111:Job:2:Level:191:NPCTargetID:A000000:PCTargetID:1800DD0C:PosX:100.0000:PosY:100.0000:Radius:0.5000:Type:7:WeaponId:11:WorldID:2560" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="1" ListVariableOp="Build" ListVariableExpression=",${l:party.join(&quot;,&quot;, &quot;3,4,1,2,5,6,7,8&quot;)}" ListVariableTarget="U7a3_二运_水" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="l:U7a3_二运_水：八人 id    无高 无低 短高 短低 中高 中低 长高 长低" DescriptionOverride="True"/>
+                          <Action OrderNumber="3" ListVariableOp="SortByKeys" ListVariableName="U7a3_二运_水" ListVariableExpression="n+: ${d:U7a3_二运_水[${_this}]}" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="4" UseTTSTextExpression="${if: ${l:U7a3_二运_水.indexof(${_me.id})} % 2 = 1 ? 一组左侧分摊 : 二组右侧分摊 }" ActionType="UseTTS" Asynchronous="False"/>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Name="2. 处理 + 时间轴" Id="33acd693-17d1-4fee-aaa1-a90123cd012d" RegularExpression="^U7a3_二运_水">
+                      <Trigger Enabled="true" Name="4. 处理地火" Id="1dda04a4-c6aa-4e35-ad9e-357a7e11303f" RegularExpression="^_U7a3_二运_地火">
                         <Actions>
-                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="10 分摊 | 13 跳 | 23 分散 | 29 分摊 | 32 跳 | 34 击退" DescriptionOverride="True"/>
-                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="13000" Asynchronous="False"/>
-                          <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="U7a3_二运_safeDir8" VariableExpression="(${v:U7a3_二运_dir8} + (${v:U7a3_二运_is顺} ? 1 : -1)) %% 4" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="4" UseTTSTextExpression="${?d: 0 = 上下, 1 = 左上右下, 2 = 左右, 3 = 右上左下 [${v:U7a3_二运_safeDir8}]}分散站位" ActionType="UseTTS" Asynchronous="False"/>
-                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a3_二运_safeDir8}, 8)&#13;&#10;scaleX: 0${v:U7a3_二运_is顺} ? 1 : -1&#13;&#10;A:    0, -9.9&#13;&#10;D: -7.0, -7.0&#13;&#10;1:  3.5, -17.5&#13;&#10;4: -3.5, -17.5&#13;&#10;B:    0,  9.9&#13;&#10;C:  7.0,  7.0&#13;&#10;2: -3.5,  17.5&#13;&#10;3:  3.5,  17.5" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
-                          <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="10000" Asynchronous="False"/>
-                          <Action OrderNumber="7" UseTTSTextExpression="场中分摊" ActionType="UseTTS" Asynchronous="False"/>
-                          <Action OrderNumber="8" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;O: 100, 100&#13;&#10;R: 3.75&#13;&#10;Waymarks: A1D4C3B2" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
-                          <Action OrderNumber="9" ActionType="Placeholder" ExecutionDelayExpression="5000" Asynchronous="False"/>
-                          <Action OrderNumber="10" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
+                          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="tmp_safeDir8" VariableExpression="(${v:U7a3_二运_dir8} + (${v:U7a3_二运_is顺} ? 1 : -1)) %% 4" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="tmp_safeDir8'" VariableExpression="(${v:tmp_safeDir8} + (${v:U7a3_二运_is顺} ? 1 : -1)) %% 8" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="3" LogMessageText="U7a3_二运_地火:is顺:${v:U7a3_二运_is顺}:dir8:${v:U7a3_二运_dir8}:safeDir8:${v:tmp_safeDir8}:safeDir8':${v:tmp_safeDir8'}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False"/>
+                          <Action OrderNumber="4" VariableName="tmp_safeDir8" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="5" VariableName="tmp_safeDir8'" ActionType="Variable" Asynchronous="False"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="输出2.2 时间轴（地火回中）" Id="ed20c112-8dcd-4807-bbb2-9bf74ee7c10b" RegularExpression="^U7a3_二运_地火:is顺:(?&lt;is顺&gt;[01]):dir8:(?&lt;dir8&gt;.):safeDir8:(?&lt;safeDir8&gt;.):safeDir8':(?&lt;safeDir8ST&gt;.)">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="${v:myIdx} % 4 = 2 ? 19500 : 20000"/>
+                          <Action OrderNumber="2" UseTTSTextExpression="场中分摊" ActionType="UseTTS"/>
+                          <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;O: 100, 100&#13;&#10;R: 3.75&#13;&#10;Waymarks: A1D4C3B2" ActionType="NamedCallback" DescBgColor="dff"/>
                         </Actions>
                       </Trigger>
                     </Triggers>
@@ -1028,70 +1044,54 @@
                   <Folder Id="b1a0658c-d119-4cfc-89ef-b4fb4c1d2686" Name="A. 一运" Enabled="true" RawEnvironmentVariables="phase = P3一运">
                     <Folders/>
                     <Triggers>
-                      <Trigger Enabled="true" Name="0. 初始化 时间压缩" Id="183f49c3-1fe0-4281-809a-759599a9d537" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:9D4A:">
+                      <Trigger Enabled="true" Name="0. 初始化 时间压缩" Id="183f49c3-1fe0-4281-809a-759599a9d537" RegularExpression="^.{15}\S+ 14:(?&lt;id&gt;4.{7}):[^:]+:9D4A:">
                         <Actions>
                           <Action OrderNumber="1" VariableOp="SetString" VariableName="U7a_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
                           <Action OrderNumber="2" VariableOp="UnsetRegexUniversal" VariableName="^U7a3_一运" ActionType="Variable"/>
                           <Action OrderNumber="3" UseTTSTextExpression="AoE，时间压缩" ActionType="UseTTS"/>
-                          <Action OrderNumber="4" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[${id}].address}, 0.3" ActionType="NamedCallback" Asynchronous="False"/>
+                          <Action OrderNumber="4" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[${id}].address}, 0.6" ActionType="NamedCallback" DescTextColor="26f"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="1. 获取冰火 * 8 =&gt; 输出1" Id="368db7b8-81b7-4c29-bfbc-fd71c6a5b32a" RegularExpression="^.{15}\S+ 1A:99(?&lt;type&gt;7|E):([^:]|: )+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
                         <Actions>
-                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="TH   0 短　   1 冰　   2 中　   3 长高   4 长低" DescriptionOverride="True"/>
-                          <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="D    5 短低   6 短高   7 中　   8 长　   9 冰　" DescriptionOverride="True"/>
-                          <Action OrderNumber="3" ListVariableOp="Set" ListVariableName="U7a3_一运_全队点名" ListVariableExpression="${?d:&#13;&#10;  11 7 0 = 0,&#13;&#10;  21 E 0 = 1,&#13;&#10;  21 7 0 = 2,&#13;&#10;  31 7 0 = 3,&#13;&#10;  11 7 1 = 5,&#13;&#10;  21 7 1 = 7,&#13;&#10;  31 7 1 = 8,&#13;&#10;  21 E 1 = 9&#13;&#10;  [${n:round(${t})} ${type} ${n: ${l:party.indexof(${tid})} &gt; 4}]&#13;&#10;}" ListVariableIndex="${l:party.indexof(${tid})}" ActionType="ListVariable" Asynchronous="False"/>
-                          <Action OrderNumber="4" VariableOp="SetNumeric" VariableName="U7a3_一运_冰isD" VariableExpression="${l:party.indexof(${tid})} &gt; 4" ActionType="Variable" Asynchronous="False">
+                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="phase" DescriptionOverride="True">
+                            <Condition Enabled="true" Grouping="Or"/>
+                          </Action>
+                          <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="TH   0 短　   1 冰　   2 中　   3 长高   4 长低" DescriptionOverride="True"/>
+                          <Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="D    5 短低   6 短高   7 中　   8 长　   9 冰　" DescriptionOverride="True"/>
+                          <Action OrderNumber="4" ListVariableOp="Set" ListVariableName="U7a3_一运_全队点名" ListVariableExpression="${?d:&#13;&#10;  11 7 0 = 0,&#13;&#10;  21 E 0 = 1,&#13;&#10;  21 7 0 = 2,&#13;&#10;  31 7 0 = 3,&#13;&#10;  11 7 1 = 5,&#13;&#10;  21 7 1 = 7,&#13;&#10;  31 7 1 = 8,&#13;&#10;  21 E 1 = 9&#13;&#10;  [${n:round(${t})} ${type} ${n: ${l:party.indexof(${tid})} &gt; 4}]&#13;&#10;}" ListVariableIndex="${l:party.indexof(${tid})}" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="5" VariableOp="SetNumeric" VariableName="U7a3_一运_冰isD" VariableExpression="${l:party.indexof(${tid})} &gt; 4" ActionType="Variable" Asynchronous="False">
                             <Condition Enabled="true" Grouping="Or">
                               <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="E" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="5" ActionType="Placeholder" Asynchronous="False" Description="赋予优先级并输出" DescriptionOverride="True"/>
-                          <Action OrderNumber="6" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="U7a3_一运_全队点名" ListVariableExpression="(${_this} = 3 || ${_this} = 5) &#13;&#10;&amp;&amp; ${_idx} != ${l:U7a3_一运_全队点名.indexof(${_this})} &#13;&#10;? (${_this} + 1) &#13;&#10;: ${_this}" ActionType="ListVariable" Asynchronous="False">
+                          <Action OrderNumber="6" ActionType="Placeholder" Asynchronous="False" Description="赋予优先级并输出" DescriptionOverride="True"/>
+                          <Action OrderNumber="7" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="U7a3_一运_全队点名" ListVariableExpression="(${_this} = 3 || ${_this} = 5) &#13;&#10;&amp;&amp; ${_idx} != ${l:U7a3_一运_全队点名.indexof(${_this})} &#13;&#10;? (${_this} + 1) &#13;&#10;: ${_this}" ActionType="ListVariable" Asynchronous="False">
                             <Condition Enabled="true" Grouping="And">
                               <ConditionSingle Enabled="true" ExpressionL="${l:U7a3_一运_全队点名.size}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                               <ConditionSingle Enabled="true" ExpressionL="${l:U7a3_一运_全队点名.indexof(&quot;&quot;)}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="7" ListVariableOp="Build" ListVariableExpression=",${f:pick(${l:U7a3_一运_全队点名[${v:myIdx}]}): &#13;&#10;  &quot;散,记录外,摊,引导,摊,对侧&quot;,&#13;&#10;  &quot;摊,记录外,摊,引导,摊,对侧&quot;,&#13;&#10;  &quot;摊,记录外,散,挂机,摊,引导&quot;,&#13;&#10;  &quot;摊,引导,摊,记录内,散,对侧&quot;,&#13;&#10;  &quot;摊,引导,摊,记录内,散,对侧&quot;,&#13;&#10;  &#13;&#10;  &quot;散,记录外,摊,引导,摊,对侧&quot;,&#13;&#10;  &quot;散,记录外,摊,引导,摊,对侧&quot;,&#13;&#10;  &quot;摊,记录内,散,挂机,摊,引导&quot;,&#13;&#10;  &quot;摊,引导,摊,记录内,散,对侧&quot;,&#13;&#10;  &quot;摊,引导,摊,记录内,摊,对侧&quot;,&#13;&#10;}" ListVariableTarget="U7a3_一运_自身路线" ActionType="ListVariable" Asynchronous="False">
+                          <Action OrderNumber="8" ListVariableOp="Build" ListVariableExpression=",${f:pick(${l:U7a3_一运_全队点名[${v:myIdx}]}): &#13;&#10;  &quot;散,记录外,摊,引导,摊,对侧&quot;,&#13;&#10;  &quot;摊,记录外,摊,引导,摊,对侧&quot;,&#13;&#10;  &quot;摊,记录外,散,挂机,摊,引导&quot;,&#13;&#10;  &quot;摊,引导,摊,记录内,散,对侧&quot;,&#13;&#10;  &quot;摊,引导,摊,记录内,散,对侧&quot;,&#13;&#10;  &#13;&#10;  &quot;散,记录外,摊,引导,摊,对侧&quot;,&#13;&#10;  &quot;散,记录外,摊,引导,摊,对侧&quot;,&#13;&#10;  &quot;摊,记录内,散,挂机,摊,引导&quot;,&#13;&#10;  &quot;摊,引导,摊,记录内,散,对侧&quot;,&#13;&#10;  &quot;摊,引导,摊,记录内,摊,对侧&quot;,&#13;&#10;}" ListVariableTarget="U7a3_一运_自身路线" ActionType="ListVariable" Asynchronous="False">
                             <Condition Enabled="true" Grouping="And">
                               <ConditionSingle Enabled="true" ExpressionL="${l:U7a3_一运_全队点名.size}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                               <ConditionSingle Enabled="true" ExpressionL="${l:U7a3_一运_全队点名.indexof(&quot;&quot;)}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="8" LogMessageText="U7a3_一运:my点名:${l:U7a3_一运_全队点名[${v:myIdx}]}:点名:${l:U7a3_一运_全队点名.join(&quot;&quot;)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+                          <Action OrderNumber="9" LogMessageText="U7a3_一运:my点名:${l:U7a3_一运_全队点名[${v:myIdx}]}:点名:${l:U7a3_一运_全队点名.join(&quot;&quot;)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
                             <Condition Enabled="true" Grouping="And">
                               <ConditionSingle Enabled="true" ExpressionL="${l:U7a3_一运_全队点名.size}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                               <ConditionSingle Enabled="true" ExpressionL="${l:U7a3_一运_全队点名.indexof(&quot;&quot;)}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
                           </Action>
                         </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:U7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
                       </Trigger>
                       <Trigger Enabled="true" Name="2. 获取沙漏 for 3" Id="6e2a0da7-7ab8-43b0-8c5a-391c4444d89f" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}17832:([^:]*:){9}(?&lt;h&gt;[^:]+)">
                         <Actions>
                           <Action OrderNumber="1" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="U7a3_一运_沙漏dir8" DictVariableKey="${id}" DictVariableValue="roundir(${h} + π, 8)" ActionType="DictVariable"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="3. 获取加速连线 * 3 =&gt; 输出2" Id="6a8756cc-a0ef-4665-b004-e035851d2e39" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;4.{7}):[^:]*:4.{7}:[^:]*:[^:]*:[^:]*:0086:">
-                        <Actions>
-                          <Action OrderNumber="1" VariableOp="Increment" VariableName="U7a3_一运_短沙漏_Σx" VariableExpression="sin(dir2rad(${d:U7a3_一运_沙漏dir8[${sid}]}, 8))" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="2" VariableOp="Increment" VariableName="U7a3_一运_短沙漏_Σy" VariableExpression="cos(dir2rad(${d:U7a3_一运_沙漏dir8[${sid}]}, 8))" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="3" VariableOp="Increment" VariableName="U7a3_一运_短沙漏_n" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="4" VariableOp="SetNumeric" VariableName="U7a3_一运_dir8" VariableExpression="roundvec(-${v:U7a3_一运_短沙漏_Σx}, -${v:U7a3_一运_短沙漏_Σy}, 8)" ActionType="Variable" Asynchronous="False">
-                            <Condition Enabled="true" Grouping="Or">
-                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a3_一运_短沙漏_n}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                            </Condition>
-                          </Action>
-                          <Action OrderNumber="5" VariableOp="SetNumeric" VariableName="U7a3_一运_myDir8" VariableExpression="(${v:U7a3_一运_dir8} + ${?l: 4,4,2,3,5, 1,7,6,0,0 [${n: ${l:U7a3_一运_全队点名[${v:myIdx}]} + 1}]}) % 8" ActionType="Variable" Asynchronous="False">
-                            <Condition Enabled="true" Grouping="Or">
-                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a3_一运_短沙漏_n}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                            </Condition>
-                          </Action>
-                          <Action OrderNumber="6" LogMessageText="U7a3_一运:dir8:${v:U7a3_一运_dir8}:myDir8:${v:U7a3_一运_myDir8}:my点名:${l:U7a3_一运_全队点名[${v:myIdx}]}:冰isD:${v:U7a3_一运_冰isD}:点名:${l:U7a3_一运_全队点名.join(&quot;&quot;)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
-                            <Condition Enabled="true" Grouping="Or">
-                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a3_一运_短沙漏_n}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                            </Condition>
-                          </Action>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="输出1. 初始播报" Id="fc4cd11b-4252-4888-bd18-e56194a19a6f" RegularExpression="^U7a3_一运:my点名:(?&lt;my点名&gt;[0-9])">
@@ -1108,6 +1108,43 @@
                             </Condition>
                           </Action>
                           <Action OrderNumber="4" UseTTSTextExpression="准备去${f:pick(0${my点名}): &#13;&#10;  &quot;正下，场外分散&quot;,&#13;&#10;  &quot;正下，场中分摊&quot;,&#13;&#10;  &quot;正左，场中分摊&quot;,&#13;&#10;  &quot;左下，场中分摊&quot;,&#13;&#10;  &quot;右下，场中分摊&quot;,&#13;&#10;  &#13;&#10;  &quot;左上，场外分散&quot;,&#13;&#10;  &quot;右上，场外分散&quot;,&#13;&#10;  &quot;正右，场中分摊&quot;,&#13;&#10;  &quot;正上，场中分摊&quot;,&#13;&#10;  &quot;正上，场中分摊&quot;,&#13;&#10;}" ActionType="UseTTS"/>
+                          <Action OrderNumber="5" UseTTSTextExpression="${f:pick(0${my点名}): &#13;&#10;  &quot;场外分散&quot;,&#13;&#10;  &quot;场中分摊&quot;,&#13;&#10;  &quot;场中分摊&quot;,&#13;&#10;  &quot;场中分摊&quot;,&#13;&#10;  &quot;场中分摊&quot;,&#13;&#10;  &#13;&#10;  &quot;场外分散&quot;,&#13;&#10;  &quot;场外分散&quot;,&#13;&#10;  &quot;场中分摊&quot;,&#13;&#10;  &quot;场中分摊&quot;,&#13;&#10;  &quot;场中分摊&quot;,&#13;&#10;}" ActionType="UseTTS" ExecutionDelayExpression="6000"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="输出2.1 时间轴" Id="2f6c6299-a9e6-4122-8ec5-6a8c49d3d2f5" RegularExpression="^U7a3_一运:dir8:(?&lt;dir8&gt;[0-7]):myDir8:(?&lt;myDir8&gt;[0-7]):my点名:(?&lt;my点名&gt;[0-9]):">
+                        <Actions>
+                          <Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;1: 0, -4.0, -1&#13;&#10;2: 0, -6.0, -1&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
+                          <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;A: 0, -${?d: 散 = 13, 摊 = 1 [${l:U7a3_一运_自身路线[1]}]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
+                          <Action OrderNumber="3" UseTTSTextExpression="${?d: 记录外 = 沙漏下方记录, 记录内 = 中心偏外记录, 引导 = 引导激光 [${l:U7a3_一运_自身路线[2]}]}" ActionType="UseTTS" ExecutionDelayExpression="7500" Asynchronous="False"/>
+                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;A: 0, -${?d: 记录外 = 8.5, 记录内 = 1 [${l:U7a3_一运_自身路线[2]}]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a3_一运_自身路线[2]}" ExpressionTypeL="String" ExpressionR="引导" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="5" UseTTSTextExpression="${?d: 散 = 场外分散, 摊 = 中心分摊 [${l:U7a3_一运_自身路线[3]}]}" ActionType="UseTTS" ExecutionDelayExpression="5000" Asynchronous="False"/>
+                          <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;A: 0, -${?d: 散 = 13, 摊 = 1 [${l:U7a3_一运_自身路线[3]}]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
+                          <Action OrderNumber="7" UseTTSTextExpression="${?d: 挂机 = 中心挂机, 记录内 = 中心偏外记录, 引导 = 引导激光 [${l:U7a3_一运_自身路线[4]}]}" ActionType="UseTTS" ExecutionDelayExpression="5000" Asynchronous="False"/>
+                          <Action OrderNumber="8" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;A: 0, -${?d: 挂机 = 1, 记录内 = 1 [${l:U7a3_一运_自身路线[4]}]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a3_一运_自身路线[4]}" ExpressionTypeL="String" ExpressionR="引导" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="9" UseTTSTextExpression="${?d: 散 = 场外分散, 摊 = 中心分摊 [${l:U7a3_一运_自身路线[5]}]}" ActionType="UseTTS" ExecutionDelayExpression="5000" Asynchronous="False"/>
+                          <Action OrderNumber="10" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;A: 0, -${?d: 散 = 13, 摊 = 1 [${l:U7a3_一运_自身路线[5]}]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
+                          <Action OrderNumber="11" UseTTSTextExpression="${?d: 对侧 = 去对侧输出, 引导 = 引导激光 [${l:U7a3_一运_自身路线[6]}]}" ActionType="UseTTS" ExecutionDelayExpression="5000" Asynchronous="False"/>
+                          <Action OrderNumber="12" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;A: 0, 1&#13;&#10;B: 0, 3&#13;&#10;C: 0, 5&#13;&#10;D: 0, 7" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a3_一运_自身路线[6]}" ExpressionTypeL="String" ExpressionR="引导" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="13" UseTTSTextExpression="${?d: 对侧 = 注意面向, 引导 = 原地背对 [${l:U7a3_一运_自身路线[6]}]}" ActionType="UseTTS" ExecutionDelayExpression="5000" Asynchronous="False"/>
+                          <Action OrderNumber="14" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="4000" Asynchronous="False" DescBgColor="dff"/>
+                          <Action OrderNumber="15" UseTTSTextExpression="中心分摊" ActionType="UseTTS" ExecutionDelayExpression="3000" Asynchronous="False"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="4. 沙漏旋转 =&gt; 输出3" Id="9c25c4ad-38da-46fd-b09c-7c13c6f52911" RegularExpression="^.{15}\S+ 1A:B9A:[^:]*:[^:]*:.{8}:[^:]*:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;type&gt;15C|10D)(:|$)">
+                        <Actions>
+                          <Action OrderNumber="1" LogMessageText="U7a3_一运_沙漏:${id}:is顺:${n: ${type} == 15C}:dir8:${d:U7a3_一运_沙漏dir8[${id}]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="输出2.2 文字播报" Id="d3c1590d-6721-4a0e-a7b5-6045c0b211e4" RegularExpression="^U7a3_一运:dir8:(?&lt;dir8&gt;[0-7]):myDir8:(?&lt;myDir8&gt;[0-7]):my点名:(?&lt;my点名&gt;[0-9]):冰isD:(?&lt;冰isD&gt;[01]):点名:(?&lt;p1&gt;\d)(?&lt;p2&gt;\d)(?&lt;p3&gt;\d)(?&lt;p4&gt;\d)(?&lt;p5&gt;\d)(?&lt;p6&gt;\d)(?&lt;p7&gt;\d)(?&lt;p8&gt;\d)">
@@ -1125,100 +1162,457 @@
                               <ConditionSingle Enabled="true" ExpressionL="${f:contain(&quot; &quot;):${_me}}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="6" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;　　　 　　 　　 　 ｜　　　  　  ${d:tmp_各方向的人[0]}&#13;&#10;ＭＴ 》 ${l:tmp_每人点名描述[1]} ｜　　　　　  ${l:tmp_正北逆标点[1]}&#13;&#10;ＳＴ 》 ${l:tmp_每人点名描述[2]} ｜　 ${d:tmp_各方向的人[1]} ${l:tmp_正北逆标点[2]}　 ┃ 　${l:tmp_正北逆标点[8]} ${d:tmp_各方向的人[7]}&#13;&#10;Ｈ１ 》 ${l:tmp_每人点名描述[3]} ｜　　　　　  ┃&#13;&#10;Ｈ２ 》 ${l:tmp_每人点名描述[4]} ｜${d:tmp_各方向的人[2]} ${l:tmp_正北逆标点[3]} ━━ ○ ━━ ${l:tmp_正北逆标点[7]} ${d:tmp_各方向的人[6]}&#13;&#10;Ｄ１ 》 ${l:tmp_每人点名描述[5]} ｜　　　　 ／　  ＼&#13;&#10;Ｄ２ 》 ${l:tmp_每人点名描述[6]} ｜　 ${d:tmp_各方向的人[3]} ${l:tmp_正北逆标点[4]}　 　 　${l:tmp_正北逆标点[6]} ${d:tmp_各方向的人[5]}&#13;&#10;Ｄ３ 》 ${l:tmp_每人点名描述[7]} ｜　　　　　  ${l:tmp_正北逆标点[5]}&#13;&#10;Ｄ４ 》 ${l:tmp_每人点名描述[8]} ｜　　　  　  ${d:tmp_各方向的人[4]}" ActionType="NamedCallback" Asynchronous="False"/>
+                          <Action OrderNumber="6" NamedCallbackName="command" NamedCallbackParam="/${if: ${f:contain(ia So):${_me}} ? p : e } &#13;&#10;　　　 　　 　　 　 ｜　　　  　  ${d:tmp_各方向的人[0]}&#13;&#10;ＭＴ 》 ${l:tmp_每人点名描述[1]} ｜　　　　　  ${l:tmp_正北逆标点[1]}&#13;&#10;ＳＴ 》 ${l:tmp_每人点名描述[2]} ｜　 ${d:tmp_各方向的人[1]} ${l:tmp_正北逆标点[2]}　 ┃ 　${l:tmp_正北逆标点[8]} ${d:tmp_各方向的人[7]}&#13;&#10;Ｈ１ 》 ${l:tmp_每人点名描述[3]} ｜　　　　　  ┃&#13;&#10;Ｈ２ 》 ${l:tmp_每人点名描述[4]} ｜${d:tmp_各方向的人[2]} ${l:tmp_正北逆标点[3]} ━━ ○ ━━ ${l:tmp_正北逆标点[7]} ${d:tmp_各方向的人[6]}&#13;&#10;Ｄ１ 》 ${l:tmp_每人点名描述[5]} ｜　　　　 ／　  ＼&#13;&#10;Ｄ２ 》 ${l:tmp_每人点名描述[6]} ｜　 ${d:tmp_各方向的人[3]} ${l:tmp_正北逆标点[4]}　 　 　${l:tmp_正北逆标点[6]} ${d:tmp_各方向的人[5]}&#13;&#10;Ｄ３ 》 ${l:tmp_每人点名描述[7]} ｜　　　　　  ${l:tmp_正北逆标点[5]}&#13;&#10;Ｄ４ 》 ${l:tmp_每人点名描述[8]} ｜　　　  　  ${d:tmp_各方向的人[4]}" ActionType="NamedCallback" Asynchronous="False"/>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Name="输出2.1 时间轴" Id="2f6c6299-a9e6-4122-8ec5-6a8c49d3d2f5" RegularExpression="^U7a3_一运:dir8:(?&lt;dir8&gt;[0-7]):myDir8:(?&lt;myDir8&gt;[0-7]):my点名:(?&lt;my点名&gt;[0-9]):">
+                      <Trigger Enabled="true" Name="3. 获取加速连线 * 3 =&gt; 输出2" Id="6a8756cc-a0ef-4665-b004-e035851d2e39" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;4.{7}):[^:]*:4.{7}:[^:]*:[^:]*:[^:]*:0086:">
                         <Actions>
-                          <Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: 100, 100 polar 9.5, dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;Waymarks: 1234&#13;&#10;Start: 0, 0, 5&#13;&#10;End: 0, 0, 12" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
-                          <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;A: 0, -${?d: 散 = 13, 摊 = 1 [${l:U7a3_一运_自身路线[1]}]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
-                          <Action OrderNumber="3" UseTTSTextExpression="${?d: 记录外 = 沙漏下方记录, 记录内 = 中心偏外记录, 引导 = 引导激光 [${l:U7a3_一运_自身路线[2]}]}" ActionType="UseTTS" ExecutionDelayExpression="7500" Asynchronous="False"/>
-                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;A: 0, -${?d: 记录外 = 9, 记录内 = 1 [${l:U7a3_一运_自身路线[2]}]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff">
+                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="phase" DescriptionOverride="True">
+                            <Condition Enabled="true" Grouping="Or"/>
+                          </Action>
+                          <Action OrderNumber="2" VariableOp="Increment" VariableName="U7a3_一运_短沙漏_Σx" VariableExpression="sin(dir2rad(${d:U7a3_一运_沙漏dir8[${sid}]}, 8))" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="3" VariableOp="Increment" VariableName="U7a3_一运_短沙漏_Σy" VariableExpression="cos(dir2rad(${d:U7a3_一运_沙漏dir8[${sid}]}, 8))" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="4" VariableOp="Increment" VariableName="U7a3_一运_短沙漏_n" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="5" VariableOp="SetNumeric" VariableName="U7a3_一运_dir8" VariableExpression="roundvec(-${v:U7a3_一运_短沙漏_Σx}, -${v:U7a3_一运_短沙漏_Σy}, 8)" ActionType="Variable" Asynchronous="False">
                             <Condition Enabled="true" Grouping="Or">
-                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a3_一运_自身路线[2]}" ExpressionTypeL="String" ExpressionR="引导" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a3_一运_短沙漏_n}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="5" UseTTSTextExpression="${?d: 散 = 场外分散, 摊 = 中心分摊 [${l:U7a3_一运_自身路线[3]}]}" ActionType="UseTTS" ExecutionDelayExpression="5000" Asynchronous="False"/>
-                          <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;A: 0, -${?d: 散 = 13, 摊 = 1 [${l:U7a3_一运_自身路线[3]}]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
-                          <Action OrderNumber="7" UseTTSTextExpression="${?d: 挂机 = 中心挂机, 记录内 = 中心偏外记录, 引导 = 引导激光 [${l:U7a3_一运_自身路线[4]}]}" ActionType="UseTTS" ExecutionDelayExpression="5000" Asynchronous="False"/>
-                          <Action OrderNumber="8" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;A: 0, -${?d: 挂机 = 1, 记录内 = 1 [${l:U7a3_一运_自身路线[4]}]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff">
+                          <Action OrderNumber="6" VariableOp="SetNumeric" VariableName="U7a3_一运_myDir8" VariableExpression="(${v:U7a3_一运_dir8} + ${?l: 4,4,2,3,5, 1,7,6,0,0 [${n: ${l:U7a3_一运_全队点名[${v:myIdx}]} + 1}]}) % 8" ActionType="Variable" Asynchronous="False">
                             <Condition Enabled="true" Grouping="Or">
-                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a3_一运_自身路线[4]}" ExpressionTypeL="String" ExpressionR="引导" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a3_一运_短沙漏_n}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="9" UseTTSTextExpression="${?d: 散 = 场外分散, 摊 = 中心分摊 [${l:U7a3_一运_自身路线[5]}]}" ActionType="UseTTS" ExecutionDelayExpression="5000" Asynchronous="False"/>
-                          <Action OrderNumber="10" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;A: 0, -${?d: 散 = 13, 摊 = 1 [${l:U7a3_一运_自身路线[3]}]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
-                          <Action OrderNumber="11" UseTTSTextExpression="${?d: 对侧 = 去对侧输出, 引导 = 引导激光 [${l:U7a3_一运_自身路线[6]}]}" ActionType="UseTTS" ExecutionDelayExpression="5000" Asynchronous="False"/>
-                          <Action OrderNumber="12" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;A: 0, 1&#13;&#10;B: 0, 3&#13;&#10;C: 0, 5&#13;&#10;D: 0, 7" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff">
+                          <Action OrderNumber="7" LogMessageText="U7a3_一运:dir8:${v:U7a3_一运_dir8}:myDir8:${v:U7a3_一运_myDir8}:my点名:${l:U7a3_一运_全队点名[${v:myIdx}]}:冰isD:${v:U7a3_一运_冰isD}:点名:${l:U7a3_一运_全队点名.join(&quot;&quot;)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
                             <Condition Enabled="true" Grouping="Or">
-                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a3_一运_自身路线[6]}" ExpressionTypeL="String" ExpressionR="引导" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a3_一运_短沙漏_n}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="13" UseTTSTextExpression="注意面向" ActionType="UseTTS" ExecutionDelayExpression="5000" Asynchronous="False"/>
-                          <Action OrderNumber="14" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="4000" Asynchronous="False" DescBgColor="dff"/>
                         </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="4. 沙漏旋转 =&gt; 输出3" Id="9c25c4ad-38da-46fd-b09c-7c13c6f52911" RegularExpression="^.{15}\S+ 1A:B9A:[^:]*:[^:]*:.{8}:[^:]*:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;type&gt;15C|10D)(:|$)">
-                        <Actions>
-                          <Action OrderNumber="1" LogMessageText="U7a3_一运_沙漏:${id}:is顺:${n: ${type} == 15C}:dir8:${d:U7a3_一运_沙漏dir8[${id}]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:U7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
                       </Trigger>
                       <Trigger Enabled="true" Name="输出3 沙漏方向标记" Id="6412c88f-a5d6-4c42-b278-f79f87ae293d" RegularExpression="^U7a3_一运_沙漏:(?&lt;id&gt;.{8}):is顺:(?&lt;is顺&gt;[01]):dir8:(?&lt;dir8&gt;[0-7])">
                         <Actions>
-                          <Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: 100, 100 polar 9.5, dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8) + (0${is顺} ? π/3 : π/3)&#13;&#10;Waymarks: ABCD&#13;&#10;Start: 0, 0&#13;&#10;End: 0, -8" ActionType="NamedCallback" DescBgColor="dff">
+                          <Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: 100, 100 polar 9.5, dir2rad(${v:U7a3_一运_myDir8}, 8)&#13;&#10;θ: dir2rad(${v:U7a3_一运_myDir8}, 8) + (0${is顺} ? 80° : -80°)&#13;&#10;Waymarks: ABCD&#13;&#10;Start: 0,  0&#13;&#10;End:   0, -6" ActionType="NamedCallback" DescBgColor="dff">
                             <Condition Enabled="true" Grouping="Or">
                               <ConditionSingle Enabled="true" ExpressionL="${dir8}" ExpressionTypeL="String" ExpressionR="${v:U7a3_一运_myDir8}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
                           </Action>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="false" Source="None" Name="Debug Log 2024-12-09 11:44" Id="f757f848-7049-4abc-b3fb-97e9cffbe480">
+                      <Trigger Enabled="true" Sequential="True" Name="取消延迟咏唱特效 （没用?" Id="b1bd4972-010d-43d8-8de9-02c24bc1c751" RegularExpression="^.{15}\S+ 1A:(?&lt;statusId&gt;99B):[^:]*:[^:]*:.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
                         <Actions>
-                          <Action OrderNumber="1" LogMessageText="[22:31:10.969] StartsCasting 14:4000841A:Oracle of Darkness:9D4A:Ultimate Relativity:4000841A:Oracle of Darkness:9.700:99.99:99.99:0.00:3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="0.81 * 1000"/>
-                          <Action OrderNumber="3" LogMessageText="[22:31:11.781] StatusAdd 1A:99E:Spell-in-Waiting: Dark Blizzard III:21.00:E0000000::10955384:Pepper Shark:00:142389:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="4" LogMessageText="[22:31:11.781] StatusAdd 1A:997:Spell-in-Waiting: Dark Fire III:11.00:E0000000::108DF818:Reno Shio:00:156987:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="5" LogMessageText="[22:31:11.781] StatusAdd 1A:997:Spell-in-Waiting: Dark Fire III:11.00:E0000000::106C2E8F:Sui Zhu:00:157227:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="6" LogMessageText="[22:31:11.781] StatusAdd 1A:997:Spell-in-Waiting: Dark Fire III:21.00:E0000000::108AB8C3:Aak Silver:00:158140:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="7" LogMessageText="[22:31:11.781] StatusAdd 1A:997:Spell-in-Waiting: Dark Fire III:21.00:E0000000::${_me.id}:${_me}:00:225932:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="8" LogMessageText="[22:31:11.781] StatusAdd 1A:997:Spell-in-Waiting: Dark Fire III:31.00:E0000000::106B9066:Jimothy Wuxiang:00:226089:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="9" LogMessageText="[22:31:11.781] StatusAdd 1A:997:Spell-in-Waiting: Dark Fire III:31.00:E0000000::108B1B84:Erato Asternomos:00:142359:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="10" LogMessageText="[22:31:11.781] StatusAdd 1A:997:Spell-in-Waiting: Dark Fire III:31.00:E0000000::1078AB54:Coca- Cola-:00:142328:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="11" LogMessageText="[22:31:11.752] AddCombatant 03:4000843A:Delight's Hourglass:00:64:0000:00::9825:17832:188300:188300:10000:10000:::90.50:100.00:0.00:1.57" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="12" LogMessageText="[22:31:11.752] AddCombatant 03:4000843B:Delight's Hourglass:00:64:0000:00::9825:17832:188300:188300:10000:10000:::93.28:106.72:0.00:2.36" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="13" LogMessageText="[22:31:11.752] AddCombatant 03:40008439:Delight's Hourglass:00:64:0000:00::9825:17832:188300:188300:10000:10000:::93.28:93.28:0.00:0.79" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="14" LogMessageText="[22:31:11.752] AddCombatant 03:4000843D:Delight's Hourglass:00:64:0000:00::9825:17832:188300:188300:10000:10000:::106.72:106.72:0.00:-2.36" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="15" LogMessageText="[22:31:11.752] AddCombatant 03:4000843E:Delight's Hourglass:00:64:0000:00::9825:17832:188300:188300:10000:10000:::109.50:100.00:0.00:-1.57" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="16" LogMessageText="[22:31:11.752] AddCombatant 03:4000843C:Delight's Hourglass:00:64:0000:00::9825:17832:188300:188300:10000:10000:::100.00:109.50:0.00:-3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="17" LogMessageText="[22:31:11.752] AddCombatant 03:40008440:Delight's Hourglass:00:64:0000:00::9825:17832:188300:188300:10000:10000:::100.00:90.50:0.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="18" LogMessageText="[22:31:11.752] AddCombatant 03:4000843F:Delight's Hourglass:00:64:0000:00::9825:17832:188300:188300:10000:10000:::106.72:93.28:0.00:-0.79" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="19" ActionType="Placeholder" ExecutionDelayExpression="3.22 * 1000"/>
-                          <Action OrderNumber="20" LogMessageText="[22:31:14.996] Tether 23:4000843F:Delight's Hourglass:4000841A:Oracle of Darkness:0000:0000:0086:4000841A:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="21" LogMessageText="[22:31:14.996] Tether 23:4000843C:Delight's Hourglass:4000841A:Oracle of Darkness:0000:0000:0086:4000841A:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="22" LogMessageText="[22:31:14.996] Tether 23:4000843A:Delight's Hourglass:4000841A:Oracle of Darkness:0000:0000:0086:4000841A:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="23" ActionType="Placeholder" ExecutionDelayExpression="8.81 * 1000"/>
-                          <Action OrderNumber="24" LogMessageText="[22:31:23.807] StatusAdd 1A:B9A:Unknown_B9A:4.00:E0000000::4000843A:Delight's Hourglass:10D:188300:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="25" LogMessageText="[22:31:23.807] StatusAdd 1A:B9A:Unknown_B9A:4.00:E0000000::4000843C:Delight's Hourglass:10D:188300:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="26" LogMessageText="[22:31:23.807] StatusAdd 1A:B9A:Unknown_B9A:4.00:E0000000::4000843F:Delight's Hourglass:10D:188300:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="27" ActionType="Placeholder" ExecutionDelayExpression="10.01 * 1000"/>
-                          <Action OrderNumber="28" LogMessageText="[22:31:33.819] StatusAdd 1A:B9A:Unknown_B9A:4.00:E0000000::40008440:Delight's Hourglass:15C:188300:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="29" LogMessageText="[22:31:33.819] StatusAdd 1A:B9A:Unknown_B9A:4.00:E0000000::4000843B:Delight's Hourglass:15C:188300:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="30" LogMessageText="[22:31:33.819] StatusAdd 1A:B9A:Unknown_B9A:4.00:E0000000::4000843E:Delight's Hourglass:10D:188300:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="1" NamedCallbackName="RemoveStatus" NamedCallbackParam="${_entity[${tid}].address}, 0x${statusId}" ActionType="NamedCallback" DescTextColor="26f"/>
+                          <Action OrderNumber="2" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${tid}].address}" ActionType="NamedCallback" ExecutionDelayExpression="1000" DescTextColor="26f"/>
                         </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="初始激光判定" Id="286c6c27-6344-4feb-9e56-2845d9fe31db" RegularExpression="^.{15}\S+ 1[56]:4.{7}:[^:]*:9D2B:[^:]*:(?&lt;tid&gt;1.{7})" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="500">
+                        <Actions>
+                          <Action OrderNumber="1" SystemBeepLengthExpression="200"/>
+                          <Action OrderNumber="2" UseTTSTextExpression="躲开" ActionType="UseTTS"/>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
                       </Trigger>
                     </Triggers>
                   </Folder>
                 </Folders>
-                <Triggers>
-                  <Trigger Enabled="true" Name="缩小盖娅" Id="bfed7137-c7da-477f-877c-8f983edf4bf6" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}17831:">
-                    <Actions>
-                      <Action OrderNumber="1" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[${id}].address}, 0.3" ActionType="NamedCallback" Asynchronous="False"/>
-                    </Actions>
-                  </Trigger>
-                </Triggers>
+                <Triggers/>
               </Folder>
               <Folder Id="42da1799-241b-4497-b90a-32cbc7fbdbaa" Name="P4" Enabled="true">
-                <Folders/>
+                <Folders>
+                  <Folder Id="39bfb57c-2148-4e19-aa91-ed5ae251dad7" Name="A. 开场" Enabled="true" RawEnvironmentVariables="phase = P4开场">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="0. 初始化 生成琳" Id="8146e4ad-f9c6-442f-90ee-bca1ac4fda30" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}17833:([^:]*:){7}(?&lt;y&gt;[^:]+):">
+                        <Actions>
+                          <Action OrderNumber="1" VariableOp="SetString" VariableName="U7a_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
+                          <Action OrderNumber="2" UseTTSTextExpression="去${if: ${y} &gt; 100 ? C : A }点方向" ActionType="UseTTS"/>
+                          <Action OrderNumber="3" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[${id}].address}, 2" ActionType="NamedCallback" DescTextColor="26f"/>
+                          <Action OrderNumber="4" LogMessageText="cd5:5" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="1. 天光轮回" Id="7deff327-5d30-46eb-a266-e6db9e121b98" RegularExpression="^.{15}\S+ 1A:8E1:[^:]+:[^:]+:.{8}:[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:223:">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="集合站位，天光轮回" ActionType="UseTTS"/>
+                          <Action OrderNumber="2" LogMessageText="cd5:5" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="3" UseTTSTextExpression="躲开" ActionType="UseTTS" ExecutionDelayExpression="4900"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="缩小实体" Id="3a378de7-9731-490e-a4e3-abf1e146efa9" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}1783[35]:">
+                        <Actions>
+                          <Action OrderNumber="1" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[${id}].address}, 2" ActionType="NamedCallback" DescTextColor="26f"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                  <Folder Id="6de63f6a-0f66-45dc-9ef3-2e0bac0655c7" Name="C. 二运" Enabled="true" RawEnvironmentVariables="phase = P4二运">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="0. 初始化 时间结晶" Id="6016914a-c36f-429b-a4ee-ff71c53527e1" RegularExpression="^.{15}\S+ 14:(?&lt;id&gt;4.{7}):[^:]+:9D30:">
+                        <Actions>
+                          <Action OrderNumber="1" VariableOp="SetString" VariableName="U7a_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
+                          <Action OrderNumber="2" VariableOp="UnsetRegexUniversal" VariableName="^U7a4_二运" ActionType="Variable"/>
+                          <Action OrderNumber="3" UseTTSTextExpression="AoE，二运" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="1.1 获取红debuff * 4 =&gt; 2 / 3.1" Id="bed5ecdb-eee9-4356-b2d0-22109d00b3f2" RegularExpression="^.{15}\S+ 1A:CBF:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+                        <Actions>
+                          <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="U7a4_二运_红_idx" ListVariableExpression="${n: ${t}&gt;20}${l:party.indexof(${tid})}" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="2" ListVariableOp="SortAlphaAsc" ListVariableName="U7a4_二运_红_idx" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a4_二运_红_idx.size}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="3" ListVariableOp="SetAll" ListVariableName="U7a4_二运_红_idx" ListVariableExpression="${f:substring(1):${_this}}" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a4_二运_红_idx.size}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="4" LogMessageText="U7a4_二运_红:${l:U7a4_二运_红_idx.join(&quot;&quot;)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a4_二运_红_idx.size}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="1.2 获取杂项debuff" Id="ac038770-9f66-47cb-83c8-275ac234f8e5" RegularExpression="^.{15}\S+ 1A:99(?&lt;type&gt;[6CDE]):(?:[^:]|: )*:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="phase" DescriptionOverride="True">
+                            <Condition Enabled="true" Grouping="Or"/>
+                          </Action>
+                          <Action OrderNumber="2" DictVariableOp="Set" DictVariableName="U7a4_二运_idx2Debuff" DictVariableKey="${l:party.indexof(${tid})}" DictVariableValue="${?d: 6 = 摊, C = 散, D = 水, E = 冰 [${type}]}" ActionType="DictVariable"/>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:U7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="2. 处理 =&gt; 3.2" Id="cbe5a980-4f45-48a7-8a96-a49835aa2774" RegularExpression="^U7a4_二运_红:">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="500" Asynchronous="False"/>
+                          <Action OrderNumber="2" Asynchronous="False"/>
+                          <Action OrderNumber="3" DictVariableOp="Remove" DictVariableName="U7a4_二运_idx2Debuff" DictVariableKey="${l:U7a4_二运_红_idx[1]}" ActionType="DictVariable" Asynchronous="False"/>
+                          <Action OrderNumber="4" DictVariableOp="Remove" DictVariableName="U7a4_二运_idx2Debuff" DictVariableKey="${l:U7a4_二运_红_idx[2]}" ActionType="DictVariable" Asynchronous="False"/>
+                          <Action OrderNumber="5" DictVariableOp="Remove" DictVariableName="U7a4_二运_idx2Debuff" DictVariableKey="${l:U7a4_二运_红_idx[3]}" ActionType="DictVariable" Asynchronous="False"/>
+                          <Action OrderNumber="6" DictVariableOp="Remove" DictVariableName="U7a4_二运_idx2Debuff" DictVariableKey="${l:U7a4_二运_红_idx[4]}" ActionType="DictVariable" Asynchronous="False"/>
+                          <Action OrderNumber="7" DictVariableOp="Merge" DictVariableName="U7a4_二运_idx2Debuff" DictVariableTarget="U7a4_二运_debuff2Idx" ActionType="DictVariable" Asynchronous="False"/>
+                          <Action OrderNumber="8" DictVariableOp="SetAll" DictVariableName="U7a4_二运_debuff2Idx" DictVariableKey="${_val}" DictVariableValue="${_key}" ActionType="DictVariable" Asynchronous="False"/>
+                          <Action OrderNumber="9" ActionType="Placeholder" Asynchronous="False" Description="如果字典仅剩 3 个 debuff：填补没有 debuff 的人" DescriptionOverride="True"/>
+                          <Action OrderNumber="10" ListVariableOp="Build" ListVariableExpression=",水,冰,摊,散" ListVariableTarget="tmp_all" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${d:U7a4_二运_debuff2Idx.size}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="11" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="tmp_all" ListVariableExpression="!${d:U7a4_二运_id2Debuff.evalue(${_this})}" ListVariableTarget="tmp_缺buff" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${d:U7a4_二运_debuff2Idx.size}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="12" ListVariableOp="Build" ListVariableExpression=",1,2,3,4,5,6,7,8" ListVariableTarget="tmp_all" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${d:U7a4_二运_debuff2Idx.size}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="13" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="tmp_all" ListVariableExpression="!${l:U7a4_二运_红_idx.contain(${_this})} &amp;&amp; !${d:U7a4_二运_debuff2Idx.evalue(${_this})}" ListVariableTarget="tmp_缺人" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${d:U7a4_二运_debuff2Idx.size}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="14" DictVariableOp="Set" DictVariableName="U7a4_二运_debuff2Idx" DictVariableKey="${l:tmp_缺buff[1]}" DictVariableValue="${l:tmp_缺人[1]}" ActionType="DictVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${d:U7a4_二运_debuff2Idx.size}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="15" ListVariableExpressionType="Numeric" ListVariableName="tmp_all" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="16" ListVariableName="tmp_缺buff" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="17" ListVariableName="tmp_缺人" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="18" LogMessageText="U7a4_二运_蓝:${d:U7a4_二运_debuff2Idx.joinall(&quot;&quot;, &quot;:&quot;)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="false" Source="None" Name="Debug Log 2025-01-07 13:04" Id="d2c7edb8-5bfc-4eae-970e-a6d2c8d4c5e0" RegularExpression="">
+                        <Actions>
+                          <Action OrderNumber="1" LogMessageText="[21:25:28.097] StartsCasting 14:40002420:Usurper of Frost:9D30:Crystallize Time:40002420:Usurper of Frost:9.700:99.99:105.00:0.00:0.62" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="2.81 * 1000"/>
+                          <Action OrderNumber="3" LogMessageText="[21:25:30.904] StatusAdd 1A:CBF:Wyrmclaw:17.00:E0000000::${l:party[5]}:NAME:00:157227:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="4" LogMessageText="[21:25:30.904] StatusAdd 1A:CBF:Wyrmclaw:17.00:E0000000::${l:party[4]}:NAME:00:156627:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="5" LogMessageText="[21:25:30.904] StatusAdd 1A:CBF:Wyrmclaw:40.00:E0000000::${l:party[7]}:NAME:00:156987:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="6" LogMessageText="[21:25:30.904] StatusAdd 1A:CBF:Wyrmclaw:40.00:E0000000::${l:party[8]}:NAME:00:142328:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="7" LogMessageText="[21:25:30.904] StatusAdd 1A:99E:Spell-in-Waiting: Dark Blizzard III:14.00:E0000000::${l:party[4]}:NAME:00:156627:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="8" LogMessageText="[21:25:30.904] StatusAdd 1A:99E:Spell-in-Waiting: Dark Blizzard III:14.00:E0000000::${l:party[5]}:NAME:00:157227:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="9" LogMessageText="[21:25:30.904] StatusAdd 1A:99E:Spell-in-Waiting: Dark Blizzard III:14.00:E0000000::${l:party[6]}:NAME:00:157247:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="10" LogMessageText="[21:25:30.904] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:12.00:E0000000::${l:party[1]}:NAME:00:225932:" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                          <Action OrderNumber="11" LogMessageText="[21:25:30.904] StatusAdd 1A:996:Spell-in-Waiting: Unholy Darkness:17.00:E0000000::${l:party[3]}:NAME:00:142359:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="12" LogMessageText="[21:25:30.904] StatusAdd 1A:99C:Spell-in-Waiting: Dark Eruption:14.00:E0000000::${l:party[2]}:NAME:00:226089:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="3.1a 红冰" Id="f4e9d6c1-bb52-42f7-a7bb-7be56e6fb71c" RegularExpression="^U7a4_二运_红">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="红冰" ActionType="UseTTS" Asynchronous="False"/>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:U7a4_二运_红_idx.indexof(${v:myIdx})}" ExpressionTypeL="String" ExpressionR="[12]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="3.1b 红风" Id="611709ba-d170-4145-bb00-5f55abf73c05" RegularExpression="^U7a4_二运_红">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="红风" ActionType="UseTTS" Asynchronous="False"/>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:U7a4_二运_红_idx.indexof(${v:myIdx})}" ExpressionTypeL="String" ExpressionR="[34]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="3.1c 蓝（初始）" Id="61026a80-15f0-43d6-bae1-155780f750ce" RegularExpression="^U7a4_二运_红">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="蓝" ActionType="UseTTS"/>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:U7a4_二运_红_idx.indexof(${v:myIdx})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="3.2 蓝" Id="1038ecd6-7a31-4f78-a222-918f730843e4" RegularExpression="^U7a4_二运_蓝">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${d:U7a4_二运_idx2Debuff[${v:myIdx}]}" Enabled="False" ActionType="UseTTS"/>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:U7a4_二运_红_idx.indexof(${v:myIdx})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                  <Folder Id="d1fc06f2-e808-4f52-bc6c-7382c5fecef6" Name="B. 一运" Enabled="true" RawEnvironmentVariables="phase = P4一运">
+                    <Folders>
+                      <Folder Id="9a056353-a835-4998-8d19-32e3eefded2e" Name="翻绳法" Enabled="false">
+                        <Folders/>
+                        <Triggers/>
+                      </Folder>
+                      <Folder Id="34ba73f3-6a0c-4618-a002-c3fd0a3b017c" Name="分摊基准" Enabled="false">
+                        <Folders/>
+                        <Triggers/>
+                      </Folder>
+                    </Folders>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="0. 初始化 光暗龙诗" Id="e781394e-477a-43dc-a9dc-abecb5465b99" RegularExpression="^.{15}\S+ 14:(?&lt;id&gt;4.{7}):[^:]+:9D2F:">
+                        <Actions>
+                          <Action OrderNumber="1" VariableOp="SetString" VariableName="U7a_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
+                          <Action OrderNumber="2" VariableOp="UnsetRegexUniversal" VariableName="^U7a4_一运" ActionType="Variable"/>
+                          <Action OrderNumber="3" UseTTSTextExpression="AoE，壹运" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="1. 水分摊点名" Id="884e48f3-55c8-4e1c-889f-dc3ffa638567" RegularExpression="^.{15}\S+ 1A:99D:(?:[^:]|: )*:(?&lt;t&gt;19[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+                        <Actions>
+                          <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="U7a4_一运_摊_pIdx" ListVariableExpression="${l:party.indexof(${tid})}" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="2" ListVariableOp="SortNumericAsc" ListVariableName="U7a4_一运_摊_pIdx" ActionType="ListVariable" Asynchronous="False"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="2. 获取连线 =&gt; 3" Id="85b3c34a-f5be-44ad-b643-2078899a7ccb" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;1.{7}):[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:006E">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="phase" DescriptionOverride="True">
+                            <Condition Enabled="true" Grouping="Or"/>
+                          </Action>
+                          <Action OrderNumber="2" DictVariableOp="Set" DictVariableName="U7a4_一运_环_pIdx" DictVariableKey="${l:party.indexof(${sid})}" DictVariableValue="${l:party.indexof(${tid})}" ActionType="DictVariable" Asynchronous="False"/>
+                          <Action OrderNumber="3" LogMessageText="_U7a4_一运_环:${d:U7a4_一运_环_pIdx.joinall}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${d:U7a4_一运_环_pIdx.size}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:U7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="3. 处理数据 =&gt; 4" Id="9913d9c5-a47d-4330-ba78-eaef7d400b53" RegularExpression="^_U7a4_一运_环">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="环/无线：指初始站位    蝴蝶/光波：指换位后站位" DescriptionOverride="True"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="【处理连线】" DescBgColor="90a0a8" DescriptionOverride="True"/>
+                          <Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="从优先级最高的起始" DescriptionOverride="True"/>
+                          <Action OrderNumber="4" ListVariableOp="Push" ListVariableName="U7a4_一运_环_pIdx" ListVariableExpression="${d:U7a4_一运_环_pIdx.minkey}" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="5" ListVariableOp="Push" ListVariableName="U7a4_一运_环_pIdx" ListVariableExpression="${d:U7a4_一运_环_pIdx[${l:U7a4_一运_环_pIdx[-1]}]}" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="6" ListVariableOp="Push" ListVariableName="U7a4_一运_环_pIdx" ListVariableExpression="${d:U7a4_一运_环_pIdx[${l:U7a4_一运_环_pIdx[-1]}]}" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="7" ListVariableOp="Push" ListVariableName="U7a4_一运_环_pIdx" ListVariableExpression="${d:U7a4_一运_环_pIdx[${l:U7a4_一运_环_pIdx[-1]}]}" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="8" ActionType="Placeholder" Asynchronous="False" Description="将环调整至 2 号 &lt; 4 号" DescriptionOverride="True"/>
+                          <Action OrderNumber="9" ListVariableOp="Build" ListVariableExpression=":${l:U7a4_一运_环_pIdx.join(:, &quot;1,4,3,2&quot;)}" ListVariableTarget="U7a4_一运_环_pIdx" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a4_一运_环_pIdx[2]}" ExpressionTypeL="Numeric" ExpressionR="${l:U7a4_一运_环_pIdx[4]}" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="10" ActionType="Placeholder" Asynchronous="False" Description="根据 2 3 4 位的 pIdx，判断环的类型：蝴蝶（1&lt;3&lt;2&lt;4）  方形（1&lt;2&lt;4&lt;3）  沙漏（1&lt;2&lt;3&lt;4）" DescriptionOverride="True"/>
+                          <Action OrderNumber="11" VariableOp="SetString" VariableName="U7a4_一运_环_type" VariableExpression="${if: ${l:U7a4_一运_环_pIdx[2]} &gt; ${l:U7a4_一运_环_pIdx[3]} &#13;&#10;  ? 蝴蝶&#13;&#10;  : ${if: ${l:U7a4_一运_环_pIdx[3]} &gt; ${l:U7a4_一运_环_pIdx[4]} ? 方形 : 沙漏 }&#13;&#10;}" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="12" ActionType="Placeholder" Asynchronous="False" Description="换成沙漏后 左上 右上 左下 右下 四人 pIdx" DescriptionOverride="True"/>
+                          <Action OrderNumber="13" ListVariableOp="Build" ListVariableExpression=":${l:U7a4_一运_环_pIdx.join(:, &quot;1,3,2,4&quot;)}" ListVariableTarget="U7a4_一运_蝴蝶_pIdx" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_一运_环_type}" ExpressionTypeL="String" ExpressionR="蝴蝶" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="14" ListVariableOp="Build" ListVariableExpression=":${l:U7a4_一运_环_pIdx.join(:, &quot;4,2,1,3&quot;)}" ListVariableTarget="U7a4_一运_蝴蝶_pIdx" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_一运_环_type}" ExpressionTypeL="String" ExpressionR="方形" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="15" ListVariableOp="Build" ListVariableExpression=":${l:U7a4_一运_环_pIdx.join(:, &quot;1,3,2,4&quot;)}" ListVariableTarget="U7a4_一运_蝴蝶_pIdx" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_一运_环_type}" ExpressionTypeL="String" ExpressionR="沙漏" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="16" ActionType="Placeholder" Asynchronous="False" Description="连线需要换位的两人的 pIdx" DescriptionOverride="True"/>
+                          <Action OrderNumber="17" ListVariableOp="Build" ListVariableExpression=":0:0" ListVariableTarget="U7a4_一运_连线换位_pIdx" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_一运_环_type}" ExpressionTypeL="String" ExpressionR="蝴蝶" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="18" ListVariableOp="Build" ListVariableExpression=":${l:U7a4_一运_蝴蝶_pIdx[3]}:${l:U7a4_一运_蝴蝶_pIdx[1]}" ListVariableTarget="U7a4_一运_连线换位_pIdx" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_一运_环_type}" ExpressionTypeL="String" ExpressionR="方形" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="19" ListVariableOp="Build" ListVariableExpression=":${l:U7a4_一运_蝴蝶_pIdx[3]}:${l:U7a4_一运_蝴蝶_pIdx[2]}" ListVariableTarget="U7a4_一运_连线换位_pIdx" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_一运_环_type}" ExpressionTypeL="String" ExpressionR="沙漏" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="20" ActionType="Placeholder" Asynchronous="False" Description="连线组的分摊是否在北：" DescriptionOverride="True"/>
+                          <Action OrderNumber="21" VariableOp="SetNumeric" VariableName="tmp_is连线分摊北" VariableExpression="${l:U7a4_一运_摊_pIdx.contain(${l:U7a4_一运_蝴蝶_pIdx[1]})} || ${l:U7a4_一运_摊_pIdx.contain(${l:U7a4_一运_蝴蝶_pIdx[2]})} " ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="22" ActionType="Placeholder" Asynchronous="False" Description="【处理分散】（无连线）" DescBgColor="90a0a8" DescriptionOverride="True"/>
+                          <Action OrderNumber="23" ActionType="Placeholder" Asynchronous="False" Description="无点名 左上 右上 左下 右下 四人 pIdx" DescriptionOverride="True"/>
+                          <Action OrderNumber="24" ListVariableOp="Build" ListVariableExpression=",1,2,3,4,5,6,7,8" ListVariableTarget="U7a4_一运_无线_pIdx" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="25" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="U7a4_一运_无线_pIdx" ListVariableExpression="!${l:U7a4_一运_环_pIdx.contain(${_this})}" ListVariableTarget="U7a4_一运_无线_pIdx" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="26" ActionType="Placeholder" Asynchronous="False" Description="无点名组分摊者是四人中的第几个" DescriptionOverride="True"/>
+                          <Action OrderNumber="27" VariableOp="SetNumeric" VariableName="tmp_无线分摊idx" VariableExpression="${l:U7a4_一运_无线_pIdx.indexof(${l:U7a4_一运_摊_pIdx[1]})} + ${l:U7a4_一运_无线_pIdx.indexof(${l:U7a4_一运_摊_pIdx[2]})}" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="28" ActionType="Placeholder" Asynchronous="False" Description="无点名组是否换位、是左侧或右侧换位" DescriptionOverride="True"/>
+                          <Action OrderNumber="29" VariableOp="SetString" VariableName="U7a4_一运_无线换位侧" VariableExpression="${if: ${v:tmp_无线分摊idx} % 2 = 1 ? 左 : 右 }" ActionType="Variable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:tmp_is连线分摊北}" ExpressionTypeL="String" ExpressionR="${v:tmp_无线分摊idx} &lt;= 2" ExpressionTypeR="Numeric" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="30" VariableName="tmp_is连线分摊北" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="31" ActionType="Placeholder" Asynchronous="False" Description="换位后引导光波 左上 右上 左下 右下 四人 pIdx" DescriptionOverride="True"/>
+                          <Action OrderNumber="32" ListVariableOp="Build" ListVariableExpression=":${l:U7a4_一运_无线_pIdx.join(:, &quot;1,2,3,4&quot;)}" ListVariableTarget="U7a4_一运_光波_pIdx" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_一运_无线换位侧}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="33" ListVariableOp="Build" ListVariableExpression=":${l:U7a4_一运_无线_pIdx.join(:, &quot;3,2,1,4&quot;)}" ListVariableTarget="U7a4_一运_光波_pIdx" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_一运_无线换位侧}" ExpressionTypeL="String" ExpressionR="左" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="34" ListVariableOp="Build" ListVariableExpression=":${l:U7a4_一运_无线_pIdx.join(:, &quot;1,4,3,2&quot;)}" ListVariableTarget="U7a4_一运_光波_pIdx" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_一运_无线换位侧}" ExpressionTypeL="String" ExpressionR="右" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="35" ActionType="Placeholder" Asynchronous="False" Description="无连线需要换位的两人的 pIdx" DescriptionOverride="True"/>
+                          <Action OrderNumber="36" ListVariableOp="Build" ListVariableExpression=":0:0" ListVariableTarget="U7a4_一运_无线换位_pIdx" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_一运_无线换位侧}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="37" ListVariableOp="Build" ListVariableExpression=":${l:U7a4_一运_光波_pIdx[3]}:${l:U7a4_一运_光波_pIdx[1]}" ListVariableTarget="U7a4_一运_无线换位_pIdx" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_一运_无线换位侧}" ExpressionTypeL="String" ExpressionR="左" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="38" ListVariableOp="Build" ListVariableExpression=":${l:U7a4_一运_光波_pIdx[4]}:${l:U7a4_一运_光波_pIdx[2]}" ListVariableTarget="U7a4_一运_无线换位_pIdx" ActionType="ListVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_一运_无线换位侧}" ExpressionTypeL="String" ExpressionR="右" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="39" ActionType="Placeholder" Asynchronous="False" Description="输出" DescriptionOverride="True"/>
+                          <Action OrderNumber="40" LogMessageText="U7a4_一运:蝴蝶:${l:U7a4_一运_蝴蝶_pIdx.join(&quot;&quot;)}:光波:${l:U7a4_一运_光波_pIdx.join(&quot;&quot;)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="false" Source="None" Name="Debug Log 2025-01-07 01:51" Id="edf7f0a6-cc80-4112-8b97-7f2acca0b0d7" RegularExpression="">
+                        <Actions>
+                          <Action OrderNumber="1" LogMessageText="[22:17:30.887] StartsCasting 14:400028B3:Usurper of Frost:9D2F:Darklit Dragonsong:400028B3:Usurper of Frost:4.700:99.99:99.99:0.00:-3.13" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="2.96 * 1000"/>
+                          <Action OrderNumber="3" LogMessageText="[22:17:33.848] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:19.00:E0000000::${l:party[7]}:D3:00:156987:" LogProcess="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="4" LogMessageText="[22:17:33.848] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:19.00:E0000000::${l:party[8]}:D4:00:142328:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="5" LogMessageText="[22:17:33.848] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:19.00:E0000000::${l:party[1]}:MT:00:142328:" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                          <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="0.85 * 1000"/>
+                          <Action OrderNumber="7" LogMessageText="[22:17:34.695] Tether 23:${l:party[6]}:D2:${l:party[3]}:H1:0000:0000:006E:1090041B:000F:0000" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                          <Action OrderNumber="8" LogMessageText="[22:17:34.695] Tether 23:${l:party[3]}:H1:${l:party[7]}:D3:0000:0000:006E:106913BC:000F:0000" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                          <Action OrderNumber="9" LogMessageText="[22:17:34.695] Tether 23:${l:party[7]}:D3:${l:party[2]}:ST:0000:0000:006E:10740C2E:000F:0000" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                          <Action OrderNumber="10" LogMessageText="[22:17:34.695] Tether 23:${l:party[2]}:ST:${l:party[6]}:D2:0000:0000:006E:1095CA1B:000F:0000" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                          <Action OrderNumber="11" LogMessageText="[22:17:34.695] Tether 23:${l:party[1]}:D2:${l:party[3]}:H1:0000:0000:006E:1090041B:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="12" LogMessageText="[22:17:34.695] Tether 23:${l:party[3]}:H1:${l:party[7]}:D3:0000:0000:006E:106913BC:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="13" LogMessageText="[22:17:34.695] Tether 23:${l:party[7]}:D3:${l:party[6]}:ST:0000:0000:006E:10740C2E:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="14" LogMessageText="[22:17:34.695] Tether 23:${l:party[6]}:ST:${l:party[1]}:D2:0000:0000:006E:1095CA1B:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="4.1 时间轴" Id="647bd538-df88-445d-a24b-4cd1158a3ecb" RegularExpression="^U7a4_一运">
+                        <Actions>
+                          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="U7a4_一运_my位置" VariableExpression="${l:U7a4_一运_蝴蝶_pIdx.indexof(${v:myIdx})} + ${l:U7a4_一运_光波_pIdx.indexof(${v:myIdx})}" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="tmp_换" VariableExpression="(${v:U7a4_一运_my位置} &lt;= 2) != (${v:myIdx} &lt;= 4)" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="3" ActionType="Placeholder" Description="连线组" DescriptionOverride="True"/>
+                          <Action OrderNumber="4" UseTTSTextExpression="${v:U7a4_一运_环_type}，${if: ${v:tmp_换} ? &quot;换到&quot; : &quot;&quot; }${if: ${v:U7a4_一运_my位置} &lt;= 2 ? 上北 : 下南 }踩塔，&#13;&#10;偏${if: ${v:U7a4_一运_my位置} % 2 = 1 ? 左侧 : 右侧 }" ActionType="UseTTS" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a4_一运_蝴蝶_pIdx.contain(${v:myIdx})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="5" ActionType="Placeholder" Asynchronous="False" Description="无连线组" DescriptionOverride="True"/>
+                          <Action OrderNumber="6" UseTTSTextExpression="${if: ${v:tmp_换} ? &quot;换到&quot; : &quot;去&quot; }${?l: 左上, 右上, 左下, 右下 [${v:U7a4_一运_my位置}]}，引导光波" ActionType="UseTTS" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a4_一运_光波_pIdx.contain(${v:myIdx})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="7" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100, 0&#13;&#10;1: polar 5, -115°&#13;&#10;4: polar 5,  -65°&#13;&#10;3: polar 5,   65°&#13;&#10;2: polar 5,  115°" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a4_一运_光波_pIdx.contain(${v:myIdx})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="8" VariableName="tmp_换" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="9" ActionType="Placeholder" Description="光波判定" DescriptionOverride="True"/>
+                          <Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="10000"/>
+                          <Action OrderNumber="11" UseTTSTextExpression="${if: ${l:U7a4_一运_蝴蝶_pIdx[1]} = ${v:myIdx} || ${l:U7a4_一运_蝴蝶_pIdx[2]} = ${v:myIdx} ? &quot;分散，注意水晶&quot; : &quot;后退分散&quot; }" ActionType="UseTTS"/>
+                          <Action OrderNumber="12" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100, 0&#13;&#10;A: -3.4, -7.1&#13;&#10;B:  3.4, -7.1&#13;&#10;C:  3.4,  8.2&#13;&#10;D: -3.4,  8.2&#13;&#10;1: -8.2, -3.4&#13;&#10;2:  8.2, -3.4&#13;&#10;3:  8.2,  3.4&#13;&#10;4: -8.2,  3.4" ActionType="NamedCallback" DescBgColor="dff"/>
+                          <Action OrderNumber="13" SystemBeepLengthExpression="200"/>
+                          <Action OrderNumber="14" ActionType="Placeholder" Description="跳跃判定" DescriptionOverride="True"/>
+                          <Action OrderNumber="15" ActionType="Placeholder" ExecutionDelayExpression="3800"/>
+                          <Action OrderNumber="16" SystemBeepLengthExpression="200"/>
+                          <Action OrderNumber="17" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff"/>
+                          <Action OrderNumber="18" ActionType="Placeholder" Description="分摊判定" DescriptionOverride="True"/>
+                          <Action OrderNumber="19" ActionType="Placeholder" ExecutionDelayExpression="4400"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Sequential="True" Name="4.2 文本播报" Id="b393db2d-4481-42ba-a81d-8b022d3dec44" RegularExpression="^U7a4_一运">
+                        <Actions>
+                          <Action OrderNumber="1" VariableOp="SetString" VariableName="tmp_连线desc" VariableExpression="連線：不換位" ActionType="Variable">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_一运_环_type}" ExpressionTypeL="String" ExpressionR="蝴蝶" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="2" VariableOp="SetString" VariableName="tmp_连线desc" VariableExpression="連線：${v:U7a4_一运_环_type}換位（${?l:ＭＴ,ＳＴ,Ｈ１,Ｈ２,Ｄ１,Ｄ２,Ｄ３,Ｄ４[${l:U7a4_一运_连线换位_pIdx[1]}]} / ${?l:ＭＴ,ＳＴ,Ｈ１,Ｈ２,Ｄ１,Ｄ２,Ｄ３,Ｄ４[${l:U7a4_一运_连线换位_pIdx[2]}]}）" ActionType="Variable">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_一运_环_type}" ExpressionTypeL="String" ExpressionR="蝴蝶" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="3" VariableOp="SetString" VariableName="tmp_光波desc" VariableExpression="光波：不換位" ActionType="Variable">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a4_一运_无线换位_pIdx[1]}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="4" VariableOp="SetString" VariableName="tmp_光波desc" VariableExpression="光波：${v:U7a4_一运_无线换位侧}側換位（${?l:ＭＴ,ＳＴ,Ｈ１,Ｈ２,Ｄ１,Ｄ２,Ｄ３,Ｄ４[${l:U7a4_一运_无线换位_pIdx[1]}]} / ${?l:ＭＴ,ＳＴ,Ｈ１,Ｈ２,Ｄ１,Ｄ２,Ｄ３,Ｄ４[${l:U7a4_一运_无线换位_pIdx[2]}]}）" ActionType="Variable">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a4_一运_无线换位_pIdx[1]}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="5" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;　${v:tmp_连线desc}&#13;&#10;　${v:tmp_光波desc}" ActionType="NamedCallback" DescBgColor="dff"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Sequential="True" Name="5. 神圣之翼" Id="7ec7a460-4ad7-44f4-b149-147bd3156ffa" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:9D2(?&lt;type&gt;3|4):">
+                        <Actions>
+                          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="U7a4_一运_isRSafe" VariableExpression="${type} = 3" ActionType="Variable"/>
+                          <Action OrderNumber="2" UseTTSTextExpression="${if: (${_me.x} &gt; 100) = ${v:U7a4_一运_isRSafe} ? 同侧分摊 : 穿到${if: ${v:U7a4_一运_isRSafe} ? 右 : 左 }侧分摊 }" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="false" Name="分摊标记" Id="ea295bb3-8ef7-41ef-9bf6-2dc86ae22804" RegularExpression="^.{15}\S+ 1B:(?&lt;id&gt;1.{7}):[^:]*:[^:]*:[^:]*:003E">
+                        <Actions/>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                </Folders>
                 <Triggers/>
               </Folder>
               <Folder Id="326064c9-740d-4644-bdab-bc668abd45b0" Name="P5" Enabled="true">
@@ -1347,16 +1741,92 @@
           <Folder Id="b1b0cb48-1351-4486-9462-d4201d906ae7" Name=".总体控制" Enabled="true">
             <Folders/>
             <Triggers>
-              <Trigger Enabled="true" Name="导入提示" Id="eae5bd76-4cc8-40b6-a07a-2545e35ed40c" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
-                <Actions>
-                  <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="已更新绝伊甸测试版 v0.3b &#10;更新后请看说明&#13;&#10;不保证播报正确，欢迎试用" ActionType="MessageBox"/>
-                  <Action OrderNumber="2" TriggerOp="DisableTrigger" TriggerId="eae5bd76-4cc8-40b6-a07a-2545e35ed40c" ActionType="Trigger"/>
-                </Actions>
-              </Trigger>
               <Trigger Enabled="true" Name="调试自用" Id="c58814ea-9c40-4093-ab44-58abb4896699" RegularExpression="">
                 <Actions>
-                  <Action OrderNumber="1" ListVariableOp="Build" ListVariableExpression=",${_me.id},107AC652,1010B6F0,106484F1,10710F3C,1087662F,108E7345,107518BC" ListVariableTarget="party" ActionType="ListVariable" Asynchronous="False"/>
+                  <Action OrderNumber="1" ListVariableOp="Build" ListVariableExpression=",109012A8,106D8992,1067FB1D,1092AD86,106C2E8F,108AB8C3,108447D6,1078AB54" ListVariableTarget="party" ActionType="ListVariable" Asynchronous="False"/>
                   <Action OrderNumber="2" LogMessageText="PartyList:MyIdx8:${l:party.indexof(${_me.id})}" LogProcess="True" ActionType="LogMessage" Asynchronous="False"/>
+                </Actions>
+              </Trigger>
+              <Trigger Enabled="true" Name="导入提示" Id="2e710666-3fd0-4a92-bbc6-2e3dae91cbef" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
+                <Actions>
+                  <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="已更新绝伊甸测试版 v0.4a &#10;&#13;&#10;更新后请看说明&#13;&#10;不保证播报正确，欢迎试用&#13;&#10;&#13;&#10;v0.3b → 0.4a：&#13;&#10;· 增加 P4 一运&#13;&#10;· P2 白镜子判定后使两个红镜子变白（取消光污染）&#13;&#10;· P3 一运在地板上持续标记自己的方向&#13;&#10;· 增加部分机制文本提示（当前仅默语）&#13;&#10;· 其他细节" ActionType="MessageBox"/>
+                  <Action OrderNumber="2" TriggerOp="DisableTrigger" TriggerId="2e710666-3fd0-4a92-bbc6-2e3dae91cbef" ActionType="Trigger"/>
+                </Actions>
+              </Trigger>
+            </Triggers>
+          </Folder>
+        </Folders>
+        <Triggers/>
+      </Folder>
+      <Folder Id="8af2c7c9-1fd5-4fff-9ac6-7a680fd5b898" Name="警察 (没写完" Enabled="false">
+        <Folders>
+          <Folder Id="8e9de267-a847-4e3d-8a65-ecf5fe973204" Name="P3 一运" Enabled="true" RawEnvironmentVariables="phase = P3一运">
+            <Folders/>
+            <Triggers>
+              <Trigger Enabled="true" Name="0. 初始化" Id="667da7ae-510b-45d3-abf2-f2e0fd2cbebe" RegularExpression="^U7a3_一运:dir8">
+                <Actions>
+                  <Action OrderNumber="1" NamedCallbackName="U7a3_一运_Analyzer" NamedCallbackParam="Command = Init" ActionType="NamedCallback"/>
+                </Actions>
+              </Trigger>
+              <Trigger Enabled="true" Name="1. 收集技能数据（通用）" Id="b22ee124-bef1-479e-b0c1-f22a9b12a15c" RegularExpression="^.{15}\S+ 1[56]:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;9D5[2457]|9D2B|9D64|9D4F):[^:]*:(?&lt;tid&gt;[1E].{7}):([^:]*:){37}(?&lt;aoeid&gt;.{8}):(?&lt;idx&gt;[^:]*):(?&lt;count&gt;[^:]*):">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="9D2B 初始激光 | 9D64 旋转激光 | 9D5[2457] 暗炎/火/神圣/冰 | 9D4F 水" DescriptionOverride="True"/>
+                  <Action OrderNumber="2" VariableOp="SetString" VariableName="tmp_AoE_${aoeid}_0" VariableExpression="${tid}" ActionType="Variable" Asynchronous="False">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${idx}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="3" ListVariableOp="Push" ListVariableName="tmp_AoE_${aoeid}_others" ListVariableExpression="${tid}" ActionType="ListVariable" Asynchronous="False">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${idx}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="4" VariableOp="SetNumeric" VariableName="tmp_AoE_${aoeid}_complete" VariableExpression="(${ev:tmp_AoE_${aoeid}_0} + ${l:tmp_AoE_${aoeid}_others.size} = ${count}) || ${count} = 0" ActionType="Variable" Asynchronous="False"/>
+                  <Action OrderNumber="5" ActionType="Placeholder" Asynchronous="False"/>
+                  <Action OrderNumber="6" NamedCallbackName="U7a3_一运_Analyzer" NamedCallbackParam="Command = Ability&#13;&#10;Ability = ${aid}&#13;&#10;Source = ${sid}&#13;&#10;Target = ${v:tmp_AoE_${aoeid}_0}&#13;&#10;Others = ${l:tmp_AoE_${aoeid}_others.join(&quot;,&quot;)}&#13;&#10;Count = ${count}" ActionType="NamedCallback" Asynchronous="False">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:tmp_AoE_${aoeid}_complete}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="7" NamedCallbackName="U7a3_一运_Analyzer" NamedCallbackParam="Command = Parse&#13;&#10;Ability = ${aid}&#13;&#10;Source = ${sid}&#13;&#10;Target = ${v:tmp_AoE_${aoeid}_0}&#13;&#10;Others = ${l:tmp_AoE_${aoeid}_others.join(&quot;,&quot;)}&#13;&#10;Count = ${count}" VariableOp="Clipboard" VariableExpression="Command = Parse&#13;&#10;Ability = ${aid}&#13;&#10;Source = ${sid}&#13;&#10;Target = ${v:tmp_AoE_${aoeid}_0}&#13;&#10;Others = ${l:tmp_AoE_${aoeid}_others.join(&quot;,&quot;)}&#13;&#10;Count = ${count}" Enabled="False" ActionType="Variable" Asynchronous="False" DescBgColor="fdd">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:tmp_AoE_${aoeid}_complete}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="8" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;Command = Parse&#13;&#10;Ability = ${aid}&#13;&#10;Source = ${sid}&#13;&#10;Target = ${v:tmp_AoE_${aoeid}_0}&#13;&#10;Others = ${l:tmp_AoE_${aoeid}_others.join(&quot;,&quot;)}&#13;&#10;Count = ${count}" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:tmp_AoE_${aoeid}_complete}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${count}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="9" VariableName="tmp_AoE_${aoeid}_0" ActionType="Variable" Asynchronous="False">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:tmp_AoE_${aoeid}_complete}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="10" ListVariableName="tmp_AoE_${aoeid}_others" ActionType="ListVariable" Asynchronous="False">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:tmp_AoE_${aoeid}_complete}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="11" VariableName="tmp_AoE_${aoeid}_complete" ActionType="Variable" Asynchronous="False">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:tmp_AoE_${aoeid}_complete}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Action>
+                </Actions>
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${v:U7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Name="3. 记录返回" Id="9c0ceb53-2a21-4e39-8539-52fb0200fd61" RegularExpression="^.{15}\S+ 1A:994:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+                <Actions>
+                  <Action OrderNumber="1" NamedCallbackName="U7a3_一运_Analyzer" NamedCallbackParam="Command = Return&#13;&#10;Target = ${tid}" ActionType="NamedCallback" Asynchronous="False"/>
+                </Actions>
+              </Trigger>
+              <Trigger Enabled="true" Name="2. 沙漏旋转" Id="8ad64c2b-d029-4f97-87a5-e2bf1ae6145b" RegularExpression="^U7a3_一运_沙漏:(?&lt;id&gt;.{8}):is顺:(?&lt;is顺&gt;[01]):dir8:(?&lt;dir8&gt;[0-7])">
+                <Actions>
+                  <Action OrderNumber="1" NamedCallbackName="U7a3_一运_Analyzer" NamedCallbackParam="Command = Rotate&#13;&#10;ID = ${id}&#13;&#10;Dir8 = ${dir8}&#13;&#10;CW = ${is顺}" ActionType="NamedCallback" Asynchronous="False"/>
                 </Actions>
               </Trigger>
             </Triggers>
@@ -1387,21 +1857,23 @@
           <Action OrderNumber="17" ActionType="Placeholder" Description="　位于身后：无提示" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
           <Action OrderNumber="18" ActionType="Placeholder" Description="　位于侧面（未成功进入上述两区域）：用弧形标点标出一次可滑到 Boss 身后的范围，你需要先滑进这个区域再处理" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
           <Action OrderNumber="19" ActionType="Placeholder" Description="　位于前方（可一次滑进身后）：用一排标点标出最安全的滑动角度 （标点末端为滑冰终点）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="20" ActionType="Placeholder" Description="　计算无法考虑有人把光圈塞到 Boss 背后的情况，如果指路指向了光圈则自己回避一下。" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="21" ActionType="Placeholder" Description="光暴：灰九式（镜像版）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
+          <Action OrderNumber="20" ActionType="Placeholder" Description="　计算无法考虑有人把光圈塞到 Boss 背后的情况（正常不会出现），如果指路指向了光圈则自己回避一下。" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
+          <Action OrderNumber="21" ActionType="Placeholder" Description="光暴：灰九式" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
           <Action OrderNumber="22" ActionType="Placeholder" Description="· P3" DescBgColor="bce" DescTextColor="234" DescriptionOverride="True"/>
           <Action OrderNumber="23" ActionType="Placeholder" Description="一运：灰九式" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="24" ActionType="Placeholder" Description="二运：双分组" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="25" ActionType="Placeholder" Description="· P5" DescBgColor="bce" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="26" ActionType="Placeholder" Description="地火" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="27" ActionType="Placeholder" Description="　初始去 A，TTS + 身上出现顺逆图标提示" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="28" ActionType="Placeholder" Description="　第一次穿到 B，两秒后 B 微调至一个更近的位置，自行选择是否跟随" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="29" ActionType="Placeholder" Description="　第二次穿到 C，两秒后 C 微调，同上" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="30" ActionType="Placeholder" Description="　第三次回到 A，准备分摊" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="31" ActionType="Placeholder" Description="·已知问题" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True"/>
-          <Action OrderNumber="32" ActionType="Placeholder" Description="·关于" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True"/>
-          <Action OrderNumber="33" ActionType="Placeholder" Description="　　by 阿洛 MnFeN   群号 556836295 / 133514183" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="34" LaunchProcessPathExpression="https://space.bilibili.com/83429972" ActionType="LaunchProcess" Description="　　你可以关注这个 b 站账号，不定期更新视频介绍（右键这一行 - 测试动作）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
+          <Action OrderNumber="24" ActionType="Placeholder" Description="二运：MMW 双分组（分摊分组优先级 H1 H2 MT ST D1-4，地火分散左 TH 右 DPS）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
+          <Action OrderNumber="25" ActionType="Placeholder" Description="· P4" DescBgColor="bce" DescTextColor="234" DescriptionOverride="True"/>
+          <Action OrderNumber="26" ActionType="Placeholder" Description="一运：翻花绳" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
+          <Action OrderNumber="27" ActionType="Placeholder" Description="· P5" DescBgColor="bce" DescTextColor="234" DescriptionOverride="True"/>
+          <Action OrderNumber="28" ActionType="Placeholder" Description="地火" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
+          <Action OrderNumber="29" ActionType="Placeholder" Description="　初始去 A，TTS + 身上出现顺逆图标提示" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
+          <Action OrderNumber="30" ActionType="Placeholder" Description="　第一次穿到 B，两秒后 B 微调至一个更近的位置，自行选择是否跟随" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
+          <Action OrderNumber="31" ActionType="Placeholder" Description="　第二次穿到 C，两秒后 C 微调，同上" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
+          <Action OrderNumber="32" ActionType="Placeholder" Description="　第三次回到 A，准备分摊" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
+          <Action OrderNumber="33" ActionType="Placeholder" Description="·已知问题" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True"/>
+          <Action OrderNumber="34" ActionType="Placeholder" Description="·关于" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True"/>
+          <Action OrderNumber="35" ActionType="Placeholder" Description="　　by 阿洛 MnFeN   群号 556836295 / 133514183" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
+          <Action OrderNumber="36" LaunchProcessPathExpression="https://space.bilibili.com/83429972" ActionType="LaunchProcess" Description="　　你可以关注这个 b 站账号，不定期更新视频介绍（右键这一行 - 测试动作）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True"/>
         </Actions>
       </Trigger>
     </Triggers>
