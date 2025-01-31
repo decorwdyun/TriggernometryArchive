@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TriggernometryExport PluginVersion="1.2.0.718">
-  <ExportedFolder Id="624c320a-4f9e-41e5-8308-03fe6250d0e4" Name="绝伊甸宝宝椅 v0.5a" Enabled="true">
+<TriggernometryExport PluginVersion="1.2.0.724">
+  <ExportedFolder Id="624c320a-4f9e-41e5-8308-03fe6250d0e3" Name="绝伊甸宝宝椅 v0.5b" Enabled="true">
     <Folders>
-      <Folder Id="f99ad2f2-b956-4522-9736-f03ea725962c" Name="核心" Enabled="true">
+      <Folder Id="f99ad2f2-b956-4522-9736-f03ea725962b" Name="核心" Enabled="true">
         <Folders>
           <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1238$" Id="783e52c2-3842-4611-b2c6-bdc6eafd3de3" Name="区域限制" Enabled="true">
             <Folders>
@@ -354,9 +354,9 @@
                       <Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^U7a\d*_|^tmp_" ActionType="Variable"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Name="小队列表注册区域" Id="b7170d53-af30-4ecf-bf31-f1dfd510e7e3" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
+                  <Trigger Enabled="true" Name="小队列表注册区域" Id="b7170d53-af30-4ecf-bf31-f1dfd510e7e3" RegularExpression="^.{15}\S+ 01:">
                     <Actions>
-                      <Action OrderNumber="1" LogMessageText="PartyList:Register:${n: 0x${zoneId} }:MT, ST, H1, H2, D1, D2, D3, D4" LogProcess="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="1" LogMessageText="PartyList:Register:${_ffxivzoneid}:MT, ST, H1, H2, D1, D2, D3, D4" LogProcess="True" ActionType="LogMessage"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Name="[F] 注册回调" Id="2691fd47-645c-43ee-b400-65745f761df7" RegularExpression="^.{15}\S+ 01">
@@ -1856,7 +1856,7 @@
                       <Trigger Enabled="false" Source="None" Name="Debug Log 正右 顺时针" Id="819b04df-b84d-41ac-9a0f-b4cbf1340fde" RegularExpression="">
                         <Actions>
                           <Action OrderNumber="1" LogMessageText="[09:06:09.050] StartsCasting 14:4001A7B0:Pandora:9D72:unknown_9d72:4001A7B0:Pandora:5.700:99.99:99.99:0.00:-0.40" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="2" LogMessageText="[09:06:08.744] 261 105:Add:4001A815:BNpcID:1EBBF7:BNpcNameID:3001C03:CastDurationCurrent:2.2500:CastGroundTargetZ:4.5000:CurrentMP:4325379:Heading:-1.5709:Job:53:Level:11:PosX:97.0000:PosY:100.0000:Radius:0.5000:TransformationId:633:Type:7:WorldID:1536" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="2" LogMessageText="[09:06:08.744] 261 105:Add:4001A815:BNpcID:1EBBF7:Heading:-1.5709:PosX:97.0000:PosY:100.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                           <Action OrderNumber="3" LogMessageText="[09:06:08.744] 261 105:Add:4001A816:BNpcID:1EBBF7:BNpcNameID:700180D:CastDurationCurrent:2.7500:CastDurationMax:1.5000:CastGroundTargetX:1.9000:CastGroundTargetY:1.5000:CastGroundTargetZ:2.7500:CurrentMP:4259843:Heading:-0.7855:Level:139:PosX:96.4142:PosY:103.5858:Radius:0.5000:Type:7:WorldID:1536" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                           <Action OrderNumber="4" LogMessageText="[09:06:08.744] 261 105:Add:4001A814:BNpcID:1EBBF7:BNpcNameID:100180D:CastGroundTargetZ:0.4191:CurrentMP:4390915:Heading:0.7854:Job:2:Level:89:PosX:96.4142:PosY:96.4142:Radius:0.5000:Type:7:WorldID:1536" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                           <Action OrderNumber="5" LogMessageText="[09:06:08.744] 261 105:Add:4001A817:BNpcID:1EBBF7:BNpcNameID:1C03:CastDurationCurrent:0.3000:CastGroundTargetZ:0.5000:CurrentMP:4194307:CurrentWorldID:2816:Heading:-3.1416:Job:53:Level:11:PosX:100.0000:PosY:110.0000:Radius:0.5000:TransformationId:633:Type:7:WorldID:25347" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
@@ -1888,12 +1888,13 @@
                           <Action OrderNumber="9" VariableOp="SetNumeric" VariableName="tmp_x中心" VariableExpression="(${v:tmp_x交点1} + ${v:tmp_x交点3}) / 2" ActionType="Variable" Asynchronous="False"/>
                           <Action OrderNumber="10" VariableOp="SetNumeric" VariableName="tmp_y中心" VariableExpression="(${v:tmp_y交点1} + ${v:tmp_y交点3}) / 2" ActionType="Variable" Asynchronous="False"/>
                           <Action OrderNumber="11" VariableOp="SetNumeric" VariableName="U7a5_地火_中心dir4" VariableExpression="roundvec(${v:tmp_x中心} - 100, ${v:tmp_y中心} - 100, 4)" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="12" ActionType="Placeholder" Asynchronous="False" Description="八边形的中心点坐标及处于的方位（只会在正点）" DescriptionOverride="True"/>
+                          <Action OrderNumber="12" ActionType="Placeholder" Asynchronous="False" Description="第一、二组交点相对中心点的 dir8，以此判断顺逆" DescriptionOverride="True"/>
                           <Action OrderNumber="13" VariableOp="SetNumeric" VariableName="U7a5_地火_交点1dir-8" VariableExpression="roundvec(${v:tmp_x交点1} - ${v:tmp_x中心}, ${v:tmp_y交点1} - ${v:tmp_y中心}, -8)" ActionType="Variable" Asynchronous="False"/>
                           <Action OrderNumber="14" VariableOp="SetNumeric" VariableName="U7a5_地火_交点2dir-8" VariableExpression="roundvec(${v:tmp_x交点2} - ${v:tmp_x中心}, ${v:tmp_y交点2} - ${v:tmp_y中心}, -8)" ActionType="Variable" Asynchronous="False"/>
                           <Action OrderNumber="15" VariableOp="SetNumeric" VariableName="U7a5_地火_is逆" VariableExpression="(${v:U7a5_地火_交点2dir-8} - ${v:U7a5_地火_交点1dir-8}) %% 8 = 2" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="16" LogMessageText="U7a5_地火:中心dir4:${v:U7a5_地火_中心dir4}:is逆:${v:U7a5_地火_is逆}:初始dir-8:${v:U7a5_地火_交点1dir-8}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False"/>
-                          <Action OrderNumber="17" VariableOp="UnsetRegex" VariableName="^tmp_[xy](交点|中心)" ActionType="Variable"/>
+                          <Action OrderNumber="16" ActionType="Placeholder" Asynchronous="False" Description="下述三个参数可描述一组地火：" DescriptionOverride="True"/>
+                          <Action OrderNumber="17" LogMessageText="U7a5_地火:中心dir4:${v:U7a5_地火_中心dir4}:is逆:${v:U7a5_地火_is逆}:初始dir-8:${v:U7a5_地火_交点1dir-8}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False"/>
+                          <Action OrderNumber="18" VariableOp="UnsetRegex" VariableName="^tmp_[xy](交点|中心)" ActionType="Variable"/>
                         </Actions>
                       </Trigger>
                     </Triggers>
@@ -1913,7 +1914,7 @@
                   <Action OrderNumber="2" LogMessageText="PartyList:MyIdx8:${l:party.indexof(${_me.id})}" LogProcess="True" ActionType="LogMessage" Asynchronous="False"/>
                 </Actions>
               </Trigger>
-              <Trigger Enabled="true" Name="导入提示" Id="6baa7428-f518-474a-bdc1-e6377109dd79" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
+              <Trigger Enabled="false" Name="导入提示" Id="6baa7428-f518-474a-bdc1-e6377109dd79" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
                 <Actions>
                   <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="已更新绝伊甸测试版 v0.5a &#13;&#10;已包含副本大部分机制&#13;&#10;更新后请看使用说明（触发器）&#13;&#10;&#13;&#10;v0.4a → 0.5a：&#13;&#10;· 增加 P4 二运初始 TTS 播报&#13;&#10;· 增加 P5 地火 TTS 时间轴及标点&#13;&#10;· 增加 P5 踩塔 TTS 时间轴及标点&#13;&#10;· 增加 P5 挡枪 TTS 时间轴及标点" ActionType="MessageBox"/>
                   <Action OrderNumber="2" TriggerOp="DisableTrigger" TriggerId="6baa7428-f518-474a-bdc1-e6377109dd79" ActionType="Trigger"/>
