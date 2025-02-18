@@ -1158,7 +1158,7 @@
                   </Trigger>
                 </Triggers>
               </Folder>
-              <Folder Id="816bced5-62df-4909-93ea-3117ad675831" Name="B. 土" Enabled="true" RawEnvironmentVariables="phase = 土">
+              <Folder Id="816bced5-62df-4909-93ea-3117ad675831" Name="C. 土" Enabled="true" RawEnvironmentVariables="phase = 土">
                 <Folders/>
                 <Triggers>
                   <Trigger Enabled="true" Name="2.2 扇形点名 =&gt; 2.3" Id="6e5646bd-12f6-428d-aeac-a9f0bd88ae68" RegularExpression="^.{15}\S+ 23:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*::[^:]*:[^:]*:0011:">
@@ -1270,7 +1270,7 @@
                   </Trigger>
                 </Triggers>
               </Folder>
-              <Folder Id="e30593ea-1790-449b-a2e2-088faaca3606" Name="C. 冰" Enabled="true" RawEnvironmentVariables="phase = 冰">
+              <Folder Id="e30593ea-1790-449b-a2e2-088faaca3606" Name="F. 冰" Enabled="true" RawEnvironmentVariables="phase = 冰">
                 <Folders/>
                 <Triggers>
                   <Trigger Enabled="true" Name="冰冻" Id="eae6ea9b-fc90-4a6b-a112-7b7608ce86e7" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A036:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
@@ -1293,10 +1293,11 @@
                   <Trigger Enabled="true" Name="2. 冰柱连线" Id="837ca931-ef1c-4990-90db-eb601d7d854a" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:0039:">
                     <Actions>
                       <Action OrderNumber="1" UseTTSTextExpression="${?l: 右后, 右前, 左前, 左后, 右前, 右后, 左后, 左前 [${l:Ex7c_冰_冰柱id.indexof(${sid})}]}冰柱连线" Enabled="False" ActionType="UseTTS"/>
-                      <Action OrderNumber="2" VariableOp="SetString" VariableName="tmp_dir-4" VariableExpression="${?l: 2, 3, 0, 1, 3, 2, 1, 0 [${l:Ex7c_冰_冰柱id.indexof(${sid})}]}" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="3" UseTTSTextExpression="从${f:pick(0${v:tmp_dir-4}): 左前, 左后, 右后, 右前 }出去拉线" ActionType="UseTTS"/>
-                      <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: 100, 100&#13;&#10;Waymarks: 1234&#13;&#10;Start: 1.1, 4&#13;&#10;End:   6.9, 4&#13;&#10;ScaleX: ${f:pick(0${v:tmp_dir-4}): -1, -1, 1, 1 }&#13;&#10;ScaleY: ${f:pick(0${v:tmp_dir-4}): -1, 1, 1, -1 }&#13;&#10;---&#13;&#10;O: 100, 100&#13;&#10;A: ${?l: &#13;&#10;    &quot; 14.75, -2&quot;,&#13;&#10;    &quot; 14.75, -6&quot;,&#13;&#10;    &quot;-14.75, -6&quot;,&#13;&#10;    &quot;-14.75, -2&quot;,&#13;&#10;    &quot;  9.25, -18.75&quot;,&#13;&#10;    &quot; 14.75, -18.75&quot;,&#13;&#10;    &quot;-14.75, -18.75&quot;,&#13;&#10;    &quot; -9.25, -18.75&quot;&#13;&#10;[${l:Ex7c_冰_冰柱id.indexof(${sid})}]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" Description="1234 冰桥， A 终点" DescBgColor="dff" DescriptionOverride="True"/>
-                      <Action OrderNumber="5" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${sid}].address}, 502" ActionType="NamedCallback" DescTextColor="26f"/>
+                      <Action OrderNumber="2" VariableOp="SetString" VariableName="Ex7c_冰_myDir-4" VariableExpression="${?l: 2, 3, 0, 1, 3, 2, 1, 0 [${l:Ex7c_冰_冰柱id.indexof(${sid})}]}" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="Ex7c_冰_isG1" VariableExpression="0${l:Ex7c_冰_冰柱id.indexof(${sid})} &lt;= 4" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="4" UseTTSTextExpression="从${f:pick(0${v:Ex7c_冰_myDir-4}): 左前, 左后, 右后, 右前 }出去拉线" ActionType="UseTTS"/>
+                      <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: 100, 100&#13;&#10;Waymarks: 1234&#13;&#10;Start: 1.1, 4&#13;&#10;End:   6.9, 4&#13;&#10;ScaleX: ${f:pick(0${v:Ex7c_冰_myDir-4}): -1, -1, 1, 1 }&#13;&#10;ScaleY: ${f:pick(0${v:Ex7c_冰_myDir-4}): -1, 1, 1, -1 }&#13;&#10;---&#13;&#10;O: 100, 100&#13;&#10;A: ${?l: &#13;&#10;    &quot; 14.75, -2&quot;,&#13;&#10;    &quot; 14.75, -6&quot;,&#13;&#10;    &quot;-14.75, -6&quot;,&#13;&#10;    &quot;-14.75, -2&quot;,&#13;&#10;    &quot;  9.25, -18.75&quot;,&#13;&#10;    &quot; 14.75, -18.75&quot;,&#13;&#10;    &quot;-14.75, -18.75&quot;,&#13;&#10;    &quot; -9.25, -18.75&quot;&#13;&#10;[${l:Ex7c_冰_冰柱id.indexof(${sid})}]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" Description="1234 冰桥， A 终点" DescBgColor="dff" DescriptionOverride="True"/>
+                      <Action OrderNumber="6" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${sid}].address}, 502" ActionType="NamedCallback" DescTextColor="26f"/>
                     </Actions>
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
@@ -1323,11 +1324,11 @@
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="phase" DescriptionOverride="True"/>
                       <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="Ex7c_冰_isRSafe" VariableExpression="${aid} == A01E" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="3" UseTTSTextExpression="排队${if: ${v:Ex7c_冰_isRSafe} ? 去右侧 : 去左侧 }" ActionType="UseTTS"/>
-                      <Action OrderNumber="4" SystemBeepLengthExpression="150" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100, 0&#13;&#10;ScaleX: 0${v:Ex7c_冰_isRSafe} ? 1 : -1&#13;&#10;1: 1.1, -5.1&#13;&#10;2: 1.1, -2.9&#13;&#10;3: 1.1,  2.9&#13;&#10;4: 1.1,  5.1&#13;&#10;A: fakeclear&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear&#13;&#10;" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="3" UseTTSTextExpression="${if: ${v:Ex7c_冰_isG1} ? 直接 : 稍后 }原路返回，去中心偏${if: ${v:Ex7c_冰_isRSafe} ? 右 : 左 }" ActionType="UseTTS"/>
+                      <Action OrderNumber="4" SystemBeepLengthExpression="150" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100, 0&#13;&#10;ScaleX: 0${v:Ex7c_冰_isRSafe} ? 1 : -1&#13;&#10;A: 1.25, -5.1&#13;&#10;B: 1.25, -2.9&#13;&#10;C: 1.25,  2.9&#13;&#10;D: 1.25,  5.1" ActionType="NamedCallback" DescBgColor="dff"/>
                       <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="7700"/>
                       <Action OrderNumber="6" UseTTSTextExpression="穿" ActionType="UseTTS"/>
-                      <Action OrderNumber="7" SystemBeepLengthExpression="150" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100, 0&#13;&#10;ScaleX: 0${v:Ex7c_冰_isRSafe} ? -1 : 1&#13;&#10;1: 1.1, -5.1&#13;&#10;2: 1.1, -2.9&#13;&#10;3: 1.1,  2.9&#13;&#10;4: 1.1,  5.1&#13;&#10;A: fakeclear&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear&#13;&#10;" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="7" SystemBeepLengthExpression="150" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100, 0&#13;&#10;ScaleX: 0${v:Ex7c_冰_isRSafe} ? -1 : 1&#13;&#10;A: 1.25, -5.1&#13;&#10;B: 1.25, -2.9&#13;&#10;C: 1.25,  2.9&#13;&#10;D: 1.25,  5.1" ActionType="NamedCallback" DescBgColor="dff"/>
                       <Action OrderNumber="8" SystemBeepLengthExpression="150"/>
                       <Action OrderNumber="9" SystemBeepLengthExpression="150" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="6800" DescBgColor="dff"/>
                     </Actions>
@@ -1337,7 +1338,7 @@
                   </Trigger>
                 </Triggers>
               </Folder>
-              <Folder Id="01a269e0-3868-4c9d-a548-118dda4d5e43" Name="D. 分治" Enabled="true" RawEnvironmentVariables="phase = 分治">
+              <Folder Id="01a269e0-3868-4c9d-a548-118dda4d5e43" Name="B. 分治" Enabled="true" RawEnvironmentVariables="phase = 分治">
                 <Folders/>
                 <Triggers>
                   <Trigger Enabled="true" Name="0. 初始化" Id="5e16eb31-716e-425a-84d3-1bb151b86210" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A017:">
@@ -1378,7 +1379,7 @@
                   </Trigger>
                 </Triggers>
               </Folder>
-              <Folder Id="8e520398-912c-4e12-a917-b88b453f46d2" Name="E. 转场" Enabled="true">
+              <Folder Id="8e520398-912c-4e12-a917-b88b453f46d2" Name="E. 绝对王权 运动会" Enabled="true">
                 <Folders/>
                 <Triggers>
                   <Trigger Enabled="true" Name="运动会" Id="bf687b63-5afa-4784-8b57-9f2ab2a63d0d" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A041:">
@@ -1388,7 +1389,7 @@
                   </Trigger>
                 </Triggers>
               </Folder>
-              <Folder Id="287a14dc-32bf-4b24-bdd8-d818baa5491e" Name="F. 转地板" Enabled="true">
+              <Folder Id="287a14dc-32bf-4b24-bdd8-d818baa5491e" Name="G. 转地板" Enabled="true">
                 <Folders/>
                 <Triggers>
                   <Trigger Enabled="true" Name="1. 获取地板" Id="cc64435a-4fbe-4c2d-8c69-d331d13ca5ef" RegularExpression="^.{15}\S+ 101:.{8}:(?&lt;side&gt;00200010|00020001):(?&lt;type&gt;0[9AB])">
@@ -1436,6 +1437,51 @@
                     <Actions>
                       <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS"/>
                     </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="World Shatter 转场AoE" Id="4b278055-4095-4882-8e1d-01043f2b04f9" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A01C:">
+                    <Actions>
+                      <Action OrderNumber="1" VariableOp="SetString" VariableName="Ex7c_phase" ActionType="Variable"/>
+                      <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="左右刀" Id="e6554d03-9ac1-4efe-b8a8-2a9f9315ae53" RegularExpression="^.{15}\S+ 14:[^:]*:[^:]*:(?&lt;aid&gt;A01E|A020):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="Ex7c_isRSafe" VariableExpression="${aid} == A01E" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="3" UseTTSTextExpression="去${if: ${v:Ex7c_冰_isRSafe} ? 右 : 左 }侧" ActionType="UseTTS"/>
+                      <Action OrderNumber="4" SystemBeepLengthExpression="150" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: 100, 100, 0&#13;&#10;Start: 1.25, -18.75&#13;&#10;End:   1.25,  18.75&#13;&#10;Waymarks: ABCD1234&#13;&#10;ScaleX: 0${v:Ex7c_isRSafe} ? 1 : -1" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="7700"/>
+                      <Action OrderNumber="6" UseTTSTextExpression="穿" ActionType="UseTTS"/>
+                      <Action OrderNumber="7" SystemBeepLengthExpression="150" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: 100, 100, 0&#13;&#10;Start: 1.25, -18.75&#13;&#10;End:   1.25,  18.75&#13;&#10;Waymarks: ABCD1234&#13;&#10;ScaleX: 0${v:Ex7c_isRSafe} ? -1 : 1" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="8" SystemBeepLengthExpression="150"/>
+                      <Action OrderNumber="9" SystemBeepLengthExpression="150" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="6800" DescBgColor="dff"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:Ex7c_phase}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="5ca52788-53ef-404a-98aa-f1822e69c2db" Name="D. 拉线" Enabled="true">
+                <Folders/>
+                <Triggers>
+                  <Trigger Enabled="true" Name="连线" Id="fd47d0db-626d-4264-ba53-46a2928ef03f" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;[^:]+):[^:]*:(?&lt;tid&gt;[^:]+):[^:]*:[^:]*:[^:]*:0?10(?&lt;type&gt;E|F):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="面向场边三角，左侧连线为 010E" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="Ex7c_线_dir4" VariableExpression="roundvec(${_entity[${tid}].x} - 100, ${_entity[${tid}].y} - 100, 4)" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="Ex7c_线_dir8" VariableExpression="(${v:Ex7c_线_dir4} * 2 - (0x0${type} = 0xE ? 0 : 1)) %% 8" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="4" UseTTSTextExpression="去${f:pick(${v:Ex7c_线_dir8}): 上北, 左上, 左西, 左下, 下南或中心, 右下, 右东, 右上 }拉线" ActionType="UseTTS"/>
+                      <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;O: 100 + round(sin(dir2rad(${v:Ex7c_线_dir8}, 8))) * 17.8, 100 + round(cos(dir2rad(${v:Ex7c_线_dir8}, 8))) * 17.8&#13;&#10;Waymarks: _1_3_4_2&#13;&#10;R: 1.1√2" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;O: 100, 100&#13;&#10;Waymarks: _A_C_D_B&#13;&#10;R: 1.25√2" ActionType="NamedCallback" DescBgColor="dff">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:Ex7c_线_dir8}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="7" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="11100" DescBgColor="dff"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
                   </Trigger>
                 </Triggers>
               </Folder>
