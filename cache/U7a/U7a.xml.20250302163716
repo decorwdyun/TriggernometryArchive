@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <TriggernometryExport PluginVersion="1.2.0.731">
-<ExportedFolder Id="c508e5d1-cdd4-411d-bd7e-ef093999acec" Name="绝伊甸宝宝椅 v0.6.6" Enabled="true" RawEnvironmentVariables="prefix = U7a&#xD;&#xA;zone = 1238&#xD;&#xA;version = 0.6.6">
+<ExportedFolder Id="c508e5d1-cdd4-411d-bd7e-ef093999acec" Name="绝伊甸宝宝椅 v0.6.5" Enabled="true" RawEnvironmentVariables="prefix = U7a&#xD;&#xA;zone = 1238&#xD;&#xA;version = 0.6.5">
 <Folders>
 <Folder Id="e529ad03-6e98-4586-b43b-42df79df22c1" Name="核心（此分组不可修改）" Enabled="true">
 <Folders>
@@ -366,8 +366,9 @@
 <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P1塔]}" ExpressionTypeL="String" ExpressionR="优先" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="12" LogMessageText="U7a1_塔:myTower:${v:U7a1_塔_自己补塔}:is右:${v:U7a1_塔_is右}:is火:${v:U7a1_塔_is火}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="13" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} ${_event}" ActionType="NamedCallback" DescBgColor="fdd" />
+<Action OrderNumber="12" VariableOp="SetString" VariableName="U7a1_塔_自己补塔" VariableExpression="${f:slice(${v:myIdx}):00013${?d: 114 = 333, 141 = 222, 411 = 111, 123 = 332, 132 = 232, 213 = 133, 231 = 122, 312 = 131, 321 = 112, 222 = 222 [${cnt}]}2}" ActionType="Variable" />
+<Action OrderNumber="13" LogMessageText="U7a1_塔:myTower:${v:U7a1_塔_自己补塔}:is右:${v:U7a1_塔_is右}:is火:${v:U7a1_塔_is火}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="14" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} ${_event}" ActionType="NamedCallback" DescBgColor="fdd" />
 </Actions>
 </Trigger>
 <Trigger Enabled="false" Source="None" Name="Debug Log 2025-02-28 07:54" Id="8f602ff1-9546-4af8-917b-f2ebe38d167b" RegularExpression="">
@@ -665,33 +666,67 @@
 <Action OrderNumber="40" LogMessageText="U7a2_光暴:${l:U7a2_光暴_dir6_pIdx.join(&quot;&quot;)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Name="[D] 模拟连线" Id="e1b7c585-7817-4d3a-b029-9f82628f31f2" RegularExpression="^D_U7a2_光暴:(.)(.)(.)(.)(.)(.)">
-<Actions>
-<Action OrderNumber="1" LogMessageText="[00:00:00.000] Tether 23:${l:party[$1]}:队员:${l:party[$2]}:队员:0000:0000:006E:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="2" LogMessageText="[00:00:00.000] Tether 23:${l:party[$2]}:队员:${l:party[$3]}:队员:0000:0000:006E:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="3" LogMessageText="[00:00:00.000] Tether 23:${l:party[$3]}:队员:${l:party[$4]}:队员:0000:0000:006E:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="4" LogMessageText="[00:00:00.000] Tether 23:${l:party[$4]}:队员:${l:party[$5]}:队员:0000:0000:006E:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="5" LogMessageText="[00:00:00.000] Tether 23:${l:party[$5]}:队员:${l:party[$6]}:队员:0000:0000:006E:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="6" LogMessageText="[00:00:00.000] Tether 23:${l:party[$6]}:队员:${l:party[$1]}:队员:0000:0000:006E:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="7" TriggerOp="CancelAllTrigger" ActionType="Trigger" ExecutionDelayExpression="3000" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="Debug Log /e u7a dd 123456" Id="091506a7-ee15-41a8-a00c-43d4ef070d8f" RegularExpression="^.{15}\S+ 00:0038::(?i)u7a dd (?&lt;pIdx6&gt;[1-8]{6})">
-<Actions>
-<Action OrderNumber="1" LogMessageText="[22:18:13.907] StartsCasting 14:40002912:Usurper of Frost:9D14:Light Rampant:40002912:Usurper of Frost:4.700:99.99:99.99:0.00:1.11" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="0.81 * 1000" />
-<Action OrderNumber="3" LogMessageText="D_U7a2_光暴:${pIdx6}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Source="None" Name="Debug Log G9（MT-D4-D2-H2-D1-D3）" Id="0fc0286f-50ad-4dc0-930c-80ee53506573" RegularExpression="">
+<Trigger Enabled="false" Source="None" Name="Debug Log G9（顺序不对）" Id="0fc0286f-50ad-4dc0-930c-80ee53506573" RegularExpression="">
 <Actions>
 <Action OrderNumber="1" LogMessageText="[22:18:08.907] StartsCasting 14:40002912:Usurper of Frost:9D14:Light Rampant:40002912:Usurper of Frost:4.700:99.99:99.99:0.00:1.11" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
 <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="0.81 * 1000" />
-<Action OrderNumber="3" LogMessageText="D_U7a2_光暴:186457" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="13.54 * 1000" />
-<Action OrderNumber="5" LogMessageText="[22:18:28.260] 263 107:4000292C:9D1B:100.009:116.001:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="3.05 * 1000" />
-<Action OrderNumber="7" LogMessageText="[22:18:31.302] 263 107:40002934:9D1B:100.009:83.987:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="3" LogMessageText="[22:18:14.720] Tether 23:${l:party[1]}:队员1:${l:party[2]}:队员2:0000:0000:006E:${l:party[2]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="4" LogMessageText="[22:18:14.720] Tether 23:${l:party[2]}:队员2:${l:party[3]}:队员3:0000:0000:006E:${l:party[3]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="5" LogMessageText="[22:18:14.720] Tether 23:${l:party[3]}:队员3:${l:party[4]}:队员4:0000:0000:006E:${l:party[4]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="6" LogMessageText="[22:18:14.720] Tether 23:${l:party[4]}:队员4:${l:party[5]}:队员5:0000:0000:006E:${l:party[5]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="7" LogMessageText="[22:18:14.720] Tether 23:${l:party[5]}:队员5:${l:party[6]}:队员6:0000:0000:006E:${l:party[6]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="8" LogMessageText="[22:18:14.720] Tether 23:${l:party[6]}:队员6:${l:party[1]}:队员1:0000:0000:006E:${_me.id}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="9" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[4]}:队员4:01:141215:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="10" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[6]}:队员6:01:226089:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="11" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[7]}:队员7:02:156987:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="12" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[3]}:队员3:01:157227:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="13" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[8]}:队员8:01:142328:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="13.54 * 1000" />
+<Action OrderNumber="15" LogMessageText="[22:18:28.260] 263 107:4000292C:9D1B:100.009:116.001:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="3.05 * 1000" />
+<Action OrderNumber="17" LogMessageText="[22:18:31.302] 263 107:40002934:9D1B:100.009:83.987:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+</Actions>
+</Trigger>
+<Trigger Enabled="false" Source="None" Name="Debug Log MGL （MT-ST-H1-H2-D2-D1）" Id="794ac0eb-7c11-4f2a-b15a-36cc2fedc23b" RegularExpression="">
+<Actions>
+<Action OrderNumber="1" LogMessageText="[22:18:13.907] StartsCasting 14:40002912:Usurper of Frost:9D14:Light Rampant:40002912:Usurper of Frost:4.700:99.99:99.99:0.00:1.11" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="2.81 * 1000" />
+<Action OrderNumber="3" LogMessageText="[22:18:14.720] Tether 23:${l:party[1]}:队员:${l:party[2]}:队员:0000:0000:006E:${l:party[2]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="4" LogMessageText="[22:18:14.720] Tether 23:${l:party[2]}:队员:${l:party[3]}:队员:0000:0000:006E:${l:party[3]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="5" LogMessageText="[22:18:14.720] Tether 23:${l:party[3]}:队员:${l:party[4]}:队员:0000:0000:006E:${l:party[4]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="6" LogMessageText="[22:18:14.720] Tether 23:${l:party[4]}:队员:${l:party[6]}:队员:0000:0000:006E:${l:party[5]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="7" LogMessageText="[22:18:14.720] Tether 23:${l:party[5]}:队员:${l:party[1]}:队员:0000:0000:006E:${l:party[6]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="8" LogMessageText="[22:18:14.720] Tether 23:${l:party[6]}:队员:${l:party[5]}:队员:0000:0000:006E:${_me.id}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="9" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[4]}:队员:01:141215:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="10" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[6]}:队员:01:226089:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="11" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[7]}:队员:02:156987:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="12" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[3]}:队员:01:157227:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="13" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[8]}:队员:01:142328:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="13.54 * 1000" />
+<Action OrderNumber="15" LogMessageText="[22:18:28.260] 263 107:4000292C:9D1B:100.009:116.001:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="3.04 * 1000" />
+<Action OrderNumber="17" LogMessageText="[22:18:31.302] 263 107:40002934:9D1B:100.009:83.987:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+</Actions>
+</Trigger>
+<Trigger Enabled="false" Source="None" Name="Debug Log 美（H1-MT-D2-D1-D4-D3）" Id="12e60b75-e58d-4931-b901-74438b9983fb" RegularExpression="">
+<Actions>
+<Action OrderNumber="1" LogMessageText="[22:18:13.907] StartsCasting 14:40002912:Usurper of Frost:9D14:Light Rampant:40002912:Usurper of Frost:4.700:99.99:99.99:0.00:1.11" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="0.81 * 1000" />
+<Action OrderNumber="3" LogMessageText="[22:18:14.720] Tether 23:${l:party[3]}:队员:${l:party[1]}:队员:0000:0000:006E:${l:party[2]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="4" LogMessageText="[22:18:14.720] Tether 23:${l:party[1]}:队员:${l:party[6]}:队员:0000:0000:006E:${l:party[3]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="5" LogMessageText="[22:18:14.720] Tether 23:${l:party[6]}:队员:${l:party[5]}:队员:0000:0000:006E:${l:party[4]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="6" LogMessageText="[22:18:14.720] Tether 23:${l:party[5]}:队员:${l:party[8]}:队员:0000:0000:006E:${l:party[5]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="7" LogMessageText="[22:18:14.720] Tether 23:${l:party[8]}:队员:${l:party[7]}:队员:0000:0000:006E:${l:party[6]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="8" LogMessageText="[22:18:14.720] Tether 23:${l:party[7]}:队员:${l:party[3]}:队员:0000:0000:006E:${_me.id}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="9" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[4]}:队员:01:141215:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="10" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[6]}:队员:01:226089:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="11" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[7]}:队员:02:156987:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="12" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[3]}:队员:01:157227:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="13" LogMessageText="[22:18:14.721] StatusAdd 1A:8D1:Lightsteeped:36.00:E0000000::${l:party[8]}:队员:01:142328:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="13.54 * 1000" />
+<Action OrderNumber="15" LogMessageText="[22:18:28.260] 263 107:4000292C:9D1B:100.009:116.001:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="3.04 * 1000" />
+<Action OrderNumber="17" LogMessageText="[22:18:31.302] 263 107:40002934:9D1B:100.009:83.987:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
 </Actions>
 </Trigger>
 </Triggers>
