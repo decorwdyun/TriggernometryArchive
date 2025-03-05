@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TriggernometryExport PluginVersion="1.2.0.730">
+<TriggernometryExport PluginVersion="1.2.0.731">
   <ExportedFolder Id="05fc8287-46c7-46cc-9aec-9684fc414f66" Name="7.0 极神" Enabled="true">
     <Folders>
       <Folder Id="dddce437-ec41-47b4-adb6-b1f5dc345ad3" ReadOnly="True" Name="Ex7a 艳翼蛇鸟宝宝椅 v1.3 by 阿洛" Enabled="true">
@@ -1049,7 +1049,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="7d6e1eed-007a-4b55-82e0-094b7d59b83a" Name="Ex7c 永恒女王宝宝椅 v1.1 by 阿洛" Enabled="true">
+      <Folder Id="7d6e1eed-007a-4b55-82e0-094b7d59b83a" Name="Ex7c 永恒女王宝宝椅 v1.2 by 阿洛" Enabled="true">
         <Folders>
           <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1243$" Id="639d84e0-64f4-44d4-878f-e9dd1792106e" Name="区域限制" Enabled="true">
             <Folders>
@@ -1083,6 +1083,11 @@
                       <Action OrderNumber="1" FolderOp="CancelFolder" FolderId="7d6e1eed-007a-4b55-82e0-094b7d59b83a" ActionType="Folder" ExecutionDelayExpression="500"/>
                     </Actions>
                   </Trigger>
+                  <Trigger Enabled="true" Name="清除小队" Id="7b2569c5-3e54-48f8-b8c9-af668adee034" RegularExpression="^.{15}\S+ 01">
+                    <Actions>
+                      <Action OrderNumber="1" ListVariableName="party" ActionType="ListVariable" Asynchronous="False"/>
+                    </Actions>
+                  </Trigger>
                 </Triggers>
               </Folder>
               <Folder Id="d7807016-5d2d-49ec-923b-7eedf9342d12" Name="A. 风" Enabled="true" RawEnvironmentVariables="phase = 风">
@@ -1092,9 +1097,9 @@
                     <Actions>
                       <Action OrderNumber="1" VariableOp="SetString" VariableName="Ex7c_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
                       <Action OrderNumber="2" UseTTSTextExpression="AoE，风阶段" ActionType="UseTTS"/>
-                      <Action OrderNumber="3" UseTTSTextExpression="双分摊" ActionType="UseTTS" ExecutionDelayExpression="6000"/>
+                      <Action OrderNumber="3" UseTTSTextExpression="双组分摊，${if: ${ev:myIdx_isG1} ? 去${if: ${v:myIdx_isG1} ? 左前 : 右后 } : &quot;&quot; }" ActionType="UseTTS" ExecutionDelayExpression="6000"/>
                       <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 92.5&#13;&#10;A: -6, -3&#13;&#10;B:  6,  3&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear&#13;&#10;1: fakeclear&#13;&#10;2: fakeclear&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear" ActionType="NamedCallback" DescBgColor="dff"/>
-                      <Action OrderNumber="5" UseTTSTextExpression="中心集合，等待锁链" ActionType="UseTTS" ExecutionDelayExpression="12300"/>
+                      <Action OrderNumber="5" UseTTSTextExpression="中心集合，准备${if: ${ev:myIdx_isTH} ? ${if: ${v:myIdx_isTH} ? 左后 : 右前 } : &quot;&quot; }拉线" ActionType="UseTTS" ExecutionDelayExpression="12300"/>
                       <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: 100, 92.5&#13;&#10;Start: 0, 0&#13;&#10;End: -11, 11&#13;&#10;Waymarks: CD1234&#13;&#10;θ: ${_me.IsD} ? 0 : π" ActionType="NamedCallback" DescBgColor="dff"/>
                     </Actions>
                   </Trigger>
@@ -1216,7 +1221,7 @@
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="phase" DescriptionOverride="True"/>
                       <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="Ex7c_土_isRSafe" VariableExpression="${aid} == A01E" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="Ex7c_土_is穿一次" VariableExpression="(${v:myGrp} = 1) = ${v:Ex7c_土_isRSafe}" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="Ex7c_土_is穿一次" VariableExpression="${v:myIdx_isG1} = ${v:Ex7c_土_isRSafe}" ActionType="Variable" Asynchronous="False"/>
                       <Action OrderNumber="4" LogMessageText="cd4:15.9" LogProcess="True" ActionType="LogMessage"/>
                       <Action OrderNumber="5" UseTTSTextExpression="${if: ${v:Ex7c_土_isRSafe} ? 先去右 : 先去左 }" ActionType="UseTTS"/>
                       <Action OrderNumber="6" SystemBeepLengthExpression="150" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 94, 2&#13;&#10;ScaleX: 0${v:Ex7c_土_isRSafe} ? 1.1 : -1.1&#13;&#10;ScaleY: 1.1&#13;&#10;1: 1, -3&#13;&#10;2: 1, -1&#13;&#10;3: 1,  1&#13;&#10;4: 1,  3&#13;&#10;A: fakeclear&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" DescBgColor="dff"/>
@@ -1257,17 +1262,23 @@
                   </Trigger>
                   <Trigger Enabled="true" Name="2.3 无点名" Id="252de896-e932-415a-bf96-8095d7874c61" RegularExpression="^Ex7c_土_点名">
                     <Actions>
-                      <Action OrderNumber="1" UseTTSTextExpression="${if: ${v:Ex7c_土_is浮空} ? &quot;落地，&quot; : &quot;&quot; }踩塔" ActionType="UseTTS">
+                      <Action OrderNumber="1" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="party" ListVariableExpression="!${l:Ex7c_土_点名.contain(${_this})} &amp;&amp; (${v:myIdx} - ${_idx}) %% 2 = 0" ListVariableTarget="Ex7c_土_同组无点名" ActionType="ListVariable" Asynchronous="False"/>
+                      <Action OrderNumber="2" UseTTSTextExpression="${if: ${v:Ex7c_土_is浮空} ? &quot;落地，&quot; : &quot;&quot; }前方踩塔，同组${_entity[${l:Ex7c_土_同组无点名[2]}].jobCN2}" ActionType="UseTTS">
                         <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="Ex7c_土_点名" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="ListDoesNotContain"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${l:Ex7c_土_同组无点名[1]}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="clear" ActionType="NamedCallback" DescBgColor="dff">
+                      <Action OrderNumber="3" UseTTSTextExpression="${if: ${v:Ex7c_土_is浮空} ? &quot;落地，&quot; : &quot;&quot; }后方踩塔，同组${_entity[${l:Ex7c_土_同组无点名[1]}].jobCN2}" ActionType="UseTTS">
                         <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="Ex7c_土_点名" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="ListDoesNotContain"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${l:Ex7c_土_同组无点名[2]}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
+                      <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="clear" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="5" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="party" ListVariableExpression="!${l:Ex7c_土_点名.contain(${_this})}" ListVariableTarget="1111" ActionType="ListVariable" Asynchronous="False"/>
                     </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="Ex7c_土_点名" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="ListDoesNotContain"/>
+                    </Condition>
                   </Trigger>
                   <Trigger Enabled="true" Sequential="True" Name="升空状态" Id="faee6c44-36b7-4472-ae42-053e7fa9774e" RegularExpression="^.{15}\S+ 1(?&lt;type&gt;A|E):EBA:[^:]+:[^:]+:.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
                     <Actions>
@@ -1281,28 +1292,79 @@
                   </Trigger>
                   <Trigger Enabled="true" Name="3. 陨石" Id="96357086-96ec-4622-8bb2-ed1aa682a0ee" RegularExpression="^.{15}\S+ 101:.{8}:01000004:18">
                     <Actions>
-                      <Action OrderNumber="1" LogMessageText="cd4:11.6" LogProcess="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="2" LogMessageText="cd4:18.7" LogProcess="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="3" UseTTSTextExpression="准备放陨石" ActionType="UseTTS"/>
+                      <Action OrderNumber="1" LogMessageText="cd4:11.6" LogProcess="True" ActionType="LogMessage">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:party.indexof(${_me.id})}" ExpressionTypeL="Numeric" ExpressionR="[1256]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" LogMessageText="cd4:18.7" LogProcess="True" ActionType="LogMessage">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:party.indexof(${_me.id})}" ExpressionTypeL="Numeric" ExpressionR="[1256]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" UseTTSTextExpression="${?d:&#13;&#10;  1 = 后排放陨石,&#13;&#10;  2 = 陨石，出去悬空,&#13;&#10;  3 = 前排放陨石,&#13;&#10;  4 = 陨石，出去悬空&#13;&#10;  [${n: ceiling(${v:myIdx} / 2)}]&#13;&#10;}" ActionType="UseTTS"/>
                       <Action OrderNumber="4" SystemBeepLengthExpression="150" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${_me.X} &gt; 100 ? 108 : 92, 94&#13;&#10;ScaleX: 2.9&#13;&#10;ScaleY: 6.9&#13;&#10;A: -1, -1&#13;&#10;B:  1, -1&#13;&#10;C: -1,  0&#13;&#10;D:  1,  0&#13;&#10;---&#13;&#10;O: ${_me.X} &gt; 100 ? 108 : 92, 94&#13;&#10;1: 0, -8&#13;&#10;2: 0, -2.5&#13;&#10;3: 0,  2.5&#13;&#10;4: 0,  8" ActionType="NamedCallback" DescBgColor="dff"/>
                       <Action OrderNumber="5" UseTTSTextExpression="${if: ${v:Ex7c_土_is浮空} ? &quot;落地，&quot; : &quot;&quot; }躲在陨石后" ActionType="UseTTS" ExecutionDelayExpression="18600"/>
                       <Action OrderNumber="6" SystemBeepLengthExpression="150" NamedCallbackName="AdvWm" NamedCallbackParam="clear" ActionType="NamedCallback" DescBgColor="dff"/>
                     </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="记录踩塔位置（确认分组和站位）" Id="972fe65a-9761-4e7e-889f-bf0da69d5f07" RegularExpression="^.{15}\S+ 1[56]:4.{7}:[^:]*:A029:[^:]*:(?&lt;tid&gt;1.{7}):([^:]*:){33}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):">
+                    <Actions>
+                      <Action OrderNumber="1" ListVariableOp="Set" ListVariableName="party" ListVariableExpression="${tid}" ListVariableIndex="${?l: &#13;&#10;  94 88, 106 88, 94 100, 106 100, &#13;&#10;  90 88, 110 88, 90 100, 110 100 &#13;&#10;.indexof(${n:round(${x})} ${n:round(${y})})} " ActionType="ListVariable" Asynchronous="False"/>
+                      <Action OrderNumber="2" VariableOp="SetString" VariableName="Ex7c_party已记录" VariableExpression="1" ActionType="Variable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:party.indexof(&quot;&quot;)}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${l:party.size}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" LogMessageText="PartyList:MyIdx8:${l:party.indexof(${_me.id})}" LogProcess="True" ActionType="LogMessage" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:party.indexof(&quot;&quot;)}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${l:party.size}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ListVariableOp="SortByKeys" ListVariableName="party" ListVariableExpression="n: ${_entity[${_this}].IsD}" ActionType="ListVariable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:party.indexof(&quot;&quot;)}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${l:party.size}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${ev:Ex7c_party已记录}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
                   </Trigger>
                 </Triggers>
               </Folder>
               <Folder Id="e30593ea-1790-449b-a2e2-088faaca3606" Name="F. 冰" Enabled="true" RawEnvironmentVariables="phase = 冰">
                 <Folders/>
                 <Triggers>
-                  <Trigger Enabled="true" Name="冰冻" Id="eae6ea9b-fc90-4a6b-a112-7b7608ce86e7" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A036:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
+                  <Trigger Enabled="true" Name="冰冻" Id="eae6ea9b-fc90-4a6b-a112-7b7608ce86e7" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A036:">
                     <Actions>
-                      <Action OrderNumber="1" UseTTSTextExpression="保持移动" ActionType="UseTTS" ExecutionDelayExpression="1000"/>
+                      <Action OrderNumber="1" VariableOp="Increment" VariableName="Ex7c_冰_冰冻_n" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="2" UseTTSTextExpression="${?l: 靠后, 靠后, 靠后, 靠后, 准备左前接线, 准备右前接线, 靠后, 靠后 [${v:myIdx}]}，保持移动" ActionType="UseTTS">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:Ex7c_冰_冰冻_n}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" UseTTSTextExpression="保持移动" ActionType="UseTTS" ExecutionDelayExpression="1000">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:Ex7c_冰_冰冻_n}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="10000" Asynchronous="False"/>
+                      <Action OrderNumber="5" UseTTSTextExpression="${?l: 左前接线, 右前接线, &quot;&quot;, &quot;&quot;, 左后回去, 右后回去, &quot;&quot;, &quot;&quot; [${v:myIdx}]}" ActionType="UseTTS">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:Ex7c_冰_冰冻_n}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Name="0. 初始化" Id="c18d6ffd-9575-4b49-b5a4-213b8fa992f4" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A01B:">
                     <Actions>
-                      <Action OrderNumber="1" VariableOp="SetString" VariableName="Ex7c_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
-                      <Action OrderNumber="2" UseTTSTextExpression="AoE，冰阶段" ActionType="UseTTS"/>
+                      <Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^Ex7c_冰" ActionType="Variable"/>
+                      <Action OrderNumber="2" VariableOp="SetString" VariableName="Ex7c_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
+                      <Action OrderNumber="3" UseTTSTextExpression="AoE，冰阶段" ActionType="UseTTS"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Name="1. 记录冰柱" Id="94e07d05-7066-40c6-963f-c9627aaebc44" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}(?&lt;bnpcid&gt;1804[78]):([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):">
@@ -1311,37 +1373,36 @@
                       <Action OrderNumber="2" ListVariableOp="Set" ListVariableName="Ex7c_冰_冰柱id" ListVariableExpression="${id}" ListVariableIndex="${bnpcid} = 18047 &#13;&#10;? (roundvec(${x} - 100, ${y} - 98, -4) + 1) &#13;&#10;: round((${x} - 100) / 6 + 6.5)" ActionType="ListVariable"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Name="2. 冰柱连线" Id="837ca931-ef1c-4990-90db-eb601d7d854a" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:0039:">
+                  <Trigger Enabled="true" Name="2. 冰柱连线 =&gt; 3 / 4" Id="837ca931-ef1c-4990-90db-eb601d7d854a" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:0039:">
                     <Actions>
-                      <Action OrderNumber="1" UseTTSTextExpression="${?l: 右后, 右前, 左前, 左后, 右前, 右后, 左后, 左前 [${l:Ex7c_冰_冰柱id.indexof(${sid})}]}冰柱连线" Enabled="False" ActionType="UseTTS"/>
-                      <Action OrderNumber="2" VariableOp="SetString" VariableName="Ex7c_冰_myDir-4" VariableExpression="${?l: 2, 3, 0, 1, 3, 2, 1, 0 [${l:Ex7c_冰_冰柱id.indexof(${sid})}]}" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="Ex7c_冰_isG1" VariableExpression="0${l:Ex7c_冰_冰柱id.indexof(${sid})} &lt;= 4" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="4" UseTTSTextExpression="从${f:pick(0${v:Ex7c_冰_myDir-4}): 左前, 左后, 右后, 右前 }出去拉线" ActionType="UseTTS"/>
-                      <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: 100, 100&#13;&#10;Waymarks: 1234&#13;&#10;Start: 1.1, 4&#13;&#10;End:   6.9, 4&#13;&#10;ScaleX: ${f:pick(0${v:Ex7c_冰_myDir-4}): -1, -1, 1, 1 }&#13;&#10;ScaleY: ${f:pick(0${v:Ex7c_冰_myDir-4}): -1, 1, 1, -1 }&#13;&#10;---&#13;&#10;O: 100, 100&#13;&#10;A: ${?l: &#13;&#10;    &quot; 14.75, -2&quot;,&#13;&#10;    &quot; 14.75, -6&quot;,&#13;&#10;    &quot;-14.75, -6&quot;,&#13;&#10;    &quot;-14.75, -2&quot;,&#13;&#10;    &quot;  9.25, -18.75&quot;,&#13;&#10;    &quot; 14.75, -18.75&quot;,&#13;&#10;    &quot;-14.75, -18.75&quot;,&#13;&#10;    &quot; -9.25, -18.75&quot;&#13;&#10;[${l:Ex7c_冰_冰柱id.indexof(${sid})}]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" Description="1234 冰桥， A 终点" DescBgColor="dff" DescriptionOverride="True"/>
-                      <Action OrderNumber="6" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${sid}].address}, 502" ActionType="NamedCallback" DescTextColor="26f"/>
+                      <Action OrderNumber="1" VariableOp="Increment" VariableName="Ex7c_冰_冰柱_n" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="2" VariableOp="SetString" VariableName="tmp_dir-4" VariableExpression="${?l: 2, 3, 0, 1, 3, 2, 1, 0 [${l:Ex7c_冰_冰柱id.indexof(${sid})}]}" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="3" DictVariableOp="Set" DictVariableName="Ex7c_冰_${n: ${v:Ex7c_冰_冰柱_n} &lt;= 4 ? 1 : 2}组dir-4ToId" DictVariableKey="${v:tmp_dir-4}" DictVariableValue="${tid}" ActionType="DictVariable" Asynchronous="False"/>
+                      <Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description="是自己：" DescriptionOverride="True"/>
+                      <Action OrderNumber="5" VariableOp="SetString" VariableName="Ex7c_冰_myDir-4" VariableExpression="${v:tmp_dir-4}" ActionType="Variable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="6" VariableOp="SetNumeric" VariableName="Ex7c_冰_isG1" VariableExpression="${v:Ex7c_冰_冰柱_n} &lt;= 4" ActionType="Variable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="7" LogMessageText="Ex7c_冰_拉线:isG1:${v:Ex7c_冰_isG1}:冰idx:${l:Ex7c_冰_冰柱id.indexof(${sid})}:dir-4:${v:Ex7c_冰_myDir-4}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="8" LogMessageText="Ex7c_冰_同组:isG1:${v:Ex7c_冰_isG1}:同组:${if: ${v:Ex7c_冰_isG1} &#13;&#10;  ? ${d:Ex7c_冰_2组dir-4ToId[${v:Ex7c_冰_myDir-4}]} &#13;&#10;  : ${d:Ex7c_冰_1组dir-4ToId[${v:Ex7c_冰_myDir-4}]}&#13;&#10;}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="9" VariableName="tmp_dir-4" ActionType="Variable" Asynchronous="False"/>
                     </Actions>
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
-                    </Condition>
                   </Trigger>
-                  <Trigger Enabled="false" Source="None" Name="Debug Log 2024-11-24 04:23" Id="57ef461c-c313-48f7-af7b-00dbd00ef8df" RegularExpression="">
-                    <Actions>
-                      <Action OrderNumber="1" LogMessageText="[00:47:07.595] StartsCasting 14:4000C998:Queen Eternal:A01B:Virtual Shift:4000C998:Queen Eternal:4.700:100.00:80.00:0.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="2.52 * 1000"/>
-                      <Action OrderNumber="3" LogMessageText="[00:47:17.691] AddCombatant 03:4000CAF5:Ice Pillar:00:64:0000:00::13615:18047:188300:188300:10000:10000:::117.00:94.00:0.00:-1.57" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="4" LogMessageText="[00:47:17.691] AddCombatant 03:4000CAF8:Ice Pillar:00:64:0000:00::13615:18048:188300:188300:10000:10000:::109.00:111.00:0.00:-3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="5" LogMessageText="[00:47:17.691] AddCombatant 03:4000CAF4:Ice Pillar:00:64:0000:00::13615:18047:188300:188300:10000:10000:::117.00:102.00:0.00:-1.57" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="6" LogMessageText="[00:47:17.691] AddCombatant 03:4000CAF9:Ice Pillar:00:64:0000:00::13615:18048:188300:188300:10000:10000:::103.00:111.00:0.00:-3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="7" LogMessageText="[00:47:17.691] AddCombatant 03:4000CAF6:Ice Pillar:00:64:0000:00::13615:18047:188300:188300:10000:10000:::83.00:102.00:0.00:1.57" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="8" LogMessageText="[00:47:17.691] AddCombatant 03:4000CAF7:Ice Pillar:00:64:0000:00::13615:18047:188300:188300:10000:10000:::83.00:94.00:0.00:1.57" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="9" LogMessageText="[00:47:17.691] AddCombatant 03:4000CAFA:Ice Pillar:00:64:0000:00::13615:18048:188300:188300:10000:10000:::97.00:111.00:0.00:-3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="10" LogMessageText="[00:47:17.691] AddCombatant 03:4000CAFB:Ice Pillar:00:64:0000:00::13615:18048:188300:188300:10000:10000:::91.00:111.00:0.00:-3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="11" ActionType="Placeholder" ExecutionDelayExpression="2.31 * 1000"/>
-                      <Action OrderNumber="12" LogMessageText="[00:47:26.912] Tether 23:4000CAFB:Ice Pillar:106C13C7:K'ocury:0000:0000:0039:106CE3C7:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="13" LogMessageText="[00:47:29.938] Tether 23:4000CAF6:Ice Pillar:${_me.id}:${_me}:0000:0000:0039:${_me.id}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                    </Actions>
-                  </Trigger>
-                  <Trigger Enabled="true" Name="3. 左右刀" Id="f908099f-61d9-4d24-9083-cc9d9dfbaa07" RegularExpression="^.{15}\S+ 14:[^:]*:[^:]*:(?&lt;aid&gt;A01E|A020):">
+                  <Trigger Enabled="true" Name="4. 左右刀" Id="f908099f-61d9-4d24-9083-cc9d9dfbaa07" RegularExpression="^.{15}\S+ 14:[^:]*:[^:]*:(?&lt;aid&gt;A01E|A020):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="phase" DescriptionOverride="True"/>
                       <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="Ex7c_冰_isRSafe" VariableExpression="${aid} == A01E" ActionType="Variable" Asynchronous="False"/>
@@ -1356,6 +1417,52 @@
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${v:Ex7c_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                     </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="4. 处理冰柱连线（同组）" Id="ba0257d7-8796-469b-b92b-55c05315a2f5" RegularExpression="^Ex7c_冰_同组:isG1:(?&lt;isG1&gt;[01]):同组:(?&lt;id&gt;.+)">
+                    <Actions>
+                      <Action OrderNumber="1" NamedCallbackName="Channeling" NamedCallbackParam="${_me.address}, ${_entity[${id}].address}, chn_kusari_tama_0v, ${n: ${isG1} ? 19 : 16}" ActionType="NamedCallback" DescTextColor="26f"/>
+                      <Action OrderNumber="2" NamedCallbackName="mark" NamedCallbackParam="{&#13;&#10;    &quot;ActorID&quot;: 0x${id},&#13;&#10;    &quot;MarkType&quot;: &quot;stop1&quot;,&#13;&#10;    &quot;LocalOnly&quot;: true&#13;&#10;}" ActionType="NamedCallback" DescBgColor="dfd"/>
+                      <Action OrderNumber="3" NamedCallbackName="mark" NamedCallbackParam="{&#13;&#10;    &quot;ActorID&quot;: 0xE0000000,&#13;&#10;    &quot;MarkType&quot;: &quot;stop1&quot;,&#13;&#10;    &quot;LocalOnly&quot;: true&#13;&#10;}" ActionType="NamedCallback" ExecutionDelayExpression="16000" DescBgColor="dfd"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="false" Source="None" Name="Debug Log 3x 2025-03-05 04:26" Id="5288dba8-6604-4abe-b208-f0a6e703acf5" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" LogMessageText="[03:56:48.728] StartsCasting 14:40001662:永恒女王:A01B:虚景切换:40001662:永恒女王:4.700:100.00:80.00:0.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="3.32 * 1000"/>
+                      <Action OrderNumber="3" LogMessageText="[03:56:58.675] AddCombatant 03:40001A2D:冰柱:00:64:0000:00::13615:18047:188300:188300:10000:10000:::83.00:102.00:0.00:1.57" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="4" LogMessageText="[03:56:58.675] AddCombatant 03:40001A2B:冰柱:00:64:0000:00::13615:18047:188300:188300:10000:10000:::117.00:102.00:0.00:-1.57" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="5" LogMessageText="[03:56:58.675] AddCombatant 03:40001A2C:冰柱:00:64:0000:00::13615:18047:188300:188300:10000:10000:::117.00:94.00:0.00:-1.57" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="6" LogMessageText="[03:56:58.785] AddCombatant 03:40001A30:冰柱:00:64:0000:00::13615:18048:188300:188300:10000:10000:::103.00:111.00:0.00:-3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="7" LogMessageText="[03:56:58.785] AddCombatant 03:40001A2F:冰柱:00:64:0000:00::13615:18048:188300:188300:10000:10000:::109.00:111.00:0.00:-3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="8" LogMessageText="[03:56:58.785] AddCombatant 03:40001A2E:冰柱:00:64:0000:00::13615:18047:188300:188300:10000:10000:::83.00:94.00:0.00:1.57" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="9" LogMessageText="[03:56:58.785] AddCombatant 03:40001A32:冰柱:00:64:0000:00::13615:18048:188300:188300:10000:10000:::91.00:111.00:0.00:-3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="10" LogMessageText="[03:56:58.785] AddCombatant 03:40001A31:冰柱:00:64:0000:00::13615:18048:188300:188300:10000:10000:::97.00:111.00:0.00:-3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="11" ActionType="Placeholder" ExecutionDelayExpression="3.12 * 1000"/>
+                      <Action OrderNumber="12" LogMessageText="[03:57:08.035] Tether 23:40001A32:冰柱:${l:party[7]}:队员7:0000:0000:0039:${l:party[7]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="13" LogMessageText="[03:57:08.035] Tether 23:40001A31:冰柱:${l:party[6]}:队员6:0000:0000:0039:${l:party[6]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="14" LogMessageText="[03:57:08.035] Tether 23:40001A30:冰柱:${l:party[5]}:队员5:0000:0000:0039:${l:party[5]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="15" LogMessageText="[03:57:08.035] Tether 23:40001A2F:冰柱:${l:party[8]}:队员8:0000:0000:0039:${l:party[8]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="1.01 * 1000"/>
+                      <Action OrderNumber="17" LogMessageText="[03:57:11.068] Tether 23:40001A2E:冰柱:${l:party[1]}:队员1:0000:0000:0039:${l:party[1]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="18" LogMessageText="[03:57:11.068] Tether 23:40001A2D:冰柱:${l:party[3]}:队员3:0000:0000:0039:${l:party[3]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="19" LogMessageText="[03:57:11.068] Tether 23:40001A2C:冰柱:${l:party[2]}:队员2:0000:0000:0039:${l:party[2]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="20" LogMessageText="[03:57:11.068] Tether 23:40001A2B:冰柱:${l:party[4]}:队员4:0000:0000:0039:${l:party[4]}:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Sequential="True" Name="冰冻结束" Id="f32ec08e-c9a9-4763-84ad-22952281217d" RegularExpression="^.{15}\S+ 1E:9EC:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+                    <Actions>
+                      <Action OrderNumber="1" SystemBeepFreqExpression="freq(E6)"/>
+                      <Action OrderNumber="1" SystemBeepFreqExpression="freq(C6)"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="3. 处理冰柱连线（方向）" Id="a4f8fa4e-b92b-4419-908c-ade1c477225c" RegularExpression="^Ex7c_冰_拉线:isG1:(?&lt;isG1&gt;[01]):冰idx:(?&lt;冰idx&gt;[1-8]):dir-4:(?&lt;dirN4&gt;[0-3])">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="${if: ${isG1} ? &quot;&quot; : 贰组 }，${f:pick(0${dirN4}): 左前, 左后, 右后, 右前 }拉线" ActionType="UseTTS"/>
+                      <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: 100, 100&#13;&#10;Waymarks: 1234&#13;&#10;Start: 1.1, 4&#13;&#10;End:   6.9, 4&#13;&#10;ScaleX: ${f:pick(0${dirN4}): -1, -1, 1, 1 }&#13;&#10;ScaleY: ${f:pick(0${dirN4}): -1, 1, 1, -1 }&#13;&#10;---&#13;&#10;O: 100, 100&#13;&#10;A: ${?l: &#13;&#10;    &quot; 14.75, -2&quot;,&#13;&#10;    &quot; 14.75, -10&quot;,&#13;&#10;    &quot;-14.75, -10&quot;,&#13;&#10;    &quot;-14.75, -2&quot;,&#13;&#10;    &quot;  9.25, -18.75&quot;,&#13;&#10;    &quot; 14.75, -18.75&quot;,&#13;&#10;    &quot;-14.75, -18.75&quot;,&#13;&#10;    &quot; -9.25, -18.75&quot;&#13;&#10;[${冰idx}]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear" ActionType="NamedCallback" Description="1234 冰桥， A 终点" DescBgColor="dff" DescriptionOverride="True"/>
+                    </Actions>
                   </Trigger>
                 </Triggers>
               </Folder>
@@ -1403,9 +1510,36 @@
               <Folder Id="8e520398-912c-4e12-a917-b88b453f46d2" Name="E. 绝对王权 运动会" Enabled="true">
                 <Folders/>
                 <Triggers>
-                  <Trigger Enabled="true" Name="运动会" Id="bf687b63-5afa-4784-8b57-9f2ab2a63d0d" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A041:">
+                  <Trigger Enabled="true" Name="0. 运动会" Id="bf687b63-5afa-4784-8b57-9f2ab2a63d0d" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A041:">
                     <Actions>
-                      <Action OrderNumber="1" UseTTSTextExpression="运动会，集合放圈" ActionType="UseTTS"/>
+                      <Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^Ex7c_运" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="2" UseTTSTextExpression="运动会，集合放圈" ActionType="UseTTS"/>
+                      <Action OrderNumber="3" UseTTSTextExpression="集合" ActionType="UseTTS" ExecutionDelayExpression="19500"/>
+                      <Action OrderNumber="4" UseTTSTextExpression="防击退" ActionType="UseTTS" ExecutionDelayExpression="5200"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="1. 核爆点名 =&gt; 2" Id="fdecf21e-8cf5-45ce-80f1-646e8f1ccd13" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:0057:">
+                    <Actions>
+                      <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="Ex7c_运_核爆" ListVariableExpression="${tid}" ActionType="ListVariable" Asynchronous="False"/>
+                      <Action OrderNumber="2" LogMessageText="Ex7c_运:is核爆:${l:Ex7c_运_核爆.contain(${_me.id})}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:Ex7c_运_核爆.size}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="2. 播报核爆点名" Id="86bda4c1-fe75-453b-b4ac-721bf669be1d" RegularExpression="^Ex7c_运:is核爆:(?&lt;is核爆&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="中心分摊" UseTTSExclusive="False" ActionType="UseTTS" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${is核爆}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" UseTTSTextExpression="${?l: 左前, 右前, 左后, 右后, 左前, 右前, 左后, 右后 [${v:myIdx}] }分散" UseTTSExclusive="False" ActionType="UseTTS" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${is核爆}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -1424,12 +1558,6 @@
                       <Action OrderNumber="2" UseTTSTextExpression="去${?d: 风 = 绿色风, 土 = 黄色土, 冰 = 蓝色冰 [${v:tmp_type}]}地板" ActionType="UseTTS"/>
                       <Action OrderNumber="3" NamedCallbackName="MapEffect" NamedCallbackParam="13, 0, ${?d: 风 = 1, 土 = 16, 冰 = 64 [${v:tmp_type}]}" ActionType="NamedCallback" DescTextColor="26f"/>
                       <Action OrderNumber="4"/>
-                      <Action OrderNumber="5" Enabled="False" ActionType="Placeholder" ExecutionDelayExpression="1000" Asynchronous="False"/>
-                      <Action OrderNumber="6" NamedCallbackName="MapEffect" NamedCallbackParam="13, 0, ${?d: 风 = 1, 土 = 16, 冰 = 64 [${v:tmp_type}]}" Enabled="False" ActionType="NamedCallback"/>
-                      <Action OrderNumber="7" Enabled="False"/>
-                      <Action OrderNumber="8" Enabled="False" ActionType="Placeholder" ExecutionDelayExpression="1000" Asynchronous="False"/>
-                      <Action OrderNumber="9" NamedCallbackName="MapEffect" NamedCallbackParam="13, 0, ${?d: 风 = 1, 土 = 16, 冰 = 64 [${v:tmp_type}]}" Enabled="False" ActionType="NamedCallback"/>
-                      <Action OrderNumber="10" Enabled="False"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -1447,7 +1575,7 @@
                       <Action OrderNumber="6" VariableName="tmp_dir_2" ActionType="Variable"/>
                       <Action OrderNumber="7" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="8100" DescBgColor="dff"/>
                       <Action OrderNumber="8" ActionType="Placeholder" Asynchronous="False" Description="左右分摊时，根据自己的位置记录组" DescriptionOverride="True"/>
-                      <Action OrderNumber="9" VariableOp="SetNumeric" VariableName="myGrp" VariableExpression="${_me.x} &lt; 100 ? 1 : 2" ActionType="Variable">
+                      <Action OrderNumber="9" VariableOp="SetNumeric" VariableName="myIdx_isG1" VariableExpression="${_me.x} &lt; 100" ActionType="Variable">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="08" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
@@ -1459,7 +1587,7 @@
                       <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Name="World Shatter 转场AoE" Id="4b278055-4095-4882-8e1d-01043f2b04f9" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A01C:">
+                  <Trigger Enabled="true" Name="World Shatter 转场AoE" Id="4b278055-4095-4882-8e1d-01043f2b04f9" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:(A01C|7692):">
                     <Actions>
                       <Action OrderNumber="1" VariableOp="SetString" VariableName="Ex7c_phase" ActionType="Variable"/>
                       <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS"/>
@@ -1480,6 +1608,21 @@
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${v:Ex7c_phase}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                     </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="死刑" Id="82380a93-d50e-44c5-a1c9-3ab1fc065415" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]+:A00A:[^:]*:(?&lt;tid&gt;1.{7})">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="死刑，${if: ${_me.IsT} ? ${if: ${tid} == ${_me.ID} ? &quot;&quot; : 挑衅 } : 远离双T }" ActionType="UseTTS"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="地火" Id="a20225f3-cb5d-4f6f-b5b4-9fdd42f091a8" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A052:">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="地火，准备死刑踩塔" ActionType="UseTTS"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="死刑塔" Id="900f5f9d-2db1-44f0-82e7-d5854437bc74" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A057:">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="死刑，准备AoE" ActionType="UseTTS"/>
+                    </Actions>
                   </Trigger>
                 </Triggers>
               </Folder>
