@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <TriggernometryExport PluginVersion="1.2.0.731">
-<ExportedFolder Id="cd02de73-cad8-438e-8ffc-b1e9cb676047" Name="绝伊甸宝宝椅 v0.7.2" Enabled="true" RawEnvironmentVariables="prefix = U7a&#xD;&#xA;zone = 1238&#xD;&#xA;version = 0.7.2">
+<ExportedFolder Id="cd02de73-cad8-438e-8ffc-b1e9cb676047" Name="绝伊甸宝宝椅 v0.7.1" Enabled="true" RawEnvironmentVariables="prefix = U7a&#xD;&#xA;zone = 1238&#xD;&#xA;version = 0.7.1">
 <Folders>
 <Folder Id="d59504db-6c08-447d-90e9-7a047f98b352" Name="核心（此分组不可修改）" Enabled="true">
 <Folders>
@@ -1759,7 +1759,7 @@
 <Trigger Enabled="true" Name="O1. 播报" Id="bb5e04fb-0e7c-421b-a9f8-66afb66a697d" RegularExpression="^U7a1_雾龙_dir8:safe:(?&lt;dir8&gt;[0123])">
 <Actions>
 <Action OrderNumber="1" UseTTSTextExpression="${if: roundvec(${_me.x} - 100, ${_me.y} - 100, 8) % 4 = ${dir8}&#xD;&#xA;  ? 退后，脚下安全&#xD;&#xA;  : 前进 &#xD;&#xA;}" ActionType="UseTTS" Asynchronous="False" />
-<Action OrderNumber="2" UseTTSTextExpression="去${f:pick(${n: ${dir8} + (${v:myIdx_isG1} ? 0 : 4)}): 上北, 左上, 左西, 左下, 下南, 右下, 右东, 右上}，${if: ${v:U7a1_雾龙_is散} ? 分散 : 分摊 }" ActionType="UseTTS" ExecutionDelayExpression="2000" Asynchronous="False" />
+<Action OrderNumber="2" UseTTSTextExpression="去${?d: 0 = 上下, 1 = 左上右下, 2 = 左右, 3 = 右上左下 [${dir8}]}，${if: ${v:U7a1_雾龙_is散} ? 分散 : 分摊 }" ActionType="UseTTS" ExecutionDelayExpression="2000" Asynchronous="False" />
 <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="clear&#xD;&#xA;---&#xD;&#xA;O: 100, 100, 0&#xD;&#xA;θ: dir2rad(0${dir8}, 8) + (${v:myIdx_isG1} ? 0 : π)&#xD;&#xA;${if: ${v:myIdx_isG1} ? C : D }:  0, -13&#xD;&#xA;${if: ${v:myIdx_isG1} ? A : B }:  0, -20&#xD;&#xA;${if: ${v:myIdx_isG1} ? 1 : 2 }:  6, -19&#xD;&#xA;${if: ${v:myIdx_isG1} ? 3 : 4 }: -6, -19" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff">
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${v:U7a1_雾龙_is散}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
@@ -1775,8 +1775,7 @@
 </Trigger>
 <Trigger Enabled="true" Sequential="True" Name="+1. 储存雷火 Utopian Sky" Id="dc75d16a-1e44-4f52-9f5e-e182d8b3775a" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:9CD(?&lt;type&gt;A|B):">
 <Actions>
-<Action OrderNumber="1" VariableOp="SetNumeric" VariableName="U7a1_雾龙_is散" VariableExpression="${type} == B" ActionType="Variable" />
-<Action OrderNumber="2" UseTTSTextExpression="记录${if: ${v:U7a1_雾龙_is散} ? 分散 : 分摊 }" ActionType="UseTTS" />
+<Action OrderNumber="1" UseTTSTextExpression="记录${if: ${v:U7a1_雾龙_is散} ? 分散 : 分摊 }" ActionType="UseTTS" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -1800,7 +1799,7 @@
 <Action OrderNumber="1" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[${sid}].address}, 2" ActionType="NamedCallback" DescTextColor="26f" />
 <Action OrderNumber="2" UseTTSTextExpression="南北靠外，偏向${if: ${v:U7a1_光轮_is火safe} ? 红色火圈 : 蓝色雷圈 }" ActionType="UseTTS" ExecutionDelayExpression="4500" />
 <Action OrderNumber="3" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[${sid}].address}, 0.1" ActionType="NamedCallback" DescTextColor="26f" />
-<Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100, 0&#xD;&#xA;ScaleX: 2.2&#xD;&#xA;ScaleY: 11.1&#xD;&#xA;A:  0, -1&#xD;&#xA;C:  0,  1" ActionType="NamedCallback" DescBgColor="dff" />
+<Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100, 0&#xD;&#xA;ScaleX: 2.2&#xD;&#xA;ScaleY: 11.1&#xD;&#xA;A:  0, -1&#xD;&#xA;1: -1, -1&#xD;&#xA;2:  1, -1&#xD;&#xA;C:  0,  1&#xD;&#xA;3:  1,  1&#xD;&#xA;4: -1,  1&#xD;&#xA;" ActionType="NamedCallback" DescBgColor="dff" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="+2. 光轮位置" Id="07a194b7-bb3b-452c-9f5a-3f17de489248" RegularExpression="^.{15}\S+ 03:4.{7}:([^:]*:){7}17821:([^:]*:){6}(?&lt;x&gt;(8|11)[45][^:]*):">
@@ -1929,7 +1928,7 @@
 </Condition>
 </Action>
 <Action OrderNumber="4" ActionType="Placeholder" Description="连线固定：" DescriptionOverride="True" />
-<Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100, -1.5&#xD;&#xA;θ: (${my无} &gt; 2 ? 0 : π) + (${pd:U7a_cfg[P1线is南北]} ? 0 : π/2)&#xD;&#xA;ScaleX: ${my无} % 2 ? 1 : -1&#xD;&#xA;1: ${if: ${is雷1} ? 2.15, -5.19 : 0, -7.5 }&#xD;&#xA;2: ${if: ${is雷2} &#xD;&#xA;    ? ${if: ${is雷1} == ${is雷2} ? 2.70, -5.19 : 2.15, -5.19 }&#xD;&#xA;    : ${if: ${is雷1} == ${is雷2} ? 0,    -8.05 : 0,    -7.5  }&#xD;&#xA;}" ActionType="NamedCallback" DescBgColor="dff" />
+<Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100, -1.5&#xD;&#xA;θ: (${my无} &gt; 2 ? 0 : π) + (${pd:U7a_cfg[P1线is南北]} ? 0 : π/2)&#xD;&#xA;ScaleX: ${my无} % 2 ? 1 : -1&#xD;&#xA;1: ${if: ${is雷1} ? 2.15, -5.19 : 0, -7.5 }&#xD;&#xA;2: ${if: ${is雷2} &#xD;&#xA;    ? ${if: ${is雷1} == ${is雷2} ? 2.15, -6.29 : 2.15, -5.19 }&#xD;&#xA;    : ${if: ${is雷1} == ${is雷2} ? 0,    -8.6  : 0,    -7.5  }&#xD;&#xA;}" ActionType="NamedCallback" DescBgColor="dff" />
 <Action OrderNumber="6" UseTTSTextExpression="去${?d: 0 = 右东, 1 = 左西, 2 = 下南, 3 = 上北 [${n: (${my无} &lt;= 2) + 2 * ${pd:U7a_cfg[P1线is南北]}}]}，${my无}号无点名，${if: ${is雷1} ? ${if: ${my无} % 2 ? 左前 : 右前 }引导雷分散 : 靠后引导火分摊 }" UseTTSExclusive="False" ActionType="UseTTS">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P1is线固定]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
@@ -1947,16 +1946,9 @@
 <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P1is线固定]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="11" UseTTSTextExpression="${if: ${is雷2} ? 原地引导雷分散 : 原地引导火分摊 }" ActionType="UseTTS">
-<Condition Enabled="true" Grouping="And">
+<Action OrderNumber="11" UseTTSTextExpression="${if: ${is雷2} ? ${if: ${my无} % 2 ? 左前 : 右前 }引导雷分散 : 引导火分摊 }" ActionType="UseTTS">
+<Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P1is线固定]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${is雷1}" ExpressionTypeL="String" ExpressionR="${is雷2}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="12" UseTTSTextExpression="${if: ${is雷2} ? ${if: ${my无} % 2 ? 左前 : 右前 }引导雷分散 : 后退引导火分摊 }&#xD;&#xA;" ActionType="UseTTS">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P1is线固定]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${is雷1}" ExpressionTypeL="String" ExpressionR="${is雷2}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
 </Condition>
 </Action>
 </Actions>
@@ -2254,7 +2246,7 @@
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="3.5 击退结束 | 4.5 冰花判定 | 6.1 冰→光分身出现 | 6.1-7.6-9.1-10.6 四连分摊 | 14.2 背对+冰冻" DescriptionOverride="True" />
 <Action OrderNumber="2" LogMessageText="cd4:14.2" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="3" NamedCallbackName="Channeling" NamedCallbackParam="${_me.address}, ${_entity[${sid}].address}, chn_m0834_2c, 15.5" ActionType="NamedCallback" DescTextColor="26f">
+<Action OrderNumber="3" NamedCallbackName="Channeling" NamedCallbackParam="${_me.address}, ${_entity[${sid}].address}, chn_m0834_2c, 20" ActionType="NamedCallback" DescTextColor="26f">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P2背对连线on]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
@@ -2332,8 +2324,8 @@
 <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P2背对连线on]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="21" UseTTSTextExpression="${if: abs(relθ( θ(100, 100, ${_me.x}, ${_me.y}), dir2rad(${v:U7a2_滑冰_光dir8} + (${v:U7a2_滑冰_rel冰dir8} = 7 ? -1 : 1), 8) )) &lt; π/4 ? 看向场中 : 看向场外 }" Enabled="False" ActionType="UseTTS" ExecutionDelayExpression="2000" />
-<Action OrderNumber="22" UseTTSTextExpression="注意背对" ActionType="UseTTS" ExecutionDelayExpression="2000" />
+<Action OrderNumber="21" ActionType="UseTTS" Description="↓ 好像有问题" DescBgColor="fdd" DescriptionOverride="True" />
+<Action OrderNumber="22" UseTTSTextExpression="${if: abs(relθ( θ(100, 100, ${_me.x}, ${_me.y}), dir2rad(${v:U7a2_滑冰_光dir8} + (${v:U7a2_滑冰_rel冰dir8} = 7 ? -1 : 1), 8) )) &lt; π/4 ? 看向场中 : 看向场外 }" ActionType="UseTTS" ExecutionDelayExpression="2000" />
 <Action OrderNumber="23" UseTTSTextExpression="停止移动" ActionType="UseTTS" ExecutionDelayExpression="2000" />
 </Actions>
 </Trigger>
@@ -2689,8 +2681,7 @@
 <Trigger Enabled="true" Name="+0.  时间压缩" Id="7048b5bc-73e9-4bb9-a573-576eaf7ee098" RegularExpression="^.{15}\S+ 14:(?&lt;id&gt;4.{7}):[^:]+:9D4A:">
 <Actions>
 <Action OrderNumber="1" UseTTSTextExpression="AoE，时间压缩" ActionType="UseTTS" />
-<Action OrderNumber="2" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[${id}].address}, 0.6" Enabled="False" ActionType="NamedCallback" DescTextColor="26f" />
-<Action OrderNumber="3" NamedCallbackName="SetObjectScale" NamedCallbackParam="${_entity[${id}].address}, 2" ActionType="NamedCallback" DescTextColor="26f" />
+<Action OrderNumber="2" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[${id}].address}, 0.6" ActionType="NamedCallback" DescTextColor="26f" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="O1.  初始播报" Id="70728163-b740-4a03-87ed-aa6ae3bef4b5" RegularExpression="^U7a3_一运_self:my点名:(?&lt;my点名&gt;[0-9])">
@@ -2835,10 +2826,9 @@
 <Action OrderNumber="3" UseTTSTextExpression="躲开" ActionType="UseTTS" ExecutionDelayExpression="4800" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Sequential="True" Name="缩小实体" Id="871516f0-96b4-4c7c-b15f-be6593b5f0f1" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}1783[35]:">
+<Trigger Enabled="true" Name="缩小实体" Id="871516f0-96b4-4c7c-b15f-be6593b5f0f1" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}1783[35]:">
 <Actions>
-<Action OrderNumber="1" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[${id}].address}, 2" Enabled="False" ActionType="NamedCallback" DescTextColor="26f" />
-<Action OrderNumber="2" NamedCallbackName="SetObjectScale" NamedCallbackParam="${_entity[${id}].address}, 3" ActionType="NamedCallback" DescTextColor="26f" />
+<Action OrderNumber="1" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[${id}].address}, 2" ActionType="NamedCallback" DescTextColor="26f" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -3343,7 +3333,6 @@
 <Trigger Enabled="true" Name="+0. 初始化" Id="e2ff4e58-4fc0-4a98-ac57-17821cd79a9f" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:9D72:">
 <Actions>
 <Action OrderNumber="1" UseTTSTextExpression="AoE，地火" ActionType="UseTTS" />
-<Action OrderNumber="2" NamedCallbackName="SetObjectScale" NamedCallbackParam="${_entity[${id}].address}, 5" ActionType="NamedCallback" DescTextColor="26f" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="O1. 播报" Id="fcfb7221-a659-4680-bf95-8a51299b84f7" RegularExpression="^U7a5_地火:中心dir4:(?&lt;dir4_0&gt;[0-3]):is逆:(?&lt;is逆&gt;[01]):初始dir-8:(?&lt;dir_8_1&gt;[0-7])">
@@ -3383,35 +3372,48 @@
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="·前置&#xD;&#xA;" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Placeholder" Description="　触发器 v1.2.0.718+（会自动更新） 鲶鱼精邮差  远程触发器中的运行支持库（触发器自带）  不需要cactbotself" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="3" ActionType="Placeholder" Description="·用户配置" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True" />
-<Action OrderNumber="4" ActionType="Placeholder" Description="　进本自动弹出小队列表 + 配置界面，没看见的话检查触发器报错和后台窗口" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="5" ActionType="Placeholder" Description="　如需手动开启，游戏内输入指令（大小写不敏感）：" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="6" ActionType="Placeholder" Description="　  绝伊甸副本内：/e cfg" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="7" ActionType="Placeholder" Description="　  绝伊甸副本外：/e cfg FRU/Eden/伊甸/yidian/U7a （后面任选其一）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="8" LogMessageText="[00:00:00.000] ChatLog 00:0038::cfg eden" LogProcess="True" ActionType="LogMessage" Description="　  也可右键此行 - 测试动作" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="9" LaunchProcessPathExpression="https://space.bilibili.com/83429972/article" ActionType="LaunchProcess" Description="　使用图文说明见 b 站（右键此行-测试动作 打开）" DescBgColor="f4faff" DescTextColor="800" DescriptionOverride="True" />
-<Action OrderNumber="10" ActionType="Placeholder" Description="· 说明（仅列出图文说明中没有写明的部分内容）&#xD;&#xA;" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True" />
-<Action OrderNumber="11" ActionType="Placeholder" Description="· P2" DescBgColor="bce" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="12" ActionType="Placeholder" Description="滑冰" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="13" ActionType="Placeholder" Description="　滑冰前：如果自己在希瓦半场则标出希瓦背后的区域，否则用弧形标点标出一次可滑到 Boss 身后的范围，最好在结冰前进入二者之一" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="14" ActionType="Placeholder" Description="　冰地板判定后，如果自己：" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="15" ActionType="Placeholder" Description="　位于身后：无提示（文字提醒此处必须预先滑一次）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="16" ActionType="Placeholder" Description="　位于侧面（未成功进入上述两区域）：用弧形标点标出一次可滑到 Boss 身后的范围，你需要先滑进这个区域再处理" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="17" ActionType="Placeholder" Description="　位于前方（可一次滑进身后）：用一排标点标出最安全的滑动角度 （标点末端为滑冰终点）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="18" ActionType="Placeholder" Description="　计算无法考虑有人把光圈塞到 Boss 背后的情况（正常不会出现），如果指路指向了光圈则自己回避一下。" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="19" ActionType="Placeholder" Description="· P5" DescBgColor="bce" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="20" ActionType="Placeholder" Description="地火" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="21" ActionType="Placeholder" Description="　地火读条时，场地出现五个标点 ABC23" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="22" ActionType="Placeholder" Description="　ABC 约为正三角形，初始站在 A" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="23" ActionType="Placeholder" Description="　听提示音（每四声的最后一声时移动）依次穿到 B、C，最后回到 A，每次相应的圆形标点内均为安全范围" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="24" ActionType="Placeholder" Description="　2 和 3 位于 B 和 C 内侧，如果想移动更短的距离，可以参考这两个点（正方形标点只有对角线的一侧安全）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="25" ActionType="Placeholder" Description="塔" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="26" ActionType="Placeholder" Description="　当前 MT 一塔对侧，ST 一塔偏安全侧" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="27" ActionType="Placeholder" Description="·已知问题" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True" />
-<Action OrderNumber="28" ActionType="Placeholder" Description="　实体缩放功能现为测试版，偶尔会还原回原始大小，且暂不支持自定义缩放倍率" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="29" ActionType="Placeholder" Description="·关于" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True" />
-<Action OrderNumber="30" ActionType="Placeholder" Description="　　by 阿洛 MnFeN   群号 556836295 / 133514183" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
-<Action OrderNumber="31" LaunchProcessPathExpression="https://space.bilibili.com/83429972" ActionType="LaunchProcess" Description="　　你可以关注这个 b 站账号，不定期更新视频介绍（右键这一行 - 测试动作）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="3" LaunchProcessPathExpression="https://docs.qq.com/doc/DS3duaXlSc1JJcFVB" ActionType="LaunchProcess" Description="　攻略：参考 MMW 攻略文档 （右键 - 测试动作）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="4" ActionType="Placeholder" Description="·用户配置" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True" />
+<Action OrderNumber="5" ActionType="Placeholder" Description="　进本自动弹出小队列表 + 配置界面，没看见的话检查触发器报错和后台窗口" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="6" ActionType="Placeholder" Description="　如需手动开启，游戏内输入指令（大小写不敏感）：" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="7" ActionType="Placeholder" Description="　  绝伊甸副本内：/e cfg" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="8" ActionType="Placeholder" Description="　  绝伊甸副本外：/e cfg FRU/Eden/伊甸/yidian/U7a （后面任选其一）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="9" LogMessageText="[00:00:00.000] ChatLog 00:0038::cfg eden" LogProcess="True" ActionType="LogMessage" Description="　  也可右键此行 - 测试动作" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="10" ActionType="Placeholder" Description="　目前仅有 P1-2 的配置有实际作用（不出错的话），后续阶段尚未适配，和以前一样（如下文）" DescBgColor="f4faff" DescTextColor="800" DescriptionOverride="True" />
+<Action OrderNumber="11" ActionType="Placeholder" Description="·播报 / 标点说明&#xD;&#xA;" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True" />
+<Action OrderNumber="12" ActionType="Placeholder" Description="· P1" DescBgColor="bce" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="13" ActionType="Placeholder" Description="雷火线" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="14" ActionType="Placeholder" Description="　采用全队优先级法，MT - D4" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="15" ActionType="Placeholder" Description="六人塔" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="16" ActionType="Placeholder" Description="　采用 MMW 攻略的：北 [H1] D1; 南 [H2] D2; 中 [D4] D3，括号为固定组，另一人补位" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="17" ActionType="Placeholder" Description="· P2" DescBgColor="bce" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="18" ActionType="Placeholder" Description="滑冰" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="19" ActionType="Placeholder" Description="　滑冰前：如果自己在希瓦半场则标出希瓦背后的区域，否则用弧形标点标出一次可滑到 Boss 身后的范围，最好在结冰前进入二者之一" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="20" ActionType="Placeholder" Description="　冰地板判定后，如果自己：" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="21" ActionType="Placeholder" Description="　位于身后：无提示（文字提醒此处必须预先滑一次）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="22" ActionType="Placeholder" Description="　位于侧面（未成功进入上述两区域）：用弧形标点标出一次可滑到 Boss 身后的范围，你需要先滑进这个区域再处理" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="23" ActionType="Placeholder" Description="　位于前方（可一次滑进身后）：用一排标点标出最安全的滑动角度 （标点末端为滑冰终点）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="24" ActionType="Placeholder" Description="　计算无法考虑有人把光圈塞到 Boss 背后的情况（正常不会出现），如果指路指向了光圈则自己回避一下。" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="25" ActionType="Placeholder" Description="光暴：灰九式" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="26" ActionType="Placeholder" Description="· P3" DescBgColor="bce" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="27" ActionType="Placeholder" Description="一运：灰九式" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="28" ActionType="Placeholder" Description="二运：MMW 双分组（分摊分组优先级 H1 H2 MT ST D1-4，地火分散左 TH 右 DPS）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="29" ActionType="Placeholder" Description="· P4" DescBgColor="bce" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="30" ActionType="Placeholder" Description="一运：翻花绳" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="31" ActionType="Placeholder" Description="· P5" DescBgColor="bce" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="32" ActionType="Placeholder" Description="地火" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="33" ActionType="Placeholder" Description="　地火读条时，场地出现五个标点 ABC23" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="34" ActionType="Placeholder" Description="　ABC 约为正三角形，初始站在 A" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="35" ActionType="Placeholder" Description="　听提示音（每四声的最后一声时移动）依次穿到 B、C，最后回到 A，每次相应的圆形标点内均为安全范围" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="36" ActionType="Placeholder" Description="　2 和 3 位于 B 和 C 内侧，如果想移动更短的距离，可以参考这两个点（正方形标点只有对角线的一侧安全）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="37" ActionType="Placeholder" Description="塔" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="38" ActionType="Placeholder" Description="　人群无脑解法（MMW 灰九）：当前 MT 一塔对侧，ST 一塔偏安全侧" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="39" ActionType="Placeholder" Description="挡枪" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="40" ActionType="Placeholder" Description="　一左二右，T M R H" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="41" ActionType="Placeholder" Description="·已知问题" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True" />
+<Action OrderNumber="42" ActionType="Placeholder" Description="·关于" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True" />
+<Action OrderNumber="43" ActionType="Placeholder" Description="　　by 阿洛 MnFeN   群号 556836295 / 133514183" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="44" LaunchProcessPathExpression="https://space.bilibili.com/83429972" ActionType="LaunchProcess" Description="　　你可以关注这个 b 站账号，不定期更新视频介绍（右键这一行 - 测试动作）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
 </Actions>
 </Trigger>
 </Triggers>
