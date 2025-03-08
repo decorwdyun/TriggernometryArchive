@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TriggernometryExport PluginVersion="1.2.0.731">
+<TriggernometryExport PluginVersion="1.2.0.732">
   <ExportedFolder Id="05fc8287-46c7-46cc-9aec-9684fc414f66" Name="7.0 极神" Enabled="true">
     <Folders>
       <Folder Id="dddce437-ec41-47b4-adb6-b1f5dc345ad3" ReadOnly="True" Name="Ex7a 艳翼蛇鸟宝宝椅 v1.3 by 阿洛" Enabled="true">
@@ -1049,7 +1049,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="7d6e1eed-007a-4b55-82e0-094b7d59b83a" Name="Ex7c 永恒女王宝宝椅 v1.3 by 阿洛" Enabled="true" RawEnvironmentVariables="version = 1.3">
+      <Folder Id="7d6e1eed-007a-4b55-82e0-094b7d59b83a" Name="Ex7c 永恒女王宝宝椅 v1.4 by 阿洛" Enabled="true" RawEnvironmentVariables="version = 1.4">
         <Folders>
           <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1243$" Id="639d84e0-64f4-44d4-878f-e9dd1792106e" Name="区域限制" Enabled="true">
             <Folders>
@@ -1164,7 +1164,7 @@
               <Folder Id="816bced5-62df-4909-93ea-3117ad675831" Name="C. 土" Enabled="true" RawEnvironmentVariables="phase = 土">
                 <Folders/>
                 <Triggers>
-                  <Trigger Enabled="true" Name="2.2 扇形点名 =&gt; 2.3" Id="6e5646bd-12f6-428d-aeac-a9f0bd88ae68" RegularExpression="^.{15}\S+ 23:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*::[^:]*:[^:]*:0011:">
+                  <Trigger Enabled="true" Name="3.2 扇形点名 =&gt; 3.3" Id="6e5646bd-12f6-428d-aeac-a9f0bd88ae68" RegularExpression="^.{15}\S+ 23:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*::[^:]*:[^:]*:0011:">
                     <Actions>
                       <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="Ex7c_土_点名" ListVariableExpression="${tid}" ActionType="ListVariable" Asynchronous="False"/>
                       <Action OrderNumber="2" LogMessageText="Ex7c_土_点名:${l:Ex7c_土_点名.join(&quot;:&quot;)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
@@ -1184,7 +1184,7 @@
                       </Action>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Name="2.1 大圈点名 =&gt; 2.3" Id="75e447e1-5368-44bf-a6f5-0d4fc1cdeb77" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:0174:">
+                  <Trigger Enabled="true" Name="3.1 大圈点名 =&gt; 3.3" Id="75e447e1-5368-44bf-a6f5-0d4fc1cdeb77" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:0174:">
                     <Actions>
                       <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="Ex7c_土_点名" ListVariableExpression="${tid}" ActionType="ListVariable" Asynchronous="False"/>
                       <Action OrderNumber="2" LogMessageText="Ex7c_土_点名:${l:Ex7c_土_点名.join(&quot;:&quot;)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
@@ -1207,7 +1207,7 @@
                   <Trigger Enabled="true" Name="0. 初始化" Id="c1155ba2-4f44-4572-84ca-bb0335e58483" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A01A:">
                     <Actions>
                       <Action OrderNumber="1" VariableOp="SetString" VariableName="Ex7c_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
-                      <Action OrderNumber="2" VariableOp="UnsetRegexUniversal" VariableName="^Ex7c_土" ActionType="Variable"/>
+                      <Action OrderNumber="2" VariableOp="UnsetRegexUniversal" VariableName="^Ex7c_(土|party)" ActionType="Variable"/>
                       <Action OrderNumber="3" UseTTSTextExpression="AoE，土阶段" ActionType="UseTTS"/>
                       <Action OrderNumber="4" UseTTSTextExpression="升空" ActionType="UseTTS" ExecutionDelayExpression="6000"/>
                       <Action OrderNumber="5" SystemBeepLengthExpression="150" NamedCallbackName="AdvWm" NamedCallbackParam="clear" ActionType="NamedCallback" DescBgColor="dff"/>
@@ -1256,10 +1256,18 @@
                       <ConditionSingle Enabled="true" ExpressionL="${v:Ex7c_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                     </Condition>
                   </Trigger>
-                  <Trigger Enabled="true" Name="2.3 无点名" Id="252de896-e932-415a-bf96-8095d7874c61" RegularExpression="^Ex7c_土_点名">
+                  <Trigger Enabled="true" Name="3.3 无点名" Id="252de896-e932-415a-bf96-8095d7874c61" RegularExpression="^Ex7c_土_点名">
                     <Actions>
-                      <Action OrderNumber="1" ListVariableOp="Build" ListVariableExpression=":${l:party.join(:, &quot;5,6,1,2,7,8,3,4&quot;)}" ListVariableTarget="Ex7c_土_同组无点名" ActionType="ListVariable" Asynchronous="False"/>
-                      <Action OrderNumber="2" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="Ex7c_土_同组无点名" ListVariableExpression="!${l:Ex7c_土_点名.contain(${_this})} &amp;&amp; (${v:myIdx} - ${_idx}) %% 2 = 0" ListVariableTarget="Ex7c_土_同组无点名" ActionType="ListVariable" Asynchronous="False"/>
+                      <Action OrderNumber="1" ListVariableOp="Build" ListVariableExpression=":${l:party.join(:, &quot;5,6,1,2,7,8,3,4&quot;)}" ListVariableTarget="Ex7c_土_同组无点名" ActionType="ListVariable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${el:party}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="Ex7c_土_同组无点名" ListVariableExpression="!${l:Ex7c_土_点名.contain(${_this})} &amp;&amp; (${v:myIdx} - ${_idx}) %% 2 = 0" ListVariableTarget="Ex7c_土_同组无点名" ActionType="ListVariable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${el:party}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
                       <Action OrderNumber="3" UseTTSTextExpression="${if: ${v:Ex7c_土_is浮空} ? &quot;落地，&quot; : &quot;&quot; }前方踩塔，同组${_entity[${l:Ex7c_土_同组无点名[2]}].jobCN2}" ActionType="UseTTS">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${l:Ex7c_土_同组无点名[1]}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
@@ -1270,7 +1278,12 @@
                           <ConditionSingle Enabled="true" ExpressionL="${l:Ex7c_土_同组无点名[2]}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="clear" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="5" UseTTSTextExpression="${if: ${v:Ex7c_土_is浮空} ? &quot;落地，&quot; : &quot;&quot; }踩塔" ActionType="UseTTS">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:Ex7c_土_同组无点名.contain(${_me.id})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="clear" ActionType="NamedCallback" DescBgColor="dff"/>
                     </Actions>
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="Ex7c_土_点名" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="ListDoesNotContain"/>
@@ -1286,7 +1299,7 @@
                       <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                     </Condition>
                   </Trigger>
-                  <Trigger Enabled="true" Name="3. 陨石" Id="96357086-96ec-4622-8bb2-ed1aa682a0ee" RegularExpression="^.{15}\S+ 101:.{8}:01000004:18">
+                  <Trigger Enabled="true" Name="4. 陨石" Id="96357086-96ec-4622-8bb2-ed1aa682a0ee" RegularExpression="^.{15}\S+ 101:.{8}:01000004:18">
                     <Actions>
                       <Action OrderNumber="1" LogMessageText="cd4:11.6" LogProcess="True" ActionType="LogMessage">
                         <Condition Enabled="true" Grouping="Or">
@@ -1298,32 +1311,84 @@
                           <ConditionSingle Enabled="true" ExpressionL="${l:party.indexof(${_me.id})}" ExpressionTypeL="Numeric" ExpressionR="[1256]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="3" UseTTSTextExpression="${?d:&#13;&#10;  1 = 后排放陨石,&#13;&#10;  2 = 陨石，出去悬空,&#13;&#10;  3 = 前排放陨石,&#13;&#10;  4 = 陨石，出去悬空&#13;&#10;  [${n: ceiling(${v:myIdx} / 2)}]&#13;&#10;}" ActionType="UseTTS"/>
+                      <Action OrderNumber="3" UseTTSTextExpression="${?d:&#13;&#10;  0 = 准备陨石&#13;&#10;  1 = 后排放陨石,&#13;&#10;  2 = 陨石，出去悬空,&#13;&#10;  3 = 前排放陨石,&#13;&#10;  4 = 陨石，出去悬空&#13;&#10;  [${n: ceiling(0${v:myIdx} / 2)}]&#13;&#10;}" ActionType="UseTTS"/>
                       <Action OrderNumber="4" SystemBeepLengthExpression="150" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${_me.X} &gt; 100 ? 108 : 92, 94&#13;&#10;ScaleX: 2.9&#13;&#10;ScaleY: 6.9&#13;&#10;A: -1, -1&#13;&#10;B:  1, -1&#13;&#10;C: -1,  0&#13;&#10;D:  1,  0&#13;&#10;---&#13;&#10;O: ${_me.X} &gt; 100 ? 108 : 92, 94&#13;&#10;1: 0, -8&#13;&#10;2: 0, -2.5&#13;&#10;3: 0,  2.5&#13;&#10;4: 0,  8" ActionType="NamedCallback" DescBgColor="dff"/>
                       <Action OrderNumber="5" UseTTSTextExpression="${if: ${v:Ex7c_土_is浮空} ? &quot;落地，&quot; : &quot;&quot; }躲在陨石后" ActionType="UseTTS" ExecutionDelayExpression="18600"/>
                       <Action OrderNumber="6" SystemBeepLengthExpression="150" NamedCallbackName="AdvWm" NamedCallbackParam="clear" ActionType="NamedCallback" DescBgColor="dff"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Name="x.2 记录分组" Id="972fe65a-9761-4e7e-889f-bf0da69d5f07" RegularExpression="^Ex7c_party">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="当前列表 id 顺序为 [MT/D1] * 2, [ST,D2] * 2, [H1/D3], [H2/D4] * 2，先组内两人排序，再整理为正常顺序" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" ListVariableOp="SortByKeys" ListVariableName="party" ListVariableExpression="n: ceiling(${_idx} / 2), n: ${_entity[${_this}].IsD}" ActionType="ListVariable" Asynchronous="False"/>
-                      <Action OrderNumber="3" ListVariableOp="Build" ListVariableExpression=":${l:party.join(:, &quot;1,3,5,7,2,4,6,8&quot;)}" ListVariableTarget="party" ActionType="ListVariable" Asynchronous="False"/>
-                      <Action OrderNumber="4" LogMessageText="PartyList:MyIdx8:${l:party.indexof(${_me.id})}" LogProcess="True" ActionType="LogMessage" Asynchronous="False"/>
-                      <Action OrderNumber="5" NamedCallbackName="command" NamedCallbackParam="/e [Debug] Party:&#13;&#10;${_entity[${l:party[1]}].JobEN3} ${_entity[${l:party[2]}].JobEN3} ${_entity[${l:party[3]}].JobEN3} ${_entity[${l:party[4]}].JobEN3}&#13;&#10;${_entity[${l:party[5]}].JobEN3} ${_entity[${l:party[6]}].JobEN3} ${_entity[${l:party[7]}].JobEN3} ${_entity[${l:party[8]}].JobEN3}&#13;&#10;" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd"/>
-                      <Action OrderNumber="6" VariableOp="SetString" VariableName="Ex7c_party已记录" VariableExpression="1" ActionType="Variable" Asynchronous="False"/>
-                    </Actions>
-                  </Trigger>
-                  <Trigger Enabled="true" Name="x.1 记录踩塔位置（确认分组和站位）=&gt; x.2" Id="b6e2744e-d1f9-41d0-93dd-3755f363d53c" RegularExpression="^.{15}\S+ 1[56]:4.{7}:[^:]*:A029:[^:]*:(?&lt;tid&gt;1.{7}):([^:]*:){33}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):">
+                  <Trigger Enabled="true" Name="2a. 记录踩塔位置（确认分组和站位）" Id="b6e2744e-d1f9-41d0-93dd-3755f363d53c" RegularExpression="^.{15}\S+ 1[56]:4.{7}:[^:]*:A029:[^:]*:(?&lt;tid&gt;1.{7}):([^:]*:){33}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="按照 MT D1 ST D2 H1 D3 H2 D4 顺序记录" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" ListVariableOp="Set" ListVariableName="party" ListVariableExpression="${tid}" ListVariableIndex="${?l: &#13;&#10;  94 88,    90 88, &#13;&#10;  106 88,  110 88, &#13;&#10;  94 100,  90 100, &#13;&#10;  106 100, 110 100 &#13;&#10;.indexof(${n:round(${x})} ${n:round(${y})})} " ActionType="ListVariable" Asynchronous="False"/>
-                      <Action OrderNumber="3" LogMessageText="Ex7c_party" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${l:party.indexof(&quot;&quot;)}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                          <ConditionSingle Enabled="true" ExpressionL="${l:party.size}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <Action OrderNumber="2" ListVariableOp="Set" ListVariableName="Ex7c_party" ListVariableExpression="${tid}" ListVariableIndex="${?l: &#13;&#10;  94 88,    90 88, &#13;&#10;  106 88,  110 88, &#13;&#10;  94 100,  90 100, &#13;&#10;  106 100, 110 100 &#13;&#10;.indexof(${n:round(${x})} ${n:round(${y})})} " ActionType="ListVariable"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${ev:Ex7c_party已记录}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="false" Source="None" Name="Debug Log 分组测试" Id="6a1c4a84-061c-4fdf-bdc1-1a8c49e4a9b2" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" LogMessageText="[22:12:07.553] StartsCasting 14:4000E688:Queen Eternal:A01A:Virtual Shift:4000E688:Queen Eternal:4.700:100.00:80.00:0.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="2000"/>
+                      <Action OrderNumber="3" LogMessageText="[22:12:40.900] ActionEffect 15:4000E69A:Queen Eternal:A029:Burst:${l:party[8]}:队员:450003:17CA0000:1B:A0298000:0:0:0:0:0:0:0:0:0:0:0:0:155241:155241:10000:10000:::109.81:99.90:0.00:1.04:44:44:0:10000:::110.00:100.00:0.00:-3.14:00001921:0:1:00::01:A029:A029:1.100:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="4" LogMessageText="[22:12:40.900] ActionEffect 15:4000E69B:Queen Eternal:A029:Burst:${l:party[4]}:队员:450003:159C0000:1B:A0298000:0:0:0:0:0:0:0:0:0:0:0:0:142479:142479:6510:10000:::105.42:98.65:0.00:-2.86:44:44:0:10000:::106.00:100.00:0.00:-3.14:00001922:0:1:00::01:A029:A029:1.100:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="5" LogMessageText="[22:12:40.900] ActionEffect 15:4000E69C:Queen Eternal:A029:Burst:${l:party[6]}:队员:450003:17BC0000:1B:A0298000:0:0:0:0:0:0:0:0:0:0:0:0:154789:154789:10000:10000:::109.88:88.43:0.00:-2.28:44:44:0:10000:::110.00:88.00:0.00:-3.14:00001923:0:1:00::01:A029:A029:1.100:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="6" LogMessageText="[22:12:40.900] ActionEffect 15:4000E69D:Queen Eternal:A029:Burst:${l:party[2]}:队员:450003:0:1B:A0298000:0:0:0:0:0:0:0:0:0:0:0:0:226061:226061:10000:10000:::106.13:88.27:0.00:-2.51:44:44:0:10000:::106.00:88.00:0.00:-3.14:00001924:0:1:00::01:A029:A029:1.100:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="7" LogMessageText="[22:12:40.900] ActionEffect 15:4000E69E:Queen Eternal:A029:Burst:${l:party[3]}:队员:450003:15D70000:1B:A0298000:0:0:0:0:0:0:0:0:0:0:0:0:142389:142389:8440:10000:::94.19:99.20:0.00:2.85:44:44:0:10000:::94.00:100.00:0.00:-3.14:00001925:0:1:00::01:A029:A029:1.100:0000" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                      <Action OrderNumber="8" LogMessageText="[22:12:40.900] ActionEffect 15:4000E69F:Queen Eternal:A029:Burst:${l:party[7]}:队员:450003:16C80000:1B:A0298000:0:0:0:0:0:0:0:0:0:0:0:0:142479:142479:9000:10000:::90.07:99.63:0.00:0.84:44:44:0:10000:::90.00:100.00:0.00:-3.14:00001926:0:1:00::01:A029:A029:1.100:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="9" LogMessageText="[22:12:40.900] ActionEffect 15:4000E6A0:Queen Eternal:A029:Burst:${l:party[1]}:队员:450003:E970000:1B:A0298000:0:0:0:0:0:0:0:0:0:0:0:0:225932:225932:10000:10000:::93.98:88.38:0.00:1.39:44:44:0:10000:::94.00:88.00:0.00:-3.14:00001927:0:1:00::01:A029:A029:1.100:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="10" LogMessageText="[22:12:40.900] ActionEffect 15:4000E6A1:Queen Eternal:A029:Burst:${l:party[5]}:队员:450003:172E0000:1B:A0298000:0:0:0:0:0:0:0:0:0:0:0:0:152170:152170:10000:10000:::90.00:88.43:0.00:2.60:44:44:0:10000:::90.00:88.00:0.00:-3.14:00001928:0:1:00::01:A029:A029:1.100:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="11" Enabled="False" ActionType="Placeholder" ExecutionDelayExpression="2000"/>
+                      <Action OrderNumber="12" LogMessageText="[22:12:54.869] ActionEffect 15:4000E69A:Queen Eternal:A029:Burst:${l:party[2]}:队员:450003:0:1B:A0298000:0:0:0:0:0:0:0:0:0:0:0:0:142479:142479:6600:10000:::107.23:97.83:0.00:-2.76:44:44:0:10000:::108.00:99.00:0.00:-3.14:000019A4:0:1:00::01:A029:A029:1.100:0000" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                      <Action OrderNumber="13" LogMessageText="[22:12:54.869] ActionEffect 15:4000E69B:Queen Eternal:A029:Burst:${l:party[4]}:队员:450003:0:1B:A0298000:0:0:0:0:0:0:0:0:0:0:0:0:226061:226061:10000:10000:::107.19:89.25:0.00:-2.48:44:44:0:10000:::108.00:89.00:0.00:-3.14:000019A5:0:1:00::01:A029:A029:1.100:0000" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                      <Action OrderNumber="14" LogMessageText="[22:12:54.869] ActionEffect 15:4000E69C:Queen Eternal:A029:Burst:${l:party[5]}:队员:450003:0:1B:A0298000:0:0:0:0:0:0:0:0:0:0:0:0:152170:152170:10000:10000:::91.94:99.11:0.00:2.77:44:44:0:10000:::92.00:99.00:0.00:-3.14:000019A6:0:1:00::01:A029:A029:1.100:0000" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                      <Action OrderNumber="15" LogMessageText="[22:12:54.869] ActionEffect 15:4000E69D:Queen Eternal:A029:Burst:${l:party[1]}:队员:450003:0:1B:A0298000:0:0:0:0:0:0:0:0:0:0:0:0:225932:225932:8200:10000:::92.03:88.84:0.00:2.41:44:44:0:10000:::92.00:89.00:0.00:-3.14:000019A7:0:1:00::01:A029:A029:1.100:0000" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="2b. 处理为分组" Id="972fe65a-9761-4e7e-889f-bf0da69d5f07" RegularExpression="^.{15}\S+ 1[56]:4.{7}:[^:]*:A029:[^:]*:(?&lt;tid&gt;1.{7}):([^:]*:){33}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="500" Asynchronous="False"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="有一人没踩塔时补充此人" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" ListVariableOp="SortByKeys" TableVariableOp="GetAllEntities" TableVariableName="tmp_缺" TableVariableX="ID" TableVariableY="Type = 1" ActionType="TableVariable" Asynchronous="False"/>
+                      <Action OrderNumber="4" ListVariableOp="SortByKeys" TableVariableOp="SetAll" TableVariableName="tmp_缺" TableVariableExpression="${l:party[${_row}]}" TableVariableX="1" TableVariableY="8" Enabled="False" ActionType="TableVariable" Asynchronous="False" DescBgColor="fdd"/>
+                      <Action OrderNumber="5" ListVariableOp="SortByKeys" TableVariableOp="FilterLine" TableVariableExpressionType="Numeric" TableVariableName="tmp_缺" TableVariableTarget="tmp_缺" TableVariableY="!${l:Ex7c_party.contain(${_row[1]})}" ActionType="TableVariable" Asynchronous="False"/>
+                      <Action OrderNumber="6" ListVariableOp="Set" ListVariableName="Ex7c_party" ListVariableExpression="${t:tmp_缺[1][1]}" ListVariableIndex="${l:Ex7c_party.indexof(&quot;&quot;)}" ActionType="ListVariable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${t:tmp_缺.height}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
+                      <Action OrderNumber="7" ActionType="Placeholder" Asynchronous="False" Description="校验列表是否完整" DescriptionOverride="True"/>
+                      <Action OrderNumber="8" VariableOp="SetNumeric" VariableName="tmp_correct" VariableExpression="${l:Ex7c_party.size} = 8 &amp;&amp; ${l:Ex7c_party.count(&quot;&quot;)} = 0" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="9" ActionType="Placeholder" Asynchronous="False" Description="成功：当前列表 id 顺序为 [MT/D1] * 2, [ST,D2] * 2, [H1/D3], [H2/D4] * 2，先组内两人排序，再整理为正常顺序" DescriptionOverride="True"/>
+                      <Action OrderNumber="10" ListVariableOp="SortByKeys" ListVariableName="Ex7c_party" ListVariableExpression="n: ceiling(${_idx} / 2), n: ${_entity[${_this}].IsD}" ActionType="ListVariable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_correct}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="11" ListVariableOp="Build" ListVariableExpression=":${l:Ex7c_party.join(:, &quot;1,3,5,7,2,4,6,8&quot;)}" ListVariableTarget="Ex7c_party" ActionType="ListVariable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_correct}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="12" LogMessageText="PartyList:MyIdx8:${l:Ex7c_party.indexof(${_me.id})}" LogProcess="True" ActionType="LogMessage" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_correct}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="13" NamedCallbackName="command" NamedCallbackParam="/e [Debug] Party:&#13;&#10;${_entity[${l:Ex7c_party[1]}].JobEN3} ${_entity[${l:Ex7c_party[2]}].JobEN3} ${_entity[${l:Ex7c_party[3]}].JobEN3} ${_entity[${l:Ex7c_party[4]}].JobEN3}&#13;&#10;${_entity[${l:Ex7c_party[5]}].JobEN3} ${_entity[${l:Ex7c_party[6]}].JobEN3} ${_entity[${l:Ex7c_party[7]}].JobEN3} ${_entity[${l:Ex7c_party[8]}].JobEN3}&#13;&#10;" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_correct}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="14" ListVariableOp="Copy" ListVariableName="Ex7c_party" ListVariableTarget="party" ActionType="ListVariable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_correct}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="15" ActionType="Placeholder" Asynchronous="False" DescriptionOverride="True"/>
+                      <Action OrderNumber="16" ListVariableOp="SortByKeys" TableVariableExpressionType="Numeric" TableVariableName="tmp_缺" ActionType="TableVariable" Asynchronous="False"/>
+                      <Action OrderNumber="17" VariableName="tmp_correct" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="18" VariableOp="SetString" VariableName="Ex7c_party已记录" VariableExpression="1" ActionType="Variable" Asynchronous="False"/>
                     </Actions>
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${ev:Ex7c_party已记录}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
@@ -1338,8 +1403,9 @@
                     <Actions>
                       <Action OrderNumber="1" VariableOp="Increment" VariableName="Ex7c_冰_冰冻_n" ActionType="Variable" Asynchronous="False"/>
                       <Action OrderNumber="2" UseTTSTextExpression="${?l: 靠后, 靠后, 靠后, 靠后, 准备左前接线, 准备右前接线, 靠后, 靠后 [${v:myIdx}]}，保持移动" ActionType="UseTTS">
-                        <Condition Enabled="true" Grouping="Or">
+                        <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:Ex7c_冰_冰冻_n}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${ev:myIdx}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                         </Condition>
                       </Action>
                       <Action OrderNumber="3" UseTTSTextExpression="保持移动" ActionType="UseTTS" ExecutionDelayExpression="1000">
@@ -1349,8 +1415,16 @@
                       </Action>
                       <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="10000" Asynchronous="False"/>
                       <Action OrderNumber="5" UseTTSTextExpression="${?l: 左前接线, 右前接线, &quot;&quot;, &quot;&quot;, 左后回去, 右后回去, &quot;&quot;, &quot;&quot; [${v:myIdx}]}" ActionType="UseTTS">
-                        <Condition Enabled="true" Grouping="Or">
+                        <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:Ex7c_冰_冰冻_n}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${ev:myIdx}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="6" UseTTSTextExpression="接线" ActionType="UseTTS">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:Ex7c_冰_冰冻_n}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${ev:myIdx}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${_me.IsT}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                         </Condition>
                       </Action>
                     </Actions>
@@ -1566,7 +1640,7 @@
                           <ConditionSingle Enabled="true" ExpressionL="${is核爆}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="2" UseTTSTextExpression="${?l: 左前, 右前, 左后, 右后, 左前, 右前, 左后, 右后 [${v:myIdx}] }分散" UseTTSExclusive="False" ActionType="UseTTS" Asynchronous="False">
+                      <Action OrderNumber="2" UseTTSTextExpression="${?l: &quot;&quot;, 左前, 右前, 左后, 右后, 左前, 右前, 左后, 右后 [${n: 0${v:myIdx} + 1}] }分散" UseTTSExclusive="False" ActionType="UseTTS" Asynchronous="False">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${is核爆}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
