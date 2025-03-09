@@ -5,7 +5,7 @@
 <Folder Id="0521ebd0-6564-46ee-bff6-4a89bfbe57b1" Name="BeepTimer" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Name="CountDown5" Id="46eeb4b1-4ed0-4eb1-ae43-9a0c8af32f93" RegularExpression="^[Cc][Dd]5:(?&lt;delay&gt;[\d.]+)(?::(?&lt;duration&gt;[\d.]+))?">
+<Trigger Enabled="true" Name="CountDown5" Id="46eeb4b1-4ed0-4eb1-ae43-9a0c8af32f93" RegularExpression="^(?i)cd5:(?&lt;delay&gt;[\d.]+)(?::(?&lt;duration&gt;[\d.]+))?">
 <Actions>
 <Action OrderNumber="1" LogMessageText="CountDown5 的延迟至少应为 4 s，实际提供了 ${delay} s。" ActionType="LogMessage">
 <Condition Enabled="true" Grouping="Or">
@@ -19,7 +19,7 @@
 <Action OrderNumber="6" SystemBeepFreqExpression="freq(C7)" SystemBeepLengthExpression="(${duration} ?? 0.2) * 1500" ExecutionDelayExpression="1000" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Name="CountDown4" Id="c0303324-3324-474a-a779-b7e84f10966e" RegularExpression="^[Cc][Dd]4:(?&lt;delay&gt;[\d.]+)(?::(?&lt;duration&gt;[\d.]+))?">
+<Trigger Enabled="true" Name="CountDown4" Id="c0303324-3324-474a-a779-b7e84f10966e" RegularExpression="^(?i)cd4:(?&lt;delay&gt;[\d.]+)(?::(?&lt;duration&gt;[\d.]+))?">
 <Actions>
 <Action OrderNumber="1" LogMessageText="CountDown4 的延迟至少应为 3 s，实际提供了 ${delay} s。" ActionType="LogMessage">
 <Condition Enabled="true" Grouping="Or">
@@ -32,7 +32,7 @@
 <Action OrderNumber="5" SystemBeepFreqExpression="freq(C7)" SystemBeepLengthExpression="(${duration} ?? 0.2) * 1500" ExecutionDelayExpression="1000" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Name="CountDown8" Id="c6976841-9692-4edb-a1fc-5fcbbc80edbd" RegularExpression="^[Cc][Dd]8:(?&lt;delay&gt;[\d.]+)(?::(?&lt;duration&gt;[\d.]+))?">
+<Trigger Enabled="true" Name="CountDown8" Id="c6976841-9692-4edb-a1fc-5fcbbc80edbd" RegularExpression="^(?i)cd8:(?&lt;delay&gt;[\d.]+)(?::(?&lt;duration&gt;[\d.]+))?">
 <Actions>
 <Action OrderNumber="1" LogMessageText="CountDown8 的延迟至少应为 7 s，实际提供了 ${delay} s。" ActionType="LogMessage">
 <Condition Enabled="true" Grouping="Or">
@@ -942,7 +942,7 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="bfe8d3aa-3aff-4cb4-bbb6-a15b13400308" Name="鲶鱼精邮差扩展 v3.5" Enabled="true" RawEnvironmentVariables="version = 3.5&#xD;&#xA;trigversion = 1.2.0.731">
+<Folder Id="bfe8d3aa-3aff-4cb4-bbb6-a15b13400308" Name="鲶鱼精邮差扩展 v3.5.1" Enabled="true" RawEnvironmentVariables="version = 3.5.1&#xD;&#xA;trigversion = 1.2.0.732">
 <Folders>
 <Folder Id="d176e430-6eb9-4f76-9b4a-03f39a82092a" Name="接收文本指令" Enabled="true">
 <Folders />
@@ -952,7 +952,7 @@
 <Action OrderNumber="1" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" ActionType="Variable" Asynchronous="False" />
 <Action OrderNumber="2" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}" ActionType="Variable" Asynchronous="False">
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_address}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
 <Action OrderNumber="3" NamedCallbackName="ObjectScaling" NamedCallbackParam="${v:tmp_address}, ${f:replace(&quot; &quot;, &quot;,&quot;):${scales}}" ActionType="NamedCallback" Asynchronous="False" />
@@ -964,7 +964,7 @@
 <Action OrderNumber="1" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" ActionType="Variable" Asynchronous="False" />
 <Action OrderNumber="2" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}" ActionType="Variable" Asynchronous="False">
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_address}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
 <Action OrderNumber="3" NamedCallbackName="SetHighlightColor" NamedCallbackParam="${v:tmp_address}, ${color}" ActionType="NamedCallback" Asynchronous="False" />
@@ -976,7 +976,7 @@
 <Action OrderNumber="1" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" ActionType="Variable" Asynchronous="False" />
 <Action OrderNumber="2" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}" ActionType="Variable" Asynchronous="False">
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_address}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
 <Action OrderNumber="3" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${v:tmp_address}, ${vfxid}" ActionType="NamedCallback" Asynchronous="False" />
@@ -988,20 +988,11 @@
 <Action OrderNumber="1" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" ActionType="Variable" Asynchronous="False" />
 <Action OrderNumber="2" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}" ActionType="Variable" Asynchronous="False">
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_address}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
 <Action OrderNumber="3" NamedCallbackName="Redraw" NamedCallbackParam="${v:tmp_address}" ActionType="NamedCallback" Asynchronous="False" />
 <Action OrderNumber="4" VariableName="tmp_address" ActionType="Variable" Asynchronous="False" />
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Name="Channeling" Id="3331dba3-afae-4973-86a2-77f266841c0b" RegularExpression="^.{15}\S+ 00:0038::channeling (?&lt;vfxname&gt;.+)$">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="Channeling" NamedCallbackParam="${_me.address}, ${_entity[${_me.targetid}].address}, ${vfxname}" ActionType="NamedCallback" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="0${_entity[${_me.targetid}].address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-</Condition>
-</Action>
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="LockOn" Id="ac031878-8dd1-45d9-b4a0-45fb9dfcbdac" RegularExpression="^.{15}\S+ 00:0038::lockon (?&lt;vfxname&gt;.+)$">
@@ -1009,22 +1000,31 @@
 <Action OrderNumber="1" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" ActionType="Variable" Asynchronous="False" />
 <Action OrderNumber="2" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}" ActionType="Variable" Asynchronous="False">
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_address}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
 <Action OrderNumber="3" NamedCallbackName="LockOn" NamedCallbackParam="${v:tmp_address}, ${vfxname}" ActionType="NamedCallback" Asynchronous="False" />
 <Action OrderNumber="4" VariableName="tmp_address" ActionType="Variable" Asynchronous="False" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Name="Hint / Warn" Id="85293dd9-e873-4f3a-ad08-f5ced1f9c2dc" RegularExpression="^.{15}\S+ 00:0038:: *(?&lt;type&gt;[Hh][Ii][Nn][Tt]|[Ww][Aa][Rr][Nn]) +(?&lt;t&gt;[\d.]+) (?&lt;data&gt;.+)">
+<Trigger Enabled="true" Name="Hint / Warn" Id="85293dd9-e873-4f3a-ad08-f5ced1f9c2dc" RegularExpression="^.{15}\S+ 00:0038::(?i) *(?&lt;type&gt;hint|warn) +(?&lt;t&gt;[\d.]+) (?&lt;data&gt;.+)">
 <Actions>
 <Action OrderNumber="1" NamedCallbackName="${f:tolower:${type}}" NamedCallbackParam="${n:${t}}&#xD;&#xA;${data}" ActionType="NamedCallback" Asynchronous="False" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Name="Quit" Id="20c0e31b-8ae0-418b-8c7c-69fc806d6abf" RegularExpression="^.{15}\S+ 00:0038:: *[Qq][Uu][Ii][Tt] *$">
+<Trigger Enabled="true" Name="Quit" Id="20c0e31b-8ae0-418b-8c7c-69fc806d6abf" RegularExpression="^.{15}\S+ 00:0038::(?i) *quit *$">
 <Actions>
 <Action OrderNumber="1" NamedCallbackName="quit" NamedCallbackParam="0" ActionType="NamedCallback" Asynchronous="False" />
 <Action OrderNumber="2" NamedCallbackName="quit" NamedCallbackParam="1" ActionType="NamedCallback" Asynchronous="False" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="Channeling" Id="085ae859-5c13-4184-abe1-15debcc0357a" RegularExpression="^.{15}\S+ 00:0038::channeling (?&lt;vfxname&gt;.+)$">
+<Actions>
+<Action OrderNumber="1" NamedCallbackName="Channeling" NamedCallbackParam="${_me.address}, ${_entity[${_me.targetid}].address}, ${vfxname}" ActionType="NamedCallback" Asynchronous="False">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0${_entity[${_me.targetid}].address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+</Condition>
+</Action>
 </Actions>
 </Trigger>
 </Triggers>
@@ -1189,7 +1189,7 @@
 </Action>
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Name="内存检索/修改" Id="aa77f167-61b1-462a-9142-96430ede9323" RegularExpression="^.{15}\S+ 00:0038::(?&lt;type&gt;byte|short|int|long|float|double) (?&lt;offset&gt;[^=]+?)( *= *(?&lt;val&gt;.+))?$">
+<Trigger Enabled="true" Name="内存检索/修改" Id="aa77f167-61b1-462a-9142-96430ede9323" RegularExpression="^.{15}\S+ 00:0038::(?&lt;type&gt;byte|u?short|u?int|u?long|float|double) (?&lt;offset&gt;[^=]+?)( *= *(?&lt;val&gt;.+))?$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="查询或修改自己选中的实体（或没选中时：自己）的内存中某处的值" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="查询：/e float 0xc4 （查询自己实体后 0xC4 位置的 float 值）" DescriptionOverride="True" />
