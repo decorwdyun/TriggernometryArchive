@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TriggernometryExport PluginVersion="1.2.0.732">
-  <ExportedFolder Id="bb626411-b4ce-4655-959e-83777ef27cfc" Name="绝伊甸宝宝椅 v0.8.3" Enabled="true" RawEnvironmentVariables="prefix = U7a&#13;&#10;zone = 1238&#13;&#10;version = 0.8.3">
+  <ExportedFolder Id="bb626411-b4ce-4655-959e-83777ef27cfc" Name="绝伊甸宝宝椅 v0.8.3.1" Enabled="true" RawEnvironmentVariables="prefix = U7a&#13;&#10;zone = 1238&#13;&#10;version = 0.8.3.1">
     <Folders>
       <Folder Id="83a388f1-cb29-47b7-83af-e4c605b0d74a" Name="核心（此分组不可修改）" Enabled="true">
         <Folders>
@@ -469,14 +469,19 @@
                               <ConditionSingle Enabled="true" ExpressionL="${v:tmp_fail}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="23" LogMessageText="U7a_小队检查:0:小队列表设置错误，已根据八方站位修正为：\n${t:tmp_party.hjoin(&quot; &quot;, &quot; &quot;, 6, &quot;1,7,3,5,4,6,2,8&quot;)}" LogProcess="True" ActionType="LogMessage" Asynchronous="False" DescTextColor="085">
+                          <Action OrderNumber="23" LogMessageText="PartyList:MyIdx8:${l:party.indexof(${_me.id})}" LogProcess="True" ActionType="LogMessage" Asynchronous="False">
                             <Condition Enabled="true" Grouping="Or">
                               <ConditionSingle Enabled="true" ExpressionL="${v:tmp_fail}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="24" VariableName="tmp_fail" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="25" ListVariableName="tmp_party" ActionType="ListVariable" Asynchronous="False"/>
-                          <Action OrderNumber="26" TableVariableName="tmp_party" ActionType="TableVariable" Asynchronous="False"/>
+                          <Action OrderNumber="24" LogMessageText="U7a_小队检查:0:小队列表设置错误，已根据八方站位修正为：\n${t:tmp_party.hjoin(&quot; &quot;, &quot; &quot;, 6, &quot;1,7,3,5,4,6,2,8&quot;)}" LogProcess="True" ActionType="LogMessage" Asynchronous="False" DescTextColor="085">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:tmp_fail}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="25" VariableName="tmp_fail" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="26" ListVariableName="tmp_party" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="27" TableVariableName="tmp_party" ActionType="TableVariable" Asynchronous="False"/>
                         </Actions>
                       </Trigger>
                     </Triggers>
@@ -2467,81 +2472,82 @@
                         </Condition>
                       </Action>
                       <Action OrderNumber="4" UseTTSTextExpression="分摊，${?d: &#13;&#10;  0 = 准备内圈快跑，180度,&#13;&#10;  1 = 准备内圈快跑，135度,&#13;&#10;  2 = 准备正常前进，90度,&#13;&#10;  3 = ${if: ${pd:U7a_cfg[P2DD冰is双逆]} ? 逆时针反向，准备内圈快跑 : 准备贴边慢走，90度 },&#13;&#10;  4 = 准备内圈快跑，180度,&#13;&#10;  5 = 准备内圈快跑，135度,&#13;&#10;  6 = 准备贴边慢走，90度,&#13;&#10;  7 = ${if: ${pd:U7a_cfg[P2DD冰is双逆]} ? 逆时针反向，准备内圈快跑 : 逆时针反向，准备贴边慢走，90度 }&#13;&#10;  [${v:U7a2_滑冰_rel冰dir8}]&#13;&#10;}" UseTTSExclusive="False" ActionType="UseTTS" ExecutionDelayExpression="2000"/>
-                      <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;R: 3.5&#13;&#10;Waymarks: 1432" ActionType="NamedCallback" Description="标点：希瓦头顶 1234" DescBgColor="dff"/>
-                      <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 16, 160°&#13;&#10;B: polar 16, 128°&#13;&#10;C: polar 16, 96°&#13;&#10;D: polar 16, 64°" ActionType="NamedCallback" Description="冰相对自身：0" DescBgColor="dff" DescriptionOverride="True">
+                      <Action OrderNumber="5" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} [Debug]&#13;&#10;U7a2_滑冰_rel冰dir8 = ${v:U7a2_滑冰_rel冰dir8}" ActionType="NamedCallback" DescBgColor="fdd"/>
+                      <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;R: 3.5&#13;&#10;Waymarks: 1432" ActionType="NamedCallback" Description="标点：希瓦头顶 1234" DescBgColor="dff"/>
+                      <Action OrderNumber="7" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 16, 160°&#13;&#10;B: polar 16, 128°&#13;&#10;C: polar 16, 96°&#13;&#10;D: polar 16, 64°" ActionType="NamedCallback" Description="冰相对自身：0" DescBgColor="dff" DescriptionOverride="True">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_rel冰dir8}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="7" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18, 135°&#13;&#10;B: polar 18, 110°&#13;&#10;C: polar 18, 85°&#13;&#10;D: polar 18, 60°" ActionType="NamedCallback" Description="冰相对自身：1" DescBgColor="dff" DescriptionOverride="True">
+                      <Action OrderNumber="8" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18, 135°&#13;&#10;B: polar 18, 110°&#13;&#10;C: polar 18, 85°&#13;&#10;D: polar 18, 60°" ActionType="NamedCallback" Description="冰相对自身：1" DescBgColor="dff" DescriptionOverride="True">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_rel冰dir8}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="8" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18, 90°&#13;&#10;B: polar 18, 70°&#13;&#10;C: polar 18, 50°&#13;&#10;D: polar 18, 30°" ActionType="NamedCallback" Description="冰相对自身：2" DescBgColor="dff" DescriptionOverride="True">
+                      <Action OrderNumber="9" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18, 90°&#13;&#10;B: polar 18, 70°&#13;&#10;C: polar 18, 50°&#13;&#10;D: polar 18, 30°" ActionType="NamedCallback" Description="冰相对自身：2" DescBgColor="dff" DescriptionOverride="True">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_rel冰dir8}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="9" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18.75, 45°&#13;&#10;B: polar 18.75, 70°&#13;&#10;C: polar 18.75, 95°&#13;&#10;D: polar 18.75, 120°" ActionType="NamedCallback" Description="冰相对自身：3（双逆）" DescBgColor="dff" DescriptionOverride="True">
+                      <Action OrderNumber="10" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18.75, 45°&#13;&#10;B: polar 18.75, 70°&#13;&#10;C: polar 18.75, 95°&#13;&#10;D: polar 18.75, 120°" ActionType="NamedCallback" Description="冰相对自身：3（双逆）" DescBgColor="dff" DescriptionOverride="True">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_rel冰dir8}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P2DD冰is双逆]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="10" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18.75, 56°&#13;&#10;B: polar 18.75, 38°&#13;&#10;C: polar 18.75, 20°&#13;&#10;D: polar 18.75, 2°" ActionType="NamedCallback" Description="冰相对自身：3（单逆）" DescBgColor="dff" DescriptionOverride="True">
+                      <Action OrderNumber="11" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18.75, 56°&#13;&#10;B: polar 18.75, 38°&#13;&#10;C: polar 18.75, 20°&#13;&#10;D: polar 18.75, 2°" ActionType="NamedCallback" Description="冰相对自身：3（单逆）" DescBgColor="dff" DescriptionOverride="True">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_rel冰dir8}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P2DD冰is双逆]}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="11" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 16, -20°&#13;&#10;B: polar 16, -52°&#13;&#10;C: polar 16, -84°&#13;&#10;D: polar 16, -116°" ActionType="NamedCallback" Description="冰相对自身：4" DescBgColor="dff" DescriptionOverride="True">
+                      <Action OrderNumber="12" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 16, -20°&#13;&#10;B: polar 16, -52°&#13;&#10;C: polar 16, -84°&#13;&#10;D: polar 16, -116°" ActionType="NamedCallback" Description="冰相对自身：4" DescBgColor="dff" DescriptionOverride="True">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_rel冰dir8}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="12" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18, -45°&#13;&#10;B: polar 18, -70°&#13;&#10;C: polar 18, -95°&#13;&#10;D: polar 18, -120°" ActionType="NamedCallback" Description="冰相对自身：5" DescBgColor="dff" DescriptionOverride="True">
+                      <Action OrderNumber="13" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18, -45°&#13;&#10;B: polar 18, -70°&#13;&#10;C: polar 18, -95°&#13;&#10;D: polar 18, -120°" ActionType="NamedCallback" Description="冰相对自身：5" DescBgColor="dff" DescriptionOverride="True">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_rel冰dir8}" ExpressionTypeL="String" ExpressionR="5" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="13" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18.75, -90°&#13;&#10;B: polar 18.75, -110°&#13;&#10;C: polar 18.75, -130°&#13;&#10;D: polar 18.75, -150°" ActionType="NamedCallback" Description="冰相对自身：6" DescBgColor="dff" DescriptionOverride="True">
+                      <Action OrderNumber="14" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18.75, -90°&#13;&#10;B: polar 18.75, -110°&#13;&#10;C: polar 18.75, -130°&#13;&#10;D: polar 18.75, -150°" ActionType="NamedCallback" Description="冰相对自身：6" DescBgColor="dff" DescriptionOverride="True">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_rel冰dir8}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="14" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18.75, -135°&#13;&#10;B: polar 18.75, -110°&#13;&#10;C: polar 18.75, -85°&#13;&#10;D: polar 18.75, -60°" ActionType="NamedCallback" Description="冰相对自身：7（双逆）" DescBgColor="dff" DescriptionOverride="True">
+                      <Action OrderNumber="15" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18.75, -135°&#13;&#10;B: polar 18.75, -110°&#13;&#10;C: polar 18.75, -85°&#13;&#10;D: polar 18.75, -60°" ActionType="NamedCallback" Description="冰相对自身：7（双逆）" DescBgColor="dff" DescriptionOverride="True">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_rel冰dir8}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P2DD冰is双逆]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="15" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18.75, -135°&#13;&#10;B: polar 18.75, -115°&#13;&#10;C: polar 18.75, -95°&#13;&#10;D: polar 18.75, -75°" ActionType="NamedCallback" Description="冰相对自身：7（单逆）" DescBgColor="dff" DescriptionOverride="True">
+                      <Action OrderNumber="16" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: polar 18.75, -135°&#13;&#10;B: polar 18.75, -115°&#13;&#10;C: polar 18.75, -95°&#13;&#10;D: polar 18.75, -75°" ActionType="NamedCallback" Description="冰相对自身：7（单逆）" DescBgColor="dff" DescriptionOverride="True">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_rel冰dir8}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P2DD冰is双逆]}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="16" UseTTSTextExpression="${?d: &#13;&#10;  0 = 快跑,&#13;&#10;  1 = &quot;&quot;,&#13;&#10;  2 = &quot;&quot;,&#13;&#10;  3 = &quot;&quot;,&#13;&#10;  4 = 快跑,&#13;&#10;  5 = &quot;&quot;,&#13;&#10;  6 = &quot;&quot;,&#13;&#10;  7 = &quot;&quot;&#13;&#10;  [${v:U7a2_滑冰_rel冰dir8}]&#13;&#10;}" ActionType="UseTTS" ExecutionDelayExpression="2500"/>
-                      <Action OrderNumber="17" UseTTSTextExpression="${?d: &#13;&#10;  0 = 去 Boss 对面,&#13;&#10;  1 = 去 Boss 对面,&#13;&#10;  2 = 站在原地,&#13;&#10;  3 = ${if: ${pd:U7a_cfg[P2DD冰is双逆]} ? 去 Boss 身后 : 站在原地 },&#13;&#10;  4 = 去 Boss 身后,&#13;&#10;  5 = 去 Boss 身后,&#13;&#10;  6 = 去 Boss 身后,&#13;&#10;  7 = ${if: ${pd:U7a_cfg[P2DD冰is双逆]} ? 去 Boss 对面 : 站在原地 }&#13;&#10;  [0${v:U7a2_滑冰_rel冰dir8}]&#13;&#10;}" ActionType="UseTTS" ExecutionDelayExpression="5000"/>
-                      <Action OrderNumber="18" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Arc&#13;&#10;O: 100, 100, -1&#13;&#10;R: 18&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;dθ: 34.94°&#13;&#10;Waymarks: A132B&#13;&#10;---&#13;&#10;Action: Arc&#13;&#10;O: 100, 100, -1.5&#13;&#10;R: 14&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;dθ: 17.06°&#13;&#10;Waymarks: C4D" ActionType="NamedCallback" Description="标点：身后范围" DescBgColor="dff" DescriptionOverride="True">
+                      <Action OrderNumber="17" UseTTSTextExpression="${?d: &#13;&#10;  0 = 快跑,&#13;&#10;  1 = &quot;&quot;,&#13;&#10;  2 = &quot;&quot;,&#13;&#10;  3 = &quot;&quot;,&#13;&#10;  4 = 快跑,&#13;&#10;  5 = &quot;&quot;,&#13;&#10;  6 = &quot;&quot;,&#13;&#10;  7 = &quot;&quot;&#13;&#10;  [${v:U7a2_滑冰_rel冰dir8}]&#13;&#10;}" ActionType="UseTTS" ExecutionDelayExpression="2500"/>
+                      <Action OrderNumber="18" UseTTSTextExpression="${?d: &#13;&#10;  0 = 去 Boss 对面,&#13;&#10;  1 = 去 Boss 对面,&#13;&#10;  2 = 站在原地,&#13;&#10;  3 = ${if: ${pd:U7a_cfg[P2DD冰is双逆]} ? 去 Boss 身后 : 站在原地 },&#13;&#10;  4 = 去 Boss 身后,&#13;&#10;  5 = 去 Boss 身后,&#13;&#10;  6 = 去 Boss 身后,&#13;&#10;  7 = ${if: ${pd:U7a_cfg[P2DD冰is双逆]} ? 去 Boss 对面 : 站在原地 }&#13;&#10;  [0${v:U7a2_滑冰_rel冰dir8}]&#13;&#10;}" ActionType="UseTTS" ExecutionDelayExpression="5000"/>
+                      <Action OrderNumber="19" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Arc&#13;&#10;O: 100, 100, -1&#13;&#10;R: 18&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;dθ: 34.94°&#13;&#10;Waymarks: A132B&#13;&#10;---&#13;&#10;Action: Arc&#13;&#10;O: 100, 100, -1.5&#13;&#10;R: 14&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;dθ: 17.06°&#13;&#10;Waymarks: C4D" ActionType="NamedCallback" Description="标点：身后范围" DescBgColor="dff" DescriptionOverride="True">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_rel冰dir8}" ExpressionTypeL="String" ExpressionR="[456]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="19" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100, -1&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: -18.33, 3.87&#13;&#10;B: -13.85, 7.93&#13;&#10;1: -8.75, 11.22&#13;&#10;2: -3.00, 13.09&#13;&#10;3:  3.00, 13.09&#13;&#10;4:  8.75, 11.22&#13;&#10;C:  13.85, 7.93&#13;&#10;D:  18.33, 3.87" ActionType="NamedCallback" Description="标点：对侧范围" DescBgColor="dff" DescriptionOverride="True">
+                      <Action OrderNumber="20" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100, -1&#13;&#10;θ: dir2rad(0${v:U7a2_滑冰_冰dir8}, 8)&#13;&#10;A: -18.33, 3.87&#13;&#10;B: -13.85, 7.93&#13;&#10;1: -8.75, 11.22&#13;&#10;2: -3.00, 13.09&#13;&#10;3:  3.00, 13.09&#13;&#10;4:  8.75, 11.22&#13;&#10;C:  13.85, 7.93&#13;&#10;D:  18.33, 3.87" ActionType="NamedCallback" Description="标点：对侧范围" DescBgColor="dff" DescriptionOverride="True">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a2_滑冰_rel冰dir8}" ExpressionTypeL="String" ExpressionR="[01237]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="20" NamedCallbackName="Channeling" NamedCallbackParam="${_me.address}, ${_entity[${v:U7a2_滑冰_光id}].address}, chn_miruna1v, 5" ActionType="NamedCallback" DescTextColor="26f">
+                      <Action OrderNumber="21" NamedCallbackName="Channeling" NamedCallbackParam="${_me.address}, ${_entity[${v:U7a2_滑冰_光id}].address}, chn_miruna1v, 5" ActionType="NamedCallback" DescTextColor="26f">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P2背对连线on]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="21" UseTTSTextExpression="${if: abs(relθ( θ(100, 100, ${_me.x}, ${_me.y}), dir2rad(${v:U7a2_滑冰_光dir8} + (${v:U7a2_滑冰_rel冰dir8} = 7 ? -1 : 1), 8) )) &lt; π/4 ? 看向场中 : 看向场外 }" Enabled="False" ActionType="UseTTS" ExecutionDelayExpression="2000"/>
-                      <Action OrderNumber="22" UseTTSTextExpression="注意背对" ActionType="UseTTS" ExecutionDelayExpression="2000"/>
-                      <Action OrderNumber="23" UseTTSTextExpression="停止移动" ActionType="UseTTS" ExecutionDelayExpression="2000"/>
+                      <Action OrderNumber="22" UseTTSTextExpression="${if: abs(relθ( θ(100, 100, ${_me.x}, ${_me.y}), dir2rad(${v:U7a2_滑冰_光dir8} + (${v:U7a2_滑冰_rel冰dir8} = 7 ? -1 : 1), 8) )) &lt; π/4 ? 看向场中 : 看向场外 }" Enabled="False" ActionType="UseTTS" ExecutionDelayExpression="2000"/>
+                      <Action OrderNumber="23" UseTTSTextExpression="注意背对" ActionType="UseTTS" ExecutionDelayExpression="2000"/>
+                      <Action OrderNumber="24" UseTTSTextExpression="停止移动" ActionType="UseTTS" ExecutionDelayExpression="2000"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Name="分摊判定提示音" Id="8c5b4f15-7246-4472-b3e0-ef3d0746e7b1" RegularExpression="^.{15}\S+ 16:4.{7}:[^:]*:9D11:[^:]*:(?&lt;tid&gt;1.{7})" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="500">
