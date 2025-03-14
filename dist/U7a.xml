@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TriggernometryExport PluginVersion="1.2.0.732">
-  <ExportedFolder Id="37b2073e-f060-4204-81fe-16adcb20826d" Name="绝伊甸宝宝椅 v0.8.6.1" Enabled="true" RawEnvironmentVariables="prefix = U7a&#13;&#10;zone = 1238&#13;&#10;version = 0.8.6.1">
+  <ExportedFolder Id="37b2073e-f060-4204-81fe-16adcb20826d" Name="绝伊甸宝宝椅 v0.8.7" Enabled="true" RawEnvironmentVariables="prefix = U7a&#13;&#10;zone = 1238&#13;&#10;version = 0.8.7">
     <Folders>
       <Folder Id="52585755-d0a8-4f90-9172-0f372dfed4d0" Name="核心（此分组不可修改）" Enabled="true">
         <Folders>
@@ -114,7 +114,7 @@
             <Triggers>
               <Trigger Enabled="true" Name="导入提示 0.8.6.1" Id="01d3c793-dda8-4a06-95d0-be345bda008d" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
                 <Actions>
-                  <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="已更新绝伊甸宝宝椅 v${env:version}&#13;&#10;&#13;&#10;v0.8.0 - ${env:version}:&#13;&#10;&#13;&#10;· 添加 P3 二运选项的详细说明&#13;&#10;· 优化 P3 二运地火至击退的标点&#13;&#10;· 修复 P4 一运偶尔不报的问题&#13;&#10;· 支持其他划分半场方式（P1 雾龙 / P3 二运）&#13;&#10;· 支持P1 雷火线新版横排闲人固定&#13;&#10;&#13;&#10;· 开场根据八方自动检查小队列表 &#13;&#10;  (现在支持并可自动判断 ST/H2 八方换位的日服站位)&#13;&#10;  &#13;&#10;· 添加了 P1 雷火线、P4 一运的指挥标点&#13;&#10;　已包含所有需要指挥的机制标点，可自行在配置中开启指挥模式&#13;&#10;　&#13;&#10;· 添加了导入导出当前攻略配置的功能&#13;&#10;　你可以和队友以文本形式分享当前攻略，详见配置界面&#13;&#10;&#13;&#10;如果遇到任何问题请加测试群：839232516" ActionType="MessageBox"/>
+                  <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="已更新绝伊甸宝宝椅 v${env:version}&#13;&#10;&#13;&#10;v0.8.0 - ${env:version}:&#13;&#10;&#13;&#10;· 修复 P3 二运指挥标点的问题&#13;&#10;· 添加 P3 二运选项的详细说明&#13;&#10;· 优化 P3 二运地火至击退的标点&#13;&#10;· 修复 P4 一运偶尔不报的问题&#13;&#10;· 支持其他划分半场方式（P1 雾龙 / P3 二运）&#13;&#10;· 支持 P1 雷火线新版横排闲人固定&#13;&#10;&#13;&#10;· 开场根据八方自动检查小队列表 &#13;&#10;  (现在支持并可自动判断 ST/H2 八方换位的日服站位)&#13;&#10;  &#13;&#10;· 添加了 P1 雷火线、P4 一运的指挥标点&#13;&#10;　已包含所有需要指挥的机制标点，可自行在配置中开启指挥模式&#13;&#10;　&#13;&#10;· 添加了导入导出当前攻略配置的功能&#13;&#10;　你可以和队友以文本形式分享当前攻略，详见配置界面&#13;&#10;&#13;&#10;如果遇到任何问题请加测试群：839232516" ActionType="MessageBox"/>
                   <Action OrderNumber="2" TriggerOp="DisableTrigger" TriggerId="01d3c793-dda8-4a06-95d0-be345bda008d" ActionType="Trigger"/>
                 </Actions>
               </Trigger>
@@ -1141,28 +1141,29 @@
                             </Condition>
                           </Action>
                           <Action OrderNumber="15" VariableName="tmp_lowIdx" ActionType="Variable"/>
-                          <Action OrderNumber="16" ActionType="Placeholder" Description="最后检查 MT 是否在左侧组（1357），否则调换左右" DescriptionOverride="True"/>
-                          <Action OrderNumber="17" ListVariableOp="Build" ListVariableExpression=",${l:U7a3_二运_水idx.join(&quot;,&quot;, &quot;2,1,4,3,6,5,8,7&quot;)}" ListVariableTarget="U7a3_二运_水idx" ActionType="ListVariable">
+                          <Action OrderNumber="16" ListVariableName="tmp_近远组" ActionType="ListVariable"/>
+                          <Action OrderNumber="17" ActionType="Placeholder" Description="最后检查 MT 是否在左侧组（1357），否则调换左右" DescriptionOverride="True"/>
+                          <Action OrderNumber="18" ListVariableOp="Build" ListVariableExpression=",${l:U7a3_二运_水idx.join(&quot;,&quot;, &quot;2,1,4,3,6,5,8,7&quot;)}" ListVariableTarget="U7a3_二运_水idx" ActionType="ListVariable">
                             <Condition Enabled="true" Grouping="Or">
-                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a3_二运_水idx.contain(1, &quot;1,3,5,7&quot;)}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                              <ConditionSingle Enabled="true" ExpressionL="${l:U7a3_二运_水idx.contain(1, &quot;1,3,5,7&quot;)}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="18" ActionType="Placeholder" Description="此时列表为处理好的 无左 无右 短左 短右 中左 中右 长左 长右 顺序的八人 idx" DescriptionOverride="True"/>
-                          <Action OrderNumber="19" ActionType="Placeholder" Description="拆分为两组" DescriptionOverride="True"/>
-                          <Action OrderNumber="20" ListVariableOp="Build" ListVariableExpression=",${l:U7a3_二运_水idx.join(&quot;,&quot;, &quot;1,3,5,7&quot;)}" ListVariableTarget="U7a3_二运_G1idx" ActionType="ListVariable"/>
-                          <Action OrderNumber="21" ListVariableOp="Build" ListVariableExpression=",${l:U7a3_二运_水idx.join(&quot;,&quot;, &quot;2,4,6,8&quot;)}" ListVariableTarget="U7a3_二运_G2idx" ActionType="ListVariable"/>
-                          <Action OrderNumber="22" ActionType="Placeholder" Description="调整组内顺序：T M H R" DescriptionOverride="True"/>
-                          <Action OrderNumber="23" ListVariableOp="SortByKeys" ListVariableName="U7a3_二运_G1idx" ListVariableExpression="n+: ${?l: 1,2,5,6,3,4,7,8.indexof(${_this})}" ActionType="ListVariable"/>
-                          <Action OrderNumber="24" ListVariableOp="SortByKeys" ListVariableName="U7a3_二运_G2idx" ListVariableExpression="n+: ${?l: 1,2,5,6,3,4,7,8.indexof(${_this})}" ActionType="ListVariable"/>
-                          <Action OrderNumber="25" ActionType="Placeholder" Description="输出" DescriptionOverride="True"/>
-                          <Action OrderNumber="26" VariableOp="SetNumeric" VariableName="U7a3_二运_my摊isG1" VariableExpression="${l:U7a3_二运_水idx.indexof(${v:myIdx})} % 2 = 1 ? 1 : 2" ActionType="Variable"/>
-                          <Action OrderNumber="27" VariableOp="SetNumeric" VariableName="U7a3_二运_my散isG1" VariableExpression="${v:U7a3_二运_my摊isG1}" ActionType="Variable"/>
-                          <Action OrderNumber="28" VariableOp="SetNumeric" VariableName="U7a3_二运_my散Idx" VariableExpression="(${v:myIdx} - 1) % 4 + 1" ActionType="Variable"/>
-                          <Action OrderNumber="29" LogMessageText="U7a3_二运_分组:isG1:${v:U7a3_二运_my摊isG1}:${l:U7a3_二运_水idx.join(&quot;&quot;)}${l:U7a3_二运_G1idx.join(&quot;&quot;)}:${l:U7a3_二运_G2idx.join(&quot;&quot;)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="19" ActionType="Placeholder" Description="此时列表为处理好的 无左 无右 短左 短右 中左 中右 长左 长右 顺序的八人 idx" DescriptionOverride="True"/>
+                          <Action OrderNumber="20" ActionType="Placeholder" Description="拆分为两组" DescriptionOverride="True"/>
+                          <Action OrderNumber="21" ListVariableOp="Build" ListVariableExpression=",${l:U7a3_二运_水idx.join(&quot;,&quot;, &quot;1,3,5,7&quot;)}" ListVariableTarget="U7a3_二运_G1idx" ActionType="ListVariable"/>
+                          <Action OrderNumber="22" ListVariableOp="Build" ListVariableExpression=",${l:U7a3_二运_水idx.join(&quot;,&quot;, &quot;2,4,6,8&quot;)}" ListVariableTarget="U7a3_二运_G2idx" ActionType="ListVariable"/>
+                          <Action OrderNumber="23" ActionType="Placeholder" Description="调整组内顺序：T M H R" DescriptionOverride="True"/>
+                          <Action OrderNumber="24" ListVariableOp="SortByKeys" ListVariableName="U7a3_二运_G1idx" ListVariableExpression="&quot;n+: ${?l: 1,2,5,6,3,4,7,8.indexof(${_this})}&quot;" ActionType="ListVariable"/>
+                          <Action OrderNumber="25" ListVariableOp="SortByKeys" ListVariableName="U7a3_二运_G2idx" ListVariableExpression="&quot;n+: ${?l: 1,2,5,6,3,4,7,8.indexof(${_this})}&quot;" ActionType="ListVariable"/>
+                          <Action OrderNumber="26" ActionType="Placeholder" Description="输出" DescriptionOverride="True"/>
+                          <Action OrderNumber="27" VariableOp="SetNumeric" VariableName="U7a3_二运_my摊isG1" VariableExpression="${l:U7a3_二运_水idx.indexof(${v:myIdx})} % 2 = 1 ? 1 : 2" ActionType="Variable"/>
+                          <Action OrderNumber="28" VariableOp="SetNumeric" VariableName="U7a3_二运_my散isG1" VariableExpression="${v:U7a3_二运_my摊isG1}" ActionType="Variable"/>
+                          <Action OrderNumber="29" VariableOp="SetNumeric" VariableName="U7a3_二运_my散Idx" VariableExpression="(${v:myIdx} - 1) % 4 + 1" ActionType="Variable"/>
+                          <Action OrderNumber="30" LogMessageText="U7a3_二运_分组:isG1:${v:U7a3_二运_my摊isG1}:${l:U7a3_二运_水idx.join(&quot;&quot;)}${l:U7a3_二运_G1idx.join(&quot;&quot;)}:${l:U7a3_二运_G2idx.join(&quot;&quot;)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                         </Actions>
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运]}" ExpressionTypeL="String" ExpressionR="单分科" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
-                          <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运isCmd}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运isCmd]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Trigger>
                       <Trigger Enabled="true" Name="Debug Log /e u7a p32 [短短中中长长] [dir8] [is顺]   如 p32 253418 3 1" Id="e1893a3c-8fc5-4c6f-96cc-6fa5dc803fdd" RegularExpression="^.{15}\S+ 00:0038::(?i)u7a p32 (.)(.)(.)(.)(.)(.) (?&lt;dir8&gt;[0-4]) (?&lt;is顺&gt;[01])">
@@ -1192,8 +1193,8 @@
                           <Action OrderNumber="4" LogMessageText="U7a3_二运_分组:isG1:${v:U7a3_二运_my摊isG1}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                         </Actions>
                         <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运isCmd}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                          <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运}" ExpressionTypeL="String" ExpressionR="单分科" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运isCmd]}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运]}" ExpressionTypeL="String" ExpressionR="单分科" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${v:U7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                         </Condition>
                       </Trigger>
@@ -2973,8 +2974,8 @@
                       <Action OrderNumber="11" NamedCallbackName="queue" NamedCallbackParam="[&#13;&#10;  { &quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/mk attack1 &lt;attack1&gt;&quot;},&#13;&#10;  { &quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/mk attack2 &lt;attack2&gt;&quot;},&#13;&#10;  { &quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/mk attack3 &lt;attack3&gt;&quot;},&#13;&#10;  { &quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/mk attack4 &lt;attack4&gt;&quot;},&#13;&#10;  { &quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/mk bind1   &lt;bind1&gt;  &quot;},&#13;&#10;  { &quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/mk bind2   &lt;bind2&gt;  &quot;},&#13;&#10;  { &quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/mk bind3   &lt;bind3&gt;  &quot;},&#13;&#10;  { &quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/mk square  &lt;square&gt; &quot;},&#13;&#10;]" ActionType="NamedCallback"/>
                     </Actions>
                     <Condition Enabled="true" Grouping="And">
-                      <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运}" ExpressionTypeL="String" ExpressionR="单分科" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
-                      <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运isCmd}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运]}" ExpressionTypeL="String" ExpressionR="单分科" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运isCmd]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
                   </Trigger>
                   <Trigger Enabled="true" Name="O1.1 初始分组 TTS" Id="52bc9b58-8e5f-4e02-9ddd-3e9438315b50" RegularExpression="^U7a3_二运_分组:isG1:(?&lt;isG1&gt;0|1)">
@@ -2987,34 +2988,34 @@
                       <Action OrderNumber="1" ActionType="Placeholder" Description="非科技" DescriptionOverride="True"/>
                       <Action OrderNumber="2" ListVariableOp="SetAll" ListVariableName="tmp_roles" ListVariableExpression="${?l:ＭＴ,ＳＴ,Ｈ１,Ｈ２,Ｄ１,Ｄ２,Ｄ３,Ｄ４[${l:U7a3_二运_水idx[${_idx}]}]}" ListVariableIndex="8" ActionType="ListVariable">
                         <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运]}" ExpressionTypeL="String" ExpressionR="科技" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运]}" ExpressionTypeL="String" ExpressionR="单分科" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
                         </Condition>
                       </Action>
                       <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[publicChannel]} &#13;&#10; 　　 无　　 短　　中　　長&#13;&#10; 左：${l:tmp_roles.join(&quot;　 &quot;, &quot;1::2&quot;)}&#13;&#10; 右：${l:tmp_roles.join(&quot; 　&quot;, &quot;2::2&quot;)}" ActionType="NamedCallback">
                         <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运]}" ExpressionTypeL="String" ExpressionR="科技" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运]}" ExpressionTypeL="String" ExpressionR="单分科" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
                         </Condition>
                       </Action>
                       <Action OrderNumber="4" ListVariableName="tmp_roles" ActionType="ListVariable">
                         <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运]}" ExpressionTypeL="String" ExpressionR="科技" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运]}" ExpressionTypeL="String" ExpressionR="单分科" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
                         </Condition>
                       </Action>
                       <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="500"/>
                       <Action OrderNumber="6" ActionType="Placeholder" Description="科技 &amp;&amp; 指挥（加延迟防止标点消息盖过文本）" DescriptionOverride="True"/>
-                      <Action OrderNumber="7" ListVariableOp="SetAll" ListVariableName="tmp_roles1" ListVariableExpression="${?l:ＭＴ,ＳＴ,Ｈ１,Ｈ２,Ｄ１,Ｄ２,Ｄ３,Ｄ４[${l:U7a3_二运_G1idx[${_idx}]}]}" ListVariableIndex="8" ActionType="ListVariable">
+                      <Action OrderNumber="7" ListVariableOp="SetAll" ListVariableName="tmp_roles1" ListVariableExpression="${?l:ＭＴ,ＳＴ,Ｈ１,Ｈ２,Ｄ１,Ｄ２,Ｄ３,Ｄ４[${l:U7a3_二运_G1idx[${_idx}]}]}" ListVariableIndex="4" ActionType="ListVariable">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运]}" ExpressionTypeL="String" ExpressionR="单分科" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运isCmd]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="8" ListVariableOp="SetAll" ListVariableName="tmp_roles2" ListVariableExpression="${?l:ＭＴ,ＳＴ,Ｈ１,Ｈ２,Ｄ１,Ｄ２,Ｄ３,Ｄ４[${l:U7a3_二运_G2idx[${_idx}]}]}" ListVariableIndex="8" ActionType="ListVariable">
+                      <Action OrderNumber="8" ListVariableOp="SetAll" ListVariableName="tmp_roles2" ListVariableExpression="${?l:ＭＴ,ＳＴ,Ｈ１,Ｈ２,Ｄ１,Ｄ２,Ｄ３,Ｄ４[${l:U7a3_二运_G2idx[${_idx}]}]}" ListVariableIndex="4" ActionType="ListVariable">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运]}" ExpressionTypeL="String" ExpressionR="单分科" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运isCmd]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="9" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[publicChannel]} &#13;&#10; 左：${l:tmp_roles1[1]}　${l:tmp_roles1[2]}　${l:tmp_roles1[3]}${l:tmp_roles1[4]}&#13;&#10; 右：${l:tmp_roles2[1]}　${l:tmp_roles2[2]}　${l:tmp_roles2[3]}${l:tmp_roles2[4]}" ActionType="NamedCallback">
+                      <Action OrderNumber="9" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[publicChannel]} &#13;&#10; 左：${l:tmp_roles1[1]}　${l:tmp_roles1[2]}　${l:tmp_roles1[3]}　${l:tmp_roles1[4]}&#13;&#10; 右：${l:tmp_roles2[1]}　${l:tmp_roles2[2]}　${l:tmp_roles2[3]}　${l:tmp_roles2[4]}" ActionType="NamedCallback">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运]}" ExpressionTypeL="String" ExpressionR="单分科" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运isCmd]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
@@ -3061,7 +3062,7 @@
                       <Action OrderNumber="15" ActionType="Placeholder" ExecutionDelayExpression="16800"/>
                       <Action OrderNumber="16" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_二运_my摊isG1} ? ${g1_2} : ${g2_2}, 8)&#13;&#10;A: 0, -6&#13;&#10;3: 0, -10&#13;&#10;C: 0, -14&#13;&#10;1: 0, -18&#13;&#10;B: 0, 6&#13;&#10;4: 0, 10&#13;&#10;D: 0, 14&#13;&#10;2: 0, 18" ActionType="NamedCallback" DescBgColor="dff"/>
                       <Action OrderNumber="17" ActionType="Placeholder" ExecutionDelayExpression="2600"/>
-                      <Action OrderNumber="18" UseTTSTextExpression="击退，${if: ${v:U7a3_二运_my摊isG1} ? 一组左 : 二组右 }侧分摊" ActionType="UseTTS"/>
+                      <Action OrderNumber="18" UseTTSTextExpression="击退，${if: ${v:U7a3_二运_my摊isG1} ? 壹组左 : 贰组右 }侧分摊" ActionType="UseTTS"/>
                       <Action OrderNumber="19" ActionType="Placeholder" ExecutionDelayExpression="4000"/>
                       <Action OrderNumber="20" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff"/>
                     </Actions>
