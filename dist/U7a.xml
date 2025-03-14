@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TriggernometryExport PluginVersion="1.2.0.732">
-  <ExportedFolder Id="bb626411-b4ce-4655-959e-83777ef27cfc" Name="绝伊甸宝宝椅 v0.8.5" Enabled="true" RawEnvironmentVariables="prefix = U7a&#13;&#10;zone = 1238&#13;&#10;version = 0.8.5">
+  <ExportedFolder Id="bb626411-b4ce-4655-959e-83777ef27cfc" Name="绝伊甸宝宝椅 v0.8.6" Enabled="true" RawEnvironmentVariables="prefix = U7a&#13;&#10;zone = 1238&#13;&#10;version = 0.8.6">
     <Folders>
       <Folder Id="83a388f1-cb29-47b7-83af-e4c605b0d74a" Name="核心（此分组不可修改）" Enabled="true">
         <Folders>
@@ -114,7 +114,7 @@
             <Triggers>
               <Trigger Enabled="true" Name="导入提示 0.8.4" Id="7967ba69-1eb1-4fb4-8b8f-74c238444c7a" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
                 <Actions>
-                  <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="已更新绝伊甸宝宝椅 v${env:version}&#13;&#10;&#13;&#10;v0.8.0 - ${env:version}:&#13;&#10;&#13;&#10;· 支持其他划分半场方式（P1 雾龙 / P3 二运）&#13;&#10;&#13;&#10;· P1 雷火线支持新版横排闲人固定&#13;&#10;&#13;&#10;· 开场根据八方自动检查小队列表 &#13;&#10;  (现在支持并可自动判断 ST/H2 八方换位的日服站位)&#13;&#10;　&#13;&#10;· 添加了 P1 雷火线、P4 一运的指挥标点&#13;&#10;　已包含所有需要指挥的机制标点，可自行在配置中开启指挥模式&#13;&#10;&#13;&#10;· 添加了导入导出当前攻略配置的功能&#13;&#10;　你可以和队友以文本形式分享当前攻略，详见配置界面&#13;&#10;&#13;&#10;如果遇到任何问题请加测试群：839232516" ActionType="MessageBox"/>
+                  <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="已更新绝伊甸宝宝椅 v${env:version}&#13;&#10;&#13;&#10;v0.8.0 - ${env:version}:&#13;&#10;&#13;&#10;· 优化 P3 二运地火至击退的标点&#13;&#10;· 修复 P4 一运偶尔不报的问题&#13;&#10;· 支持其他划分半场方式（P1 雾龙 / P3 二运）&#13;&#10;· 支持P1 雷火线新版横排闲人固定&#13;&#10;&#13;&#10;· 开场根据八方自动检查小队列表 &#13;&#10;  (现在支持并可自动判断 ST/H2 八方换位的日服站位)&#13;&#10;  &#13;&#10;· 添加了 P1 雷火线、P4 一运的指挥标点&#13;&#10;　已包含所有需要指挥的机制标点，可自行在配置中开启指挥模式&#13;&#10;　&#13;&#10;· 添加了导入导出当前攻略配置的功能&#13;&#10;　你可以和队友以文本形式分享当前攻略，详见配置界面&#13;&#10;&#13;&#10;如果遇到任何问题请加测试群：839232516" ActionType="MessageBox"/>
                   <Action OrderNumber="2" TriggerOp="DisableTrigger" TriggerId="7967ba69-1eb1-4fb4-8b8f-74c238444c7a" ActionType="Trigger"/>
                 </Actions>
               </Trigger>
@@ -1165,21 +1165,23 @@
                           <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运isCmd}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Trigger>
-                      <Trigger Enabled="false" Source="None" Name="Debug Log 正左右 逆" Id="a24e6504-047c-46b6-8c65-11e835d09c52" RegularExpression="">
+                      <Trigger Enabled="true" Name="Debug Log /e u7a p32 [短短中中长长] [dir8] [is顺]   如 p32 253418 3 1" Id="a24e6504-047c-46b6-8c65-11e835d09c52" RegularExpression="^.{15}\S+ 00:0038::(?i)u7a p32 (.)(.)(.)(.)(.)(.) (?&lt;dir8&gt;[0-4]) (?&lt;is顺&gt;[01])">
                         <Actions>
                           <Action OrderNumber="1" LogMessageText="[22:22:18.309] StartsCasting 14:40002939:Oracle of Darkness:9D4E:Dark Water III:40002939:Oracle of Darkness:4.700:99.99:99.99:0.00:3.13" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                           <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="2 * 1000"/>
-                          <Action OrderNumber="3" LogMessageText="[22:22:23.888] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:10.00:E0000000::${l:party[7]}:队员7:00:226089:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="4" LogMessageText="[22:22:23.888] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:10.00:E0000000::${l:party[2]}:队员2:00:156987:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="5" LogMessageText="[22:22:23.888] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:29.00:E0000000::${l:party[3]}:队员3:00:157247:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="6" LogMessageText="[22:22:23.888] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:29.00:E0000000::${l:party[4]}:队员4:00:142359:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="7" LogMessageText="[22:22:23.888] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::${l:party[5]}:队员5:00:155336:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="8" LogMessageText="[22:22:23.888] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::${l:party[6]}:队员6:00:157227:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="3" LogMessageText="[22:22:23.888] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:10.00:E0000000::${l:party[$1]}:队员:00:226089:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="4" LogMessageText="[22:22:23.888] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:10.00:E0000000::${l:party[$2]}:队员:00:156987:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="5" LogMessageText="[22:22:23.888] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:29.00:E0000000::${l:party[$3]}:队员:00:157247:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="6" LogMessageText="[22:22:23.888] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:29.00:E0000000::${l:party[$4]}:队员:00:142359:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="7" LogMessageText="[22:22:23.888] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::${l:party[$5]}:队员:00:155336:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="8" LogMessageText="[22:22:23.888] StatusAdd 1A:99D:Spell-in-Waiting: Dark Water III:38.00:E0000000::${l:party[$6]}:队员:00:157227:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                           <Action OrderNumber="9" ActionType="Placeholder" ExecutionDelayExpression="2.47 * 1000"/>
-                          <Action OrderNumber="10" LogMessageText="[22:22:26.364] 261 105:Add:4000296D:BNpcID:1EB0FF:Heading:-1.5709:PosX:100.0000:PosY:100.0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="11" LogMessageText="[22:22:26.364] 261 105:Add:4000296E:BNpcID:1EB0FF:Heading:1.5708:PosX:100.0000:PosY:100.0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="12" LogMessageText="[22:22:26.364] 261 105:Add:4000296C:BNpcID:1EB0FF:Heading:-1.5709:PosX:100.0000:PosY:86.0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="13" LogMessageText="[22:22:26.364] 261 105:Add:40002968:BNpcID:1EB0FF:Heading:1.5708:PosX:100.0000:PosY:114.0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="10" LogMessageText="[22:22:26.364] 261 105:Add:4000296D:BNpcID:1EB0FF:Heading:${n: dir2rad(${dir8}, 8) }:PosX:100.0000:PosY:100.0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="11" LogMessageText="[22:22:26.364] 261 105:Add:4000296E:BNpcID:1EB0FF:Heading:${n: dir2rad(${dir8} + 4, 8) }:PosX:100.0000:PosY:100.0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="12" LogMessageText="[22:22:26.364] 261 105:Add:4000296C:BNpcID:1EB0FF:Heading:${n: ${is顺} ? 1.57 : -1.57 }:PosX:100.0000:PosY:86.0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="13" LogMessageText="[22:22:26.364] 261 105:Add:40002968:BNpcID:1EB0FF:Heading:${n: ${is顺} ? -1.57 : 1.57 }:PosX:100.0000:PosY:114.0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="28.9 * 1000"/>
+                          <Action OrderNumber="15" LogMessageText="[02:41:57.855] ActionEffect 15:${_entity[OwnerID == ${_me.id}].id}:暗之巫女？:9CF6:暗夜舞蹈:10000000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Sequential="True" Name="2c. 初始分组（科技 &amp;&amp; 非指挥）=&gt; O1" Id="b35143ec-8bc2-4c9b-a3cf-8578e2f22368" RegularExpression="^.{15}\S+ 1D:Add:(?&lt;id&gt;0|1|2|3|5|6|7|10):(?&lt;tid&gt;1.{7}):">
@@ -1574,14 +1576,14 @@
                   <Folder Id="d927b828-32e7-4ab1-996e-959aee27a929" Name="B. 一运" Enabled="true" RawEnvironmentVariables="phase = P4一运">
                     <Folders/>
                     <Triggers>
-                      <Trigger Enabled="true" Name="0. 初始化 天光轮回" Id="d913ecca-ab3f-4ea2-a447-5643165727ec" RegularExpression="^.{15}\S+ 15:4.{7}:[^:]*:9CFA:">
+                      <Trigger Enabled="true" Sequential="True" Name="0. 初始化 天光轮回" Id="d913ecca-ab3f-4ea2-a447-5643165727ec" RegularExpression="^.{15}\S+ 15:4.{7}:[^:]*:9CFA:">
                         <Actions>
                           <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="（一运读条和分摊标记同时出现 所以用更早的）" DescriptionOverride="True"/>
                           <Action OrderNumber="2" VariableOp="SetString" VariableName="U7a_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
                           <Action OrderNumber="3" VariableOp="UnsetRegexUniversal" VariableName="^U7a4_一运" ActionType="Variable"/>
                           <Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description="从配置提取 pIdx 和 prio 相互转换的列表" DescriptionOverride="True"/>
-                          <Action OrderNumber="5" ListVariableOp="Build" ListVariableExpression=":${?d:&#13;&#10;  翻绳THMR = 1:2:3:4:5:6:7:8,&#13;&#10;  翻绳HTMR = 3:4:1:2:5:6:7:8,&#13;&#10;  翻绳HTRM = 3:4:1:2:7:8:5:6,&#13;&#10;  分摊THD  = 1:2:3:4:5:6:7:8,&#13;&#10;  分摊HTD  = 3:4:1:2:5:6:7:8,&#13;&#10;  分摊DHT  = 8:7:6:5:4:3:2:1&#13;&#10;  [${pd:U7a_cfg[P4一运]}]&#13;&#10;}" ListVariableTarget="U7a4_一运_pIdx2prio" ActionType="ListVariable" Asynchronous="False"/>
-                          <Action OrderNumber="6" ListVariableOp="SetAll" ListVariableName="U7a4_一运_prio2pIdx" ListVariableExpression="${l:U7a4_一运_pIdx2prio.indexof(${_idx})}" ListVariableIndex="8" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="5" ListVariableOp="Build" ListVariableExpression=":${?d:&#13;&#10;  翻绳THMR = 1:2:3:4:5:6:7:8,&#13;&#10;  翻绳HTMR = 3:4:1:2:5:6:7:8,&#13;&#10;  翻绳HTRM = 3:4:1:2:7:8:5:6,&#13;&#10;  分摊THD  = 1:2:3:4:5:6:7:8,&#13;&#10;  分摊HTD  = 3:4:1:2:5:6:7:8,&#13;&#10;  分摊DHT  = 8:7:6:5:4:3:2:1&#13;&#10;  [${pd:U7a_cfg[P4一运]}]&#13;&#10;}" ListVariableTarget="U7a4_一运_pIdx2prio" ActionType="ListVariable"/>
+                          <Action OrderNumber="6" ListVariableOp="SetAll" ListVariableName="U7a4_一运_prio2pIdx" ListVariableExpression="${l:U7a4_一运_pIdx2prio.indexof(${_idx})}" ListVariableIndex="8" ActionType="ListVariable"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="2. 处理初始点名 =&gt; O1" Id="7d0fe8ef-6386-4691-9d09-6afa84bff27a" RegularExpression="^_U7a4_一运_摊">
@@ -2939,7 +2941,7 @@
               <Folder Id="1b57304a-ff1a-4215-a781-ce7789ac1f12" Name="B. 二运" Enabled="true" RawEnvironmentVariables="phase = P3二运">
                 <Folders/>
                 <Triggers>
-                  <Trigger Enabled="true" Name="O2.2 时间轴（地火回中）" Id="98a520b5-bd99-49d0-b22b-b01107fbd2c5" RegularExpression="^U7a3_二运_地火">
+                  <Trigger Enabled="true" Name="O2.2 时间轴（地火回中）" Id="98a520b5-bd99-49d0-b22b-b01107fbd2c5" RegularExpression="^U7a3_二运_地火:is顺:(?&lt;is顺&gt;[01]):dir8:(?&lt;dir8&gt;.):1组dir8:(?&lt;g1_3&gt;[0-7]):(?&lt;g1_2&gt;[0-7]):2组dir8:(?&lt;g2_3&gt;[0-7]):(?&lt;g2_2&gt;[0-7])">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="${v:myIdx} % 4 = 2 ? 19500 : 20000"/>
                       <Action OrderNumber="2"/>
@@ -2953,7 +2955,7 @@
                           <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运]}" ExpressionTypeL="String" ExpressionR="^双" ExpressionTypeR="String" ConditionType="RegexMatch"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;O: 100, 100&#13;&#10;R: 3.75&#13;&#10;Waymarks: A1D4C3B2" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${g1_3}, 8)&#13;&#10;1: 0, -3.75, ${v:U7a3_二运_my摊isG1} ? 0 : -2&#13;&#10;2: 0,  3.75, ${v:U7a3_二运_my摊isG1} ? -2 : 0&#13;&#10;---&#13;&#10;O: 100, 100, ${v:U7a3_二运_my摊isG1} ? 0 : -2&#13;&#10;θ: dir2rad(${g1_2}, 8)&#13;&#10;A: 0, -6&#13;&#10;3: 0, -9&#13;&#10;C: 0, -12&#13;&#10;---&#13;&#10;O: 100, 100, ${v:U7a3_二运_my摊isG1} ? -2 : 0&#13;&#10;θ: dir2rad(${g1_2}, 8)&#13;&#10;B: 0, 6&#13;&#10;4: 0, 9&#13;&#10;D: 0, 12" ActionType="NamedCallback" DescBgColor="dff"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Sequential="True" Name="O1.3 初始分组 指挥标点" Id="cc3afe8a-c1c7-473e-9b12-331ecf7fab96" RegularExpression="^U7a3_二运_分组:">
@@ -3035,38 +3037,46 @@
                   <Trigger Enabled="true" Name="O2.1 时间轴" Id="a724e871-a43a-4d12-8df4-b669bfa23119" RegularExpression="^U7a3_二运_地火:is顺:(?&lt;is顺&gt;[01]):dir8:(?&lt;dir8&gt;.):1组dir8:(?&lt;g1_3&gt;[0-7]):(?&lt;g1_2&gt;[0-7]):2组dir8:(?&lt;g2_3&gt;[0-7]):(?&lt;g2_2&gt;[0-7])">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Description="3 地火日志 | 10 分摊 | 13 跳 | 23 分散 | 29 分摊 | 32 跳 | 34 击退" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" UseTTSTextExpression="稍后第火去${f:pick(${n: ${v:U7a3_二运_my散isG1} ? 0${g1_3} : 0${g2_3} }): 上北, 左上, 左西, 左下, 下南, 右下, 右东, 右上}" ActionType="UseTTS">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运未来观测on]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="3" UseTTSTextExpression="全体分散" ActionType="UseTTS" ExecutionDelayExpression="6800"/>
-                      <Action OrderNumber="4" SystemBeepLengthExpression="200" ExecutionDelayExpression="200"/>
-                      <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="2000"/>
-                      <Action OrderNumber="6" UseTTSTextExpression="${f:pick(${n: ${v:U7a3_二运_my散isG1} ? ${g1_3} : ${g2_3} }): &#13;&#10; 上北，A, &#13;&#10; 左上，壹, &#13;&#10; 左西，D, &#13;&#10; 左下，肆, &#13;&#10; 下南，C, &#13;&#10; 右下，叁, &#13;&#10; 右东，B, &#13;&#10; 右上，贰&#13;&#10;}偏${f:pick(${n: ${v:U7a3_二运_my散isG1} ? ${g1_2} : ${g2_2} }): A, 壹, D, 肆, C, 叁, B, 贰}" ActionType="UseTTS"/>
-                      <Action OrderNumber="7" ActionType="Placeholder" Description="标点：用非安全点的四个点标在外面，安全点对应的四个点仅微调半径指示方向" DescriptionOverride="True"/>
-                      <Action OrderNumber="8" ListVariableOp="Build" ListVariableExpression=",A,1,D,4,C,3,B,2" ListVariableTarget="tmp_危险点" ActionType="ListVariable" Asynchronous="False"/>
-                      <Action OrderNumber="9" VariableOp="SetString" VariableName="tmp_安全点" VariableExpression="${f:pick(${g1_3}): A, 1, D, 4, C, 3, B, 2}${f:pick(${g1_2}): A, 1, D, 4, C, 3, B, 2}${f:pick(${g2_3}): A, 1, D, 4, C, 3, B, 2}${f:pick(${g2_2}): A, 1, D, 4, C, 3, B, 2}" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="10" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="tmp_危险点" ListVariableExpression="!${f:contain(${_this}):${v:tmp_安全点}}" ListVariableTarget="tmp_危险点" ActionType="ListVariable" Asynchronous="False"/>
-                      <Action OrderNumber="11" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;O: 100, 100&#13;&#10;R: 10.25&#13;&#10;Waymarks: A1D4C3B2&#13;&#10;---&#13;&#10;O: 100, 100&#13;&#10;θ: dir2rad(0${g1_3}, 8)&#13;&#10;${l:tmp_危险点[1]}:  3.5, -17.5&#13;&#10;${l:tmp_危险点[2]}: -3.5, -17.5&#13;&#10;${l:tmp_危险点[3]}: -3.5,  17.5&#13;&#10;${l:tmp_危险点[4]}:  3.5,  17.5" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
-                      <Action OrderNumber="12" VariableName="tmp_安全点" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="13" ListVariableName="tmp_危险点" ActionType="ListVariable" Asynchronous="False"/>
-                      <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="16800"/>
-                      <Action OrderNumber="15" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: 100, 100&#13;&#10;θ: dir2rad(0${g1_2}, 8)&#13;&#10;Start: 0, -18.5&#13;&#10;End:   0,  18.5&#13;&#10;Waymarks: DCBA______1234" ActionType="NamedCallback" DescBgColor="dff">
+                      <Action OrderNumber="2" LogMessageText="Beep:7" LogProcess="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="3" LogMessageText="Beep:23.2" LogProcess="True" ActionType="LogMessage">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:myIdx}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericLessEqual"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="2600"/>
-                      <Action OrderNumber="17" UseTTSTextExpression="击退，${if: ${v:U7a3_二运_my摊isG1} ? 左 : 右 }侧分摊" ActionType="UseTTS"/>
-                      <Action OrderNumber="18" ActionType="Placeholder" ExecutionDelayExpression="4000"/>
-                      <Action OrderNumber="19" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="4" UseTTSTextExpression="稍后第火去${f:pick(${n: ${v:U7a3_二运_my散isG1} ? 0${g1_3} : 0${g2_3} }): 上北, 左上, 左西, 左下, 下南, 右下, 右东, 右上}" ActionType="UseTTS">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P3二运未来观测on]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="5" UseTTSTextExpression="全体分散" ActionType="UseTTS" ExecutionDelayExpression="6800"/>
+                      <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="2200"/>
+                      <Action OrderNumber="7" UseTTSTextExpression="${f:pick(${n: ${v:U7a3_二运_my散isG1} ? ${g1_3} : ${g2_3} }): &#13;&#10; 上北，A, &#13;&#10; 左上，壹, &#13;&#10; 左西，D, &#13;&#10; 左下，肆, &#13;&#10; 下南，C, &#13;&#10; 右下，叁, &#13;&#10; 右东，B, &#13;&#10; 右上，贰&#13;&#10;}偏${f:pick(${n: ${v:U7a3_二运_my散isG1} ? ${g1_2} : ${g2_2} }): A, 壹, D, 肆, C, 叁, B, 贰}" ActionType="UseTTS"/>
+                      <Action OrderNumber="8" ActionType="Placeholder" Description="标点：用非安全点的四个点标在外面，安全点对应的四个点仅微调半径指示方向" DescriptionOverride="True"/>
+                      <Action OrderNumber="9" ListVariableOp="Build" ListVariableExpression=",A,1,D,4,C,3,B,2" ListVariableTarget="tmp_危险点" ActionType="ListVariable" Asynchronous="False"/>
+                      <Action OrderNumber="10" VariableOp="SetString" VariableName="tmp_安全点" VariableExpression="${f:pick(${g1_3}): A, 1, D, 4, C, 3, B, 2}${f:pick(${g1_2}): A, 1, D, 4, C, 3, B, 2}${f:pick(${g2_3}): A, 1, D, 4, C, 3, B, 2}${f:pick(${g2_2}): A, 1, D, 4, C, 3, B, 2}" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="11" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="tmp_危险点" ListVariableExpression="!${f:contain(${_this}):${v:tmp_安全点}}" ListVariableTarget="tmp_危险点" ActionType="ListVariable" Asynchronous="False"/>
+                      <Action OrderNumber="12" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;O: 100, 100&#13;&#10;R: 10.25&#13;&#10;Waymarks: A1D4C3B2&#13;&#10;---&#13;&#10;O: 100, 100&#13;&#10;θ: dir2rad(0${g1_3}, 8)&#13;&#10;${l:tmp_危险点[1]}:  3.5, -17.5&#13;&#10;${l:tmp_危险点[2]}: -3.5, -17.5&#13;&#10;${l:tmp_危险点[3]}: -3.5,  17.5&#13;&#10;${l:tmp_危险点[4]}:  3.5,  17.5" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
+                      <Action OrderNumber="13" VariableName="tmp_安全点" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="14" ListVariableName="tmp_危险点" ActionType="ListVariable" Asynchronous="False"/>
+                      <Action OrderNumber="15" ActionType="Placeholder" ExecutionDelayExpression="16800"/>
+                      <Action OrderNumber="16" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:U7a3_二运_my摊isG1} ? ${g1_2} : ${g2_2}, 8)&#13;&#10;A: 0, -6&#13;&#10;3: 0, -10&#13;&#10;C: 0, -14&#13;&#10;1: 0, -18&#13;&#10;B: 0, 6&#13;&#10;4: 0, 10&#13;&#10;D: 0, 14&#13;&#10;2: 0, 18" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="17" ActionType="Placeholder" ExecutionDelayExpression="2600"/>
+                      <Action OrderNumber="18" UseTTSTextExpression="击退，${if: ${v:U7a3_二运_my摊isG1} ? 一组左 : 二组右 }侧分摊" ActionType="UseTTS"/>
+                      <Action OrderNumber="19" ActionType="Placeholder" ExecutionDelayExpression="4000"/>
+                      <Action OrderNumber="20" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Name="O2.3 文本播报" Id="686ac597-e8f6-464a-a7b9-79de3d39b951" RegularExpression="^U7a3_二运_地火:is顺:(?&lt;is顺&gt;[01]):dir8:(?&lt;dir8&gt;.):1组dir8:(?&lt;g1_3&gt;[0-7]):(?&lt;g1_2&gt;[0-7]):2组dir8:(?&lt;g2_3&gt;[0-7]):(?&lt;g2_2&gt;[0-7])">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="${pd:U7a_cfg[P3二运未来观测on]} ? 0 : 9000"/>
                       <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[publicChannel]} &#13;&#10;1 ${if: ${_ffxivisglobal} ? 組 : 组 }：${f:pick(${g1_3}): A, 1, D, 4, C, 3, B, 2} 偏 ${f:pick(${g1_2}): A, 1, D, 4, C, 3, B, 2} （${f:pick(${g1_3}): 上, 左上, 左, 左下, 下, 右下, 右, 右上} 偏 ${f:pick(${g1_2}): 上, 左上, 左, 左下, 下, 右下, 右, 右上}）&#13;&#10;2 ${if: ${_ffxivisglobal} ? 組 : 组 }：${f:pick(${g2_3}): A, 1, D, 4, C, 3, B, 2} 偏 ${f:pick(${g2_2}): A, 1, D, 4, C, 3, B, 2} （${f:pick(${g2_3}): 上, 左上, 左, 左下, 下, 右下, 右, 右上} 偏 ${f:pick(${g2_2}): 上, 左上, 左, 左下, 下, 右下, 右, 右上}）" ActionType="NamedCallback"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="O3. 击退" Id="7bce228e-9cb8-4dfe-a41f-afa2fb8adf37" RegularExpression="^.{15}\S+ 1[56]:(?&lt;sid&gt;4.{7}):[^:]*:9CF6:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
+                    <Actions>
+                      <Action OrderNumber="1" VariableOp="SetString" VariableName="tmp_xy" VariableExpression="${_entity[${sid}].x, y}" ActionType="Variable" ExecutionDelayExpression="1000" Asynchronous="False"/>
+                      <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${v:tmp_xy}&#13;&#10;θ: θ(100, 100, ${v:tmp_xy})&#13;&#10;1: -6, 8, ${v:U7a3_二运_my摊isG1} ?  0 : -2&#13;&#10;2:  6, 8, ${v:U7a3_二运_my摊isG1} ? -2 :  0&#13;&#10;---&#13;&#10;Action: Linear&#13;&#10;O: ${v:tmp_xy}&#13;&#10;θ: θ(100, 100, ${v:tmp_xy})&#13;&#10;ScaleX: ${v:U7a3_二运_my摊isG1} ? -1 : 1&#13;&#10;Start: polar  3, 5°&#13;&#10;End:   polar 18, 5°&#13;&#10;Waymarks: ABCD34" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff"/>
+                      <Action OrderNumber="3" VariableName="tmp_xy" ActionType="Variable" Asynchronous="False"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
