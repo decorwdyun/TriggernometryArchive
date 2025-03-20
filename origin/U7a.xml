@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <TriggernometryExport PluginVersion="1.2.0.735">
-<ExportedFolder Id="e917d524-ab27-4a9b-8b20-852583861c54" Name="绝伊甸宝宝椅 v0.9.1.2" Enabled="true" RawEnvironmentVariables="prefix = U7a&#xD;&#xA;zone = 1238&#xD;&#xA;version = 0.9.1.2">
+<ExportedFolder Id="e917d524-ab27-4a9b-8b20-852583861c54" Name="绝伊甸宝宝椅 v0.9.2.1" Enabled="true" RawEnvironmentVariables="prefix = U7a&#xD;&#xA;zone = 1238&#xD;&#xA;version = 0.9.1.2">
 <Folders>
 <Folder Id="b92a34bf-e9ed-4c9d-a9f8-077415be5675" DisableRemoteExpand="True" DisableRemoteToggle="True" Name="核心（此分组不可修改）" Enabled="true">
 <Folders>
@@ -858,7 +858,59 @@
 <Folder Id="a1fd82e9-badc-4067-84f6-1bacf81a8327" Name="P3" Enabled="true">
 <Folders>
 <Folder Id="8a45cbf8-5e11-49d5-b116-e963a7d43998" Name="A. 一运" Enabled="true" RawEnvironmentVariables="phase = P3一运">
+<Folders>
+<Folder Id="8a28f166-bd9d-46e5-9d4a-345ddf69b61c" Name="自动背对" Enabled="true">
 <Folders />
+<Triggers>
+<Trigger Enabled="true" Name="1. 记录位置" Id="03ca55d9-f36a-4783-8378-7230134d885d" RegularExpression="^.{15}\S+ 1E:9A0:([^:]|: )*:[^:]*:.{8}:[^:]*:(?&lt;tid&gt;1.{7})">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="phase" DescriptionOverride="True">
+<Condition Enabled="true" Grouping="Or" />
+</Action>
+<Action OrderNumber="2" VariableOp="SetNumeric" VariableName="U7a3_一运_记录θ" VariableExpression="θ(100, 100, ${_me.x, y})" ActionType="Variable" Asynchronous="False" />
+<Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} [Debug]&#xD;&#xA;Recorded: θ = ${v:U7a3_一运_记录θ}" ActionType="NamedCallback" Asynchronous="False" />
+</Actions>
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${v:U7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+<ConditionSingle Enabled="true" ExpressionL="${_me.id}" ExpressionTypeL="String" ExpressionR="${tid}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Name="2. 眩晕" Id="c8f0a42a-2f7d-4958-906e-0e54a8b00eb0" RegularExpression="^.{15}\S+ 1A:1043:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="500" />
+<Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} [Debug]&#xD;&#xA;Pre: θ = ${_me.Heading}&#xD;&#xA;Tgt: θ = ${v:U7a3_一运_记录θ}" ActionType="NamedCallback" Asynchronous="False" />
+<Action OrderNumber="4" NamedCallbackName="SetHeading" NamedCallbackParam="${_me.Address}, ${v:U7a3_一运_记录θ}" Enabled="False" ActionType="NamedCallback" Asynchronous="False" />
+<Action OrderNumber="5" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} [Debug]&#xD;&#xA;Post: θ = ${_me.Heading}" Enabled="False" ActionType="NamedCallback" Asynchronous="False" />
+<Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="500" />
+<Action OrderNumber="7" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} [Debug]&#xD;&#xA;Post: θ = ${_me.Heading}" Enabled="False" ActionType="NamedCallback" Asynchronous="False" />
+<Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="500" />
+<Action OrderNumber="9" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} [Debug]&#xD;&#xA;Post: θ = ${_me.Heading}" Enabled="False" ActionType="NamedCallback" Asynchronous="False" />
+<Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="500" />
+<Action OrderNumber="11" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} [Debug]&#xD;&#xA;Post: θ = ${_me.Heading}" Enabled="False" ActionType="NamedCallback" Asynchronous="False" />
+<Action OrderNumber="12" ActionType="Placeholder" ExecutionDelayExpression="500" />
+<Action OrderNumber="13" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} [Debug]&#xD;&#xA;Post: θ = ${_me.Heading}" Enabled="False" ActionType="NamedCallback" Asynchronous="False" />
+<Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="500" />
+<Action OrderNumber="15" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} [Debug]&#xD;&#xA;Post: θ = ${_me.Heading}" Enabled="False" ActionType="NamedCallback" Asynchronous="False" />
+<Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="500" />
+<Action OrderNumber="17" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} [Debug]&#xD;&#xA;Post: θ = ${_me.Heading}" Enabled="False" ActionType="NamedCallback" Asynchronous="False" />
+<Action OrderNumber="18" ActionType="Placeholder" ExecutionDelayExpression="500" />
+<Action OrderNumber="19" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} [Debug]&#xD;&#xA;Post: θ = ${_me.Heading}" Enabled="False" ActionType="NamedCallback" Asynchronous="False" />
+<Action OrderNumber="20" ActionType="Placeholder" ExecutionDelayExpression="500" />
+<Action OrderNumber="21" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} [Debug]&#xD;&#xA;Post: θ = ${_me.Heading}" Enabled="False" ActionType="NamedCallback" Asynchronous="False" />
+<Action OrderNumber="22" ActionType="Placeholder" ExecutionDelayExpression="500" />
+<Action OrderNumber="23" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} [Debug]&#xD;&#xA;Post: θ = ${_me.Heading}" Enabled="False" ActionType="NamedCallback" Asynchronous="False" />
+<Action OrderNumber="24" ActionType="Placeholder" ExecutionDelayExpression="500" />
+<Action OrderNumber="25" NamedCallbackName="command" NamedCallbackParam="/${pd:U7a_cfg[debugChannel]} [Debug]&#xD;&#xA;Post: θ = ${_me.Heading}" Enabled="False" ActionType="NamedCallback" Asynchronous="False" />
+</Actions>
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${v:U7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+<ConditionSingle Enabled="true" ExpressionL="${_me.id}" ExpressionTypeL="String" ExpressionR="${tid}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
 <Triggers>
 <Trigger Enabled="true" Name="0. 初始化 时间压缩" Id="ee1d0484-2178-4693-b5d2-680f02611f54" RegularExpression="^.{15}\S+ 14:(?&lt;id&gt;4.{7}):[^:]+:9D4A:">
 <Actions>
@@ -1280,13 +1332,18 @@
 <Trigger Enabled="true" Sequential="True" Name="0. 初始化" Id="9c21c040-effe-4701-b93d-f60dadab7b2b" RegularExpression="^.{15}\S+ 107:4.{7}:9D7C:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" VariableOp="SetString" VariableName="U7a_phase" VariableExpression="${env:phase}" ActionType="Variable" />
-<Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^U7a5_挡枪" ActionType="Variable" />
+<Action OrderNumber="2" VariableOp="UnsetRegexUniversal" VariableName="^U7a5_挡枪" ActionType="Variable" />
 <Action OrderNumber="3" VariableOp="SetString" VariableName="U7a5_挡枪_my换位轮次" VariableExpression="${?l: 1,1,4,4,2,2,3,3  [${v:myIdx}]}" ActionType="Variable">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P5挡枪]}" ExpressionTypeL="String" ExpressionR="TMRH" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Action>
-<Action OrderNumber="4" VariableOp="SetString" VariableName="U7a5_挡枪_my换位轮次" VariableExpression="${?l: 1,1,2,2,3,3,4,4  [${v:myIdx}]}" ActionType="Variable">
+<Action OrderNumber="4" VariableOp="SetString" VariableName="U7a5_挡枪_my换位轮次" VariableExpression="${?l: 1,1,5,5,2,2,3,3  [${v:myIdx}]}" ActionType="Variable">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P5挡枪]}" ExpressionTypeL="String" ExpressionR="TMRT" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="5" VariableOp="SetString" VariableName="U7a5_挡枪_my换位轮次" VariableExpression="${?l: 1,1,2,2,3,3,4,4  [${v:myIdx}]}" ActionType="Variable">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P5挡枪]}" ExpressionTypeL="String" ExpressionR="THMR" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
@@ -3613,45 +3670,62 @@
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="8000" />
 <Action OrderNumber="2" />
-<Action OrderNumber="3" UseTTSTextExpression="${if: ${v:U7a4_二运_is人群侧红} ? 穿到交界处贴边 : 穿到${if: 0${type} = 3 ? 黄色B点 : 紫色D点 }，等待撞龙头 }" UseTTSExclusive="False" ActionType="UseTTS" />
+<Action OrderNumber="3" UseTTSTextExpression="穿到交界处贴边" UseTTSExclusive="False" ActionType="UseTTS" />
 <Action OrderNumber="4" ActionType="Placeholder" Description="  人群侧" DescriptionOverride="True" />
-<Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="load&#xD;&#xA;---&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${type} = 3 ? -30° : 30°&#xD;&#xA;${if: ${type} = 3 ? B : D }: 0, -20&#xD;&#xA;---&#xD;&#xA;O: 100, 100&#xD;&#xA;3:  7.07, 10.3&#xD;&#xA;4: -7.07, 10.3" ActionType="NamedCallback" DescBgColor="dff">
+<Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="load&#xD;&#xA;---&#xD;&#xA;O: 100, 100&#xD;&#xA;ScaleX: 0${type} = 3 ? -1 : 1&#xD;&#xA;${if: 0${type} = 3 ? B : D }: polar 20, 30°&#xD;&#xA;---&#xD;&#xA;Action: Linear&#xD;&#xA;O: 100, 100&#xD;&#xA;ScaleX: 0${type} = 3 ? -1 : 1&#xD;&#xA;Start: polar 20, 30°, -2&#xD;&#xA;End:   7.07, 10.3, -2&#xD;&#xA;Waymarks: ${if: 0${type} = 3 ? _124 : _123 }" ActionType="NamedCallback" DescBgColor="dff">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_二运_is人群侧红}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
 <Action OrderNumber="6" ActionType="Placeholder" Description="  非人群侧" DescriptionOverride="True" />
-<Action OrderNumber="7" NamedCallbackName="AdvWm" NamedCallbackParam="load&#xD;&#xA;---&#xD;&#xA;O: 100, 100&#xD;&#xA;ScaleX: 0${type} = 3 ? -1 : 1&#xD;&#xA;${if: 0${type} = 3 ? B : D }: 3.49, 17.3&#xD;&#xA;---&#xD;&#xA;O: 100, 100&#xD;&#xA;3:  7.07, 10.3&#xD;&#xA;4: -7.07, 10.3" ActionType="NamedCallback" DescBgColor="dff">
+<Action OrderNumber="7" NamedCallbackName="AdvWm" NamedCallbackParam="load&#xD;&#xA;---&#xD;&#xA;O: 100, 100&#xD;&#xA;ScaleX: 0${type} = 3 ? -1 : 1&#xD;&#xA;${if: 0${type} = 3 ? B : D }: polar 20, 30°&#xD;&#xA;---&#xD;&#xA;Action: Linear&#xD;&#xA;O: 100, 100&#xD;&#xA;ScaleX: 0${type} = 3 ? -1 : 1&#xD;&#xA;Start: 3.49, 17.3, -2&#xD;&#xA;End:   7.07, 10.3, -2&#xD;&#xA;Waymarks: 1234" ActionType="NamedCallback" DescBgColor="dff">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_二运_is人群侧红}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
 <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="3600" />
-<Action OrderNumber="9" ActionType="Placeholder" Description="  人群侧" DescriptionOverride="True" />
-<Action OrderNumber="10">
+<Action OrderNumber="9" />
+<Action OrderNumber="10" ActionType="Placeholder" Description="  人群侧" DescriptionOverride="True" />
+<Action OrderNumber="11" UseTTSTextExpression="撞龙头" UseTTSExclusive="False" ActionType="UseTTS">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_二运_is人群侧红}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="11" UseTTSTextExpression="${if: 0${type} = 3 ? 肆 : 叁 }点撞龙头" UseTTSExclusive="False" ActionType="UseTTS">
+<Action OrderNumber="12" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#xD;&#xA;O: 100, 100&#xD;&#xA;ScaleX: 0${type} = 3 ? -1 : 1&#xD;&#xA;Start: polar 20, 30°, -2&#xD;&#xA;End:   7.07, 10.3&#xD;&#xA;Waymarks: ${if: 0${type} = 3 ? B124 : D123 }" ActionType="NamedCallback" DescBgColor="dff">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_二运_is人群侧红}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="12" ActionType="Placeholder" ExecutionDelayExpression="1800" />
 <Action OrderNumber="13" ActionType="Placeholder" Description="  非人群侧" DescriptionOverride="True" />
-<Action OrderNumber="14">
+<Action OrderNumber="14" UseTTSTextExpression="穿" UseTTSExclusive="False" ActionType="UseTTS">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_二运_is人群侧红}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="15" UseTTSTextExpression="${if: 0${type} = 3 ? 肆 : 叁 }点撞龙头" UseTTSExclusive="False" ActionType="UseTTS">
+<Action OrderNumber="15" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#xD;&#xA;ScaleX: 0${type} = 3 ? -1 : 1&#xD;&#xA;${if: 0${type} = 3 ? B : D }: -10, 0" ActionType="NamedCallback" DescBgColor="dff">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:U7a4_二运_is人群侧红}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="3000" />
-<Action OrderNumber="17" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff" />
+<Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="1800" />
+<Action OrderNumber="17" ActionType="Placeholder" Description="  非人群侧" DescriptionOverride="True" />
+<Action OrderNumber="18">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:U7a4_二运_is人群侧红}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="19" UseTTSTextExpression="撞龙头" UseTTSExclusive="False" ActionType="UseTTS">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:U7a4_二运_is人群侧红}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="20" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#xD;&#xA;O: 100, 100&#xD;&#xA;ScaleX: 0${type} = 3 ? -1 : 1&#xD;&#xA;Start: 3.49, 17.3, -2&#xD;&#xA;End:   7.07, 10.3&#xD;&#xA;Waymarks: 1234" ActionType="NamedCallback" DescBgColor="dff">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:U7a4_二运_is人群侧红}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="21" ActionType="Placeholder" ExecutionDelayExpression="3000" />
+<Action OrderNumber="22" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="O3.5 蓝 后续吃圈" Id="bd8f288b-cf7b-480c-bcec-db583f52b1d9" RegularExpression="^U7a4_二运:isTL慢:(?&lt;isTL慢&gt;[01]):is红:0:type:(?&lt;type&gt;.)">
@@ -3897,7 +3971,14 @@
 </Action>
 <Action OrderNumber="2" UseTTSTextExpression="${?d: &#xD;&#xA;  10 = 左后, 11 = 左前挡枪, 12 = 右后,&#xD;&#xA;  00 = 右后, 01 = 右前挡枪, 02 = 左后,&#xD;&#xA;  [${v:myIdx_isG1}${n: sign(${n2} - ${v:U7a5_挡枪_my换位轮次} + 1) + 1}]&#xD;&#xA;}" ActionType="UseTTS">
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${n2}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="NumericLess" />
+<ConditionSingle Enabled="true" ExpressionL="${n2}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="NumericLess" />
+<ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P5挡枪]}" ExpressionTypeL="String" ExpressionR="TMRT" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" UseTTSTextExpression="${?d: &#xD;&#xA;  11 = 右前挡枪, 10 = 左后,&#xD;&#xA;  01 = 左前挡枪, 00 = 右后&#xD;&#xA;  [${v:myIdx_isG1}${n: ${v:U7a5_挡枪_my换位轮次} &lt; 4 }]&#xD;&#xA;}" ActionType="UseTTS">
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${n2}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="NumericEqual" />
+<ConditionSingle Enabled="true" ExpressionL="${pd:U7a_cfg[P5挡枪]}" ExpressionTypeL="String" ExpressionR="TMRT" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Action>
 </Actions>
@@ -3913,7 +3994,7 @@
 <Folder Id="5d52ead7-ff8a-4e13-8e1f-37c031767321" Name="A. 地火" Enabled="true" RawEnvironmentVariables="phase = P5地火">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Name="+0. 初始化" Id="a8dbe1b6-d084-4123-9ba3-a6f92cd8aea4" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:9D72:">
+<Trigger Enabled="true" Name="+0. 初始化" Id="a8dbe1b6-d084-4123-9ba3-a6f92cd8aea4" RegularExpression="^.{15}\S+ 14:(?&lt;id&gt;4.{7}):[^:]+:9D72:">
 <Actions>
 <Action OrderNumber="1" UseTTSTextExpression="AoE，地火" ActionType="UseTTS" />
 <Action OrderNumber="2" NamedCallbackName="SetObjectScale" NamedCallbackParam="${_entity[${id}].address}, 5" ActionType="NamedCallback" DescTextColor="26f" />
