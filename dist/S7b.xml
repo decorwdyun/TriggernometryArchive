@@ -75,21 +75,355 @@
                   <Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^M[5678][sn]" ActionType="Variable"/>
                 </Actions>
               </Trigger>
-              <Trigger Enabled="true" Name="团灭中断动作" Id="7433853b-01a0-4457-8e13-ab9bb9137c30" RegularExpression="^.{15}\S+ 21:.{8}:400000(03|05)">
+            </Triggers>
+          </Folder>
+          <Folder Id="8a7160f9-acf3-4d93-a972-17584aad77c7" Name=".总体控制" Enabled="true">
+            <Folders/>
+            <Triggers>
+              <Trigger Enabled="false" Name="导入提示" Id="910927bc-8c69-49b7-9851-3edcc41e1594" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
                 <Actions>
-                  <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="500"/>
-                  <Action OrderNumber="2" FolderOp="CancelFolder" FolderId="28256457-6d7a-4a0b-b78f-f9dd1cdfb97c" ActionType="Folder"/>
-                  <Action OrderNumber="3" FolderOp="CancelFolder" FolderId="f90543c0-0571-4d6c-9538-187cb98779fa" ActionType="Folder"/>
+                  <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="已添加 M1-4s 零式触发器。&#13;&#10;使用前请在远程触发器中查看说明。&#13;&#10;&#13;&#10;- 更新：&#13;&#10;&#13;&#10; · 四层已发布视频介绍，链接已复制到剪贴板。&#13;&#10;   你可以直接在浏览器粘贴查看，或在使用说明中查看。&#13;&#10;   如果对任何机制的标点有任何疑问，建议先看视频，&#13;&#10;   不要问我钢铁月环点歪了之类的问题。&#13;&#10; &#13;&#10;有任何问题请先尝试完整使用远程触发器中的自检。" ActionType="MessageBox"/>
+                  <Action OrderNumber="2" VariableOp="Clipboard" VariableExpression="${env:link}" ActionType="Variable"/>
+                  <Action OrderNumber="3" TriggerOp="DisableTrigger" TriggerId="910927bc-8c69-49b7-9851-3edcc41e1594" ActionType="Trigger"/>
                 </Actions>
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder Id="28256457-6d7a-4a0b-b78f-f9dd1cdfb97c" Name="M5-8n" Enabled="true">
+          <Folder Id="d00d500d-fe57-4da8-8cc8-06bf08708132" Name="M5-8s" Enabled="true">
             <Folders>
-              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1262$" Id="dc38dd07-7315-4ce4-acfb-6d607ce9b85d" Name="M8" Enabled="true" RawEnvironmentVariables="zone = 1262">
+              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1257$" Id="c6c2a8c7-8c94-4dcb-9c30-5353cfb49861" Name="M5s" Enabled="true" RawEnvironmentVariables="zone = 1257">
+                <Folders>
+                  <Folder Id="1e8663b5-2b9d-46c2-b076-e3a3097002e9" Name="杂项" Enabled="true">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="AoE Celebrate Good Times" Id="2183ded2-7bd5-490d-bde7-a8a6b3f7ce30" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A723:">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="地火" Id="e992c282-ee7b-4ae3-8701-dfcb9f9eb8bd" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A754:">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="地火" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="跳舞倒计时" Id="e4dff2b4-51c1-4bff-ad04-be7d4b99c1f6" RegularExpression="^.{15}\S+ 1A:116C:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+                        <Actions>
+                          <Action OrderNumber="1" LogMessageText="cd5:${t}" LogProcess="True" ActionType="LogMessage">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                            </Condition>
+                          </Action>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="死刑" Id="4ec6f4af-964d-4107-94a5-9ca375ab3980" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A721:">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="死刑" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="格子地板" Id="63f1777f-a316-4d59-a944-33e2c4df03bd" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A752:">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="格子地板" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="2、4、8 分音符" Id="f6b52744-9b62-426c-93fd-4da3bfa9c478" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A75(?&lt;type&gt;9|B|D):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${?d: 9 = 双组分摊, B = 两人分摊, D = 全体分散 [${type}] }" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="AoE Disco" Id="89493872-de37-4d4c-9fc4-d821559b38b0" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A756:">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="AoE，追光灯" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="滑步青蛙" Id="de869689-4382-44c5-be80-1effb8176f38" RegularExpression="^.{15}\S+ 107:4.{7}:A77(?&lt;type&gt;3|4):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="A773 顺时针绕圈" DescriptionOverride="True"/>
+                          <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="tmp_is纵" VariableExpression="roundir(${h}, 4) % 2 = 0" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="tmp_is内" VariableExpression="(roundvec(${x} - 100, ${y} - 100, -8) % 2 = 0) = (${type} = 3) " ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="4" UseTTSTextExpression="${?d: 11 = 中间列, 10 = 中间杭, 01 = 去左右, 00 = 去上下 [${v:tmp_is内}${v:tmp_is纵}]}" ActionType="UseTTS" Asynchronous="False"/>
+                          <Action OrderNumber="5" VariableName="tmp_is纵" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="6" VariableName="tmp_is内" ActionType="Variable" Asynchronous="False"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                  <Folder Id="7f7cd790-0542-415c-9fdf-12223083640a" Name="跳舞" Enabled="true">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="0. 重置数据" Id="7b66b0a1-e65c-4cd8-9c7e-603038a4b5f1" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:9A32">
+                        <Actions>
+                          <Action OrderNumber="1" ListVariableOp="UnsetRegex" VariableOp="UnsetRegexUniversal" VariableName="^M5s_跳舞" ActionType="Variable"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="2. 播报" Id="218f8b61-6342-4a9c-829f-2ff830e21d1f" RegularExpression="^.{15}\S+ 15:[^:]+:[^:]+:A76[BCDE]">
+                        <Actions>
+                          <Action OrderNumber="1" VariableOp="Increment" VariableName="M5s_跳舞_n" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="2" UseTTSTextExpression="${l:M5s_跳舞[${n: ${v:M5s_跳舞_n} + 1}]}" ActionType="UseTTS" Asynchronous="False"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="1. 收集小人" Id="375b2153-2643-4de5-9f07-1f00dc3de206" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A70(?&lt;type&gt;[ABCD]):">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="A 去 ？   B 去 ？   C 去左   D 去右" DescriptionOverride="True"/>
+                          <Action OrderNumber="2" ListVariableOp="Push" ListVariableName="M5s_跳舞" ListVariableExpression="${?d: A = 前, B = 后, C = 左, D = 右 [${l:M5s_跳舞[-1]}]}" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="3" UseTTSTextExpression="${l:M5s_跳舞[-1]}" ActionType="UseTTS" Asynchronous="False"/>
+                          <Action OrderNumber="4" NamedCallbackName="command" NamedCallbackParam="/e ${l:M5s_跳舞.join(&quot; &quot;)}" ActionType="NamedCallback" Asynchronous="False"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                  <Folder Id="963c8e26-b346-435d-8c36-6be800abe71a" Name="各种左右刀" Enabled="true">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="2-snap Twist" Id="8388c527-372a-4d8b-a6ac-54d85e88f85b" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A4D(?&lt;type&gt;5|6):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == 5 ? 左 : 右 }" ActionType="UseTTS"/>
+                          <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="3" ExecutionDelayExpression="7000"/>
+                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="3-snap Twist 2" Id="286b1e63-5b45-4e19-b42e-500b4d831921" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A6D(?&lt;type&gt;[3-8]):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if:  0x${type} &lt;= 5 ? 左 : 右 }" ActionType="UseTTS"/>
+                          <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="3" ExecutionDelayExpression="7000"/>
+                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="4-snap Twist" Id="859c82e7-625c-410d-972e-af6374c6567c" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A6(?&lt;type&gt;DD|E2):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == DD ? 左 : 右 }" ActionType="UseTTS"/>
+                          <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="3" ExecutionDelayExpression="6500"/>
+                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="3-snap Twist" Id="6e3c0ce6-6291-4e67-a4b2-717e48032979" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A4(?&lt;type&gt;D[78BCDEF]|E0):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if:  0x${type} % 2 = 1 ? 左 : 右 }" ActionType="UseTTS"/>
+                          <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="3" ExecutionDelayExpression="7000"/>
+                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="左右刀+" Id="24b63e48-a112-441f-b728-278496cccdbb" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A72(?&lt;type&gt;6|7):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == 6 ? 左 : 右 }" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="左右刀1" Id="2099bd27-3a34-4653-a2e5-bb369be612c6" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A72(?&lt;type&gt;4|5):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == 4 ? 左 : 右 }" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="左右刀2" Id="87a1b850-ae9b-49f8-9ce1-a6613bbdb017" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A77(?&lt;type&gt;5|6):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == 5 ? 左 : 右 }" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="未知左右刀 疑似三段" Id="fd460027-082f-4980-9026-f8b12ee2c30d" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A73(?&lt;type&gt;[012345]):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: 0x${type} &lt;= 0x2 ? 左 : 右 }" ActionType="UseTTS"/>
+                          <Action OrderNumber="2" ExecutionDelayExpression="6500"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="未知左右刀 疑似二段" Id="47481409-42a1-4409-a8a5-20c3d78f517d" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A72(?&lt;type&gt;[89ABCD]):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: 0x${type} &lt;= 0xA ? 左 : 右 }" ActionType="UseTTS"/>
+                          <Action OrderNumber="2" ExecutionDelayExpression="7000"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="未知左右刀 疑似四段" Id="0c25d24f-1039-4a93-8125-35ca30e48939" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A73(?&lt;type&gt;[9ABCDE]):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: 0x${type} &lt;= 0xB ? 左 : 右 }" ActionType="UseTTS"/>
+                          <Action OrderNumber="2" ExecutionDelayExpression="6500"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                </Folders>
+                <Triggers>
+                  <Trigger Enabled="true" Name="提示" Id="c46ea337-d143-4899-88d9-c8138aacb2bc" RegularExpression="^.{15}\S+ 01">
+                    <Actions>
+                      <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e &lt;se.10&gt;&#13;&#10;【零式宝宝椅先行版】&#13;&#10;目前的触發器均為副本開放前根据猜測而写。&#13;&#10;播報有誤很正常，自行將對應名称的触發器關閉即可。&#13;&#10;（現階段可以隨意開關觸發器）" ActionType="NamedCallback" Asynchronous="False"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1263$" Id="1e1cd33f-874f-419a-ae3b-a44b947ef0ec" Name="M8s" Enabled="true" RawEnvironmentVariables="zone = 1263">
+                <Folders>
+                  <Folder Id="31b703f3-72e3-4dce-ae78-e1be49fcb78c" Name="杂项" Enabled="true">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="跳跃方向 未来观测" Id="bd3b3dc0-d509-4873-9276-391de2a3d93c" RegularExpression="^.{15}\S+ 107:4.{7}:A93(?&lt;type&gt;0|1):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+)" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="不知道为什么两个id，先写了冷却" DescriptionOverride="True"/>
+                          <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="M8n_跳跃_dir6" VariableExpression="roundvec(${x} - 100, ${y} - 100, 6)" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="3" UseTTSTextExpression="${f:pick(${v:M8n_跳跃_dir6}):上北, 左上, 左下, 下南, 右下, 右上}" ActionType="UseTTS"/>
+                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${v:M8n_跳跃_dir6}, 6)&#13;&#10;ScaleX: 6.25&#13;&#10;A: -1, -8.5&#13;&#10;B: -1, -6.0&#13;&#10;C: -1, -3.5&#13;&#10;D: -1, -1.0&#13;&#10;1:  1, -8.5&#13;&#10;2:  1, -6.0&#13;&#10;3:  1, -3.5&#13;&#10;4:  1, -1.0" ActionType="NamedCallback" DescBgColor="dff"/>
+                          <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="3000"/>
+                          <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="clear&#13;&#10;---&#13;&#10;load" ActionType="NamedCallback" DescBgColor="dff"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="AoE Extraplanar Pursuit" Id="948fca03-6111-4604-b709-49cd0882d155" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A74F):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="分摊死刑 Great Divide" Id="42ed3c47-6f2a-4013-a1d0-a0ca4f8572dd" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A3D8):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="分摊死刑" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="分摊 Heavensearth" Id="822448b1-6836-4df7-8e4c-7c19a80c0786" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A3C0):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="分摊" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="召唤分身 Beckon Moonlight" Id="0f17bff4-bdae-4c6d-8486-571e25664959" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A3C1):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="分身" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="柱子 Terrestrial Titans" Id="026c5ce7-0815-4e22-86b5-5eb0a410b680" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A3C4):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="柱子" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="柱子范围 LockOn" Id="73c31585-cbdf-4703-a871-7fa3ca2bd572" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;A3C6):">
+                        <Actions>
+                          <Action OrderNumber="1" NamedCallbackName="LockOn" NamedCallbackParam="${_entity[${sid}].Address}, omen_laser_6_60_4sec_0t" ActionType="NamedCallback"/>
+                          <Action OrderNumber="2" NamedCallbackName="LockOn" NamedCallbackParam="${_entity[${sid}].Address}, omen_laser_6_60_4sec_0t" ActionType="NamedCallback" ExecutionDelayExpression="3600"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                </Folders>
+                <Triggers>
+                  <Trigger Enabled="true" Name="提示" Id="87b5ec18-8999-41e2-a794-f77fd90c5a13" RegularExpression="^.{15}\S+ 01">
+                    <Actions>
+                      <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e &lt;se.10&gt;&#13;&#10;【零式宝宝椅先行版】&#13;&#10;目前的触發器均為副本開放前根据猜測而写。&#13;&#10;播報有誤很正常，自行將對應名称的触發器關閉即可。&#13;&#10;（現階段可以隨意開關觸發器）&#13;&#10;&#13;&#10;M8s 提示：&#13;&#10; 柱子疑似比普通本更寛，但目前無法使用更寛的特效&#13;&#10; 如果確實如此，要距離画出的 AoE 範圍至少一個標點" ActionType="NamedCallback"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1261$" Id="20797df2-6362-4eda-bc08-f0d2868f2863" Name="M7s" Enabled="true" RawEnvironmentVariables="zone = 1261">
+                <Folders>
+                  <Folder Id="e76943f9-ddca-4721-ad98-5f222e418aaf" Name="杂项" Enabled="true">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="分摊塔" Id="47d872b6-78a4-4a60-ac3b-d25b86cfc689" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A494|A61A):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="九连分摊" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="多段分摊 Brutal Impact" Id="49ed1a71-c0f0-45e9-857b-1b54ec3a5c7a" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A55C):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="多段分摊" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="分摊 Pulp Smash" Id="0ab45f5f-565e-4a0a-8fe7-73ab9be2030c" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A577):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="多段分摊" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="石化" Id="29e421c9-e8a6-4c8b-963d-d48b861fc4e7" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A575):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="躲在小怪后" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="击飞" Id="d8d5c0d9-4740-40f5-9b11-9f9ceac2f91c" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A57C):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="击飞" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="P2 AoE" Id="f74b5ec3-8294-45fd-9869-6c310d38d188" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A587):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="碎地板" Id="4bbc7c2c-c8d4-4f56-8069-9a1cc3baf696" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A59E):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="碎地板" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="孢子" Id="d1c340eb-4c1a-4dd4-891e-a4b346426b80" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A569):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="生成小怪" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="P3 Lariat" Id="2138d111-8038-4356-bc22-d49f7548c3fb" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A5A(?&lt;type&gt;7|9):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} = 7 ? 右右右 : 左左左 }" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="钢铁月环" Id="5406b331-dc98-41c7-95ac-49517680b0f4" RegularExpression="^.{15}\S+ 1A:808:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:(?&lt;type&gt;388|38A):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: 0x${type} == 0x388 ? 钢铁 : 月环 }" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                </Folders>
+                <Triggers>
+                  <Trigger Enabled="true" Name="提示" Id="a635ee52-9590-401a-b1de-867f5862b9d1" RegularExpression="^.{15}\S+ 01">
+                    <Actions>
+                      <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e &lt;se.10&gt;&#13;&#10;【零式宝宝椅先行版】&#13;&#10;目前的触發器均為副本開放前根据猜測而写。&#13;&#10;播報有誤很正常，自行將對應名称的触發器關閉即可。&#13;&#10;（現階段可以隨意開關觸發器）" ActionType="NamedCallback" Asynchronous="False"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1259$" Id="32702168-1495-4b4a-9db1-92996bf230ff" Name="M6s" Enabled="true" RawEnvironmentVariables="zone = 1259">
+                <Folders>
+                  <Folder Id="eb7f3f9f-3acb-43bb-8b47-efcbce5e055b" Name="杂项" Enabled="true">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="死刑 Color Riot" Id="3677ba1f-f694-48b1-b125-211929ce50a4" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A67(?&lt;type&gt;[01]):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} = 0 ? 死刑 : 死刑 }" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="AoE Mousse Moral" Id="ee901083-d7f0-4b43-a892-fe28802067a6" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A6BC):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="画画" Id="a9d5b616-2e93-4f27-a732-f409557178fb" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;93CA|9408|9A3D|A67[68ADEF]|A68[012379]|A6A[6789A]|A6BD):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${?d:&#13;&#10;  93CA = 梦魔，魔界花,&#13;&#10;  9408 = 魔界花，梦魔,&#13;&#10;  9A3D = 画箭,&#13;&#10;  A676 = 画翅膀,&#13;&#10;  A678 = 画炸弹,&#13;&#10;  A67A = 画飞弹,&#13;&#10;  A67D = 双魔界花,&#13;&#10;  A67E = 双梦魔,&#13;&#10;  A67F = 梦魔，炸弹,&#13;&#10;  A680 = 梦魔，飞弹,&#13;&#10;  A681 = 魔界花，炸弹,&#13;&#10;  A682 = 魔界花，飞弹,&#13;&#10;  A683 = 炸弹，飞弹,&#13;&#10;  A687 = 箭，火,&#13;&#10;  A689 = 箭，雷,&#13;&#10;  A6A6 = 画动物1,&#13;&#10;  A6A7 = 画动物2,&#13;&#10;  A6A8 = 画动物3,&#13;&#10;  A6A9 = 画所有动物,&#13;&#10;  A6AA = 画石头,&#13;&#10;  A6BD = 狂暴&#13;&#10;  [${aid}]&#13;&#10;}&#13;&#10;" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                </Folders>
+                <Triggers>
+                  <Trigger Enabled="true" Name="提示" Id="28b37c1f-cb49-47cd-ad23-b59abf6bff11" RegularExpression="^.{15}\S+ 01">
+                    <Actions>
+                      <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e &lt;se.10&gt;&#13;&#10;【零式宝宝椅先行版】&#13;&#10;目前的触發器均為副本開放前根据猜測而写。&#13;&#10;播報有誤很正常，自行將對應名称的触發器關閉即可。&#13;&#10;（現階段可以隨意開關觸發器）" ActionType="NamedCallback" Asynchronous="False"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+            </Folders>
+            <Triggers>
+              <Trigger Enabled="true" Name="团灭中断动作" Id="1ee73fa7-282f-487e-947e-406e166f9911" RegularExpression="^.{15}\S+ 21:.{8}:400000(03|05)">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="500"/>
+                  <Action OrderNumber="2" FolderOp="CancelFolder" FolderId="d00d500d-fe57-4da8-8cc8-06bf08708132" ActionType="Folder"/>
+                </Actions>
+              </Trigger>
+            </Triggers>
+          </Folder>
+          <Folder Id="73f620a7-6c19-45e9-aca4-df14b471e874" Name="M5-8n" Enabled="true">
+            <Folders>
+              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1262$" Id="297631a1-5051-4efd-a9ea-6c445a5d0165" Name="M8" Enabled="true" RawEnvironmentVariables="zone = 1262">
                 <Folders/>
                 <Triggers>
-                  <Trigger Enabled="true" Name="跳跃方向 未来观测" Id="0543a8ad-9218-4bbd-ae95-a8ee18d0bb78" RegularExpression="^.{15}\S+ 107:4.{7}:(?&lt;type&gt;A973|A92F):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+)">
+                  <Trigger Enabled="true" Name="跳跃方向 未来观测" Id="42d8aea0-f335-4df2-af3c-d936e9c2e5e1" RegularExpression="^.{15}\S+ 107:4.{7}:(?&lt;type&gt;A973|A92F):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+)">
                     <Actions>
                       <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="M8n_跳跃_dir6" VariableExpression="roundvec(${x} - 100, ${y} - 100, 6)" ActionType="Variable" Asynchronous="False"/>
                       <Action OrderNumber="2" UseTTSTextExpression="${f:pick(${v:M8n_跳跃_dir6}):上北, 左上, 左下, 下南, 右下, 右上}" ActionType="UseTTS"/>
@@ -99,59 +433,50 @@
                       <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="clear&#13;&#10;---&#13;&#10;load" ActionType="NamedCallback" DescBgColor="dff"/>
                     </Actions>
                   </Trigger>
+                  <Trigger Enabled="true" Name="柱子范围 LockOn" Id="7eeee35f-8485-4b98-9bb7-de79e77ddb9e" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;A933):">
+                    <Actions>
+                      <Action OrderNumber="1" NamedCallbackName="LockOn" NamedCallbackParam="${_entity[${sid}].Address}, omen_laser_6_60_4sec_0t" ActionType="NamedCallback"/>
+                    </Actions>
+                  </Trigger>
                 </Triggers>
               </Folder>
-              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1260$" Id="da4f4fb9-3e49-4db1-897f-e94a1a57ba06" Name="M7" Enabled="true" RawEnvironmentVariables="zone = 1260">
+              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1260$" Id="4d8f4f48-bf33-40cf-be0e-c0301e27f777" Name="M7" Enabled="true" RawEnvironmentVariables="zone = 1260">
+                <Folders/>
+                <Triggers>
+                  <Trigger Enabled="true" Name="钢铁月环" Id="e8c1d314-22dc-4803-ad18-3aee5cdcc078" RegularExpression="^.{15}\S+ 1A:808:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:(?&lt;type&gt;388|38A):">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="${if: 0x${type} == 0x388 ? 钢铁 : 月环 }" ActionType="UseTTS"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="P3 Lariat" Id="d79b2db3-4a17-4409-b026-968967056e31" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A55(?&lt;type&gt;1|3):">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} = 1 ? 右右右 : 左左左 }" ActionType="UseTTS"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1258$" Id="3cc7f5ae-f8d0-460d-89e4-608804d56ac2" Name="M6" Enabled="true" RawEnvironmentVariables="zone = 1258">
                 <Folders/>
                 <Triggers/>
               </Folder>
-              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1258$" Id="8c263066-5259-44e6-9fbf-0132c20c9549" Name="M6" Enabled="true" RawEnvironmentVariables="zone = 1258">
-                <Folders/>
-                <Triggers/>
-              </Folder>
-              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1256$" Id="4a453a5a-a02e-401b-8bd1-28a58fc11c1e" Name="M5" Enabled="true" RawEnvironmentVariables="zone = 1256">
+              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1256$" Id="7e5a1831-5ac5-4d91-b531-af7e8d938bf9" Name="M5" Enabled="true" RawEnvironmentVariables="zone = 1256">
                 <Folders>
-                  <Folder Id="c086ec18-2c75-4905-a1cd-cef7454ee133" Name="A. 节奏半场刀" Enabled="false">
+                  <Folder Id="b81980d6-0480-4dc8-811e-7e6b86b04fe8" Name="B. 跳舞小人" Enabled="true">
                     <Folders/>
                     <Triggers>
-                      <Trigger Enabled="true" Sequential="True" Name="2. 四次=&gt;穿" Id="ba49e306-ee2e-4955-9160-0d1bb7b69f58" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A6(?&lt;cid&gt;(DF|DD)):">
-                        <Actions>
-                          <Action OrderNumber="1" ActionType="Placeholder" Description="BOSS左4=DF|右4=DD" DescriptionOverride="True"/>
-                          <Action OrderNumber="2" UseTTSTextExpression="${if:${cid}==DF?右:左}，然后穿" ActionType="UseTTS"/>
-                          <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==DF?101.1:98.9},100,0&#13;&#10;" ActionType="NamedCallback"/>
-                          <Action OrderNumber="4" ExecutionDelayExpression="6.55 * 1000"/>
-                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==DD?101.1:98.9},100,0&#13;&#10;" ActionType="NamedCallback"/>
-                          <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="clear" ActionType="NamedCallback" ExecutionDelayExpression="1500"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="1. 两次=&gt;穿" Id="02b89163-b5f6-4f6e-a177-187b68645e71" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A6(?&lt;cid&gt;(D0|CD)):">
-                        <Actions>
-                          <Action OrderNumber="1" ActionType="Placeholder" Description="BOSS左2=D0|右2=CD" DescriptionOverride="True"/>
-                          <Action OrderNumber="2" UseTTSTextExpression="${if:${cid}==D0?右:左}，然后穿" ActionType="UseTTS"/>
-                          <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" ActionType="NamedCallback"/>
-                          <Action OrderNumber="4" ExecutionDelayExpression="7000"/>
-                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" ActionType="NamedCallback"/>
-                          <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="clear" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
-                        </Actions>
-                      </Trigger>
-                    </Triggers>
-                  </Folder>
-                  <Folder Id="a739c72d-5e70-4670-9bf0-a8df6f9152fc" Name="B. 跳舞小人" Enabled="true">
-                    <Folders/>
-                    <Triggers>
-                      <Trigger Enabled="true" Name="1. 收集小人" Id="74e156d8-14d4-44d1-b1e3-dcf127dce056" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A70(?&lt;cid&gt;[C|D]):">
+                      <Trigger Enabled="true" Name="1. 收集小人" Id="567d4321-8b8d-4e81-8cdd-5983b4ca0eb4" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A70(?&lt;cid&gt;[C|D]):">
                         <Actions>
                           <Action OrderNumber="1" ActionType="Placeholder" Description="BOSS半场刀必定从左到右 D=左刀|C=左刀" DescriptionOverride="True"/>
                           <Action OrderNumber="2" ListVariableOp="Push" ListVariableName="M5n1_跳舞小人" ListVariableExpression="${if:${cid}==D?L:R}" ActionType="ListVariable"/>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Name="X. 重置数据" Id="24d15fe1-87e6-4301-90ab-7e0d079281f3" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:9A30">
+                      <Trigger Enabled="true" Name="X. 重置数据" Id="d4131af7-b2cd-4bee-aed1-f22807f73f49" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:9A30">
                         <Actions>
                           <Action OrderNumber="1" ListVariableOp="UnsetRegex" VariableOp="UnsetRegexUniversal" VariableName="^M5n1_跳舞小人" ActionType="Variable"/>
                           <Action OrderNumber="2"/>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Name="3. 播报=&gt;判定" Id="6dc450a9-137c-408c-8a0a-b891b5bc443b" RegularExpression="^.{15}\S+ 15:[^:]+:[^:]+:93C[B|C]">
+                      <Trigger Enabled="true" Name="3. 播报=&gt;判定" Id="b9b8df65-0b76-4058-a148-ad782f3d1f47" RegularExpression="^.{15}\S+ 15:[^:]+:[^:]+:93C[B|C]">
                         <Actions>
                           <Action OrderNumber="1" VariableOp="Increment" VariableName="M5n1_跳舞小人计数" ActionType="Variable" Asynchronous="False"/>
                           <Action OrderNumber="2" UseTTSTextExpression="${if:${l:M5n1_跳舞小人[${v:M5n1_跳舞小人计数}]}==${l:M5n1_跳舞小人[${n:${v:M5n1_跳舞小人计数}-1}]}?不动:穿}" ActionType="UseTTS" Asynchronous="False">
@@ -166,7 +491,7 @@
                           </Action>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Name="2. 播报=&gt;读条第一次安全区预兆" Id="f2ae3d9b-a4db-4719-9ba9-f30a4064b9f7" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A714">
+                      <Trigger Enabled="true" Name="2. 播报=&gt;读条第一次安全区预兆" Id="203d1764-e1ca-4ec6-8bc8-4f1d67b025a5" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A714">
                         <Actions>
                           <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="M5n1_跳舞小人计数" VariableExpression="1" ActionType="Variable"/>
                           <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${l:M5n1_跳舞小人[1]}==L?101.1:98.9},90,0&#13;&#10;" ActionType="NamedCallback"/>
@@ -174,51 +499,12 @@
                           <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="clear&#13;&#10;---&#13;&#10;load" ActionType="NamedCallback" ExecutionDelayExpression="30000" DescBgColor="dff"/>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="false" Source="None" Name="Debug Log 2025-03-26 14:34" Id="f66dac59-b185-4f18-96fa-1f984386aac3">
-                        <Actions>
-                          <Action OrderNumber="1" LogMessageText="[12:27:18.439] StartsCasting 14:40003268:Dancing Green:9A30:unknown_9a30:40003268:Dancing Green:2.700:-2.51:1.00:3.50:5.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="10.16 * 1000"/>
-                          <Action OrderNumber="3" LogMessageText="[12:27:28.595] StartsCasting 14:40003278:Frogtourage:A70C:unknown_a70c:40003278:Frogtourage:1.400:0.00:1.00:2.20:3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="1.46 * 1000"/>
-                          <Action OrderNumber="5" LogMessageText="[12:27:30.064] StartsCasting 14:40003277:Frogtourage:A70C:unknown_a70c:40003277:Frogtourage:1.400:0.00:1.00:2.20:3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="1.47 * 1000"/>
-                          <Action OrderNumber="7" LogMessageText="[12:27:31.533] StartsCasting 14:40003276:Frogtourage:A70D:unknown_a70d:40003276:Frogtourage:1.400:0.00:1.00:2.20:3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="1.47 * 1000"/>
-                          <Action OrderNumber="9" LogMessageText="[12:27:33.004] StartsCasting 14:40003275:Frogtourage:A70C:unknown_a70c:40003275:Frogtourage:1.400:0.00:1.00:2.20:3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="1.48 * 1000"/>
-                          <Action OrderNumber="11" LogMessageText="[12:27:34.475] StartsCasting 14:40003274:Frogtourage:A70D:unknown_a70d:40003274:Frogtourage:1.400:0.00:1.00:2.20:3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="12" ActionType="Placeholder" ExecutionDelayExpression="1.47 * 1000"/>
-                          <Action OrderNumber="13" LogMessageText="[12:27:35.948] StartsCasting 14:40003273:Frogtourage:A70C:unknown_a70c:40003273:Frogtourage:1.400:0.00:1.00:2.20:3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="1.47 * 1000"/>
-                          <Action OrderNumber="15" LogMessageText="[12:27:37.417] StartsCasting 14:40003272:Frogtourage:A70C:unknown_a70c:40003272:Frogtourage:1.400:0.00:1.00:2.20:3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="1.47 * 1000"/>
-                          <Action OrderNumber="17" LogMessageText="[12:27:38.886] StartsCasting 14:40003271:Frogtourage:A70D:unknown_a70d:40003271:Frogtourage:1.400:0.00:1.00:2.20:3.14" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="18" ActionType="Placeholder" ExecutionDelayExpression="3.61 * 1000"/>
-                          <Action OrderNumber="19" LogMessageText="[12:27:42.494] StartsCasting 14:40003268:Dancing Green:A714:unknown_a714:40003268:Dancing Green:5.500:0.00:1.00:3.50:5.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="20" ActionType="Placeholder" ExecutionDelayExpression="5.96 * 1000"/>
-                          <Action OrderNumber="21" LogMessageText="[12:27:48.464] ActionEffect 15:40003278:Frogtourage:93CB:unknown_93cb:40003278:Frogtourage:49:50FA8000:1B:C3378000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:0:0:10000:::0.00:1.00:2.20:3.14:0:0:0:10000:::0.00:1.00:2.20:3.14:00002943:0:1:00::01:94B6:93CB:2.000:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="22" ActionType="Placeholder" ExecutionDelayExpression="2.01 * 1000"/>
-                          <Action OrderNumber="23" LogMessageText="[12:27:50.469] ActionEffect 15:40003277:Frogtourage:93CB:unknown_93cb:40003277:Frogtourage:49:50FA8000:1B:C3378000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:0:0:10000:::0.00:1.00:2.20:3.14:0:0:0:10000:::0.00:1.00:2.20:3.14:00002953:0:1:00::01:94B6:93CB:2.000:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="24" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000"/>
-                          <Action OrderNumber="25" LogMessageText="[12:27:52.474] ActionEffect 15:40003276:Frogtourage:93CC:unknown_93cc:40003276:Frogtourage:49:50DD8000:1B:C3308000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:0:0:10000:::0.00:1.00:2.20:3.14:0:0:0:10000:::0.00:1.00:2.20:3.14:00002960:0:1:00::01:94B7:93CC:2.000:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="26" ActionType="Placeholder" ExecutionDelayExpression="2.01 * 1000"/>
-                          <Action OrderNumber="27" LogMessageText="[12:27:54.481] ActionEffect 15:40003275:Frogtourage:93CB:unknown_93cb:40003275:Frogtourage:49:50FA8000:1B:C3378000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:0:0:10000:::0.00:1.00:2.20:3.14:0:0:0:10000:::0.00:1.00:2.20:3.14:00002972:0:1:00::01:94B6:93CB:2.000:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="28" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000"/>
-                          <Action OrderNumber="29" LogMessageText="[12:27:56.480] ActionEffect 15:40003274:Frogtourage:93CC:unknown_93cc:40003274:Frogtourage:49:50DD8000:1B:C3308000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:0:0:10000:::0.00:1.00:2.20:3.14:0:0:0:10000:::0.00:1.00:2.20:3.14:0000297F:0:1:00::01:94B7:93CC:2.000:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="30" ActionType="Placeholder" ExecutionDelayExpression="2.01 * 1000"/>
-                          <Action OrderNumber="31" LogMessageText="[12:27:58.485] ActionEffect 15:40003273:Frogtourage:93CB:unknown_93cb:40003273:Frogtourage:49:50FA8000:1B:C3378000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:0:0:10000:::0.00:1.00:2.20:3.14:0:0:0:10000:::0.00:1.00:2.20:3.14:0000298E:0:1:00::01:94B6:93CB:2.000:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="32" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000"/>
-                          <Action OrderNumber="33" LogMessageText="[12:28:00.493] ActionEffect 15:40003272:Frogtourage:93CB:unknown_93cb:40003272:Frogtourage:49:50FA8000:1B:C3378000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:0:0:10000:::0.00:1.00:2.20:3.14:0:0:0:10000:::0.00:1.00:2.20:3.14:000029A0:0:1:00::01:94B6:93CB:2.000:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="34" ActionType="Placeholder" ExecutionDelayExpression="2.01 * 1000"/>
-                          <Action OrderNumber="35" LogMessageText="[12:28:02.500] ActionEffect 15:40003271:Frogtourage:93CC:unknown_93cc:40003271:Frogtourage:49:50DD8000:1B:C3308000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:50FC0000:0:0:0:10000:::0.00:1.00:2.20:3.14:0:0:0:10000:::0.00:1.00:2.20:3.14:000029B1:0:1:00::01:94B7:93CC:2.000:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                        </Actions>
-                      </Trigger>
                     </Triggers>
                   </Folder>
-                  <Folder Id="ed3dfeb9-cb9d-43ef-903d-41156834353c" Name="C. 青蛙滑步" Enabled="true">
+                  <Folder Id="c52f46bd-7f14-451d-9263-6ce4b8a4d6fe" Name="C. 青蛙滑步" Enabled="true">
                     <Folders/>
                     <Triggers>
-                      <Trigger Enabled="true" Name="1. MapEffect（触发最终动画）" Id="050012e9-f0f8-4eb1-b805-124550611b91" RegularExpression="^.{15}\S+ 101:[^:]*:(?&lt;type&gt;0002|0020).{4}:(?&lt;loc&gt;1[DEF]|2[01234])">
+                      <Trigger Enabled="true" Name="1. MapEffect（触发最终动画）" Id="d34f29ed-ae31-47c2-a830-7641ded18664" RegularExpression="^.{15}\S+ 101:[^:]*:(?&lt;type&gt;0002|0020).{4}:(?&lt;loc&gt;1[DEF]|2[01234])">
                         <Actions>
                           <Action OrderNumber="1" ActionType="Placeholder" Description="每个位置有 0002 0020 两种动画（对应下面的两组危险行列），每次上下各生成一个，对称" DescriptionOverride="True"/>
                           <Action OrderNumber="2" ActionType="Placeholder" Description="1d: 123 / 456 列    1f: 456 / 123 列    21: 345 / 123 行    23: 123 / 456 行" DescriptionOverride="True"/>
@@ -226,7 +512,7 @@
                           <Action OrderNumber="4" NamedCallbackName="MapEffect" NamedCallbackParam="${n: 0x${loc}}, 1, ${n: 0x${type} / 2}" ActionType="NamedCallback"/>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Name="2. MapEffect（播报）" Id="cd902ca0-b22f-4969-911e-88c1ed8aa30f" RegularExpression="^.{15}\S+ 101:[^:]*:(?&lt;type&gt;0002|0020).{4}:(?&lt;loc&gt;1[DF]|2[13])">
+                      <Trigger Enabled="true" Name="2. MapEffect（播报）" Id="ccdfe737-ff28-4a97-ab4e-520529030f0b" RegularExpression="^.{15}\S+ 101:[^:]*:(?&lt;type&gt;0002|0020).{4}:(?&lt;loc&gt;1[DF]|2[13])">
                         <Actions>
                           <Action OrderNumber="1" ActionType="Placeholder" Description="每个位置有 0002 0020 两种动画（对应下面的两组危险行列），每次上下各生成一个，对称" DescriptionOverride="True"/>
                           <Action OrderNumber="2" ActionType="Placeholder" Description="1d: 123 / 456 列    1f: 456 / 123 列    21: 345 / 123 行    23: 123 / 456 行" DescriptionOverride="True"/>
@@ -236,14 +522,31 @@
                       </Trigger>
                     </Triggers>
                   </Folder>
+                  <Folder Id="148d2652-6bb1-4a25-84fb-3ca230f447a8" Name="A. 节奏半场刀" Enabled="true">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="2. 四次" Id="6e705b17-20e3-4f20-b0c4-1485b9e25520" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A9(?&lt;type&gt;D[9ACEF]|E1):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${?d: D9 = 左, DA = 右, DC = 左, DE = 左, DF = 右, E1 = 右 [${type}] }" ActionType="UseTTS"/>
+                          <Action OrderNumber="2" ExecutionDelayExpression="7000"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="1. 两次" Id="71978774-ead7-47c6-8a33-1147ef9f14aa" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A6(?&lt;type&gt;C[B-F]|D0):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: 0x${type} &lt;= 0xCD ? 左 : 右 }" ActionType="UseTTS"/>
+                          <Action OrderNumber="2" ExecutionDelayExpression="7000"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
                 </Folders>
                 <Triggers>
-                  <Trigger Enabled="false" Name="销毁残留变量" Id="4d16d835-581b-4777-9aac-9afa71bf84d4" RegularExpression="^.{15}\S+ 01:">
+                  <Trigger Enabled="false" Name="销毁残留变量" Id="4740dfa2-ba03-4e8c-8e41-81eb1e02d255" RegularExpression="^.{15}\S+ 01:">
                     <Actions>
                       <Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^M5n" ActionType="Variable"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Name="跳舞倒计时" Id="e5010612-31c1-466c-9185-b157948e4897" RegularExpression="^.{15}\S+ 1A:116C:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+                  <Trigger Enabled="true" Name="跳舞倒计时" Id="a949c5b9-c035-4de3-8558-fcd3ce888227" RegularExpression="^.{15}\S+ 1A:116C:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
                     <Actions>
                       <Action OrderNumber="1" LogMessageText="cd5:${t}" LogProcess="True" ActionType="LogMessage">
                         <Condition Enabled="true" Grouping="Or">
@@ -255,220 +558,14 @@
                 </Triggers>
               </Folder>
             </Folders>
-            <Triggers/>
-          </Folder>
-          <Folder Id="8a7160f9-acf3-4d93-a972-17584aad77c7" Name=".总体控制" Enabled="true">
-            <Folders/>
             <Triggers>
-              <Trigger Enabled="false" Name="导入提示" Id="910927bc-8c69-49b7-9851-3edcc41e1594" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
+              <Trigger Enabled="true" Name="团灭中断动作" Id="5cdb63d3-11bb-45a2-ad3c-c4f87de1b018" RegularExpression="^.{15}\S+ 21:.{8}:400000(03|05)">
                 <Actions>
-                  <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="已添加 M1-4s 零式触发器。&#13;&#10;使用前请在远程触发器中查看说明。&#13;&#10;&#13;&#10;- 更新：&#13;&#10;&#13;&#10; · 四层已发布视频介绍，链接已复制到剪贴板。&#13;&#10;   你可以直接在浏览器粘贴查看，或在使用说明中查看。&#13;&#10;   如果对任何机制的标点有任何疑问，建议先看视频，&#13;&#10;   不要问我钢铁月环点歪了之类的问题。&#13;&#10; &#13;&#10;有任何问题请先尝试完整使用远程触发器中的自检。" ActionType="MessageBox"/>
-                  <Action OrderNumber="2" VariableOp="Clipboard" VariableExpression="${env:link}" ActionType="Variable"/>
-                  <Action OrderNumber="3" TriggerOp="DisableTrigger" TriggerId="910927bc-8c69-49b7-9851-3edcc41e1594" ActionType="Trigger"/>
+                  <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="500"/>
+                  <Action OrderNumber="2" FolderOp="CancelFolder" FolderId="73f620a7-6c19-45e9-aca4-df14b471e874" ActionType="Folder"/>
                 </Actions>
               </Trigger>
             </Triggers>
-          </Folder>
-          <Folder Id="f90543c0-0571-4d6c-9538-187cb98779fa" Name="M5-8s" Enabled="true">
-            <Folders>
-              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1257$" Id="d7564886-c72f-4c04-9d7c-b8eb193ccb83" Name="M5s" Enabled="true" RawEnvironmentVariables="zone = 1257">
-                <Folders>
-                  <Folder Id="0f53c2e4-0b66-4ffe-a0bb-b9dbb9e2016e" Name="杂项" Enabled="true">
-                    <Folders/>
-                    <Triggers>
-                      <Trigger Enabled="true" Name="AoE Celebrate Good Times" Id="50d63d39-78b4-4020-b3e9-02e6a1cf7e9e" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A723:">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="地火" Id="da47a364-10bc-4861-b765-fcdb91b76485" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A754:">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="地火" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="跳舞倒计时" Id="653dc7eb-a227-486d-8086-743c6cb31977" RegularExpression="^.{15}\S+ 1A:116C:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
-                        <Actions>
-                          <Action OrderNumber="1" LogMessageText="cd5:${t}" LogProcess="True" ActionType="LogMessage">
-                            <Condition Enabled="true" Grouping="Or">
-                              <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
-                            </Condition>
-                          </Action>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="左右刀1" Id="1f7ddcb1-3943-455f-9c40-4ee4b2ce168a" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A72(?&lt;type&gt;4|5):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == 4 ? 左 : 右 }" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="左右刀2" Id="1b33a554-a82c-48ce-8ac8-d503ba95009e" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A77(?&lt;type&gt;5|6):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == 5 ? 左 : 右 }" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="死刑" Id="0b070f65-94e7-4d60-928d-9022a90dcb26" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A721:">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="死刑" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="格子地板" Id="3fdab0df-6285-4b31-b5ec-3b697fdd9f1b" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A752:">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="格子地板" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="2、4、8 分音符" Id="9dcbc354-ecbe-4495-8887-99c6eec714e5" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A75(?&lt;type&gt;9|B|D):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${?d: 9 = 双组分摊, B = 两人分摊, D = 全体分散 [${type}] }" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="AoE Disco" Id="f4818ee6-d43c-4297-bb28-95840eb59acc" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A756:">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="AoE，追光灯" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="滑步青蛙" Id="81d66fc6-fb1d-4b62-8dfe-cbad0c39dbf0" RegularExpression="^.{15}\S+ 107:4.{7}:A77(?&lt;type&gt;3|4):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
-                        <Actions>
-                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="A773 顺时针绕圈" DescriptionOverride="True"/>
-                          <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="tmp_is纵" VariableExpression="roundir(${h}, 4) % 2 = 0" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="tmp_is内" VariableExpression="(roundvec(${x} - 100, ${y} - 100, -8) % 2 = 0) = (${type} = 3) " ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="4" UseTTSTextExpression="${?d: 11 = 中间列, 10 = 中间杭, 01 = 去左右, 00 = 去上下 [${v:tmp_is内}${v:tmp_is纵}]}" ActionType="UseTTS" Asynchronous="False"/>
-                          <Action OrderNumber="5" VariableName="tmp_is纵" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="6" VariableName="tmp_is内" ActionType="Variable" Asynchronous="False"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="4-snap Twist" Id="a686ad12-48af-4304-bb2e-032fc576a108" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A6(?&lt;type&gt;DD|E2):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == DD ? 左 : 右 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="3" ExecutionDelayExpression="6500"/>
-                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="2-snap Twist" Id="f45c9c94-6229-43b6-85cb-b5ba9dbd6075" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A4D(?&lt;type&gt;5|6):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == 5 ? 左 : 右 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="3" ExecutionDelayExpression="7000"/>
-                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="3-snap Twist" Id="587add2d-b3fc-4c27-af26-8562f687dda0" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A4(?&lt;type&gt;D[78BCDEF]|E0):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if:  0x${type} % 2 = 1 ? 左 : 右 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="3" ExecutionDelayExpression="7000"/>
-                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="3-snap Twist 2" Id="b96d2574-c7e3-4fb0-a928-b640c8fc6c1f" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A6D(?&lt;type&gt;[3-8]):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if:  0x${type} &lt;= 5 ? 左 : 右 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="3" ExecutionDelayExpression="7000"/>
-                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="左右刀+" Id="6a84065e-7274-4331-92d9-b176801be76e" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A72(?&lt;type&gt;6|7):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == 6 ? 左 : 右 }" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="未知左右刀 疑似三段" Id="d9379267-b97d-4037-8afd-bdddc86affd4" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A73(?&lt;type&gt;[012345]):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: 0x${type} &lt;= 0x2 ? 左 : 右 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" ExecutionDelayExpression="6500"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="未知左右刀 疑似二段" Id="97a9a2ea-56ba-4d11-b67b-cf2661db1c12" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A72(?&lt;type&gt;[89ABCD]):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: 0x${type} &lt;= 0xA ? 左 : 右 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" ExecutionDelayExpression="7000"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="未知左右刀 疑似四段" Id="ef1210f1-8830-47fa-b1b4-3775ff90a1ee" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A73(?&lt;type&gt;[9ABCDE]):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: 0x${type} &lt;= 0xB ? 左 : 右 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" ExecutionDelayExpression="6500"/>
-                        </Actions>
-                      </Trigger>
-                    </Triggers>
-                  </Folder>
-                  <Folder Id="001728f5-be21-40a6-a878-7c7d765e4806" Name="跳舞" Enabled="true">
-                    <Folders/>
-                    <Triggers>
-                      <Trigger Enabled="true" Name="0. 重置数据" Id="57ccee14-22e9-433c-8031-aa5c89598336" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:9A32">
-                        <Actions>
-                          <Action OrderNumber="1" ListVariableOp="UnsetRegex" VariableOp="UnsetRegexUniversal" VariableName="^M5s_跳舞" ActionType="Variable"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="2. 播报" Id="cbc37de9-16c3-421b-867d-4c3e43fe85aa" RegularExpression="^.{15}\S+ 15:[^:]+:[^:]+:A76[BCDE]">
-                        <Actions>
-                          <Action OrderNumber="1" VariableOp="Increment" VariableName="M5s_跳舞_n" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="2" UseTTSTextExpression="${l:M5s_跳舞[${n: ${v:M5s_跳舞_n} + 1}]}" ActionType="UseTTS" Asynchronous="False"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="1. 收集小人" Id="d86fb4bb-b81f-4777-9a26-20a7f0f0edb9" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A70(?&lt;type&gt;[ABCD]):">
-                        <Actions>
-                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="A 去 ？   B 去 ？   C 去左   D 去右" DescriptionOverride="True"/>
-                          <Action OrderNumber="2" ListVariableOp="Push" ListVariableName="M5s_跳舞" ListVariableExpression="${?d: A = 前, B = 后, C = 左, D = 右 [${l:M5s_跳舞[-1]}]}" ActionType="ListVariable" Asynchronous="False"/>
-                          <Action OrderNumber="3" UseTTSTextExpression="${l:M5s_跳舞[-1]}" ActionType="UseTTS" Asynchronous="False"/>
-                          <Action OrderNumber="4" NamedCallbackName="command" NamedCallbackParam="/e ${l:M5s_跳舞.join(&quot; &quot;)}" ActionType="NamedCallback" Asynchronous="False"/>
-                        </Actions>
-                      </Trigger>
-                    </Triggers>
-                  </Folder>
-                </Folders>
-                <Triggers/>
-              </Folder>
-              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1263$" Id="ad34ae58-93ab-43c4-9986-9599e55706a4" Name="M8s" Enabled="true" RawEnvironmentVariables="zone = 1263">
-                <Folders/>
-                <Triggers/>
-              </Folder>
-              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1261$" Id="d4f84230-3288-4bac-a814-854159b524a7" Name="M7s" Enabled="true" RawEnvironmentVariables="zone = 1261">
-                <Folders>
-                  <Folder Id="187a171f-8e66-42ed-92ec-e2f6c5f1c55f" Name="杂项" Enabled="true">
-                    <Folders/>
-                    <Triggers>
-                      <Trigger Enabled="true" Name="分摊塔" Id="45747741-cf8f-4746-8c08-0ac38370a15f" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:(?&lt;aid&gt;A494|A61A):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="九连分摊" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
-                    </Triggers>
-                  </Folder>
-                </Folders>
-                <Triggers/>
-              </Folder>
-              <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1259$" Id="a908c2e0-3c78-48ee-83f7-e83f9e76d77a" Name="M6s" Enabled="true" RawEnvironmentVariables="zone = 1259">
-                <Folders>
-                  <Folder Id="8e44adc3-502b-49c5-a627-e768f4b8dea4" Name="杂项" Enabled="true">
-                    <Folders/>
-                    <Triggers>
-                      <Trigger Enabled="true" Name="死刑 Color Riot" Id="bfaf14cb-97d7-404b-a7fe-c039e343616c" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:A67(?&lt;type&gt;[01]):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} = 0 ? 死刑 : 死刑 }" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="AoE Mousse Moral" Id="2649b4ca-0416-4413-b0d2-79b745781025" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:(?&lt;aid&gt;A6BC):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="画画" Id="a64fd044-56a4-4728-a9c0-1a8b0076c4af" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;93CA|9408|9A3D|A67[68ADEF]|A68[012379]|A6A[6789A]|A6BD):">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${?d:&#13;&#10;  93CA = 梦魔，魔界花,&#13;&#10;  9408 = 魔界花，梦魔,&#13;&#10;  9A3D = 画箭,&#13;&#10;  A676 = 画翅膀,&#13;&#10;  A678 = 画炸弹,&#13;&#10;  A67A = 画飞弹,&#13;&#10;  A67D = 双魔界花,&#13;&#10;  A67E = 双梦魔,&#13;&#10;  A67F = 梦魔，炸弹,&#13;&#10;  A680 = 梦魔，飞弹,&#13;&#10;  A681 = 魔界花，炸弹,&#13;&#10;  A682 = 魔界花，飞弹,&#13;&#10;  A683 = 炸弹，飞弹,&#13;&#10;  A687 = 箭，火,&#13;&#10;  A689 = 箭，雷,&#13;&#10;  A6A6 = 画动物1,&#13;&#10;  A6A7 = 画动物2,&#13;&#10;  A6A8 = 画动物3,&#13;&#10;  A6A9 = 画所有动物,&#13;&#10;  A6AA = 画石头,&#13;&#10;  A6BD = 狂暴&#13;&#10;  [${aid}]&#13;&#10;}&#13;&#10;" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
-                    </Triggers>
-                  </Folder>
-                </Folders>
-                <Triggers/>
-              </Folder>
-            </Folders>
-            <Triggers/>
           </Folder>
         </Folders>
         <Triggers/>

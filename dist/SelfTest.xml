@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TriggernometryExport PluginVersion="1.2.0.735">
+<TriggernometryExport PluginVersion="1.2.0.736">
   <ExportedFolder Id="e6c580a6-bede-44b5-9b7c-8b130e35a160" Name="自检工具箱" Enabled="true" RawEnvironmentVariables="date = 2025.3.16&#13;&#10;xiv = 7.18&#13;&#10;xivcn = 7.1&#13;&#10;trig = 1.2.0.733&#13;&#10;namazu = 1.3.6.1&#13;&#10;advwm = 4.3&#13;&#10;link = https://www.123pan.com/s/1xRXjv-340BH.html&#13;&#10;&#13;&#10;// 标点自检的参数方程&#13;&#10;speed = 0.01&#13;&#10;dt = 30&#13;&#10;x_t = 16 * sin(${_this}) ^ 3&#13;&#10;y_t = -13 * cos(${_this}) + 5 * cos(2 * ${_this}) + 2 * cos(3 * ${_this}) + cos(4 * ${_this})&#13;&#10;z_t = 0&#13;&#10;center = ${_me.x}, ${_me.y}, ${_me.z}&#13;&#10;θ = ${_me.heading}&#13;&#10;scale = abs(sin(${_systemtimems} / 1000)) * 0.75 + 0.25">
     <Folders>
       <Folder Id="76146422-3f24-4dd3-8982-fe2e651a50e1" Name="控制" Enabled="true">
@@ -120,6 +120,54 @@
               </Trigger>
             </Triggers>
           </Folder>
+          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^(129|130|132|1186)$" Id="95af7c58-de5c-491d-9479-bb998da8ef35" Name="?" Enabled="true">
+            <Folders/>
+            <Triggers>
+              <Trigger Enabled="true" Name="t" Id="90a7f748-8619-47cd-b306-ac214d26f7b4" RegularExpression="^.{15}\S+ 01" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="21600 * 1000">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="60000"/>
+                  <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;您所购买的游戏时间即将结束。&#13;&#10;　月卡剩余时间：0分钟&#13;&#10;　点卡剩余时间：${n: random(3,10)}分钟" ActionType="NamedCallback">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${_ffxivlanguageid}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;プレイ時間の終了が近づいています。　&#13;&#10;　月額課金：0分&#13;&#10;　時間課金：${n: random(3,10)}分" ActionType="NamedCallback">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${_ffxivlanguageid}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="4" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;It's almost time for an Eorzean re-up.&#13;&#10;　Months remaining: 0 minute&#13;&#10;　Hours remaining: ${n: random(3,10)} minutes" ActionType="NamedCallback">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${_ffxivlanguageid}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Action>
+                </Actions>
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${f:localtime(MMdd):${_systemtime}}" ExpressionTypeL="String" ExpressionR="0401" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Name="○" Id="ff975a76-4ef3-46be-9ab5-5f2574824a6b" RegularExpression="^.{15}\S+ 03:(?&lt;sid&gt;10....0[0-7]):">
+                <Actions>
+                  <Action OrderNumber="1" Enabled="False"/>
+                  <Action OrderNumber="2" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${sid}].Address}, 463" ActionType="NamedCallback"/>
+                  <Action OrderNumber="3" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${sid}].Address}, 0" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="10000"/>
+                </Actions>
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="Or">
+                    <ConditionSingle Enabled="true" ExpressionL="${f:localtime(MMdd):${_systemtime}}" ExpressionTypeL="String" ExpressionR="0401" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    <ConditionSingle Enabled="false" ExpressionL="${f:localtime(MMdd):${_systemtime}}" ExpressionTypeL="String" ExpressionR="0331" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                  </ConditionGroup>
+                  <ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Name="关闭" Id="2dc569c4-6c46-4502-b196-a3312ab03133" RegularExpression="^.{15}\S+ 00:0038::(?i) *fool *$">
+                <Actions>
+                  <Action OrderNumber="1" FolderOp="DisableFolder" FolderId="95af7c58-de5c-491d-9479-bb998da8ef35" ActionType="Folder"/>
+                  <Action OrderNumber="2" SystemBeepLengthExpression="200"/>
+                </Actions>
+              </Trigger>
+            </Triggers>
+          </Folder>
         </Folders>
         <Triggers>
           <Trigger Enabled="false" Name="2. 检测使用技能" Id="11e2704f-131a-4ce6-9ffe-5b7822917307" RegularExpression="^.{15}\S+ 1[456]:(?&lt;sid&gt;1.{7}):[^:]*:[^:]*:(?&lt;an&gt;[^:]+):">
@@ -131,13 +179,13 @@
               <ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
             </Condition>
           </Trigger>
-          <Trigger Enabled="true" Sequential="True" Name="6.2 标点测试" Id="f38faa33-bfe0-4c6f-8b2a-fa82787ca262" RegularExpression="^SelfTest:AdvWm2">
+          <Trigger Enabled="true" Sequential="True" Name="6.2 标点测试" Id="ffa244ee-d1ce-4b63-a678-20ba3a12102c" RegularExpression="^SelfTest:AdvWm2">
             <Actions>
               <Action OrderNumber="1" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="tmp_wm" ListVariableExpression="(${_systemtimems} + ${env:dt} * ${_idx}) * ${env:speed}" ListVariableIndex="8" ActionType="ListVariable" Asynchronous="False"/>
               <Action OrderNumber="2" ListVariableOp="SetAll" ListVariableName="tmp_wm" ListVariableExpression="${n: ${env:x_t}}, ${n: ${env:y_t}}, ${n: ${env:z_t}}" ActionType="ListVariable" Asynchronous="False"/>
               <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="action:  place&#13;&#10;center: ${env:center}&#13;&#10;θ: ${env:θ}&#13;&#10;scale: ${env:scale}&#13;&#10;&#13;&#10;A: ${l:tmp_wm[1]}&#13;&#10;B: ${l:tmp_wm[2]}&#13;&#10;C: ${l:tmp_wm[3]}&#13;&#10;D: ${l:tmp_wm[4]}&#13;&#10;1: ${l:tmp_wm[5]}&#13;&#10;2: ${l:tmp_wm[6]}&#13;&#10;3: ${l:tmp_wm[7]}&#13;&#10;4: ${l:tmp_wm[8]}&#13;&#10;&#13;&#10;log: false" ActionType="NamedCallback" Asynchronous="False"/>
               <Action OrderNumber="4" ListVariableName="tmp_wm" ActionType="ListVariable" Asynchronous="False"/>
-              <Action OrderNumber="5" TriggerId="f38faa33-bfe0-4c6f-8b2a-fa82787ca262" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="10" Asynchronous="False"/>
+              <Action OrderNumber="5" TriggerId="ffa244ee-d1ce-4b63-a678-20ba3a12102c" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="10" Asynchronous="False"/>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${v:tmp_wm_on}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
