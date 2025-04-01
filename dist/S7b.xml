@@ -101,11 +101,6 @@
                           <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS"/>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Name="地火" Id="e992c282-ee7b-4ae3-8701-dfcb9f9eb8bd" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A754:">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="地火" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
                       <Trigger Enabled="true" Name="跳舞倒计时" Id="e4dff2b4-51c1-4bff-ad04-be7d4b99c1f6" RegularExpression="^.{15}\S+ 1A:116C:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
                         <Actions>
                           <Action OrderNumber="1" LogMessageText="cd5:${t}" LogProcess="True" ActionType="LogMessage">
@@ -120,19 +115,9 @@
                           <Action OrderNumber="1" UseTTSTextExpression="死刑" ActionType="UseTTS"/>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Name="格子地板" Id="63f1777f-a316-4d59-a944-33e2c4df03bd" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A752:">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="格子地板" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
                       <Trigger Enabled="true" Name="2、4、8 分音符" Id="f6b52744-9b62-426c-93fd-4da3bfa9c478" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A75(?&lt;type&gt;9|B|D):">
                         <Actions>
                           <Action OrderNumber="1" UseTTSTextExpression="${?d: 9 = 双组分摊, B = 两人分摊, D = 全体分散 [${type}] }" ActionType="UseTTS"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Name="AoE Disco" Id="89493872-de37-4d4c-9fc4-d821559b38b0" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A756:">
-                        <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="AoE，追光灯" ActionType="UseTTS"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="滑步青蛙" Id="de869689-4382-44c5-be80-1effb8176f38" RegularExpression="^.{15}\S+ 107:4.{7}:A77(?&lt;type&gt;3|4):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
@@ -147,7 +132,7 @@
                       </Trigger>
                     </Triggers>
                   </Folder>
-                  <Folder Id="7f7cd790-0542-415c-9fdf-12223083640a" Name="跳舞" Enabled="true">
+                  <Folder Id="7f7cd790-0542-415c-9fdf-12223083640a" Name="C. 领舞" Enabled="true" RawEnvironmentVariables="phase = 领舞">
                     <Folders/>
                     <Triggers>
                       <Trigger Enabled="true" Name="0. 重置数据" Id="7b66b0a1-e65c-4cd8-9c7e-603038a4b5f1" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:9A32">
@@ -158,13 +143,14 @@
                       <Trigger Enabled="true" Name="2. 播报" Id="218f8b61-6342-4a9c-829f-2ff830e21d1f" RegularExpression="^.{15}\S+ 15:[^:]+:[^:]+:A76[BCDE]">
                         <Actions>
                           <Action OrderNumber="1" VariableOp="Increment" VariableName="M5s_跳舞_n" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="2" UseTTSTextExpression="${l:M5s_跳舞[${n: ${v:M5s_跳舞_n} + 1}]}" ActionType="UseTTS" Asynchronous="False"/>
+                          <Action OrderNumber="2" UseTTSTextExpression="${l:M5s_跳舞[${n: ${v:M5s_跳舞_n} + 1}]}" ActionType="UseTTS"/>
+                          <Action OrderNumber="3"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="1. 收集小人" Id="375b2153-2643-4de5-9f07-1f00dc3de206" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A70(?&lt;type&gt;[ABCD]):">
                         <Actions>
                           <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="A 去 ？   B 去 ？   C 去左   D 去右" DescriptionOverride="True"/>
-                          <Action OrderNumber="2" ListVariableOp="Push" ListVariableName="M5s_跳舞" ListVariableExpression="${?d: A = 前, B = 后, C = 左, D = 右 [${l:M5s_跳舞[-1]}]}" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="2" ListVariableOp="Push" ListVariableName="M5s_跳舞" ListVariableExpression="${?d: A = 前, B = 后, C = 左, D = 右 [${type}]}" ActionType="ListVariable" Asynchronous="False"/>
                           <Action OrderNumber="3" UseTTSTextExpression="${l:M5s_跳舞[-1]}" ActionType="UseTTS" Asynchronous="False"/>
                           <Action OrderNumber="4" NamedCallbackName="command" NamedCallbackParam="/e ${l:M5s_跳舞.join(&quot; &quot;)}" ActionType="NamedCallback" Asynchronous="False"/>
                         </Actions>
@@ -176,38 +162,42 @@
                     <Triggers>
                       <Trigger Enabled="true" Name="2-snap Twist" Id="8388c527-372a-4d8b-a6ac-54d85e88f85b" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A4D(?&lt;type&gt;5|6):">
                         <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == 5 ? 左 : 右 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="3" ExecutionDelayExpression="7000"/>
-                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
+                          <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 未记录的左右刀 &lt;se.11&gt;" ActionType="NamedCallback" DescBgColor="fdd"/>
+                          <Action OrderNumber="2" UseTTSTextExpression="${if: ${type} == 5 ? 左 : 右 }" ActionType="UseTTS"/>
+                          <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="4" ExecutionDelayExpression="7000"/>
+                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="3-snap Twist 2" Id="286b1e63-5b45-4e19-b42e-500b4d831921" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A6D(?&lt;type&gt;[3-8]):">
                         <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if:  0x${type} &lt;= 5 ? 左 : 右 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="3" ExecutionDelayExpression="7000"/>
-                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
+                          <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 未记录的左右刀 &lt;se.11&gt;" ActionType="NamedCallback" DescBgColor="fdd"/>
+                          <Action OrderNumber="2" UseTTSTextExpression="${if:  0x${type} &lt;= 5 ? 左 : 右 }" ActionType="UseTTS"/>
+                          <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="4" ExecutionDelayExpression="7000"/>
+                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="4-snap Twist" Id="859c82e7-625c-410d-972e-af6374c6567c" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A6(?&lt;type&gt;DD|E2):">
                         <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == DD ? 左 : 右 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="3" ExecutionDelayExpression="6500"/>
-                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
+                          <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 未记录的左右刀 &lt;se.11&gt;" ActionType="NamedCallback" DescBgColor="fdd"/>
+                          <Action OrderNumber="2" UseTTSTextExpression="${if: ${type} == DD ? 左 : 右 }" ActionType="UseTTS"/>
+                          <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="4" ExecutionDelayExpression="6500"/>
+                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="3-snap Twist" Id="6e3c0ce6-6291-4e67-a4b2-717e48032979" RegularExpression="^.{15}\S+ 14:[^:]+:[^:]+:A4(?&lt;type&gt;D[78BCDEF]|E0):">
                         <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if:  0x${type} % 2 = 1 ? 左 : 右 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="3" ExecutionDelayExpression="7000"/>
-                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
-                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
+                          <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 未记录的左右刀 &lt;se.11&gt;" ActionType="NamedCallback" DescBgColor="fdd"/>
+                          <Action OrderNumber="2" UseTTSTextExpression="${if:  0x${type} % 2 = 1 ? 左 : 右 }" ActionType="UseTTS"/>
+                          <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==D0?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="4" ExecutionDelayExpression="7000"/>
+                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="A:0,-10,0&#13;&#10;1:0,-6,0&#13;&#10;2:0,-2,0&#13;&#10;3:0,2,0&#13;&#10;4:0,6,0&#13;&#10;C:0,10,0&#13;&#10;center:${if:${cid}==CD?101.1:98.9},100,0&#13;&#10;" Enabled="False" ActionType="NamedCallback"/>
+                          <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="clear" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="2000"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="左右刀+" Id="24b63e48-a112-441f-b728-278496cccdbb" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A72(?&lt;type&gt;6|7):">
@@ -225,22 +215,121 @@
                           <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == 5 ? 左 : 右 }" ActionType="UseTTS"/>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Name="未知左右刀 疑似三段" Id="fd460027-082f-4980-9026-f8b12ee2c30d" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A73(?&lt;type&gt;[012345]):">
+                    </Triggers>
+                  </Folder>
+                  <Folder Id="660c7ac3-852f-4bbd-87a9-c994938b3227" Name="B. 格子" Enabled="true" RawEnvironmentVariables="phase = 格">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="O0" Id="89493872-de37-4d4c-9fc4-d821559b38b0" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A756:">
                         <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: 0x${type} &lt;= 0x2 ? 左 : 右 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" ExecutionDelayExpression="6500"/>
+                          <Action OrderNumber="1" UseTTSTextExpression="AoE，追光灯" ActionType="UseTTS"/>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Name="未知左右刀 疑似二段" Id="47481409-42a1-4409-a8a5-20c3d78f517d" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A72(?&lt;type&gt;[89ABCD]):">
+                      <Trigger Enabled="true" Name="0. 初始化" Id="c70ae779-bb25-49b9-99c7-5c4add1da36f" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A756:">
                         <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: 0x${type} &lt;= 0xA ? 左 : 右 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" ExecutionDelayExpression="7000"/>
+                          <Action OrderNumber="1" VariableOp="SetString" VariableName="M5s_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
+                          <Action OrderNumber="2" VariableOp="UnsetRegexUniversal" VariableName="^M5s_格" ActionType="Variable"/>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Name="未知左右刀 疑似四段" Id="0c25d24f-1039-4a93-8125-35ca30e48939" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A73(?&lt;type&gt;[9ABCDE]):">
+                      <Trigger Enabled="true" Name="1.2 获取 Debuff" Id="cd0e7b63-4b0d-4b56-b521-6ec8124d6990" RegularExpression="^.{15}\S+ 1A:116D:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
                         <Actions>
-                          <Action OrderNumber="1" UseTTSTextExpression="${if: 0x${type} &lt;= 0xB ? 左 : 右 }" ActionType="UseTTS"/>
-                          <Action OrderNumber="2" ExecutionDelayExpression="6500"/>
+                          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="M5s_格_is自先" VariableExpression="${t} &lt; 27.5" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="2" LogMessageText="M5s_格:is灯⏥:${v:M5s_格_is灯⏥}:is自先:${v:M5s_格_is自先}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${ev:M5s_格_is灯⏥}${ev:M5s_格_is自先}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="O1" Id="047223dd-f3c8-4fb1-b5e2-3d619654abc2" RegularExpression="^M5s_格:is灯偏逆:(?&lt;is灯偏逆&gt;0|1):is自先:(?&lt;is自先&gt;0|1)">
+                        <Actions>
+                          <Action OrderNumber="1" LogMessageText="cd5:${n: ${is自先} ? 23.5 : 31.5 }" LogProcess="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="远：短去左上右下" DescriptionOverride="True"/>
+                          <Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="近：dir-8  正方形偏顺 短 = 26 长 = 37; 偏逆 短 = 15 长 = 04" DescriptionOverride="True"/>
+                          <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;O: 100, 100&#13;&#10;Waymarks: A1D4C3B2&#13;&#10;R: 12.5&#13;&#10;R2: 12.5√2" ActionType="NamedCallback" DescBgColor="dff"/>
+                          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100 &#13;&#10;Scale: 2.5 &#13;&#10;2: -3, -1 &#13;&#10;4:  3,  1 " ActionType="NamedCallback" DescBgColor="dff">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${is灯偏逆}${is自先}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100 &#13;&#10;Scale: 2.5 &#13;&#10;2:  3, -1 &#13;&#10;4: -3,  1 " ActionType="NamedCallback" DescBgColor="dff">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${is灯偏逆}${is自先}" ExpressionTypeL="String" ExpressionR="01" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="7" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100 &#13;&#10;Scale: 2.5 &#13;&#10;1: -1, -3 &#13;&#10;3:  1,  3 " ActionType="NamedCallback" DescBgColor="dff">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${is灯偏逆}${is自先}" ExpressionTypeL="String" ExpressionR="10" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="8" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100 &#13;&#10;Scale: 2.5 &#13;&#10;1:  1, -3 &#13;&#10;3: -1,  3 " ActionType="NamedCallback" DescBgColor="dff">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${is灯偏逆}${is自先}" ExpressionTypeL="String" ExpressionR="00" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="9" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="31500" DescBgColor="dff"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="1.1 获取追光灯初始位置" Id="91658d05-5de2-41c5-91c2-17c05e055049" RegularExpression="^.{15}\S+ AAA:10F:(?&lt;id&gt;.{8}):[^:]*:[^:]*:18363:(?&lt;x&gt;[^:]*):92">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="（四个正方向偏逆时针）" DescriptionOverride="True"/>
+                          <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="M5s_格_is灯偏逆" VariableExpression="${x} &lt; 100" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="3" LogMessageText="M5s_格:is灯偏逆:${v:M5s_格_is灯偏逆}:is自先:${v:M5s_格_is自先}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${ev:M5s_格_is灯偏逆}${ev:M5s_格_is自先}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="O2. 钢铁月环" Id="366f9b91-62b1-4dd1-a6e5-03b0057decb9" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A77(?&lt;type&gt;C|E):">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${type} == C ? 外 : 内 }" ActionType="UseTTS"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="5000"/>
+                          <Action OrderNumber="3" UseTTSTextExpression="${if: ${type} == C ? 内 : 外 }" ActionType="UseTTS"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                  <Folder Id="8503041b-077e-45d3-be47-c203b364ba1a" Name="A. 半场刀" Enabled="true">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="1. 记录" Id="c9d90fb5-14b5-49aa-90a5-6b40d76382a7" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A78(?&lt;type&gt;0|1):">
+                        <Actions>
+                          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="M5s_半场_is双组" VariableExpression="${type} = 1" ActionType="Variable"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="2.1 二段左右刀" Id="47481409-42a1-4409-a8a5-20c3d78f517d" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A72(?&lt;type&gt;[89ABCD]):">
+                        <Actions>
+                          <Action OrderNumber="1" LogMessageText="_M5s_半场:is先去左:${n: 0x${type} &lt;= 0xA }:t:7.0" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="2.2 三段左右刀" Id="fd460027-082f-4980-9026-f8b12ee2c30d" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A73(?&lt;type&gt;[012345]):">
+                        <Actions>
+                          <Action OrderNumber="1" LogMessageText="_M5s_半场:is先去左:${n: 0x${type} &lt;= 0x2 }:t:7.0" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="2.3 四段左右刀" Id="0c25d24f-1039-4a93-8125-35ca30e48939" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A73(?&lt;type&gt;[9ABCDE]):">
+                        <Actions>
+                          <Action OrderNumber="1" LogMessageText="_M5s_半场:is先去左:${n: 0x${type} &lt;= 0xB }:t:7.0" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="O2. 处理左右刀" Id="5ca691c7-79d7-4da9-b636-b6fc2848171f" RegularExpression="^_M5s_半场:is先去左:(?&lt;is先去左&gt;0|1):t:(?&lt;t&gt;[^:]*)">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="${if: ${is先去左} ? 左 : 右 }，${if: ${v:M5s_半场_is双组} ? 双组分摊 : 职能三向分摊 }" ActionType="UseTTS"/>
+                          <Action OrderNumber="2" SystemBeepLengthExpression="200" ExecutionDelayExpression="${t} * 1000"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                  <Folder Id="6c17dc5e-0a08-4d1f-b5bf-9b28a927c529" Name="D. 地火" Enabled="true" RawEnvironmentVariables="phase = 地火">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="地火" Id="e992c282-ee7b-4ae3-8701-dfcb9f9eb8bd" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A754:">
+                        <Actions>
+                          <Action OrderNumber="1" UseTTSTextExpression="地火" ActionType="UseTTS"/>
                         </Actions>
                       </Trigger>
                     </Triggers>
