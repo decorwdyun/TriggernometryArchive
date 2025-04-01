@@ -49,7 +49,7 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="c60327f8-58ef-47d2-8e39-a54b2e6f4196" Name="6. 鲶鱼精邮差" Enabled="true">
+<Folder Id="c60327f8-58ef-47d2-8e39-a54b2e6f4196" Name="5. 鲶鱼精邮差" Enabled="true">
 <Folders />
 <Triggers>
 <Trigger Enabled="true" Sequential="True" Name="5.2 检测功能" Id="0e0a1caa-f018-4a3e-ae69-371d90d59aee" RegularExpression="^SelfTest:PostNamazu_Modules">
@@ -179,7 +179,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Sequential="True" Name="7.2 标点测试" Id="ffa244ee-d1ce-4b63-a678-20ba3a12102c" RegularExpression="^SelfTest:AdvWm2">
+<Trigger Enabled="true" Sequential="True" Name="6.2 标点测试" Id="ffa244ee-d1ce-4b63-a678-20ba3a12102c" RegularExpression="^SelfTest:AdvWm2">
 <Actions>
 <Action OrderNumber="1" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="tmp_wm" ListVariableExpression="(${_systemtimems} + ${env:dt} * ${_idx}) * ${env:speed}" ListVariableIndex="8" ActionType="ListVariable" Asynchronous="False" />
 <Action OrderNumber="2" ListVariableOp="SetAll" ListVariableName="tmp_wm" ListVariableExpression="${n: ${env:x_t}}, ${n: ${env:y_t}}, ${n: ${env:z_t}}" ActionType="ListVariable" Asynchronous="False" />
@@ -191,7 +191,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${v:tmp_wm_on}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Sequential="True" Name="7.1 高级标点工具箱" Id="85e35af9-3815-4c9e-aab1-c30ef21e4282" RegularExpression="^SelfTest:AdvWm1">
+<Trigger Enabled="true" Sequential="True" Name="6.1 高级标点工具箱" Id="85e35af9-3815-4c9e-aab1-c30ef21e4282" RegularExpression="^SelfTest:AdvWm1">
 <Actions>
 <Action OrderNumber="1" UseTTSTextExpression="等待三秒" ActionType="UseTTS" />
 <Action OrderNumber="2" ListVariableName="AdvWm_version" LogProcess="True" ActionType="ListVariable" />
@@ -199,25 +199,25 @@
 <Action OrderNumber="4" LogMessageText="[00:00:00.000] 0 01:" LogProcess="True" ActionType="LogMessage" />
 <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="3000" />
 <Action OrderNumber="6" ListVariableOp="SortNumericAsc" ListVariableName="AdvWm_version" LogProcess="True" ActionType="ListVariable" />
-<Action OrderNumber="7" VariableOp="SetString" VariableName="tmp_version" VariableExpression="${env:advwm}" ActionType="Variable" />
+<Action OrderNumber="7" VariableOp="SetString" VariableName="tmp_version" VariableExpression=" ${env:advwm}" ActionType="Variable" />
 <Action OrderNumber="8" LogProcess="True" MessageBoxIconType="Information" MessageBoxText="高级标点工具箱版本正确（${l:AdvWm_version[1]}）。&#xD;&#xA;&#xD;&#xA;你可以使用下一个自检触发器测试标点功能，你将会看见八个标点在旋转。" ActionType="MessageBox">
 <Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${f:versioncompare(${v:tmp_version}):${l:AdvWm_version[1]}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
+<ConditionSingle Enabled="true" ExpressionL="${l:AdvWm_version[1]}" ExpressionTypeL="String" ExpressionR="${v:tmp_version}" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
 <ConditionSingle Enabled="true" ExpressionL="${l:AdvWm_version.size}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 <ConditionSingle Enabled="true" ExpressionL="${ecallback:AdvWm}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
 <Action OrderNumber="9" LogProcess="True" MessageBoxIconType="Warning" MessageBoxText="高级标点工具箱版本正确（${l:AdvWm_version[1]}），但未成功注册回调，无法标点。&#xD;&#xA;&#xD;&#xA;首先确保你的触发器右上角没有报错，否则按照报错内容处理。&#xD;&#xA;&#xD;&#xA;如果你是手动添加的远程仓库：&#xD;&#xA;  确保该仓库右键设置中开启了脚本代码执行权限，然后更新仓库。&#xD;&#xA;&#xD;&#xA;解决问题后重新使用这条自检，会自动重新尝试注册回调。&#xD;&#xA;正确注册回调后，游戏内可以看到一条默语消息。" ActionType="MessageBox">
 <Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${l:AdvWm_version[1]}" ExpressionTypeL="String" ExpressionR="${v:tmp_version}" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
 <ConditionSingle Enabled="true" ExpressionL="${l:AdvWm_version.size}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 <ConditionSingle Enabled="true" ExpressionL="${ecallback:AdvWm}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${f:versioncompare(${v:tmp_version}):${l:AdvWm_version[1]}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
 </Condition>
 </Action>
 <Action OrderNumber="10" LogProcess="True" MessageBoxIconType="Error" MessageBoxText="高级标点工具箱版本版本过低。&#xD;&#xA;当前：${l:AdvWm_version[1]}，最新：${v:tmp_version}&#xD;&#xA;&#xD;&#xA;请从头到尾按顺序自检，自动更新后会自动下载最新版触发器。" ActionType="MessageBox">
 <Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${l:AdvWm_version[1]}" ExpressionTypeL="String" ExpressionR="${v:tmp_version}" ExpressionTypeR="String" ConditionType="NumericLess" />
 <ConditionSingle Enabled="true" ExpressionL="${l:AdvWm_version.size}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${f:versioncompare(${v:tmp_version}):${l:AdvWm_version[1]}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess" />
 </Condition>
 </Action>
 <Action OrderNumber="11" LogProcess="True" MessageBoxIconType="Error" MessageBoxText="高级标点工具箱存在多个已开启的版本（${l:AdvWm_version.join(&quot;, &quot;)}）。" ActionType="MessageBox">
@@ -230,8 +230,8 @@
 <ConditionSingle Enabled="true" ExpressionL="${l:AdvWm_version.size}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="13" ListVariableName="AdvWm_version" LogProcess="True" Enabled="False" ActionType="ListVariable" />
-<Action OrderNumber="14" VariableName="tmp_version" Enabled="False" ActionType="Variable" />
+<Action OrderNumber="13" ListVariableName="AdvWm_version" LogProcess="True" ActionType="ListVariable" />
+<Action OrderNumber="14" VariableName="tmp_version" ActionType="Variable" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="4.2 [C] 检查 ACT 插件顺序" Id="8aadcb22-eaea-4d10-bba5-0320848d802a" RegularExpression="^SelfTest_PluginOrder:(?&lt;isManual&gt;[01])">
