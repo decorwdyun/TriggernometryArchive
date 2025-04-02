@@ -528,11 +528,16 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1259$" Id="32702168-1495-4b4a-9db1-92996bf230ff" Name="M6s v0.2" Enabled="true" RawEnvironmentVariables="zone = 1259">
+<Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1259$" Id="32702168-1495-4b4a-9db1-92996bf230ff" Name="M6s v0.1" Enabled="true" RawEnvironmentVariables="zone = 1259">
 <Folders>
 <Folder Id="eb7f3f9f-3acb-43bb-8b47-efcbce5e055b" Name="杂项" Enabled="true">
 <Folders />
 <Triggers>
+<Trigger Enabled="true" Name="死刑 Color Riot" Id="3677ba1f-f694-48b1-b125-211929ce50a4" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A67(?&lt;type&gt;[01]):">
+<Actions>
+<Action OrderNumber="1" UseTTSTextExpression="${if: ${type} = 0 ? 死刑 : 死刑 }" ActionType="UseTTS" />
+</Actions>
+</Trigger>
 <Trigger Enabled="true" Name="AoE Mousse Moral" Id="ee901083-d7f0-4b43-a892-fe28802067a6" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A6BC):">
 <Actions>
 <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS" />
@@ -540,193 +545,7 @@
 </Trigger>
 <Trigger Enabled="true" Name="画画" Id="a9d5b616-2e93-4f27-a732-f409557178fb" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;93CA|9408|9A3D|A67[68ADEF]|A68[012379]|A6A[6789A]|A6BD):">
 <Actions>
-<Action OrderNumber="1" UseTTSTextExpression="${?d:&#xD;&#xA;  9A3D = 画箭,&#xD;&#xA;  A676 = 画翅膀,&#xD;&#xA;  A678 = 画炸弹,&#xD;&#xA;  A67A = 画飞弹,&#xD;&#xA;  A683 = 炸弹，飞弹,&#xD;&#xA;  A687 = 箭，火,&#xD;&#xA;  A689 = 箭，雷,&#xD;&#xA;  A6A6 = 画动物1,&#xD;&#xA;  A6A7 = 画动物2,&#xD;&#xA;  A6A8 = 画动物3,&#xD;&#xA;  A6A9 = 画动物4,&#xD;&#xA;  A6AA = 画石头,&#xD;&#xA;  A6BD = 狂暴&#xD;&#xA;  [${aid}]&#xD;&#xA;}&#xD;&#xA;" ActionType="UseTTS" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="翅膀 debuff" Id="4df8d0cc-f8f6-4b84-a55c-2bca644619f1" RegularExpression="^.{15}\S+ 1A:1162:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):">
-<Actions>
-<Action OrderNumber="1" LogMessageText="cd5:${t}" LogProcess="True" ActionType="LogMessage" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="0818ceca-3c49-4395-a772-3535bf5303bd" Name="A. Double Style" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="2. 获取实体" Id="ff5ff9de-1f99-4518-b4fc-85dbfda3df58" RegularExpression="^.{15}\S+ AAA:10F:4.{7}:[^:]*:[^:]*:(?&lt;bnpcid&gt;1833[67]|1834[01])(?=.*:(99|100)):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="同侧安全：18337飞弹 18340魔界花 | 异侧安全：18336炸弹 18341梦魔" DescriptionOverride="True" />
-<Action OrderNumber="2" VariableOp="SetNumeric" VariableName="M6s_双画_is南" VariableExpression="${y} &gt; 100 = (${bnpcid} = 18337 || ${bnpcid} = 18340)" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="round(${x})" ExpressionTypeL="Numeric" ExpressionR="100" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" VariableOp="SetNumeric" VariableName="M6s_双画_is东" VariableExpression="${x} &gt; 100 = (${bnpcid} = 18337 || ${bnpcid} = 18340)" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="round(${y})" ExpressionTypeL="Numeric" ExpressionR="100" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description=" = 2" DescriptionOverride="True" />
-<Action OrderNumber="5" VariableOp="SetString" VariableName="M6s_双画_dirN4" VariableExpression="${?d: 00 = 0, 01 = 1, 10 = 3, 11 = 2 [${v:M6s_双画_is东}${v:M6s_双画_is南}]}" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${ev:M6s_双画_is南}${ev:M6s_双画_is东}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="6" LogMessageText="M6s_双画:dirN4:${v:M6s_双画_dirN4}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${ev:M6s_双画_is南}${ev:M6s_双画_is东}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="1000" />
-<Action OrderNumber="8" VariableName="M6s_双画_is南" ActionType="Variable" />
-<Action OrderNumber="9" VariableName="M6s_双画_is东" ActionType="Variable" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="O1. " Id="242c5e2a-0223-42c0-80a6-e0128c586aae" RegularExpression="^M6s_双画:dirN4:(?&lt;dirN4&gt;[0-3])">
-<Actions>
-<Action OrderNumber="1" UseTTSTextExpression="去${f:pick(${dirN4}): 右下, 右上, 左上, 左下}，飞到对侧" ActionType="UseTTS" />
-<Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: dir2rad(${dirN4}, -4)&#xD;&#xA;Waymarks: ABCD1234&#xD;&#xA;Start: 0, 10&#xD;&#xA;End: 0, -18.9√2" ActionType="NamedCallback" DescBgColor="dff" />
-<Action OrderNumber="3" ActionType="Placeholder" ExecutionDelayExpression="13000" />
-<Action OrderNumber="4" UseTTSTextExpression="${if: ${v:M6s_双画_is双组} ? 四四 : 两人 }分摊" ActionType="UseTTS" />
-<Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="load&#xD;&#xA;---&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: dir2rad(${dirN4}, 4)&#xD;&#xA;1: -8.1, -18.9&#xD;&#xA;2: -18.9, -8.1&#xD;&#xA;3: -12, -12&#xD;&#xA;4: -18, -18" ActionType="NamedCallback" DescBgColor="dff">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:M6s_双画_is双组}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="load&#xD;&#xA;---&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: dir2rad(${dirN4}, 4)&#xD;&#xA;1: -8.5, -16&#xD;&#xA;2: -16, -8.5&#xD;&#xA;3: fakeclear&#xD;&#xA;4: fakeclear" ActionType="NamedCallback" DescBgColor="dff">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:M6s_双画_is双组}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="4200" />
-<Action OrderNumber="8" UseTTSTextExpression="八方站位" ActionType="UseTTS" />
-<Action OrderNumber="9" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff" />
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Source="None" Name="Debug Log 2025-04-01 18:05" Id="6301322a-61b7-4f0b-9974-a73bb93e6721" RegularExpression="">
-<Actions>
-<Action OrderNumber="1" LogMessageText="[17:20:47.674] _ActorSetPos AAA:10F:40000000:飞弹:13824:18337:92.0000:83.0000:0.0000:1.5707" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="2" LogMessageText="[17:20:47.674] _ActorSetPos AAA:10F:40000000:飞弹:13824:18337:92.0000:100.0000:0.0000:1.5707" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="3" LogMessageText="[17:20:47.674] _ActorSetPos AAA:10F:40000000:飞弹:13824:18337:92.0000:117.0000:0.0000:1.5707" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="4" LogMessageText="[17:20:47.674] _ActorSetPos AAA:10F:40000000:魔界花:13828:18340:100.0000:80.0000:0.0000:-0.0001" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage" />
-<Action OrderNumber="5" LogMessageText="[17:20:47.674] _ActorSetPos AAA:10F:40000000:魔界花:13828:18340:100.0000:120.0000:0.0000:-0.0001" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="1. 记录分摊类型" Id="da97a6fd-8eca-4bba-ad7e-4dfe00cacf85" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A68(?&lt;type&gt;B|D):">
-<Actions>
-<Action OrderNumber="1" VariableOp="SetNumeric" VariableName="M6s_双画_is双组" VariableExpression="${type} == B" ActionType="Variable" />
-<Action OrderNumber="2" UseTTSTextExpression="储存${if: ${v:M6s_双画_is双组} ? 四四 : 两人 }分摊" ActionType="UseTTS" ExecutionDelayExpression="6000" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="翅膀 debuff 改变面向" Id="a728417b-49e9-459c-bab9-4bdeca30b1d5" RegularExpression="^.{15}\S+ 1A:1162:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):">
-<Actions>
-<Action OrderNumber="1" LogProcess="True" ActionType="Placeholder" Description="phase " DescriptionOverride="True" />
-<Action OrderNumber="2" LogProcess="True" ActionType="Placeholder" ExecutionDelayExpression="(${t} - 0.1) * 1000" />
-<Action OrderNumber="3" LogProcess="True" NamedCallbackName="command" NamedCallbackParam="/e [Debug] Set Heading:&#xD;&#xA;Before: ${n: round(${_me.Heading}, 3)} (${n: round(${_me.Heading} / π * 180, 1)}°)&#xD;&#xA;Target: ${n: round(θ(${_me.x, y}, ${v:M6s_双画_dirN4} &gt; 1 ? 120 : 80, ${v:M6s_双画_dirN4} % 3 ? 120 : 80), 3)} (${n: round(θ(${_me.x, y}, ${v:M6s_双画_dirN4} &gt; 1 ? 120 : 80, ${v:M6s_双画_dirN4} % 3 ? 120 : 80) / π * 180, 1)}°)" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" />
-<Action OrderNumber="4" LogProcess="True" NamedCallbackName="SetHeading" NamedCallbackParam="${_me.Address}, ${n: θ(${_me.x, y}, ${v:M6s_双画_dirN4} &gt; 1 ? 120 : 80, ${v:M6s_双画_dirN4} % 3 ? 120 : 80)}" ActionType="NamedCallback" Asynchronous="False" />
-<Action OrderNumber="5" LogProcess="True" ActionType="Placeholder" ExecutionDelayExpression="100" />
-<Action OrderNumber="6" LogProcess="True" NamedCallbackName="SetHeading" NamedCallbackParam="${_me.Address}, ${n: θ(${_me.x, y}, ${v:M6s_双画_dirN4} &gt; 1 ? 120 : 80, ${v:M6s_双画_dirN4} % 3 ? 120 : 80)}" ActionType="NamedCallback" Asynchronous="False" />
-<Action OrderNumber="7" LogProcess="True" ActionType="Placeholder" ExecutionDelayExpression="100" />
-<Action OrderNumber="8" LogProcess="True" NamedCallbackName="SetHeading" NamedCallbackParam="${_me.Address}, ${n: θ(${_me.x, y}, ${v:M6s_双画_dirN4} &gt; 1 ? 120 : 80, ${v:M6s_双画_dirN4} % 3 ? 120 : 80)}" ActionType="NamedCallback" Asynchronous="False" />
-<Action OrderNumber="9" LogProcess="True" ActionType="Placeholder" ExecutionDelayExpression="100" />
-<Action OrderNumber="10" LogProcess="True" NamedCallbackName="SetHeading" NamedCallbackParam="${_me.Address}, ${n: θ(${_me.x, y}, ${v:M6s_双画_dirN4} &gt; 1 ? 120 : 80, ${v:M6s_双画_dirN4} % 3 ? 120 : 80)}" ActionType="NamedCallback" Asynchronous="False" />
-<Action OrderNumber="11" LogProcess="True" ActionType="Placeholder" ExecutionDelayExpression="100" />
-<Action OrderNumber="12" LogProcess="True" NamedCallbackName="SetHeading" NamedCallbackParam="${_me.Address}, ${n: θ(${_me.x, y}, ${v:M6s_双画_dirN4} &gt; 1 ? 120 : 80, ${v:M6s_双画_dirN4} % 3 ? 120 : 80)}" ActionType="NamedCallback" Asynchronous="False" />
-<Action OrderNumber="13" LogProcess="True" ActionType="Placeholder" ExecutionDelayExpression="100" />
-<Action OrderNumber="14" LogProcess="True" NamedCallbackName="SetHeading" NamedCallbackParam="${_me.Address}, ${n: θ(${_me.x, y}, ${v:M6s_双画_dirN4} &gt; 1 ? 120 : 80, ${v:M6s_双画_dirN4} % 3 ? 120 : 80)}" ActionType="NamedCallback" Asynchronous="False" />
-<Action OrderNumber="15" LogProcess="True" ActionType="Placeholder" ExecutionDelayExpression="100" />
-<Action OrderNumber="16" LogProcess="True" NamedCallbackName="SetHeading" NamedCallbackParam="${_me.Address}, ${n: θ(${_me.x, y}, ${v:M6s_双画_dirN4} &gt; 1 ? 120 : 80, ${v:M6s_双画_dirN4} % 3 ? 120 : 80)}" ActionType="NamedCallback" Asynchronous="False" />
-<Action OrderNumber="17" LogProcess="True" ActionType="Placeholder" ExecutionDelayExpression="100" />
-<Action OrderNumber="18" LogProcess="True" NamedCallbackName="command" NamedCallbackParam="/e [Debug] &#xD;&#xA;After:  ${n: round(${_me.Heading}, 3)} (${n: round(${_me.Heading} / π * 180, 1)}°)" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" />
-</Actions>
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-<ConditionSingle Enabled="true" ExpressionL="${v:M6s_phase}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Name="0. 初始" Id="477c9bd4-7f6f-4ff8-90f8-1e8e313f03e3" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;93CA|9408|9A3D|A67[68ADEF]|A68[012379]|A6A[6789A]|A6BD):">
-<Actions>
-<Action OrderNumber="1" UseTTSTextExpression="${?d:&#xD;&#xA;  93CA = 梦魔，魔界花,&#xD;&#xA;  9408 = 魔界花，梦魔,&#xD;&#xA;  A67D = 双魔界花,&#xD;&#xA;  A67E = 双梦魔,&#xD;&#xA;  A67F = 梦魔，炸弹,&#xD;&#xA;  A680 = 梦魔，飞弹,&#xD;&#xA;  A681 = 魔界花，炸弹,&#xD;&#xA;  A682 = 魔界花，飞弹,&#xD;&#xA;  A683 = 炸弹，飞弹,&#xD;&#xA;  [${aid}]&#xD;&#xA;}&#xD;&#xA;" Enabled="False" ActionType="UseTTS" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="96f319d9-8cc9-43d7-927f-36050a5ecb1d" Name="B. 死刑" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="O1." Id="3677ba1f-f694-48b1-b125-211929ce50a4" RegularExpression="^M6s_死刑:远近:(?&lt;远近&gt;远|近|)$">
-<Actions>
-<Action OrderNumber="1" UseTTSTextExpression="${if: ${_me.IsT} ? 远近死刑 : 远近死刑，站在目标圈 }" ActionType="UseTTS">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${远近}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Action>
-<Action OrderNumber="2" UseTTSTextExpression="${if: ${远近} == 远 ? 远死刑 : 近死刑 }" ActionType="UseTTS">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${远近}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="1. 记录 debuff" Id="e21b7010-d4b9-4e8e-8cac-d2299164a4d5" RegularExpression="^.{15}\S+ 1A:116(?&lt;type&gt;3|4):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="条件：目标是 T、自己是 T" DescriptionOverride="True" />
-<Action OrderNumber="2" VariableOp="SetNumeric" VariableName="M6s_死刑_is自身红" VariableExpression="${type} = 3" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" VariableOp="SetNumeric" VariableName="M6s_死刑_is搭档红" VariableExpression="${type} = 3" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
-</Condition>
-</Action>
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${_entity[${tid}].isT} &amp;&amp; ${_me.isT}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Name="2. 死刑 Color Riot" Id="ab1aba83-ed48-40ab-a7d0-4138c6af08d5" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A69(?&lt;type&gt;1|2):">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="A692 近红远蓝" DescriptionOverride="True" />
-<Action OrderNumber="2" VariableName="tmp_应吃红蓝" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="自身有：按照自身" DescriptionOverride="True" />
-<Action OrderNumber="4" VariableOp="SetString" VariableName="tmp_应吃红蓝" VariableExpression="${if: ${v:M6s_死刑_is自身红} ? 蓝 : 红 }" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${ev:M6s_死刑_is自身红}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="5" ActionType="Placeholder" Asynchronous="False" Description="自身没有、搭档有：按照相反" DescriptionOverride="True" />
-<Action OrderNumber="6" VariableOp="SetString" VariableName="tmp_应吃红蓝" VariableExpression="${if: ${v:M6s_死刑_is搭档红} ? 红 : 蓝 }" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${ev:M6s_死刑_is自身红}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${ev:M6s_死刑_is搭档红}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="7" ActionType="Placeholder" Asynchronous="False" Description="颜色转换为远近" DescriptionOverride="True" />
-<Action OrderNumber="8" VariableOp="SetString" VariableName="tmp_远近" VariableExpression="${if: (${v:tmp_应吃红蓝} == 红) = (${type} = 1) ? 远 : 近 }" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${ev:tmp_应吃红蓝}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="9" LogMessageText="M6s_死刑:远近:${v:tmp_远近}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False" />
-<Action OrderNumber="10" VariableName="tmp_应吃红蓝" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="11" VariableName="tmp_远近" ActionType="Variable" Asynchronous="False" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="ceff2a1f-f36e-4112-b3db-29db1869d597" Name="C. 沙漠" Enabled="true" RawEnvironmentVariables="phase = 沙漠">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="0. 初始化" Id="d988b286-b0e7-41b0-b26c-a1411c789da4" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A668:">
-<Actions>
-<Action OrderNumber="1" VariableOp="SetString" VariableName="M6s_phase" VariableExpression="${env:phase}" ActionType="Variable" />
-<Action OrderNumber="2" VariableOp="UnsetRegexUniversal" VariableName="^M6s_沙漠" ActionType="Variable" />
-<Action OrderNumber="3" UseTTSTextExpression="沙漠阶段" ActionType="UseTTS" />
+<Action OrderNumber="1" UseTTSTextExpression="${?d:&#xD;&#xA;  93CA = 梦魔，魔界花,&#xD;&#xA;  9408 = 魔界花，梦魔,&#xD;&#xA;  9A3D = 画箭,&#xD;&#xA;  A676 = 画翅膀,&#xD;&#xA;  A678 = 画炸弹,&#xD;&#xA;  A67A = 画飞弹,&#xD;&#xA;  A67D = 双魔界花,&#xD;&#xA;  A67E = 双梦魔,&#xD;&#xA;  A67F = 梦魔，炸弹,&#xD;&#xA;  A680 = 梦魔，飞弹,&#xD;&#xA;  A681 = 魔界花，炸弹,&#xD;&#xA;  A682 = 魔界花，飞弹,&#xD;&#xA;  A683 = 炸弹，飞弹,&#xD;&#xA;  A687 = 箭，火,&#xD;&#xA;  A689 = 箭，雷,&#xD;&#xA;  A6A6 = 画动物1,&#xD;&#xA;  A6A7 = 画动物2,&#xD;&#xA;  A6A8 = 画动物3,&#xD;&#xA;  A6A9 = 画所有动物,&#xD;&#xA;  A6AA = 画石头,&#xD;&#xA;  A6BD = 狂暴&#xD;&#xA;  [${aid}]&#xD;&#xA;}&#xD;&#xA;" ActionType="UseTTS" />
 </Actions>
 </Trigger>
 </Triggers>
