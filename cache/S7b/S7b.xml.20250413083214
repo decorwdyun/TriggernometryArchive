@@ -1361,7 +1361,7 @@
 </Folders>
 <Triggers />
 </Folder>
-<Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1263$" Id="e4683f83-28af-4b27-854b-356e8c5ef64a" Name="M8s v0.5.0" Enabled="true" RawEnvironmentVariables="zone = 1263">
+<Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1263$" Id="e4683f83-28af-4b27-854b-356e8c5ef64a" Name="M8s v0.4.3" Enabled="true" RawEnvironmentVariables="zone = 1263">
 <Folders>
 <Folder Id="466eed53-cd32-414c-9ba7-3be66ffe06e4" Name="杂项" Enabled="true">
 <Folders />
@@ -1434,13 +1434,9 @@
 <Action OrderNumber="1" UseTTSTextExpression="${?d:&#xD;&#xA;  A45A = 双分摊,&#xD;&#xA;  A4CD = 双死刑&#xD;&#xA;  [${aid}]&#xD;&#xA;}&#xD;&#xA;" ActionType="UseTTS" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Name="狂暴碎平台" Id="4ee723fd-636c-4b27-ae59-549889510541" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):A74D:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Trigger Enabled="true" Name="本体左右激光" Id="bbc82ba6-cc82-4a7c-9070-091c82a851ec" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):A45E:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
 <Actions>
-<Action OrderNumber="1" UseTTSTextExpression="传送" ActionType="UseTTS">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="distance(${_me.x, y}, ${x}, ${y})" ExpressionTypeL="Numeric" ExpressionR="8" ExpressionTypeR="String" ConditionType="NumericLess" />
-</Condition>
-</Action>
+<Action OrderNumber="1" NamedCallbackName="Omen" NamedCallbackParam="general02f, 3.7, ${x}, ${y}, ${z}, ${h}, 4, 31" ActionType="NamedCallback" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -1477,9 +1473,8 @@
 <Action OrderNumber="4" VariableOp="SetNumeric" VariableName="M8s_MD_is线正" VariableExpression="roundir(${l:M8s_MD_头_h[-1]}, 8) % 2 = 0" ActionType="Variable" Asynchronous="False" />
 <Action OrderNumber="5" LogMessageText="M8s_MD_头:is顺:${v:M8s_MD_is顺}:is线正:${v:M8s_MD_is线正}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
 <Action OrderNumber="6" UseTTSTextExpression="${if: ${v:M8s_MD_is顺} ? 顺时针 : 逆时针 }" ActionType="UseTTS" />
-<Action OrderNumber="7" UseTTSTextExpression="防击退" ActionType="UseTTS" ExecutionDelayExpression="4500" />
-<Action OrderNumber="8" NamedCallbackName="LockOn" NamedCallbackParam="${_entity[bnpcid = 18215].Address}, ${if: ${v:M8s_MD_is顺} ? m0515_turning_right01c : m0515_turning_left01c }" ActionType="NamedCallback" ExecutionDelayExpression="2500" />
-<Action OrderNumber="9" UseTTSTextExpression="${if: ${v:M8s_MD_is顺} ? 左顺 : 右逆 }" ActionType="UseTTS" />
+<Action OrderNumber="7" UseTTSTextExpression="${if: ${v:M8s_MD_is顺} ? 顺时针 : 逆时针 }" ActionType="UseTTS" ExecutionDelayExpression="4000" />
+<Action OrderNumber="8" NamedCallbackName="LockOn" NamedCallbackParam="${_entity[bnpcid = 18215].Address}, ${if: ${v:M8s_MD_is顺} ? m0515_turning_right01c : m0515_turning_left01c }" ActionType="NamedCallback" ExecutionDelayExpression="3000" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="5. 获取连线 =&gt; 6" Id="a2a91305-10f5-484c-852d-47f6fe2bdfb0" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;0039|0001)">
@@ -1641,7 +1636,6 @@
 <Action OrderNumber="1" UseTTSTextExpression="准备半场刀" ActionType="UseTTS" />
 <Action OrderNumber="2" VariableOp="UnsetRegexUniversal" VariableName="^M8s_BM" ActionType="Variable" />
 <Action OrderNumber="3" VariableOp="SetString" VariableName="M8s_phase" VariableExpression="${env:phase}" ActionType="Variable" />
-<Action OrderNumber="4" NamedCallbackName="Omen" NamedCallbackParam="n4fg_betaest_o0p, 19.7,   100, 100, 0, 0,   12, 12, 1,   1, 1.5, 0.5, 1" ActionType="NamedCallback" ExecutionDelayExpression="4000" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="1. 获取分身" Id="49630682-257a-41af-be26-7aed21cb139a" RegularExpression="^.{15}\S+ AAA:202:(?&lt;wid&gt;6|7):(?&lt;sid&gt;4.{7}):[^:]*:[^:]*:18217:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
@@ -1807,26 +1801,17 @@
 <Trigger Enabled="true" Name="0. 初始化 时间轴" Id="11c64cd4-df98-4225-93b2-0ad98f7982bb" RegularExpression="^.{15}\S+ 28:994:">
 <Actions>
 <Action OrderNumber="1" VariableOp="SetString" VariableName="M8s_phase" VariableExpression="${env:phase}" ActionType="Variable" />
-<Action OrderNumber="2" NamedCallbackName="SetCameraParams" NamedCallbackParam="AngleH = π&#xD;&#xA;AngleV = 0" ActionType="NamedCallback" />
-<Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/e [Debug] SetCameraParams&#xD;&#xA;  AngleH = π&#xD;&#xA;  AngleV = 0" ActionType="NamedCallback" DescBgColor="fdd" />
-<Action OrderNumber="4" LogMessageText="cd5:18.45" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="5" UseTTSTextExpression="两侧平台分摊" UseTTSExclusive="False" ActionType="UseTTS" ExecutionDelayExpression="18450" />
-<Action OrderNumber="6" UseTTSTextExpression="蓝圈站位" ActionType="UseTTS" ExecutionDelayExpression="13000" />
-<Action OrderNumber="7" UseTTSTextExpression="${if: ${_me.IsT} ? 双T死刑 : 躲开双T死刑 }" ActionType="UseTTS" ExecutionDelayExpression="12000" />
-<Action OrderNumber="8" UseTTSTextExpression="前方集合" ActionType="UseTTS" ExecutionDelayExpression="11000" />
-<Action OrderNumber="9" UseTTSTextExpression="蓝圈站位" ActionType="UseTTS" ExecutionDelayExpression="11500" />
-<Action OrderNumber="10" UseTTSTextExpression="两侧平台分摊" ActionType="UseTTS" ExecutionDelayExpression="11000" />
-<Action OrderNumber="11" UseTTSTextExpression="前方集合，碎平台" ActionType="UseTTS" ExecutionDelayExpression="11000" />
-<Action OrderNumber="12" UseTTSTextExpression="躲开，去${if: ${_me.isT} ? 两侧 : 背后 }" ActionType="UseTTS" ExecutionDelayExpression="8000" />
-<Action OrderNumber="13" UseTTSTextExpression="踩塔站位" ActionType="UseTTS" ExecutionDelayExpression="17500" />
-<Action OrderNumber="14" UseTTSTextExpression="准备接线" ActionType="UseTTS" ExecutionDelayExpression="15000" />
-<Action OrderNumber="15" UseTTSTextExpression="两侧平台分摊" ActionType="UseTTS" ExecutionDelayExpression="74000" />
-<Action OrderNumber="16" UseTTSTextExpression="蓝圈站位" ActionType="UseTTS" ExecutionDelayExpression="10000" />
-<Action OrderNumber="17" UseTTSTextExpression="${if: ${_me.IsT} ? 双T死刑 : 躲开双T死刑 }" ActionType="UseTTS" ExecutionDelayExpression="14000" />
-<Action OrderNumber="18" UseTTSTextExpression="拉线站位" ActionType="UseTTS" ExecutionDelayExpression="11000" />
-<Action OrderNumber="19" UseTTSTextExpression="准备半场刀" ActionType="UseTTS" ExecutionDelayExpression="39000" />
-<Action OrderNumber="20" UseTTSTextExpression="蓝圈站位" ActionType="UseTTS" ExecutionDelayExpression="9000" />
-<Action OrderNumber="21" UseTTSTextExpression="狂暴塔" ActionType="UseTTS" ExecutionDelayExpression="13000" />
+<Action OrderNumber="2" LogMessageText="cd5:18.45" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="3" UseTTSTextExpression="两侧平台分摊" UseTTSExclusive="False" ActionType="UseTTS" ExecutionDelayExpression="18450" />
+<Action OrderNumber="4" UseTTSTextExpression="蓝圈站位" ActionType="UseTTS" ExecutionDelayExpression="13000" />
+<Action OrderNumber="5" UseTTSTextExpression="${if: ${_me.IsT} ? 双T死刑 : 躲开双T死刑 }" ActionType="UseTTS" ExecutionDelayExpression="12000" />
+<Action OrderNumber="6" UseTTSTextExpression="前方集合" ActionType="UseTTS" ExecutionDelayExpression="11000" />
+<Action OrderNumber="7" UseTTSTextExpression="蓝圈站位" ActionType="UseTTS" ExecutionDelayExpression="11500" />
+<Action OrderNumber="8" UseTTSTextExpression="两侧平台分摊" ActionType="UseTTS" ExecutionDelayExpression="11000" />
+<Action OrderNumber="9" UseTTSTextExpression="前方集合，碎平台" ActionType="UseTTS" ExecutionDelayExpression="11000" />
+<Action OrderNumber="10" UseTTSTextExpression="躲开，去${if: ${_me.isT} ? 两侧 : 背后 }" ActionType="UseTTS" ExecutionDelayExpression="8000" />
+<Action OrderNumber="11" UseTTSTextExpression="踩塔站位" ActionType="UseTTS" ExecutionDelayExpression="17500" />
+<Action OrderNumber="12" UseTTSTextExpression="准备接线" ActionType="UseTTS" ExecutionDelayExpression="15000" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="1. 210度刀" Id="8738fd54-756b-4d6e-b1c3-0d00973fef9e" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:0017:">
@@ -1846,11 +1831,6 @@
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${_entity[${tid}].isT}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
-</Trigger>
-<Trigger Enabled="true" Name="本体左右激光  可以优化开始时间" Id="bbc82ba6-cc82-4a7c-9070-091c82a851ec" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):A45E:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="Omen" NamedCallbackParam="general02f, 3.7, ${x}, ${y}, ${z}, ${h}, 4, 18" ActionType="NamedCallback" />
-</Actions>
 </Trigger>
 </Triggers>
 </Folder>
@@ -1893,21 +1873,6 @@
 <Action OrderNumber="1" UseTTSTextExpression="${if: ${is右safe} ? 右 : 左 }${if: ${is钢} ? 外 : 内 }" ActionType="UseTTS" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Name="画图左右刀" Id="0fad647b-1ffc-483f-9195-d9f53ec96076" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;A46[02]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="Omen" NamedCallbackParam="general02f, 6.7, ${x}, ${y}, ${z}, ${h}, 25.5" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="画图钢铁" Id="0fa209bc-aa87-4112-bba6-8781b98814fd" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;A463):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="Omen" NamedCallbackParam="general_1bf, 6.7, ${x}, ${y}, ${z}, ${h}, 22" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="画图月环" Id="901ea74f-072a-4ded-9825-0acdbcb2668b" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;A464):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="Omen" NamedCallbackParam="gl_sircle_3015ac, 6.7, ${x}, ${y}, ${z}, ${h}, 30" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
 </Triggers>
 </Folder>
 <Folder Id="494c3146-0817-4f38-bfc7-6fcc66f7284f" Name="H. Twofold Tempest" Enabled="true" RawEnvironmentVariables="phase = Twofold Tempest">
@@ -1918,132 +1883,8 @@
 <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="M8s_TT_is同侧线" VariableExpression="(${_entity[${tid}].x} &gt; 100) = (${_me.x} &gt; 100)" ActionType="Variable" Asynchronous="False" />
 <Action OrderNumber="2" UseTTSTextExpression="${if: ${v:M8s_TT_is同侧线} ? 同侧 : 对侧 }连线" ActionType="UseTTS" />
 <Action OrderNumber="3" UseTTSTextExpression="第二次" ActionType="UseTTS" ExecutionDelayExpression="7100" />
-<Action OrderNumber="4" UseTTSTextExpression="第三次" ActionType="UseTTS" ExecutionDelayExpression="7100" />
-<Action OrderNumber="5" UseTTSTextExpression="第四次" ActionType="UseTTS" ExecutionDelayExpression="7100" />
-<Action OrderNumber="6" UseTTSTextExpression="准备转盘" ActionType="UseTTS" ExecutionDelayExpression="7100" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="绿圈" Id="4e9ff24f-c8b4-456c-80ff-7b65cc1d9959" RegularExpression="^.{15}\S+ 105:Add:.+BNpcID:1EBD8F:.*PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="Omen" NamedCallbackParam="general_1bf, 7.0,   ${x}, ${y}, ${z}, 0,   9.5, 9.5, 1,   0.05, 0.3, 0.05, 2" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="ee3bde3c-a3e1-461c-b27f-bb20f5d0dc01" Name="I. 转盘" Enabled="true" RawEnvironmentVariables="phase = 转盘">
-<Folders>
-<Folder Id="d0f2631a-9512-4a6a-92b1-a2ad2c7f8961" Name="模拟用" Enabled="false">
-<Folders />
-<Triggers>
-<Trigger Enabled="false" Name="2. 每个初始读条" Id="0da9d38e-7baf-4b8c-a4bf-361d3532a6ab" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;A47[9ABCD]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" LogMessageText="_M8s_转盘_omen:${aid}:0:7.8:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Name="1. 旋转方向" Id="bb090a93-87a4-4979-b335-d59cbcb83888" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;4.{7}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;01F[56]):">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="LockOn" NamedCallbackParam="${_tgt.Address}, ${?d: 01F5 = m0851_turnright_c0g, 01F6 = m0851_turnleft_c0g [${type}] }" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
-<Triggers>
-<Trigger Enabled="true" Name="1. 旋转方向" Id="b6ec3bb6-d355-4b0b-8f3f-f6403066b879" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;4.{7}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;01F[56]):">
-<Actions>
-<Action OrderNumber="1" VariableOp="SetNumeric" VariableName="M8s_转盘_is逆" VariableExpression="0x${type} = 0x01F6" ActionType="Variable" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="5. 激光" Id="153081ce-aad8-4f79-b583-a125d5be46f8" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):A476:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="Omen" NamedCallbackParam="general02f, 3.2, ${x}, ${y}, ${z}, ${h}, 4, 18" ActionType="NamedCallback" />
-<Action OrderNumber="2" VariableOp="SetNumeric" VariableName="tmp_dir-5" VariableExpression="roundvec(${x}-100, ${y}-100, -5, -1)" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="3" UseTTSTextExpression="${if: ${v:tmp_dir-5} - round(${v:tmp_dir-5}) &gt; 0 ? 左 : 右 }" ActionType="UseTTS" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="round(${v:tmp_dir-5})" ExpressionTypeL="Numeric" ExpressionR="roundvec(${_me.x}-100, ${_me.y}-100, -5)" ExpressionTypeR="Numeric" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="4" NamedCallbackName="command" NamedCallbackParam="/e [Debug]&#xD;&#xA;L = round(${v:tmp_dir-5})&#xD;&#xA;R = ${n: roundvec(${_me.x}-100, ${_me.y}-100, -5)}" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" />
-<Action OrderNumber="5" VariableName="tmp_dir-5" ActionType="Variable" Asynchronous="False" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="2. 接收初始读条 =&gt; 3" Id="fecb98f4-085c-41c6-8423-598c587b7a10" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;A47[9ABCD]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="8200" />
-<Action OrderNumber="2" LogMessageText="_M8s_转盘_omen:${aid}:1:4.1:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="3" ActionType="Placeholder" ExecutionDelayExpression="4400" />
-<Action OrderNumber="4" LogMessageText="_M8s_转盘_omen:${aid}:2:4.1:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="4400" />
-<Action OrderNumber="6" LogMessageText="_M8s_转盘_omen:${aid}:3:4.1:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="4400" />
-<Action OrderNumber="8" LogMessageText="_M8s_转盘_omen:${aid}:4:4.1:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="9" ActionType="Placeholder" ExecutionDelayExpression="4400" />
-<Action OrderNumber="10" VariableName="_tmp_${aid}_θ" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="11" VariableOp="SetString" VariableName="_tmp_${aid}_scale" VariableExpression="${?d:&#xD;&#xA;  &quot;A479 = 6, 30, 1&quot;,&#xD;&#xA;  &quot;A47A = 13, 13, 1&quot;,&#xD;&#xA;  &quot;A47B = 28, 28, 1&quot;,&#xD;&#xA;  &quot;A47C = 22, 22, 1&quot;,&#xD;&#xA;  &quot;A47D = 28, 28, 1&quot;&#xD;&#xA;  [${aid}]&#xD;&#xA;}" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="12" VariableOp="SetString" VariableName="_tmp_${aid}_omen" VariableExpression="${?d:&#xD;&#xA;  A479 = general02f,&#xD;&#xA;  A47A = x6r8_b4_donut13m_4_01k1,&#xD;&#xA;  A47B = x6r8_b4_fan28m60_16_01k1,&#xD;&#xA;  A47C = gl_fan060_y10_1bt,&#xD;&#xA;  A47D = x6r8_b4_fan28m60_16_01k1&#xD;&#xA;  [${aid}]&#xD;&#xA;}" ActionType="Variable" Asynchronous="False" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="3. 处理初始读条 =&gt; 4" Id="57521e72-5fd6-4c95-be93-48f6088a6110" RegularExpression="^_M8s_转盘_omen:(?&lt;aid&gt;[^:]*):(?&lt;turn&gt;[0-4]):(?&lt;t&gt;[^:]*):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="9：30*12 矩形 general02f" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="A：13/4 月环 x6r8_b4_donut13m_4_01k1" DescriptionOverride="True" />
-<Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="B/D：28/16 60°扇环 x6r8_b4_fan28m60_16_01k1" DescriptionOverride="True" />
-<Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description="C：22 60°扇形 gl_fan060_y10_1bt" DescriptionOverride="True" />
-<Action OrderNumber="5" ActionType="Placeholder" Asynchronous="False" Description="x y 处理为相对的；z 取整到十位（某些特效悬空无法显示）" DescriptionOverride="True" />
-<Action OrderNumber="6" VariableOp="SetString" VariableName="tmp_omen" VariableExpression="${?d:&#xD;&#xA;  A479 = general02f,&#xD;&#xA;  A47A = gl_sircle_1005bf,&#xD;&#xA;  A47B = gl_fan_o60h23m14p,&#xD;&#xA;  A47C = gl_fan060_y10_1bt,&#xD;&#xA;  A47D = gl_fan_o60h23m14p&#xD;&#xA;  [${aid}]&#xD;&#xA;}" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="7" VariableOp="SetString" VariableName="tmp_others" VariableExpression="${?d:&#xD;&#xA;  &quot;A479 = 6,30,1,   0.8,1,1,1.5&quot;,&#xD;&#xA;  &quot;A47A = 8,8,1,   1,1,1,2&quot;,&#xD;&#xA;  &quot;A47B = 26.286,26.286,1,   1,1,1,1.5&quot;,&#xD;&#xA;  &quot;A47C = 22,22,1,   1,1,1,1.5&quot;,&#xD;&#xA;  &quot;A47D = 26.286,26.286,1,   1,1,1,1.5&quot;&#xD;&#xA;  [${aid}]&#xD;&#xA;}" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="8" VariableOp="SetNumeric" VariableName="tmp_θ" VariableExpression="${turn} * (${v:M8s_转盘_is逆} ? 72 : -72)°" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="9" VariableOp="SetNumeric" VariableName="tmp_x" VariableExpression="100 + (${x} - 100) * cos(${v:tmp_θ}) + (${y} - 100) * sin(${v:tmp_θ})" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="10" VariableOp="SetNumeric" VariableName="tmp_y" VariableExpression="100 + (${y} - 100) * cos(${v:tmp_θ}) - (${x} - 100) * sin(${v:tmp_θ})" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="11" VariableOp="SetNumeric" VariableName="tmp_z" VariableExpression="round(${z} / 10) * 10" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="12" VariableOp="SetNumeric" VariableName="tmp_h" VariableExpression="${h} + ${v:tmp_θ}" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="13" LogMessageText="M8s_转盘_omen:${v:tmp_omen}, ${t}, ${v:tmp_x}, ${v:tmp_y}, ${v:tmp_z}, ${v:tmp_h}, ${v:tmp_others}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False" />
-<Action OrderNumber="14" VariableOp="UnsetRegex" VariableName="^tmp_" ActionType="Variable" Asynchronous="False" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="4. 转盘画图" Id="72acb469-2e25-4078-977c-f898ec49ae41" RegularExpression="^M8s_转盘_omen:(?&lt;params&gt;.+)">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="Omen" NamedCallbackParam="${params}" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Source="None" Name="Debug Log (@ 100 100 0)" Id="5753eb54-ec6b-4e6b-9e39-9dc3df0623db" RegularExpression="">
-<Actions>
-<Action OrderNumber="1" LogMessageText="[22:27:39.706] 263 107:4001E986:A47D:100.009:100.009:1.009:-1.257" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="2" LogMessageText="[22:27:39.706] 263 107:4001E987:A47C:100.009:100.009:1.009:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="3" LogMessageText="[22:27:39.706] 263 107:4001E989:A47A:89.724:85.849:0.001:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="4" LogMessageText="[22:27:39.706] 263 107:4001E988:A47B:100.009:100.009:1.009:1.257" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="5" LogMessageText="[22:27:39.706] 263 107:4001E98B:A479:100.009:100.009:1.009:2.513" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="6" LogMessageText="[22:27:39.706] TargetIcon 1B:4001E971:Howling Blade:0000:0000:01F5:4001E971:0000:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="4.54 * 1000" />
-<Action OrderNumber="8" LogMessageText="[22:27:44.250] 263 107:4001EB34:A476:124.912:112.308:0.001:-1.885" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="9" LogMessageText="[22:27:44.250] 263 107:4001EB37:A476:112.919:75.411:0.001:-0.628" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="10" LogMessageText="[22:27:44.250] 263 107:4001EB39:A476:80.599:80.111:0.001:0.628" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="11" LogMessageText="[22:27:44.250] 263 107:4001EB3A:A476:72.604:104.709:0.001:1.885" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="12" LogMessageText="[22:27:44.250] 263 107:4001EB3C:A476:96.011:127.506:0.001:3.141" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="13" ActionType="Placeholder" ExecutionDelayExpression="4.36 * 1000" />
-<Action OrderNumber="14" LogMessageText="[22:27:48.611] 263 107:4001EB3D:A476:104.007:127.506:0.001:-3.142" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="15" LogMessageText="[22:27:48.655] 263 107:4001EB35:A476:127.384:104.709:0.001:-1.885" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="16" LogMessageText="[22:27:48.655] 263 107:4001EB37:A476:112.919:75.411:0.001:-0.628" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="17" LogMessageText="[22:27:48.655] 263 107:4001EB38:A476:87.069:75.411:0.001:0.628" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="18" LogMessageText="[22:27:48.655] 263 107:4001EB3B:A476:75.076:112.308:0.001:1.885" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="19" ActionType="Placeholder" ExecutionDelayExpression="4.41 * 1000" />
-<Action OrderNumber="20" LogMessageText="[22:27:53.021] 263 107:4001EB3B:A476:75.076:112.308:0.001:1.885" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="21" LogMessageText="[22:27:53.021] 263 107:4001EB3C:A476:96.011:127.506:0.001:3.141" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="22" LogMessageText="[22:27:53.065] 263 107:4001EB35:A476:127.384:104.709:0.001:-1.885" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="23" LogMessageText="[22:27:53.065] 263 107:4001EB36:A476:119.388:80.111:0.001:-0.628" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="24" LogMessageText="[22:27:53.065] 263 107:4001EB39:A476:80.599:80.111:0.001:0.628" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="25" ActionType="Placeholder" ExecutionDelayExpression="4.42 * 1000" />
-<Action OrderNumber="26" LogMessageText="[22:27:57.435] 263 107:4001EB39:A476:80.599:80.111:0.001:0.628" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="27" LogMessageText="[22:27:57.435] 263 107:4001EB3A:A476:72.604:104.709:0.001:1.885" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="28" LogMessageText="[22:27:57.435] 263 107:4001EB3D:A476:104.007:127.506:0.001:-3.142" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="29" LogMessageText="[22:27:57.479] 263 107:4001EB34:A476:124.912:112.308:0.001:-1.885" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="30" LogMessageText="[22:27:57.479] 263 107:4001EB37:A476:112.919:75.411:0.001:-0.628" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="31" ActionType="Placeholder" ExecutionDelayExpression="4.41 * 1000" />
-<Action OrderNumber="32" LogMessageText="[22:28:01.843] 263 107:4001EB37:A476:112.919:75.411:0.001:-0.628" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="33" LogMessageText="[22:28:01.843] 263 107:4001EB38:A476:87.069:75.411:0.001:0.628" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="34" LogMessageText="[22:28:01.843] 263 107:4001EB3A:A476:72.604:104.709:0.001:1.885" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="35" LogMessageText="[22:28:01.843] 263 107:4001EB3C:A476:96.011:127.506:0.001:3.141" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="36" LogMessageText="[22:28:01.888] 263 107:4001EB34:A476:124.912:112.308:0.001:-1.885" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="4" UseTTSTextExpression="第二次" ActionType="UseTTS" ExecutionDelayExpression="7100" />
+<Action OrderNumber="5" UseTTSTextExpression="第二次" ActionType="UseTTS" ExecutionDelayExpression="7100" />
 </Actions>
 </Trigger>
 </Triggers>
