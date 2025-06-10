@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <TriggernometryExport PluginVersion="1.2.0.736">
-<ExportedFolder Id="e6c580a6-bede-44b5-9b7c-8b130e35a160" Name="自检工具箱" Enabled="true" RawEnvironmentVariables="date = 2025.3.16&#xD;&#xA;xiv = 7.18&#xD;&#xA;xivcn = 7.1&#xD;&#xA;trig = 1.2.0.733&#xD;&#xA;namazu = 1.3.6.1&#xD;&#xA;advwm = 4.3&#xD;&#xA;link = https://www.123pan.com/s/1xRXjv-340BH.html&#xD;&#xA;&#xD;&#xA;// 标点自检的参数方程&#xD;&#xA;speed = 0.01&#xD;&#xA;dt = 30&#xD;&#xA;x_t = 16 * sin(${_this}) ^ 3&#xD;&#xA;y_t = -13 * cos(${_this}) + 5 * cos(2 * ${_this}) + 2 * cos(3 * ${_this}) + cos(4 * ${_this})&#xD;&#xA;z_t = 0&#xD;&#xA;center = ${_me.x}, ${_me.y}, ${_me.z}&#xD;&#xA;θ = ${_me.heading}&#xD;&#xA;scale = abs(sin(${_systemtimems} / 1000)) * 0.75 + 0.25">
+<ExportedFolder Id="e6c580a6-bede-44b5-9b7c-8b130e35a160" Name="自检工具箱" Enabled="true" RawEnvironmentVariables="date = 2025.4.6&#xD;&#xA;xiv = 7.20&#xD;&#xA;xivcn = 7.1&#xD;&#xA;trig = 1.2.0.735&#xD;&#xA;namazu = 1.3.6.1&#xD;&#xA;advwm = 4.3&#xD;&#xA;link = https://www.123pan.com/s/1xRXjv-340BH.html&#xD;&#xA;&#xD;&#xA;// 标点自检的参数方程&#xD;&#xA;speed = 0.01&#xD;&#xA;dt = 30&#xD;&#xA;x_t = 16 * sin(${_this}) ^ 3&#xD;&#xA;y_t = -13 * cos(${_this}) + 5 * cos(2 * ${_this}) + 2 * cos(3 * ${_this}) + cos(4 * ${_this})&#xD;&#xA;z_t = 0&#xD;&#xA;center = ${_me.x}, ${_me.y}, ${_me.z}&#xD;&#xA;θ = ${_me.heading}&#xD;&#xA;scale = abs(sin(${_systemtimems} / 1000)) * 0.75 + 0.25">
 <Folders>
 <Folder Id="76146422-3f24-4dd3-8982-fe2e651a50e1" DisableRemoteExpand="True" DisableRemoteToggle="True" Name="控制" Enabled="true">
 <Folders>
 <Folder Id="cfee4c76-1c1f-4ba9-bc21-bacb16299242" Name="3. 检测 OP 日志" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Name="2. 播报" Id="2fcf2582-8d53-4313-a849-01070d7377f3" RegularExpression="^SelfTest_OP" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
+<Trigger Enabled="true" Sequential="True" Name="2. 播报" Id="2fcf2582-8d53-4313-a849-01070d7377f3" RegularExpression="^SelfTest_OP" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
 <Actions>
-<Action OrderNumber="1" TriggerOp="DisableTrigger" TriggerId="24bc9bca-f4d9-45b7-bedd-1c55efd1b501" ActionType="Trigger" Asynchronous="False" />
-<Action OrderNumber="2" TriggerOp="DisableTrigger" TriggerId="f8bde673-6226-4f14-96f1-bf36c185cb46" ActionType="Trigger" Asynchronous="False" />
-<Action OrderNumber="3" LogProcess="True" MessageBoxIconType="Information" MessageBoxText="已检测到全部所需的 OverlayPlugin 日志，可以继续自检。" ActionType="MessageBox" Asynchronous="False" />
+<Action OrderNumber="1" TriggerOp="DisableTrigger" TriggerId="24bc9bca-f4d9-45b7-bedd-1c55efd1b501" ActionType="Trigger" />
+<Action OrderNumber="2" TriggerOp="DisableTrigger" TriggerId="f8bde673-6226-4f14-96f1-bf36c185cb46" ActionType="Trigger" />
+<Action OrderNumber="3" LogProcess="True" MessageBoxIconType="Information" MessageBoxText="已检测到全部所需的 OverlayPlugin 日志，可以继续自检。" ActionType="MessageBox" />
 </Actions>
 </Trigger>
 <Trigger Enabled="false" Name="1. 获取" Id="24bc9bca-f4d9-45b7-bedd-1c55efd1b501" RegularExpression="^.{15}\S+ (?&lt;type&gt;101|107|111):">
@@ -164,6 +164,32 @@
 <Actions>
 <Action OrderNumber="1" FolderOp="DisableFolder" FolderId="95af7c58-de5c-491d-9479-bb998da8ef35" ActionType="Folder" />
 <Action OrderNumber="2" SystemBeepLengthExpression="200" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="464ce93f-61c4-420f-8faf-bf92713723b4" Name="鲶鱼精邮差扩展" Enabled="true">
+<Folders />
+<Triggers>
+<Trigger Enabled="true" Name="/e SB 10" Id="69f808e8-058a-4dee-b35e-cee70cb2c37f" RegularExpression="^.{15}\S+ 00:0038::(?i) *sb(?: +(?&lt;scale&gt;[\d.]+))? *$" PrevActions="Interrupt">
+<Actions>
+<Action OrderNumber="1" VariableOp="SetString" VariableName="x" VariableExpression="${_me.x}" ActionType="Variable" Asynchronous="False" />
+<Action OrderNumber="2" VariableOp="SetString" VariableName="y" VariableExpression="${_me.y}" ActionType="Variable" Asynchronous="False" />
+<Action OrderNumber="3" VariableOp="SetString" VariableName="z" VariableExpression="${_me.z}" ActionType="Variable" Asynchronous="False" />
+<Action OrderNumber="4" VariableOp="SetString" VariableName="h" VariableExpression="${_me.h}" ActionType="Variable" Asynchronous="False" />
+<Action OrderNumber="5" VariableOp="SetNumeric" VariableName="k" VariableExpression="(${scale} ?? 1) * 0.6" ActionType="Variable" Asynchronous="False" />
+<Action OrderNumber="6" VariableOp="SetNumeric" VariableName="t" VariableExpression="10" ActionType="Variable" Asynchronous="False" />
+<Action OrderNumber="7" NamedCallbackName="Omen" NamedCallbackParam="gl_fan270_1005af, ${v:t}, ${n: ${v:x} - (-5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (-5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} + π/4, ${v:k} * 4" ActionType="NamedCallback" />
+<Action OrderNumber="8" NamedCallbackName="Omen" NamedCallbackParam="gl_fan270_1005af, ${v:t}, ${n: ${v:x} - (-5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (-5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} + 5 * π/4, ${v:k} * 4" ActionType="NamedCallback" />
+<Action OrderNumber="9" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (1) * ${v:k} * cos(${v:h}) - (-7) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (1) * ${v:k} * sin(${v:h}) - (-7) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 7, ${v:k} * 2" ActionType="NamedCallback" />
+<Action OrderNumber="10" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-7) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-7) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2" ActionType="NamedCallback" />
+<Action OrderNumber="11" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-1) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-1) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2" ActionType="NamedCallback" />
+<Action OrderNumber="12" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-13) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-13) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2" ActionType="NamedCallback" />
+<Action OrderNumber="13" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 50°, ${v:k} * 4" ActionType="NamedCallback" />
+<Action OrderNumber="14" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 130°, ${v:k} * 4" ActionType="NamedCallback" />
+<Action OrderNumber="15" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 50°, ${v:k} * 4" ActionType="NamedCallback" />
+<Action OrderNumber="16" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 130°, ${v:k} * 4" ActionType="NamedCallback" />
+<Action OrderNumber="17" VariableOp="UnsetRegex" VariableName="^[xyzhkt]$" ActionType="Variable" ExecutionDelayExpression="1000" />
 </Actions>
 </Trigger>
 </Triggers>
