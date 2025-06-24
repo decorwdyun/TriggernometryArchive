@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="1.2.0.743">
+<TriggernometryExport PluginVersion="1.2.0.736">
 <ExportedFolder Id="05fc8287-46c7-46cc-9aec-9684fc414f66" Name="7.0 极神" Enabled="true">
 <Folders>
 <Folder Id="dddce437-ec41-47b4-adb6-b1f5dc345ad3" ReadOnly="True" Name="Ex7a 艳翼蛇鸟宝宝椅 v1.3 by 阿洛" Enabled="true">
@@ -1770,7 +1770,7 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="7d6e1eed-007a-4b55-82e0-094b7d59b83a" Name="Ex7d Zelenia v0.5" Enabled="true" RawEnvironmentVariables="version = 0.4">
+<Folder Id="7d6e1eed-007a-4b55-82e0-094b7d59b83a" Name="Ex7d Zelenia v0.4" Enabled="true" RawEnvironmentVariables="version = 0.4">
 <Folders>
 <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1271$" Id="639d84e0-64f4-44d4-878f-e9dd1792106e" Name="区域限制" Enabled="true">
 <Folders>
@@ -1787,11 +1787,6 @@
 <Trigger Enabled="true" Name="标点重载" Id="686725c4-8c7c-4c37-8a2e-fbf2841ecd5a" RegularExpression="^.{15}\S+ 21:.{8}:40000006">
 <Actions>
 <Action OrderNumber="1" NamedCallbackName="place" NamedCallbackParam="load" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Sequential="True" Name="场地标点" Id="9b96b327-d33c-4305-8f3f-2df3c0dfd117" RegularExpression="^.{15}\S+ 21:.{8}:40000001">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#xD;&#xA;O: 100, 100&#xD;&#xA;Waymarks: A1D4C3B2&#xD;&#xA;R: 13.75&#xD;&#xA;R2: 13.45&#xD;&#xA;public: true" ActionType="NamedCallback" DescBgColor="dff" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -2238,17 +2233,11 @@
 </Trigger>
 <Trigger Enabled="true" Name="2.1 输出第一次" Id="bd2d0065-1099-477c-8606-d131b3a4b8b7" RegularExpression="^Ex7d_远近:is近:(?&lt;is近1&gt;\d)$">
 <Actions>
-<Action OrderNumber="1" UseTTSTextExpression="先打${if: ${is近1} ? 近 : 远 }" ActionType="UseTTS" />
-<Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#xD;&#xA;Action: Circle&#xD;&#xA;Waymarks: A1D4C3B2&#xD;&#xA;R: ${is近1} ? 3.5 : 7.5&#xD;&#xA;R2: ${is近1} ? 7.5 : 3.5" Enabled="False" ActionType="NamedCallback" DescBgColor="dff" />
+<Action OrderNumber="1" UseTTSTextExpression="${if: ${is近1} = ${_me.isTH} ? 近 : 远 }" ActionType="UseTTS" />
+<Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#xD;&#xA;Action: Circle&#xD;&#xA;Waymarks: A1D4C3B2&#xD;&#xA;R: ${is近1} ? 3.5 : 7.5&#xD;&#xA;R2: ${is近1} ? 7.5 : 3.5" ActionType="NamedCallback" DescBgColor="dff" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Name="小怪左右刀" Id="2c021003-e280-468c-8aae-243499f5bfae" RegularExpression="^.{15}\S+ 107:4.{7}:A8B(?&lt;type&gt;0|1):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="1 打分身左侧   0 打右侧" DescriptionOverride="True" />
-<Action OrderNumber="2" UseTTSTextExpression="${if: (${type} = 1) = (${y} &gt; 100) ? 右 : 左 }" ActionType="UseTTS" ExecutionDelayExpression="1500" />
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Name="2.2 输出第二次" Id="a1c90d6f-730c-49db-bea0-b25cfe8ba7b2" RegularExpression="^Ex7d_远近:is近:(?&lt;is近1&gt;0|1)(?&lt;is近2&gt;0|1)$">
+<Trigger Enabled="true" Name="2.2 输出第二次" Id="9e4895fe-9df4-4888-89f2-6f4dea75a2f0" RegularExpression="^Ex7d_远近:is近:(?&lt;is近1&gt;0|1)(?&lt;is近2&gt;0|1)$">
 <Actions>
 <Action OrderNumber="1" UseTTSTextExpression="${?d:&#xD;&#xA;   00 = 远近近远,&#xD;&#xA;   01 = 远远近近,&#xD;&#xA;   10 = 近近远远,&#xD;&#xA;   11 = 近远远近&#xD;&#xA;   [${n: ${is近1} = ${_me.isTH}}${n: ${is近2} = ${_me.isTH}}]&#xD;&#xA;}" ActionType="UseTTS" />
 <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="9000" />
@@ -2264,20 +2253,10 @@
 <Action OrderNumber="12" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Name="2.2 输出第二次" Id="9e4895fe-9df4-4888-89f2-6f4dea75a2f0" RegularExpression="^Ex7d_远近:is近:(?&lt;is近1&gt;0|1)(?&lt;is近2&gt;0|1)$">
+<Trigger Enabled="true" Name="小怪左右刀" Id="2c021003-e280-468c-8aae-243499f5bfae" RegularExpression="^.{15}\S+ 107:4.{7}:A8B(?&lt;type&gt;0|1):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):">
 <Actions>
-<Action OrderNumber="1" UseTTSTextExpression="${if: ${is近1} = ${is近2} ? 穿停穿 : 停穿停 }" ActionType="UseTTS" />
-<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="9000" />
-<Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#xD;&#xA;Action: Circle&#xD;&#xA;Waymarks: A1D4C3B2&#xD;&#xA;R: !${is近2} ? 3.5 : 7.5&#xD;&#xA;R2: !${is近2} ? 7.5 : 3.5" Enabled="False" ActionType="NamedCallback" DescBgColor="dff" />
-<Action OrderNumber="4" UseTTSTextExpression="${if: ${is近1} = ${is近2} ? 换位 : 不动 }" ActionType="UseTTS" />
-<Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="3000" />
-<Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#xD;&#xA;Action: Circle&#xD;&#xA;Waymarks: A1D4C3B2&#xD;&#xA;R: !${is近1} ? 3.5 : 7.5&#xD;&#xA;R2: !${is近1} ? 7.5 : 3.5" Enabled="False" ActionType="NamedCallback" DescBgColor="dff" />
-<Action OrderNumber="7" UseTTSTextExpression="${if: ${is近1} != ${is近2} ? 换位 : 不动 }" ActionType="UseTTS" />
-<Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="3000" />
-<Action OrderNumber="9" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#xD;&#xA;Action: Circle&#xD;&#xA;Waymarks: A1D4C3B2&#xD;&#xA;R: ${is近2} ? 3.5 : 7.5&#xD;&#xA;R2: ${is近2} ? 7.5 : 3.5" Enabled="False" ActionType="NamedCallback" DescBgColor="dff" />
-<Action OrderNumber="10" UseTTSTextExpression="${if: ${is近1} = ${is近2} ? 换位 : 不动 }" ActionType="UseTTS" />
-<Action OrderNumber="11" ActionType="Placeholder" ExecutionDelayExpression="3000" />
-<Action OrderNumber="12" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff" />
+<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="1 打分身左侧   0 打右侧" DescriptionOverride="True" />
+<Action OrderNumber="2" UseTTSTextExpression="${if: (${type} = 1) = (${y} &gt; 100) ? 右 : 左 }" ActionType="UseTTS" ExecutionDelayExpression="1500" />
 </Actions>
 </Trigger>
 </Triggers>
