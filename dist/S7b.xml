@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TriggernometryExport PluginVersion="1.2.0.746">
+<TriggernometryExport PluginVersion="1.2.0.747">
   <ExportedFolder Id="b989a3f3-c7c3-44b4-817a-a6c222d9d89a" Name="M5-8 宝宝椅" Enabled="true" RawEnvironmentVariables="prefix = S7b">
     <Folders>
       <Folder Id="525728f9-c495-44dc-b9e1-4f373fab7729" Name=".总体控制" Enabled="true">
@@ -134,7 +134,7 @@
                 <Actions>
                   <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="500"/>
                   <Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#13;&#10;Regex: ^M[5678]s" ActionType="NamedCallback" DescBgColor="ffd"/>
-                  <Action OrderNumber="3" FolderOp="CancelFolder" FolderId="9d263a1b-a37a-466b-9510-458f8106ae74" ActionType="Folder"/>
+                  <Action OrderNumber="3" FolderOp="CancelFolder" FolderId="9d263a1b-a37a-466b-9510-458f8106ae74" TriggerOp="CancelAllTrigger" ActionType="Trigger"/>
                 </Actions>
               </Trigger>
             </Triggers>
@@ -2388,7 +2388,7 @@
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1259$" Id="bd07d10c-f08a-4456-bee5-8206c15632d1" Name="M6s v1.0.1" Enabled="true" RawEnvironmentVariables="zone = 1259">
+          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1259$" Id="bd07d10c-f08a-4456-bee5-8206c15632d1" Name="M6s v1.0.2" Enabled="true" RawEnvironmentVariables="zone = 1259">
             <Folders>
               <Folder Id="46ec7418-1b02-4af0-997b-4432d232994a" Name="杂项" Enabled="true">
                 <Folders>
@@ -2648,19 +2648,21 @@
                   </Trigger>
                   <Trigger Enabled="true" Name="3. 沙坑安全区（相对基准）=&gt; 4" Id="0a674f56-e660-4c82-ad32-ca830ac2d9e2" RegularExpression="^.{15}\S+ 101:[^:]*:0020.{4}:(?&lt;loc&gt;0[6A]|1[AE])">
                     <Actions>
-                      <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="tmp_dirN4" VariableExpression="(${?d: 06 = 2, 0A = 1, 1A = 3, 1E = 0 [${loc}]} + ${?l: 0, 0, 1, -1, 0, 0, 0, 0 [${v:myIdx}]}) %% 4" ActionType="Variable" Asynchronous="False">
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="相对：找到仙人掌的反向，如果是双奶则±1" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="tmp_dirN4" VariableExpression="(${?d: 06 = 2, 0A = 1, 1A = 3, 1E = 0 [${loc}]} + ${?l: 0, 0, 1, -1, 0, 0, 0, 0 [${v:myIdx}]}) %% 4" ActionType="Variable" Asynchronous="False">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${pd:S7b_cfg[M6s_b仙人掌基准]}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="tmp_dirN4" VariableExpression="${?l: 1A, 1A, 1E, 06, 1A, 1A, 1A, 1A [${v:myIdx}]} == ${loc} ? 1 : ${?l: 3, 3, 0, 2, 3, 3, 3, 3 [${v:myIdx}]}" ActionType="Variable" Asynchronous="False">
+                      <Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="绝对：如果自己的位置是仙人掌的位置，去左下 (1)；否则去自己的方向" DescriptionOverride="True"/>
+                      <Action OrderNumber="4" VariableOp="SetNumeric" VariableName="tmp_dirN4" VariableExpression="${?l: 0A, 0A, 06, 1E, 0A, 0A, 0A, 0A [${v:myIdx}]} == ${loc} ? 1 : ${?l: 3, 3, 0, 2, 3, 3, 3, 3 [${v:myIdx}]}" ActionType="Variable" Asynchronous="False">
                         <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${pd:S7b_cfg[M6s_b仙人掌基准]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${pd:S7b_cfg[M6s_b仙人掌基准]}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="3" UseTTSTextExpression="${f:pick(${v:tmp_dirN4}): 左上, 左下, 右下, 右上}" ActionType="UseTTS"/>
-                      <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;Waymarks: ABCD1234&#13;&#10;Start: 0, 0&#13;&#10;End: 0, -18.75√2&#13;&#10;O: 100, 100&#13;&#10;θ: dir2rad(0${v:tmp_dirN4}, -4)" ActionType="NamedCallback" DescBgColor="dff"/>
-                      <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="7000" DescBgColor="dff"/>
+                      <Action OrderNumber="5" UseTTSTextExpression="${f:pick(${v:tmp_dirN4}): 左上, 左下, 右下, 右上}" ActionType="UseTTS"/>
+                      <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;Waymarks: ABCD1234&#13;&#10;Start: 0, 0&#13;&#10;End: 0, -18.75√2&#13;&#10;O: 100, 100&#13;&#10;θ: dir2rad(0${v:tmp_dirN4}, -4)" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="7" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="7000" DescBgColor="dff"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Name="仙人掌范围 沙坑阶段（边缘）" Id="a69089e4-78d4-4c6e-bef8-538f4448466a" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):9A2C:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):">
