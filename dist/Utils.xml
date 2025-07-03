@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TriggernometryExport PluginVersion="1.2.0.747">
+<TriggernometryExport PluginVersion="1.2.0.748">
   <ExportedFolder Id="733a3974-5d1c-4a56-a2c7-ab2f043bf03b" Name="[工具] 运行支持库 Utils.xml" Enabled="true">
     <Folders>
       <Folder Id="602fc21c-f48b-4ab9-b54d-c3b36e38ad60" Name="高级标点工具箱 AdvWm 旧版本 v2.x（仅兼容 即将移除）" Enabled="true">
@@ -1325,7 +1325,7 @@
                   <Action OrderNumber="2" NamedCallbackName="Channeling" NamedCallbackParam="${_me.Address}, ${_me.Address}, chn_dark001f, 0.1" ActionType="NamedCallback"/>
                 </Actions>
               </Trigger>
-              <Trigger Enabled="false" Name="更新提示 4.0.4" Id="f0119052-06d4-4255-8447-b6c8a6e3b4cc" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
+              <Trigger Enabled="true" Name="更新提示 4.0.4" Id="f0119052-06d4-4255-8447-b6c8a6e3b4cc" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
                 <Actions>
                   <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="[提示] &#13;&#10;&#13;&#10;如果 ACT 开启时退出并重登了游戏，&#13;&#10;在准备战斗时可能会游戏闪退。&#13;&#10;&#13;&#10;这是开场自检触发的，目的是确保战斗中调用特效不会掉线，&#13;&#10;在重启游戏后重启 ACT 即可正常工作。&#13;&#10;&#13;&#10;如果你确实是由于以上原因而闪退，&#13;&#10;说明并非插件冲突，暂时按以上方法处理即可。" ActionType="MessageBox"/>
                   <Action OrderNumber="2" TriggerOp="DisableTrigger" TriggerId="f0119052-06d4-4255-8447-b6c8a6e3b4cc" ActionType="Trigger"/>
@@ -1333,11 +1333,7 @@
               </Trigger>
               <Trigger Enabled="true" Sequential="True" Name="配置界面" Id="0f1c5489-8ba3-4f20-9e55-94086fcfd151" RegularExpression="^.{15}\S+ 00:0038::(?i) *cfg +pne *$|^pne_cfg$">
                 <Actions>
-                  <Action OrderNumber="1" ExecScriptExpression="using Triggernometry.PluginBridges.BridgeNamazu;&#13;&#10;BridgeNamazu.ShowConfig();" ActionType="ExecuteScript">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${ecallback:hint}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                    </Condition>
-                  </Action>
+                  <Action OrderNumber="1" ExecScriptExpression="using Triggernometry.PluginBridges.BridgeNamazu;&#13;&#10;BridgeNamazu.ShowConfig();" ActionType="ExecuteScript"/>
                 </Actions>
               </Trigger>
               <Trigger Enabled="true" Sequential="True" Name="注册回调" Id="8e893dca-2fcd-4e49-a9a2-717e0c497393" RegularExpression="^PNE_Init">
