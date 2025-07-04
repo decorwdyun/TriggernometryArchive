@@ -1097,41 +1097,40 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="2a2d791e-eeb3-4e29-96e5-f8e6ac9ef5d6" Name="鲶鱼精邮差扩展 v4.0.4" Enabled="true" RawEnvironmentVariables="version = 4.0.1&#13;&#10;trigversion = 1.2.0.739">
+      <Folder Id="2a2d791e-eeb3-4e29-96e5-f8e6ac9ef5d6" Name="鲶鱼精邮差扩展 v4.1.0" Enabled="true" RawEnvironmentVariables="version = 4.1.0&#13;&#10;trigversion = 1.2.0.748">
         <Folders>
           <Folder Id="9c2e8968-be16-47fc-8457-e377d01362af" Name="core" Enabled="true">
             <Folders>
-              <Folder Id="6f1ac634-666c-478f-ac96-02f7bdb17da4" Name="接收日志" Enabled="true">
+              <Folder Id="6f1ac634-666c-478f-ac96-02f7bdb17da4" Name="初始化" Enabled="true">
                 <Folders/>
                 <Triggers>
-                  <Trigger Enabled="true" Sequential="True" Name="[F] 初始化日志" Id="69b6140c-df90-411f-b1ec-8c83f5f0a8b0" RegularExpression="^PNE_Init:force:(?&lt;force&gt;0|1)">
+                  <Trigger Enabled="true" Name="3. 接收：鲶鱼精邮差新建模组成功 =&gt; 注册 Basic" Id="19515cb8-80fc-4e74-a237-f122ce514262" RegularExpression="^PNE_ModulesInited">
                     <Actions>
-                      <Action OrderNumber="1" LogMessageText="PNEBasic_Init" LogProcess="True" ActionType="LogMessage">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${ecallback:Hint}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                          <ConditionSingle Enabled="true" ExpressionL="${force}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="2" LogMessageText="Kairos_Init" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="500">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${ecallback:SetPos}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                          <ConditionSingle Enabled="true" ExpressionL="${force}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="3" LogMessageText="KairosPro_Init" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="500">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${ecallback:Exec}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                          <ConditionSingle Enabled="true" ExpressionL="${force}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
+                      <Action OrderNumber="1" ExecScriptExpression="using Triggernometry.PluginBridges.BridgeNamazu;&#13;&#10;BridgeNamazu.RegisterAnnotatedMethods();" ActionType="ExecuteScript" Description="BridgeNamazu.RegisterAnnotatedMethods()" DescriptionOverride="True"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Sequential="True" Name="鲶鱼精邮差注入成功" Id="19515cb8-80fc-4e74-a237-f122ce514262" RegularExpression="^.{15}\S+ 00:FFFF:PostNamazu:Attached" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
+                  <Trigger Enabled="true" Sequential="True" Name="2. 新建模组" Id="c662b7c7-df6e-4a48-b7ec-44b3cb07540c" RegularExpression="^PNE_Init:force:(?&lt;bForce&gt;[01])" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
                     <Actions>
-                      <Action OrderNumber="1" LogMessageText="PNE_Init:force:1" LogProcess="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="2" LogMessageText="PNE_Init:force:0" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="10000"/>
-                      <Action OrderNumber="3" LogMessageText="PNE_Init:force:0" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="20000"/>
-                      <Action OrderNumber="4" LogMessageText="PNE_Init:force:0" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="30000"/>
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="条件：强制 或 未注册" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" MessageBoxIconType="Warning" MessageBoxText="远程库所需的触发器插件版本高于当前版本，&#13;&#10;可能是触发器插件与远程库同时更新所致。&#13;&#10;重启 ACT 自动完成更新即可恢复正常。&#13;&#10;" ActionType="MessageBox">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${func:versioncompare(${env:trigversion}):${_pluginversion}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" ExecScriptExpression="using System;&#13;&#10;using Triggernometry;&#13;&#10;using Triggernometry.PluginBridges.BridgeNamazu;&#13;&#10;using Triggernometry.PluginBridges.BridgeNamazu.Modules;&#13;&#10;&#13;&#10;BridgeNamazu.InitializeModules(() =&gt; {&#13;&#10;    // 示例：Sideload（版本更新后可覆写偏移或扫描方法等）&#13;&#10;    // var module = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#13;&#10;    // module.PosOffset = () =&gt; BridgeNamazu.NamazuPlugin.IsCN ? 0x74 : 0x70;&#13;&#10;    // module.ScanMethod = () =&gt; { module.GetStatusIndexPtr = ModuleBase.Scanner.ScanText(&quot;xxx&quot;); };&#13;&#10;});" ActionType="ExecuteScript" Description="BridgeNamazu.InitializeModules()" DescriptionOverride="True"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${ecallback:hint}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${bForce}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Sequential="True" Name="1. 接收：鲶鱼精邮差注入成功 =&gt; 2" Id="d620479e-efe0-495a-b2d9-f1fe3fce9a0d" RegularExpression="^.{15}\S+ 00:FFFF:PostNamazu:Attached" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="ACT 晚于游戏启动时，鲶鱼精刚加载就会立刻初始化，但触发器可能并没有准备好？" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" LogMessageText="PNE_Init:force:1" LogProcess="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="3" LogMessageText="PNE_Init:force:0" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="10000"/>
+                      <Action OrderNumber="4" LogMessageText="PNE_Init:force:0" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="20000"/>
+                      <Action OrderNumber="5" LogMessageText="PNE_Init:force:0" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="30000"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -1297,7 +1296,7 @@
               <Folder Id="63a5277a-0fce-4c0d-a408-656e952bfa44" Name="自动刷新" Enabled="true">
                 <Folders/>
                 <Triggers>
-                  <Trigger Enabled="true" Name="Camera" Id="d18b3a13-5c7d-4211-a4cb-587e2b1f131c" RegularExpression="^.{15}\S+ 01:">
+                  <Trigger Enabled="true" Name="Camera" Id="d18b3a13-5c7d-4211-a4cb-587e2b1f131c" RegularExpression="^.{15}\S+ 01:|^PNE_ModulesRegistered:Basic">
                     <Actions>
                       <Action OrderNumber="1" NamedCallbackName="SetCameraParams" NamedCallbackParam="Apply" ActionType="NamedCallback">
                         <Condition Enabled="true" Grouping="Or">
@@ -1325,7 +1324,7 @@
                   <Action OrderNumber="2" NamedCallbackName="Channeling" NamedCallbackParam="${_me.Address}, ${_me.Address}, chn_dark001f, 0.1" ActionType="NamedCallback"/>
                 </Actions>
               </Trigger>
-              <Trigger Enabled="true" Name="更新提示 4.0.4" Id="f0119052-06d4-4255-8447-b6c8a6e3b4cc" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
+              <Trigger Enabled="false" Name="更新提示 4.0.4" Id="f0119052-06d4-4255-8447-b6c8a6e3b4cc" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
                 <Actions>
                   <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="[提示] &#13;&#10;&#13;&#10;如果 ACT 开启时退出并重登了游戏，&#13;&#10;在准备战斗时可能会游戏闪退。&#13;&#10;&#13;&#10;这是开场自检触发的，目的是确保战斗中调用特效不会掉线，&#13;&#10;在重启游戏后重启 ACT 即可正常工作。&#13;&#10;&#13;&#10;如果你确实是由于以上原因而闪退，&#13;&#10;说明并非插件冲突，暂时按以上方法处理即可。" ActionType="MessageBox"/>
                   <Action OrderNumber="2" TriggerOp="DisableTrigger" TriggerId="f0119052-06d4-4255-8447-b6c8a6e3b4cc" ActionType="Trigger"/>
@@ -1334,16 +1333,6 @@
               <Trigger Enabled="true" Sequential="True" Name="配置界面" Id="0f1c5489-8ba3-4f20-9e55-94086fcfd151" RegularExpression="^.{15}\S+ 00:0038::(?i) *cfg +pne *$|^pne_cfg$">
                 <Actions>
                   <Action OrderNumber="1" ExecScriptExpression="using Triggernometry.PluginBridges.BridgeNamazu;&#13;&#10;BridgeNamazu.ShowConfig();" ActionType="ExecuteScript"/>
-                </Actions>
-              </Trigger>
-              <Trigger Enabled="true" Sequential="True" Name="注册回调" Id="8e893dca-2fcd-4e49-a9a2-717e0c497393" RegularExpression="^PNE_Init">
-                <Actions>
-                  <Action OrderNumber="1" ExecScriptExpression="using System.Windows.Forms;&#13;&#10;using System.Threading;&#13;&#10;using Triggernometry;&#13;&#10;&#13;&#10;void Log(string msg) =&gt; Triggernometry.Interpreter.StaticHelpers.Log(RealPlugin.DebugLevelEnum.Warning, msg);&#13;&#10;void Error(string msg) =&gt; Triggernometry.Interpreter.StaticHelpers.Log(RealPlugin.DebugLevelEnum.Error, msg);&#13;&#10;&#13;&#10;if (new Version(&quot;${_pluginversion}&quot;) &lt; new Version(&quot;${env:trigversion}&quot;))&#13;&#10;{&#13;&#10;    Error(&quot;[高级标点工具箱] 当前触发器版本 ${_pluginversion}，需要更新至 ${env:trigversion}&quot;);&#13;&#10;}" ActionType="ExecuteScript" Asynchronous="False" Description="检测鲶鱼精版本" DescriptionOverride="True"/>
-                  <Action OrderNumber="2" ExecScriptExpression="using System;&#13;&#10;using Triggernometry;&#13;&#10;using Triggernometry.PluginBridges;&#13;&#10;using Triggernometry.PluginBridges.BridgeNamazu;&#13;&#10;&#13;&#10;/* Sideload example 版本更新后可覆写偏移或扫描方法等&#13;&#10;var module = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#13;&#10;module.PosOffset = () =&gt; BridgeNamazu.NamazuPlugin.IsCN ? 0x74 : 0x70;&#13;&#10;module.ScanMethod = () =&gt; { module.GetStatusIndexPtr = ModuleBase.Scanner.ScanText(&quot;xxx&quot;); };&#13;&#10;*/&#13;&#10;&#13;&#10;BridgeNamazu.InitializeModules();&#13;&#10;Interpreter.StaticHelpers.Log(RealPlugin.DebugLevelEnum.Custom, $&quot;[鲶鱼精邮差扩展] 初始化成功。&quot;);" ActionType="ExecuteScript" Description="鲶鱼精邮差扩展【注册回调】" DescriptionOverride="True">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${ecallback:hint}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                    </Condition>
-                  </Action>
                 </Actions>
               </Trigger>
             </Triggers>

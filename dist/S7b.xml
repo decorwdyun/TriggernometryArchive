@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TriggernometryExport PluginVersion="1.2.0.747">
+<TriggernometryExport PluginVersion="1.2.0.748">
   <ExportedFolder Id="d2b0089b-2f54-4763-83f6-bcaf136d2e20" Name="M5-8 宝宝椅" Enabled="true" RawEnvironmentVariables="prefix = S7b">
     <Folders>
       <Folder Id="2f04cabb-9943-45e2-991c-85cb95c6299e" Name=".总体控制" Enabled="true">
@@ -1481,7 +1481,7 @@
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1257$" Id="7c1b128a-128c-4bb5-83a0-5df07c1eb8f4" Name="M5s v1.0.3" Enabled="true" RawEnvironmentVariables="zone = 1257">
+          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1257$" Id="7c1b128a-128c-4bb5-83a0-5df07c1eb8f4" Name="M5s v1.0.5" Enabled="true" RawEnvironmentVariables="zone = 1257">
             <Folders>
               <Folder Id="4c20a738-afcd-41b9-b3f5-1b6442ce711e" Name="杂项" Enabled="true">
                 <Folders/>
@@ -1955,11 +1955,28 @@
                     <Triggers>
                       <Trigger Enabled="true" Name="3.1 第一阶段 Let's Dance =&gt; O1.1" Id="1b8b44fd-ccdf-4cc9-9527-fcda016fc781" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A76A:">
                         <Actions>
-                          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="M5s_伴舞_n" VariableExpression="1" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="M5s_伴舞_myRow" VariableExpression="${_me.HasStatus(0x116E)} ? round(${_me.StatusTimer(0x116E)} / 5 - 1) : ${_me.HasStatus(0x116F)} ? round(${_me.StatusTimer(0x116F)} / 5 - 1) : 0" ActionType="Variable" Asynchronous="False"/>
-                          <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/e [Debug]&#13;&#10;t_0x116E = (${_me.StatusTimer(0x116E)})&#13;&#10;t_0x116F = (${_me.StatusTimer(0x116F)})&#13;&#10;myRow = (${v:M5s_伴舞_myRow})&#13;&#10;如果你的行数播报不对，或没有报去哪行，&#13;&#10;请截图反馈这段文本" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd"/>
-                          <Action OrderNumber="4" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="M5s_伴舞_bMove" ListVariableExpression="${l:M5s_伴舞_bRSafe[${_idx}]} != ${l:M5s_伴舞_bRSafe[${n: ${_idx} + 1}]}" ListVariableIndex="7" ActionType="ListVariable" Asynchronous="False"/>
-                          <Action OrderNumber="5" LogMessageText="M5s_伴舞1:n:${v:M5s_伴舞_n}:bRSafe:${l:M5s_伴舞_bRSafe[${v:M5s_伴舞_n}]}:bMove:${l:M5s_伴舞_bMove[${n: ${v:M5s_伴舞_n} - 1}]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False"/>
+                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="处理 αβ" DescriptionOverride="True"/>
+                          <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="tmp_tmin" VariableExpression="${t:M5s_伴舞_αβ.min(n, 2)}" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="3" TableVariableOp="SlicesSetAll" TableVariableExpressionType="Numeric" TableVariableName="M5s_伴舞_αβ" TableVariableExpression="round((${_this} - ${v:tmp_tmin}) / 5) + 1" TableVariableX="2" ActionType="TableVariable" Asynchronous="False"/>
+                          <Action OrderNumber="4" TableVariableOp="SortLine" TableVariableName="M5s_伴舞_αβ" TableVariableY="s+: ${_row[1]}${_row[2]}${_row[3]}" ActionType="TableVariable" Asynchronous="False"/>
+                          <Action OrderNumber="5" VariableName="tmp_tmin" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="6" ActionType="Placeholder" Asynchronous="False" Description="此时表格三列为：第几组（1-4），是否为 β（0|1），队员 id" DescriptionOverride="True"/>
+                          <Action OrderNumber="7" ActionType="Placeholder" Asynchronous="False" Description="找到自己的 debuff" DescriptionOverride="True"/>
+                          <Action OrderNumber="8" TableVariableOp="FilterLine" TableVariableName="M5s_伴舞_αβ" TableVariableTarget="tmp_me" TableVariableY="0x${_row[3]} = 0x${_me.id}" ActionType="TableVariable" Asynchronous="False"/>
+                          <Action OrderNumber="9" VariableOp="SetNumeric" VariableName="tmp_bValid" VariableExpression="${t:tmp_me.height} = 1" TableVariableExpressionType="Numeric" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="10" VariableOp="SetNumeric" VariableName="M5s_伴舞_myRow" VariableExpression="${v:tmp_bValid} ? ${t:tmp_me[2][1]} : 0" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="11" ActionType="Placeholder" Asynchronous="False" Description="只有一个 debuff 时找到自己的同组" DescriptionOverride="True"/>
+                          <Action OrderNumber="12" TableVariableOp="FilterLine" TableVariableName="M5s_伴舞_αβ" TableVariableTarget="tmp_partner" TableVariableY="${_row[1]} != 0x${t:tmp_me[1][1]} &amp;&amp; ${_row[2]} = 0x${t:tmp_me[2][1]}" ActionType="TableVariable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:tmp_bValid}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="13" VariableOp="SetString" VariableName="M5s_伴舞_myPartner" VariableExpression="${if: ${t:tmp_partner.height} = 1 ? ${t:tmp_partner[3][1]} : 0}" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="14" ActionType="Placeholder" Asynchronous="False" Description="处理左右刀数据" DescriptionOverride="True"/>
+                          <Action OrderNumber="15" VariableOp="SetNumeric" VariableName="M5s_伴舞_n" VariableExpression="1" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="16" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="M5s_伴舞_bMove" ListVariableExpression="${l:M5s_伴舞_bRSafe[${_idx}]} != ${l:M5s_伴舞_bRSafe[${n: ${_idx} + 1}]}" ListVariableIndex="7" ActionType="ListVariable" Asynchronous="False"/>
+                          <Action OrderNumber="17" LogMessageText="M5s_伴舞1:n:${v:M5s_伴舞_n}:bRSafe:${l:M5s_伴舞_bRSafe[${v:M5s_伴舞_n}]}:bMove:${l:M5s_伴舞_bMove[${n: ${v:M5s_伴舞_n} - 1}]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False"/>
+                          <Action OrderNumber="18" LogMessageText="M5s_伴舞1_init:row:${v:M5s_伴舞_myRow}:partner:${t:tmp_partner[3][1]}:bRSafe:${l:M5s_伴舞_bRSafe[1]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="3.2 第一阶段 技能判定 =&gt; O1.2/O1.3" Id="3cccd368-fff9-4ef2-8570-2b9ac733046b" RegularExpression="^.{15}\S+ 15:[^:]+:[^:]+:A76[BCDE]">
@@ -1968,35 +1985,37 @@
                           <Action OrderNumber="2" LogMessageText="M5s_伴舞1:n:${v:M5s_伴舞_n}:bRSafe:${l:M5s_伴舞_bRSafe[${v:M5s_伴舞_n}]}:bMove:${l:M5s_伴舞_bMove[${n: ${v:M5s_伴舞_n} - 1}]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False"/>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Sequential="True" Name="O1.1 起始" Id="0c59f63a-4e78-4a89-afe7-9ff423faa819" RegularExpression="^M5s_伴舞1:n:1:bRSafe:(?&lt;bRSafe&gt;[01])">
+                      <Trigger Enabled="true" Sequential="True" Name="O1.1 起始" Id="0c59f63a-4e78-4a89-afe7-9ff423faa819" RegularExpression="^M5s_伴舞1_init:row:(?&lt;row&gt;[^:]*):partner:(?&lt;partnerId&gt;[^:]*):bRSafe:(?&lt;bRSafe&gt;[01])">
                         <Actions>
                           <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="自己有 debuff" DescriptionOverride="True"/>
-                          <Action OrderNumber="2" UseTTSTextExpression="第${v:M5s_伴舞_myRow}行，${if: ${bRSafe} ? 右侧 : 左侧 }开始" ActionType="UseTTS">
+                          <Action OrderNumber="2" UseTTSTextExpression="第${row}行，${if: ${bRSafe} ? 右侧 : 左侧 }开始" ActionType="UseTTS">
                             <Condition Enabled="true" Grouping="And">
-                              <ConditionSingle Enabled="true" ExpressionL="0${v:M5s_伴舞_myRow}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
+                              <ConditionSingle Enabled="true" ExpressionL="${row}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;Waymarks: ADCB&#13;&#10;R: 15&#13;&#10;O: 100, 100&#13;&#10;---&#13;&#10;Action: Linear&#13;&#10;Waymarks: 1234&#13;&#10;Start: 100, 92.5, -4&#13;&#10;End: 100, 107.5, -4&#13;&#10;---&#13;&#10;${v:M5s_伴舞_myRow}: 100, 87.5 + 5 * ${v:M5s_伴舞_myRow}, 0" ActionType="NamedCallback" DescBgColor="dff">
+                          <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;Waymarks: ADCB&#13;&#10;R: 15&#13;&#10;O: 100, 100&#13;&#10;---&#13;&#10;Action: Linear&#13;&#10;Waymarks: 1234&#13;&#10;Start: 100, 92.5, -4&#13;&#10;End: 100, 107.5, -4&#13;&#10;---&#13;&#10;${row}: 100, 87.5 + 5 * ${row}, 0" ActionType="NamedCallback" DescBgColor="dff">
                             <Condition Enabled="true" Grouping="And">
-                              <ConditionSingle Enabled="true" ExpressionL="0${v:M5s_伴舞_myRow}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
+                              <ConditionSingle Enabled="true" ExpressionL="${row}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description="自己无 debuff" DescriptionOverride="True"/>
-                          <Action OrderNumber="5" UseTTSTextExpression="${if: ${bRSafe} ? 右侧 : 左侧 }开始" ActionType="UseTTS">
+                          <Action OrderNumber="4" NamedCallbackName="Channeling" NamedCallbackParam="${_me.Address}, ${_entity[${partnerId}].Address}, chn_leave_0v, 8 + ${row} * 5" ActionType="NamedCallback" DescTextColor="26f">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${row}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
+                              <ConditionSingle Enabled="true" ExpressionL="0x0${partnerId}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="5" ActionType="Placeholder" Asynchronous="False" Description="自己无 debuff" DescriptionOverride="True"/>
+                          <Action OrderNumber="6" UseTTSTextExpression="${if: ${bRSafe} ? 右侧 : 左侧 }开始" ActionType="UseTTS">
                             <Condition Enabled="true" Grouping="And">
                               <ConditionSingle Enabled="true" ExpressionL="0${v:M5s_伴舞_myRow}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericEqual"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;Waymarks: ADCB&#13;&#10;R: 15&#13;&#10;O: 100, 100&#13;&#10;---&#13;&#10;Action: Linear&#13;&#10;Waymarks: 1234&#13;&#10;Start: 100, 92.5&#13;&#10;End: 100, 107.5" ActionType="NamedCallback" DescBgColor="dff">
+                          <Action OrderNumber="7" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;Waymarks: ADCB&#13;&#10;R: 15&#13;&#10;O: 100, 100&#13;&#10;---&#13;&#10;Action: Linear&#13;&#10;Waymarks: 1234&#13;&#10;Start: 100, 92.5&#13;&#10;End: 100, 107.5" ActionType="NamedCallback" DescBgColor="dff">
                             <Condition Enabled="true" Grouping="And">
                               <ConditionSingle Enabled="true" ExpressionL="0${v:M5s_伴舞_myRow}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericEqual"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="7" NamedCallbackName="PictoACT" NamedCallbackParam="&#10;Delay: 0.2&#13;&#10;Omen: Rect&#13;&#10;Tag: M5s_伴舞&#13;&#10;Pos: 100, 100&#13;&#10;Angle: 0${bRSafe} ? -π/2 : π/2&#13;&#10;Scale: 10, 10&#13;&#10;Color: 1.5, 0.2, 0.5, 2" ActionType="NamedCallback" DescBgColor="ffd"/>
-                          <Action OrderNumber="8" ActionType="Placeholder" Asynchronous="False" Description="生成文本播报" DescriptionOverride="True"/>
-                          <Action OrderNumber="9" ListVariableOp="SetAll" ListVariableName="M5s_伴舞_strMove" ListVariableExpression="${if: ${l:M5s_伴舞_bMove[${_idx}]} ? 穿 : 停 }" ListVariableIndex="7" ActionType="ListVariable"/>
-                          <Action OrderNumber="10" NamedCallbackName="hint" NamedCallbackParam="15&#13;&#10;起始：${l:M5s_伴舞_safe[1]}&#13;&#10;${l:M5s_伴舞_strMove.join(&quot; &quot;)}" ActionType="NamedCallback"/>
-                          <Action OrderNumber="11" ListVariableName="M5s_伴舞_strMove" ActionType="ListVariable"/>
+                          <Action OrderNumber="8" NamedCallbackName="PictoACT" NamedCallbackParam="&#10;Delay: 0.2&#13;&#10;Omen: Rect&#13;&#10;Tag: M5s_伴舞&#13;&#10;Pos: 100, 100&#13;&#10;Angle: 0${bRSafe} ? -π/2 : π/2&#13;&#10;Scale: 10, 10&#13;&#10;Color: 1.5, 0.2, 0.5, 2" ActionType="NamedCallback" DescBgColor="ffd"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Name="O1.2 第 1-7 次" Id="21a0f34f-6c5e-4709-b454-8d183bcd5b78" RegularExpression="^M5s_伴舞1:n:(?&lt;n&gt;[2-8]):bRSafe:(?&lt;bRSafe&gt;[01]?):bMove:(?&lt;bMove&gt;[01]?)">
@@ -2018,43 +2037,44 @@
                           <Action OrderNumber="3" NamedCallbackName="PictoACT" NamedCallbackParam="Delay: 0.2&#13;&#10;Action: Remove&#13;&#10;Tag: M5s_伴舞" ActionType="NamedCallback" DescBgColor="ffd"/>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="false" Source="None" Name="Debug Log 1" Id="0c7ca624-2c77-4133-90dd-6bd767d8c776" RegularExpression="">
+                      <Trigger Enabled="false" Source="None" Name="Debug Log 2025-07-03 19:40" Id="ca9abe2c-a0d8-4649-8741-39c575f18dc0" RegularExpression="">
                         <Actions>
-                          <Action OrderNumber="1" LogMessageText="[12:52:00.075] StartsCasting 14:4000A75A:Dancing Green:9A32:Ensemble Assemble:4000A75A:Dancing Green:2.700:99.99:99.99:0.00:-2.39" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="0.69 * 1000"/>
-                          <Action OrderNumber="3" LogMessageText="[12:52:00.768] StartsCasting 14:4000A76A:Frogtourage:A70D:unknown_a70d:4000A76A:Frogtourage:1.400:78.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="0.45 * 1000"/>
-                          <Action OrderNumber="5" LogMessageText="[12:52:01.215] StartsCasting 14:4000A769:Frogtourage:A70C:unknown_a70c:4000A769:Frogtourage:1.400:84.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="0.45 * 1000"/>
-                          <Action OrderNumber="7" LogMessageText="[12:52:01.664] StartsCasting 14:4000A768:Frogtourage:A70D:unknown_a70d:4000A768:Frogtourage:1.400:90.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="1" LogMessageText="[10:30:41.400] StartsCasting 14:40007921:Dancing Green:9A32:Ensemble Assemble:40007921:Dancing Green:2.700:99.99:99.99:0.00:-2.40" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="2.17 * 1000"/>
+                          <Action OrderNumber="3" LogMessageText="[10:30:43.567] StartsCasting 14:40007931:Frogtourage:A70C:unknown_a70c:40007931:Frogtourage:1.400:78.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="0.44 * 1000"/>
+                          <Action OrderNumber="5" LogMessageText="[10:30:44.012] StatusAdd 1A:116E:_rsv_4462_-1_1_0_0_S74CFC3B0_E74CFC3B0:40.50:E0000000::${l:party[1]}:队员:00:151720:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000"/>
+                          <Action OrderNumber="7" LogMessageText="[10:30:46.013] StartsCasting 14:40007930:Frogtourage:A70D:unknown_a70d:40007930:Frogtourage:1.400:84.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                           <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="0.45 * 1000"/>
-                          <Action OrderNumber="9" LogMessageText="[12:52:02.115] StartsCasting 14:4000A767:Frogtourage:A70D:unknown_a70d:4000A767:Frogtourage:1.400:96.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="0.46 * 1000"/>
-                          <Action OrderNumber="11" LogMessageText="[12:52:02.570] StartsCasting 14:4000A766:Frogtourage:A70C:unknown_a70c:4000A766:Frogtourage:1.400:103.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="9" LogMessageText="[10:30:46.457] StatusAdd 1A:116F:_rsv_4463_-1_1_0_0_S74CFC3B0_E74CFC3B0:43.00:E0000000::${l:party[8]}:队员:00:240795:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000"/>
+                          <Action OrderNumber="11" LogMessageText="[10:30:48.463] StartsCasting 14:4000792F:Frogtourage:A70D:unknown_a70d:4000792F:Frogtourage:1.400:90.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                           <Action OrderNumber="12" ActionType="Placeholder" ExecutionDelayExpression="0.45 * 1000"/>
-                          <Action OrderNumber="13" LogMessageText="[12:52:03.023] StartsCasting 14:4000A765:Frogtourage:A70D:unknown_a70d:4000A765:Frogtourage:1.400:109.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="0.45 * 1000"/>
-                          <Action OrderNumber="15" LogMessageText="[12:52:03.476] StartsCasting 14:4000A764:Frogtourage:A70D:unknown_a70d:4000A764:Frogtourage:1.400:115.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="13" LogMessageText="[10:30:48.908] StatusAdd 1A:116E:_rsv_4462_-1_1_0_0_S74CFC3B0_E74CFC3B0:25.50:E0000000::${l:party[3]}:队员:00:168726:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000"/>
+                          <Action OrderNumber="15" LogMessageText="[10:30:50.913] StartsCasting 14:4000792E:Frogtourage:A70C:unknown_a70c:4000792E:Frogtourage:1.400:96.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                           <Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="0.45 * 1000"/>
-                          <Action OrderNumber="17" LogMessageText="[12:52:03.930] StartsCasting 14:4000A763:Frogtourage:A70C:unknown_a70c:4000A763:Frogtourage:1.400:121.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="18" ActionType="Placeholder" ExecutionDelayExpression="4.60 * 1000"/>
-                          <Action OrderNumber="19" LogMessageText="[12:52:08.521] StartsCasting 14:4000A75A:Dancing Green:A76A:Let's Dance!:4000A75A:Dancing Green:5.500:99.99:99.99:0.00:0.01" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="20" ActionType="Placeholder" ExecutionDelayExpression="5.98 * 1000"/>
-                          <Action OrderNumber="21" LogMessageText="[12:52:14.503] ActionEffect 15:4000A75A:Dancing Green:A76E:Let's Dance!:4000A75A:Dancing Green:1B:A76E8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:71286492:105549682:10000:10000:::99.99:99.99:0.00:0.01:71286492:105549682:10000:10000:::99.99:99.99:0.00:0.01:00005EEF:0:1:00::01:A76E:A76E:2.500:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="22" ActionType="Placeholder" ExecutionDelayExpression="2.45 * 1000"/>
-                          <Action OrderNumber="23" LogMessageText="[12:52:16.957] ActionEffect 15:4000A75A:Dancing Green:A76D:Let's Dance!:4000A75A:Dancing Green:1B:A76D8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:70857625:105549682:10000:10000:::99.99:99.99:0.00:0.01:70857625:105549682:10000:10000:::99.99:99.99:0.00:0.01:00005EFC:0:1:00::01:A76D:A76D:2.500:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="24" ActionType="Placeholder" ExecutionDelayExpression="2.46 * 1000"/>
-                          <Action OrderNumber="25" LogMessageText="[12:52:19.412] ActionEffect 15:4000A75A:Dancing Green:A76E:Let's Dance!:4000A75A:Dancing Green:1B:A76E8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:70500786:105549682:10000:10000:::99.99:99.99:0.00:0.01:70500786:105549682:10000:10000:::99.99:99.99:0.00:0.01:00005F0C:0:1:00::01:A76E:A76E:2.500:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="26" ActionType="Placeholder" ExecutionDelayExpression="2.45 * 1000"/>
-                          <Action OrderNumber="27" LogMessageText="[12:52:21.868] ActionEffect 15:4000A75A:Dancing Green:A76E:Let's Dance!:4000A75A:Dancing Green:1B:A76E8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:70113044:105549682:10000:10000:::99.99:99.99:0.00:0.01:70113044:105549682:10000:10000:::99.99:99.99:0.00:0.01:00005F1F:0:1:00::01:A76E:A76E:2.500:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="28" ActionType="Placeholder" ExecutionDelayExpression="2.46 * 1000"/>
-                          <Action OrderNumber="29" LogMessageText="[12:52:24.321] ActionEffect 15:4000A75A:Dancing Green:A76D:Let's Dance!:4000A75A:Dancing Green:1B:A76D8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:69541552:105549682:10000:10000:::99.99:99.99:0.00:0.01:69541552:105549682:10000:10000:::99.99:99.99:0.00:0.01:00005F32:0:1:00::01:A76D:A76D:2.500:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="30" ActionType="Placeholder" ExecutionDelayExpression="2.45 * 1000"/>
-                          <Action OrderNumber="31" LogMessageText="[12:52:26.770] ActionEffect 15:4000A75A:Dancing Green:A76E:Let's Dance!:4000A75A:Dancing Green:1B:A76E8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:69241757:105549682:10000:10000:::99.99:99.99:0.00:0.01:69241757:105549682:10000:10000:::99.99:99.99:0.00:0.01:00005F41:0:1:00::01:A76E:A76E:2.500:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="32" ActionType="Placeholder" ExecutionDelayExpression="2.45 * 1000"/>
-                          <Action OrderNumber="33" LogMessageText="[12:52:29.224] ActionEffect 15:4000A75A:Dancing Green:A76E:Let's Dance!:4000A75A:Dancing Green:1B:A76E8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:68840489:105549682:10000:10000:::99.99:99.99:0.00:0.01:68840489:105549682:10000:10000:::99.99:99.99:0.00:0.01:00005F50:0:1:00::01:A76E:A76E:2.500:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                          <Action OrderNumber="34" ActionType="Placeholder" ExecutionDelayExpression="2.45 * 1000"/>
-                          <Action OrderNumber="35" LogMessageText="[12:52:31.672] ActionEffect 15:4000A75A:Dancing Green:A76D:Let's Dance!:4000A75A:Dancing Green:1B:A76D8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:68393813:105549682:10000:10000:::99.99:99.99:0.00:0.01:68393813:105549682:10000:10000:::99.99:99.99:0.00:0.01:00005F62:0:1:00::01:A76D:A76D:2.500:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="17" LogMessageText="[10:30:51.358] StatusAdd 1A:116F:_rsv_4463_-1_1_0_0_S74CFC3B0_E74CFC3B0:28.00:E0000000::${l:party[4]}:队员:00:150937:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="18" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000"/>
+                          <Action OrderNumber="19" LogMessageText="[10:30:53.364] StartsCasting 14:4000792D:Frogtourage:A70D:unknown_a70d:4000792D:Frogtourage:1.400:103.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="20" ActionType="Placeholder" ExecutionDelayExpression="0.45 * 1000"/>
+                          <Action OrderNumber="21" LogMessageText="[10:30:53.809] StatusAdd 1A:116E:_rsv_4462_-1_1_0_0_S74CFC3B0_E74CFC3B0:25.50:E0000000::${l:party[5]}:队员:00:171113:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="22" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000"/>
+                          <Action OrderNumber="23" LogMessageText="[10:30:55.813] StartsCasting 14:4000792C:Frogtourage:A70C:unknown_a70c:4000792C:Frogtourage:1.400:109.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="24" ActionType="Placeholder" ExecutionDelayExpression="0.45 * 1000"/>
+                          <Action OrderNumber="25" LogMessageText="[10:30:56.260] StatusAdd 1A:116F:_rsv_4463_-1_1_0_0_S74CFC3B0_E74CFC3B0:18.00:E0000000::${l:party[2]}:队员:00:242272:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="26" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000"/>
+                          <Action OrderNumber="27" LogMessageText="[10:30:58.261] StartsCasting 14:4000792B:Frogtourage:A70D:unknown_a70d:4000792B:Frogtourage:1.400:115.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="28" ActionType="Placeholder" ExecutionDelayExpression="0.45 * 1000"/>
+                          <Action OrderNumber="29" LogMessageText="[10:30:58.707] StatusAdd 1A:116E:_rsv_4462_-1_1_0_0_S74CFC3B0_E74CFC3B0:30.50:E0000000::${l:party[6]}:队员:00:170351:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="30" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000"/>
+                          <Action OrderNumber="31" LogMessageText="[10:31:00.708] StartsCasting 14:4000792A:Frogtourage:A70D:unknown_a70d:4000792A:Frogtourage:1.400:121.50:72.00:2.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="32" ActionType="Placeholder" ExecutionDelayExpression="0.45 * 1000"/>
+                          <Action OrderNumber="33" LogMessageText="[10:31:01.156] StatusAdd 1A:116F:_rsv_4463_-1_1_0_0_S74CFC3B0_E74CFC3B0:23.00:E0000000::${l:party[7]}:队员:00:151750:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="34" ActionType="Placeholder" ExecutionDelayExpression="4.13 * 1000"/>
+                          <Action OrderNumber="35" LogMessageText="[10:31:05.293] StartsCasting 14:40007921:Dancing Green:A76A:Let's Dance!:40007921:Dancing Green:5.500:99.99:99.99:0.00:0.01" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="36"/>
                         </Actions>
                       </Trigger>
                     </Triggers>
@@ -2072,6 +2092,11 @@
                       <Action OrderNumber="2" ListVariableOp="Push" ListVariableName="M5s_伴舞_safe" ListVariableExpression="${?d: A = 前, B = 后, C = 左, D = 右 [${type}]}" ActionType="ListVariable"/>
                       <Action OrderNumber="3" ListVariableOp="Push" ListVariableName="M5s_伴舞_bRSafe" ListVariableExpression="${?d: C = 0, D = 1 [${type}]}" ActionType="ListVariable"/>
                       <Action OrderNumber="4" ListVariableOp="Push" ListVariableName="M5s_伴舞_safeDir4" ListVariableExpression="${?d: A = 0, B = 2, C = 1, D = 3 [${type}]}" ActionType="ListVariable"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="2. 收集 αβ" Id="72d358c6-4b64-4e47-882a-459af1618dbd" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;116[EF]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+                    <Actions>
+                      <Action OrderNumber="1" TableVariableOp="InsertLine" TableVariableName="M5s_伴舞_αβ" TableVariableExpression=",${n: 0x${aid} = 0x116F},${n: ${_timestampms} / 1000 + ${t}},${tid}" TableVariableY="1" ActionType="TableVariable"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -2234,16 +2259,17 @@
                   <Trigger Enabled="true" Name="1. 滑步青蛙1" Id="ea6eba30-e711-460b-bc0c-9726af3a28fc" RegularExpression="^.{15}\S+ 101:.{8}:(?&lt;type&gt;0002|0020).{4}:(1D|20)" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000" Description="  1d: &#13;&#10;    0002: 123列危险&#13;&#10;    0008：123列判定&#13;&#10;    0020：456列危险&#13;&#10;    0080：456列判定&#13;&#10;  1e: 345 / 678 列（同上）&#13;&#10;  1f: 456 / 123 列&#13;&#10;  20: 678 / 345 列&#13;&#10;  21: 345 / 123 行&#13;&#10;  22: 678 / 345 行&#13;&#10;  23: 123 / 456 行&#13;&#10;  24: 345 / 678 行">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="这两只青蛙必定出现其一；0002 内侧列安全 0020 外侧列安全；第一次忽略横向的" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" VariableOp="Increment" VariableName="M5s_滑步_n" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="M5s_滑步1_b去南北" VariableExpression="0x${type} = 0x2" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="4" LogMessageText="cd5:10" LogProcess="True" ActionType="LogMessage">
+                      <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="M5s_滑步1_b去南北" VariableExpression="0x${type} = 0x2" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="3" LogMessageText="cd5:10" LogProcess="True" ActionType="LogMessage">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${_me.IsTM}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="5" UseTTSTextExpression="${if: ${v:M5s_滑步1_b去南北} ? 南北安全 : 东西安全 }" ActionType="UseTTS"/>
-                      <Action OrderNumber="6" UseTTSTextExpression="${?d:&#13;&#10;  11 = 去上北,&#13;&#10;  10 = 去下南,&#13;&#10;  01 = 去左西,&#13;&#10;  00 = 去右东,&#13;&#10;  1 = 南北安全,&#13;&#10;  0 = 东西安全&#13;&#10;  [${v:M5s_滑步1_b去南北}${v:myIdx_isG1}]&#13;&#10;}" Enabled="False" ActionType="UseTTS"/>
-                      <Action OrderNumber="7" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: z6r1_b4_ibox_01k1&#13;&#10;Tag: M5s_滑步1_1&#13;&#10;t: 10&#13;&#10;θ: π + (0${v:M5s_滑步1_b去南北} ? 0 : π/2)&#13;&#10;---&#13;&#10;Omen: z6r1_b4_ibox_01k1&#13;&#10;Tag: M5s_滑步1_2&#13;&#10;t: 10&#13;&#10;θ: 0 + (0${v:M5s_滑步1_b去南北} ? 0 : π/2)&#13;&#10;---&#13;&#10;Action: Change&#13;&#10;Regex: ^M5s_滑步&#13;&#10;Pos: 0, -10&#13;&#10;Scale: 5, 10&#13;&#10;Color: 0, 2.5, 10, 1&#13;&#10;O: 100, 100" ActionType="NamedCallback" DescBgColor="ffd"/>
+                      <Action OrderNumber="4" UseTTSTextExpression="${if: ${v:M5s_滑步1_b去南北} ? 南北安全 : 东西安全 }" ActionType="UseTTS"/>
+                      <Action OrderNumber="5" UseTTSTextExpression="${?d:&#13;&#10;  11 = 去上北,&#13;&#10;  10 = 去下南,&#13;&#10;  01 = 去左西,&#13;&#10;  00 = 去右东,&#13;&#10;  1 = 南北安全,&#13;&#10;  0 = 东西安全&#13;&#10;  [${v:M5s_滑步1_b去南北}${v:myIdx_isG1}]&#13;&#10;}" Enabled="False" ActionType="UseTTS"/>
+                      <Action OrderNumber="6" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: z6r1_b4_ibox_01k1&#13;&#10;Tag: M5s_滑步1_1&#13;&#10;t: 10&#13;&#10;θ: π + (0${v:M5s_滑步1_b去南北} ? 0 : π/2)&#13;&#10;---&#13;&#10;Omen: z6r1_b4_ibox_01k1&#13;&#10;Tag: M5s_滑步1_2&#13;&#10;t: 10&#13;&#10;θ: 0 + (0${v:M5s_滑步1_b去南北} ? 0 : π/2)&#13;&#10;---&#13;&#10;Action: Change&#13;&#10;Regex: ^M5s_滑步&#13;&#10;Pos: 0, -10&#13;&#10;Scale: 5, 10&#13;&#10;Color: 0, 2.5, 10, 1&#13;&#10;O: 100, 100" ActionType="NamedCallback" DescBgColor="ffd"/>
+                      <Action OrderNumber="7" ActionType="Placeholder" Asynchronous="False" Description="延迟计数，防止触发第二次青蛙的触发器" DescriptionOverride="True"/>
+                      <Action OrderNumber="8" VariableOp="Increment" VariableName="M5s_滑步_n" ActionType="Variable" ExecutionDelayExpression="1000"/>
                     </Actions>
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="0${v:M5s_滑步_n}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
@@ -2292,6 +2318,17 @@
                           <ConditionSingle Enabled="true" ExpressionL="${v:M5s_滑步_n}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreater"/>
                         </Condition>
                       </Action>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="false" Source="None" Name="Debug Log 2025-07-03 17:41" Id="007532fc-7ee2-4f62-84d6-f9aed427c9b0" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^M5s" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="2" LogMessageText="[02:13:54.506] 257 101:800375C2:00200010:20::" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="3" LogMessageText="[02:13:54.506] 257 101:800375C2:00020001:23::" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="6000"/>
+                      <Action OrderNumber="5" LogMessageText="[02:16:38.921] 257 101:800375C2:00200010:20::" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="6000"/>
+                      <Action OrderNumber="7" LogMessageText="[02:16:54.954] 257 101:800375C2:00020001:20::" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
