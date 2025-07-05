@@ -1097,7 +1097,7 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="2a2d791e-eeb3-4e29-96e5-f8e6ac9ef5d6" DisableRemoteToggle="True" Name="鲶鱼精邮差扩展 v4.1.1" Enabled="true" RawEnvironmentVariables="version = 4.1.0&#xD;&#xA;trigversion = 1.2.0.748">
+<Folder Id="2a2d791e-eeb3-4e29-96e5-f8e6ac9ef5d6" DisableRemoteToggle="True" Name="鲶鱼精邮差扩展 v4.1.0" Enabled="true" RawEnvironmentVariables="version = 4.1.0&#xD;&#xA;trigversion = 1.2.0.748">
 <Folders>
 <Folder Id="9c2e8968-be16-47fc-8457-e377d01362af" DisableRemoteExpand="True" DisableRemoteToggle="True" Name="core" Enabled="true">
 <Folders>
@@ -1124,15 +1124,13 @@
 <ConditionSingle Enabled="true" ExpressionL="${bForce}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Sequential="True" Name="1.1 接收：鲶鱼精邮差注入成功 =&gt; 2" Id="d620479e-efe0-495a-b2d9-f1fe3fce9a0d" RegularExpression="^.{15}\S+ 00:FFFF:PostNamazu:Attached" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
+<Trigger Enabled="true" Sequential="True" Name="1. 接收：鲶鱼精邮差注入成功 =&gt; 2" Id="d620479e-efe0-495a-b2d9-f1fe3fce9a0d" RegularExpression="^.{15}\S+ 00:FFFF:PostNamazu:Attached" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
 <Actions>
-<Action OrderNumber="1" LogMessageText="PNE_Init:force:1" LogProcess="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Sequential="True" Name="1.2 接收：地图切换 =&gt; 2" Id="4293c85d-e493-4788-abd9-4b3eba3b7e80" RegularExpression="^.{15}\S+ 01:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="ACT 晚于游戏启动时，鲶鱼精刚加载就会立刻初始化，但远程触发器可能尚未加载，因此 01 行也检测一下" DescriptionOverride="True" />
-<Action OrderNumber="2" LogMessageText="PNE_Init:force:0" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="ACT 晚于游戏启动时，鲶鱼精刚加载就会立刻初始化，但触发器可能并没有准备好？" DescriptionOverride="True" />
+<Action OrderNumber="2" LogMessageText="PNE_Init:force:1" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="3" LogMessageText="PNE_Init:force:0" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="10000" />
+<Action OrderNumber="4" LogMessageText="PNE_Init:force:0" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="20000" />
+<Action OrderNumber="5" LogMessageText="PNE_Init:force:0" LogProcess="True" ActionType="LogMessage" ExecutionDelayExpression="30000" />
 </Actions>
 </Trigger>
 </Triggers>
