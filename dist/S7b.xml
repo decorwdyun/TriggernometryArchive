@@ -150,7 +150,7 @@
               </Folder>
             </Folders>
             <Triggers>
-              <Trigger Enabled="true" Name="导入提示" Id="ef8a6eca-f765-4055-a88c-8c806165caca" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
+              <Trigger Enabled="false" Name="导入提示" Id="ef8a6eca-f765-4055-a88c-8c806165caca" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
                 <Actions>
                   <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="M8s 已更新：&#13;&#10;· 优化了门神第一次分散分摊的绘制：&#13;&#10;  · 初始分散分摊后预先指路自己的大致方向&#13;&#10;  · 分身出现后修正至实际安全区&#13;&#10;· 本体改为绘制蓝色安全区：&#13;&#10;  · 钢铁月环 + 半场刀，附加 TTS 指明露线（已修复之前第二次报错的问题）&#13;&#10;  · 五连转盘&#13;&#10;  &#13;&#10;【如果你导入过群里的临时版本，请删除本地版并重新开启远程版】" ActionType="MessageBox"/>
                   <Action OrderNumber="2" TriggerOp="DisableTrigger" TriggerId="ef8a6eca-f765-4055-a88c-8c806165caca" ActionType="Trigger"/>
@@ -584,7 +584,7 @@
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1263$" Id="1e2249bb-6d96-48be-9107-d4f961730a73" Name="M8s v0.7.4" Enabled="true" RawEnvironmentVariables="zone = 1263">
+          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1263$" Id="1e2249bb-6d96-48be-9107-d4f961730a73" Name="M8s v1.0.0" Enabled="true" RawEnvironmentVariables="zone = 1263">
             <Folders>
               <Folder Id="8511270f-4672-42dd-a3b1-f61b0e0fc9f4" Name="杂项" Enabled="true">
                 <Folders/>
@@ -660,9 +660,10 @@
                       <Action OrderNumber="33" UseTTSTextExpression="拉线站位，去${?l: 左后, 左后, 下南, 下南, 右前, 右前, 右前, 右前 [${v:myIdx}]}" ActionType="UseTTS" ExecutionDelayExpression="11000"/>
                       <Action OrderNumber="34" LogMessageText="M8s_指平台_omen:${?l: 0,0,2,2,3,3,3,3 [${v:myIdx}]}:15" LogProcess="True" ActionType="LogMessage" DescBgColor="ffd"/>
                       <Action OrderNumber="35" UseTTSTextExpression="准备半场刀" ActionType="UseTTS" ExecutionDelayExpression="39000"/>
-                      <Action OrderNumber="36" UseTTSTextExpression="蓝圈站位" ActionType="UseTTS" ExecutionDelayExpression="9000"/>
-                      <Action OrderNumber="37" UseTTSTextExpression="狂暴塔，南侧集合" ActionType="UseTTS" ExecutionDelayExpression="13000"/>
-                      <Action OrderNumber="38" LogMessageText="M8s_指平台_omen:2:10" LogProcess="True" ActionType="LogMessage" DescBgColor="ffd"/>
+                      <Action OrderNumber="36" UseTTSTextExpression="${?d: &#13;&#10;  0 = 原地,&#13;&#10;  1 = 右侧，一次,&#13;&#10;  2 = 稍后右侧，两次,&#13;&#10;  3 = 稍后左侧，两次,&#13;&#10;  4 = 左侧，一次&#13;&#10;  [${n: roundir(${_entity[bnpcid = 18222].h}, -5) + (${v:myIdx_isG1} ? -1 : 1) - roundvec(${_me.x} - 100, ${_me.y} - 100, -5)}]&#13;&#10;}" ActionType="UseTTS" ExecutionDelayExpression="9000"/>
+                      <Action OrderNumber="37" NamedCallbackName="command" NamedCallbackParam="/e [Debug]&#13;&#10;${n: roundir(${_entity[bnpcid = 18222].h}, -5)}&#13;&#10;${n: (${v:myIdx_isG1} ? -1 : 1)}&#13;&#10;${n: roundvec(${_me.x} - 100, ${_me.y} - 100, -5)}" ActionType="NamedCallback" ExecutionDelayExpression="9000"/>
+                      <Action OrderNumber="38" UseTTSTextExpression="狂暴塔，南侧集合" ActionType="UseTTS" ExecutionDelayExpression="13000"/>
+                      <Action OrderNumber="39" LogMessageText="M8s_指平台_omen:2:10" LogProcess="True" ActionType="LogMessage" DescBgColor="ffd"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Name="劈刀死刑" Id="b1a6ad29-42d9-482a-acc8-86a91d65aae2" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:0017:">
@@ -1719,7 +1720,51 @@
               </Folder>
               <Folder Id="d823e102-6ed5-4ba1-8914-aeec033fc3ed" Name="L. 远近线" Enabled="true">
                 <Folders/>
-                <Triggers/>
+                <Triggers>
+                  <Trigger Enabled="true" Name="2. 播报远近线" Id="a816a3fc-822c-4f50-8526-1d4910a32c14" RegularExpression="^M8s_远近:b远:(?&lt;b远&gt;[01]):self:(?&lt;self&gt;Tank|Healer|DPS):partner:(?&lt;partner&gt;Tank|Healer|DPS)">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="${if: ${b远} ? 远线 : 近线 }，原地" ActionType="UseTTS">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${self}" ExpressionTypeL="String" ExpressionR="Healer" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" UseTTSTextExpression="${if: ${b远} ? 远线，去右 : 近线，去左 }" ActionType="UseTTS">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${self}" ExpressionTypeL="String" ExpressionR="Tank" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" UseTTSTextExpression="${?d:&#13;&#10;  0 Tank = 右，近线连T，找双人塔,&#13;&#10;  1 Tank = 原地，远线连T,&#13;&#10;  0 Healer = 左，近线连治疗,&#13;&#10;  1 Healer = 右，远线连治疗，找单人塔&#13;&#10;  [${b远} ${partner}]&#13;&#10;}" ActionType="UseTTS">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${self}" ExpressionTypeL="String" ExpressionR="DPS" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" VariableOp="SetNumeric" VariableName="M8s_远近_b北近" VariableExpression="!${b远} &amp;&amp; ${f:contain(Tank):${self}${partner}} &amp;&amp; ${f:contain(DPS):${self}${partner}}" ActionType="Variable"/>
+                      <Action OrderNumber="5" VariableOp="SetNumeric" VariableName="M8s_远近_b北远" VariableExpression="${b远} &amp;&amp; ${self} == DPS &amp;&amp; ${partner} == Tank" ActionType="Variable"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="1. 获取远近线" Id="99d46f75-2028-465c-a091-bbaa5de3c576" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;.{8}):[^:]*:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;013[DE])">
+                    <Actions>
+                      <Action OrderNumber="1" LogMessageText="M8s_远近:b远:${n: 0x${type} = 0x013E}:self:${_me.Role}:partner:${_entity[${if: 0x${sid} = 0x${_me.id} ? ${tid} : ${sid}}].Role}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="3. 双人塔" Id="74059084-7471-458a-b9f9-73d5487c8d32" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):A487:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="条件：自己是北边三人" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" UseTTSTextExpression="${if: (${x} &gt; 100) = (${_me.x} &gt; 100) = ${v:M8s_远近_b北近} ? 原地 : 换平台 }，踩${if: ${v:M8s_远近_b北近} ? 双人塔 : 单人塔 }" ActionType="UseTTS"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:M8s_远近_b北近} || ${v:M8s_远近_b北远}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                </Triggers>
               </Folder>
             </Folders>
             <Triggers>
