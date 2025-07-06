@@ -150,11 +150,10 @@
               </Folder>
             </Folders>
             <Triggers>
-              <Trigger Enabled="false" Name="导入提示" Id="cdb66dc7-8f86-4c83-aa11-913dc0fcc37f" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
+              <Trigger Enabled="true" Name="导入提示" Id="ef8a6eca-f765-4055-a88c-8c806165caca" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
                 <Actions>
-                  <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="已添加 M1-4s 零式触发器。&#13;&#10;使用前请在远程触发器中查看说明。&#13;&#10;&#13;&#10;- 更新：&#13;&#10;&#13;&#10; · 四层已发布视频介绍，链接已复制到剪贴板。&#13;&#10;   你可以直接在浏览器粘贴查看，或在使用说明中查看。&#13;&#10;   如果对任何机制的标点有任何疑问，建议先看视频，&#13;&#10;   不要问我钢铁月环点歪了之类的问题。&#13;&#10; &#13;&#10;有任何问题请先尝试完整使用远程触发器中的自检。" ActionType="MessageBox"/>
-                  <Action OrderNumber="2" VariableOp="Clipboard" VariableExpression="${env:link}" ActionType="Variable"/>
-                  <Action OrderNumber="3" TriggerOp="DisableTrigger" TriggerId="cdb66dc7-8f86-4c83-aa11-913dc0fcc37f" ActionType="Trigger"/>
+                  <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="M8s 已更新：&#13;&#10;· 优化了门神第一次分散分摊的绘制：&#13;&#10;  · 初始分散分摊后预先指路自己的大致方向&#13;&#10;  · 分身出现后修正至实际安全区&#13;&#10;· 本体改为绘制蓝色安全区：&#13;&#10;  · 钢铁月环 + 半场刀，附加 TTS 指明露线（已修复之前第二次报错的问题）&#13;&#10;  · 五连转盘&#13;&#10;  &#13;&#10;【如果你导入过群里的临时版本，请删除本地版并重新开启远程版】" ActionType="MessageBox"/>
+                  <Action OrderNumber="2" TriggerOp="DisableTrigger" TriggerId="ef8a6eca-f765-4055-a88c-8c806165caca" ActionType="Trigger"/>
                 </Actions>
               </Trigger>
             </Triggers>
@@ -585,7 +584,7 @@
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1263$" Id="1e2249bb-6d96-48be-9107-d4f961730a73" Name="M8s v0.7.2" Enabled="true" RawEnvironmentVariables="zone = 1263">
+          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1263$" Id="1e2249bb-6d96-48be-9107-d4f961730a73" Name="M8s v0.7.4" Enabled="true" RawEnvironmentVariables="zone = 1263">
             <Folders>
               <Folder Id="8511270f-4672-42dd-a3b1-f61b0e0fc9f4" Name="杂项" Enabled="true">
                 <Folders/>
@@ -977,36 +976,33 @@
               <Folder Id="a57e86c0-dd9e-4405-96d4-0b98c63364b1" Name="F. Terrestrial Rage" Enabled="true" RawEnvironmentVariables="phase = Terrestrial Rage">
                 <Folders/>
                 <Triggers>
-                  <Trigger Enabled="true" Name="五分身安全区" Id="ffd6b5ba-47a0-4317-b05e-054b3077eca3" RegularExpression="^.{15}\S+ AAA:10F:(?&lt;id&gt;4.{7}):[^:]*:[^:]*:18216:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]*)">
+                  <Trigger Enabled="true" Name="3. 五分身安全区" Id="ffd6b5ba-47a0-4317-b05e-054b3077eca3" RegularExpression="^.{15}\S+ AAA:10F:(?&lt;id&gt;4.{7}):[^:]*:[^:]*:18216:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]*)">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="Placeholder" Description="计算 “dir5”：正北安全区时即为 dir5；倒五边形安全区时逆时针旋转 π/10 （相当于 dirN5 - 1 取余），为了与攻略一致" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="tmp_dir5" VariableExpression="roundir(${h} + π + π/10, 5)" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="tmp_b自己" VariableExpression="(${v:tmp_dir5} = 0 &amp;&amp; !${v:M8s_TR_b自散}) || (${v:tmp_dir5} = ${?l: 1,4,2,3,2,3,1,4 [${v:myIdx}]} &amp;&amp; ${v:M8s_TR_b自散})" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="4" NamedCallbackName="PictoACT" NamedCallbackParam="delay: 0.01&#13;&#10;Tag: M8s&#13;&#10;Action: Triangulate&#13;&#10;t: 2.8&#13;&#10;O: 100, 100&#13;&#10;θ: ${h} + π&#13;&#10;Points: -0.5,-7.5; 0.5,-7.5; 3.77,-12; 0,-12; -3.77,-12&#13;&#10;Color: ${if: 0${v:tmp_b自己} ? &quot;0, 1, 6, 2&quot; : &quot;0.5, 1, 2, 2&quot; }" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd"/>
-                      <Action OrderNumber="5" VariableName="tmp_dir5" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="6" VariableName="tmp_b自己" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="7" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Triangulate&#13;&#10;Tag: M8s&#13;&#10;t: 4.1&#13;&#10;O: 100, 100&#13;&#10;θ: ${h}&#13;&#10;Points: -1.05,-8.25; 1.05,-8.25; 3.77,-12; 0,-12; -3.77,-12&#13;&#10;Color: 0, 1, 6, 2" ActionType="NamedCallback" ExecutionDelayExpression="3000" DescBgColor="ffd">
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="条件：面向 dir10 = 0 或 1（防止重复）" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Omen:Rect&#13;&#10;t: 2.8&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h}&#13;&#10;Scale: 4, 24" Enabled="False" ActionType="NamedCallback" DescBgColor="fdd"/>
+                      <Action OrderNumber="3" NamedCallbackName="SetObjectScale" NamedCallbackParam="${_entity[${id}].Address}, 0.3" ActionType="NamedCallback"/>
+                      <Action OrderNumber="4" NamedCallbackName="PictoACT" NamedCallbackParam="Regex: ^M8s_TR_分身1&#13;&#10;Action: Change&#13;&#10;// 指向 dir5 方向顺时针偏 0.25 ，即可能的两个安全区之间&#13;&#10;θ: dir2rad((${v:M8s_TR_b自散} ? 0 : ${?l: 1,4,2,3,2,3,1,4[${v:myIdx}]}), 5) - (roundir(${h}, 10) = 0 ? π/5 : 0) " ActionType="NamedCallback" DescBgColor="ffd">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="roundir(${h}, 10)" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="roundir(${h}, 10)" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="5" NamedCallbackName="PictoACT" NamedCallbackParam="Regex: ^M8s_TR_分身1&#13;&#10;Action: Remove" ActionType="NamedCallback" ExecutionDelayExpression="2800" DescBgColor="ffd">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="roundir(${h}, 10)" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="roundir(${h}, 10)" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="6" ActionType="Placeholder" Asynchronous="False" Description="画第二次的条件：第二次的安全区在自己附近" DescriptionOverride="True"/>
+                      <Action OrderNumber="7" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Triangulate&#13;&#10;Tag: M8s_TR_分身2&#13;&#10;t: 4.1&#13;&#10;O: 100, 100&#13;&#10;θ: ${h}&#13;&#10;Points: -1.05,-8.25; 1.05,-8.25; 3.77,-12; 0,-12; -3.77,-12&#13;&#10;Color: 0, 1, 10, 3" Enabled="False" ActionType="NamedCallback" DescBgColor="ffd">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="abs( relθ( ${h}, θ(100, 100, ${_me.xy}) ) )" ExpressionTypeL="Numeric" ExpressionR="π/2" ExpressionTypeR="Numeric" ConditionType="NumericLess"/>
                         </Condition>
                       </Action>
+                      <Action OrderNumber="8" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#13;&#10;Tag: M8s_TR_分身2&#13;&#10;t: 4.1&#13;&#10;O: 100, 100, 0&#13;&#10;θ: ${h}&#13;&#10;Pos: 0, -10.31&#13;&#10;Scale: 10.31 - 8.25&#13;&#10;Color: 0, 1, 10, 1" ActionType="NamedCallback" DescBgColor="ffd"/>
                     </Actions>
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="round(distance(100, 100, 0, ${x}, ${y}, ${z}), 1)" ExpressionTypeL="Numeric" ExpressionR="7.5" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                    </Condition>
-                  </Trigger>
-                  <Trigger Enabled="true" Name="激光器矩形" Id="916adef7-462c-4704-a5f6-263790992c90" RegularExpression="^.{15}\S+ AAA:10F:(?&lt;id&gt;4.{7}):[^:]*:[^:]*:18220:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]*)">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="两次实体必然镜像对称，为了控制显示时长，只用前两个触发 ，结束后镜像显示第二组对应的" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" NamedCallbackName="Omen" NamedCallbackParam="general_x02f, 5.8, ${x}, ${y}, ${z}, ${h}, 3, 30" ActionType="NamedCallback"/>
-                      <Action OrderNumber="3" ActionType="Placeholder" ExecutionDelayExpression="1000"/>
-                      <Action OrderNumber="4" VariableOp="SetString" VariableName="M8s_双向激光_lock" VariableExpression="1" ActionType="Variable"/>
-                      <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="4800"/>
-                      <Action OrderNumber="6" NamedCallbackName="Omen" NamedCallbackParam="general_x02f, 2.5, 200 - ${x}, 200 - ${y}, ${z}, ${h}, 3, 30" ActionType="NamedCallback"/>
-                      <Action OrderNumber="7" VariableName="M8s_双向激光_lock" ActionType="Variable"/>
-                    </Actions>
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${ev:M8s_双向激光_lock}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
                   </Trigger>
                   <Trigger Enabled="true" Name="黄头矩形" Id="fb6f10ca-fe64-4803-9f7d-9f39baa32f25" RegularExpression="^.{15}\S+ AAA:10F:(?&lt;id&gt;4.{7}):[^:]*:[^:]*:18507:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]*)">
@@ -1031,39 +1027,77 @@
                   <Trigger Enabled="true" Name="1. 获取分散点名" Id="62e4f5f9-9a42-40ce-8940-7d050b36824c" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:008B:">
                     <Actions>
                       <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="M8s_TR_散_tid" ListVariableExpression="${tid}" ActionType="ListVariable" Asynchronous="False"/>
-                      <Action OrderNumber="2" VariableOp="SetString" VariableName="M8s_TR_b自散" VariableExpression="${l:M8s_TR_散_tid.contain(${_me.id})}" ActionType="Variable" Asynchronous="False">
+                      <Action OrderNumber="2" LogMessageText="M8s_TR_散:b自散:${l:M8s_TR_散_tid.contain(${_me.id})}:tid:${l:M8s_TR_散_tid.join(:)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${l:M8s_TR_散_tid.size}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="3" LogMessageText="M8s_TR_散:b自散:${v:M8s_TR_b自散}:tid:${l:M8s_TR_散_tid.join(:)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${l:M8s_TR_散_tid.size}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="4" ListVariableName="M8s_TR_散_tid" ActionType="ListVariable" ExecutionDelayExpression="1000" Asynchronous="False"/>
+                      <Action OrderNumber="3" ListVariableName="M8s_TR_散_tid" ActionType="ListVariable" ExecutionDelayExpression="1000" Asynchronous="False"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Name="2. 处理分散点名" Id="5154203c-8a3d-4521-ab0c-1d5e2277d83c" RegularExpression="^M8s_TR_散:b自散:(?&lt;b自散&gt;0|1)" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="10000">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="phase, 冷却" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" LogMessageText="cd5:5" LogProcess="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="3" UseTTSTextExpression="${if: ${b自散} ? 分散 : 分摊 }" ActionType="UseTTS"/>
-                      <Action OrderNumber="4" UseTTSTextExpression="${if: ${b自散} ? 分摊 : 分散 }" ActionType="UseTTS" ExecutionDelayExpression="5000"/>
-                      <Action OrderNumber="5" UseTTSTextExpression="躲开" ActionType="UseTTS" ExecutionDelayExpression="6800"/>
+                      <Action OrderNumber="2" VariableOp="SetString" VariableName="M8s_TR_b自散" VariableExpression="${b自散}" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="3" LogMessageText="cd5:5" LogProcess="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="4" UseTTSTextExpression="${if: ${b自散} ? ${?l:&#13;&#10;  上北, 右东, 左西, 下南, &#13;&#10;  左西, 下南, 上北, 右东&#13;&#10;  [${v:myIdx}]&#13;&#10;}分散 : 中心分摊 }" ActionType="UseTTS"/>
+                      <Action OrderNumber="5" UseTTSTextExpression="穿" ActionType="UseTTS" ExecutionDelayExpression="3100"/>
+                      <Action OrderNumber="6" UseTTSTextExpression="${if: ${b自散} ? 上偏右分摊 : ${?l:&#13;&#10;  左上, 右侧, 左下, 下偏右, &#13;&#10;  左下, 下偏右, 左上, 右侧&#13;&#10;  [${v:myIdx}]&#13;&#10;}分散 }" ActionType="UseTTS" ExecutionDelayExpression="1900"/>
+                      <Action OrderNumber="7" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: M8s_TR_分身1_安全区&#13;&#10;Action: Triangulate&#13;&#10;// 指向 dir5 方向顺时针偏 0.25 ，即可能的两个安全区之间&#13;&#10;O: 100, 100, 0&#13;&#10;θ: dir2rad((${b自散} ? 0 : ${?l: 1,4,2,3,2,3,1,4[${v:myIdx}]}) - 0.25, 5)&#13;&#10;Points: -0.5,-7.5; 0.5,-7.5; 3.77,-12; 0,-12; -3.77,-12&#13;&#10;Color: 0, 1, 10, 3&#13;&#10;---&#13;&#10;Tag: M8s_TR_分身1_箭头&#13;&#10;// 箭头&#13;&#10;Omen: e5d1_b1_kblaser_t1&#13;&#10;O: 100, 100, 0&#13;&#10;θ: dir2rad((${b自散} ? 0 : ${?l: 1,4,2,3,2,3,1,4[${v:myIdx}]}) - 0.25, 5)&#13;&#10;Scale: 0.5, 7.5&#13;&#10;Color: 0, 1.5, 15, 3" ActionType="NamedCallback" DescBgColor="ffd"/>
+                      <Action OrderNumber="8" UseTTSTextExpression="躲开" ActionType="UseTTS" ExecutionDelayExpression="6800"/>
                     </Actions>
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${v:M8s_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                     </Condition>
                   </Trigger>
-                  <Trigger Enabled="false" Source="None" Name="Debug Log 2025-04-07 12:25" Id="9418fd79-25d1-4d31-b910-99ef2004739c">
+                  <Trigger Enabled="false" Source="None" Name="Debug Log 2025-07-06 16:14" Id="d7ddca22-3a58-4f27-93e2-1cd7dc317884" RegularExpression="">
                     <Actions>
-                      <Action OrderNumber="1" LogMessageText="[09:02:56.938] _ActorSetPos AAA:10F:400256EB:Howling Blade:13843:18216:100.0000:107.5000:0.0000:-3.1416" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="2" LogMessageText="[09:02:56.938] _ActorSetPos AAA:10F:400256EA:Howling Blade:13843:18216:92.8671:102.3176:0.0000:1.8849" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="3" LogMessageText="[09:02:56.938] _ActorSetPos AAA:10F:400256E9:Howling Blade:13843:18216:95.5916:93.9324:0.0000:0.6283" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="4" LogMessageText="[09:02:56.938] _ActorSetPos AAA:10F:400256E8:Howling Blade:13843:18216:104.4084:93.9324:0.0000:-0.6284" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="5" LogMessageText="[09:02:56.938] _ActorSetPos AAA:10F:400256E7:Howling Blade:13843:18216:107.1329:102.3176:0.0000:-1.8850" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="1" LogMessageText="[12:30:55.197] StartsCasting 14:4003A494:剑嚎:A3CB:风尘光狼斩:4003A494:剑嚎:7.000:100.00:88.00:0.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000"/>
+                      <Action OrderNumber="3" LogMessageText="[12:31:20.888] _ActorSetPos AAA:10F:4003A473:光牙:13849:18220:97.8787:97.8787:0.0000:2.3561" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="4" LogMessageText="[12:31:20.888] _ActorSetPos AAA:10F:4003A471:光牙:13849:18220:106.3640:106.3640:0.0000:2.3561" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="2.36 * 1000"/>
+                      <Action OrderNumber="6" LogMessageText="[12:31:23.250] TargetIcon 1B:${l:party[2]}:队员:0000:0000:008B:${l:party[2]}:0000:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="7" LogMessageText="[12:31:23.250] TargetIcon 1B:${l:party[1]}:队员:0000:0000:008B:${l:party[1]}:0000:0000" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                      <Action OrderNumber="8" LogMessageText="[12:31:23.250] TargetIcon 1B:${l:party[6]}:队员:0000:0000:008B:${l:party[6]}:0000:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="9" LogMessageText="[12:31:23.250] TargetIcon 1B:${l:party[3]}:队员:0000:0000:008B:${l:party[3]}:0000:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="10" LogMessageText="[12:31:23.250] TargetIcon 1B:${l:party[4]}:队员:0000:0000:008B:${l:party[4]}:0000:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="11" ActionType="Placeholder" ExecutionDelayExpression="0.14 * 1000"/>
+                      <Action OrderNumber="12" LogMessageText="[12:31:23.384] _ActorSetPos AAA:10F:4003A474:光牙:13849:18220:93.6360:93.6360:0.0000:2.3561" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="13" LogMessageText="[12:31:23.384] _ActorSetPos AAA:10F:4003A472:光牙:13849:18220:102.1213:102.1213:0.0000:2.3561" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="6.54 * 1000"/>
+                      <Action OrderNumber="15" LogMessageText="[12:31:29.927] TargetIcon 1B:${l:party[5]}:队员:0000:0000:008B:${l:party[5]}:0000:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="16" LogMessageText="[12:31:29.927] TargetIcon 1B:${l:party[2]}:队员:0000:0000:008B:${l:party[2]}:0000:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="17" LogMessageText="[12:31:29.927] TargetIcon 1B:${l:party[7]}:队员:0000:0000:008B:${l:party[7]}:0000:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="18" LogMessageText="[12:31:29.927] TargetIcon 1B:${l:party[8]}:队员:0000:0000:008B:${l:party[8]}:0000:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="19" ActionType="Placeholder" ExecutionDelayExpression="2.27 * 1000"/>
+                      <Action OrderNumber="20" LogMessageText="[12:31:32.194] _ActorSetPos AAA:10F:4003A47D:剑嚎:13843:18216:100.0000:107.5000:0.0000:-3.1416" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="21" LogMessageText="[12:31:32.194] _ActorSetPos AAA:10F:4003A47C:剑嚎:13843:18216:92.8671:102.3176:0.0000:1.8849" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="22" LogMessageText="[12:31:32.194] _ActorSetPos AAA:10F:4003A47B:剑嚎:13843:18216:95.5916:93.9324:0.0000:0.6283" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="23" LogMessageText="[12:31:32.194] _ActorSetPos AAA:10F:4003A47A:剑嚎:13843:18216:104.4084:93.9324:0.0000:-0.6284" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="24" LogMessageText="[12:31:32.194] _ActorSetPos AAA:10F:4003A479:剑嚎:13843:18216:107.1329:102.3176:0.0000:-1.8850" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="25" ActionType="Placeholder" ExecutionDelayExpression="7.12 * 1000"/>
+                      <Action OrderNumber="26" LogMessageText="[12:31:39.317] _ActorSetPos AAA:10F:4003A47D:剑嚎:13843:18216:100.0000:100.0000:0.0000:-0.0001" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="27" LogMessageText="[12:31:39.317] _ActorSetPos AAA:10F:4003A47C:剑嚎:13843:18216:91.1232:105.1250:0.0000:2.0943" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="28" LogMessageText="[12:31:39.317] _ActorSetPos AAA:10F:4003A47B:剑嚎:13843:18216:100.0000:89.7500:0.0000:-0.0001" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="29" ActionType="Placeholder" ExecutionDelayExpression="9.81 * 1000"/>
+                      <Action OrderNumber="30" LogMessageText="[12:31:49.125] _ActorSetPos AAA:10F:4003A5AA:土狼首:13847:18507:88.1077:96.5981:0.0000:1.0470" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="31" LogMessageText="[12:31:49.125] _ActorSetPos AAA:10F:4003A5AB:土狼首:13847:18507:94.1077:86.2058:0.0000:1.0470" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                     </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="激光器矩形" Id="916adef7-462c-4704-a5f6-263790992c90" RegularExpression="^.{15}\S+ AAA:10F:(?&lt;id&gt;4.{7}):[^:]*:[^:]*:18220:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]*)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="两次实体必然镜像对称，为了控制显示时长，只用前两个触发 ，结束后镜像显示第二组对应的" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" NamedCallbackName="Omen" NamedCallbackParam="general_x02f, 5.8, ${x}, ${y}, ${z}, ${h}, 3, 30" ActionType="NamedCallback"/>
+                      <Action OrderNumber="3" ActionType="Placeholder" ExecutionDelayExpression="1000"/>
+                      <Action OrderNumber="4" VariableOp="SetString" VariableName="M8s_双向激光_lock" VariableExpression="1" ActionType="Variable"/>
+                      <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="4800"/>
+                      <Action OrderNumber="6" NamedCallbackName="Omen" NamedCallbackParam="general_x02f, 2.5, 200 - ${x}, 200 - ${y}, ${z}, ${h}, 3, 30" ActionType="NamedCallback"/>
+                      <Action OrderNumber="7" VariableName="M8s_双向激光_lock" ActionType="Variable"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${ev:M8s_双向激光_lock}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
                   </Trigger>
                 </Triggers>
               </Folder>
@@ -1081,7 +1115,7 @@
                       </Action>
                       <Action OrderNumber="4" VariableOp="UnsetRegexUniversal" VariableName="^M8s_HB" ActionType="Variable" Asynchronous="False">
                         <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${ev:M8s_HB_is钢}${ev:M8s_HB_is右safe}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${ev:M8s_HB_b钢}${ev:M8s_HB_b右safe}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
                     </Actions>
@@ -1096,7 +1130,7 @@
                       </Action>
                       <Action OrderNumber="3" VariableOp="UnsetRegexUniversal" VariableName="^M8s_HB" ActionType="Variable" Asynchronous="False">
                         <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${ev:M8s_HB_is钢}${ev:M8s_HB_is右safe}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${ev:M8s_HB_b钢}${ev:M8s_HB_b右safe}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
                     </Actions>
@@ -1273,35 +1307,6 @@
                       <Action OrderNumber="4" UseTTSTextExpression="两侧，然后${if: ${b钢铁} ? 远离 : 靠近 }" ActionType="UseTTS"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="false" Name="2.3 标点" Id="8d34af3e-f794-4e87-86ef-fa9aeb51a208" RegularExpression="^M8s_群狼剑:dir6:(?&lt;dir6&gt;[0-5]):b最终远:(?&lt;b最终远&gt;[01]):b钢铁:(?&lt;b钢铁&gt;[01])">
-                    <Actions>
-                      <Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;θ: dir2rad(${dir6}, 6)&#13;&#10;ScaleX: 6.25&#13;&#10;A: -1, -8.5&#13;&#10;B: -1, -6.0&#13;&#10;C: -1, -3.5&#13;&#10;D: -1, -1.0&#13;&#10;1:  1, -8.5&#13;&#10;2:  1, -6.0&#13;&#10;3:  1, -3.5&#13;&#10;4:  1, -1.0" Enabled="False" ActionType="NamedCallback" DescBgColor="dff"/>
-                      <Action OrderNumber="2" Enabled="False" ActionType="Placeholder" ExecutionDelayExpression="6800"/>
-                      <Action OrderNumber="3" Enabled="False" ActionType="Placeholder" Asynchronous="False" Description="dir6 = 0-3（初始方向 0 3 4 5）的分身距离场中 7.5，4-5（初始方向 1 2）的距离 7.0，制作组算错数还要人擦屁股 绝了" DescriptionOverride="True"/>
-                      <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100 polar 7.5, ${n: dir2rad(${dir6}, 6) + π}&#13;&#10;θ: dir2rad(${dir6}, 6) + π&#13;&#10;C:  -3.25, -3.25&#13;&#10;D:   3.25, -3.25&#13;&#10;A:  -6.25,  2.19&#13;&#10;B:   6.25,  2.19&#13;&#10;1: -10.36,  4.45&#13;&#10;2:  10.36,  4.45&#13;&#10;3:  fakeclear&#13;&#10;4:  fakeclear " Enabled="False" ActionType="NamedCallback" Description="扇形 7.0" DescBgColor="dff" DescriptionOverride="True">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${b钢铁}${b最终远}" ExpressionTypeL="String" ExpressionR="00" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100 polar 7.5, ${n: dir2rad(${dir6}, 6) + π}&#13;&#10;θ: dir2rad(${dir6}, 6) + π&#13;&#10;C: -2.87, -2.87&#13;&#10;D:  2.87, -2.87&#13;&#10;A: -6.25,  2.19&#13;&#10;B:  6.25,  2.19&#13;&#10;1: -10.2,  4.11&#13;&#10;2:  10.2,  4.11&#13;&#10;3:  fakeclear&#13;&#10;4:  fakeclear " Enabled="False" ActionType="NamedCallback" Description="扇形 7.5" DescBgColor="dff" DescriptionOverride="True">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${b钢铁}${b最终远}" ExpressionTypeL="String" ExpressionR="01" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100 polar 7.5, ${n: dir2rad(${dir6}, 6) + π}&#13;&#10;θ: dir2rad(${dir6}, 6) + π&#13;&#10;C: -12.31, 9.00&#13;&#10;D:  12.31, 9.00&#13;&#10;A: -3.41, 14.90&#13;&#10;B:  3.41, 14.90&#13;&#10;1: -4.00, 17.00&#13;&#10;2:  4.00, 17.00&#13;&#10;3:  fakeclear&#13;&#10;4:  fakeclear " Enabled="False" ActionType="NamedCallback" Description="钢铁 7.0" DescBgColor="dff" DescriptionOverride="True">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${b钢铁}${b最终远}" ExpressionTypeL="String" ExpressionR="10" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="7" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100 polar 7.5, ${n: dir2rad(${dir6}, 6) + π}&#13;&#10;θ: dir2rad(${dir6}, 6) + π&#13;&#10;C: -12.28, 9.05&#13;&#10;D:  12.28, 9.05&#13;&#10;A: -3.34, 14.90&#13;&#10;B:  3.34, 14.90&#13;&#10;1: -4.00, 17.50&#13;&#10;2:  4.00, 17.50&#13;&#10;3:  fakeclear&#13;&#10;4:  fakeclear " Enabled="False" ActionType="NamedCallback" Description="钢铁 7.5" DescBgColor="dff" DescriptionOverride="True">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${b钢铁}${b最终远}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="8" Enabled="False" ActionType="Placeholder" ExecutionDelayExpression="6000"/>
-                      <Action OrderNumber="9" NamedCallbackName="AdvWm" NamedCallbackParam="&#10;load" Enabled="False" ActionType="NamedCallback" DescBgColor="dff"/>
-                    </Actions>
-                  </Trigger>
                   <Trigger Enabled="false" Source="None" Name="Debug Log 2025-06-23 14:37" Id="e4e2df44-c5e7-4089-ba6c-be548010d084">
                     <Actions>
                       <Action OrderNumber="1" LogMessageText="[01:13:40.083] 263 107:400116E6:A931:91.128:94.882:0.000:1.047" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
@@ -1326,7 +1331,7 @@
                   <Trigger Enabled="true" Name="2.2 播报安全区 (2)" Id="e0ebf209-8867-40a9-ab0a-6990cd8123fb" RegularExpression="^M8s_月光:2:dirN4:(?&lt;dirN4&gt;[0-3]):relDir4:(?&lt;relDir4&gt;[0-3])">
                     <Actions>
                       <Action OrderNumber="1" UseTTSTextExpression="然后${f:pick(${relDir4}): 原地, 去右, 对穿, 去左}" ActionType="UseTTS"/>
-                      <Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan90&#13;&#10;Tag: M8s_月光_Quad2&#13;&#10;t: 13.6&#13;&#10;O: 100, 100&#13;&#10;θ: dir2rad(0${dirN4}, -4)&#13;&#10;Scale: 15&#13;&#10;Color: 1, 4, 2, 0.2&#13;&#10;---&#13;&#10;Delay: 9.6&#13;&#10;Action: Change&#13;&#10;Tag: M8s_月光_Quad2&#13;&#10;Color: 0, 2, 7, 0.5&#13;&#10;---&#13;&#10;Delay: 9.6&#13;&#10;Action: Remove&#13;&#10;Tag: M8s_月光_Quad1" ActionType="NamedCallback" DescBgColor="ffd">
+                      <Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan90&#13;&#10;Tag: M8s_月光_Quad2&#13;&#10;t: 13.6&#13;&#10;O: 100, 100&#13;&#10;θ: dir2rad(0${dirN4}, -4)&#13;&#10;Scale: 15&#13;&#10;Color: 1, 4, 3, 0.5&#13;&#10;---&#13;&#10;Delay: 9.6&#13;&#10;Action: Change&#13;&#10;Tag: M8s_月光_Quad2&#13;&#10;Color: 0, 1, 10, 1&#13;&#10;---&#13;&#10;Delay: 9.6&#13;&#10;Action: Remove&#13;&#10;Tag: M8s_月光_Quad1" ActionType="NamedCallback" DescBgColor="ffd">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${relDir4}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                         </Condition>
@@ -1351,11 +1356,12 @@
                   <Trigger Enabled="true" Name="3. 处理分散点名" Id="c381c793-4a3b-4d72-a1c3-91a9f91b5df5" RegularExpression="^M8s_TR_散:b自散:(?&lt;b自散&gt;0|1)" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="10000">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="phase, 冷却" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" LogMessageText="cd5:5" LogProcess="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="3" UseTTSTextExpression="${f:pick(${v:M8s_月光_dirN4_1}): 左上, 左下, 右下, 右上 }${if: ${b自散} ? 分散 : 分摊 }" ActionType="UseTTS"/>
-                      <Action OrderNumber="4" UseTTSTextExpression="准备${f:pick(${v:M8s_月光_relDir4Quad1To2}): 原地, 右侧, 对角, 左侧}${if: ${b自散} ? 分摊 : 分散 }" ActionType="UseTTS" ExecutionDelayExpression="5000"/>
-                      <Action OrderNumber="5" LogMessageText="cd5:8.3" LogProcess="True" ActionType="LogMessage"/>
-                      <Action OrderNumber="6" UseTTSTextExpression="正点贴边" ActionType="UseTTS" ExecutionDelayExpression="6800"/>
+                      <Action OrderNumber="2" VariableOp="SetString" VariableName="M8s_月光_b自散" VariableExpression="${b自散}" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="3" LogMessageText="cd5:5" LogProcess="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="4" UseTTSTextExpression="${f:pick(${v:M8s_月光_dirN4_1}): 左上, 左下, 右下, 右上 }${if: ${b自散} ? 分散 : 分摊 }" ActionType="UseTTS"/>
+                      <Action OrderNumber="5" UseTTSTextExpression="准备${f:pick(${v:M8s_月光_relDir4Quad1To2}): 原地, 右侧, 对角, 左侧}${if: ${b自散} ? 分摊 : 分散 }" ActionType="UseTTS" ExecutionDelayExpression="5000"/>
+                      <Action OrderNumber="6" LogMessageText="cd5:8.3" LogProcess="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="7" UseTTSTextExpression="正点贴边" ActionType="UseTTS" ExecutionDelayExpression="6800"/>
                     </Actions>
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${v:M8s_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
@@ -1406,7 +1412,7 @@
                   <Trigger Enabled="true" Name="2.1 播报安全区 (1)" Id="8de7ca42-b123-42f9-a2e3-1c9c3a70e82a" RegularExpression="^M8s_月光:1:dirN4:(?&lt;dirN4&gt;[0-3])">
                     <Actions>
                       <Action OrderNumber="1" UseTTSTextExpression="${f:pick(${dirN4}): 左上, 左下, 右下, 右上}" ActionType="UseTTS"/>
-                      <Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan90&#13;&#10;Tag: M8s_月光_Quad1&#13;&#10;O: 100, 100&#13;&#10;θ: dir2rad(0${dirN4}, -4)&#13;&#10;Scale: 15&#13;&#10;Color: 0, 2, 7, 0.5" ActionType="NamedCallback" DescBgColor="ffd"/>
+                      <Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan90&#13;&#10;Tag: M8s_月光_Quad1&#13;&#10;O: 100, 100&#13;&#10;θ: dir2rad(0${dirN4}, -4)&#13;&#10;Scale: 15&#13;&#10;Color: 0, 1, 10, 1" ActionType="NamedCallback" DescBgColor="ffd"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -1430,7 +1436,7 @@
                   <Trigger Enabled="true" Name="2.2 安全点" Id="7024ba9d-bbb0-44b4-932d-274c6792fc1d" RegularExpression="^M8s_钢月十字:b钢:(?&lt;b钢&gt;[01]):b斜十:(?&lt;b斜十&gt;[01])">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="国服" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="tmp_θ" VariableExpression="dir2rad(${?l: 0,3,1,2,2,3,1,0 [${v:myIdx}]}, 4) + (${v:myIdx_isTH} ? 1 : -1) * (${b斜十} ? 25.37° : 19.63°)" ActionType="Variable" Asynchronous="False">
+                      <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="tmp_θ" VariableExpression="dir2rad(${?l: 0,3,1,2,2,3,1,0 [${v:myIdx}]}, 4) + (${v:myIdx_isTH} ? 1 : -1) * (${b斜十} ? 19.63° : 25.37°)" ActionType="Variable" Asynchronous="False">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${b钢}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${pd:S7b_cfg[M8s_钢铁站位]}" ExpressionTypeL="String" ExpressionR="美" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
