@@ -536,6 +536,13 @@
               <Action OrderNumber="6" NamedCallbackName="command" NamedCallbackParam="/e Simulating Zone: ${_ffxivzoneid} (0x${f:dec2hex:${_ffxivzoneid}})" ActionType="NamedCallback"/>
             </Actions>
           </Trigger>
+          <Trigger Enabled="true" Sequential="True" Name="终止所有触发器、悬浮窗" Id="85a3327b-0459-4788-a64f-85733ba3db7c" RegularExpression="^.{15}\S+ 00:0038:: *break *$">
+            <Actions>
+              <Action OrderNumber="1" TextAuraOp="DeactivateAllAura" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="CancelAllTrigger" ActionType="TextAura"/>
+              <Action OrderNumber="2" AuraOp="DeactivateAllAura" TextAuraOp="DeactivateAllAura" TriggerOp="CancelAllTrigger" ActionType="Aura"/>
+              <Action OrderNumber="3" TriggerOp="CancelAllTrigger" ActionType="Trigger"/>
+            </Actions>
+          </Trigger>
         </Triggers>
       </Folder>
       <Folder Id="39674827-7583-481c-9680-6992da3732f4" Name="高级标点工具箱 AdvWm v4.8.0" Enabled="true" RawEnvironmentVariables="version = 4.8.0">
@@ -675,19 +682,9 @@
             <Actions>
               <Action OrderNumber="1" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableValue="${sid}" ActionType="DictVariable" Asynchronous="False"/>
               <Action OrderNumber="2" DictVariableOp="GetEntity" DictVariableName="tmp_tgt" DictVariableValue="${tid}" ActionType="DictVariable" Asynchronous="False"/>
-              <Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="如果是 10xxxxxx =&gt; 40xxxxxx 则交换两者" DescriptionOverride="True"/>
-              <Action OrderNumber="4" LogMessageText="${time} _Tether AAA:23:${type}:${sid}:${sn}:${d:tmp_src[bnpcnameid]}:${d:tmp_src[bnpcid]}:${d:tmp_src[x]}:${d:tmp_src[y]}:${d:tmp_src[z]}:${d:tmp_src[h]}:${tid}:${tn}:${d:tmp_tgt[bnpcnameid]}:${d:tmp_tgt[bnpcid]}:${d:tmp_tgt[x]}:${d:tmp_tgt[y]}:${d:tmp_tgt[z]}:${d:tmp_tgt[h]}:0" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${f:startwith(40):${sid}}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                </Condition>
-              </Action>
-              <Action OrderNumber="5" LogMessageText="${time} _Tether AAA:23:${type}:${tid}:${tn}:${d:tmp_tgt[bnpcnameid]}:${d:tmp_tgt[bnpcid]}:${d:tmp_tgt[x]}:${d:tmp_tgt[y]}:${d:tmp_tgt[z]}:${d:tmp_tgt[h]}:${sid}:${sn}:${d:tmp_src[bnpcnameid]}:${d:tmp_src[bnpcid]}:${d:tmp_src[x]}:${d:tmp_src[y]}:${d:tmp_src[z]}:${d:tmp_src[h]}:1" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${f:startwith(40):${sid}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                </Condition>
-              </Action>
-              <Action OrderNumber="6" DictVariableValueType="Numeric" DictVariableName="tmp_src" ActionType="DictVariable" Asynchronous="False"/>
-              <Action OrderNumber="7" DictVariableName="tmp_tgt" ActionType="DictVariable" Asynchronous="False"/>
+              <Action OrderNumber="3" LogMessageText="${time} _Tether AAA:23:${type}:${sid}:${sn}:${d:tmp_src[bnpcnameid]}:${d:tmp_src[bnpcid]}:${d:tmp_src[x]}:${d:tmp_src[y]}:${d:tmp_src[z]}:${d:tmp_src[h]}:${tid}:${tn}:${d:tmp_tgt[bnpcnameid]}:${d:tmp_tgt[bnpcid]}:${d:tmp_tgt[x]}:${d:tmp_tgt[y]}:${d:tmp_tgt[z]}:${d:tmp_tgt[h]}:0" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False"/>
+              <Action OrderNumber="4" DictVariableValueType="Numeric" DictVariableName="tmp_src" ActionType="DictVariable" Asynchronous="False"/>
+              <Action OrderNumber="5" DictVariableName="tmp_tgt" ActionType="DictVariable" Asynchronous="False"/>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${f:startwith(40):${sid}} || ${f:startwith(40):${tid}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
@@ -724,6 +721,17 @@
             <Actions>
               <Action OrderNumber="1" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableValue="${id}" ActionType="DictVariable" Asynchronous="False"/>
               <Action OrderNumber="2" LogMessageText="${time} _ActorSpawnExtra AAA:110:${id}:${d:tmp_entity[name]}:${d:tmp_entity[bnpcnameid]}:${d:tmp_entity[bnpcid]}:${d:tmp_entity[x]}:${d:tmp_entity[y]}:${d:tmp_entity[z]}:${d:tmp_entity[h]}:${params}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+                <Condition Enabled="false" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="9020" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" DictVariableName="tmp_entity" ActionType="DictVariable" Asynchronous="False"/>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Name="22 NameToggle" Id="7160c1f3-bf5c-41b1-9c9c-bccefbb7f053" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 22:(?&lt;id&gt;4.{7}):(?&lt;name&gt;[^:]*):[^:]*:[^:]*:(?&lt;bTgtable&gt;0?[01])">
+            <Actions>
+              <Action OrderNumber="1" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableKey="ID, Name, BNpcNameID, BNpcID, X, Y, Z, Heading" DictVariableValue="${id}" ActionType="DictVariable" Asynchronous="False"/>
+              <Action OrderNumber="2" LogMessageText="${time} _NameToggle AAA:22:${n: ${bTgtable}}:${id}:${d:tmp_entity[Name]}:${d:tmp_entity[BNpcNameID]}:${d:tmp_entity[BNpcID]}:${d:tmp_entity[X]}:${d:tmp_entity[Y]}:${d:tmp_entity[Z]}:${d:tmp_entity[Heading]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
                 <Condition Enabled="false" Grouping="Or">
                   <ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="9020" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                 </Condition>
@@ -1095,9 +1103,14 @@
               <Action OrderNumber="1" UseTTSTextExpression="${value}" UseTTSExclusive="False" ActionType="UseTTS" ExecutionDelayExpression="(${sec}) * 1000"/>
             </Actions>
           </Trigger>
+          <Trigger Enabled="true" Name="log" Id="e5c1e081-13a5-44e6-9b6d-802e99f93d7b" RegularExpression="^(?i)log:(?&lt;sec&gt;[^:]+):(?&lt;value&gt;.+)$">
+            <Actions>
+              <Action OrderNumber="1" LogMessageText="${value}" LogProcess="True" LogProcessACT="True" UseTTSExclusive="False" ActionType="LogMessage" ExecutionDelayExpression="(${sec}) * 1000"/>
+            </Actions>
+          </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="2a2d791e-eeb3-4e29-96e5-f8e6ac9ef5d6" Name="鲶鱼精邮差扩展 v4.1.1" Enabled="true" RawEnvironmentVariables="version = 4.1.0&#13;&#10;trigversion = 1.2.0.748">
+      <Folder Id="2a2d791e-eeb3-4e29-96e5-f8e6ac9ef5d6" Name="鲶鱼精邮差扩展 v4.1.2" Enabled="true" RawEnvironmentVariables="version = 4.1.0&#13;&#10;trigversion = 1.2.0.748">
         <Folders>
           <Folder Id="9c2e8968-be16-47fc-8457-e377d01362af" Name="core" Enabled="true">
             <Folders>
@@ -1290,7 +1303,21 @@
                     <Actions>
                       <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="dθ" VariableExpression="random(0, 60) / 180 * π" ActionType="Variable" Asynchronous="False"/>
                       <Action OrderNumber="2" ListVariableOp="SetAll" ListVariableName="test" ListVariableExpression="${n: 15 * sin(${_idx} * 2 * π / $1 + ${v:dθ}) + random(-15, 15) / $1}, ${n: 15 * cos(${_idx} * 2 * π / $1 + ${v:dθ})+ random(-15, 15) / $1}" ListVariableIndex="$1" ActionType="ListVariable" Asynchronous="False"/>
-                      <Action OrderNumber="3" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Triangulate&#13;&#10;Tag: test&#13;&#10;Points: 0,0; ${l:test.join(&quot;;&quot;)}; ${l:test[1]}+0.01&#13;&#10;t: sqrt($1)" ActionType="NamedCallback"/>
+                      <Action OrderNumber="3" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Triangulate&#13;&#10;Tag: test&#13;&#10;O: ${_me.Pos}&#13;&#10;Points: 0,0; ${l:test.join(&quot;;&quot;)}; ${l:test[1]}+0.01&#13;&#10;t: sqrt($1)&#13;&#10;Color: 0, 1, 10, 1" ActionType="NamedCallback"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="清除所有特效" Id="a35ce658-a6e9-4c34-a302-892fc28e5c76" RegularExpression="^.{15}\S+ 00:0038::(?i)removevfx(?: +(?&lt;regex&gt;.+?))? *$">
+                    <Actions>
+                      <Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove" ActionType="NamedCallback">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${regex}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#13;&#10;Regex: ${regex}" ActionType="NamedCallback">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${regex}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
                     </Actions>
                   </Trigger>
                 </Triggers>
