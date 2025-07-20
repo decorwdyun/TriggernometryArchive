@@ -117,7 +117,7 @@
                   <Trigger Enabled="true" Sequential="True" Name="[F] 注册并打开配置" Id="9fe02f58-b931-43f4-afd5-c7a2dcde178f" RegularExpression="^(?&lt;prefix&gt;[^[:_]+)_cfg$" PeriodRefire="Deny" RefirePeriodExpression="5000">
                     <Actions>
                       <Action OrderNumber="1" UseTTSTextExpression="正在开启配置" ActionType="UseTTS"/>
-                      <Action OrderNumber="2" ExecScriptExpression="using System;&#13;&#10;using System.Collections;&#13;&#10;using System.Collections.Generic;&#13;&#10;using System.Drawing;&#13;&#10;using System.Linq;&#13;&#10;using System.Threading;&#13;&#10;using System.Windows.Forms;&#13;&#10;using Triggernometry;&#13;&#10;using Triggernometry.Forms;&#13;&#10;using static Triggernometry.Forms.GameConfigForm;&#13;&#10;&#13;&#10;RealPlugin.plug.RegisterNamedCallback(S7bEntry.Info.ConfigName, new Action&lt;object, string&gt;((_, __) =&gt; S7bEntry.Start()), null);&#13;&#10;&#13;&#10;public static class S7bEntry&#13;&#10;{&#13;&#10;    public static ConfigInfo Info = new ConfigInfo(&quot;阿卡狄亚中量级 M5-8 宝宝椅&quot;, null, null/*&quot;阿洛 MnFeN&quot;*/, &quot;${env:prefix}_cfg&quot;);&#13;&#10;    static Color Blue = Color.FromArgb(0x22, 0x66, 0xff);&#13;&#10;    public static void RunConfigForm()&#13;&#10;    {&#13;&#10;        try { _RunConfigForm(); }&#13;&#10;        catch (Exception ex)&#13;&#10;        {&#13;&#10;            MessageBox.Show(&quot;配置界面运行时遇到问题：\n\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#13;&#10;        }&#13;&#10;    }&#13;&#10;&#13;&#10;    private static void _RunConfigForm()&#13;&#10;    {&#13;&#10;        GameConfigForm form = new GameConfigForm(Info);&#13;&#10;        form.Shown += (sender, e) =&gt; RealPlugin.plug.InvokeNamedCallback(&quot;command&quot;, &quot;/e &lt;se.9&gt;&quot;);&#13;&#10;&#13;&#10;        BijectDictionary&lt;string, string&gt; cbxItems;&#13;&#10;        Option optionCtrl;&#13;&#10;        Label label;&#13;&#10;        string hint = &quot;&quot;;&#13;&#10;        // 在下面倒序添加各个选项组（组内的选项正序）&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableM8s = form.AddOptionGroup(&quot; M8s 剑嚎 &quot;);&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;国&quot;, &quot; [国服] 斜八方固定位置&quot;),&#13;&#10;            (&quot;美&quot;, &quot; [美服] 浮游炮安全区方向 TH 顺 D 逆&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　钢铁浮游炮时的分散站位&quot;, &quot;M8s_钢铁站位&quot;, cbxItems, &quot;国&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableM8s);&#13;&#10;        /*&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;顺次&quot;, &quot; 连线顺次经过四个平台&quot;),&#13;&#10;            (&quot;半场&quot;, &quot; 分左右半场处理接线风圈和直线分摊&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　[未适配] 本体传线解法&quot;, &quot;M8s_传线&quot;, cbxItems, &quot;顺次&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableM8s);&#13;&#10;        */&#13;&#10;        OptionsTableLayoutPanel tableM7s = form.AddOptionGroup(&quot; M7s 野蛮恨心 &quot;);&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;1&quot;, &quot; [国服] 相对面向基准&quot;),&#13;&#10;            (&quot;0&quot;, &quot; [美服] 绝对方向基准&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　八方分散的方位基准&quot;, &quot;M7s_b面基&quot;, cbxItems, &quot;1&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableM7s);&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableM6s = form.AddOptionGroup(&quot; M6s 狂热糖潮 &quot;);&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;国&quot;, &quot; [国服] 危险仙人掌为北，左至右 H1-人群-H2&quot;),&#13;&#10;            (&quot;美&quot;, &quot; [美服] 危险仙人掌为南，左至右 H1-人群-H2&quot;),&#13;&#10;            (&quot;日&quot;, &quot; [日服] 绝对方向基准&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　沙坑+仙人掌阶段的方位基准&quot;, &quot;M6s_沙坑基准&quot;, cbxItems, &quot;1&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableM6s);&#13;&#10;        hint = &quot;第一次飞行时的圆弧内为危险区域；\n第二次飞行时的橙色多边形区域为危险区域。\n只要不在危险区域内，即可纠正至正确方向。&quot;;&#13;&#10;        optionCtrl = new OptionChk(&quot;  强制飞行前自动纠正面向，防止飞进电网或熔岩&quot;, &quot;M6s_AutoFly&quot;, true, hint);&#13;&#10;        form.AddOption(optionCtrl, tableM6s);&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableM5s = form.AddOptionGroup(&quot; M5s 热舞绿光 &quot;);&#13;&#10;        form.AddLabel(&quot;  &quot;, tableM5s);&#13;&#10;&#13;&#10;        #region 使用须知&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableInfo = form.AddOptionGroup(&quot; 使用须知 &quot;);&#13;&#10;&#13;&#10;        form.AddLabel(&quot;· 使用前必须查看使用说明，见绝伊甸触发器分组下的「使用说明」触发器。&quot;, tableInfo)&#13;&#10;            .ForeColor = Blue;&#13;&#10;&#13;&#10;        //label = form.AddLabel(&quot;· 下方部分选项上悬停鼠标可以显示详细说明。&quot;, tableInfo);&#13;&#10;        //label.ForeColor = Blue;&#13;&#10;&#13;&#10;        #endregion 使用须知&#13;&#10;&#13;&#10;        Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#13;&#10;        form.Run();&#13;&#10;    }&#13;&#10;&#13;&#10;&#13;&#10;    [STAThread]&#13;&#10;    public static void Start()&#13;&#10;    {&#13;&#10;        try&#13;&#10;        {&#13;&#10;            Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#13;&#10;            Thread staThread = new Thread(new ThreadStart(RunConfigForm));&#13;&#10;            staThread.SetApartmentState(ApartmentState.STA);&#13;&#10;            staThread.Start();&#13;&#10;            staThread.Join();&#13;&#10;        }&#13;&#10;        catch (Exception ex)&#13;&#10;        {&#13;&#10;            MessageBox.Show(&quot;用户配置表单运行错误：\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#13;&#10;        }&#13;&#10;    }&#13;&#10;}&#13;&#10;" ActionType="ExecuteScript">
+                      <Action OrderNumber="2" ExecScriptExpression="using System;&#13;&#10;using System.Collections;&#13;&#10;using System.Collections.Generic;&#13;&#10;using System.Drawing;&#13;&#10;using System.Linq;&#13;&#10;using System.Threading;&#13;&#10;using System.Windows.Forms;&#13;&#10;using Triggernometry;&#13;&#10;using Triggernometry.Forms;&#13;&#10;using static Triggernometry.Forms.GameConfigForm;&#13;&#10;&#13;&#10;RealPlugin.plug.RegisterNamedCallback(S7bEntry.Info.ConfigName, new Action&lt;object, string&gt;((_, __) =&gt; S7bEntry.Start()), null);&#13;&#10;&#13;&#10;public static class S7bEntry&#13;&#10;{&#13;&#10;    public static ConfigInfo Info = new ConfigInfo(&quot;阿卡狄亚中量级 M5-8 宝宝椅&quot;, null, null/*&quot;阿洛 MnFeN&quot;*/, &quot;${env:prefix}_cfg&quot;);&#13;&#10;    static Color Blue = Color.FromArgb(0x22, 0x66, 0xff);&#13;&#10;    public static void RunConfigForm()&#13;&#10;    {&#13;&#10;        try { _RunConfigForm(); }&#13;&#10;        catch (Exception ex)&#13;&#10;        {&#13;&#10;            MessageBox.Show(&quot;配置界面运行时遇到问题：\n\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#13;&#10;        }&#13;&#10;    }&#13;&#10;&#13;&#10;    private static void _RunConfigForm()&#13;&#10;    {&#13;&#10;        GameConfigForm form = new GameConfigForm(Info);&#13;&#10;        form.Shown += (sender, e) =&gt; RealPlugin.plug.InvokeNamedCallback(&quot;command&quot;, &quot;/e &lt;se.9&gt;&quot;);&#13;&#10;&#13;&#10;        BijectDictionary&lt;string, string&gt; cbxItems;&#13;&#10;        Option optionCtrl;&#13;&#10;        Label label;&#13;&#10;        string hint = &quot;&quot;;&#13;&#10;        // 在下面倒序添加各个选项组（组内的选项正序）&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableM8s = form.AddOptionGroup(&quot; M8s 剑嚎 &quot;);&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;国&quot;, &quot; [国服] 斜八方固定位置&quot;),&#13;&#10;            (&quot;美&quot;, &quot; [美服] 浮游炮安全区方向 TH 顺 D 逆&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　钢铁浮游炮时的分散站位&quot;, &quot;M8s_钢铁站位&quot;, cbxItems, &quot;国&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableM8s);&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;1&quot;, &quot; [国服] 先撞绿色风球&quot;),&#13;&#10;            (&quot;0&quot;, &quot; [美服] 先撞黄色土立方体&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　小怪阶段消除风土 debuff 顺序&quot;, &quot;M8s_b先撞绿&quot;, cbxItems, &quot;1&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableM8s);&#13;&#10;        /*&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;顺次&quot;, &quot; 连线顺次经过四个平台&quot;),&#13;&#10;            (&quot;半场&quot;, &quot; 分左右半场处理接线风圈和直线分摊&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　[未适配] 本体传线解法&quot;, &quot;M8s_传线&quot;, cbxItems, &quot;顺次&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableM8s);&#13;&#10;        */&#13;&#10;        OptionsTableLayoutPanel tableM7s = form.AddOptionGroup(&quot; M7s 野蛮恨心 &quot;);&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;1&quot;, &quot; [国服] 相对面向基准&quot;),&#13;&#10;            (&quot;0&quot;, &quot; [美服] 绝对方向基准&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　八方分散的方位基准&quot;, &quot;M7s_b面基&quot;, cbxItems, &quot;1&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableM7s);&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableM6s = form.AddOptionGroup(&quot; M6s 狂热糖潮 &quot;);&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;国&quot;, &quot; [国服] 危险仙人掌为北，左至右 H1-人群-H2&quot;),&#13;&#10;            (&quot;美&quot;, &quot; [美服] 危险仙人掌为南，左至右 H1-人群-H2&quot;),&#13;&#10;            (&quot;日&quot;, &quot; [日服] 绝对方向基准&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　沙坑+仙人掌阶段的方位基准&quot;, &quot;M6s_沙坑基准&quot;, cbxItems, &quot;1&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableM6s);&#13;&#10;        hint = &quot;第一次飞行时的圆弧内为危险区域；\n第二次飞行时的橙色多边形区域为危险区域。\n只要不在危险区域内，即可纠正至正确方向。&quot;;&#13;&#10;        optionCtrl = new OptionChk(&quot;  强制飞行前自动纠正面向，防止飞进电网或熔岩&quot;, &quot;M6s_AutoFly&quot;, true, hint);&#13;&#10;        form.AddOption(optionCtrl, tableM6s);&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableM5s = form.AddOptionGroup(&quot; M5s 热舞绿光 &quot;);&#13;&#10;        form.AddLabel(&quot;  &quot;, tableM5s);&#13;&#10;&#13;&#10;        #region 使用须知&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableInfo = form.AddOptionGroup(&quot; 使用须知 &quot;);&#13;&#10;&#13;&#10;        form.AddLabel(&quot;· 使用前必须查看使用说明，见绝伊甸触发器分组下的「使用说明」触发器。&quot;, tableInfo)&#13;&#10;            .ForeColor = Blue;&#13;&#10;&#13;&#10;        //label = form.AddLabel(&quot;· 下方部分选项上悬停鼠标可以显示详细说明。&quot;, tableInfo);&#13;&#10;        //label.ForeColor = Blue;&#13;&#10;&#13;&#10;        #endregion 使用须知&#13;&#10;&#13;&#10;        Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#13;&#10;        form.Run();&#13;&#10;    }&#13;&#10;&#13;&#10;&#13;&#10;    [STAThread]&#13;&#10;    public static void Start()&#13;&#10;    {&#13;&#10;        try&#13;&#10;        {&#13;&#10;            Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#13;&#10;            Thread staThread = new Thread(new ThreadStart(RunConfigForm));&#13;&#10;            staThread.SetApartmentState(ApartmentState.STA);&#13;&#10;            staThread.Start();&#13;&#10;            staThread.Join();&#13;&#10;        }&#13;&#10;        catch (Exception ex)&#13;&#10;        {&#13;&#10;            MessageBox.Show(&quot;用户配置表单运行错误：\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#13;&#10;        }&#13;&#10;    }&#13;&#10;}&#13;&#10;" ActionType="ExecuteScript">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${ecallback:${env:prefix}_cfg}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${pd:${env:prefix}_cfg[version]}" ExpressionTypeL="String" ExpressionR="${env:version}" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
@@ -151,16 +151,11 @@
       </Folder>
       <Folder Id="2bae1fcc-7184-423a-8912-03eb84c4a4fa" Name="M5-8s" Enabled="true">
         <Folders>
-          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1261$" Id="26cf99e2-a745-4c1a-a69c-20df5cd9e16b" Name="M7s v1.0.5" Enabled="true" RawEnvironmentVariables="zone = 1261">
+          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1261$" Id="26cf99e2-a745-4c1a-a69c-20df5cd9e16b" Name="M7s v1.1.0" Enabled="true" RawEnvironmentVariables="zone = 1261">
             <Folders>
               <Folder Id="130144cf-c144-4bc0-80d9-73dc78c2952f" Name="杂项" Enabled="true">
                 <Folders/>
                 <Triggers>
-                  <Trigger Enabled="true" Name="石化" Id="6e6ca73d-da45-45e7-946a-5b1381ccc3e6" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A575):">
-                    <Actions>
-                      <Action OrderNumber="1" UseTTSTextExpression="躲在小怪后" ActionType="UseTTS"/>
-                    </Actions>
-                  </Trigger>
                   <Trigger Enabled="true" Name="冰花" Id="a846d3a6-1301-4b03-8bbe-4afb921ba242" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;A59A|A59D|A570):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
                     <Actions>
                       <Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: er_general_x02t&#13;&#10;Tag: M7s_冰花&#13;&#10;t: 3.0&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h}&#13;&#10;Scale: 2, 60&#13;&#10;---&#13;&#10;Omen: er_general_x02t&#13;&#10;Tag: M7s_冰花&#13;&#10;t: 3.0&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h} + π/2&#13;&#10;Scale: 2, 60" ActionType="NamedCallback"/>
@@ -210,27 +205,6 @@
                       <Action OrderNumber="4" ListVariableName="M7s_橙圈_tid" ActionType="ListVariable" ExecutionDelayExpression="1000" Asynchronous="False"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Name="阶段标点" Id="c70e8d48-4497-464b-b42a-58be1642bdba" RegularExpression="^M7s_waymark:(.+)$">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="https://www.geogebra.org/classic/jsbcev55" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="// P1&#13;&#10;Action: Circle&#13;&#10;O: 100, 100, 0&#13;&#10;Waymarks: A1D4C3B2&#13;&#10;R: 17&#13;&#10;R2: 9√2" ActionType="NamedCallback" DescBgColor="dff">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="$1" ExpressionTypeL="String" ExpressionR="P1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="// P2&#13;&#10;O: 100, 5, 0&#13;&#10;θ: $1 == P2L ? -π/2 : π/2&#13;&#10;// TH&#13;&#10;A: 0, -12.5&#13;&#10;B: -3.32, -4&#13;&#10;// D4&#13;&#10;C: 0, 12.5&#13;&#10;D: 14.42, 8.08&#13;&#10;// D12&#13;&#10;1: -25, -12.5&#13;&#10;2: ${if: $1 == P2L ? &quot;-21.18, -4&quot; : &quot;-21.18, -4, 0.7&quot; }&#13;&#10;// D3&#13;&#10;3: ${if: $1 == P2L ? &quot;25, -12.5&quot; : &quot;-25, 12.5&quot; }&#13;&#10;4: ${if: $1 == P2L ? &quot;21.18, -4&quot; : &quot;-21.18, -4, -0.7&quot; }" ActionType="NamedCallback" DescBgColor="dff">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="$1" ExpressionTypeL="String" ExpressionR="P2L" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                          <ConditionSingle Enabled="true" ExpressionL="$1" ExpressionTypeL="String" ExpressionR="P2R" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="// P3&#13;&#10;Action: Circle&#13;&#10;O: 100, 5, -200&#13;&#10;Waymarks: A1D4C3B2&#13;&#10;R: 19&#13;&#10;R2: 10√2" ActionType="NamedCallback" DescBgColor="dff">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="$1" ExpressionTypeL="String" ExpressionR="P3" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
-                        </Condition>
-                      </Action>
-                    </Actions>
-                  </Trigger>
                   <Trigger Enabled="true" Name="花点名 粉圈（开场/P3 +4黄aoe）" Id="9815e7cc-f20b-4631-a689-2d18931fa41f" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:0177:">
                     <Actions>
                       <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="M7s_粉圈_tid" ListVariableExpression="${tid}" ActionType="ListVariable" Asynchronous="False"/>
@@ -250,6 +224,27 @@
                         </Condition>
                       </Action>
                       <Action OrderNumber="5" ListVariableName="M7s_粉圈_tid" ActionType="ListVariable" ExecutionDelayExpression="1000" Asynchronous="False"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="阶段标点" Id="c70e8d48-4497-464b-b42a-58be1642bdba" RegularExpression="^M7s_waymark:(.+)$">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="https://www.geogebra.org/classic/jsbcev55" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="// P1&#13;&#10;Action: Circle&#13;&#10;O: 100, 100, 0&#13;&#10;Waymarks: A1D4C3B2&#13;&#10;R: 17&#13;&#10;R2: 9√2" ActionType="NamedCallback" DescBgColor="dff">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="$1" ExpressionTypeL="String" ExpressionR="P1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="// P2&#13;&#10;O: 100, 5, 0&#13;&#10;θ: $1 == P2L ? -π/2 : π/2&#13;&#10;// TH&#13;&#10;A: 0, -12.5&#13;&#10;B: -3.32, -4&#13;&#10;// D4&#13;&#10;C: 0, 12.5&#13;&#10;D: 14.42, 8.08&#13;&#10;// D12&#13;&#10;1: -25, -12.5&#13;&#10;2: ${if: $1 == P2L ? &quot;-21.18, -4&quot; : &quot;-21.18, -4, 0.7&quot; }&#13;&#10;// D3&#13;&#10;3: ${if: $1 == P2L ? &quot;25, -12.5&quot; : &quot;-25, 12.5&quot; }&#13;&#10;4: ${if: $1 == P2L ? &quot;21.18, -4&quot; : &quot;-21.18, -4, -0.7&quot; }" ActionType="NamedCallback" DescBgColor="dff">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="$1" ExpressionTypeL="String" ExpressionR="P2L" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="$1" ExpressionTypeL="String" ExpressionR="P2R" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="// P3&#13;&#10;Action: Circle&#13;&#10;O: 100, 5, -200&#13;&#10;Waymarks: A1D4C3B2&#13;&#10;R: 19&#13;&#10;R2: 10√2" ActionType="NamedCallback" DescBgColor="dff">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="$1" ExpressionTypeL="String" ExpressionR="P3" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -384,7 +379,8 @@
                       <Action OrderNumber="16" ActionType="Placeholder" Asynchronous="False" Description="开场落地和两次分摊塔落地" DescriptionOverride="True"/>
                       <Action OrderNumber="17" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[bnpcid = 18307].address}, 0.3" ActionType="NamedCallback" ExecutionDelayExpression="14000" DescTextColor="26f"/>
                       <Action OrderNumber="18" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[bnpcid = 18307].address}, 0.3" ActionType="NamedCallback" ExecutionDelayExpression="66400" DescTextColor="26f"/>
-                      <Action OrderNumber="19" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[bnpcid = 18307].address}, 0.3" ActionType="NamedCallback" ExecutionDelayExpression="180000" DescTextColor="26f"/>
+                      <Action OrderNumber="19" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[bnpcid = 18307].address}, 0.3" ActionType="NamedCallback" ExecutionDelayExpression="34500" DescTextColor="26f"/>
+                      <Action OrderNumber="20" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[bnpcid = 18307].address}, 0.3" ActionType="NamedCallback" ExecutionDelayExpression="145500" DescTextColor="26f"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -606,6 +602,97 @@
                 </Folders>
                 <Triggers/>
               </Folder>
+              <Folder Id="c1dc8226-e66e-463d-b88e-69fc457bb3d3" Name="小怪石化安全区" Enabled="true">
+                <Folders/>
+                <Triggers>
+                  <Trigger Enabled="true" Name="4. 石化" Id="6e6ca73d-da45-45e7-946a-5b1381ccc3e6" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:(?&lt;aid&gt;A575|A52D):">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="躲在小怪后" ActionType="UseTTS"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="5000"/>
+                      <Action OrderNumber="3" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#13;&#10;Regex: ^M7s_石化_" ActionType="NamedCallback" DescBgColor="ffd"/>
+                      <Action OrderNumber="4" TableVariableName="tmp_entities" ActionType="TableVariable"/>
+                      <Action OrderNumber="5" TableVariableName="tmp_boss" ActionType="TableVariable"/>
+                      <Action OrderNumber="6" TableVariableName="tmp_花" ActionType="TableVariable"/>
+                      <Action OrderNumber="7" VariableName="M7s_石化_loop" ActionType="Variable"/>
+                      <Action OrderNumber="8" VariableOp="UnsetRegex" VariableName="^tmp_" ActionType="Variable"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Sequential="True" Name="3. [F] 绘制单个花的安全区" Id="76a6cfce-ee82-4c87-8c52-14b9f6f69a2c" RegularExpression="^M7s_石化:boss:(?&lt;xBoss&gt;[^:]+):(?&lt;yBoss&gt;[^:]+):(?&lt;z&gt;[^:]+):花(?&lt;idx&gt;[1-4]):(?&lt;id&gt;.{8}):(?&lt;x花&gt;[^:]+):(?&lt;y花&gt;[^:]+)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="绘制三条边缘：boss 中心到花 (r = 3.4) 目标圈的两条切线作为左右边缘；过花中心、垂直于 [boss 到花方向] 的线作为前边缘" DescriptionOverride="True"/>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="首先求 boss 到花距离 d、角度 θ、前边缘的半长度 l" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="tmp_d_${id}" VariableExpression="distance(${xBoss}, ${yBoss}, ${x花}, ${y花})" ActionType="Variable"/>
+                      <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="tmp_θ_${id}" VariableExpression="θ(${xBoss}, ${yBoss}, ${x花}, ${y花})" ActionType="Variable"/>
+                      <Action OrderNumber="4" VariableOp="SetNumeric" VariableName="tmp_l_${id}" VariableExpression="${v:tmp_d_${id}} * 3.4 / √(${v:tmp_d_${id}} ^ 2 - 3.4 ^ 2)" ActionType="Variable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_d_${id}}" ExpressionTypeL="String" ExpressionR="3.5" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="5" VariableOp="SetNumeric" VariableName="tmp_l_${id}" VariableExpression="20" ActionType="Variable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_d_${id}}" ExpressionTypeL="String" ExpressionR="3.5" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="6" ActionType="Placeholder" Description="以花为中心，boss 到花为北建立相对参考系画图" DescriptionOverride="True"/>
+                      <Action OrderNumber="7" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Change&#13;&#10;Tag: M7s_石化_${id}_右边缘&#13;&#10;O: ${x花}, ${y花}, ${z}&#13;&#10;θ: ${v:tmp_θ_${id}}&#13;&#10;Pos: -${v:tmp_l_${id}}, 0, 0&#13;&#10;Angle: π + arcsin(3.4 / max(${v:tmp_d_${id}}, 3.4))&#13;&#10;---&#13;&#10;Action: Change&#13;&#10;Tag: M7s_石化_${id}_左边缘&#13;&#10;O: ${x花}, ${y花}, ${z}&#13;&#10;θ: ${v:tmp_θ_${id}}&#13;&#10;Pos: ${v:tmp_l_${id}}, 0, 0&#13;&#10;Angle: π - arcsin(3.4 / max(${v:tmp_d_${id}}, 3.4))&#13;&#10;---&#13;&#10;Action: Change&#13;&#10;Tag: M7s_石化_${id}_前边缘&#13;&#10;O: ${x花}, ${y花}, ${z}&#13;&#10;θ: ${v:tmp_θ_${id}}&#13;&#10;Pos: -${v:tmp_l_${id}}, 0, 0&#13;&#10;Angle: π/2&#13;&#10;Scale: 0.05, 2 * ${v:tmp_l_${id}}, 1" ActionType="NamedCallback" DescBgColor="ffd"/>
+                      <Action OrderNumber="8" NamedCallbackName="command" NamedCallbackParam="/e 3. 小怪${id}" Enabled="False" ActionType="NamedCallback" DescBgColor="fdd"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Sequential="True" Name="2. 触发循环 =&gt; 3" Id="908811b2-edd8-4bcd-bad4-04ddca110eab" RegularExpression="^_M7s_石化_loop" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
+                    <Actions>
+                      <Action OrderNumber="1" VariableOp="SetString" VariableName="M7s_石化_loop" VariableExpression="1" ActionType="Variable"/>
+                      <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e 2. 循环" Enabled="False" ActionType="NamedCallback" DescBgColor="fdd"/>
+                      <Action OrderNumber="3" LoopDelayExpression="20" ActionType="Loop" DescBgColor="ffd">
+                        <LoopCondition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${ev:M7s_石化_loop}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="false" ExpressionL="${_me.InCombat}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </LoopCondition>
+                        <LoopActions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="获取花、自身、boss的位置 (bnpcid 第一个是零式 第二个是普通 第三个是用于测试的吉祥天女歼灭战)" DescriptionOverride="True"/>
+                          <Action OrderNumber="2" TableVariableOp="GetAllEntities" TableVariableName="tmp_entities" TableVariableX="ID, BNpcID, X, Y, Z" ActionType="TableVariable"/>
+                          <Action OrderNumber="3" TableVariableOp="FilterLine" TableVariableName="tmp_entities" TableVariableTarget="tmp_boss" TableVariableY="${_row[2]} == 18307 || ${_row[2]} == 18305 || ${_row[2]} == 7712" ActionType="TableVariable"/>
+                          <Action OrderNumber="4" TableVariableOp="FilterLine" TableVariableName="tmp_entities" TableVariableTarget="tmp_花" TableVariableY="${_row[2]} == 18308 || ${_row[2]} == 18306 || ${_row[2]} == 7714" ActionType="TableVariable"/>
+                          <Action OrderNumber="5" TableVariableOp="SortLine" TableVariableName="tmp_花" TableVariableY="n+: 0x${_row[1]}" ActionType="TableVariable"/>
+                          <Action OrderNumber="6" LogMessageText="M7s_石化:boss:${t:tmp_boss.hjoin(&quot;:&quot;, &quot;:&quot;, &quot;3,4,5&quot;, 1)}:花1:${t:tmp_花.hjoin(&quot;:&quot;, &quot;:&quot;, &quot;1,3,4&quot;, 1)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" DescBgColor="ffd"/>
+                          <Action OrderNumber="7" LogMessageText="M7s_石化:boss:${t:tmp_boss.hjoin(&quot;:&quot;, &quot;:&quot;, &quot;3,4,5&quot;, 1)}:花2:${t:tmp_花.hjoin(&quot;:&quot;, &quot;:&quot;, &quot;1,3,4&quot;, 2)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" DescBgColor="ffd"/>
+                          <Action OrderNumber="8" LogMessageText="M7s_石化:boss:${t:tmp_boss.hjoin(&quot;:&quot;, &quot;:&quot;, &quot;3,4,5&quot;, 1)}:花3:${t:tmp_花.hjoin(&quot;:&quot;, &quot;:&quot;, &quot;1,3,4&quot;, 3)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" DescBgColor="ffd"/>
+                          <Action OrderNumber="9" LogMessageText="M7s_石化:boss:${t:tmp_boss.hjoin(&quot;:&quot;, &quot;:&quot;, &quot;3,4,5&quot;, 1)}:花4:${t:tmp_花.hjoin(&quot;:&quot;, &quot;:&quot;, &quot;1,3,4&quot;, 4)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" DescBgColor="ffd"/>
+                          <Action OrderNumber="10" NamedCallbackName="command" NamedCallbackParam="/e 2. 循环 ${_sincems}" Enabled="False" ActionType="NamedCallback" DescBgColor="fdd"/>
+                        </LoopActions>
+                      </Action>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Sequential="True" Name="1. 生成小怪 =&gt; 2" Id="924d3b2a-30e6-474b-b843-cacb7b4d3bed" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}(?&lt;bnpcid&gt;1830[68]|7714):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="18308:零式小怪 18306:普通小怪 7714:吉祥天女歼灭战（调试用）" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="${_entity[${id}].y} &gt; 80 ? 30000 : 12000"/>
+                      <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/e 1. 小怪${id}" Enabled="False" ActionType="NamedCallback" DescBgColor="fdd"/>
+                      <Action OrderNumber="4" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: m0372_stlight01j&#13;&#10;Tag: M7s_石化_${id}_右边缘&#13;&#10;Scale: 0.05, 30, 1&#13;&#10;---&#13;&#10;Omen: m0372_stlight01j&#13;&#10;Tag: M7s_石化_${id}_左边缘&#13;&#10;Scale: 0.05, 30, 1&#13;&#10;---&#13;&#10;Omen: m0372_stlight01j&#13;&#10;Tag: M7s_石化_${id}_前边缘" ActionType="NamedCallback" DescBgColor="ffd"/>
+                      <Action OrderNumber="5" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Change&#13;&#10;Regex: ^M7s_石化_${id}_&#13;&#10;Color: ${if: 0x${id} % 2 ? 0, 2, 4, 3 : 0, 3, 0, 3 } " ActionType="NamedCallback" DescBgColor="ffd"/>
+                      <Action OrderNumber="6" LogMessageText="_M7s_石化_loop" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="b3339f32-8d24-467b-b2bf-5e9c8828e9ae" Name="连线 debuff 层数范围" Enabled="true">
+                <Folders/>
+                <Triggers>
+                  <Trigger Enabled="true" Name="2. 销毁" Id="c0b01f4d-52b2-4c64-a531-e36405b1253b" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;type&gt;A588|A596|A5B0):">
+                    <Actions>
+                      <Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#13;&#10;Regex: ^M7s_荆棘" ActionType="NamedCallback" ExecutionDelayExpression="${?d: A588 = 24600, A596 = 57400, A5B0 = 59400 [${type}]}" DescBgColor="ffd"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="1. 连线" Id="50f97e8b-26e7-497c-9b27-48d757b0b2da" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;0145|0152)">
+                    <Actions>
+                      <Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: n4b5_tr_g05o0g&#13;&#10;Tag: M7s_荆棘_12&#13;&#10;Scale: 20 * 1.09&#13;&#10;Color: 0.4, 2, 0.1, 0.5&#13;&#10;---&#13;&#10;Omen: n4b5_tr_g05o0g&#13;&#10;Tag: M7s_荆棘_23&#13;&#10;Scale: 23 * 1.09&#13;&#10;Color: 0.8, 1.5, 0, 0.5&#13;&#10;---&#13;&#10;Omen: n4b5_tr_g05o0g&#13;&#10;Tag: M7s_荆棘_34&#13;&#10;Scale: 26 * 1.09&#13;&#10;Color: 1, 0.5, 0, 0.5&#13;&#10;---&#13;&#10;Action: Change&#13;&#10;Regex: ^M7s_荆棘&#13;&#10;Pos: ${_entity[${sid}].x, y}, round(${_entity[${sid}].z})" ActionType="NamedCallback" DescBgColor="ffd">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
             </Folders>
             <Triggers>
               <Trigger Enabled="true" Name="注册小队：自身" Id="d52a7dfe-7928-437e-9ae8-d604d64c40dd" RegularExpression="^.{15}\S+ 01:(?&lt;zoneid&gt;[^:]*):">
@@ -618,7 +705,7 @@
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1263$" Id="1e2249bb-6d96-48be-9107-d4f961730a73" Name="M8s v1.0.7" Enabled="true" RawEnvironmentVariables="zone = 1263">
+          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1263$" Id="1e2249bb-6d96-48be-9107-d4f961730a73" Name="M8s v1.1.0" Enabled="true" RawEnvironmentVariables="zone = 1263">
             <Folders>
               <Folder Id="8511270f-4672-42dd-a3b1-f61b0e0fc9f4" Name="杂项" Enabled="true">
                 <Folders/>
@@ -928,73 +1015,6 @@
                       <Action OrderNumber="1" UseTTSTextExpression="柱子" ActionType="UseTTS"/>
                       <Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^M8s_柱子" ActionType="Variable"/>
                       <Action OrderNumber="2" VariableOp="SetString" VariableName="M8s_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
-                    </Actions>
-                  </Trigger>
-                </Triggers>
-              </Folder>
-              <Folder Id="41c96aa2-7f49-43a8-a689-1261b277a626" Name="E. 小怪" Enabled="true" RawEnvironmentVariables="phase = add">
-                <Folders/>
-                <Triggers>
-                  <Trigger Enabled="true" Name="2. 获取连线" Id="7f0e4e93-d6b6-48aa-9cd4-7dd5eb72151a" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;1.{7}):[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;014F|0150)">
-                    <Actions>
-                      <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="M8s_add_is自土线" VariableExpression="0x${type} = 0x14F" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="2" UseTTSTextExpression="去${if: ${v:M8s_add_is自土线} ? 左侧绿色 : 右侧黄色 }" ActionType="UseTTS"/>
-                      <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: 100, 100&#13;&#10;ScaleX: 0${v:M8s_add_is自土线} ? -1 : 1&#13;&#10;Start: 1, 0&#13;&#10;End: 10.75, 0&#13;&#10;Waymarks: ABCD" ActionType="NamedCallback" DescBgColor="dff"/>
-                    </Actions>
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
-                    </Condition>
-                  </Trigger>
-                  <Trigger Enabled="true" Name="3. 获取风球 =&gt; 顺逆" Id="3b54368d-d492-441c-bcc2-7e676a38174d" RegularExpression="^.{15}\S+ AAA:10F:(?&lt;id&gt;4.{7}):[^:]*:[^:]*:18261:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]*)">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="左风头 右土头" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" UseTTSTextExpression="${if: ${y} &lt; 100 ? 逆时针 : 顺时针 }" ActionType="UseTTS"/>
-                      <Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="318/319：指向北/南侧的箭头（P2s）" DescriptionOverride="True"/>
-                      <Action OrderNumber="4" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[bnpcid = 18219].Address}, ${y} &lt; 100 ? 319 : 318" ActionType="NamedCallback"/>
-                      <Action OrderNumber="5" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[bnpcid = 18225].Address}, ${y} &lt; 100 ? 318 : 319" ActionType="NamedCallback"/>
-                      <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="clear" ActionType="NamedCallback" DescBgColor="dff"/>
-                      <Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="12000"/>
-                      <Action OrderNumber="8" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[bnpcid = 18219].Address}, 0" ActionType="NamedCallback"/>
-                      <Action OrderNumber="9" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[bnpcid = 18225].Address}, 0" ActionType="NamedCallback"/>
-                    </Actions>
-                  </Trigger>
-                  <Trigger Enabled="true" Name="0. 初始化" Id="1da86908-d1a8-4f6c-a729-de604b865a98" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:A3C8:">
-                    <Actions>
-                      <Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="clear" ActionType="NamedCallback" DescBgColor="dff"/>
-                      <Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^M8s_add" ActionType="Variable"/>
-                      <Action OrderNumber="2" VariableOp="SetString" VariableName="M8s_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
-                    </Actions>
-                  </Trigger>
-                  <Trigger Enabled="true" Name="1. 获取风头" Id="c1a9c530-e8f1-411a-b9e3-951a7ee9fd2a" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}18219:([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-                    <Actions>
-                      <Action OrderNumber="1" VariableOp="SetString" VariableName="M8s_add_风头_id" VariableExpression="${id}" ActionType="Variable"/>
-                    </Actions>
-                  </Trigger>
-                  <Trigger Enabled="true" Name="4.1 消绿毒" Id="633b1206-67ce-4073-bb50-4941194453f1" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]*:A3CC:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="狼头读条死刑时 &lt;= 24 s 的绿 debuff" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" LogMessageText="cd5:6.6" LogProcess="True" UseTTSTextExpression="准备撞风球" ActionType="LogMessage"/>
-                      <Action OrderNumber="3" UseTTSTextExpression="准备撞风球" ActionType="UseTTS" ExecutionDelayExpression="2600"/>
-                    </Actions>
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="abs(${_me.StatusTimer(0x1128)} - 12)" ExpressionTypeL="Numeric" ExpressionR="12" ExpressionTypeR="String" ConditionType="NumericLessEqual"/>
-                    </Condition>
-                  </Trigger>
-                  <Trigger Enabled="true" Name="4.2 消黄毒" Id="8d11a4cf-5899-4c3b-8ba9-9cf9694cde6f" RegularExpression="^.{15}\S+ 1A:B7D:[^:]+:3\.9[^:]*:.{8}:[^:]*:(?&lt;tid&gt;1.{7}):" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="10000">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="获得 3.96 s 易伤时 &lt;= 13 s 的黄 debuff" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" LogMessageText="cd5:4.46" LogProcess="True" UseTTSTextExpression="准备撞风球" ActionType="LogMessage"/>
-                      <Action OrderNumber="3" UseTTSTextExpression="准备撞风球" ActionType="UseTTS" ExecutionDelayExpression="460"/>
-                    </Actions>
-                    <Condition Enabled="true" Grouping="And">
-                      <ConditionSingle Enabled="true" ExpressionL="abs(${_me.StatusTimer(0x1127)} - 6.5)" ExpressionTypeL="Numeric" ExpressionR="6.5" ExpressionTypeR="String" ConditionType="NumericLessEqual"/>
-                      <ConditionSingle Enabled="true" ExpressionL="${v:M8s_phase}" ExpressionTypeL="Numeric" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                    </Condition>
-                  </Trigger>
-                  <Trigger Enabled="true" Sequential="True" Name="本体半透明" Id="28b7f0bb-338f-418e-a2b7-609e5ee9836e" RegularExpression="^.{15}\S+ 1A:808:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:385:">
-                    <Actions>
-                      <Action OrderNumber="1" NamedCallbackName="SetOpacity" NamedCallbackParam="${_entity[${tid}].Address}, 0.3" ActionType="NamedCallback"/>
-                      <Action OrderNumber="2" NamedCallbackName="SetOpacity" NamedCallbackParam="${_entity[${tid}].Address}, 1" ActionType="NamedCallback" ExecutionDelayExpression="50000"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -1797,6 +1817,113 @@
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${v:M8s_远近_b北近} || ${v:M8s_远近_b北远}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="4a6146c4-86cd-41ea-8b1c-ed4f175eb55c" Name="E. 小怪" Enabled="true" RawEnvironmentVariables="phase = add">
+                <Folders/>
+                <Triggers>
+                  <Trigger Enabled="true" Name="2. 获取连线" Id="699493fa-bb17-4496-b559-0d36165b80f4" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;1.{7}):[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;014F|0150)">
+                    <Actions>
+                      <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="M8s_add_is自土线" VariableExpression="0x${type} = 0x14F" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="2" UseTTSTextExpression="去${if: ${v:M8s_add_is自土线} ? 左侧绿色 : 右侧黄色 }" ActionType="UseTTS"/>
+                      <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: 100, 100&#13;&#10;ScaleX: 0${v:M8s_add_is自土线} ? -1 : 1&#13;&#10;Start: 1, 0&#13;&#10;End: 10.75, 0&#13;&#10;Waymarks: ABCD" ActionType="NamedCallback" DescBgColor="dff"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="3. 获取风球 =&gt; 顺逆" Id="d607ef18-82b0-414c-b135-c96b5fa3fa88" RegularExpression="^.{15}\S+ AAA:10F:(?&lt;id&gt;4.{7}):[^:]*:[^:]*:18261:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]*)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="左风头 右土头" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" UseTTSTextExpression="${if: ${y} &lt; 100 ? 逆时针 : 顺时针 }" ActionType="UseTTS"/>
+                      <Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="318/319：指向北/南侧的箭头（P2s）" DescriptionOverride="True"/>
+                      <Action OrderNumber="4" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[bnpcid = 18219].Address}, ${y} &lt; 100 ? 319 : 318" ActionType="NamedCallback"/>
+                      <Action OrderNumber="5" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[bnpcid = 18225].Address}, ${y} &lt; 100 ? 318 : 319" ActionType="NamedCallback"/>
+                      <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="clear" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="12000"/>
+                      <Action OrderNumber="8" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[bnpcid = 18219].Address}, 0" ActionType="NamedCallback"/>
+                      <Action OrderNumber="9" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[bnpcid = 18225].Address}, 0" ActionType="NamedCallback"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="1. 获取风头" Id="0e5b0cbc-64c6-4522-a32f-85b51aa4f0b8" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}18219:([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                    <Actions>
+                      <Action OrderNumber="1" VariableOp="SetString" VariableName="M8s_add_风头_id" VariableExpression="${id}" ActionType="Variable"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="4.1 获取毒 + 先撞组提醒" Id="66213d50-7a51-43bb-8cd5-9de596201804" RegularExpression="^.{15}\S+ 1A:(?&lt;type&gt;112[78]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="条件：自己        1127 黄; 1128 绿" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="M8s_add_b绿" VariableExpression="0x${type} = 0x1128" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="M8s_add_round" VariableExpression="floor(${t} / 16)" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="4" VariableOp="SetNumeric" VariableName="M8s_add_b先" VariableExpression="${v:M8s_add_b绿} = (${pd:S7b_cfg[M8s_b先撞绿]} ?? 1)" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="5" UseTTSTextExpression="第${?l:壹, 贰, 叁[${v:M8s_add_round}]}轮，${if: ${v:M8s_add_b绿} ? 风 : 土 }" ActionType="UseTTS" ExecutionDelayExpression="1000"/>
+                      <Action OrderNumber="6" ActionType="Placeholder" Asynchronous="False" Description="如果自己先撞：设置倒计时提示  （下述时间为获得 debuff 到相应轮的 1 s 易伤消失的间隔）" DescriptionOverride="True"/>
+                      <Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="(${?l: 10.63, 24.78, 38.93 [${n: floor(${t} / 16)}]} - 5) * 1000"/>
+                      <Action OrderNumber="8" UseTTSTextExpression="准备撞${if: ${pd:S7b_cfg[M8s_b先撞绿]} ?? 1 ? 风球 : 土立方体 }" ActionType="UseTTS">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:M8s_add_b先}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="9" LogMessageText="cd5:5" LogProcess="True" UseTTSTextExpression="准备撞风球" ActionType="LogMessage">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:M8s_add_b先}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${_me.id}" ExpressionTypeL="String" ExpressionR="${tid}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="4.2 后撞组提醒" Id="956f60d2-848c-487d-a40e-da3eac21e03d" RegularExpression="^.{15}\S+ 1[56]:4.{7}:[^:]*:(?&lt;type&gt;A3E[DE]|A88[12]):[^:]*:(?&lt;tid&gt;1.{7}):([^:]*:){38}0:(?&lt;count&gt;[^:]*)" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="10000">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="A3E[DE]：前两次风/土爆炸  A88[12]：第三次" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" VariableOp="Increment" VariableName="M8s_add_先撞_n" ActionType="Variable"/>
+                      <Action OrderNumber="3" LogMessageText="cd5:4.46" LogProcess="True" UseTTSTextExpression="准备撞风球" ActionType="LogMessage"/>
+                      <Action OrderNumber="4" UseTTSTextExpression="准备撞${if: ${pd:S7b_cfg[M8s_b先撞绿]} ?? 1 ? 土立方体 : 风球 }" ActionType="UseTTS" ExecutionDelayExpression="460"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:M8s_add_b先}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${v:M8s_add_round}" ExpressionTypeL="String" ExpressionR="${v:M8s_add_先撞_n} + 1" ExpressionTypeR="Numeric" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="0x${type} % 2 = 1" ExpressionTypeL="Numeric" ExpressionR="${pd:S7b_cfg[M8s_b先撞绿]} ?? 1" ExpressionTypeR="Numeric" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Sequential="True" Name="本体半透明" Id="7a1a3b02-c8a9-4a38-9a06-63c611d84627" RegularExpression="^.{15}\S+ 1A:808:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:385:">
+                    <Actions>
+                      <Action OrderNumber="1" NamedCallbackName="SetOpacity" NamedCallbackParam="${_entity[${tid}].Address}, 0.2" ActionType="NamedCallback"/>
+                      <Action OrderNumber="2" NamedCallbackName="SetOpacity" NamedCallbackParam="${_entity[${tid}].Address}, 1" ActionType="NamedCallback" ExecutionDelayExpression="50000"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="false" Source="None" Name="Debug Log 2025-07-20 23:26" Id="02213aea-3f9b-4d8d-9177-ac55912c60fc" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" LogMessageText="[00:01:16.112] StartsCasting 14:40020AC1:Howling Blade:A3C8:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="500"/>
+                      <Action OrderNumber="3" LogMessageText="[00:01:29.004] StatusAdd 1A:1127:土毒:21.00:E0000000::${_me.id}:${_me}:00:1:" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                      <Action OrderNumber="4" LogMessageText="[00:01:29.004] StatusAdd 1A:1127:土毒:37.00:E0000000::${_me.id}:${_me}:00:1:" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                      <Action OrderNumber="5" LogMessageText="[00:01:29.004] StatusAdd 1A:1127:土毒:54.00:E0000000::${_me.id}:${_me}:00:1:" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                      <Action OrderNumber="6" LogMessageText="[00:01:29.004] StatusAdd 1A:1128:风毒:21.00:E0000000::${_me.id}:${_me}:00:1:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="7" LogMessageText="[00:01:29.004] StatusAdd 1A:1128:风毒:37.00:E0000000::${_me.id}:${_me}:00:1:" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                      <Action OrderNumber="8" LogMessageText="[00:01:29.004] StatusAdd 1A:1128:风毒:54.00:E0000000::${_me.id}:${_me}:00:1:" LogProcess="True" LogProcessACT="True" Enabled="False" ActionType="LogMessage"/>
+                      <Action OrderNumber="9" ActionType="Placeholder" ExecutionDelayExpression="11.83 * 1000"/>
+                      <Action OrderNumber="10" LogMessageText="[00:01:45.607] AOEActionEffect 16:40020B95:Font of Wind Aether:A3ED:风12AoE:10000000:AA::::::::::::::::::::::::::::::::::::::0:9:00::" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="11" ActionType="Placeholder" ExecutionDelayExpression="4.77 * 1000"/>
+                      <Action OrderNumber="12" LogMessageText="[00:01:40.834] AOEActionEffect 16:40020B94:Font of Earth Aether:A3EE:土12AoE:10000000:AA::::::::::::::::::::::::::::::::::::::0:9:00::" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="13" ActionType="Placeholder" ExecutionDelayExpression="9.19 * 1000"/>
+                      <Action OrderNumber="14" LogMessageText="[00:01:59.781] AOEActionEffect 16:40020B95:Font of Wind Aether:A3ED:风12AoE:10000000:AA::::::::::::::::::::::::::::::::::::::0:9:00::" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="15" ActionType="Placeholder" ExecutionDelayExpression="4.99 * 1000"/>
+                      <Action OrderNumber="16" LogMessageText="[00:01:54.793] AOEActionEffect 16:40020B94:Font of Earth Aether:A3EE:土12AoE:10000000:AA::::::::::::::::::::::::::::::::::::::0:9:00::" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="17" ActionType="Placeholder" ExecutionDelayExpression="11.06 * 1000"/>
+                      <Action OrderNumber="18" LogMessageText="[00:02:14.905] AOEActionEffect 16:40020B95:Font of Wind Aether:A881:风3AoE:10000000:AA::::::::::::::::::::::::::::::::::::::0:9:00::" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="19" ActionType="Placeholder" ExecutionDelayExpression="4.06 * 1000"/>
+                      <Action OrderNumber="20" LogMessageText="[00:02:10.841] AOEActionEffect 16:40020B94:Font of Earth Aether:A882:土3AoE:10000000:AA::::::::::::::::::::::::::::::::::::::0:9:00::" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="0. 初始化" Id="787def3f-5340-447b-b8f2-65db7914154a" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:A3C8:">
+                    <Actions>
+                      <Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="clear" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^M8s_add" ActionType="Variable"/>
+                      <Action OrderNumber="2" VariableOp="SetString" VariableName="M8s_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
+                    </Actions>
                   </Trigger>
                 </Triggers>
               </Folder>
