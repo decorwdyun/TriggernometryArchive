@@ -705,7 +705,7 @@
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1263$" Id="1e2249bb-6d96-48be-9107-d4f961730a73" Name="M8s v1.1.0" Enabled="true" RawEnvironmentVariables="zone = 1263">
+          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1263$" Id="1e2249bb-6d96-48be-9107-d4f961730a73" Name="M8s v1.1.1" Enabled="true" RawEnvironmentVariables="zone = 1263">
             <Folders>
               <Folder Id="8511270f-4672-42dd-a3b1-f61b0e0fc9f4" Name="杂项" Enabled="true">
                 <Folders/>
@@ -1284,19 +1284,47 @@
               <Folder Id="1d527050-a4ff-4c2d-b8ff-8bcef908422b" Name="J. Twofold Tempest" Enabled="true" RawEnvironmentVariables="phase = Twofold Tempest">
                 <Folders/>
                 <Triggers>
-                  <Trigger Enabled="true" Name="连线" Id="b7146980-845d-4354-b570-d2b550d92c6b" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:0054" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="40000">
+                  <Trigger Enabled="true" Name="连线" Id="b7146980-845d-4354-b570-d2b550d92c6b" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:0054" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="25000">
                     <Actions>
-                      <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="M8s_TT_is同侧线" VariableExpression="(${_entity[${tid}].x} &gt; 100) = (${_me.x} &gt; 100)" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="2" UseTTSTextExpression="${if: ${v:M8s_TT_is同侧线} ? 同侧 : 对侧 }连线" ActionType="UseTTS"/>
-                      <Action OrderNumber="3" UseTTSTextExpression="第二次" ActionType="UseTTS" ExecutionDelayExpression="7100"/>
-                      <Action OrderNumber="4" UseTTSTextExpression="第三次" ActionType="UseTTS" ExecutionDelayExpression="7100"/>
-                      <Action OrderNumber="5" UseTTSTextExpression="第四次" ActionType="UseTTS" ExecutionDelayExpression="7100"/>
-                      <Action OrderNumber="6" UseTTSTextExpression="准备转盘" ActionType="UseTTS" ExecutionDelayExpression="7100"/>
+                      <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="M8s_TT_b左侧线" VariableExpression="0${l:M8s_G1.contain(${tid})} ? 1 : 0${l:M8s_G2.contain(${tid})} ? 0 : ${_entity[${tid}].x} &lt; 100" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="按连线经过的顺序，1-4：近战组 5-8：远程组 " DescriptionOverride="True"/>
+                      <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="M8s_TT_idx" VariableExpression="${?l: 1, 4, 1, 4, 2, 3, 2, 3 [${v:myIdx}]}" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="4" VariableOp="SetNumeric" VariableName="M8s_TT_idx" VariableExpression="(${v:M8s_TT_b左侧线} ? ${v:M8s_TT_idx} : (5 - ${v:M8s_TT_idx})) + (${v:myIdx_isTM} ? 0 : 4)" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="5" UseTTSTextExpression="${?l:&#13;&#10;  接线，然后靠后分摊,&#13;&#10;  传送回去，然后准备接线,&#13;&#10;  传送回去，然后靠前引导直线,&#13;&#10;  对侧连线，挂机,&#13;&#10;  &#13;&#10;  ${if: ${v:M8s_TT_b左侧线} ? 右 : 左 }后，贴边分摊,&#13;&#10;  传送回去, 挂机,&#13;&#10;  传送回去, 靠前引导直线,&#13;&#10;  对侧连线, 挂机&#13;&#10;  &#13;&#10;  [${v:M8s_TT_idx}]&#13;&#10;}" ActionType="UseTTS"/>
+                      <Action OrderNumber="6" LogMessageText="cd5:7.1" LogProcess="True" ActionType="LogMessage">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:M8s_TT_idx} % 4" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="7" UseTTSTextExpression="第二轮，${?l:&#13;&#10;  带着线去${if: ${v:M8s_TT_b左侧线} ? 左 : 右 }侧，然后靠后等待,&#13;&#10;  接线，然后靠后分摊,&#13;&#10;  ${if: ${v:M8s_TT_b左侧线} ? 左 : 右 }前准备接线,&#13;&#10;  靠前引导直线,&#13;&#10;  &#13;&#10;  ${if: ${v:M8s_TT_b左侧线} ? 右 : 左 }侧贴边躲开，挂机,&#13;&#10;  ${if: ${v:M8s_TT_b左侧线} ? 右 : 左 }后，贴边分摊,&#13;&#10;  挂机,&#13;&#10;  靠前引导直线&#13;&#10;  &#13;&#10;  [${v:M8s_TT_idx}]&#13;&#10;}" ActionType="UseTTS" ExecutionDelayExpression="7100"/>
+                      <Action OrderNumber="8" LogMessageText="cd5:7.1" LogProcess="True" ActionType="LogMessage">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:M8s_TT_idx} % 4" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="9" UseTTSTextExpression="第三轮，${?l:&#13;&#10;  传送回去，然后靠前引导直线,&#13;&#10;  带着线去${if: ${v:M8s_TT_b左侧线} ? 左 : 右 }侧，然后靠后等待,&#13;&#10;  接线，然后靠后分摊,&#13;&#10;  ${if: ${v:M8s_TT_b左侧线} ? 左 : 右 }前准备接线,&#13;&#10;  &#13;&#10;  靠前引导直线,&#13;&#10;  ${if: ${v:M8s_TT_b左侧线} ? 右 : 左 }侧贴边躲开，挂机,&#13;&#10;  ${if: ${v:M8s_TT_b左侧线} ? 右 : 左 }后，贴边分摊,&#13;&#10;  挂机&#13;&#10;    &#13;&#10;  [${v:M8s_TT_idx}]&#13;&#10;}" ActionType="UseTTS" ExecutionDelayExpression="7100"/>
+                      <Action OrderNumber="10" LogMessageText="cd5:7.1" LogProcess="True" ActionType="LogMessage">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:M8s_TT_idx} % 4" ExpressionTypeL="Numeric" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="11" UseTTSTextExpression="第四轮，${?l:&#13;&#10;  挂机,&#13;&#10;  传送回去，然后靠前引导直线,&#13;&#10;  带着线去${if: ${v:M8s_TT_b左侧线} ? 左 : 右 }侧，然后靠后等待,&#13;&#10;  接线，然后靠后分摊,&#13;&#10;&#13;&#10;  挂机,&#13;&#10;  靠前引导直线,&#13;&#10;  ${if: ${v:M8s_TT_b左侧线} ? 右 : 左 }侧贴边躲开，挂机,&#13;&#10;  ${if: ${v:M8s_TT_b左侧线} ? 右 : 左 }后，贴边分摊&#13;&#10;  [${v:M8s_TT_idx}]&#13;&#10;}" ActionType="UseTTS" ExecutionDelayExpression="7100"/>
+                      <Action OrderNumber="12" LogMessageText="cd5:7.1" LogProcess="True" ActionType="LogMessage">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:M8s_TT_idx} % 4" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="13" UseTTSTextExpression="准备转盘" ActionType="UseTTS" ExecutionDelayExpression="7100"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Name="绿圈" Id="3195e0d8-687a-4cb0-be00-bce2bb5fbd37" RegularExpression="^.{15}\S+ 105:Add:.+BNpcID:1EBD8F:.*PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
                     <Actions>
                       <Action OrderNumber="1" NamedCallbackName="Omen" NamedCallbackParam="general_1bf, 7.0,   ${x}, ${y}, ${z}, 0,   9.5, 9.5, 1,   0.05, 0.3, 0.05, 2" ActionType="NamedCallback"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="false" Name="Debug Log" Id="8d029a9e-ca8d-4e85-8f72-9a664518b179" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" LogMessageText="[00:00:00.000] 0 23:40000000:x:${_me.id}:x:x:x:0054" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
