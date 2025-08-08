@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TriggernometryExport PluginVersion="1.2.0.749">
+<TriggernometryExport PluginVersion="1.2.0.751">
   <ExportedFolder Id="733a3974-5d1c-4a56-a2c7-ab2f043bf03b" Name="[工具] 运行支持库 Utils.xml" Enabled="true">
     <Folders>
       <Folder Id="602fc21c-f48b-4ab9-b54d-c3b36e38ad60" Name="高级标点工具箱 AdvWm 旧版本 v2.x（仅兼容 即将移除）" Enabled="true">
@@ -536,6 +536,12 @@
               <Action OrderNumber="6" NamedCallbackName="command" NamedCallbackParam="/e Simulating Zone: ${_ffxivzoneid} (0x${f:dec2hex:${_ffxivzoneid}})" ActionType="NamedCallback"/>
             </Actions>
           </Trigger>
+          <Trigger Enabled="true" Name="调用回调" Id="74f04d9f-2803-4218-81d4-3d5f7e36c27b" RegularExpression="^.{15}\S+ 00:0038::(?i)cb +(?&lt;cbName&gt;[^ ]+)( +(?&lt;cbParam&gt;.*))?$">
+            <Actions>
+              <Action OrderNumber="1"/>
+              <Action OrderNumber="2" JsonEndpointExpression="http://127.0.0.1:2019/command" NamedCallbackName="${cbName}" NamedCallbackParam="${cbParam}" ActionType="NamedCallback"/>
+            </Actions>
+          </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="终止所有触发器、悬浮窗" Id="85a3327b-0459-4788-a64f-85733ba3db7c" RegularExpression="^.{15}\S+ 00:0038:: *break *$">
             <Actions>
               <Action OrderNumber="1" TextAuraOp="DeactivateAllAura" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="CancelAllTrigger" ActionType="TextAura"/>
@@ -543,9 +549,14 @@
               <Action OrderNumber="3" TriggerOp="CancelAllTrigger" ActionType="Trigger"/>
             </Actions>
           </Trigger>
+          <Trigger Enabled="true" Name="最大化 ACT Log 窗口" Id="0e842483-a2ac-47f6-beff-559119f355a0" RegularExpression="^.{15}\S+ 00:0038::(?i)actlog">
+            <Actions>
+              <Action OrderNumber="1" ExecScriptExpression="using System;&#13;&#10;using System.Diagnostics;&#13;&#10;using System.Runtime.InteropServices;&#13;&#10;using System.Text;&#13;&#10;&#13;&#10;const int SW_MAXIMIZE = 3;&#13;&#10;string targetTitleKeyword = &quot;Encounter Logs&quot;;&#13;&#10;&#13;&#10;[DllImport(&quot;user32.dll&quot;)]&#13;&#10;static extern bool IsWindowVisible(IntPtr hWnd);&#13;&#10;&#13;&#10;[DllImport(&quot;user32.dll&quot;, SetLastError = true)]&#13;&#10;static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);&#13;&#10;&#13;&#10;[DllImport(&quot;user32.dll&quot;)]&#13;&#10;static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);&#13;&#10;&#13;&#10;[DllImport(&quot;user32.dll&quot;)]&#13;&#10;static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);&#13;&#10;&#13;&#10;[DllImport(&quot;user32.dll&quot;)]&#13;&#10;static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);&#13;&#10;&#13;&#10;delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);&#13;&#10;&#13;&#10;EnumWindows((hWnd, lParam) =&gt;&#13;&#10;{&#13;&#10;    if (!IsWindowVisible(hWnd))&#13;&#10;        return true;&#13;&#10;&#13;&#10;    GetWindowThreadProcessId(hWnd, out uint processId);&#13;&#10;    if (processId != (uint)Process.GetCurrentProcess().Id)&#13;&#10;        return true;&#13;&#10;&#13;&#10;    StringBuilder sb = new StringBuilder(256);&#13;&#10;    GetWindowText(hWnd, sb, sb.Capacity);&#13;&#10;    string title = sb.ToString();&#13;&#10;    if (!string.IsNullOrWhiteSpace(title) &amp;&amp; title.Contains(targetTitleKeyword))&#13;&#10;    {&#13;&#10;        ShowWindow(hWnd, SW_MAXIMIZE);&#13;&#10;    }&#13;&#10;    return true;&#13;&#10;}, IntPtr.Zero);&#13;&#10;" ActionType="ExecuteScript"/>
+            </Actions>
+          </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="39674827-7583-481c-9680-6992da3732f4" Name="高级标点工具箱 AdvWm v4.9.2" Enabled="true" RawEnvironmentVariables="version = 4.9.0">
+      <Folder Id="39674827-7583-481c-9680-6992da3732f4" Name="高级标点工具箱 AdvWm v4.9.3" Enabled="true" RawEnvironmentVariables="version = 4.9.3">
         <Folders>
           <Folder Id="e4af71e7-9944-4f6f-95e4-fb851dcfbed5" Name="core" Enabled="true">
             <Folders>
@@ -825,6 +836,11 @@
                 </Condition>
               </Action>
               <Action OrderNumber="3" DictVariableName="tmp_entity" ActionType="DictVariable" Asynchronous="False"/>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Name="转录指令不存在" Id="59f947e6-75d8-4b24-96d5-a3db1ac8a615" RegularExpression="^.{15}\S+ 00:003C::(“\/(?&lt;commandCN&gt;.+?)”出现问题：该命令不存在。|The command \/(?&lt;commandEN&gt;.+?) does not exist.|そのコマンドはありません。： \/(?&lt;commandJP&gt;.+?))$">
+            <Actions>
+              <Action OrderNumber="1" LogMessageText="^CommandNotExist:${commandCN}${commandEN}${commandJP}" LogProcess="True" ActionType="LogMessage"/>
             </Actions>
           </Trigger>
         </Triggers>
@@ -1198,7 +1214,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="2a2d791e-eeb3-4e29-96e5-f8e6ac9ef5d6" Name="鲶鱼精邮差扩展 v4.1.2" Enabled="true" RawEnvironmentVariables="version = 4.1.0&#13;&#10;trigversion = 1.2.0.748">
+      <Folder Id="2a2d791e-eeb3-4e29-96e5-f8e6ac9ef5d6" Name="鲶鱼精邮差扩展 v4.1.3" Enabled="true" RawEnvironmentVariables="version = 4.1.0&#13;&#10;trigversion = 1.2.0.748">
         <Folders>
           <Folder Id="9c2e8968-be16-47fc-8457-e377d01362af" Name="core" Enabled="true">
             <Folders>
@@ -1232,8 +1248,22 @@
                   </Trigger>
                   <Trigger Enabled="true" Sequential="True" Name="1.2 接收：地图切换 =&gt; 2" Id="4293c85d-e493-4788-abd9-4b3eba3b7e80" RegularExpression="^.{15}\S+ 01:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="ACT 晚于游戏启动时，鲶鱼精刚加载就会立刻初始化，但远程触发器可能尚未加载，因此 01 行也检测一下" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" LogMessageText="PNE_Init:force:0" LogProcess="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="1" VariableOp="SetString" VariableName="myAddress_new" VariableExpression="${_me.Address}" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="ACT 晚于游戏启动时，鲶鱼精刚加载就会立刻初始化，但远程触发器可能尚未加载，因此 01 行也检测一下" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" LogMessageText="PNE_Init:force:0" LogProcess="True" ActionType="LogMessage" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${ev:myAddress}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description="如果自身地址意外变动，强制重新扫描" DescriptionOverride="True"/>
+                      <Action OrderNumber="5" LogMessageText="PNE_Init:force:1" LogProcess="True" ActionType="LogMessage" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${ev:myAddress}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${v:myAddress}" ExpressionTypeL="String" ExpressionR="${v:myAddress_new}" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="6" VariableOp="SetString" VariableName="myAddress" VariableExpression="${v:myAddress_new}" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="7" VariableName="myAddress_new" ActionType="Variable" Asynchronous="False"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
