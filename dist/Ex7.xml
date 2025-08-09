@@ -1770,7 +1770,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="7d6e1eed-007a-4b55-82e0-094b7d59b83a" Name="Ex7e Necron v0.1" Enabled="true" RawEnvironmentVariables="version = 0.4">
+      <Folder Id="7d6e1eed-007a-4b55-82e0-094b7d59b83a" Name="Ex7e Necron v0.2" Enabled="true" RawEnvironmentVariables="version = 0.4">
         <Folders>
           <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1296$" Id="639d84e0-64f4-44d4-878f-e9dd1792106e" Name="区域限制" Enabled="true">
             <Folders>
@@ -1830,11 +1830,12 @@
                       <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="Ex7e_中穿侧_b去右" VariableExpression="0x0${aid} = 0xAE0A" ActionType="Variable" Asynchronous="False"/>
                       <Action OrderNumber="2" LogMessageText="Ex7e_纵列标点:${n: ${v:Ex7e_中穿侧_b去右} ? 4.75 : -4.75}" LogProcess="True" ActionType="LogMessage" DescBgColor="dff"/>
                       <Action OrderNumber="3" UseTTSTextExpression="中间穿${if: ${v:Ex7e_中穿侧_b去右} ? 右 : 左 }" ActionType="UseTTS"/>
-                      <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="5800"/>
-                      <Action OrderNumber="5" UseTTSTextExpression="穿" ActionType="UseTTS"/>
-                      <Action OrderNumber="6" LogMessageText="Ex7e_纵列标点:${n: ${v:Ex7e_中穿侧_b去右} ? 7.25 : -7.25}" LogProcess="True" ActionType="LogMessage" DescBgColor="dff"/>
-                      <Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="2200"/>
-                      <Action OrderNumber="8" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="4" LogMessageText="beep:5.8" LogProcess="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="5800"/>
+                      <Action OrderNumber="6" UseTTSTextExpression="穿" ActionType="UseTTS"/>
+                      <Action OrderNumber="7" LogMessageText="Ex7e_纵列标点:${n: ${v:Ex7e_中穿侧_b去右} ? 7.25 : -7.25}" LogProcess="True" ActionType="LogMessage" DescBgColor="dff"/>
+                      <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="2200"/>
+                      <Action OrderNumber="9" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -1860,40 +1861,46 @@
                   <Trigger Enabled="true" Name="2. 黑白翅膀" Id="94a1e176-9fb6-4ac3-9625-d770bdb63d06" RegularExpression="^Ex7e_五手:b右安全区大:(?&lt;b右安全区大&gt;[01]):异向行:(?&lt;异向行&gt;[234])">
                     <Actions>
                       <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="Ex7e_五手_b自右" VariableExpression="(${v:myIdx} &gt; 2) = ${b右安全区大}" ActionType="Variable" Asynchronous="False"/>
-                      <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="T" DescriptionOverride="True"/>
-                      <Action OrderNumber="3" UseTTSTextExpression="${if: ${v:Ex7e_五手_b自右} ? 右侧 : 左侧 }分散，第${异向行}航" ActionType="UseTTS">
+                      <Action OrderNumber="2" LogMessageText="cd5:10.3" LogProcess="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="clear&#13;&#10;---&#13;&#10;O: 100 + (${v:Ex7e_五手_b自右} ? 12 : -12), 100 + (${异向行} - 3) * 6, 0&#13;&#10;ScaleX: ${v:Ex7e_五手_b自右} ? 4.9 : -4.9&#13;&#10;ScaleY: 1.9&#13;&#10;1: -1, -1&#13;&#10;2:  1, -1&#13;&#10;3: -1,  1&#13;&#10;4:  1,  1" ActionType="NamedCallback" DescBgColor="dff">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:myIdx}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericLessEqual"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="clear&#13;&#10;---&#13;&#10;O: 100 + (${v:Ex7e_五手_b自右} ? 12 : -12), 100 + (${异向行} - 3) * 6, 0&#13;&#10;ScaleX: ${v:Ex7e_五手_b自右} ? 4.9 : -4.9&#13;&#10;ScaleY: 1.9&#13;&#10;1: -1, -1&#13;&#10;2:  1, -1&#13;&#10;3: -1,  1&#13;&#10;4:  1,  1" ActionType="NamedCallback" DescBgColor="dff">
+                      <Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description="T" DescriptionOverride="True"/>
+                      <Action OrderNumber="5" UseTTSTextExpression="${if: ${v:Ex7e_五手_b自右} ? 右侧 : 左侧 }分散，第${异向行}航" ActionType="UseTTS">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:myIdx}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericLessEqual"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="5" ActionType="Placeholder" Asynchronous="False" Description="H" DescriptionOverride="True"/>
-                      <Action OrderNumber="6" UseTTSTextExpression="${if: ${v:Ex7e_五手_b自右} ? 右侧 : 左侧 }分散，${if: ${异向行} = 3 ? 第二航靠后 : 第三航 }" ActionType="UseTTS">
+                      <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="clear&#13;&#10;---&#13;&#10;O: 100 + (${v:Ex7e_五手_b自右} ? 12 : -12), 100 + (${异向行} - 3) * 6, 0&#13;&#10;ScaleX: ${v:Ex7e_五手_b自右} ? 4.9 : -4.9&#13;&#10;ScaleY: 1.9&#13;&#10;1: -1, -1&#13;&#10;2:  1, -1&#13;&#10;3: -1,  1&#13;&#10;4:  1,  1" ActionType="NamedCallback" DescBgColor="dff">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:myIdx}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericLessEqual"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="7" ActionType="Placeholder" Asynchronous="False" Description="H" DescriptionOverride="True"/>
+                      <Action OrderNumber="8" UseTTSTextExpression="${if: ${v:Ex7e_五手_b自右} ? 右侧 : 左侧 }分散，${if: ${异向行} = 3 ? 第二航靠后 : 第三航 }" ActionType="UseTTS">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:myIdx}" ExpressionTypeL="String" ExpressionR="[34]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="7" NamedCallbackName="AdvWm" NamedCallbackParam="clear&#13;&#10;---&#13;&#10;Action: Linear&#13;&#10;O: 100, 100 + (${异向行} = 3 ? -4.1 : 0), 0&#13;&#10;ScaleX: ${v:Ex7e_五手_b自右} ? 1 : -1&#13;&#10;Waymarks: 1234&#13;&#10;Start: 12 - 4.9, 0&#13;&#10;End: 12 + 4.9, 0" ActionType="NamedCallback" DescBgColor="dff">
+                      <Action OrderNumber="9" NamedCallbackName="AdvWm" NamedCallbackParam="clear&#13;&#10;---&#13;&#10;Action: Linear&#13;&#10;O: 100, 100 + (${异向行} = 3 ? -4.1 : 0), 0&#13;&#10;ScaleX: ${v:Ex7e_五手_b自右} ? 1 : -1&#13;&#10;Waymarks: 1234&#13;&#10;Start: 12 - 4.9, 0&#13;&#10;End: 12 + 4.9, 0" ActionType="NamedCallback" DescBgColor="dff">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:myIdx}" ExpressionTypeL="String" ExpressionR="[34]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="8" ActionType="Placeholder" Asynchronous="False" Description="MR" DescriptionOverride="True"/>
-                      <Action OrderNumber="9" UseTTSTextExpression="${if: ${v:Ex7e_五手_b自右} ? 右侧 : 左侧 }分散，${if: ${v:myIdx} &lt;= 6 ? 第一航 : 最后一航 }" ActionType="UseTTS">
+                      <Action OrderNumber="10" ActionType="Placeholder" Asynchronous="False" Description="MR" DescriptionOverride="True"/>
+                      <Action OrderNumber="11" UseTTSTextExpression="${if: ${v:Ex7e_五手_b自右} ? 右侧 : 左侧 }分散，${if: ${v:myIdx} &lt;= 6 ? 第一航 : 最后一航 }" ActionType="UseTTS">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:myIdx}" ExpressionTypeL="String" ExpressionR="[5678]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="10" NamedCallbackName="AdvWm" NamedCallbackParam="clear&#13;&#10;---&#13;&#10;Action: Linear&#13;&#10;O: 100, 100 + (${v:myIdx} &lt;= 6 ? -13.75 : 13.75), 0&#13;&#10;ScaleX: ${v:Ex7e_五手_b自右} ? 1 : -1&#13;&#10;Waymarks: 1234&#13;&#10;Start: 12 - 4.9, 0&#13;&#10;End: 12 + 4.9, 0" ActionType="NamedCallback" DescBgColor="dff">
+                      <Action OrderNumber="12" NamedCallbackName="AdvWm" NamedCallbackParam="clear&#13;&#10;---&#13;&#10;Action: Linear&#13;&#10;O: 100, 100 + (${v:myIdx} &lt;= 6 ? -13.75 : 13.75), 0&#13;&#10;ScaleX: ${v:Ex7e_五手_b自右} ? 1 : -1&#13;&#10;Waymarks: 1234&#13;&#10;Start: 12 - 4.9, 0&#13;&#10;End: 12 + 4.9, 0" ActionType="NamedCallback" DescBgColor="dff">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:myIdx}" ExpressionTypeL="String" ExpressionR="[5-8]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="11" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="12000" DescBgColor="dff"/>
+                      <Action OrderNumber="13" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" ExecutionDelayExpression="12000" DescBgColor="dff"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="false" Source="None" Name="Debug Log 2025-08-07 14:20" Id="ff413e37-69aa-42f7-85bb-cc2f869662dc">
@@ -1979,7 +1986,7 @@
                   </Trigger>
                 </Triggers>
               </Folder>
-              <Folder Id="f4e60503-85fa-4edc-96a1-38966d1dc02a" Name="圆环" Enabled="true">
+              <Folder Id="f4e60503-85fa-4edc-96a1-38966d1dc02a" Name="生命之环" Enabled="true" RawEnvironmentVariables="phase = 圆环">
                 <Folders/>
                 <Triggers>
                   <Trigger Enabled="true" Name="1. 圆环读条" Id="2169518a-eaeb-4629-a156-7cca9a90484b" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):AE38:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
@@ -1992,7 +1999,7 @@
                       </Action>
                       <Action OrderNumber="3" LogMessageText="Ex7e_圆环2:n:${v:Ex7e_圆环_n}:x:${x}:y:${y}:dirN4:${n: roundvec(${x} - 100, ${y} - 100, -4)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
                         <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="round(${y}) % 10" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="round(${y}) % 10" ExpressionTypeL="Numeric" ExpressionR="5" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
                     </Actions>
@@ -2000,7 +2007,8 @@
                   <Trigger Enabled="true" Name="0. 初始化" Id="c05b8f7c-2ce5-4e5c-827e-d9e9f2cabd9e" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:AE37:">
                     <Actions>
                       <Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^Ex7e_圆环" ActionType="Variable"/>
-                      <Action OrderNumber="2" UseTTSTextExpression="圆环" ActionType="UseTTS"/>
+                      <Action OrderNumber="2" VariableOp="SetString" VariableName="Ex7e_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
+                      <Action OrderNumber="3" UseTTSTextExpression="圆环" ActionType="UseTTS"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Name="2.1 播报第一次" Id="80cbc886-a8af-4303-adc5-4b688feba3cc" RegularExpression="^Ex7e_圆环1:n:(?&lt;n&gt;[1-5]):x:(?&lt;x&gt;[^:]+):y:(?&lt;y&gt;[^:]*):dirN5:(?&lt;dirN5&gt;[0-4])">
@@ -2023,22 +2031,23 @@
                       <Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^Ex7e_十字" ActionType="Variable"/>
                       <Action OrderNumber="2" VariableOp="SetString" VariableName="Ex7e_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
                       <Action OrderNumber="3" UseTTSTextExpression="转场AoE" ActionType="UseTTS"/>
+                      <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;Waymarks: A1D4C3B2&#13;&#10;O: 100, 100&#13;&#10;R: 10&#13;&#10;R2: 10.5" ActionType="NamedCallback" DescBgColor="dff"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Sequential="True" Name="[F] 激光" Id="45e8c229-1374-43ef-bd87-294fd6976c70" RegularExpression="^Ex7e_十字_激光:(?&lt;n&gt;[1-5]):(?&lt;h&gt;[^:]*):(?&lt;t&gt;[^:]*)">
                     <Actions>
-                      <Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect2&#13;&#10;Tag: Ex7e_十字_${n}&#13;&#10;t: 20&#13;&#10;O: 100, 100, 0&#13;&#10;θ: 0${h}&#13;&#10;Scale: 2.2, 20, 1&#13;&#10;Color: 0.5, 1, 0.2, 1" ActionType="NamedCallback" ExecutionDelayExpression="(${t} - 8) * 1000" DescBgColor="ffd"/>
-                      <Action OrderNumber="2" LoopDelayExpression="50" ActionType="Loop" DescBgColor="ffd">
+                      <Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect2&#13;&#10;Tag: Ex7e_十字_${n}&#13;&#10;t: 20&#13;&#10;O: 100, 100, 0&#13;&#10;θ: 0${h}&#13;&#10;Scale: 2.2, 20, 1&#13;&#10;Color: 0.3, 1, 0.2, 0" ActionType="NamedCallback" ExecutionDelayExpression="(${t} - 8) * 1000" DescBgColor="ffd"/>
+                      <Action OrderNumber="2" LoopDelayExpression="100" ActionType="Loop" DescBgColor="ffd">
                         <LoopCondition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${_sincems}" ExpressionTypeL="String" ExpressionR="${t} * 1000" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual"/>
                         </LoopCondition>
                         <LoopActions>
-                          <Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Change&#13;&#10;Tag: Ex7e_十字_${n}&#13;&#10;Color: 0.5, 1, 0.2, ${n: (${_sincems} / 1000 - ${t} + 8) / 6}" ActionType="NamedCallback" DescBgColor="ffd">
+                          <Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Change&#13;&#10;Tag: Ex7e_十字_${n}&#13;&#10;Color: 0.2, 1, 0.5, ${n: 1 * (${_sincems} / 1000 - ${t} + 8) / 6}" ActionType="NamedCallback" DescBgColor="ffd">
                             <Condition Enabled="true" Grouping="Or">
                               <ConditionSingle Enabled="true" ExpressionL="${_sincems}" ExpressionTypeL="String" ExpressionR="(${t} - 2) * 1000" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Change&#13;&#10;Tag: Ex7e_十字_${n}&#13;&#10;Color: 1.5, 1, 1, 1" ActionType="NamedCallback" DescBgColor="ffd">
+                          <Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Change&#13;&#10;Tag: Ex7e_十字_${n}&#13;&#10;Color: ${n: 0.2 + 1.8 * (${_sincems} / 1000 - ${t} + 2) / 2}, 1, 0.5, ${n: 1 + 0.5 * (${_sincems} / 1000 - ${t} + 2) / 2}" ActionType="NamedCallback" DescBgColor="ffd">
                             <Condition Enabled="true" Grouping="Or">
                               <ConditionSingle Enabled="true" ExpressionL="${_sincems}" ExpressionTypeL="String" ExpressionR="(${t} - 2) * 1000" ExpressionTypeR="Numeric" ConditionType="NumericGreater"/>
                             </Condition>
@@ -2079,11 +2088,7 @@
                           <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="3" VariableOp="Increment" VariableName="Ex7e_十字_点名＋塔_n" ActionType="Variable" Asynchronous="False">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
-                        </Condition>
-                      </Action>
+                      <Action OrderNumber="3" VariableOp="Increment" VariableName="Ex7e_十字_点名＋塔_n" ActionType="Variable" Asynchronous="False"/>
                       <Action OrderNumber="4" LogMessageText="Ex7e_十字:b点名:${l:Ex7e_十字_点名.contain(${_me.id})}:b塔正:${v:Ex7e_十字_b塔正}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:Ex7e_十字_点名＋塔_n}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
@@ -2094,6 +2099,13 @@
                       <ConditionSingle Enabled="true" ExpressionL="0${v:Ex7e_十字_点名＋塔_n}" ExpressionTypeL="Numeric" ExpressionR="8" ExpressionTypeR="String" ConditionType="NumericLess"/>
                     </Condition>
                   </Trigger>
+                  <Trigger Enabled="true" Name="4. 结束" Id="9f81f862-dff1-4917-b049-70494034b102" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:AE1F:">
+                    <Actions>
+                      <Action OrderNumber="1" VariableOp="SetString" VariableName="Ex7e_phase" ActionType="Variable"/>
+                      <Action OrderNumber="2" UseTTSTextExpression="转场AoE" ActionType="UseTTS"/>
+                      <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="load" ActionType="NamedCallback" DescBgColor="dff"/>
+                    </Actions>
+                  </Trigger>
                   <Trigger Enabled="true" Name="3. 播报踩塔/分散" Id="8fa8d130-fb82-4aa4-a906-13c3220215fa" RegularExpression="^Ex7e_十字:b点名:(?&lt;b点名&gt;[01]):b塔正:(?&lt;b塔正&gt;[01])">
                     <Actions>
                       <Action OrderNumber="1" LogMessageText="cd5:4.7" LogProcess="True" ActionType="LogMessage"/>
@@ -2101,9 +2113,31 @@
                       <Action OrderNumber="3" UseTTSTextExpression="${if: ${b点名} = ${b塔正} ? 斜点 : 正点 }${if: ${b点名} ? 分散 : 踩塔 }" ActionType="UseTTS"/>
                       <Action OrderNumber="4" UseTTSTextExpression="${if: ${b点名} = ${b塔正} ? 斜点 : 正点 }${if: ${b点名} ? 踩塔 : 分散 }" ActionType="UseTTS" ExecutionDelayExpression="9000"/>
                     </Actions>
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="0${v:Ex7e_十字_点名＋塔_n}" ExpressionTypeL="Numeric" ExpressionR="8" ExpressionTypeR="String" ConditionType="NumericLess"/>
-                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="false" Source="None" Name="Debug Log 2025-08-09 14:29" Id="88cae445-aed6-4959-abbe-4dc4d3a7d74e" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" LogMessageText="[11:20:33.562] StartsCasting 14:4000859F:Necron:AE18:Grand Cross:E0000000::6.700:100.00:78.00:0.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="1000"/>
+                      <Action OrderNumber="3" LogMessageText="[11:20:42.471] AddCombatant 03:40008A4B:Azure Aether:00:64:0000:00::14095:18708:188300:188300:0:10000:::110.55:105.70:0.00:-2.06" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="7.26 * 1000"/>
+                      <Action OrderNumber="5" LogMessageText="[11:20:49.735] StartsCasting 14:400085AB:Necron:AE1C:Grand Cross:${l:party[4]}:队员:4.700:100.00:78.00:0.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="6" LogMessageText="[11:20:49.735] StartsCasting 14:400085AC:Necron:AE1C:Grand Cross:${l:party[2]}:队员:4.700:100.00:78.00:0.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="7" LogMessageText="[11:20:49.735] 263 107:400085A7:AE1D:94.516:100.009:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="8" LogMessageText="[11:20:49.735] 263 107:400085A9:AE1D:105.503:100.009:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="9" LogMessageText="[11:20:49.735] 263 107:400085AA:AE1D:100.009:94.516:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="10" LogMessageText="[11:20:49.735] 263 107:400085A8:AE1D:100.009:105.503:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="11" LogMessageText="[11:20:49.735] StartsCasting 14:400085AD:Necron:AE1C:Grand Cross:${l:party[3]}:队员:4.700:88.00:85.00:0.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="12" LogMessageText="[11:20:49.735] StartsCasting 14:400085AE:Necron:AE1C:Grand Cross:${l:party[1]}:队员:4.700:112.00:85.00:0.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="13" ActionType="Placeholder" ExecutionDelayExpression="11.05 * 1000"/>
+                      <Action OrderNumber="14" LogMessageText="[11:21:00.778] 263 107:400085AF:AE1D:96.103:103.885:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="15" LogMessageText="[11:21:00.778] 263 107:400085B0:AE1D:103.885:103.885:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="16" LogMessageText="[11:21:00.778] 263 107:400085B1:AE1D:103.885:96.103:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="17" LogMessageText="[11:21:00.778] 263 107:400085B2:AE1D:96.103:96.103:0.000:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="18" LogMessageText="[11:21:00.778] StartsCasting 14:400085B3:Necron:AE1C:Grand Cross:${l:party[5]}:队员:4.700:100.00:78.00:0.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="19" LogMessageText="[11:21:00.778] StartsCasting 14:400085B4:Necron:AE1C:Grand Cross:${l:party[6]}:队员:4.700:100.00:78.00:0.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="20" LogMessageText="[11:21:00.778] StartsCasting 14:400085B5:Necron:AE1C:Grand Cross:${l:party[7]}:队员:4.700:100.00:78.00:0.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="21" LogMessageText="[11:21:00.778] StartsCasting 14:400085B6:Necron:AE1C:Grand Cross:${l:party[8]}:队员:4.700:100.00:78.00:0.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                    </Actions>
                   </Trigger>
                 </Triggers>
               </Folder>
@@ -2112,6 +2146,33 @@
               <Trigger Enabled="false" Name="取消灰色地板" Id="c1545af4-b321-4bfe-a337-a0ed9f376dec" RegularExpression="^.{15}\S+ 101:[^:]*:00020001:(?&lt;loc&gt;0[4-9A-F]|1[0-3])">
                 <Actions>
                   <Action OrderNumber="1" NamedCallbackName="MapEffect" NamedCallbackParam="00040002:${loc}" Enabled="False" ActionType="NamedCallback"/>
+                </Actions>
+              </Trigger>
+            </Triggers>
+          </Folder>
+          <Folder Id="c62eaa4d-88b6-461b-9af7-746c112fc973" Name="小怪" Enabled="true" RawEnvironmentVariables="phase = add">
+            <Folders/>
+            <Triggers>
+              <Trigger Enabled="true" Name="0. 初始化" Id="12f1ac79-ac77-4793-ac63-59910d3e6e74" RegularExpression="^.{15}\S+ 21:.{8}:80000027:04">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="台词：You will die for me now" DescriptionOverride="True"/>
+                  <Action OrderNumber="2" VariableOp="SetString" VariableName="Ex7e_phase" VariableExpression="${env:phase}" ActionType="Variable"/>
+                  <Action OrderNumber="3" VariableOp="UnsetRegexUniversal" VariableName="^Ex7e_add" ActionType="Variable"/>
+                  <Action OrderNumber="4" UseTTSTextExpression="小怪" ActionType="UseTTS"/>
+                </Actions>
+              </Trigger>
+              <Trigger Enabled="true" Name="1. 大手" Id="e0801e20-8ba5-46d9-9bde-0b1c862ba946" RegularExpression="^.{15}\S+ 03:4.{7}:([^:]*:){7}18706:([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="${f:pick(${n: roundvec(0${x} - 100, 0${y} - 100, 8)}): 正前, 左前, 正左, 左后, 正后, 右后, 正右, 右前 }大手" ActionType="UseTTS">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:myIdx}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericLessEqual"/>
+                    </Condition>
+                  </Action>
+                </Actions>
+              </Trigger>
+              <Trigger Enabled="true" Name="2. 转场（solo）" Id="863d8d9f-5888-45f1-8667-7717d1439b24" RegularExpression="^.{15}\S+ 21:.{8}:80000027:04">
+                <Actions>
+                  <Action OrderNumber="1" LogMessageText="cd5:16.0" LogProcess="True" ActionType="LogMessage"/>
                 </Actions>
               </Trigger>
             </Triggers>
