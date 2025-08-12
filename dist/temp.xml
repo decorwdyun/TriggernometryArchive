@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TriggernometryExport PluginVersion="1.2.0.751">
+<TriggernometryExport PluginVersion="1.2.0.752">
   <ExportedFolder Id="ec334ba8-a8bc-4de9-be12-031af0f2f613" Name="临时" Enabled="true">
     <Folders>
       <Folder Id="aaf33a07-6da4-47f8-a413-44483bd4ba55" Name="风脉" Enabled="true">
@@ -304,14 +304,17 @@
               <Action OrderNumber="4" UseTTSTextExpression="${f:pick(${n: roundvec(${_entity[${id}].x} - ${_me.x}, ${_entity[${id}].y} - ${_me.y}, 8)}): 正北, 西北, 正西, 西南, 正南, 东南, 正东, 东北 } ${n: round(d(${_entity[${id}].xy}, ${_me.xy}))} 米发现胡萝卜" ActionType="UseTTS"/>
             </Actions>
           </Trigger>
-          <Trigger Enabled="true" Name="生成宝箱" Id="ea836e78-d00e-4963-8c03-3c4925dd7995" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}):.+:Type:4:">
+          <Trigger Enabled="true" Name="生成宝箱" Id="ea836e78-d00e-4963-8c03-3c4925dd7995" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}):.+:Type:4">
             <Actions>
               <Action OrderNumber="1"/>
-              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e ${_entity[${id}].Name, BNpcId, Pos, ModelStatus}" Enabled="False" ActionType="NamedCallback"/>
+              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e [宝箱] ${_entity[${id}].BNpcId, ModelStatus} &#13;&#10;@ (${_entity[${id}].Pos})" ActionType="NamedCallback"/>
               <Action OrderNumber="3" LogMessageText="宝箱：${_entity[${id}].Name, BNpcId, Pos, ModelStatus}" LogLevel="Custom2" ActionType="LogMessage"/>
               <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A: ${_entity[${id}].Pos}" ActionType="NamedCallback"/>
-              <Action OrderNumber="5" UseTTSTextExpression="${f:pick(${n: roundvec(${_entity[${id}].x} - ${_me.x}, ${_entity[${id}].y} - ${_me.y}, 8)}): 正北, 西北, 正西, 西南, 正南, 东南, 正东, 东北 } ${n: round(d(${_entity[${id}].xy}, ${_me.xy}))} 米发现宝箱" ActionType="UseTTS"/>
+              <Action OrderNumber="5" UseTTSTextExpression="${f:pick(${n: roundvec(${_entity[${id}].x} - ${_me.x}, ${_entity[${id}].y} - ${_me.y}, 8)}): 正北, 西北, 正西, 西南, 正南, 东南, 正东, 东北 } ${n: round(d(${_entity[${id}].xy}, ${_me.xy}))} 米发现${if: ${_entity[${id}].BNpcID} &lt; 1800 ? 银 : 铜 }宝箱" ActionType="UseTTS"/>
             </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${_entity[${id}].BNpcID}" ExpressionTypeL="String" ExpressionR="1000000" ExpressionTypeR="String" ConditionType="NumericLess"/>
+            </Condition>
           </Trigger>
         </Triggers>
       </Folder>
