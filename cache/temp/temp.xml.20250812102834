@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="1.2.0.751">
+<TriggernometryExport PluginVersion="1.2.0.715">
 <ExportedFolder Id="ec334ba8-a8bc-4de9-be12-031af0f2f613" Name="临时" Enabled="true">
 <Folders>
 <Folder Id="aaf33a07-6da4-47f8-a413-44483bd4ba55" Name="风脉" Enabled="true">
@@ -70,7 +70,7 @@
 </Action>
 <Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description="dir 正北顺1-8" DescriptionOverride="True" />
 <Action OrderNumber="5" VariableOp="SetString" VariableName="tmp_zoneId" VariableExpression="${_ffxivzoneid}" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="6" DictVariableOp="GetEntity" DictVariableName="tmp_me" DictVariableValue="${_me.id}" ActionType="DictVariable" Asynchronous="False" />
+<Action OrderNumber="6" DictVariableOp="GetEntityById" DictVariableName="tmp_me" DictVariableValue="${_me.id}" ActionType="DictVariable" Asynchronous="False" />
 <Action OrderNumber="7" ActionType="Placeholder" Asynchronous="False" Description="读入地图风脉坐标" DescriptionOverride="True" />
 <Action OrderNumber="8" TableVariableName="tmp_风脉" ActionType="TableVariable" Asynchronous="False" Description="397" />
 <Action OrderNumber="9" TableVariableOp="Build" TableVariableTarget="tmp_风脉" TableVariableExpression=",&#xD;&#xA;  402.029,  561.425,  191.536&#xD;&#xA;  424.958, -536.905,  164.308&#xD;&#xA; -332.888,   -29.952,  126.844&#xD;&#xA; -660.144, -376.630,  135.546" ActionType="TableVariable" Asynchronous="False" Description="397" DescriptionOverride="True">
@@ -293,24 +293,30 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1252$" Id="c5cce269-db1a-4de5-834f-6b2a9f34784a" Name="新月岛" Enabled="true">
+<Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1204$" Id="45e1277f-1067-4a65-9d0d-80bd0f394edc" Name="哭哭镇" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Name="生成萝卜" Id="f0a24b88-4d17-4791-b8f0-37c8850fa71c" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}):.+:1EAC1B:">
+<Trigger Enabled="true" Name="2. 循环" Id="51aeb3aa-2de1-49c2-833c-02c56c7f6e93" RegularExpression="" PrevActions="Interrupt">
 <Actions>
-<Action OrderNumber="1" />
-<Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e ${_entity[${id}].Name, BNpcId, Pos, ModelStatus}" Enabled="False" ActionType="NamedCallback" />
-<Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="B: ${_entity[${id}].Pos}" ActionType="NamedCallback" />
-<Action OrderNumber="4" UseTTSTextExpression="${f:pick(${n: roundvec(${_entity[${id}].x} - ${_me.x}, ${_entity[${id}].y} - ${_me.y}, 8)}): 正北, 西北, 正西, 西南, 正南, 东南, 正东, 东北 } ${n: round(d(${_entity[${id}].xy}, ${_me.xy}))} 米发现胡萝卜" ActionType="UseTTS" />
+<Action OrderNumber="1" NamedCallbackName="好脑袋" ActionType="NamedCallback" Asynchronous="False" />
+<Action OrderNumber="2" TriggerId="51aeb3aa-2de1-49c2-833c-02c56c7f6e93" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="80" Asynchronous="False" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Name="生成宝箱" Id="ea836e78-d00e-4963-8c03-3c4925dd7995" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}):.+:Type:4:">
+<Trigger Enabled="true" Name="1. 注册回调" Id="961b5361-12f1-485f-9b03-865f2a0349ce" RegularExpression="^.{15}\S+ 14:4.{7}:[^:]+:8EB1:">
 <Actions>
-<Action OrderNumber="1" />
-<Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e ${_entity[${id}].Name, BNpcId, Pos, ModelStatus}" Enabled="False" ActionType="NamedCallback" />
-<Action OrderNumber="3" LogMessageText="宝箱：${_entity[${id}].Name, BNpcId, Pos, ModelStatus}" LogLevel="Custom2" ActionType="LogMessage" />
-<Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A: ${_entity[${id}].Pos}" ActionType="NamedCallback" />
-<Action OrderNumber="5" UseTTSTextExpression="${f:pick(${n: roundvec(${_entity[${id}].x} - ${_me.x}, ${_entity[${id}].y} - ${_me.y}, 8)}): 正北, 西北, 正西, 西南, 正南, 东南, 正东, 东北 } ${n: round(d(${_entity[${id}].xy}, ${_me.xy}))} 米发现宝箱" ActionType="UseTTS" />
+<Action OrderNumber="1" ExecScriptExpression="using System;&#xD;&#xA;using System.Collections.Generic;&#xD;&#xA;using System.Globalization;&#xD;&#xA;using System.Linq;&#xD;&#xA;using System.Text;&#xD;&#xA;using static Triggernometry.PluginBridges.BridgeFFXIV;&#xD;&#xA;using Triggernometry.Variables;&#xD;&#xA;&#xD;&#xA;Triggernometry.RealPlugin.plug.RegisterNamedCallback(&quot;好脑袋&quot;, new Action&lt;object, string&gt;(好脑袋.Callback), null, registrant: &quot;哭哭镇宝宝椅&quot;);&#xD;&#xA;&#xD;&#xA;public static class 好脑袋&#xD;&#xA;{&#xD;&#xA;    // const double X0 = 0; const double Y0 = 150;  const double Z0 = -29.00;&#xD;&#xA;    const int Size = 8;&#xD;&#xA;&#xD;&#xA;    static string[] Waymarks = new string[] { &quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;One&quot;, &quot;Two&quot;, &quot;Three&quot;, &quot;Four&quot; };&#xD;&#xA;    static List&lt;string&gt; lastIds = new List&lt;string&gt;(new string[Size]);&#xD;&#xA;&#xD;&#xA;    static void Solve()&#xD;&#xA;    {&#xD;&#xA;        var me = GetIdEntity(PlayerHexId);&#xD;&#xA;        double myX = me.GetValue(&quot;x&quot;).ToDouble();&#xD;&#xA;        double myY = me.GetValue(&quot;y&quot;).ToDouble();&#xD;&#xA;        double myZ = me.GetValue(&quot;z&quot;).ToDouble();&#xD;&#xA;        List&lt;Head&gt; heads = GetAllEntities()//.Where(c =&gt; !string.IsNullOrEmpty(c.GetValue(&quot;bnpcid&quot;).ToString()))&#xD;&#xA;            .Where(head =&gt; Head.BNpcIds.Contains(head.GetValue(&quot;bnpcid&quot;).ToString()))&#xD;&#xA;            .Select(c =&gt; new Head(c))&#xD;&#xA;            .OrderBy(head =&gt; head.SquaredDistanceTo(myX, myY))&#xD;&#xA;            .Take(8)&#xD;&#xA;            .ToList();&#xD;&#xA;        while (heads.Count &lt; Size)&#xD;&#xA;        {&#xD;&#xA;            heads.Add(Head.Placeholder());&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        // 重新排序使已有的实体保持标点不变 防止闪烁&#xD;&#xA;        var currentIds = heads.Select(h =&gt; h.Id).ToList();&#xD;&#xA;        var filteredHeads = lastIds.Select(id =&gt; currentIds.Contains(id) ? heads[currentIds.IndexOf(id)] : null).ToList();&#xD;&#xA;        var remainedHeads = heads.Except(filteredHeads).ToList();&#xD;&#xA;        foreach (var head in remainedHeads)&#xD;&#xA;        {&#xD;&#xA;            filteredHeads[filteredHeads.IndexOf(null)] = head;&#xD;&#xA;        }&#xD;&#xA;        lastIds = filteredHeads.Select(h =&gt; h.Id).ToList();&#xD;&#xA;&#xD;&#xA;        StringBuilder json = new StringBuilder();&#xD;&#xA;        json.Append(&quot;{\n&quot;);&#xD;&#xA;        for (int i = 0; i &lt; Size; i++)&#xD;&#xA;        {&#xD;&#xA;            var head = filteredHeads[i];&#xD;&#xA;            json.Append($&quot;  \&quot;{Waymarks[i]}\&quot;: &quot;);&#xD;&#xA;            json.Append(!head.IsPlaceholder&#xD;&#xA;                ? $&quot;{{ \&quot;X\&quot;: {head.FrontX}, \&quot;Y\&quot;: {myZ - 1.5}, \&quot;Z\&quot;: {head.FrontY}, \&quot;Active\&quot;: true}},\n&quot;&#xD;&#xA;                : &quot;{},\n&quot;&#xD;&#xA;            );&#xD;&#xA;        }&#xD;&#xA;        json.Append(&quot;}&quot;);&#xD;&#xA;        Triggernometry.RealPlugin.plug.InvokeNamedCallback(&quot;place&quot;, json.ToString());&#xD;&#xA;        // Log(json);&#xD;&#xA;    }&#xD;&#xA;    public static void Callback(object _, string __) =&gt; Solve();&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;public class Head&#xD;&#xA;{&#xD;&#xA;    public static List&lt;string&gt; BNpcIds = new List&lt;string&gt; { &quot;16827&quot;, &quot;16829&quot; };&#xD;&#xA;    const double FrontDistance = 4;&#xD;&#xA;&#xD;&#xA;    public string Id;&#xD;&#xA;    public bool IsPlaceholder = false;&#xD;&#xA;&#xD;&#xA;    public double X;&#xD;&#xA;    public double Y;&#xD;&#xA;    public double H;&#xD;&#xA;    public double FrontX;&#xD;&#xA;    public double FrontY;&#xD;&#xA;&#xD;&#xA;    public Head() { }&#xD;&#xA;    public Head(VariableDictionary combatant)&#xD;&#xA;    {&#xD;&#xA;        Id = combatant.GetValue(&quot;id&quot;).ToString();&#xD;&#xA;        X = combatant.GetValue(&quot;x&quot;).ToDouble();&#xD;&#xA;        Y = combatant.GetValue(&quot;y&quot;).ToDouble();&#xD;&#xA;        H = combatant.GetValue(&quot;h&quot;).ToDouble();&#xD;&#xA;        FrontX = X + FrontDistance * Math.Sin(H);&#xD;&#xA;        FrontY = Y + FrontDistance * Math.Cos(H);&#xD;&#xA;    }&#xD;&#xA;    public double SquaredDistanceTo(double x, double y) =&gt; IsPlaceholder ? 0 : Math.Pow(x - FrontX, 2) + Math.Pow(y - FrontY, 2);&#xD;&#xA;&#xD;&#xA;    static int counter = 0;&#xD;&#xA;    public static Head Placeholder() =&gt; new Head { Id = $&quot;_{counter++}&quot;, IsPlaceholder = true };&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;public static double ToDouble(this object obj)&#xD;&#xA;{&#xD;&#xA;    return double.Parse(obj.ToString(), NumberStyles.Float, CultureInfo.InvariantCulture);&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;public static void Log(object o)&#xD;&#xA;{&#xD;&#xA;    Triggernometry.RealPlugin.plug.InvokeNamedCallback(&quot;command&quot;, &quot;/e \n&quot; + o.ToString());&#xD;&#xA;}" ActionType="ExecuteScript">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${ecallback:好脑袋}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="2" TriggerOp="EnableTrigger" TriggerId="51aeb3aa-2de1-49c2-833c-02c56c7f6e93" TriggerForce="regexp,conditions" ActionType="Trigger" Asynchronous="False" />
+<Action OrderNumber="3" TriggerId="51aeb3aa-2de1-49c2-833c-02c56c7f6e93" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="1000" Asynchronous="False" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="3. 终止" Id="5221b223-70a2-485e-97da-2f9dd0d9fe1b" RegularExpression="^.{15}\S+ 104:.:0:.:1">
+<Actions>
+<Action OrderNumber="1" TriggerOp="DisableTrigger" TriggerId="51aeb3aa-2de1-49c2-833c-02c56c7f6e93" TriggerForce="regexp,conditions" ActionType="Trigger" Asynchronous="False" />
+<Action OrderNumber="2" TriggerOp="CancelTrigger" TriggerId="51aeb3aa-2de1-49c2-833c-02c56c7f6e93" TriggerForce="regexp,conditions" ActionType="Trigger" Asynchronous="False" />
 </Actions>
 </Trigger>
 </Triggers>
