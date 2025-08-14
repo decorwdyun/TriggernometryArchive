@@ -293,30 +293,510 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1252$" Id="c5cce269-db1a-4de5-834f-6b2a9f34784a" Name="新月岛" Enabled="true">
-        <Folders/>
-        <Triggers>
-          <Trigger Enabled="true" Name="生成萝卜" Id="f0a24b88-4d17-4791-b8f0-37c8850fa71c" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}):.+:1EAC1B:">
-            <Actions>
-              <Action OrderNumber="1"/>
-              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e ${_entity[${id}].Name, BNpcId, Pos, ModelStatus}" Enabled="False" ActionType="NamedCallback"/>
-              <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="B: ${_entity[${id}].Pos}" ActionType="NamedCallback"/>
-              <Action OrderNumber="4" UseTTSTextExpression="${f:pick(${n: roundvec(${_entity[${id}].x} - ${_me.x}, ${_entity[${id}].y} - ${_me.y}, 8)}): 正北, 西北, 正西, 西南, 正南, 东南, 正东, 东北 } ${n: round(d(${_entity[${id}].xy}, ${_me.xy}))} 米发现胡萝卜" ActionType="UseTTS"/>
-            </Actions>
-          </Trigger>
-          <Trigger Enabled="true" Name="生成宝箱" Id="ea836e78-d00e-4963-8c03-3c4925dd7995" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}):.+:Type:4">
-            <Actions>
-              <Action OrderNumber="1"/>
-              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e [宝箱] ${_entity[${id}].BNpcId, ModelStatus} &#13;&#10;@ (${_entity[${id}].Pos})" ActionType="NamedCallback"/>
-              <Action OrderNumber="3" LogMessageText="宝箱：${_entity[${id}].Name, BNpcId, Pos, ModelStatus}" LogLevel="Custom2" ActionType="LogMessage"/>
-              <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A: ${_entity[${id}].Pos}" ActionType="NamedCallback"/>
-              <Action OrderNumber="5" UseTTSTextExpression="${f:pick(${n: roundvec(${_entity[${id}].x} - ${_me.x}, ${_entity[${id}].y} - ${_me.y}, 8)}): 正北, 西北, 正西, 西南, 正南, 东南, 正东, 东北 } ${n: round(d(${_entity[${id}].xy}, ${_me.xy}))} 米发现${if: ${_entity[${id}].BNpcID} &lt; 1800 ? 银 : 铜 }宝箱" ActionType="UseTTS"/>
-            </Actions>
-            <Condition Enabled="true" Grouping="Or">
-              <ConditionSingle Enabled="true" ExpressionL="${_entity[${id}].BNpcID}" ExpressionTypeL="String" ExpressionR="1000000" ExpressionTypeR="String" ConditionType="NumericLess"/>
-            </Condition>
-          </Trigger>
-        </Triggers>
+      <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1252$" Id="c5cce269-db1a-4de5-834f-6b2a9f34784a" Name="新月岛" Enabled="true" RawEnvironmentVariables="IsInFATE = chebyshevdistance(${_me.XY}, ${env:X0}, ${env:Y0}) &lt; ${env:R}${env:L} + 20">
+        <Folders>
+          <Folder Id="754ced5c-ac9f-4a1d-a719-90c739675e75" Name="CE: 昏暗妖魂——鬼火苗 ✓" Enabled="true" RawEnvironmentVariables="X0 = -570&#13;&#10;Y0 = -160&#13;&#10;&#10;Z0 = 97&#13;&#10;R = 20">
+            <Folders>
+              <Folder Id="ab26daaa-8b6f-4500-a4d2-b460348d067e" Name="附身" Enabled="true">
+                <Folders>
+                  <Folder Id="0eee49df-3322-4d87-a13b-bbcbd85c689e" Name="附身2（双分身）" Enabled="true">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="2. 处理" Id="f98ff54a-8f21-4f8c-8257-1a0fcb3442e3" RegularExpression="^新月_鬼火_附身2_转移:n:(?&lt;n&gt;[12]):ΔdirN4:(?&lt;ΔdirN4&gt;[13])" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="每接收一次顺/逆转移的转发日志，播报两次技能" DescriptionOverride="True"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="第一次接收到时，将偏移量加在记录的第一个方向上" DescriptionOverride="True"/>
+                          <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="新月_鬼火_附身2_dirN4" VariableExpression="(${v:新月_鬼火_附身_dirN4_0} + ${ΔdirN4}) %% 4" ActionType="Variable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description="第二次接收到时，将偏移量加在第一次加完的方向上" DescriptionOverride="True"/>
+                          <Action OrderNumber="5" VariableOp="SetNumeric" VariableName="新月_鬼火_附身2_dirN4" VariableExpression="(${v:新月_鬼火_附身2_dirN4} + ${ΔdirN4}) %% 4" ActionType="Variable" Asynchronous="False">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="6" LogMessageText="新月_鬼火_附身:${l:新月_鬼火_附身[${n: ${n} * 2 - 1}]}:dirN4:${v:新月_鬼火_附身2_dirN4}:t:4.5" LogProcess="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="4500"/>
+                          <Action OrderNumber="8" LogMessageText="新月_鬼火_附身:${l:新月_鬼火_附身[${n: ${n} * 2}]}:dirN4:${n: (${v:新月_鬼火_附身2_dirN4} + 2) % 4}:t:3" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="0. 初始化 附魂" Id="769da9f2-b768-4a9d-836f-d1766267d729" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:A19A:">
+                        <Actions>
+                          <Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^新月_鬼火_附身" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="2" VariableOp="SetString" VariableName="新月_鬼火_附身_phase" VariableExpression="2" ActionType="Variable" Asynchronous="False"/>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="1. 附身转移 =&gt; 2" Id="cb2ca70e-9a27-492d-bdb4-206029acf460" RegularExpression="^.{15}\S+ 1[56]:(?&lt;sid&gt;4.{7}):[^:]*:A19B:[^:]*:(?&lt;tid&gt;4.{7}):" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="这条和setpos同时 所以需要读取位置" DescriptionOverride="True"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="第 1/4 组转移是 boss 本体 ↔ 分身，所以只在 n = 2/3 时输出" DescriptionOverride="True"/>
+                          <Action OrderNumber="3" VariableOp="Increment" VariableName="新月_鬼火_附身2_转移_n" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="4" LogMessageText="新月_鬼火_附身2_转移:n:${n: ${v:新月_鬼火_附身2_转移_n} - 1}:ΔdirN4:${n: (roundvec(${_entity[${tid}].x} - ${env:X0}, ${_entity[${tid}].y} - ${env:Y0}, -4) - roundvec(${_entity[${sid}].x} - ${env:X0}, ${_entity[${sid}].y} - ${env:Y0}, -4)) %% 4}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:新月_鬼火_附身2_转移_n}" ExpressionTypeL="String" ExpressionR="[23]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="5" NamedCallbackName="command" NamedCallbackParam="/e [Debug]&#13;&#10;n - 1 = ${n: ${v:新月_鬼火_附身2_转移_n} - 1}&#13;&#10;src = ${_entity[${sid}].pos}&#13;&#10;tgt = ${_entity[${tid}].pos}" ActionType="NamedCallback" DescBgColor="fdd">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:新月_鬼火_附身2_转移_n}" ExpressionTypeL="String" ExpressionR="[23]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                            </Condition>
+                          </Action>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${v:新月_鬼火_附身_phase}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="false" Source="None" Name="Debug Log 2025-08-13 17:40" Id="eb844e1d-a75f-49ca-89fe-87efdddabe9e" RegularExpression="">
+                        <Actions>
+                          <Action OrderNumber="1" LogMessageText="[20:28:06.737] StartsCasting 14:40003C7B:鬼火苗:A19A:附魂:40003C7B:鬼火苗:4.700:-568.80:-160.18:97.00:-2.34" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="400"/>
+                          <Action OrderNumber="3" LogMessageText="[20:28:12.698] ActionEffect 15:40003C84:鬼火苗:A19B:unknown_a19b:40003C77:空壳:1B:A19B8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:7644980:7644980:10000:10000:::-559.39:-149.39:97.00:-2.36:44:44:0:10000:::-570.00:-160.00:97.00:-3.14:0003E04F:0:1:00::01:A19B:A19B:1.600:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="4" LogMessageText="[20:28:12.698] ActionEffect 15:40003C85:鬼火苗:A19B:unknown_a19b:40003C7A:空壳:1B:A19B8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:7644980:7644980:10000:10000:::-580.61:-170.61:97.00:0.79:44:44:0:10000:::-570.00:-160.00:97.00:-3.14:0003E050:0:1:00::01:A19B:A19B:1.600:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="400"/>
+                          <Action OrderNumber="6" LogMessageText="[20:28:18.361] 263 107:40003C7D:A1A1:-559.404:-149.388:96.988:-2.356" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="400"/>
+                          <Action OrderNumber="8" LogMessageText="[20:28:21.121] 263 107:40003C7C:A1A3:-580.615:-170.599:96.988:0.785" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="9" ActionType="Placeholder" ExecutionDelayExpression="400"/>
+                          <Action OrderNumber="10" LogMessageText="[20:28:23.844] 263 107:40003C7D:A19E:-559.404:-149.388:96.988:-2.356" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="11" ActionType="Placeholder" ExecutionDelayExpression="400"/>
+                          <Action OrderNumber="12" LogMessageText="[20:28:26.606] 263 107:40003C7C:A1A1:-580.615:-170.599:96.988:0.785" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="13" ActionType="Placeholder" ExecutionDelayExpression="400"/>
+                          <Action OrderNumber="14" LogMessageText="[20:28:31.241] ActionEffect 15:40003C7C:鬼火苗:A19B:unknown_a19b:40003C79:空壳:1B:A19B8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:7644980:7644980:10000:10000:::-559.39:-170.61:97.00:-0.79:44:44:0:10000:::-580.61:-170.61:97.00:0.79:0003E295:0:1:00::01:A19B:A19B:1.600:9FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="15" LogMessageText="[20:28:31.241] ActionEffect 15:40003C7D:鬼火苗:A19B:unknown_a19b:40003C78:空壳:1B:A19B8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:7644980:7644980:10000:10000:::-580.61:-149.39:97.00:2.36:44:44:0:10000:::-559.39:-149.39:97.00:-2.36:0003E296:0:1:00::01:A19B:A19B:1.600:1FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="12.71 * 1000"/>
+                          <Action OrderNumber="17" LogMessageText="[20:28:43.942] ActionEffect 15:40003C7C:鬼火苗:A19B:unknown_a19b:40003C77:空壳:1B:A19B8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:7644980:7644980:10000:10000:::-559.39:-149.39:97.00:-2.36:44:44:0:10000:::-559.39:-170.61:97.00:-0.79:0003E3D1:0:1:00::01:A19B:A19B:1.600:5FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="18" LogMessageText="[20:28:43.942] ActionEffect 15:40003C7D:鬼火苗:A19B:unknown_a19b:40003C7A:空壳:1B:A19B8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:7644980:7644980:10000:10000:::-580.61:-170.61:97.00:0.79:44:44:0:10000:::-580.61:-149.39:97.00:2.36:0003E3D2:0:1:00::01:A19B:A19B:1.600:DFFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="19" ActionType="Placeholder" ExecutionDelayExpression="7.93 * 1000"/>
+                          <Action OrderNumber="20" LogMessageText="[20:28:51.881] ActionEffect 15:40003C7C:鬼火苗:A19B:unknown_a19b:40003C7B:鬼火苗:1B:A19B8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:99357554:158098186:10000:10000:::-570.00:-160.02:97.00:2.36:44:44:0:10000:::-559.39:-149.39:97.00:-2.36:0003E493:0:1:00::01:A19B:A19B:1.600:1FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="21" LogMessageText="[20:28:51.881] ActionEffect 15:40003C7D:鬼火苗:A19B:unknown_a19b:40003C7B:鬼火苗:1B:A19B8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:99357554:158098186:10000:10000:::-570.00:-160.02:97.00:2.36:44:44:0:10000:::-580.61:-170.61:97.00:0.79:0003E494:0:1:00::01:A19B:A19B:1.600:9FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                  <Folder Id="d2976abf-5d6b-4e5d-a7c2-f2a0fc743cba" Name="附身1（本体）" Enabled="true">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Name="0. 初始化 附身" Id="56fda4e4-ff18-45bd-b533-3f6dd60c1370" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:A198:">
+                        <Actions>
+                          <Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^新月_鬼火_附身" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="2" VariableOp="SetString" VariableName="新月_鬼火_附身_phase" VariableExpression="1" ActionType="Variable" Asynchronous="False"/>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Name="1. 附身转移" Id="8ac08c8c-ff4a-4cee-9d66-9685c43cd732" RegularExpression="^.{15}\S+ 1[56]:(?&lt;sid&gt;4.{7}):[^:]*:A19B:[^:]*:(?&lt;tid&gt;4.{7}):">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="这条和setpos同时 所以需要读取位置" DescriptionOverride="True"/>
+                          <Action OrderNumber="2" VariableOp="Increment" VariableName="新月_鬼火_附身1_转移_n" ActionType="Variable" Asynchronous="False"/>
+                          <Action OrderNumber="3" LogMessageText="新月_鬼火_附身:${l:新月_鬼火_附身[${v:新月_鬼火_附身1_转移_n}]}:dirN4:${n: roundvec(${_entity[${tid}].x} - ${env:X0}, ${_entity[${tid}].y} - ${env:Y0}, -4)}:t:${n: ${v:新月_鬼火_附身1_转移_n} = 1 ? 5.7 : 4.7}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:新月_鬼火_附身1_转移_n}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="NumericLessEqual"/>
+                            </Condition>
+                          </Action>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${v:新月_鬼火_附身_phase}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="false" Source="None" Name="Debug Log 2025-08-13 17:40" Id="61ebb964-4482-4b71-8bec-32096996d047" RegularExpression="">
+                        <Actions>
+                          <Action OrderNumber="1" LogMessageText="[20:27:05.913] StartsCasting 14:40003C7B:鬼火苗:A198:附身:40003C7B:鬼火苗:12.700:-569.99:-160.41:97.00:1.70" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="500"/>
+                          <Action OrderNumber="3" LogMessageText="[20:27:07.019] 263 107:40003C83:A1A3:-569.994:-160.009:96.988:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="500"/>
+                          <Action OrderNumber="5" LogMessageText="[20:27:09.733] 263 107:40003C83:A19E:-569.994:-160.009:96.988:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="500"/>
+                          <Action OrderNumber="7" LogMessageText="[20:27:12.449] 263 107:40003C83:A1A3:-569.994:-160.009:96.988:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="500"/>
+                          <Action OrderNumber="9" LogMessageText="[20:27:15.169] 263 107:40003C83:A1A1:-569.994:-160.009:96.988:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="500"/>
+                          <Action OrderNumber="11" LogMessageText="[20:27:19.847] ActionEffect 15:40003C82:鬼火苗:A19B:unknown_a19b:40003C78:空壳:1B:A19B8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:7644980:7644980:10000:10000:::-580.61:-149.39:97.00:2.36:44:44:0:10000:::-570.00:-160.00:97.00:0.00:0003D9B7:0:1:00::01:A19B:A19B:1.600:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="12" ActionType="Placeholder" ExecutionDelayExpression="6.07 * 1000"/>
+                          <Action OrderNumber="13" LogMessageText="[20:27:25.910] ActionEffect 15:40003C82:鬼火苗:A19B:unknown_a19b:40003C7A:空壳:1B:A19B8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:7644980:7644980:10000:10000:::-580.61:-170.61:97.00:0.79:44:44:0:10000:::-580.61:-149.39:97.00:2.36:0003DA53:0:1:00::01:A19B:A19B:1.600:DFFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="5.08 * 1000"/>
+                          <Action OrderNumber="15" LogMessageText="[20:27:30.989] ActionEffect 15:40003C82:鬼火苗:A19B:unknown_a19b:40003C78:空壳:1B:A19B8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:7644980:7644980:10000:10000:::-580.61:-149.39:97.00:2.36:44:44:0:10000:::-580.61:-170.61:97.00:0.79:0003DACD:0:1:00::01:A19B:A19B:1.600:9FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="5.08 * 1000"/>
+                          <Action OrderNumber="17" LogMessageText="[20:27:36.076] ActionEffect 15:40003C82:鬼火苗:A19B:unknown_a19b:40003C77:空壳:1B:A19B8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:7644980:7644980:10000:10000:::-559.39:-149.39:97.00:-2.36:44:44:0:10000:::-580.61:-170.61:97.00:0.79:0003DB3B:0:1:00::01:A19B:A19B:1.600:DFFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                          <Action OrderNumber="18" ActionType="Placeholder" ExecutionDelayExpression="5.08 * 1000"/>
+                          <Action OrderNumber="19" LogMessageText="[20:27:41.149] ActionEffect 15:40003C82:鬼火苗:A19B:unknown_a19b:40003C76:空壳:1B:A19B8000:0:0:0:0:0:0:0:0:0:0:0:0:0:0:7644980:7644980:10000:10000:::-570.00:-160.00:97.00:-3.14:44:44:0:10000:::-559.39:-149.39:97.00:-2.36:0003DB85:0:1:00::01:A19B:A19B:1.600:1FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                </Folders>
+                <Triggers>
+                  <Trigger Enabled="true" Name="储存技能" Id="4d8c7ff9-e91f-4b6b-a8c7-b68ea8242e40" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;A19E|A1A1|A1A3):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                    <Actions>
+                      <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="新月_鬼火_附身" ListVariableExpression="${?d: A19E = 月环, A1A1 = 十字 , A1A3 = 击退 [${aid}]}" ActionType="ListVariable" Asynchronous="False"/>
+                      <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="新月_鬼火_附身_dirN4_0" VariableExpression="roundvec(${x} - ${env:X0}, ${y} - ${env:Y0}, -4)" ActionType="Variable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${ev:新月_鬼火_附身_dirN4_0}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="[F] 技能" Id="e89661eb-0f0c-4dad-93d6-6e0786121c6f" RegularExpression="^新月_鬼火_附身:(?&lt;type&gt;月环|十字|击退):dirN4:(?&lt;dirN4&gt;[0-3]):t:(?&lt;t&gt;[^:]+)">
+                    <Actions>
+                      <Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: gl_circle_5007_x1&#13;&#10;Tag: 新月&#13;&#10;t: ${t}&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;θ: dir2rad(${dirN4}, -4)&#13;&#10;Pos: 0, -15&#13;&#10;Scale: 50" ActionType="NamedCallback">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="月环" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect2&#13;&#10;Tag: 新月&#13;&#10;t: ${t}&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;θ: dir2rad(${dirN4}, -4)&#13;&#10;Pos: 0, -15&#13;&#10;Angle: 0&#13;&#10;Scale: 7.5, 50&#13;&#10;---&#13;&#10;Omen: Rect2&#13;&#10;Tag: 新月&#13;&#10;t: ${t}&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;θ: dir2rad(${dirN4}, -4)&#13;&#10;Pos: 0, -15&#13;&#10;Angle: π/2&#13;&#10;Scale: 7.5, 50" ActionType="NamedCallback">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="十字" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: m0501_nockback_omen01d1&#13;&#10;Tag: 新月&#13;&#10;t: ${t}&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;θ: dir2rad(${dirN4}, -4)&#13;&#10;Pos: 0, -15&#13;&#10;Scale: 50" ActionType="NamedCallback">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="击退" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" UseTTSTextExpression="${type}" ActionType="UseTTS"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+            </Folders>
+            <Triggers>
+              <Trigger Enabled="true" Name="落喙俯冲 死刑" Id="884c01ff-8ac7-4a57-867c-f2d6fd11ef41" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:A1A4:[^:]*:(?&lt;tid&gt;1.{7}):">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="${if: ${tid} == ${_me.id} ? 死刑点名 : 队友死刑 }" ActionType="UseTTS">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${_entity[${tid}].InParty}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Action>
+                </Actions>
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Name="幽魂光 AoE" Id="f07bc1e2-f3cb-4865-945f-25afa52ff1fe" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:A1A5:">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS"/>
+                </Actions>
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Trigger>
+            </Triggers>
+          </Folder>
+          <Folder Id="ef283575-2c71-468a-8a31-e9138eb1f14a" Name="CE: 防御指令 ✓" Enabled="true" RawEnvironmentVariables="X0 = -352&#13;&#10;Y0 = -608&#13;&#10;&#10;Z0 = 5&#13;&#10;R = 20 ${?}">
+            <Folders/>
+            <Triggers>
+              <Trigger Enabled="true" Name="钢铁线" Id="20393283-8cdb-48d7-a4d7-ec9216f7acb9" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;.{8}):[^:]*:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:012F:">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="钢铁" ActionType="UseTTS"/>
+                  <Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#13;&#10;Tag: 新月&#13;&#10;t: 5.7&#13;&#10;Pos: ${_entity[${tid}].pos}&#13;&#10;Scale: 16" ActionType="NamedCallback"/>
+                </Actions>
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Name="十字线" Id="6bdd62ee-8d44-48cb-a8e0-ec055780de9b" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;.{8}):[^:]*:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:0130:">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="十字" ActionType="UseTTS"/>
+                  <Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect2&#13;&#10;Tag: 新月&#13;&#10;t: 5.7&#13;&#10;Pos: ${_entity[${tid}].pos}&#13;&#10;Angle: 0&#13;&#10;Scale: 5, 40&#13;&#10;---&#13;&#10;Omen: Rect2&#13;&#10;Tag: 新月&#13;&#10;t: 5.7&#13;&#10;Pos: ${_entity[${tid}].pos}&#13;&#10;Angle: π/2&#13;&#10;Scale: 5, 40" ActionType="NamedCallback"/>
+                </Actions>
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Name="钢铁线（*6）" Id="9392e7d2-6e78-4d6b-9ed7-ebb64bfa85bb" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;.{8}):[^:]*:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:0132:">
+                <Actions>
+                  <Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#13;&#10;Tag: 新月&#13;&#10;delay: 2&#13;&#10;t: 3.8&#13;&#10;Pos: ${_entity[${sid}].pos}&#13;&#10;Scale: 16" ActionType="NamedCallback"/>
+                </Actions>
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Name="以太爆发 AoE" Id="244faee1-49fa-471d-a685-5d3f7c2ef51b" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:A1D0:">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS"/>
+                </Actions>
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Trigger>
+            </Triggers>
+          </Folder>
+          <Folder Id="997bb78a-cf7b-43b5-95e1-2d46f7eb1fd1" Name="CE: 黑色连队 ✓" Enabled="true" RawEnvironmentVariables="X0 = 450&#13;&#10;Y0 = 357&#13;&#10;&#10;Z0 = 65&#13;&#10;L = 20">
+            <Folders/>
+            <Triggers>
+              <Trigger Enabled="true" Name="分身钢铁" Id="fd2ee941-48ad-4978-a38a-3e7f01a3b1f8" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):A0CC:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="boss 存在时不画外圈小钢铁" DescriptionOverride="True"/>
+                  <Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#13;&#10;Tag: 新月&#13;&#10;t: 4.7&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Scale: 8" ActionType="NamedCallback">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${_entity[bnpcid=18085].Exist}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="abs(${x}-${env:X0}) + abs(${y}-${env:Y0})" ExpressionTypeL="Numeric" ExpressionR="15" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                    </Condition>
+                  </Action>
+                </Actions>
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Name="本体钢铁" Id="6ed2c082-bde1-4945-b3e6-6ee51fe04800" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):A0BB:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                <Actions>
+                  <Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#13;&#10;Tag: 新月&#13;&#10;t: 6.6&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Scale: 16" ActionType="NamedCallback"/>
+                  <Action OrderNumber="2" UseTTSTextExpression="大钢铁" ActionType="UseTTS"/>
+                  <Action OrderNumber="3" LogMessageText="cd5:6.6" LogProcess="True" ActionType="LogMessage"/>
+                </Actions>
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Name="本体月环" Id="d7ecb8a5-3234-4b00-853a-eb5a34cc7d03" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):A0BC:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                <Actions>
+                  <Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: gl_sircle_3008bf&#13;&#10;Tag: 新月&#13;&#10;t: 7.7&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Scale: 30" ActionType="NamedCallback"/>
+                  <Action OrderNumber="2" UseTTSTextExpression="月环" ActionType="UseTTS"/>
+                </Actions>
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Name="分身直条" Id="30d13158-84c4-46ed-a771-a51296275815" RegularExpression="^.{15}\S+ AAA:203:11D1:4.{7}:[^:]*:[^:]*:18088:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="三条合并，只保留距离场中 6/14 的" DescriptionOverride="True"/>
+                  <Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#13;&#10;Tag: 新月&#13;&#10;t: 8.8&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h}&#13;&#10;Scale: 6, 42" ActionType="NamedCallback"/>
+                </Actions>
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                  <ConditionGroup Enabled="true" Grouping="Or">
+                    <ConditionSingle Enabled="true" ExpressionL="round(abs(${x} - ${env:X0}))" ExpressionTypeL="Numeric" ExpressionR="^(6|14)$" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                    <ConditionSingle Enabled="true" ExpressionL="round(abs(${y} - ${env:Y0}))" ExpressionTypeL="Numeric" ExpressionR="^(6|14)$" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                  </ConditionGroup>
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="false" Source="None" Name="Debug Log 2025-08-13 21:25 直条" Id="5de06a8b-10c6-4fd8-a597-a7bf332374f6" RegularExpression="">
+                <Actions>
+                  <Action OrderNumber="1" LogMessageText="[20:05:43.716] _PlayActionTimeline AAA:203:11D1:4000E962:黑陆行鸟:13637:18088:471:367:65.012:-1.570868" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                  <Action OrderNumber="2" LogMessageText="[20:05:43.721] _PlayActionTimeline AAA:203:11D1:4000E95F:黑陆行鸟:13637:18088:439.9997:378:65.01199:-3.141593" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                  <Action OrderNumber="3" LogMessageText="[20:05:43.721] _PlayActionTimeline AAA:203:11D1:4000E95C:黑陆行鸟:13637:18088:429:347:65.012:1.570772" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                  <Action OrderNumber="4" LogMessageText="[20:05:43.721] _PlayActionTimeline AAA:203:11D1:4000E965:黑陆行鸟:13637:18088:460:336:65.01199:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                  <Action OrderNumber="5" LogMessageText="[20:05:43.721] _PlayActionTimeline AAA:203:11D1:4000E960:黑陆行鸟:13637:18088:435.9997:378:65.01199:-3.141593" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                  <Action OrderNumber="6" LogMessageText="[20:05:43.721] _PlayActionTimeline AAA:203:11D1:4000E966:黑陆行鸟:13637:18088:456:336:65.012:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                  <Action OrderNumber="7" LogMessageText="[20:05:43.721] _PlayActionTimeline AAA:203:11D1:4000E967:黑陆行鸟:13637:18088:452:336:65.012:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                  <Action OrderNumber="8" LogMessageText="[20:05:43.721] _PlayActionTimeline AAA:203:11D1:4000E963:黑陆行鸟:13637:18088:471:363:65.012:-1.570868" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                  <Action OrderNumber="9" LogMessageText="[20:05:43.721] _PlayActionTimeline AAA:203:11D1:4000E964:黑陆行鸟:13637:18088:471:359:65.01199:-1.570868" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                  <Action OrderNumber="10" LogMessageText="[20:05:43.721] _PlayActionTimeline AAA:203:11D1:4000E961:黑陆行鸟:13637:18088:431.9997:378:65.012:-3.141593" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                  <Action OrderNumber="11" LogMessageText="[20:05:43.721] _PlayActionTimeline AAA:203:11D1:4000E95D:黑陆行鸟:13637:18088:429:343:65.012:1.570772" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                  <Action OrderNumber="12" LogMessageText="[20:05:43.721] _PlayActionTimeline AAA:203:11D1:4000E95E:黑陆行鸟:13637:18088:429:339:65.012:1.570772" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                </Actions>
+              </Trigger>
+            </Triggers>
+          </Folder>
+          <Folder Id="fff0b08a-9889-47f1-b954-4779f2b8024b" Name="CE: 拟造使魔——水晶龙 ✓" Enabled="true" RawEnvironmentVariables="X0 = -414&#13;&#10;Y0 = 75&#13;&#10;&#10;Z0 = 92&#13;&#10;R = 25&#13;&#10;R1 = 7&#13;&#10;R2 = 13&#13;&#10;R3 = 19">
+            <Folders>
+              <Folder Id="0eb33131-3cb7-4931-a3d0-2e924765122e" Name="水晶连线" Enabled="true">
+                <Folders/>
+                <Triggers>
+                  <Trigger Enabled="true" Name="3. 播报" Id="d1aee628-722d-4191-ae9e-48b5698f8b2f" RegularExpression="^新月_水晶龙_水晶:order:(?&lt;order&gt;[123]):safe:(?&lt;safe&gt;[123])">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="${?l: 壹, 贰, 叁 [${order}]}${?l: 前, 中, 后 [${safe}]}" ActionType="UseTTS"/>
+                      <Action OrderNumber="2" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;θ: ${v:新月_水晶龙_水晶_θ}&#13;&#10;ScaleY: ${safe} * 6 + 2.4&#13;&#10;${order}: 0, -1&#13;&#10;${?l: A, B, C [${order}]}: 0, 1" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="clear&#13;&#10;---&#13;&#10;load" ActionType="NamedCallback" ExecutionDelayExpression="18450" DescBgColor="dff">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${order}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="1b. 获取连线" Id="b112f632-8ac0-4f9d-8a0f-5e753c59ee60" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;.{8}):[^:]*:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;013[ABC]):">
+                    <Actions>
+                      <Action OrderNumber="1" LogMessageText="_新月_水晶龙_水晶:order:${n:0x${type} - 0x0139}:circle:${d:新月_水晶龙_钢月_水晶位置[${sid}]}" LogProcess="True" ActionType="LogMessage"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="2. 处理" Id="f0b6ecff-9484-47f9-a23c-2ddc6c5339c2" RegularExpression="^_新月_水晶龙_水晶:order:(?&lt;order&gt;[123]):circle:(?&lt;circle&gt;[123])">
+                    <Actions>
+                      <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="新月_水晶龙_水晶_${order}" ListVariableExpression="${circle}" ActionType="ListVariable" Asynchronous="False"/>
+                      <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="新月_水晶龙_水晶_θ" VariableExpression="θ(${env:X0}, ${env:Y0}, ${_me.XY})" ActionType="Variable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${order}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" LogMessageText="新月_水晶龙_水晶:order:${order}:safe:${n: 6 - ${l:新月_水晶龙_水晶_${order}.sum()}}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:新月_水晶龙_水晶_${order}.size}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ListVariableName="新月_水晶龙_水晶_${order}" ActionType="ListVariable" ExecutionDelayExpression="1000"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="1a. 记录水晶位置" Id="8f177f51-dee3-4e7a-a7ed-5981b90cf1e4" RegularExpression="^.{15}\S+ AAA:203:(?&lt;type&gt;11D[123]):(?&lt;id&gt;4.{7}):[^:]*:[^:]*:18199:">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="PlayActionTimeline，水晶 pos 都在场中，实际靠这个显示不同位置" DescriptionOverride="True"/>
+                      <Action OrderNumber="1" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="新月_水晶龙_钢月_水晶位置" DictVariableKey="${id}" DictVariableValue="0x${type} - 0x11D0" ActionType="DictVariable"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="false" Source="None" Name="Debug Log 2025-08-13 03:31" Id="c89dbb77-1fb0-4454-a75e-0e848cbac43c">
+                    <Actions>
+                      <Action OrderNumber="1" LogMessageText="[03:12:25.009] _PlayActionTimeline AAA:203:11D3:40008FD2:晶石:13698:18199:-414:75:92:2.740163" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="2" LogMessageText="[03:12:25.009] _PlayActionTimeline AAA:203:11D1:40008FD3:晶石:13698:18199:-414:75:92:-1.186888" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="3" LogMessageText="[03:12:25.009] _PlayActionTimeline AAA:203:11D2:40008FD5:晶石:13698:18199:-414:75:92:0.3839324" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="4" LogMessageText="[03:12:25.009] _PlayActionTimeline AAA:203:11D3:40008FD4:晶石:13698:18199:-414:75:92:-0.4014778" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="4.06 * 1000"/>
+                      <Action OrderNumber="6" LogMessageText="[03:12:29.066] Tether 23:40008FD5:晶石:40008FC5:水晶龙:0000:0000:013A:40008FC5:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="7" LogMessageText="[03:12:29.066] Tether 23:40008FD4:晶石:40008FC5:水晶龙:0000:0000:013A:40008FC5:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000"/>
+                      <Action OrderNumber="9" LogMessageText="[03:12:31.071] Tether 23:40008FD3:晶石:40008FC5:水晶龙:0000:0000:013B:40008FC5:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="10" LogMessageText="[03:12:31.071] Tether 23:40008FD2:晶石:40008FC5:水晶龙:0000:0000:013B:40008FC5:000F:0000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="dd8001e1-c3e6-4c42-96e6-9c452d008ad6" Name="钢铁月环" Enabled="true">
+                <Folders/>
+                <Triggers>
+                  <Trigger Enabled="true" Name="0. 初始化" Id="9403b5c1-5b09-4578-834b-6bddd4842d10" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;type&gt;A315):" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
+                    <Actions>
+                      <Action OrderNumber="1" VariableOp="UnsetRegexUniversal" VariableName="^新月_水晶龙_钢月" ActionType="Variable"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="2. 分身钢铁月环" Id="56ada47a-5007-431b-96cb-d213c1d842b3" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;type&gt;A70E|A70F):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
+                    <Actions>
+                      <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="新月_水晶龙_钢月_b钢" VariableExpression="0x${type} = 0xA70E" ActionType="Variable" Asynchronous="False"/>
+                      <Action OrderNumber="2" UseTTSTextExpression="${if: ${v:新月_水晶龙_钢月_b钢} ? 远离分身 : 去分身脚下 }" ActionType="UseTTS"/>
+                      <Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="如果有符文，计算符文角度，代替水晶角度" DescriptionOverride="True"/>
+                      <Action OrderNumber="4" LogMessageText="cd5:6.6" LogProcess="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="5" LogMessageText="cd5:11.1" LogProcess="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="6" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;θ: θ(${env:X0}, ${env:Y0}, 0${x}, 0${y})&#13;&#10;Scale: ${v:新月_水晶龙_钢月_b钢} ? 15.1 : 14.1&#13;&#10;Waymarks: ABCD1234&#13;&#10;Start: ${if: ${v:新月_水晶龙_钢月_b钢} ? -1, 0 : 0, -1 }&#13;&#10;End:   ${if: ${v:新月_水晶龙_钢月_b钢} ?  1, 0 :  0, 1 }" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="6600" Asynchronous="False"/>
+                      <Action OrderNumber="8" VariableOp="SetNumeric" VariableName="新月_水晶龙_钢月_θ2" VariableExpression="(${v:新月_水晶龙_钢月_黄_n} = 4 ? 0 : π/2) + ${v:新月_水晶龙_钢月_黄_θ}" ActionType="Variable" Asynchronous="False">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="0${v:新月_水晶龙_钢月_黄_n}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="9" UseTTSTextExpression="${if: ${v:新月_水晶龙_钢月_b钢} = (${v:新月_水晶龙_钢月_黄_n} = 4) ? 去蓝色 : 去橙色 }符文" ActionType="UseTTS">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="0${v:新月_水晶龙_钢月_黄_n}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="10" UseTTSTextExpression="${if: ${v:新月_水晶龙_钢月_b钢} ? 远离 : 靠近 }水晶" ActionType="UseTTS">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="0${v:新月_水晶龙_钢月_黄_n}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericEqual"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="11" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;θ: ${v:新月_水晶龙_钢月_θ2}&#13;&#10;Scale: ${v:新月_水晶龙_钢月_b钢} ? 15.1 : 14.1&#13;&#10;Waymarks: ABCD1234&#13;&#10;Start: ${if: ${v:新月_水晶龙_钢月_b钢} ? -1, 0 : 0, -1 }&#13;&#10;End:   ${if: ${v:新月_水晶龙_钢月_b钢} ?  1, 0 :  0, 1 }" ActionType="NamedCallback" DescBgColor="dff"/>
+                      <Action OrderNumber="12" ActionType="Placeholder" ExecutionDelayExpression="5400" Asynchronous="False"/>
+                      <Action OrderNumber="13" NamedCallbackName="AdvWm" NamedCallbackParam="clear&#13;&#10;---&#13;&#10;load" ActionType="NamedCallback" DescBgColor="dff"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="1a. 记录水晶顺序" Id="d35e85a7-c95b-4301-8bb6-400185341fe7" RegularExpression="^.{15}\S+ AAA:204:1:2:4.{7}:[^:]*:[^:]*:2014544:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="EObjAnimation" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="新月_水晶龙_钢月_θ2" VariableExpression="θ(${env:X0}, ${env:Y0}, ${x}, ${y})" ActionType="Variable"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="false" Source="None" Name="Debug Log 1" Id="87dfe35f-806c-4878-8b46-3e21de90ac4b" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" LogMessageText="[01:35:53.650] StartsCasting 14:4000613C:水晶龙:A315:幻影晶石:4000613C:水晶龙:2.700:-413.96:75.91:92.00:0.02" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="2.94 * 1000"/>
+                      <Action OrderNumber="3" LogMessageText="[01:35:56.591] _EObjAnimation AAA:204:1:2:40006145::256:2014544:-401.2721:62.27208:92:-0.7854581" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="4" LogMessageText="[01:35:56.591] _EObjAnimation AAA:204:1:2:40006141::1101004800:2014544:-426.7279:87.72792:92:2.356182" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="3.21 * 1000"/>
+                      <Action OrderNumber="6" LogMessageText="[01:35:59.797] 263 107:40006151:A70E:-414.014:57.009:92.013:0.000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="7" LogMessageText="[01:35:59.797] 263 107:40006154:A70E:-414.014:92.990:92.013:3.141" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="false" Source="None" Name="Debug Log 2" Id="45f7fdd0-85e8-4935-8185-537c3e124211" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" LogMessageText="[01:36:51.248] StartsCasting 14:4000613C:水晶龙:A315:幻影晶石:4000613C:水晶龙:2.700:-413.05:75.97:92.00:-2.10" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="2.95 * 1000"/>
+                      <Action OrderNumber="3" LogMessageText="[01:36:54.201] _EObjAnimation AAA:204:1:2:4000613E::256:2014544:-419:75:92:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="4" LogMessageText="[01:36:54.201] _EObjAnimation AAA:204:1:2:4000613D::1119354893:2014544:-409:75:92:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="3.22 * 1000"/>
+                      <Action OrderNumber="6" LogMessageText="[01:36:57.413] 263 107:40006151:A70F:-396.008:74.984:92.013:-1.571" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="7" LogMessageText="[01:36:57.413] 263 107:40006154:A70F:-432.020:74.984:92.013:1.570" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="3.03 * 1000"/>
+                      <Action OrderNumber="9" LogMessageText="[01:37:00.452] StartsCasting 14:4000613C:水晶龙:A31A:转移晶石:4000613C:水晶龙:5.700:-414.02:75.00:92.00:-0.04" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="10" LogMessageText="[01:37:00.354] 261 105:Add:40006265:BNpcID:1EBD8E:BNpcNameID:41A00000:CastBuffID:256:CastDurationCurrent:0.0000:CastDurationMax:0.0000:CastGroundTargetX:0.0000:CastGroundTargetY:0.0000:CastGroundTargetZ:0.0000:CastTargetID:A000000:CurrentMP:5178883:Heading:2.3562:ModelStatus:2048:NPCTargetID:A96A8E:PosX:-426.7279:PosY:87.7279:PosZ:92.0000:Radius:0.5000:Type:7" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                      <Action OrderNumber="11" LogMessageText="[01:37:00.354] 261 105:Add:40006266:BNpcID:1EBD8E:BNpcNameID:100:CastBuffID:256:CastDurationCurrent:0.0000:CastDurationMax:0.0000:CastGroundTargetX:0.0000:CastGroundTargetY:0.0000:CastGroundTargetZ:0.0000:CastTargetID:A000000:CurrentMP:5113347:CurrentWorldID:21666:Heading:-0.7855:ModelStatus:2048:NPCTargetID:3004576:PosX:-401.2721:PosY:62.2721:PosZ:92.0000:Radius:0.5000:Type:7:WorldID:512" LogProcess="True" LogProcessACT="True" ActionType="LogMessage"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="1b. 记录符文角度" Id="fc1cdabd-8629-4a69-928c-2c7ddbe284c4" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:1EBD8E.*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="1EBD8E 黄色符文  F 蓝色" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" VariableOp="Increment" VariableName="新月_水晶龙_钢月_黄_n" ActionType="Variable"/>
+                      <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="新月_水晶龙_钢月_黄_θ" VariableExpression="θ(${env:X0}, ${env:Y0}, ${x}, ${y})" ActionType="Variable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="d(${env:X0}, ${env:Y0}, ${x}, ${y})" ExpressionTypeL="Numeric" ExpressionR="10" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+            </Folders>
+            <Triggers>
+              <Trigger Enabled="true" Name="AoE" Id="8aa50445-cec8-43d1-9630-0ae2c24ce1ad" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:A322:">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="AoE" ActionType="UseTTS"/>
+                </Actions>
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${env:IsInFATE}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Trigger>
+            </Triggers>
+          </Folder>
+          <Folder Id="bed22b43-8316-4432-8a79-df1af8a48e7e" Name="雷达" Enabled="true">
+            <Folders/>
+            <Triggers>
+              <Trigger Enabled="true" Name="生成宝箱" Id="ea836e78-d00e-4963-8c03-3c4925dd7995" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}):.+:Type:4">
+                <Actions>
+                  <Action OrderNumber="1"/>
+                  <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e [宝箱] ${_entity[${id}].BNpcId, ModelStatus} &#13;&#10;@ (${_entity[${id}].Pos})" ActionType="NamedCallback"/>
+                  <Action OrderNumber="3" LogMessageText="宝箱：${_entity[${id}].Name, BNpcId, Pos, ModelStatus}" LogLevel="Custom2" ActionType="LogMessage"/>
+                  <Action OrderNumber="4" NamedCallbackName="AdvWm" NamedCallbackParam="A: ${_entity[${id}].Pos}" ActionType="NamedCallback"/>
+                  <Action OrderNumber="5" UseTTSTextExpression="${f:pick(${n: roundvec(${_entity[${id}].x} - ${_me.x}, ${_entity[${id}].y} - ${_me.y}, 8)}): 正北, 西北, 正西, 西南, 正南, 东南, 正东, 东北 } ${n: round(d(${_entity[${id}].xy}, ${_me.xy}))} 米发现${if: ${_entity[${id}].BNpcID} &lt;= 1794 ? 银 : ${if:  ${_entity[${id}].BNpcID} &gt;= 1798 ? 铜 : ${_entity[${id}].BNpcID} } }宝箱" ActionType="UseTTS"/>
+                </Actions>
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${_entity[${id}].BNpcID}" ExpressionTypeL="String" ExpressionR="1000000" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                </Condition>
+              </Trigger>
+              <Trigger Enabled="true" Name="生成萝卜" Id="f0a24b88-4d17-4791-b8f0-37c8850fa71c" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}):.+:1EAC1B:">
+                <Actions>
+                  <Action OrderNumber="1"/>
+                  <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e ${_entity[${id}].Name, BNpcId, Pos, ModelStatus}" Enabled="False" ActionType="NamedCallback"/>
+                  <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="B: ${_entity[${id}].Pos}" ActionType="NamedCallback"/>
+                  <Action OrderNumber="4" UseTTSTextExpression="${f:pick(${n: roundvec(${_entity[${id}].x} - ${_me.x}, ${_entity[${id}].y} - ${_me.y}, 8)}): 正北, 西北, 正西, 西南, 正南, 东南, 正东, 东北 } ${n: round(d(${_entity[${id}].xy}, ${_me.xy}))} 米发现胡萝卜" ActionType="UseTTS"/>
+                </Actions>
+              </Trigger>
+            </Triggers>
+          </Folder>
+        </Folders>
+        <Triggers/>
       </Folder>
     </Folders>
     <Triggers>
