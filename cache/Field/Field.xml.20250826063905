@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <TriggernometryExport PluginVersion="1.2.0.752">
-<ExportedFolder Id="ed2f9a8b-0d39-47f7-be0c-5e7b2beeda92" Name="新月岛" Enabled="true" RawEnvironmentVariables="辅助骑士 = 4358&#xD;&#xA;辅助武僧 = 4360&#xD;&#xA;辅助盗贼 = 4369&#xD;&#xA;辅助武士 = 4362&#xD;&#xA;辅助狂战士 = 4359&#xD;&#xA;辅助猎人 = 4361&#xD;&#xA;辅助时魔法师 = 4365&#xD;&#xA;辅助药剂师 = 4367&#xD;&#xA;辅助风水师 = 4364&#xD;&#xA;辅助吟游诗人 = 4363&#xD;&#xA;辅助预言师 = 4368&#xD;&#xA;辅助炮击士 = 4366&#xD;&#xA;辅助自由人 = 4342">
+<ExportedFolder Id="ed2f9a8b-0d39-47f7-be0c-5e7b2beeda92" Name="新月岛" Enabled="true">
 <Folders>
 <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1252$" Id="b8bf195b-d682-407d-9a3e-46141ed3aae8" Name="雷达" Enabled="true">
 <Folders />
@@ -89,7 +89,7 @@
 <Trigger Enabled="true" Name="4a. 清除宝箱" Id="f647a0e2-ae08-42f6-8075-8f749e893532" RegularExpression="^.{15}\S+ 00:083E::(?&lt;name&gt;.{1,6})获得了“" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="限制触发频率；将第六列临时设置为到自身距离并排序，如果此时周围 30 米内有宝箱，则认为是开了此宝箱，移除标点及记录" DescriptionOverride="True" />
-<Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 获得" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" />
+<Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 获得" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" />
 <Action OrderNumber="3" VariableOp="SetString" TableVariableOp="SlicesSetAll" TableVariableExpressionType="Numeric" TableVariableName="新月_宝箱" TableVariableExpression="distance(${_row[2]}, ${_row[3]}, ${_me.xy})" TableVariableX="6" ActionType="TableVariable" Asynchronous="False" />
 <Action OrderNumber="4" VariableOp="SetString" TableVariableOp="SortLine" TableVariableName="新月_宝箱" TableVariableY="n+: ${_row[6]}" ActionType="TableVariable" Asynchronous="False" />
 <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="${t:新月_宝箱[5][1]}: clear" VariableOp="SetString" ActionType="NamedCallback" Asynchronous="False">
@@ -1986,14 +1986,14 @@
 <Action OrderNumber="3" TextAuraOp="DeactivateAura" TextAuraAlignment="TopLeft" TextAuraEffect="Bold" TextAuraFontSize="14.25" TextAuraName="新月_CE" TextAuraFontName="微软雅黑" ActionType="TextAura" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Sequential="True" Name="CE 开始 (zone 1252)" Id="0d8b5323-6887-4003-a6c0-1a52e54c0849" RegularExpression="^.{15}\S+ 103:(?&lt;popTime&gt;.{8}):(?&lt;timeRemaining&gt;0000):[^:]*:(?&lt;ceId&gt;0[1-9A-F]):(?&lt;numPlayers&gt;[^:]*):(?&lt;status&gt;01):00:(?&lt;progress&gt;[^:]*)">
+<Trigger Enabled="true" Sequential="True" Name="CE 开始 (zone 1252)" Id="0d8b5323-6887-4003-a6c0-1a52e54c0849" RegularExpression="^.{15}\S+ 103:(?&lt;popTime&gt;.{8}):(?&lt;timeRemaining&gt;0000):[^:]*:(?&lt;ceId&gt;0[1-9A-F]):(?&lt;numPlayers&gt;[^:]*):(?&lt;status&gt;01):[^:]*:(?&lt;progress&gt;[^:]*)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="条件：自己不在塔里" DescriptionOverride="True" />
 <Action OrderNumber="2" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="新月_CE" DictVariableKey="startTimeStamp" DictVariableValue="0x${popTime} = 0 ? (${_systemtime} + 180) : 0x${popTime}" ActionType="DictVariable" />
 <Action OrderNumber="3" DictVariableOp="Set" DictVariableName="新月_CE" DictVariableKey="name" DictVariableValue="${?d:&#xD;&#xA;  01 = 脑髓爱好者—夺心魔, &#xD;&#xA;  02 = 黑色连队, &#xD;&#xA;  03 = 愤怒的人造人—新月狂战士, &#xD;&#xA;  04 = 潜影撕裂者—死亡爪, &#xD;&#xA;  05 = 挣脱封印的大妖异—回廊恶魔, &#xD;&#xA;  06 = 拟造使魔—水晶龙, &#xD;&#xA;  07 = 双极的造物—神秘土偶, &#xD;&#xA;  08 = 石制骑士团, &#xD;&#xA;  09 = 传说中的鲨鱼—尼姆瓣齿鲨, &#xD;&#xA;  0A = 双足狮人—跃立狮, &#xD;&#xA;  0B = 防御指令, &#xD;&#xA;  0C = 厌鸟巨兽—进化加鲁拉, &#xD;&#xA;  0D = 贩卖诅咒的商贩—金钱龟, &#xD;&#xA;  0E = 城塞守卫—复原狮像, &#xD;&#xA;  0F = 昏暗妖魂—鬼火苗, &#xD;&#xA;  [${ceId}]&#xD;&#xA;}" ActionType="DictVariable" />
 <Action OrderNumber="4" DictVariableOp="Set" DictVariableName="新月_CE" DictVariableKey="nameAbbrev" DictVariableValue="${?d:&#xD;&#xA;  01 = 夺心魔, &#xD;&#xA;  02 = 黑色连队, &#xD;&#xA;  03 = 狂战士, &#xD;&#xA;  04 = 死亡爪, &#xD;&#xA;  05 = 回廊恶魔, &#xD;&#xA;  06 = 水晶龙, &#xD;&#xA;  07 = 神秘土偶, &#xD;&#xA;  08 = 骑士团, &#xD;&#xA;  09 = 鲨鱼, &#xD;&#xA;  0A = 双足狮人, &#xD;&#xA;  0B = 防御指令, &#xD;&#xA;  0C = 厌鸟巨兽, &#xD;&#xA;  0D = 金钱龟, &#xD;&#xA;  0E = 复原狮像, &#xD;&#xA;  0F = 鬼火苗, &#xD;&#xA;  [${ceId}]&#xD;&#xA;}" ActionType="DictVariable" />
 <Action OrderNumber="5" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="新月_CE" DictVariableKey="initSeconds" DictVariableValue="round(${d:新月_CE[startTimeStamp]} - ${_systemtimems}/1000)" ActionType="DictVariable" />
-<Action OrderNumber="6" TextAuraAlignment="TopCenter" TextAuraEffect="Bold" TextAuraFontSize="14.25" TextAuraForeground="def" TextAuraOutline="026" TextAuraName="新月_CE" TextAuraExpression="${d:新月_CE[name]}  倒计时：${n: round(${d:新月_CE[startTimeStamp]} - ${_systemtimems}/1000) // 60}:${f:padleft(0, 2):${n: round(${d:新月_CE[startTimeStamp]} - ${_systemtimems}/1000) % 60}}" TextAuraXIniExpression="0" TextAuraYIniExpression="0" TextAuraWIniExpression="${_screenwidth}" TextAuraHIniExpression="${_screenheight} * 0.1" TextAuraOIniExpression="100" TextAuraTTLTickExpression="${d:新月_CE[startTimeStamp]} - ${_systemtimems}/1000" TextAuraFontName="微软雅黑" ActionType="TextAura" />
+<Action OrderNumber="6" TextAuraAlignment="TopCenter" TextAuraEffect="Bold" TextAuraFontSize="14.25" TextAuraForeground="def" TextAuraOutline="026" TextAuraName="新月_CE" TextAuraExpression="${d:新月_CE[name]}  倒计时：${n: round(${d:新月_CE[startTimeStamp]} - ${_systemtimems}/1000)} s" TextAuraXIniExpression="0" TextAuraYIniExpression="0" TextAuraWIniExpression="${_screenwidth}" TextAuraHIniExpression="${_screenheight} * 0.1" TextAuraOIniExpression="100" TextAuraTTLTickExpression="${d:新月_CE[startTimeStamp]} - ${_systemtimems}/1000" TextAuraFontName="微软雅黑" ActionType="TextAura" />
 <Action OrderNumber="7" UseTTSTextExpression="${d:新月_CE[nameAbbrev]}，${if: ${d:新月_CE[initSeconds]} &gt; 60 ? ${n: ${d:新月_CE[initSeconds]} // 60}分 : &quot;&quot; }${n: ${d:新月_CE[initSeconds]} % 60}秒" ActionType="UseTTS" />
 <Action OrderNumber="8" UseTTSTextExpression="倒计时一分钟" ActionType="UseTTS" ExecutionDelayExpression="(${d:新月_CE[initSeconds]} - 60) * 1000">
 <Condition Enabled="true" Grouping="Or">
@@ -2008,9 +2008,9 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1252$" Id="d1e9c66c-5d9d-4dc2-9a72-8bf604fbf204" Name="CE（力之塔）" Enabled="true" RawEnvironmentVariables="IsInZone = ${_me.z} &lt; -10&#xD;&#xA;">
+<Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1252$" Id="d1e9c66c-5d9d-4dc2-9a72-8bf604fbf204" Name="CE（力之塔）" Enabled="true" RawEnvironmentVariables="IsInZone = ${_me.z} &lt; -10">
 <Folders>
-<Folder Id="2cdc5489-55b6-40e0-9785-2731832d78b1" Name="1. 恶魔板" Enabled="true" RawEnvironmentVariables="X0 = 700&#xD;&#xA;Y0 = 379&#xD;&#xA;&#xA;Z0 = -481&#xD;&#xA;// 南北两侧都是 30*30 的正方形，中心还额外有 30*6 的墙厚度&#xD;&#xA;Lx = 15&#xD;&#xA;Ly = 33&#xD;&#xA;b防击退 = ${n: ${_me.HasStatus(0xA0)} || ${_me.HasStatus(0x4B9)}}">
+<Folder Id="2cdc5489-55b6-40e0-9785-2731832d78b1" Name="1. 恶魔板" Enabled="true" RawEnvironmentVariables="X0 = 700&#xD;&#xA;Y0 = 379&#xD;&#xA;&#xA;Z0 = -481&#xD;&#xA;// 南北两侧都是 30*30 的正方形，中心还额外有 30*6 的墙厚度&#xD;&#xA;Lx = 15&#xD;&#xA;Ly = 33">
 <Folders>
 <Folder Id="b0be4f8f-32d3-4c0f-ae70-1fb05ab781b3" Name="A. 暗黑射线（击退/远离+激光）" Enabled="true">
 <Folders />
@@ -2018,13 +2018,12 @@
 <Trigger Enabled="true" Name="2. 播报" Id="80243ff0-832d-4b9f-9e7e-cf80079ae31c" RegularExpression="^新月_力1_射线:b朝北:(?&lt;b朝北&gt;[01]):b击退:(?&lt;b击退&gt;[01]):b穿:(?&lt;b穿&gt;[01])">
 <Actions>
 <Action OrderNumber="1" UseTTSTextExpression="${if: ${b穿} ? 穿到对侧 : 留在同侧 }，${if: ${b击退} ? 靠近击退 : 后退远离 }" ActionType="UseTTS" />
-<Action OrderNumber="2" LogMessageText="cd5:10.2" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="3" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;t: 10.2&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;θ: ${b朝北} ? π : 0&#xD;&#xA;Pos: 0, ${b击退} ? 3 : 18&#xD;&#xA;Scale: 15, ${b击退} ? 36 : 51" ActionType="NamedCallback" DescBgColor="ffd" />
-<Action OrderNumber="4" LogMessageText="新月_力1_击退:b朝北:${n: !${b朝北}}" LogProcess="True" ActionType="LogMessage" DescBgColor="ffd">
+<Action OrderNumber="2" LogMessageText="cd5:10.2" LogProcess="True" ActionType="LogMessage">
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${b击退}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${b击退}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
+<Action OrderNumber="3" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;t: 10.2&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;θ: ${b朝北} ? π : 0&#xD;&#xA;Pos: 0, ${b击退} ? 3 : 18&#xD;&#xA;Scale: 15, ${b击退} ? 36 : 51" ActionType="NamedCallback" DescBgColor="ffd" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="1. 获取初始读条 * 2 =&gt; 2" Id="935b8636-aff7-49f1-87a3-2c10790dc510" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;A2F[345]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
@@ -2146,29 +2145,15 @@
 <Actions>
 <Action OrderNumber="1" UseTTSTextExpression="${type}点名，${if: ${b穿} ? 穿到对侧 : 留在同侧 }，${if: ${b击退} ? 靠近击退 : 后退远离 }" UseTTSExclusive="False" ActionType="UseTTS" />
 <Action OrderNumber="2" LogMessageText="cd5:10.2" LogProcess="True" ActionType="LogMessage">
-<Condition Enabled="true" Grouping="And">
+<Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${b击退}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${_me.isTM}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
 <Action OrderNumber="3" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;t: 10.2&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;θ: ${b去北} ? 0 : π&#xD;&#xA;Pos: 0, ${b击退} ? 3 : 18&#xD;&#xA;Scale: 15, ${b击退} ? 36 : 51" ActionType="NamedCallback" DescBgColor="ffd" />
-<Action OrderNumber="4" LogMessageText="新月_力1_击退:b朝北:${b去北}" LogProcess="True" ActionType="LogMessage" DescBgColor="ffd">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${b击退}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="6000" />
-<Action OrderNumber="6" UseTTSTextExpression="靠近击退" UseTTSExclusive="False" ActionType="UseTTS">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${b击退}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="abs(${_me.y} - ${env:Y0})" ExpressionTypeL="Numeric" ExpressionR="6" ExpressionTypeR="String" ConditionType="NumericGreater" />
-<ConditionSingle Enabled="true" ExpressionL="${env:b防击退}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="4000" />
-<Action OrderNumber="8" UseTTSTextExpression="${?d:&#xD;&#xA;  陨石 = 贴边放陨石,&#xD;&#xA;  击飞 = ${if: ${b陨石同侧} ? 靠前分摊 : 靠后分摊 },&#xD;&#xA;  无 = ${if: ${_me.IsTM} ? 靠前输出 : 靠后参与分摊 }&#xD;&#xA;  [${type}]&#xD;&#xA;}" UseTTSExclusive="False" ActionType="UseTTS" />
-<Action OrderNumber="9" ActionType="Placeholder" ExecutionDelayExpression="2800" />
-<Action OrderNumber="10" UseTTSTextExpression="去前方分摊" UseTTSExclusive="False" ActionType="UseTTS">
+<Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="10000" />
+<Action OrderNumber="5" UseTTSTextExpression="${?d:&#xD;&#xA;  陨石 = 贴边放陨石,&#xD;&#xA;  击飞 = ${if: ${b陨石同侧} ? 靠前分摊 : 靠后分摊 },&#xD;&#xA;  无 = ${if: ${_me.IsTM} ? 靠前输出 : 靠后参与分摊 }&#xD;&#xA;  [${type}]&#xD;&#xA;}" UseTTSExclusive="False" ActionType="UseTTS" />
+<Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="2800" />
+<Action OrderNumber="7" UseTTSTextExpression="去前方分摊" UseTTSExclusive="False" ActionType="UseTTS">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="陨石" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
@@ -2202,26 +2187,15 @@
 <Triggers>
 <Trigger Enabled="true" Name="1. 读条" Id="68dbe1e9-9f9c-4306-ad3b-6920766ec43b" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;A2F[67]):">
 <Actions>
-<Action OrderNumber="1" VariableOp="SetNumeric" VariableName="新月_力1_恶魔录_b击退" VariableExpression="0x0${aid} = 0xA2F7" ActionType="Variable" Asynchronous="False" />
+<Action OrderNumber="1" VariableOp="SetNumeric" VariableName="新月_力1_恶魔录_b击退" VariableExpression="0x${aid} = 0xA2F7" ActionType="Variable" Asynchronous="False" />
 <Action OrderNumber="2" UseTTSTextExpression="找自己的塔，${if: ${v:新月_力1_恶魔录_b击退} ? 靠近击退 : 后退远离 }" ActionType="UseTTS" />
 <Action OrderNumber="3" LogMessageText="cd5:10.2" LogProcess="True" ActionType="LogMessage">
-<Condition Enabled="true" Grouping="And">
+<Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:新月_力1_恶魔录_b击退}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${_me.isTM}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
 <Action OrderNumber="4" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect2&#xD;&#xA;t: 10.2&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;Scale: 15, ${v:新月_力1_恶魔录_b击退} ? 3 : 18" ActionType="NamedCallback" DescBgColor="ffd" />
-<Action OrderNumber="5" LogMessageText="新月_力1_击退:b朝北:0" LogProcess="True" ActionType="LogMessage" DescBgColor="ffd">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:新月_力1_恶魔录_b击退}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="6" LogMessageText="新月_力1_击退:b朝北:1" LogProcess="True" ActionType="LogMessage" DescBgColor="ffd">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:新月_力1_恶魔录_b击退}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="7" UseTTSTextExpression="踩塔" ActionType="UseTTS" ExecutionDelayExpression="10100" />
+<Action OrderNumber="5" UseTTSTextExpression="踩塔" ActionType="UseTTS" ExecutionDelayExpression="10100" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -2235,36 +2209,30 @@
 <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="新月_力1_恶魔录_b穿" VariableExpression="${v:新月_力1_恶魔录_b北塔} = (${_me.y} &gt; ${env:Y0})" ActionType="Variable" Asynchronous="False" />
 <Action OrderNumber="3" UseTTSTextExpression="${if: ${v:新月_力1_恶魔录_b穿} ? 穿到对侧 : 留在同侧 }，${if: ${v:新月_力1_恶魔录_b击退} ? 靠近击退 : 后退远离 }" ActionType="UseTTS" />
 <Action OrderNumber="4" LogMessageText="cd5:10.2" LogProcess="True" ActionType="LogMessage">
-<Condition Enabled="true" Grouping="And">
+<Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:新月_力1_恶魔录_b击退}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${_me.isTM}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
 <Action OrderNumber="5" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;t: 10.2&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;θ: ${v:新月_力1_恶魔录_b北塔} ? 0 : π&#xD;&#xA;Pos: 0, ${v:新月_力1_恶魔录_b击退} ? 3 : 18&#xD;&#xA;Scale: 15, ${v:新月_力1_恶魔录_b击退} ? 36 : 51" ActionType="NamedCallback" DescBgColor="ffd" />
-<Action OrderNumber="6" LogMessageText="新月_力1_击退:b朝北:${v:新月_力1_恶魔录_b北塔}" LogProcess="True" ActionType="LogMessage" DescBgColor="ffd">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:新月_力1_恶魔录_b击退}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="7" UseTTSTextExpression="准备浮空或踩塔" ActionType="UseTTS" ExecutionDelayExpression="7000" />
-<Action OrderNumber="8" UseTTSTextExpression="踩塔" ActionType="UseTTS" ExecutionDelayExpression="7400" />
-<Action OrderNumber="9" UseTTSTextExpression="去${f:pick(${v:新月_力1_恶魔录_安全relDirN4}): 左前, 左后, 右后, 右前 }" ActionType="UseTTS" ExecutionDelayExpression="5100" />
-<Action OrderNumber="10" LogMessageText="cd5:5.8" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="6" UseTTSTextExpression="准备浮空或踩塔" ActionType="UseTTS" ExecutionDelayExpression="7000" />
+<Action OrderNumber="7" UseTTSTextExpression="踩塔" ActionType="UseTTS" ExecutionDelayExpression="7400" />
+<Action OrderNumber="8" UseTTSTextExpression="去${f:pick(${v:新月_力1_恶魔录_安全relDirN4}): 左前, 左后, 右后, 右前 }" ActionType="UseTTS" ExecutionDelayExpression="5100" />
+<Action OrderNumber="9" LogMessageText="cd5:5.8" LogProcess="True" ActionType="LogMessage" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="1. 记录角落石像位置" Id="54f7d3a9-fbdc-4453-8f22-095cae1011be" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:1EBD75.*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="用两侧方形区域四角的石像的 dirN4 与 1 异或得到安全区 dirN4 （0↔1 2↔3）" DescriptionOverride="True" />
-<Action OrderNumber="2" VariableOp="SetNumeric" VariableName="新月_力1_恶魔录_北安全relDirN4" VariableExpression="(roundvec(${x} - ${env:X0}, ${y} - (${env:Y0} - 18), -4) + 2) % 4 ⊕ 1" ActionType="Variable">
+<Action OrderNumber="2" VariableOp="SetNumeric" VariableName="新月_力1_恶魔录_北安全relDirN4" VariableExpression="(roundvec(${x} - ${env:X0}, ${y} - (${env:Y0} - 16.5), -4) + 2) % 4 ⊕ 1" ActionType="Variable">
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${y}" ExpressionTypeL="String" ExpressionR="${env:Y0}" ExpressionTypeR="String" ConditionType="NumericLess" />
-<ConditionSingle Enabled="true" ExpressionL="d(d(${y}, ${env:Y0}), 17)" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericGreater" />
+<ConditionSingle Enabled="true" ExpressionL="floor(d(${y}, ${env:Y0}))" ExpressionTypeL="Numeric" ExpressionR="16" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="3" VariableOp="SetNumeric" VariableName="新月_力1_恶魔录_南安全relDirN4" VariableExpression="roundvec(${x} - ${env:X0}, ${y} - (${env:Y0} + 18), -4) ⊕ 1" ActionType="Variable">
+<Action OrderNumber="3" VariableOp="SetNumeric" VariableName="新月_力1_恶魔录_南安全relDirN4" VariableExpression="roundvec(${x} - ${env:X0}, ${y} - (${env:Y0} + 16.5), -4) ⊕ 1" ActionType="Variable">
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${y}" ExpressionTypeL="String" ExpressionR="${env:Y0}" ExpressionTypeR="String" ConditionType="NumericGreater" />
-<ConditionSingle Enabled="true" ExpressionL="d(d(${y}, ${env:Y0}), 17)" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericGreater" />
+<ConditionSingle Enabled="true" ExpressionL="floor(d(${y}, ${env:Y0}))" ExpressionTypeL="Numeric" ExpressionR="16" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
 </Condition>
 </Action>
 <Action OrderNumber="4" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;t: 6.3&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Scale: 18" ActionType="NamedCallback" ExecutionDelayExpression="31500" DescBgColor="ffd" />
@@ -2323,7 +2291,8 @@
 <Action OrderNumber="7" LogMessageText="tts:165.5:找半场，准备小怪" LogProcess="True" ActionType="LogMessage" />
 <Action OrderNumber="8" LogMessageText="tts:184.3:驱散大怪" LogProcess="True" ActionType="LogMessage">
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${_me.HasStatus(${env:辅助时魔法师})}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${_me.HasStatus(4365)}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="false" ExpressionL="时魔" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
 <Action OrderNumber="9" LogMessageText="tts:223.2:准备浮空塔" LogProcess="True" ActionType="LogMessage" />
@@ -2337,21 +2306,6 @@
 <Trigger Enabled="true" Name="标点（两歧塔 力之塔:下层）" Id="f6ece347-fbf8-473a-a588-246aa0605ec7" RegularExpression="^.{15}\S+ 28:968:">
 <Actions>
 <Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;A:  13, -18&#xD;&#xA;B:  0,  -31&#xD;&#xA;C: -13, -18&#xD;&#xA;D:  clear&#xD;&#xA;1: -13,  18&#xD;&#xA;2:  0,   31&#xD;&#xA;3:  13,  18&#xD;&#xA;4:  clear&#xD;&#xA;local: false" UseTTSExclusive="False" ActionType="NamedCallback" DescBgColor="dff" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="召唤" Id="af7311ce-e959-4967-aca8-3063388586c6" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:A30D:">
-<Actions>
-<Action OrderNumber="1" UseTTSTextExpression="准备打小怪" ActionType="UseTTS" />
-<Action OrderNumber="2" LogMessageText="cd5:10.2" LogProcess="True" ActionType="LogMessage">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${_me.isTM}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="[F] 击退" Id="b573eaef-1783-4d18-a849-949e2ca1f714" RegularExpression="^新月_力1_击退:b朝北:(?&lt;b朝北&gt;[01])">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: m0532_hukitobashi_o0w&#xD;&#xA;Tag: 新月&#xD;&#xA;t: 10.2&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;θ: 0${b朝北} ? π : 0&#xD;&#xA;Pos: 0, -3&#xD;&#xA;Scale: 14.5, 30, 10" ActionType="NamedCallback" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -2376,348 +2330,46 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="ffee7d38-6e9a-45c8-956b-66f4e5e4989d" Name="2. 三兄弟" Enabled="true" RawEnvironmentVariables="X0 = -800&#xD;&#xA;Y0 = 360&#xD;&#xA;Z0 = -876&#xD;&#xA;R = 30">
+<Folder Id="ffee7d38-6e9a-45c8-956b-66f4e5e4989d" Name="2. 三兄弟" Enabled="true" RawEnvironmentVariables="X0 = -800&#xD;&#xA;Y0 = 360&#xD;&#xA;Z0 = -876&#xD;&#xA;R = 40">
 <Folders>
 <Folder Id="34e40ccc-6fcb-4922-8926-c2fc100070b3" Name="A. 毒" Enabled="true" RawEnvironmentVariables="火stack = ${_me.StatusStack(4441)}&#xD;&#xA;冰stack = ${_me.StatusStack(4442)}&#xD;&#xA;热度 = &quot;${?d: 3-1 = 3, 2-1 = 2, 1-1 = 1, -1-1= 0, -11 =-1, -12 =-2, -13 =-3 [${_me.StatusStack(4441)}${_me.StatusStack(4442)}]}&quot;">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Name="[F] 冰火圈" Id="751fe401-548b-4e15-b24f-fdc10f9117bb" RegularExpression="^新月_力2_毒_Omen:n:(?&lt;n&gt;[1-4]):b火:(?&lt;b火&gt;[01]):dirN4:(?&lt;dirN4&gt;[0-3])">
+<Trigger Enabled="true" Name="[F] 冰火圈" Id="751fe401-548b-4e15-b24f-fdc10f9117bb" RegularExpression="^新月_力2_毒:n:(?&lt;n&gt;[1-4]):b火:(?&lt;b火&gt;[01]):dirN4:(?&lt;dirN4&gt;[0-3])">
 <Actions>
-<Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="// 圆周预兆&#xD;&#xA;Omen: n4b5_tr_g05o0g&#xD;&#xA;delay: ${?l: 0.01, 6.9, 6.3, 9.3 [${n}]}&#xD;&#xA;t:     ${?l: 9.4,  1.9, 5.5, 5.5 [${n}]}&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;θ: dir2rad(${dirN4}, -4)&#xD;&#xA;Pos: 0, -20&#xD;&#xA;Scale: 22 * 1.09&#xD;&#xA;Color: ${if: !${b火} ? &quot;0.5, 1, 0.5, 1&quot; : &quot;3, 0.5, 0, 1&quot; }" Enabled="False" ActionType="NamedCallback" DescBgColor="ffd" />
-<Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="// 圆形范围&#xD;&#xA;Omen: k5d1_omen_o01pg&#xD;&#xA;delay: ${?l: 8.4, 8.8, 11.8, 14.8 [${n}]}&#xD;&#xA;t:     ${?l: 2.9, 5.5,  5.5,  5.5 [${n}]}&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;θ: dir2rad(${dirN4}, -4)&#xD;&#xA;Pos: 0, -20&#xD;&#xA;Scale: 22&#xD;&#xA;Color: ${if: !${b火} ? &quot;0.2, 0.5, 1.5, 1&quot; : &quot;5, 0.4, 0.1, 1&quot; }" ActionType="NamedCallback" DescBgColor="ffd" />
+<Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="// 圆周预兆&#xD;&#xA;Omen: n4b5_tr_g05o0g&#xD;&#xA;delay: ${?l: 0.01, 6.9, 6.3, 9.3 [${n}]}&#xD;&#xA;t:     ${?l: 9.4,  1.9, 5.5, 5.5 [${n}]}&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;θ: dir2rad(${dirN4}, -4)&#xD;&#xA;Pos: 0, -20&#xD;&#xA;Scale: 22 * 1.09&#xD;&#xA;Color: ${if: !${b火} ? &quot;1,1,1,1&quot; : &quot;4,0.5,0.2,1&quot; }&#xD;&#xA;---&#xD;&#xA;// 圆形范围&#xD;&#xA;Omen: k5d1_omen_o01pg&#xD;&#xA;delay: ${?l: 9.4, 8.8, 11.8, 14.8 [${n}]}&#xD;&#xA;t:     ${?l: 1.9, 5.5,  5.5,  5.5 [${n}]}&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;θ: dir2rad(${dirN4}, -4)&#xD;&#xA;Pos: 0, -20&#xD;&#xA;Scale: 22&#xD;&#xA;Color: ${if: !${b火} ? &quot;1,1,1,1&quot; : &quot;4,0.5,0.2,1&quot; }" ActionType="NamedCallback" DescBgColor="ffd" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="1. 获取冰火位置 =&gt; 2" Id="ac8e0d4d-6f8c-43e2-b3f5-d1808607e006" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;A5DF|A5E0):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="新月_力2_毒_${if: 0x${aid} = 0xA5DF ? 火 : 冰 }dirN4" ListVariableExpression="roundvec(${x} - ${env:X0}, ${y} - ${env:Y0}, -4)" ActionType="ListVariable" Asynchronous="False" />
-<Action OrderNumber="2" LogMessageText="_新月_力2_毒:n:${l:新月_力2_毒_冰dirN4.size}:冰火dirN4:${l:新月_力2_毒_冰dirN4[-1]}:${l:新月_力2_毒_火dirN4[-1]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
+<Action OrderNumber="2" LogMessageText="新月_力2_毒:n:${l:新月_力2_毒_冰dirN4.size}:冰火dirN4:${l:新月_力2_毒_冰dirN4[-1]}:${l:新月_力2_毒_火dirN4[-1]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${l:新月_力2_毒_冰dirN4.size}" ExpressionTypeL="String" ExpressionR="${l:新月_力2_毒_火dirN4.size}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
 </Actions>
 </Trigger>
-<Trigger Enabled="false" Source="None" Name="Debug Log 2025-08-21 03:50" Id="30b470e3-b746-4767-b180-2ebb5d3a7684" RegularExpression="">
+<Trigger Enabled="true" Name="2. 处理" Id="13086ef2-9f11-4d6d-9d3d-7726a0377604" RegularExpression="^新月_力2_毒:n:(?&lt;n&gt;[1-4]):冰火dirN4:(?&lt;冰dirN4&gt;[0-3]):(?&lt;火dirN4&gt;[0-3])">
 <Actions>
-<Action OrderNumber="1" LogProcess="True" LogProcessACT="True" VariableOp="UnsetRegexUniversal" VariableName="^新月_力2_毒" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="2" VariableOp="SetString" VariableName="新月_力2_毒_热度" VariableExpression="1" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="3" LogMessageText="[00:52:07.710] 263 107:400053C8:A5E0:-785.882:374.157:-876.003:0.785" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="4" LogMessageText="[00:52:07.710] 263 107:400053C9:A5DF:-785.882:345.866:-876.003:-3.142" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="2.49 * 1000" />
-<Action OrderNumber="6" LogMessageText="[00:52:12.692] 263 107:400053C8:A5E0:-814.142:374.157:-876.003:-0.785" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="7" LogMessageText="[00:52:12.692] 263 107:400053C9:A5DF:-814.142:345.866:-876.003:-3.142" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="2.54 * 1000" />
-<Action OrderNumber="9" LogMessageText="[00:52:05.171] 263 107:400053CA:A5E0:-814.142:345.866:-876.003:-2.295" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="10" LogMessageText="[00:52:05.171] 263 107:400053CB:A5DF:-785.882:374.157:-876.003:0.506" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="11" ActionType="Placeholder" ExecutionDelayExpression="2.49 * 1000" />
-<Action OrderNumber="12" LogMessageText="[00:52:10.203] 263 107:400053CA:A5E0:-785.882:345.866:-876.003:-3.142" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="13" LogMessageText="[00:52:10.203] 263 107:400053CB:A5DF:-814.142:374.157:-876.003:-0.785" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="1" LogMessageText="新月_力2_毒:n:${n}:b火:1:dirN4:${火dirN4}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" DescBgColor="ffd" />
+<Action OrderNumber="2" LogMessageText="新月_力2_毒:n:${n}:b火:0:dirN4:${冰dirN4}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" DescBgColor="ffd" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Name="临时说明" Id="dd710a75-6602-468b-8cbe-1ea632d2986a" RegularExpression="^.{15}\S+ 28:985:">
+<Trigger Enabled="false" Source="None" Name="Debug Log 2025-08-21 03:50" Id="30b470e3-b746-4767-b180-2ebb5d3a7684">
 <Actions>
-<Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e &lt;se.10&gt;&#xD;&#xA;【冰火报点临时说明（使用必读）】&#xD;&#xA;&#xD;&#xA;默认使用 1 在 A 逆时针的八方标点&#xD;&#xA;即进入区域时的自动标点&#xD;&#xA;&#xD;&#xA;注意报点会优化出全局最短移动路径&#xD;&#xA;可以少移动、少远离&#xD;&#xA;这意味着并不一定先解除所有层数&#xD;&#xA;&#xD;&#xA;报点可能如 “A” “3” “1远” “2”&#xD;&#xA;没说“远”：去这个方向的目标圈&#xD;&#xA;说了“远”：去这个方向场地中心黄圈边缘&#xD;&#xA;&#xD;&#xA;只有在 1 层 debuff 时会出现一次远&#xD;&#xA;2/3 层时均可在目标圈处理&#xD;&#xA;&#xD;&#xA;【冰火报点临时说明（使用必读）】" UseTTSExclusive="False" ActionType="NamedCallback" DescBgColor="dff" />
+<Action OrderNumber="1" LogMessageText="[00:52:05.171] 263 107:400053CA:A5E0:-814.142:345.866:-876.003:-2.295" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="2" LogMessageText="[00:52:05.171] 263 107:400053CB:A5DF:-785.882:374.157:-876.003:0.506" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="3" ActionType="Placeholder" ExecutionDelayExpression="2.54 * 1000" />
+<Action OrderNumber="4" LogMessageText="[00:52:07.710] 263 107:400053C8:A5E0:-785.882:374.157:-876.003:0.785" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="5" LogMessageText="[00:52:07.710] 263 107:400053C9:A5DF:-785.882:345.866:-876.003:-3.142" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="2.49 * 1000" />
+<Action OrderNumber="7" LogMessageText="[00:52:10.203] 263 107:400053CA:A5E0:-785.882:345.866:-876.003:-3.142" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="8" LogMessageText="[00:52:10.203] 263 107:400053CB:A5DF:-814.142:374.157:-876.003:-0.785" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="9" ActionType="Placeholder" ExecutionDelayExpression="2.49 * 1000" />
+<Action OrderNumber="10" LogMessageText="[00:52:12.692] 263 107:400053C8:A5E0:-814.142:374.157:-876.003:-0.785" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
+<Action OrderNumber="11" LogMessageText="[00:52:12.692] 263 107:400053C9:A5DF:-814.142:345.866:-876.003:-3.142" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
 </Actions>
-</Trigger>
-<Trigger Enabled="true" Name="2. 预处理 =&gt; 6 * 3 + [F]" Id="b2c97b70-c3c9-4ba6-ba6b-f3eefb84a6bf" RegularExpression="^_新月_力2_毒:n:(?&lt;n&gt;[1-4]):冰火dirN4:(?&lt;冰dirN4&gt;[0-3]):(?&lt;火dirN4&gt;[0-3])">
-<Actions>
-<Action OrderNumber="1" LogMessageText="新月_力2_毒_Omen:n:${n}:b火:1:dirN4:${火dirN4}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" DescBgColor="ffd" />
-<Action OrderNumber="2" LogMessageText="新月_力2_毒_Omen:n:${n}:b火:0:dirN4:${冰dirN4}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" DescBgColor="ffd" />
-<Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" DescriptionOverride="True" />
-<Action OrderNumber="4" VariableOp="SetNumeric" VariableName="tmp_b邻" VariableExpression="(${冰dirN4} - ${火dirN4}) %% 4 != 2" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="5" VariableOp="Increment" VariableName="新月_力2_毒_n邻" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b邻}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="6" VariableOp="Increment" VariableName="新月_力2_毒_n对" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b邻}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="7" ActionType="Placeholder" Asynchronous="False" Description="计算冰火分别去的方向 (dirN8，1 3 5 7 在目标圈上)；无 去的方向（dir8，0 2 4 6 正点目标圈，1 3 5 7 斜点远离 （5=1 7=3））" DescriptionOverride="True" />
-<Action OrderNumber="8" ActionType="Placeholder" Asynchronous="False" Description="  邻位：" DescriptionOverride="True" />
-<Action OrderNumber="9" VariableOp="SetNumeric" VariableName="tmp_冰" VariableExpression="(${冰dirN4} * 2 + 1 + ((${冰dirN4} - ${火dirN4}) %% 4 = 1 ? 1 : -1)) %% 8" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b邻}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="10" VariableOp="SetNumeric" VariableName="tmp_火" VariableExpression="(${火dirN4} * 2 + 1 + ((${火dirN4} - ${冰dirN4}) %% 4 = 1 ? 1 : -1)) %% 8" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b邻}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="11" VariableOp="SetNumeric" VariableName="tmp_无" VariableExpression="(${火dirN4} * 2 + 1 + ((${火dirN4} - ${冰dirN4}) %% 4 = 1 ? 3 : -3)) %% 8" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b邻}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="12" ActionType="Placeholder" Asynchronous="False" Description="  对位：" DescriptionOverride="True" />
-<Action OrderNumber="13" VariableOp="SetNumeric" VariableName="tmp_冰" VariableExpression="${冰dirN4} * 2 + 1" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b邻}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="14" VariableOp="SetNumeric" VariableName="tmp_火" VariableExpression="${火dirN4} * 2 + 1" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b邻}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="15" VariableOp="SetNumeric" VariableName="tmp_无" VariableExpression="(${火dirN4} * 2 + 3) % 4" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b邻}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="16" ActionType="Placeholder" Asynchronous="False" Description="输出" DescriptionOverride="True" />
-<Action OrderNumber="17" VariableOp="SetString" VariableName="tmp_data" VariableExpression="n:${n}:b邻:${v:tmp_b邻}:n邻对:${n: ${v:tmp_b邻} ? 0${v:新月_力2_毒_n邻} : 0${v:新月_力2_毒_n对}}:吃冰dir8:${v:tmp_冰}:吃火dir8:${v:tmp_火}:无dir8:${v:tmp_无}" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="18" LogMessageText="_新月_力2_毒_点名:热度:3:${v:tmp_data}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False" />
-<Action OrderNumber="19" LogMessageText="_新月_力2_毒_点名:热度:2:${v:tmp_data}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False" />
-<Action OrderNumber="20" LogMessageText="_新月_力2_毒_点名:热度:1:${v:tmp_data}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False" />
-<Action OrderNumber="21" LogMessageText="_新月_力2_毒_点名:热度:-1:${v:tmp_data}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False" />
-<Action OrderNumber="22" LogMessageText="_新月_力2_毒_点名:热度:-2:${v:tmp_data}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False" />
-<Action OrderNumber="23" LogMessageText="_新月_力2_毒_点名:热度:-3:${v:tmp_data}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False" />
-<Action OrderNumber="24" ActionType="Placeholder" Asynchronous="False" DescriptionOverride="True" />
-<Action OrderNumber="25" VariableName="tmp_b邻" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="26" VariableName="tmp_冰" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="27" VariableName="tmp_火" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="28" VariableName="tmp_无" ActionType="Variable" Asynchronous="False" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="0. 初始化 + 获取毒" Id="8228b0ea-ce27-49f1-8ad5-9ecd20223d52" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:A5D9:">
-<Actions>
-<Action OrderNumber="1" LogProcess="True" LogProcessACT="True" VariableOp="UnsetRegexUniversal" VariableName="^新月_力2_毒" ActionType="Variable" />
-<Action OrderNumber="2" VariableOp="SetString" VariableName="新月_力2_毒_热度" VariableExpression="${env:热度}" ActionType="Variable" ExecutionDelayExpression="8000" Asynchronous="False" />
-<Action OrderNumber="3" UseTTSTextExpression="${?d: 3 = 三层火, 2 = 两层火, 1 = 一层火, -1 = 一层冰, -2 = 两层冰, -3 = 三层冰 [${v:新月_力2_毒_热度}]}" ActionType="UseTTS" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="3. 处理点名" Id="d78e796e-3f84-4c4e-833c-7c428a5b8e72" RegularExpression="^_新月_力2_毒_点名:热度:(?&lt;热度&gt;-?[1-3]):n:(?&lt;n&gt;[1-4]):b邻:(?&lt;b邻&gt;[01]):n邻对:(?&lt;n邻对&gt;[1-2]):吃冰dir8:(?&lt;吃冰dir8&gt;[0-7]):吃火dir8:(?&lt;吃火dir8&gt;[0-7]):无dir8:(?&lt;无dir8&gt;[0-7])">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="1层：不吃12邻2对  2层：不吃12邻  3层：不吃2邻" DescriptionOverride="True" />
-<Action OrderNumber="2" VariableOp="SetNumeric" VariableName="tmp_b吃" VariableExpression="abs(${热度}) = 1 &amp;&amp; ${b邻} = 0 &amp;&amp; ${n邻对} = 1 ||&#xD;&#xA;abs(${热度}) = 2 &amp;&amp; ${b邻} = 0 ||&#xD;&#xA;abs(${热度}) = 3 &amp;&amp; !(${b邻} = 1 &amp;&amp; ${n邻对} = 2)" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="表格第 1 列：是否吃  第 2 列：方向（dir8）   不吃的情况下斜方向暂时记为负数，代表未确定是哪一侧" DescriptionOverride="True" />
-<Action OrderNumber="4" TableVariableOp="SetLine" TableVariableName="新月_力2_毒_${热度}" TableVariableExpression=",${v:tmp_b吃},${n: ${v:tmp_b吃} ? (${热度} &gt; 0 ? ${吃冰dir8} : ${吃火dir8}) : (${无dir8} + (${无dir8} % 2 = 0 ? 0 : -8))}" TableVariableY="${t:新月_力2_毒_${热度}.height} + 1" ActionType="TableVariable" Asynchronous="False" />
-<Action OrderNumber="5" VariableName="tmp_b吃" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="6" ActionType="Placeholder" Asynchronous="False" Description="如果前一次记录为负数，根据这一次二选一" DescriptionOverride="True" />
-<Action OrderNumber="7" ActionType="Placeholder" Asynchronous="False" Description="  这一次也是负数：随意" DescriptionOverride="True" />
-<Action OrderNumber="8" TableVariableOp="Set" TableVariableExpressionType="Numeric" TableVariableName="新月_力2_毒_${热度}" TableVariableExpression="(${t:新月_力2_毒_${热度}[2][-2]}) %% 8" TableVariableX="2" TableVariableY="-2" ActionType="TableVariable" Asynchronous="False">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${t:新月_力2_毒_${热度}.height}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
-<ConditionSingle Enabled="true" ExpressionL="${t:新月_力2_毒_${热度}[2][-1]}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess" />
-<ConditionSingle Enabled="true" ExpressionL="${t:新月_力2_毒_${热度}[2][-2]}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess" />
-</Condition>
-</Action>
-<Action OrderNumber="9" ActionType="Placeholder" Asynchronous="False" Description="  这一次不是负数：就近" DescriptionOverride="True" />
-<Action OrderNumber="10" TableVariableOp="Set" TableVariableExpressionType="Numeric" TableVariableName="新月_力2_毒_${热度}" TableVariableExpression="((${t:新月_力2_毒_${热度}[2][-2]} - ${t:新月_力2_毒_${热度}[2][-1]} + 1) %% 8 &lt; 3 ? 0 : 4) + (${t:新月_力2_毒_${热度}[2][-2]}) %% 8" TableVariableX="2" TableVariableY="-2" ActionType="TableVariable" Asynchronous="False">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${t:新月_力2_毒_${热度}.height}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
-<ConditionSingle Enabled="true" ExpressionL="${t:新月_力2_毒_${热度}[2][-1]}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
-<ConditionSingle Enabled="true" ExpressionL="${t:新月_力2_毒_${热度}[2][-2]}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess" />
-</Condition>
-</Action>
-<Action OrderNumber="11" ActionType="Placeholder" Asynchronous="False" Description="如果当前记录了负数，根据前一次就近二选一" DescriptionOverride="True" />
-<Action OrderNumber="12" ActionType="Placeholder" Asynchronous="False" Description="  前一次正好垂直，且不是第四轮：待定（不变）" DescriptionOverride="True" />
-<Action OrderNumber="13" ActionType="Placeholder" Asynchronous="False" Description="  前一次确实有距离差异，或是第四轮：就近二选一" DescriptionOverride="True" />
-<Action OrderNumber="14" TableVariableOp="Set" TableVariableExpressionType="Numeric" TableVariableName="新月_力2_毒_${热度}" TableVariableExpression="((${t:新月_力2_毒_${热度}[2][-2]} - ${t:新月_力2_毒_${热度}[2][-1]} + 1) %% 8 &lt; 3 ? 0 : 4) + (${t:新月_力2_毒_${热度}[2][-1]}) %% 8" TableVariableX="2" TableVariableY="-1" ActionType="TableVariable" Asynchronous="False">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${t:新月_力2_毒_${热度}.height}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
-<ConditionSingle Enabled="true" ExpressionL="${t:新月_力2_毒_${热度}[2][-2]}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
-<ConditionSingle Enabled="true" ExpressionL="${t:新月_力2_毒_${热度}[2][-1]}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess" />
-<ConditionGroup Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="(${t:新月_力2_毒_${热度}[2][-1]} - ${t:新月_力2_毒_${热度}[2][-2]}) %% 4" ExpressionTypeL="Numeric" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${t:新月_力2_毒_${热度}.height}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</ConditionGroup>
-</Condition>
-</Action>
-<Action OrderNumber="15" ActionType="Placeholder" Asynchronous="False" Description="在第3列添加 这一个方向的标点名称（若已确定）；若上一次的未确定则补上" DescriptionOverride="True" />
-<Action OrderNumber="16" TableVariableOp="Set" TableVariableName="新月_力2_毒_${热度}" TableVariableExpression="${f:pick(${t:新月_力2_毒_${热度}[2][-1]}): Ａ,１,Ｄ,４,Ｃ,３,Ｂ,２}" TableVariableX="3" TableVariableY="-1" ActionType="TableVariable" Asynchronous="False">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${t:新月_力2_毒_${热度}[2][-1]}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
-</Condition>
-</Action>
-<Action OrderNumber="17" TableVariableOp="Set" TableVariableName="新月_力2_毒_${热度}" TableVariableExpression="${f:pick(${t:新月_力2_毒_${热度}[2][-2]}): Ａ,１,Ｄ,４,Ｃ,３,Ｂ,２}" TableVariableX="3" TableVariableY="-2" ActionType="TableVariable" Asynchronous="False">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${t:新月_力2_毒_${热度}[3][-2]}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${t:新月_力2_毒_${热度}.height}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
-</Condition>
-</Action>
-<Action OrderNumber="18" ActionType="Placeholder" Asynchronous="False" Description="在第4列添加 这一次是否要远离" DescriptionOverride="True" />
-<Action OrderNumber="19" TableVariableOp="Set" TableVariableExpressionType="Numeric" TableVariableName="新月_力2_毒_${热度}" TableVariableExpression="!${t:新月_力2_毒_${热度}[1][-1]} &amp;&amp; ${t:新月_力2_毒_${热度}[2][-1]} % 2 != 0" TableVariableX="4" TableVariableY="-1" ActionType="TableVariable" Asynchronous="False" />
-<Action OrderNumber="20" VariableOp="SetString" VariableName="新月_力2_毒_${热度}_text" VariableExpression="${t:新月_力2_毒_${热度}[3][1]}${if: ${t:新月_力2_毒_${热度}[1][1]} ? 吃 : ${if: ${t:新月_力2_毒_${热度}[4][1]} ? 远 : 躲 } } 》 ${t:新月_力2_毒_${热度}[3][2]}${if: ${t:新月_力2_毒_${热度}[1][2]} ? 吃 : ${if: ${t:新月_力2_毒_${热度}[4][2]} ? 远 : 躲 } } 》 ${t:新月_力2_毒_${热度}[3][3]}${if: ${t:新月_力2_毒_${热度}[1][3]} ? 吃 : ${if: ${t:新月_力2_毒_${热度}[4][3]} ? 远 : 躲 } } 》 ${t:新月_力2_毒_${热度}[3][4]}${if: ${t:新月_力2_毒_${热度}[1][4]} ? 吃 : ${if: ${t:新月_力2_毒_${热度}[4][4]} ? 远 : 躲 } }" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="21" ActionType="Placeholder" Asynchronous="False" Description="初始用第二次播报（确保初始方向已修正再播报初始值），后续用第四次播报" DescriptionOverride="True" />
-<Action OrderNumber="22" LogMessageText="新月_力2_毒_播报:delay:0:t:8.7:n:1:b吃:${t:新月_力2_毒_${热度}[1][1]}:dir8:${t:新月_力2_毒_${热度}[2][1]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${热度}" ExpressionTypeL="String" ExpressionR="${v:新月_力2_毒_热度}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="23" LogMessageText="新月_力2_毒_播报:delay:3.7:t:5.6:n:2:b吃:${t:新月_力2_毒_${热度}[1][2]}:dir8:${t:新月_力2_毒_${热度}[2][2]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${热度}" ExpressionTypeL="String" ExpressionR="${v:新月_力2_毒_热度}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="24" LogMessageText="新月_力2_毒_播报:delay:9.3:t:5.6:n:3:b吃:${t:新月_力2_毒_${热度}[1][3]}:dir8:${t:新月_力2_毒_${热度}[2][3]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${热度}" ExpressionTypeL="String" ExpressionR="${v:新月_力2_毒_热度}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="25" LogMessageText="新月_力2_毒_播报:delay:14.9:t:5.6:n:3:b吃:${t:新月_力2_毒_${热度}[1][4]}:dir8:${t:新月_力2_毒_${热度}[2][4]}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${热度}" ExpressionTypeL="String" ExpressionR="${v:新月_力2_毒_热度}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="26" ActionType="Placeholder" ExecutionDelayExpression="500" />
-<Action OrderNumber="27" ActionType="Placeholder" Asynchronous="False" Description="文本播报" DescriptionOverride="True" />
-<Action OrderNumber="28" NamedCallbackName="command" NamedCallbackParam="/e 初始：&#xD;&#xA;1 层火：${t:新月_力2_毒_1[3][1]}点 ${if: ${t:新月_力2_毒_1[1][1]} ? 吃冰 : 躲避 }&#xD;&#xA;2 层火：${t:新月_力2_毒_2[3][1]}点 ${if: ${t:新月_力2_毒_2[1][1]} ? 吃冰 : 躲避 }&#xD;&#xA;3 层火：${t:新月_力2_毒_3[3][1]}点 ${if: ${t:新月_力2_毒_3[1][1]} ? 吃冰 : 躲避 }&#xD;&#xA;1 层冰：${t:新月_力2_毒_-1[3][1]}点 ${if: ${t:新月_力2_毒_-1[1][1]} ? 吃火 : 躲避 }&#xD;&#xA;2 层冰：${t:新月_力2_毒_-2[3][1]}点 ${if: ${t:新月_力2_毒_-2[1][1]} ? 吃火 : 躲避 }&#xD;&#xA;3 层冰：${t:新月_力2_毒_-3[3][1]}点 ${if: ${t:新月_力2_毒_-3[1][1]} ? 吃火 : 躲避 }" ActionType="NamedCallback">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${n}${热度}" ExpressionTypeL="String" ExpressionR="23" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="29" NamedCallbackName="command" NamedCallbackParam="/e 路线：&#xD;&#xA;1 层火：${v:新月_力2_毒_1_text}&#xD;&#xA;2 层火：${v:新月_力2_毒_2_text}&#xD;&#xA;3 层火：${v:新月_力2_毒_3_text}&#xD;&#xA;1 层冰：${v:新月_力2_毒_-1_text}&#xD;&#xA;2 层冰：${v:新月_力2_毒_-2_text}&#xD;&#xA;3 层冰：${v:新月_力2_毒_-3_text}" ActionType="NamedCallback">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${n}${热度}" ExpressionTypeL="String" ExpressionR="43" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="4. 播报" Id="a9c5b435-a435-49a2-9c66-5fdbf69f69fd" RegularExpression="^新月_力2_毒_播报:delay:(?&lt;delay&gt;[^:]+):t:(?&lt;t&gt;[^:]+):n:(?&lt;n&gt;[1-4]):b吃:(?&lt;b吃&gt;[01]):dir8:(?&lt;dir8&gt;[0-7])">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: m131om_setu0f&#xD;&#xA;Tag: 新月&#xD;&#xA;delay: ${delay}&#xD;&#xA;t: ${t}&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}    &#xD;&#xA;θ: dir2rad(${dir8}, 8)&#xD;&#xA;Scale: 0.1, (!${b吃} &amp;&amp; ${dir8} % 2 = 1 ? 11.35 : 4.63 ), 0.1&#xD;&#xA;Color: 3, 3, 3, 0.8&#xD;&#xA;---&#xD;&#xA;Omen: er_sicle_1811t&#xD;&#xA;Tag: 新月&#xD;&#xA;delay: ${delay}&#xD;&#xA;t: ${t}&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}    &#xD;&#xA;θ: dir2rad(${dir8}, 8)&#xD;&#xA;Pos: 0, (!${b吃} &amp;&amp; ${dir8} % 2 = 1 ? -11.35 : -4.63 )&#xD;&#xA;ScaleCyl: (!${b吃} &amp;&amp; ${dir8} % 2 = 1 ? 1 : 1.5 ), 1&#xD;&#xA;Color: 1, 1.5, 5, 4" ActionType="NamedCallback" DescBgColor="ffd" />
-<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="${delay} * 1000" />
-<Action OrderNumber="3" UseTTSTextExpression="${if: ${n} = 1 ? 先去 : &quot;&quot; }${f:pick(${dir8}): 上北A点, 左上壹点, 正左D点, 左下肆点, 下南C点, 右下叁点, 右东B点, 右上贰点}，${if: !${b吃} &amp;&amp; ${dir8} % 2 = 1 ? 远离 : 靠近 }${if: ${b吃} ? 吃${if: ${v:新月_力2_毒_热度}&gt;0 ? 冰 : 火 } : 躲避 }" ActionType="UseTTS" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="ea58396a-0c7a-480e-a7d4-df4c6eab3d47" Name="D. 扇形" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="1. 获取跳跃终点 =&gt; 2" Id="1dd60a74-ed71-4007-992b-8d2352ec4715" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):A5B4:.{8}:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" VariableOp="Increment" VariableName="新月_力2_扇形_n" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="2" VariableOp="Increment" VariableName="新月_力2_扇形_Σdx" VariableExpression="${x} - ${env:X0}" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="3" VariableOp="Increment" VariableName="新月_力2_扇形_Σdy" VariableExpression="${y} - ${env:Y0}" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="4" LogMessageText="新月_力2_扇形:dir6:${n: roundvec(${v:新月_力2_扇形_Σdx}, ${v:新月_力2_扇形_Σdy}, 6)}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:新月_力2_扇形_n}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${ev:新月_力2_扇形_flag}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Name="0. 初始化" Id="da179876-7f1a-46f9-8cfc-cd86aea32cac" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(A5E5|A5D5|A5CB):">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="分别是三次双扇形前的 boss 技能读条   flag 用于和开场三个 boss 一起跳作区分" DescriptionOverride="True" />
-<Action OrderNumber="2" VariableOp="UnsetRegexUniversal" VariableName="新月_力2_扇形" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="3" VariableOp="SetString" VariableName="新月_力2_扇形_flag" VariableExpression="1" ActionType="Variable" Asynchronous="False" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="2. 处理" Id="ef0263e9-f865-4c2a-ba0b-0463448bc6df" RegularExpression="^新月_力2_扇形:dir6:(?&lt;dir6&gt;[0-5])">
-<Actions>
-<Action OrderNumber="1" UseTTSTextExpression="${f:pick(0${dir6}): 上北, 左上, 左下, 下南, 右下, 右上 }安全" ActionType="UseTTS" />
-<Action OrderNumber="2" LogMessageText="cd5:7.3" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="3" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan120&#xD;&#xA;tag: 新月&#xD;&#xA;t: 7.3&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;θ: dir2rad(0${dir6}, 6)&#xD;&#xA;Pos: 0, -20&#xD;&#xA;Scale: 50&#xD;&#xA;Color: 0, 1, 5, 1.5&#xD;&#xA;---&#xD;&#xA;// 箭头&#xD;&#xA;Omen: e5d1_b1_kblaser_t1&#xD;&#xA;tag: 新月&#xD;&#xA;t: 7.3&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;θ: dir2rad(0${dir6}, 6)&#xD;&#xA;Scale: 1, 20.2&#xD;&#xA;Color: 0, 1, 5, 3" ActionType="NamedCallback" DescBgColor="ffd" />
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Source="None" Name="Debug Log 2025-08-23 10:34" Id="f5c5b377-6078-4857-ab19-53c3df56bf63" RegularExpression="">
-<Actions>
-<Action OrderNumber="1" LogMessageText="[20:53:39.891] 264 108:4000B275:A5B4:0013E304:1:-821.650:372.509:-876.003:-0.947:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="2" LogMessageText="[20:53:39.891] 264 108:4000B276:A5B4:0013E305:1:-778.375:372.509:-876.003:1.131:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="3" LogMessageText="[20:53:39.891] 264 108:4000B277:A5B4:0013E306:1:-800.012:335.002:-876.003:-3.134:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="1.19 * 1000" />
-<Action OrderNumber="5" LogMessageText="[20:54:03.789] 264 108:4000B275:A5B4:0013E8EF:1:-809.107:365.246:-876.003:2.094:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="6" LogMessageText="[20:54:03.789] 264 108:4000B276:A5B4:0013E8F0:1:-790.918:365.246:-876.003:-2.094:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="7" LogMessageText="[20:54:03.789] 264 108:4000B277:A5B4:0013E8F1:1:-800.012:349.498:-876.003:0.000:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="2.98 * 1000" />
-<Action OrderNumber="9" LogMessageText="[20:55:03.279] StartsCasting 14:4000B275:福博斯:A5E5:毒素爆散:4000B275:福博斯:4.700:-800.02:359.98:-876.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="0.61 * 1000" />
-<Action OrderNumber="11" LogMessageText="[20:55:15.531] 264 108:4000B276:A5B4:0013F829:1:-782.678:350.017:-876.003:3.011:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="12" LogMessageText="[20:55:15.531] 264 108:4000B277:A5B4:0013F82A:1:-817.347:350.017:-876.003:-3.011:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="13" ActionType="Placeholder" ExecutionDelayExpression="0.89 * 1000" />
-<Action OrderNumber="14" LogMessageText="[20:55:33.267] 264 108:4000B275:A5B4:0013FB8D:1:-809.107:365.246:-876.003:-1.047:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="15" LogMessageText="[20:55:33.267] 264 108:4000B276:A5B4:0013FB8E:1:-790.918:365.246:-876.003:-0.418:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="16" LogMessageText="[20:55:33.267] 264 108:4000B277:A5B4:0013FB8F:1:-800.012:349.498:-876.003:0.301:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="17" ActionType="Placeholder" ExecutionDelayExpression="1.26 * 1000" />
-<Action OrderNumber="18" LogMessageText="[20:55:58.573] 264 108:4000B275:A5B4:0014026C:1:-809.107:365.246:-876.003:-1.025:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="19" LogMessageText="[20:55:58.573] 264 108:4000B276:A5B4:0014026D:1:-790.918:365.246:-876.003:0.898:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="20" LogMessageText="[20:55:58.573] 264 108:4000B277:A5B4:0014026E:1:-800.012:349.498:-876.003:3.051:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="21" ActionType="Placeholder" ExecutionDelayExpression="2.10 * 1000" />
-<Action OrderNumber="22" LogMessageText="[20:56:40.542] StartsCasting 14:4000B276:涅瑞伊得:A5D5:爆炸四散:4000B276:涅瑞伊得:12.700:-800.02:359.98:-876.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="23" ActionType="Placeholder" ExecutionDelayExpression="0.97 * 1000" />
-<Action OrderNumber="24" LogMessageText="[20:56:59.927] 264 108:4000B275:A5B4:00140FD1:1:-782.678:350.017:-876.003:0.835:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="25" LogMessageText="[20:56:59.927] 264 108:4000B277:A5B4:00140FD2:1:-817.347:350.017:-876.003:-2.647:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="26" ActionType="Placeholder" ExecutionDelayExpression="0.89 * 1000" />
-<Action OrderNumber="27" LogMessageText="[20:57:17.673] 264 108:4000B275:A5B4:001413AC:1:-809.107:365.246:-876.003:-1.047:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="28" LogMessageText="[20:57:17.673] 264 108:4000B276:A5B4:001413AD:1:-790.918:365.246:-876.003:1.047:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="29" LogMessageText="[20:57:17.673] 264 108:4000B277:A5B4:001413AE:1:-800.012:349.498:-876.003:0.811:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="30" ActionType="Placeholder" ExecutionDelayExpression="1.36 * 1000" />
-<Action OrderNumber="31" LogMessageText="[20:57:44.990] 264 108:4000B275:A5B4:00141A6C:1:-809.107:365.246:-876.003:-1.535:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="32" LogMessageText="[20:57:44.990] 264 108:4000B276:A5B4:00141A6D:1:-790.918:365.246:-876.003:1.082:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="33" LogMessageText="[20:57:44.990] 264 108:4000B277:A5B4:00141A6E:1:-800.012:349.498:-876.003:-2.976:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="34" ActionType="Placeholder" ExecutionDelayExpression="1.94 * 1000" />
-<Action OrderNumber="35" LogMessageText="[20:58:23.679] StartsCasting 14:4000B277:特里同:A5CB:火炎放射:4000B277:特里同:4.700:-800.02:359.98:-876.00:0.00" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="36" ActionType="Placeholder" ExecutionDelayExpression="1.74 * 1000" />
-<Action OrderNumber="37" LogMessageText="[20:58:58.493] 264 108:4000B275:A5B4:00142891:1:-800.012:380.017:-876.003:0.000:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="38" LogMessageText="[20:58:58.498] 264 108:4000B276:A5B4:00142892:1:-782.678:350.017:-876.003:2.618:E0000000" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="5bfd6c2e-1890-45b0-a4d5-5fd15e276851" Name="B. 冰" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="2. 播报" Id="a9cb6740-ff85-4f92-9cb7-9ffae56e12ef" RegularExpression="新月_力2_冰_点名:(?&lt;b点名&gt;[01])">
-<Actions>
-<Action OrderNumber="1" UseTTSTextExpression="${if: ${b点名} ? 点名，对侧拉线 : 去自己的雪球对侧 }，靠场中击退" ActionType="UseTTS" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="1. 获取雪球点名" Id="818c38d1-54aa-463b-ad88-f799482a3758" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:A5D1:[^:]*:(?&lt;tid&gt;1.{7}):">
-<Actions>
-<Action OrderNumber="1" ListVariableOp="Push" ListVariableName="新月_力2_冰_点名" ListVariableExpression="${tid}" ActionType="ListVariable" Asynchronous="False" />
-<Action OrderNumber="2" LogMessageText="新月_力2_冰_点名:${l:新月_力2_冰_点名.contain(${_me.id})}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${l:新月_力2_冰_点名.size}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="b2176b0b-9486-4f10-ac58-d621bd442fc2" Name="C. 火" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="陨石" Id="7450b93e-bf50-4120-9d4a-795a931983e6" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}).*?:BNpcID:(?&lt;bnpcid&gt;1EBDAD).*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="箭头起点没东西，生成的 EObj 在塔的位置，背对箭头起点   箭头方向与[塔-场中]方向夹角 55.0°，箭头移动 20 m" DescriptionOverride="True" />
-<Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="// 连线&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;Tag: 新月&#xD;&#xA;t: 8.5&#xD;&#xA;O: ${x}, ${y}, ${z}&#xD;&#xA;θ: ${h}&#xD;&#xA;Pos: 0, 20&#xD;&#xA;Scale: 0.05, 20, 0.1&#xD;&#xA;Color: 3, 3, 3, 0.8&#xD;&#xA;---&#xD;&#xA;// 起点&#xD;&#xA;Omen: z5r2_b1_arrow_o0g&#xD;&#xA;Tag: 新月&#xD;&#xA;t: 8.5&#xD;&#xA;O: ${x}, ${y}, ${z}&#xD;&#xA;θ: ${h}&#xD;&#xA;Pos: 0, 20&#xD;&#xA;ScaleCyl: 5, 1&#xD;&#xA;---&#xD;&#xA;// 终点&#xD;&#xA;Omen: fire_trap_o0g&#xD;&#xA;Tag: 新月&#xD;&#xA;t: 8.5&#xD;&#xA;O: ${x}, ${y}, ${z}&#xD;&#xA;θ: ${h}&#xD;&#xA;ScaleCyl: 5, 5" ActionType="NamedCallback" DescBgColor="ffd" />
-<Action OrderNumber="3" LogMessageText="cd5:8.5" LogProcess="True" ActionType="LogMessage">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="0x${id} % 2" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Source="None" Name="Debug Log 2025-08-24 02:36" Id="026e4ca4-d453-42f3-9d1f-c35f10f7ea26" RegularExpression="">
-<Actions>
-<Action OrderNumber="1" LogMessageText="[20:57:59.136] 261 105:Add:4000B40F:BNpcID:1EBDAD:Heading:-2.1817:PosX:-799.9998:PosY:339.9999:PosZ:-876.0000:Radius:0.5000:Type:7" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="2" LogMessageText="[20:57:59.136] 261 105:Add:4000B410:BNpcID:1EBDAD:Heading:0.9599:PosX:-799.9998:PosY:379.9999:PosZ:-876.0000:Radius:0.5000:Type:7" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="自己踩了第一轮塔" Id="575aadc8-8ede-4a65-9a2c-2119d6e78549" RegularExpression="^.{15}\S+ 1[56]:4.{7}:[^:]*:A5C[02]:[^:]*:(?&lt;tid&gt;1.{7}):">
-<Actions>
-<Action OrderNumber="1" UseTTSTextExpression="无敌" UseTTSExclusive="False" ActionType="UseTTS" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
 </Trigger>
 </Triggers>
 </Folder>
@@ -2725,555 +2377,58 @@
 <Triggers>
 <Trigger Enabled="true" Name="标点（两歧塔 力之塔:上层2）" Id="84dfb4a0-3364-4fcc-a6e6-12ac9c134e41" RegularExpression="^.{15}\S+ 28:985:">
 <Actions>
-<Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;R: 10.5&#xD;&#xA;Waymarks: A1D4C3B2&#xD;&#xA;local: false" UseTTSExclusive="False" ActionType="NamedCallback" DescBgColor="dff" />
+<Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;R: 10&#xD;&#xA;Waymarks: A1D4C3B2&#xD;&#xA;local: false" UseTTSExclusive="False" ActionType="NamedCallback" DescBgColor="dff" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="时间轴" Id="4eda98a9-c9ab-417a-8db4-90fa43b678ef" RegularExpression="^.{15}\S+ 29:.{8}:7DC:02:1451:">
 <Actions>
-<Action OrderNumber="1" LogMessageText="tts:7.0:跟随自己组boss" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="1" LogMessageText="tts:7.7:跟随自己组boss" LogProcess="True" ActionType="LogMessage" />
 <Action OrderNumber="2" LogMessageText="tts:10.8:AoE，远离场边" LogProcess="True" ActionType="LogMessage" />
 <Action OrderNumber="3" LogMessageText="tts:17.4:准备死刑" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="4" LogMessageText="tts:28.1:回场中" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="5" LogMessageText="tts:32.6:毒阶段，准备转火绿色" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="4" LogMessageText="tts:33.9:准备冰火" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="5" LogMessageText="tts:38.8:转火绿色" LogProcess="True" ActionType="LogMessage" />
 <Action OrderNumber="6" LogMessageText="tts:43.3:AoE，看debuff" LogProcess="True" ActionType="LogMessage" />
 <Action OrderNumber="7" LogMessageText="tts:87.5:AoE" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="8" LogMessageText="tts:99.2:准备分身顺劈" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="9" LogMessageText="tts:118.5:三连AoE" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="10" LogMessageText="tts:131.9:朝场外分摊" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="11" LogMessageText="tts:147.1:雪球阶段，准备转火紫色" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="12" LogMessageText="tts:155.8:找自己的雪球" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="13" LogMessageText="tts:181.8:贴场边" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="14" LogMessageText="tts:184.0:打雪球" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="15" LogMessageText="tts:203.6:准备分身顺劈" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="16" LogMessageText="tts:223.6:三连AoE" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="17" LogMessageText="tts:236.8:朝场外分摊" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="18" LogMessageText="tts:247.1:准备火球" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="19" LogMessageText="tts:253.6:火球阶段，准备转火红色" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="20" LogMessageText="tts:263.0:找自己的陨石" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="21" LogMessageText="tts:273.8:站位" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="22" LogMessageText="tts:285.4:场边集合，引导黄圈" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="23" LogMessageText="tts:297.1:回${?d: Tank = 内场, Healer = 侧面, DPS = 场边 [${_me.Role}]}" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="24" LogMessageText="tts:322.3:准备分身顺劈" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="25" LogMessageText="tts:343.3:去分散位置" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="26" LogMessageText="tts:352.9:大AoE，远离场中" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="8" LogMessageText="tts:118.5:三连AoE" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="9" LogMessageText="tts:131.9:朝场外分摊" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="10" LogMessageText="tts:143.6:准备雪球" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="11" LogMessageText="tts:153.7:转火紫色" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="12" LogMessageText="tts:158.4:看自己的雪球" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="13" LogMessageText="tts:223.6:三连AoE" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="14" LogMessageText="tts:236.8:朝场外分摊" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="15" LogMessageText="tts:247.1:准备火球" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="16" LogMessageText="tts:259.6:转火红色" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="17" LogMessageText="tts:267.1:看自己的陨石" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="18" LogMessageText="tts:273.8:站位" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="19" LogMessageText="tts:285.6:场边集合，引导黄圈" LogProcess="True" ActionType="LogMessage" />
+<Action OrderNumber="20" LogMessageText="tts:297.6:站位" LogProcess="True" ActionType="LogMessage" />
 </Actions>
-</Trigger>
-<Trigger Enabled="true" Name="连线 boss" Id="1b6717f8-047b-406f-849d-c532f93ce624" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;1.{7}):[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;00F9):">
-<Actions>
-<Action OrderNumber="1" UseTTSTextExpression="打${?d: 18310=红, 18311=紫, 18312=绿 [${_entity[${tid}].BNpcID}] }色" UseTTSExclusive="False" ActionType="UseTTS" />
-<Action OrderNumber="2" NamedCallbackName="Channeling" NamedCallbackParam="${_me.Address}, ${_entity[${tid}].Address}, chn_m0834_2c, 4.5" Enabled="False" ActionType="NamedCallback" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
 </Trigger>
 </Triggers>
 </Folder>
 <Folder Id="602127b9-b8b6-460a-9136-0c1e9bec9038" Name="1.5  道中" Enabled="true">
-<Folders>
-<Folder Id="e4c1577d-65c3-4bed-9738-6c84c9dd671f" Name="宝箱" Enabled="true">
 <Folders />
-<Triggers>
-<Trigger Enabled="true" Name="3. 进入区域" Id="346ef790-3b4c-4a24-af13-519d38db4204" RegularExpression="^.{15}\S+ 28:(?&lt;map&gt;97[56]):" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="180000">
-<Actions>
-<Action OrderNumber="1" UseTTSTextExpression="宝箱在${if: ${v:新月_力15_左宝箱_b左} ? 左 : 右 }" ActionType="UseTTS">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${map}" ExpressionTypeL="String" ExpressionR="975" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${ev:新月_力15_左宝箱_b左}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="2" UseTTSTextExpression="宝箱在${if: ${v:新月_力15_右宝箱_b左} ? 左 : 右 }" ActionType="UseTTS">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${map}" ExpressionTypeL="String" ExpressionR="976" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${ev:新月_力15_右宝箱_b左}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="1. 记录" Id="93f1f4de-cd8d-4aa9-8a1e-1e632f868d65" RegularExpression="^新月_力_宝箱:(?&lt;bnpcid&gt;175[45]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" VariableOp="SetNumeric" VariableName="tmp_new" VariableExpression="!(${bnpcid} = 1754 ? ${ev:新月_力15_左宝箱_b左} : ${ev:新月_力15_右宝箱_b左})" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="2" VariableOp="SetNumeric" VariableName="新月_力15_左宝箱_b左" VariableExpression="${x} &lt; 610" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${bnpcid}" ExpressionTypeL="String" ExpressionR="1754" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" VariableOp="SetNumeric" VariableName="新月_力15_右宝箱_b左" VariableExpression="${x} &lt; 790" ActionType="Variable" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${bnpcid}" ExpressionTypeL="String" ExpressionR="1755" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Action>
-<Action OrderNumber="4" LogMessageText="新月_力15_宝箱:b左回廊:${n: ${bnpcid}=1754}:b左:${n: ${bnpcid}=1754 ? 0${v:新月_力15_左宝箱_b左} : 0${v:新月_力15_右宝箱_b左} }" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_new}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="5" VariableName="tmp_new" ActionType="Variable" Asynchronous="False" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="2. 首次播报" Id="34a7a991-71fb-44d7-8fa8-fc4805b1f0e4" RegularExpression="^新月_力15_宝箱:b左回廊:(?&lt;b左回廊&gt;[01]):b左:(?&lt;b左&gt;[01])">
-<Actions>
-<Action OrderNumber="1" UseTTSTextExpression="${if: ${b左回廊} ? 西侧 : 东侧 }宝箱在${if: ${b左} ? 左 : 右 }" ActionType="UseTTS">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${b左回廊}" ExpressionTypeL="String" ExpressionR="${_me.x} &lt; 700" ExpressionTypeR="Numeric" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e &lt;se.10&gt;&#xD;&#xA;${if: ${b左回廊} ? 西侧回廊 : 东侧回廊 }：宝箱在${if: ${b左} ? 左 ← : 右 → }" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="宝箱" Id="a1ead058-35c5-4c57-afae-57fd5cc28b99" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:(?&lt;bnpcid&gt;[^:]*).*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+).*?:Type:4(?=:|$)">
-<Actions>
-<Action OrderNumber="1" LogMessageText="新月_力_宝箱:${n: 0x${bnpcid}}:${x}:${y}:${z}" LogProcess="True" LogProcessACT="True" LogLevel="Custom2" ActionType="LogMessage" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${z}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess" />
-</Condition>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
 <Triggers />
 </Folder>
 <Folder Id="b4420c3f-46a9-4c53-9417-7a2f2e0ae22b" Name="4. 魔陶洛斯" Enabled="true" RawEnvironmentVariables="X0 = 700&#xD;&#xA;Y0 = -674&#xD;&#xA;Z0 = -476&#xD;&#xA;// 地板一格 4&#xD;&#xA;// 场边彩灯 R = 28">
-<Folders>
-<Folder Id="f341a4eb-d75d-4fde-9f4d-c287a13a8a15" Name="蓝黄武器" Enabled="true">
 <Folders />
-<Triggers>
-<Trigger Enabled="true" Name="1. 封印解除 + 三次平A" Id="8acb5a5f-e47e-4c2b-892a-c226bde3d521" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;A241|A242):">
-<Actions>
-<Action OrderNumber="1" TTSRouting="Triggernometry" VariableOp="SetNumeric" VariableName="新月_力4_b黄" VariableExpression="0x${aid} = 0xA241" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="2" UseTTSTextExpression="三次${if: ${v:新月_力4_b黄} ? 近 : 远 }平A" ActionType="UseTTS" Asynchronous="False" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="2. 远近死刑" Id="bc7908ff-f329-4ff5-849a-9ef747f19b21" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:A265:">
-<Actions>
-<Action OrderNumber="1" TTSRouting="Triggernometry" UseTTSTextExpression="远近死刑，然后${if: ${v:新月_力4_b黄} ? 近 : 远 }平A" ActionType="UseTTS" />
-<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="6000" />
-<Action OrderNumber="3" TTSRouting="Triggernometry" UseTTSTextExpression="两次${if: ${v:新月_力4_b黄} ? 近 : 远 }平A" ActionType="UseTTS" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="3. 罐子" Id="67ed60da-6742-42ce-968a-005fbed5e3ea" RegularExpression="^新月_力4_罐子预报" PeriodRefire="Deny" RefirePeriodExpression="20000">
-<Actions>
-<Action OrderNumber="1" TTSRouting="Triggernometry" UseTTSTextExpression="打${if: ${_me.HasStatus(${env:辅助狂战士})} ? 紫 : ${if: ${v:新月_力4_b黄} ? 黄 : 蓝 } }罐子" UseTTSExclusive="False" ActionType="UseTTS" />
-<Action OrderNumber="2" TTSRouting="Triggernometry" UseTTSTextExpression="靠近罐子，注意无敌" UseTTSExclusive="False" ActionType="UseTTS" ExecutionDelayExpression="5000">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${_me.HasStatus(${env:辅助骑士})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
-<Triggers>
-<Trigger Enabled="true" Name="时间轴" Id="ee86fdab-5417-49d8-b8ee-5ebc7016c793" RegularExpression="^.{15}\S+ 29:.{8}:7DC:02:1453:">
-<Actions>
-<Action OrderNumber="1" LogMessageText="tts:3.0:去自己的平台" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="2" LogMessageText="tts:7.1:AoE" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="3" LogMessageText="tts:45.0:小刀" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="4" LogMessageText="tts:75.0:回平台，准备远近死刑" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="5" LogMessageText="log:94.5:新月_力4_罐子预报" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="6" LogMessageText="tts:130.6:准备贤杖" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="7" LogMessageText="tts:145.5:脚下分摊" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="8" LogMessageText="tts:162.6:脚下分摊" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="9" LogMessageText="tts:198.3:斧子" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="10" LogMessageText="tts:227.4:回平台，准备远近死刑" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="11" LogMessageText="log:248.6:新月_力4_罐子预报" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="12" LogMessageText="tts:271.2:小刀" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="13" LogMessageText="tts:303.4:回平台" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="14" LogMessageText="tts:325.0:圣枪" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="15" LogMessageText="tts:370.5:回平台，AoE" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="16" LogMessageText="tts:379.1:准备远近死刑" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="17" LogMessageText="log:397.6:新月_力4_罐子预报" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="18" LogMessageText="tts:419.1:小刀" LogProcess="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="钢铁月环" Id="12fbab33-84a7-4da3-badf-f4a602704d90" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;A247|A24B):">
-<Actions>
-<Action OrderNumber="1" TTSRouting="Triggernometry" UseTTSTextExpression="${if: 0x${aid} = 0xA247 ? 钢铁，去后方 : 月环，去夹角 }" UseTTSRateExpression="2" UseTTSExclusive="False" ActionType="UseTTS" />
-</Actions>
-</Trigger>
-</Triggers>
+<Triggers />
 </Folder>
 <Folder Id="d23aab75-9f6f-45c3-8254-a39fb7ffa94b" Name="2.5  道中" Enabled="true" RawEnvironmentVariables="X0 = -800&#xD;&#xA;Y0 = 258&#xD;&#xA;Z0 = -875.8&#xD;&#xA;// 入口平台中心">
-<Folders>
-<Folder Id="77cee945-f833-4f45-9e1c-e0ab9896138f" Name="区域切换日志" Enabled="true">
 <Folders />
-<Triggers>
-<Trigger Enabled="true" Name="6. 终点开门" Id="6dcbb5e8-3df4-4873-901b-40807bb9f1cf" RegularExpression="^.{15}\S+ 101:.{8}:00020001:1B">
-<Actions>
-<Action OrderNumber="1" LogMessageText="新月_力25_phase:6" LogProcess="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="1: 区域封锁" Id="1254cd19-5616-4f45-b884-f41984b54a45" RegularExpression="^.{15}\S+ 29:.{8}:7DC:02:1454:">
-<Actions>
-<Action OrderNumber="1" LogMessageText="新月_力25_phase:1" LogProcess="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="2L/2R: 1-2 房门开启" Id="d8f6fa29-cc31-4711-ac08-ee723aed41fa" RegularExpression="^.{15}\S+ 101:.{8}:00020001:(?&lt;pos&gt;15|17)">
-<Actions>
-<Action OrderNumber="1" LogMessageText="新月_力25_phase:2${if: 0x${pos}=0x15 ? 左 : 右 }:${n: (0x${pos}=0x15) = (${_me.y} &lt; 319)}" LogProcess="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="3L/3R: 2-3 房门开启" Id="4883576a-0f65-4bba-9b5b-e6a9ba879ddc" RegularExpression="^.{15}\S+ 101:.{8}:00020001:(?&lt;pos&gt;16|18)">
-<Actions>
-<Action OrderNumber="1" LogMessageText="新月_力25_phase:3${if: 0x${pos}=0x16 ? 左 : 右 }:${n: (0x${pos}=0x16) = (${_me.y} &lt; 319)}" LogProcess="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="4. 左桥开启" Id="0b08cd3f-6a8b-4d48-8f4f-9bbf961d5490" RegularExpression="^.{15}\S+ 101:.{8}:00020001:19">
-<Actions>
-<Action OrderNumber="1" LogMessageText="新月_力25_phase:4" LogProcess="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="5. 右桥开启" Id="10b093c7-a42b-49b1-8970-186e935ac047" RegularExpression="^.{15}\S+ 101:.{8}:00020001:1A">
-<Actions>
-<Action OrderNumber="1" LogMessageText="新月_力25_phase:5" LogProcess="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
-<Triggers>
-<Trigger Enabled="true" Name="远近线" Id="bd5a1164-4379-4c87-b5f3-b09d8679ef04" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;A620|A622):">
-<Actions>
-<Action OrderNumber="1" UseTTSTextExpression="${if: 0x${aid} = 0xA620 ? 远离 : 靠近 }" UseTTSExclusive="False" ActionType="UseTTS" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="小爆弹" Id="9c2e2c15-a98a-412c-ba34-007f944e8f8e" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;A626|A627):" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
-<Actions>
-<Action OrderNumber="1" UseTTSTextExpression="转火小怪" UseTTSExclusive="False" ActionType="UseTTS" />
-</Actions>
-</Trigger>
-</Triggers>
+<Triggers />
 </Folder>
 <Folder Id="7a98e6a8-9784-4d6f-957f-83845d56ae9f" Name="3.5  道中" Enabled="true" RawEnvironmentVariables="X0 = 700&#xD;&#xA;Y0 = -265&#xD;&#xA;Z0 = -500&#xD;&#xA;// 起点">
 <Folders />
 <Triggers />
 </Folder>
 <Folder Id="f8530fe4-58c3-47ab-a61d-25c3f23dcbd9" Name="3. 大理石龙" Enabled="true" RawEnvironmentVariables="X0 = -337&#xD;&#xA;Y0 = 157&#xD;&#xA;Z0 = -840&#xD;&#xA;R = 30">
-<Folders>
-<Folder Id="ec2fac4f-46ab-4c91-8757-b55dbf2096fd" Name="转发水圈" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Name="2. 转发水圈冻结" Id="57bca226-9b28-4516-931e-b4c9cceef373" RegularExpression="^.{15}\S+ AAA:204:10:20:4.{7}:[^:]*:[^:]*:(?&lt;bnpcid&gt;201454[678]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" LogMessageText="新月_力3_水圈_冻结:phase:${v:新月_力3_phase}:type:${?d: 2014546 = 圆, 2014547 = 十, 2014548 = 塔 [${bnpcid}]}:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True" UseTTSExclusive="False" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="1. 转发水圈生成" Id="ba03a137-18bc-4173-9e9e-cd1c1030a5e2" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:(?&lt;bnpcid&gt;1EBD5[234]).*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" LogMessageText="新月_力3_水圈_生成:phase:${v:新月_力3_phase}:type:${?d: 1EBD52 = 圆, 1EBD53 = 十, 1EBD54 = 塔 [${bnpcid}]}:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True" UseTTSExclusive="False" ActionType="LogMessage" ExecutionDelayExpression="500" />
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Source="None" Name="Debug Log 2025-08-24 09:58" Id="28282dd6-8215-4d68-96ce-3413376eb834" RegularExpression="">
-<Actions>
-<Action OrderNumber="1" LogMessageText="[21:29:41.477] AOEActionEffect 16:4000B909:大理石龙:7797:仿效雨:1048100F:唱反调:650603:1D8D0000:1B:77978000:0:0:0:0:0:0:0:0:0:0:0:0:122021:142729:9600:10000:::-337.00:164.51:-840.00:-3.12:44:44:0:10000:::-337.00:140.00:-840.00:0.00:0014BF70:0:23:00::01:7797:7797:2.100:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="2" LogMessageText="[21:29:41.186] 261 105:Add:4000B9C4:BNpcID:1EBD52:Heading:0.0000:PosX:-355.0000:PosY:173.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="3" LogMessageText="[21:29:41.186] 261 105:Add:4000B9C8:BNpcID:1EBD52:Heading:0.0000:PosX:-355.0000:PosY:141.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="4" LogMessageText="[21:29:41.186] 261 105:Add:4000B9C1:BNpcID:1EBD52:Heading:0.0000:PosX:-319.0000:PosY:173.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="5" LogMessageText="[21:29:41.186] 261 105:Add:4000B9C3:BNpcID:1EBD53:Heading:0.0000:PosX:-343.0000:PosY:173.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="6" LogMessageText="[21:29:41.186] 261 105:Add:4000B9C5:BNpcID:1EBD52:Heading:0.0000:PosX:-319.0000:PosY:141.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="7" LogMessageText="[21:29:41.186] 261 105:Add:4000B9C2:BNpcID:1EBD52:Heading:0.0000:PosX:-331.0000:PosY:173.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="8" LogMessageText="[21:29:41.186] 261 105:Add:4000B9C7:BNpcID:1EBD52:Heading:0.0000:PosX:-343.0000:PosY:141.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="9" LogMessageText="[21:29:41.186] 261 105:Add:4000B9C6:BNpcID:1EBD53:Heading:0.0000:PosX:-331.0000:PosY:141.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="500" />
-<Action OrderNumber="11" LogMessageText="[21:29:57.655] _EObjAnimation AAA:204:10:20:4000B9C8::256:2014546:-355:141:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="12" LogMessageText="[21:29:57.655] _EObjAnimation AAA:204:10:20:4000B9C2::256:2014546:-331:173:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="13" ActionType="Placeholder" ExecutionDelayExpression="0.98 * 1000" />
-<Action OrderNumber="14" LogMessageText="[21:29:58.640] _EObjAnimation AAA:204:10:20:4000B9C7::256:2014546:-343:141:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="15" LogMessageText="[21:29:58.640] _EObjAnimation AAA:204:10:20:4000B9C1::3293708289:2014546:-319:173:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="16" LogMessageText="[21:29:58.640] _EObjAnimation AAA:204:10:20:4000B9C3::256:2014547:-343:173:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="17" ActionType="Placeholder" ExecutionDelayExpression="0.98 * 1000" />
-<Action OrderNumber="18" LogMessageText="[21:29:59.620] _EObjAnimation AAA:204:10:20:4000B9C4::256:2014546:-355:173:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="19" LogMessageText="[21:29:59.620] _EObjAnimation AAA:204:10:20:4000B9C6::256:2014547:-331:141:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="20" ActionType="Placeholder" ExecutionDelayExpression="1.03 * 1000" />
-<Action OrderNumber="21" LogMessageText="[21:30:00.649] _EObjAnimation AAA:204:10:20:4000B9C5::256:2014546:-319:141:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="22" ActionType="Placeholder" ExecutionDelayExpression="10.0 * 1000" />
-<Action OrderNumber="23" LogMessageText="[21:30:23.647] AOEActionEffect 16:4000B909:大理石龙:7797:仿效雨:1048100F:唱反调:650003:79A60000:1B:77978000:0:0:0:0:0:0:0:0:0:0:0:0:118941:118941:9100:10000:::-336.81:167.28:-840.00:-2.87:44:44:0:10000:::-337.00:157.00:-840.00:0.00:0014C89F:0:23:00::01:7797:7797:2.100:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="24" LogMessageText="[21:30:23.421] 261 105:Add:4000B9F9:BNpcID:1EBD53:Heading:0.0000:PosX:-321.0000:PosY:141.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="25" LogMessageText="[21:30:23.421] 261 105:Add:4000B9F8:BNpcID:1EBD53:Heading:0.0000:PosX:-337.0000:PosY:157.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="26" LogMessageText="[21:30:23.421] 261 105:Add:4000B9FB:BNpcID:1EBD52:Heading:0.0000:PosX:-353.0000:PosY:141.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="27" LogMessageText="[21:30:23.421] 261 105:Add:4000B9F7:BNpcID:1EBD53:Heading:0.0000:PosX:-353.0000:PosY:173.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="28" LogMessageText="[21:30:23.421] 261 105:Add:4000B9FA:BNpcID:1EBD52:Heading:0.0000:PosX:-337.0000:PosY:133.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="29" LogMessageText="[21:30:23.421] 261 105:Add:4000B9F5:BNpcID:1EBD52:Heading:0.0000:PosX:-321.0000:PosY:173.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="30" LogMessageText="[21:30:23.421] 261 105:Add:4000B9F6:BNpcID:1EBD52:Heading:0.0000:PosX:-337.0000:PosY:181.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="31" ActionType="Placeholder" ExecutionDelayExpression="500" />
-<Action OrderNumber="32" LogMessageText="[21:30:37.857] _EObjAnimation AAA:204:10:20:4000B9F9::3293708289:2014547:-321:141:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="33" LogMessageText="[21:30:37.857] _EObjAnimation AAA:204:10:20:4000B9F7::256:2014547:-353:173:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="34" ActionType="Placeholder" ExecutionDelayExpression="4.01 * 1000" />
-<Action OrderNumber="35" LogMessageText="[21:30:41.871] _EObjAnimation AAA:204:10:20:4000B9FB::256:2014546:-353:141:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="36" LogMessageText="[21:30:41.871] _EObjAnimation AAA:204:10:20:4000B9FA::256:2014546:-337:133:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="37" LogMessageText="[21:30:41.871] _EObjAnimation AAA:204:10:20:4000B9F6::256:2014546:-337:181:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="38" LogMessageText="[21:30:41.871] _EObjAnimation AAA:204:10:20:4000B9F5::256:2014546:-321:173:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="39" ActionType="Placeholder" ExecutionDelayExpression="4.01 * 1000" />
-<Action OrderNumber="40" LogMessageText="[21:30:45.874] _EObjAnimation AAA:204:10:20:4000B9F8::256:2014547:-337:157:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="41" ActionType="Placeholder" ExecutionDelayExpression="10.0 * 1000" />
-<Action OrderNumber="42" LogMessageText="[21:31:15.860] AOEActionEffect 16:4000B90A:大理石龙:7797:仿效雨:10480FC2:二氧化碳:650003:0:1B:77978000:0:0:0:0:0:0:0:0:0:0:0:0:120295:120295:9132:10000:::-347.92:172.96:-840.00:-1.37:44:44:0:10000:::-337.00:157.00:-840.00:0.00:0014D1AD:23:24:00::01:7797:7797:2.100:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="43" LogMessageText="[21:31:15.944] 261 105:Add:4000BA38:BNpcID:1EBD54:Heading:0.0000:PosX:-311.0000:PosY:157.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="44" LogMessageText="[21:31:15.944] 261 105:Add:4000BA36:BNpcID:1EBD54:Heading:0.0000:PosX:-337.0000:PosY:183.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="45" LogMessageText="[21:31:15.944] 261 105:Add:4000BA3C:BNpcID:1EBD53:Heading:0.0000:PosX:-337.0000:PosY:157.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="46" LogMessageText="[21:31:15.944] 261 105:Add:4000BA3A:BNpcID:1EBD54:Heading:0.0000:PosX:-355.5000:PosY:138.5000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="47" LogMessageText="[21:31:15.944] 261 105:Add:4000BA3B:BNpcID:1EBD54:Heading:0.0000:PosX:-337.0000:PosY:131.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="48" LogMessageText="[21:31:15.944] 261 105:Add:4000BA37:BNpcID:1EBD54:Heading:0.0000:PosX:-318.5000:PosY:175.5000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="49" LogMessageText="[21:31:15.944] 261 105:Add:4000BA39:BNpcID:1EBD54:Heading:0.0000:PosX:-363.0000:PosY:157.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="50" ActionType="Placeholder" ExecutionDelayExpression="500" />
-<Action OrderNumber="51" LogMessageText="[21:31:28.033] _EObjAnimation AAA:204:10:20:4000BA3C::256:2014547:-337:157:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="52" LogMessageText="[21:31:28.033] _EObjAnimation AAA:204:10:20:4000BA3A::256:2014548:-355.5:138.5:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="53" LogMessageText="[21:31:28.033] _EObjAnimation AAA:204:10:20:4000BA37::256:2014548:-318.5:175.5:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="54" ActionType="Placeholder" ExecutionDelayExpression="3.97 * 1000" />
-<Action OrderNumber="55" LogMessageText="[21:31:32.003] _EObjAnimation AAA:204:10:20:4000BA3B::256:2014548:-337:131:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="56" LogMessageText="[21:31:32.003] _EObjAnimation AAA:204:10:20:4000BA39::256:2014548:-363:157:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="57" LogMessageText="[21:31:32.003] _EObjAnimation AAA:204:10:20:4000BA38::3293708289:2014548:-311:157:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="58" LogMessageText="[21:31:32.003] _EObjAnimation AAA:204:10:20:4000BA36::3293904896:2014548:-337:183:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="59" ActionType="Placeholder" ExecutionDelayExpression="8.73 * 1000" />
-<Action OrderNumber="60" LogMessageText="[21:31:40.737] AOEActionEffect 16:4000B909:大理石龙:7797:仿效雨:1048100F:唱反调:650003:818F0000:1B:77978000:0:0:0:0:0:0:0:0:0:0:0:0:118941:118941:8700:10000:::-326.72:177.17:-840.01:2.05:44:44:0:10000:::-363.00:157.00:-840.00:0.00:0014D6C6:0:23:00::01:7797:7797:2.100:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="61" LogMessageText="[21:31:40.684] 261 105:Add:4000BA61:BNpcID:1EBD54:Heading:0.0000:PosX:-355.5000:PosY:175.5000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="62" LogMessageText="[21:31:40.684] 261 105:Add:4000BA62:BNpcID:1EBD54:Heading:0.0000:PosX:-318.5000:PosY:138.5000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="63" LogMessageText="[21:31:40.684] 261 105:Add:4000BA65:BNpcID:1EBD53:Heading:-0.7855:PosX:-337.0000:PosY:157.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="64" LogMessageText="[21:31:40.684] 261 105:Add:4000BA63:BNpcID:1EBD54:Heading:0.0000:PosX:-337.0000:PosY:131.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="65" LogMessageText="[21:31:40.684] 261 105:Add:4000BA60:BNpcID:1EBD54:Heading:0.0000:PosX:-336.9999:PosY:183.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="66" LogMessageText="[21:31:40.684] 261 105:Add:4000BA5F:BNpcID:1EBD54:Heading:0.0000:PosX:-318.5000:PosY:175.5000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="67" LogMessageText="[21:31:40.684] 261 105:Add:4000BA64:BNpcID:1EBD54:Heading:0.0000:PosX:-355.5000:PosY:138.5000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="68" ActionType="Placeholder" ExecutionDelayExpression="500" />
-<Action OrderNumber="69" LogMessageText="[21:31:52.234] _EObjAnimation AAA:204:10:20:4000BA65::256:2014547:-337:157:-840:-0.7854581" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="70" LogMessageText="[21:31:52.234] _EObjAnimation AAA:204:10:20:4000BA63::3293708289:2014548:-337:131:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="71" LogMessageText="[21:31:52.234] _EObjAnimation AAA:204:10:20:4000BA60::256:2014548:-336.9999:183:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="72" ActionType="Placeholder" ExecutionDelayExpression="3.97 * 1000" />
-<Action OrderNumber="73" LogMessageText="[21:31:56.203] _EObjAnimation AAA:204:10:20:4000BA64::256:2014548:-355.5:138.5:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="74" LogMessageText="[21:31:56.203] _EObjAnimation AAA:204:10:20:4000BA62::256:2014548:-318.5:138.5:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="75" LogMessageText="[21:31:56.203] _EObjAnimation AAA:204:10:20:4000BA61::256:2014548:-355.5:175.5:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="76" LogMessageText="[21:31:56.203] _EObjAnimation AAA:204:10:20:4000BA5F::256:2014548:-318.5:175.5:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="77" ActionType="Placeholder" ExecutionDelayExpression="10.0 * 1000" />
-<Action OrderNumber="78" LogMessageText="[21:32:59.226] AOEActionEffect 16:4000B909:大理石龙:7797:仿效雨:1048100F:唱反调:650003:8A890000:1B:77978000:0:0:0:0:0:0:0:0:0:0:0:0:118941:118941:10000:10000:::-336.84:166.33:-840.00:-2.96:44:44:0:10000:::-318.50:138.50:-840.00:0.00:0014E391:0:23:00::01:7797:7797:2.100:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="79" LogMessageText="[21:32:58.976] 261 105:Add:4000BAB4:BNpcID:1EBD53:Heading:0.0000:PosX:-331.0000:PosY:173.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="80" LogMessageText="[21:32:58.976] 261 105:Add:4000BAB3:BNpcID:1EBD52:Heading:0.0000:PosX:-319.0000:PosY:173.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="81" LogMessageText="[21:32:58.976] 261 105:Add:4000BAB6:BNpcID:1EBD52:Heading:0.0000:PosX:-355.0000:PosY:173.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="82" LogMessageText="[21:32:58.976] 261 105:Add:4000BAB8:BNpcID:1EBD52:Heading:0.0000:PosX:-331.0000:PosY:141.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="83" LogMessageText="[21:32:58.976] 261 105:Add:4000BAB9:BNpcID:1EBD53:Heading:0.0000:PosX:-343.0000:PosY:141.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="84" LogMessageText="[21:32:58.976] 261 105:Add:4000BABA:BNpcID:1EBD52:Heading:0.0000:PosX:-355.0000:PosY:141.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="85" LogMessageText="[21:32:58.976] 261 105:Add:4000BAB7:BNpcID:1EBD52:Heading:0.0000:PosX:-319.0000:PosY:141.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="86" LogMessageText="[21:32:58.976] 261 105:Add:4000BAB5:BNpcID:1EBD52:Heading:0.0000:PosX:-343.0000:PosY:173.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="87" ActionType="Placeholder" ExecutionDelayExpression="500" />
-<Action OrderNumber="88" LogMessageText="[21:33:15.179] _EObjAnimation AAA:204:10:20:4000BAB7::256:2014546:-319:141:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="89" LogMessageText="[21:33:15.179] _EObjAnimation AAA:204:10:20:4000BAB5::256:2014546:-343:173:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="90" ActionType="Placeholder" ExecutionDelayExpression="0.99 * 1000" />
-<Action OrderNumber="91" LogMessageText="[21:33:16.169] _EObjAnimation AAA:204:10:20:4000BAB8::256:2014546:-331:141:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="92" LogMessageText="[21:33:16.169] _EObjAnimation AAA:204:10:20:4000BAB6::256:2014546:-355:173:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="93" LogMessageText="[21:33:16.169] _EObjAnimation AAA:204:10:20:4000BAB4::256:2014547:-331:173:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="94" ActionType="Placeholder" ExecutionDelayExpression="0.98 * 1000" />
-<Action OrderNumber="95" LogMessageText="[21:33:17.152] _EObjAnimation AAA:204:10:20:4000BAB9::256:2014547:-343:141:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="96" LogMessageText="[21:33:17.152] _EObjAnimation AAA:204:10:20:4000BAB3::3293904896:2014546:-319:173:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="97" ActionType="Placeholder" ExecutionDelayExpression="1.03 * 1000" />
-<Action OrderNumber="98" LogMessageText="[21:33:18.178] _EObjAnimation AAA:204:10:20:4000BABA::256:2014546:-355:141:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="99" ActionType="Placeholder" ExecutionDelayExpression="10.0 * 1000" />
-<Action OrderNumber="100" LogMessageText="[21:33:52.167] AOEActionEffect 16:4000B909:大理石龙:7797:仿效雨:1048100F:唱反调:650003:3D730000:1B:77978000:0:0:0:0:0:0:0:0:0:0:0:0:118941:118941:10000:10000:::-342.79:163.38:-840.00:-1.52:44:44:0:10000:::-337.00:157.00:-840.00:0.00:0014EDB4:0:23:00::01:7797:7797:2.100:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="101" LogMessageText="[21:33:51.816] 261 105:Add:4000BB00:BNpcID:1EBD54:Heading:0.0000:PosX:-328.0000:PosY:151.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="102" LogMessageText="[21:33:51.816] 261 105:Add:4000BB01:BNpcID:1EBD54:Heading:0.0000:PosX:-337.0000:PosY:151.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="103" LogMessageText="[21:33:51.816] 261 105:Add:4000BB03:BNpcID:1EBD53:Heading:0.0000:PosX:-359.0000:PosY:157.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="104" LogMessageText="[21:33:51.816] 261 105:Add:4000BB05:BNpcID:1EBD53:Heading:0.0000:PosX:-315.0000:PosY:157.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="105" LogMessageText="[21:33:51.943] 261 105:Add:4000BB06:BNpcID:1EBD52:Heading:0.0000:PosX:-337.0000:PosY:135.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="106" LogMessageText="[21:33:51.943] 261 105:Add:4000BAFD:BNpcID:1EBD54:Heading:0.0000:PosX:-328.0000:PosY:163.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="107" LogMessageText="[21:33:51.943] 261 105:Add:4000BAFE:BNpcID:1EBD54:Heading:0.0000:PosX:-337.0000:PosY:163.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="108" LogMessageText="[21:33:51.943] 261 105:Add:4000BAFF:BNpcID:1EBD54:Heading:0.0000:PosX:-346.0000:PosY:163.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="109" LogMessageText="[21:33:51.816] 261 105:Add:4000BB04:BNpcID:1EBD52:Heading:0.0000:PosX:-337.0000:PosY:179.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="110" LogMessageText="[21:33:51.816] 261 105:Add:4000BB02:BNpcID:1EBD54:Heading:0.0000:PosX:-346.0000:PosY:151.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="111" ActionType="Placeholder" ExecutionDelayExpression="500" />
-<Action OrderNumber="112" LogMessageText="[21:34:06.370] _EObjAnimation AAA:204:10:20:4000BB05::256:2014547:-315:157:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="113" LogMessageText="[21:34:06.370] _EObjAnimation AAA:204:10:20:4000BB03::256:2014547:-359:157:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="114" ActionType="Placeholder" ExecutionDelayExpression="4.01 * 1000" />
-<Action OrderNumber="115" LogMessageText="[21:34:10.382] _EObjAnimation AAA:204:10:20:4000BB02::256:2014548:-346:151:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="116" LogMessageText="[21:34:10.382] _EObjAnimation AAA:204:10:20:4000BB01::256:2014548:-337:151:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="117" LogMessageText="[21:34:10.382] _EObjAnimation AAA:204:10:20:4000BB00::256:2014548:-328:151:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="118" LogMessageText="[21:34:10.382] _EObjAnimation AAA:204:10:20:4000BAFF::256:2014548:-346:163:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="119" LogMessageText="[21:34:10.382] _EObjAnimation AAA:204:10:20:4000BAFD::256:2014548:-328:163:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="120" LogMessageText="[21:34:10.382] _EObjAnimation AAA:204:10:20:4000BAFE::256:2014548:-337:163:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="121" ActionType="Placeholder" ExecutionDelayExpression="5.97 * 1000" />
-<Action OrderNumber="122" LogMessageText="[21:34:16.347] _EObjAnimation AAA:204:10:20:4000BB06::3293708289:2014546:-337:135:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="123" LogMessageText="[21:34:16.347] _EObjAnimation AAA:204:10:20:4000BB04::256:2014546:-337:179:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="124" ActionType="Placeholder" ExecutionDelayExpression="6.33 * 1000" />
-<Action OrderNumber="125" LogMessageText="[21:34:22.675] AOEActionEffect 16:4000B907:大理石龙:7797:仿效雨:1048100F:唱反调:650603:0:1B:77978000:0:0:0:0:0:0:0:0:0:0:0:0:118941:118941:8900:10000:::-322.44:158.25:-840.00:-2.06:44:44:0:10000:::-337.00:157.00:-840.00:0.00:0014F464:0:20:00::01:7797:7797:2.100:7FFF" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="126" LogMessageText="[21:34:22.327] 261 105:Add:4000BB43:BNpcID:1EBD54:Heading:0.0000:PosX:-331.0000:PosY:148.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="127" LogMessageText="[21:34:22.327] 261 105:Add:4000BB46:BNpcID:1EBD54:Heading:0.0000:PosX:-343.0000:PosY:148.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="128" LogMessageText="[21:34:22.327] 261 105:Add:4000BB45:BNpcID:1EBD54:Heading:0.0000:PosX:-343.0000:PosY:157.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="129" LogMessageText="[21:34:22.327] 261 105:Add:4000BB48:BNpcID:1EBD53:Heading:0.0000:PosX:-337.0000:PosY:179.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="130" LogMessageText="[21:34:22.327] 261 105:Add:4000BB42:BNpcID:1EBD54:Heading:0.0000:PosX:-331.0000:PosY:157.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="131" LogMessageText="[21:34:22.327] 261 105:Add:4000BB4A:BNpcID:1EBD53:Heading:0.0000:PosX:-337.0000:PosY:135.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="132" LogMessageText="[21:34:22.327] 261 105:Add:4000BB49:BNpcID:1EBD52:Heading:0.0000:PosX:-315.0000:PosY:157.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="133" LogMessageText="[21:34:22.327] 261 105:Add:4000BB41:BNpcID:1EBD54:Heading:0.0000:PosX:-331.0000:PosY:166.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="134" LogMessageText="[21:34:22.327] 261 105:Add:4000BB44:BNpcID:1EBD54:Heading:0.0000:PosX:-343.0000:PosY:166.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="135" LogMessageText="[21:34:22.327] 261 105:Add:4000BB47:BNpcID:1EBD52:Heading:0.0000:PosX:-359.0000:PosY:157.0000:PosZ:-840.0000:" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="136" ActionType="Placeholder" ExecutionDelayExpression="500" />
-<Action OrderNumber="137" LogMessageText="[21:34:26.640] _EObjAnimation AAA:204:10:20:4000BB49::256:2014546:-315:157:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="138" LogMessageText="[21:34:26.640] _EObjAnimation AAA:204:10:20:4000BB47::256:2014546:-359:157:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="139" ActionType="Placeholder" ExecutionDelayExpression="4.02 * 1000" />
-<Action OrderNumber="140" LogMessageText="[21:34:30.655] _EObjAnimation AAA:204:10:20:4000BB46::3293708289:2014548:-343:148:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="141" LogMessageText="[21:34:30.655] _EObjAnimation AAA:204:10:20:4000BB44::256:2014548:-343:166:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="142" LogMessageText="[21:34:30.655] _EObjAnimation AAA:204:10:20:4000BB43::3293904896:2014548:-331:148:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="143" LogMessageText="[21:34:30.655] _EObjAnimation AAA:204:10:20:4000BB42::256:2014548:-331:157:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="144" LogMessageText="[21:34:30.655] _EObjAnimation AAA:204:10:20:4000BB45::256:2014548:-343:157:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="145" LogMessageText="[21:34:30.655] _EObjAnimation AAA:204:10:20:4000BB41::256:2014548:-331:166:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="146" ActionType="Placeholder" ExecutionDelayExpression="5.97 * 1000" />
-<Action OrderNumber="147" LogMessageText="[21:34:36.623] _EObjAnimation AAA:204:10:20:4000BB4A::256:2014547:-337:135:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-<Action OrderNumber="148" LogMessageText="[21:34:36.623] _EObjAnimation AAA:204:10:20:4000BB48::256:2014547:-337:179:-840:-0.00004792213" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="bb3c4386-0819-4949-ba9c-84aaafade721" Name="窒息" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="窒息" Id="b6023838-88bc-4456-9828-58c43a9c32e6" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:0017:" PeriodRefire="Deny" RefirePeriodExpression="100">
-<Actions>
-<Action OrderNumber="1" UseTTSTextExpression="窒息点名" UseTTSRateExpression="1" ActionType="UseTTS" />
-<Action OrderNumber="2" VariableOp="SetString" VariableName="新月_力3_b窒息" VariableExpression="1" ActionType="Variable" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Name="无窒息" Id="8440a20a-7139-4290-9d16-adb1df993f3f" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:0017:" PeriodRefire="Deny" RefirePeriodExpression="100">
-<Actions>
-<Action OrderNumber="1" UseTTSTextExpression="没有点名" UseTTSRateExpression="1" ActionType="UseTTS" ExecutionDelayExpression="500">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${ev:新月_力3_b窒息}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
-<Triggers>
-<Trigger Enabled="true" Name="标点（大桥战斗结束）" Id="3dbc23c7-9e4f-4825-b058-5727c718804f" RegularExpression="^新月_力25_phase:6">
+<Trigger Enabled="true" Name="标点（两歧塔 力之塔:上层1）" Id="3dbc23c7-9e4f-4825-b058-5727c718804f" RegularExpression="^.{15}\S+ 28:970:">
 <Actions>
 <Action OrderNumber="1" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;R: 10&#xD;&#xA;Waymarks: A1D4C3B2&#xD;&#xA;local: false" UseTTSExclusive="False" ActionType="NamedCallback" DescBgColor="dff" />
 </Actions>
-</Trigger>
-<Trigger Enabled="true" Name="时间轴" Id="53f5725e-f051-4a8c-bcd7-d2ccbfb03453" RegularExpression="^.{15}\S+ 29:.{8}:7DC:02:1452:">
-<Actions>
-<Action OrderNumber="1" LogMessageText="tts:6.1:流血 AoE" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="2" LogMessageText="tts:26.9:下雨，集合引导" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="3" LogMessageText="tts:36.6:集合引导" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="4" LogMessageText="tts:53.8:${if: ${_me.IsT} ? 注意仇恨， : &quot;&quot; }准备死刑" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="5" LogMessageText="tts:71.7:下雨，集合引导" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="6" LogMessageText="tts:99.9:${if: ${_me.IsT} ? 注意仇恨， : &quot;&quot; }准备死刑" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="7" LogMessageText="tts:114.5:准备小怪，去自己的方向" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="8" LogMessageText="tts:173.7:准备打冰晶" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="9" LogMessageText="tts:202.4:大AoE，集合减伤" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="10" LogMessageText="tts:226.2:下雨，集合引导" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="11" LogMessageText="tts:252.1:转火冰块" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="12" LogMessageText="tts:260.3:流血 AoE" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="13" LogMessageText="tts:271.0:下雨，集合引导" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="14" LogMessageText="tts:310.2:集合引导" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="15" LogMessageText="tts:335.3:流血 AoE" LogProcess="True" ActionType="LogMessage" />
-<Action OrderNumber="16" LogMessageText="tts:344.7:${if: ${_me.IsT} ? 注意仇恨， : &quot;&quot; }准备死刑" LogProcess="True" ActionType="LogMessage" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="下雨计数" Id="c0bc1078-5d78-4c57-b8f6-262a26986d41" RegularExpression="^.{15}\S+ 16:4.{7}:[^:]*:7797:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="1/5: 2*4水圈  2: 周围6中心1  3/4: 小怪  6/7: 中心六塔" DescriptionOverride="True" />
-<Action OrderNumber="2" VariableOp="Increment" VariableName="新月_力3_phase" ActionType="Variable" Asynchronous="False" />
-<Action OrderNumber="3" LogMessageText="新月_力3_phase:${v:新月_力3_phase}" LogProcess="True" LogProcessACT="True" ActionType="LogMessage" Asynchronous="False" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="临时 水圈技能范围" Id="b63dcf18-2de4-490f-99b0-13f2bd555647" RegularExpression="^新月_力3_水圈_冻结:phase:(?&lt;phase&gt;[1-7]):type:(?&lt;type&gt;圆|十):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect2&#xD;&#xA;Tag: 新月&#xD;&#xA;t: 3.7&#xD;&#xA;Pos: ${x}, ${y}, ${z}&#xD;&#xA;Angle: ${h}&#xD;&#xA;Scale: 8, 60&#xD;&#xA;---&#xD;&#xA;Omen: Rect2&#xD;&#xA;Tag: 新月&#xD;&#xA;t: 3.7&#xD;&#xA;Pos: ${x}, ${y}, ${z}&#xD;&#xA;Angle: ${h} + π/2&#xD;&#xA;Scale: 8, 60" UseTTSExclusive="False" ActionType="NamedCallback" DescBgColor="ffd">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="十" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="2" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;Tag: 新月&#xD;&#xA;t: 3.7&#xD;&#xA;Pos: ${x}, ${y}, ${z}&#xD;&#xA;Scale: 20" UseTTSExclusive="False" ActionType="NamedCallback" DescBgColor="ffd">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="圆" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="龙态行动" Id="53f414f3-51e8-4d7b-b5bb-5c4a00d3b42f" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:77C1:" PeriodRefire="Deny" RefirePeriodExpression="100">
-<Actions>
-<Action OrderNumber="1" TTSRouting="Triggernometry" UseTTSTextExpression="去侧面" UseTTSRateExpression="2" UseTTSExclusive="False" ActionType="UseTTS" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="俯冲" Id="e34024a2-9118-47c9-ae8b-db38a8db2517" RegularExpression="^.{15}\S+ AAA:10F:(?&lt;id&gt;.{8}):[^:]*:13838:14708:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]*)">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="这个日志比俯冲读条早两秒，比 WeaponId（实际显现）早一秒    条件：距离场中 &gt; 25 （实际是正点 30 斜点 21√2，整场的 SetPos 除了这两次外还有一次在场中落地）" DescriptionOverride="True" />
-<Action OrderNumber="2" UseTTSTextExpression="${f:pick(${n: roundir(${h}, 8) % 4}): AC, 13, BD, 24 }俯冲" UseTTSExclusive="False" ActionType="UseTTS" />
-<Action OrderNumber="3" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;tag: 新月&#xD;&#xA;t: 9.7&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Angle: ${h}&#xD;&#xA;Scale: 10, 60&#xD;&#xA;" ActionType="NamedCallback" DescBgColor="ffd" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="d(${x}, ${y}, ${env:X0}, ${env:Y0})" ExpressionTypeL="Numeric" ExpressionR="25" ExpressionTypeR="String" ConditionType="NumericGreater" />
-</Condition>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="d48ae1af-22ef-42c8-9325-af5392f0817a" Name="扫雷" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="1. 初始化" Id="d89c9798-1f7b-4370-9d20-beef1b5cd155" RegularExpression="^.{15}\S+ ？">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="新月_扫雷" NamedCallbackParam="Action: init" UseTTSExclusive="False" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="2. 切换地图" Id="8a3c58a0-5b08-4a2a-a946-118703acbf6d" RegularExpression="^.{15}\S+ 28:(?&lt;mapid&gt;968|969|985|970|971):">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="只有主路的地图会传进回调，支线房间不会。传入的区域对应的雷会显示特效，上一次区域残留的特效会清除。" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="非雷区（如 boss 2 房间）也传入 id，仅用于清除前一个雷区的显示。" DescriptionOverride="True" />
-<Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="968 (1) → 969 (1.5) → 985 (2) → 970 (2.5-3) → 971 (3.5 前) → 986 (3.5-4) → 987 (顶) → 大地图 (967)" DescriptionOverride="True" />
-<Action OrderNumber="4" NamedCallbackName="新月_扫雷" NamedCallbackParam="Action: ChangeMap&#xD;&#xA;MapId: ${mapid}" UseTTSExclusive="False" ActionType="NamedCallback" />
-<Action OrderNumber="5" NamedCallbackName="新月_扫雷" NamedCallbackParam="Action: ChangeMap&#xD;&#xA;MapId: 969" UseTTSExclusive="False" Enabled="False" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="0. 注册回调" Id="38a1b2e1-0a6b-4967-bbc7-d89413db1974" RegularExpression="^.{15}\S+ 01:">
-<Actions>
-<Action OrderNumber="1" ExecScriptExpression="using System;&#xD;&#xA;using System.Collections.Generic;&#xD;&#xA;using System.Globalization;&#xD;&#xA;using System.Linq;&#xD;&#xA;using System.Numerics;&#xD;&#xA;using System.Runtime.InteropServices;&#xD;&#xA;using Triggernometry;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu.Vfx;&#xD;&#xA;using Triggernometry.Utilities;&#xD;&#xA;using Triggernometry.Utilities.Math;&#xD;&#xA;&#xD;&#xA;Triggernometry.RealPlugin.plug.RegisterNamedCallback(&#xD;&#xA;    &quot;新月_扫雷&quot;, new Action&lt;object, string&gt;(MineSweeper.Callback), null, false, &quot;新月岛宝宝椅&quot;&#xD;&#xA;);&#xD;&#xA;&#xD;&#xA;public class Mine&#xD;&#xA;{&#xD;&#xA;    public float ExplodeRadius =&gt; IsLarge ? 30f : 7f;&#xD;&#xA;    public Vector3 Pos { get; set; }&#xD;&#xA;    public bool IsLarge { get; set; }&#xD;&#xA;    public bool IsInRange(Vector3 knownPos, double range)&#xD;&#xA;    {&#xD;&#xA;        // 平面距离小于阈值，且高度差小于 10 m&#xD;&#xA;        var dx = knownPos.X - Pos.X;&#xD;&#xA;        var dy = knownPos.Y - Pos.Y;&#xD;&#xA;        var dz = Math.Abs(knownPos.Z - Pos.Z);&#xD;&#xA;&#xD;&#xA;        return dx * dx + dy * dy &lt;= range * range &amp;&amp; dz &lt;= 10;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public Mine(double x, double y, double z, bool isLarge)&#xD;&#xA;    {&#xD;&#xA;        Pos = new Vector3((float)x, (float)y, (float)z);&#xD;&#xA;        IsLarge = isLarge;&#xD;&#xA;    }&#xD;&#xA;    public Mine((double, double, double, bool) rawData)&#xD;&#xA;        : this(rawData.Item1, rawData.Item2, rawData.Item3, rawData.Item4) { }&#xD;&#xA;&#xD;&#xA;    // 状态相关：&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt; 是否可以确定其是否存在 &lt;/summary&gt;&#xD;&#xA;    public bool? Exist { get; set; } = null;&#xD;&#xA;    /// &lt;summary&gt; 是否已经被游戏显示（或已爆炸），即不需要再显示此特效 &lt;/summary&gt;&#xD;&#xA;    public bool ShownByGame { get; set; } = false;&#xD;&#xA;&#xD;&#xA;    // 特效相关：&#xD;&#xA;&#xD;&#xA;    StaticVfx vfx;&#xD;&#xA;    public void InitVfx()&#xD;&#xA;    {&#xD;&#xA;        vfx = StaticVfx.Create(&quot;vfx/omen/eff/m0777cir_a_o0c.avfx&quot;, &quot;新月_Mine&quot;);&#xD;&#xA;        vfx.Run();&#xD;&#xA;        vfx.Pos = Pos;&#xD;&#xA;        vfx.Scales = new Vector3(4, 4, 5);&#xD;&#xA;        vfx.Color = IsLarge ? new Vector4(1f, 0.4f, 0.7f, 1f) : new Vector4(0.7f, 1f, 0.2f, 1f); // 红/黄&#xD;&#xA;        UpdateVfxByState();&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public void UpdateVfxByState()&#xD;&#xA;    {&#xD;&#xA;        bool shouldDisplay = Exist == false ? false : !ShownByGame;&#xD;&#xA;        var color = vfx.Color;&#xD;&#xA;        color.W = shouldDisplay ? 1f : 0f;&#xD;&#xA;        vfx.Color = color;&#xD;&#xA;        vfx.Update();&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public void RemoveVfx()&#xD;&#xA;    {&#xD;&#xA;        vfx?.TryRemove();&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;public class MineGroup&#xD;&#xA;{&#xD;&#xA;    //public bool IsLarge =&gt; Mines.First().IsLarge;&#xD;&#xA;    public int MaxCount { get; set; }&#xD;&#xA;    public List&lt;Mine&gt; Mines { get; set; }&#xD;&#xA;    public bool Resolved { get; set; }&#xD;&#xA;    public MineGroup(int maxCount, params (double, double, double, bool)[] minesData)&#xD;&#xA;    {&#xD;&#xA;        Mines = minesData.Select(data =&gt; new Mine(data)).ToList();&#xD;&#xA;        MaxCount = maxCount;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public void InitVfx()&#xD;&#xA;    {&#xD;&#xA;        Mines.ForEach(m =&gt; m.InitVfx());&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public void UpdateVfxByState()&#xD;&#xA;    {&#xD;&#xA;        Mines.ForEach(m =&gt; m.UpdateVfxByState());&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public void RemoveVfx()&#xD;&#xA;    {&#xD;&#xA;        Mines.ForEach(m =&gt; m.RemoveVfx());&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    void AnalyzeState()&#xD;&#xA;    {&#xD;&#xA;        var exist = new List&lt;Mine&gt;();&#xD;&#xA;        var others = new List&lt;Mine&gt;();&#xD;&#xA;&#xD;&#xA;        foreach (var m in Mines)&#xD;&#xA;        {&#xD;&#xA;            if (m.Exist == true)&#xD;&#xA;                exist.Add(m);&#xD;&#xA;            else&#xD;&#xA;                others.Add(m);&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        if (exist.Count &gt;= MaxCount)&#xD;&#xA;        {&#xD;&#xA;            foreach (var m in others)&#xD;&#xA;            {&#xD;&#xA;                m.Exist = false;&#xD;&#xA;            }&#xD;&#xA;        }&#xD;&#xA;        if (exist.Count() &gt; MaxCount)&#xD;&#xA;        {&#xD;&#xA;            Interpreter.StaticHelpers.Log(RealPlugin.DebugLevelEnum.Error, &#xD;&#xA;                $&quot;组内记录到的雷数高于最大数目：\n{string.Join(&quot;; \n&quot;, exist.Select(m =&gt; m.Pos))}&quot;);&#xD;&#xA;        }&#xD;&#xA;        UpdateVfxByState();&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public bool TryApplyScan(Vector3 scanPos, double range)&#xD;&#xA;    {&#xD;&#xA;        var minesInRange = Mines.Where(mine =&gt; mine.IsInRange(scanPos, range)).ToList();&#xD;&#xA;        if (minesInRange.Any())&#xD;&#xA;        {&#xD;&#xA;            foreach (var m in minesInRange)&#xD;&#xA;            {&#xD;&#xA;                if (m.Exist == null)&#xD;&#xA;                    m.Exist = false;&#xD;&#xA;            }&#xD;&#xA;            AnalyzeState();&#xD;&#xA;            return true;&#xD;&#xA;        }&#xD;&#xA;        return false;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public Mine Found(Vector3 pos, bool isLarge)&#xD;&#xA;    {&#xD;&#xA;        var minesInRange = Mines.Where(mine =&gt; mine.IsInRange(pos, 1) &amp;&amp; isLarge == mine.IsLarge).ToList();&#xD;&#xA;        if (minesInRange.Count() &gt; 1)&#xD;&#xA;            throw new Exception(&quot;扫描到超过一个雷，疑似数据有误。&quot;);&#xD;&#xA;        var foundMine = minesInRange.FirstOrDefault();&#xD;&#xA;        if (foundMine != null)&#xD;&#xA;        {&#xD;&#xA;            foundMine.ShownByGame = true;&#xD;&#xA;            foundMine.Exist = true;&#xD;&#xA;            AnalyzeState();&#xD;&#xA;        }&#xD;&#xA;        return foundMine;&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;public static class MineSweeper&#xD;&#xA;{&#xD;&#xA;    static Dictionary&lt;int, List&lt;MineGroup&gt;&gt; MineData;&#xD;&#xA;&#xD;&#xA;    public static void Callback(object o, string command)&#xD;&#xA;    {&#xD;&#xA;        var data = new MultiLineRawArgs(command);&#xD;&#xA;        var action = data.Get(&quot;action&quot;).ToLower();&#xD;&#xA;        switch (action)&#xD;&#xA;        {&#xD;&#xA;            case &quot;init&quot;:&#xD;&#xA;                InitMineData();&#xD;&#xA;                return;&#xD;&#xA;            case &quot;changemap&quot;:&#xD;&#xA;                ChangeMap(data);&#xD;&#xA;                return;&#xD;&#xA;            case &quot;scan&quot;:  // 必须延迟等待 found 先调用，确定扫描结果&#xD;&#xA;                Scan(data);&#xD;&#xA;                return;&#xD;&#xA;            case &quot;found&quot;:&#xD;&#xA;                Found(data);&#xD;&#xA;                return;&#xD;&#xA;            case &quot;end&quot;:&#xD;&#xA;                End();&#xD;&#xA;                return;&#xD;&#xA;            default:&#xD;&#xA;                throw new NotImplementedException(action);&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public static void InitMineData()&#xD;&#xA;    {&#xD;&#xA;        if (MineData != null) End();&#xD;&#xA;        prevMapId = 0;&#xD;&#xA;        // https://github.com/OhKannaDuh/OccultCrescentHelper/tree/master/BOCCHI/Data/Traps&#xD;&#xA;        MineData = new Dictionary&lt;int, List&lt;MineGroup&gt;&gt;&#xD;&#xA;        {&#xD;&#xA;            // 1.5（中层中央大厅）&#xD;&#xA;            { 969, new List&lt;MineGroup&gt; {&#xD;&#xA;                // 左侧 First room small traps&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (655.610, -85.595, -500, false),&#xD;&#xA;                    (673.758, -56.485, -500, false),&#xD;&#xA;                    (668.247, -56.545, -500, false),&#xD;&#xA;                    (655.730, -78.541, -500, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 左侧 First room big traps&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (681.673, -76.610, -500, true),&#xD;&#xA;                    (678.532, -80.284, -500, true),&#xD;&#xA;                    (672.796, -72.422, -500, true)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 左侧 After first Geomancer room&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (624.481, -5.538, -492, false),&#xD;&#xA;                    (619.426, -5.512, -492, false),&#xD;&#xA;                    (597.776, 4.601, -489, false),&#xD;&#xA;                    (597.776, 7.265, -489, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 左侧 In front of thief room&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (583.575, -45.560, -489, false),&#xD;&#xA;                    (581.296, -39.905, -489, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 左侧 In front of mob guarded treasure room (one)&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (625.880, -101.845, -489, false),&#xD;&#xA;                    (629.658, -103.990, -489, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 左侧 Before first add pack&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (595.772, 48.175, -489, false),&#xD;&#xA;                    (590.393, 49.879, -489, false),&#xD;&#xA;                    (585.271, 51.714, -489, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 左侧 Big traps in nooks&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (588.825, 75.448, -489, true),&#xD;&#xA;                    (591.016, 78.811, -489, true),&#xD;&#xA;                    (631.057, 115.441, -489, true),&#xD;&#xA;                    (634.203, 117.537, -489, true)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 左侧 Outside second treasure room (2)&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (551.283, 43.721, -489, false),&#xD;&#xA;                    (553.133, 49.612, -489, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 左侧 Around second Geomancer trap&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (590.707, 92.890, -489, false),&#xD;&#xA;                    (586.762, 97.586, -489, false),&#xD;&#xA;                    (583.005, 102.095, -489, false),&#xD;&#xA;                    (615.843, 130.046, -489, false),&#xD;&#xA;                    (619.233, 125.969, -489, false),&#xD;&#xA;                    (623.224, 121.120, -489, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 左侧 Before button&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (656.048, 119.488, -489, false),&#xD;&#xA;                    (657.851, 114.205, -489, false),&#xD;&#xA;                    (659.676, 108.972, -489, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 右侧 First room small traps&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (726.456, -56.775, -500, false),&#xD;&#xA;                    (731.754, -56.775, -500, false),&#xD;&#xA;                    (744.431, -79.189, -500, false),&#xD;&#xA;                    (744.491, -84.931, -500, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 右侧 First room big traps&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (732.095, -76.629, -500, true),&#xD;&#xA;                    (728.670, -79.736, -500, true),&#xD;&#xA;                    (723.247, -72.448, -500, true)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 右侧 After first Geomancer room&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (775.480, -5.563, -492, false),&#xD;&#xA;                    (780.481, -5.511, -492, false),&#xD;&#xA;                    (802.218, 4.565, -489, false),&#xD;&#xA;                    (802.158, 8.566, -489, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 右侧 In front of thief room&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (818.813, -39.423, -489, false),&#xD;&#xA;                    (816.455, -45.560, -489, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 右侧 In front of mob guarded treasure room (one)&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (773.639, -101.845, -489, false),&#xD;&#xA;                    (770.055, -103.990, -489, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 右侧 Before first add pack&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (814.789, 51.775, -489, false),&#xD;&#xA;                    (809.498, 49.875, -489, false),&#xD;&#xA;                    (804.292, 48.117, -489, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 右侧 Big traps in nooks&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (811.631, 75.448, -489, true),&#xD;&#xA;                    (809.176, 78.811, -489, true),&#xD;&#xA;                    (768.902, 115.715, -489, true),&#xD;&#xA;                    (765.759, 117.537, -489, true)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 右侧 Outside second treasure room (2)&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (847.013, 49.612, -489, false),&#xD;&#xA;                    (848.844, 43.721, -489, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 右侧 Around second Geomancer trap&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (809.605, 93.299, -489, false),&#xD;&#xA;                    (813.746, 98.215, -489, false),&#xD;&#xA;                    (817.092, 102.252, -489, false),&#xD;&#xA;                    (784.267, 130.046, -489, false),&#xD;&#xA;                    (780.596, 125.781, -489, false),&#xD;&#xA;                    (776.574, 120.878, -489, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 右侧 Before button&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (744.107, 119.396, -489, false),&#xD;&#xA;                    (742.111, 114.238, -489, false),&#xD;&#xA;                    (740.298, 108.810, -489, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                //  1.5 最后 门前&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (703.450, 99.934, -504, false),&#xD;&#xA;                    (700.088, 99.942, -504, false),&#xD;&#xA;                    (697.010, 99.962, -504, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // 1.5 最后 门后&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (703.007, 79.006, -504, false),&#xD;&#xA;                    (700.039, 79.008, -504, false),&#xD;&#xA;                    (696.987, 78.969, -504, false)&#xD;&#xA;                ),&#xD;&#xA;            } },&#xD;&#xA;&#xD;&#xA;            // 2.5 桥 (日志：上层1，小地图：上层2)&#xD;&#xA;            { 970, new List&lt;MineGroup&gt; {&#xD;&#xA;                // Left: Set 1&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (-566, 292, -852, false),&#xD;&#xA;                    (-566, 299, -852, false),&#xD;&#xA;                    (-566, 306, -852, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Left: Set 2&#xD;&#xA;                new MineGroup(2,&#xD;&#xA;                    (-538, 292, -852, false),&#xD;&#xA;                    (-538, 299, -852, false),&#xD;&#xA;                    (-538, 306, -852, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Left: Set 3&#xD;&#xA;                new MineGroup(2,&#xD;&#xA;                    (-503, 292, -852, false),&#xD;&#xA;                    (-503, 299, -852, false),&#xD;&#xA;                    (-503, 306, -852, false),&#xD;&#xA;                    (-503, 299, -852, true)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Left: Set 4&#xD;&#xA;                new MineGroup(2,&#xD;&#xA;                    (-469.965, 292, -852, false),&#xD;&#xA;                    (-469.965, 306, -852, false),&#xD;&#xA;                    (-469.965, 306, -852, true),&#xD;&#xA;                    (-469.965, 292, -852, true)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Left: Set 5&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (-434, 292, -852, true),&#xD;&#xA;                    (-434, 299, -852, true),&#xD;&#xA;                    (-434, 306, -852, true)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Right: Set 1&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (-566, 322, -852, false),&#xD;&#xA;                    (-566, 329, -852, false),&#xD;&#xA;                    (-566, 336, -852, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Right: Set 2&#xD;&#xA;                new MineGroup(2,&#xD;&#xA;                    (-538, 322, -852, false),&#xD;&#xA;                    (-538, 329, -852, false),&#xD;&#xA;                    (-538, 336, -852, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Right: Set 3&#xD;&#xA;                new MineGroup(2,&#xD;&#xA;                    (-503, 322, -852, false),&#xD;&#xA;                    (-503, 336, -852, false),&#xD;&#xA;                    (-503, 329, -852, true)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Right: Set 4&#xD;&#xA;                new MineGroup(2,&#xD;&#xA;                    (-470, 322, -852, false),&#xD;&#xA;                    (-470, 336, -852, false),&#xD;&#xA;                    (-470, 336, -852, true),&#xD;&#xA;                    (-470, 322, -852, true)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Right: Set 5&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (-433.965, 322, -852, true),&#xD;&#xA;                    (-434, 329, -852, true),&#xD;&#xA;                    (-433.965, 336, -852, true)&#xD;&#xA;                ),&#xD;&#xA;            } },&#xD;&#xA;&#xD;&#xA;            // 3.5 前半（顶层1）&#xD;&#xA;            { 971, new List&lt;MineGroup&gt; {&#xD;&#xA;                // First hallway&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (698.518, -295.730, -500, false),&#xD;&#xA;                    (701.741, -295.730, -500, false),&#xD;&#xA;                    (701.822, -315.723, -500, false),&#xD;&#xA;                    (698.399, -315.723, -500, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Lobby big traps&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (700, -340, -500, true),&#xD;&#xA;                    (700, -348, -500, true),&#xD;&#xA;                    (692, -348, -500, true),&#xD;&#xA;                    (684, -348, -500, true),&#xD;&#xA;                    (708, -348, -500, true),&#xD;&#xA;                    (716, -348, -500, true)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Left hallway&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (652.021, -340.308, -500, false),&#xD;&#xA;                    (652.149, -347.825, -500, false),&#xD;&#xA;                    (652.149, -355.692, -500, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Left intersection normal traps&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (618.559, -344.559, -499.850, false),&#xD;&#xA;                    (618.559, -351.348, -499.850, false),&#xD;&#xA;                    (625.348, -351.348, -499.850, false),&#xD;&#xA;                    (625.348, -344.559, -499.850, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Left intersection big traps&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (609.542, -341.369, -499.842, true),&#xD;&#xA;                    (615.590, -360.189, -499.894, true),&#xD;&#xA;                    (633.782, -354.508, -499.895, true),&#xD;&#xA;                    (629.012, -335.971, -499.840, true)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Right hallway&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (747.914, -355.825, -500, false),&#xD;&#xA;                    (747.914, -348, -500, false),&#xD;&#xA;                    (747.914, -340.262, -500, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Right intersection normal traps&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (781.526, -351.034, -499.850, false),&#xD;&#xA;                    (781.526, -344.897, -499.850, false),&#xD;&#xA;                    (774.631, -344.897, -499.850, false),&#xD;&#xA;                    (774.631, -351.034, -499.850, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Right intersection big traps&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (784.567, -360.189, -499.869, true),&#xD;&#xA;                    (790.533, -341.369, -499.840, true),&#xD;&#xA;                    (771.499, -335.971, -499.890, true),&#xD;&#xA;                    (765.746, -354.508, -499.874, true)&#xD;&#xA;                ),&#xD;&#xA;            } },&#xD;&#xA;&#xD;&#xA;            // 3.5 后半（顶层2）&#xD;&#xA;            { 986, new List&lt;MineGroup&gt; {&#xD;&#xA;                // Intersection normal traps&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (696.5, -474.5, -500, false),&#xD;&#xA;                    (703.5, -474.5, -500, false),&#xD;&#xA;                    (703.5, -467.5, -500, false),&#xD;&#xA;                    (696.5, -467.5, -500, false),&#xD;&#xA;                    (700, -471, -500, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Intersection big traps&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (691.5, -476, -500, true),&#xD;&#xA;                    (695, -479.5, -500, true),&#xD;&#xA;                    (705, -479.5, -500, true),&#xD;&#xA;                    (708.5, -476, -500, true),&#xD;&#xA;                    (708.5, -466, -500, true),&#xD;&#xA;                    (704.5, -462.5, -500, true),&#xD;&#xA;                    (695, -462.5, -500, true),&#xD;&#xA;                    (691.5, -466, -500, true)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Tangential hallways&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (673, -468.5, -500, false),&#xD;&#xA;                    (673, -473.5, -500, false),&#xD;&#xA;                    (727, -473.5, -500, false),&#xD;&#xA;                    (727, -468.5, -500, false),&#xD;&#xA;                    (739, -468.5, -500, false),&#xD;&#xA;                    (739, -473.5, -500, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Left treasure room&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (630, -467, -500, false),&#xD;&#xA;                    (630, -475, -500, false),&#xD;&#xA;                    (638, -475, -500, false),&#xD;&#xA;                    (638, -467, -500, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Right curved hallway&#xD;&#xA;                new MineGroup(1,&#xD;&#xA;                    (802.5, -477, -500, false),&#xD;&#xA;                    (806, -471, -500, false),&#xD;&#xA;                    (818, -483.5, -500, false),&#xD;&#xA;                    (811.5, -486.5, -500, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Right treasure room&#xD;&#xA;                new MineGroup(2,&#xD;&#xA;                    (817, -520.5, -500, false),&#xD;&#xA;                    (811, -522, -500, false),&#xD;&#xA;                    (809.5, -528, -500, false),&#xD;&#xA;                    (811, -534, -500, false),&#xD;&#xA;                    (817, -535.5, -500, false),&#xD;&#xA;                    (823, -534, -500, false),&#xD;&#xA;                    (824.5, -528, -500, false),&#xD;&#xA;                    (823, -522, -500, false)&#xD;&#xA;                ),&#xD;&#xA;&#xD;&#xA;                // Stairs&#xD;&#xA;                new MineGroup(3,&#xD;&#xA;                    (694.5, -503.5, -498.476, false),&#xD;&#xA;                    (700, -503.5, -498.476, false),&#xD;&#xA;                    (705.5, -503.5, -498.476, false),&#xD;&#xA;                    (705.5, -524, -493.556, false),&#xD;&#xA;                    (700, -524, -493.556, false),&#xD;&#xA;                    (694.5, -524, -493.556, false),&#xD;&#xA;                    (694.5, -544, -488.756, false),&#xD;&#xA;                    (700, -544, -488.756, false),&#xD;&#xA;                    (705.5, -544, -488.756, false),&#xD;&#xA;                    (705.5, -564, -483.956, false),&#xD;&#xA;                    (700, -564, -483.956, false),&#xD;&#xA;                    (694.5, -564, -483.956, false),&#xD;&#xA;                    (694.5, -584, -479.156, false),&#xD;&#xA;                    (700, -584, -479.156, false),&#xD;&#xA;                    (705.5, -584, -479.156, false),&#xD;&#xA;                    (705.5, -603.5, -476, false),&#xD;&#xA;                    (700, -603.5, -476, false),&#xD;&#xA;                    (694.5, -603.5, -476, false)&#xD;&#xA;                ),&#xD;&#xA;            } },&#xD;&#xA;&#xD;&#xA;        };&#xD;&#xA;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    static int prevMapId = 0;&#xD;&#xA;    // 只会在&#xD;&#xA;    public static void ChangeMap(MultiLineRawArgs data)&#xD;&#xA;    {&#xD;&#xA;        if (MineData == null) InitMineData();&#xD;&#xA;&#xD;&#xA;        var mapId = data.Get(&quot;mapId&quot;).FromDataString&lt;int&gt;();&#xD;&#xA;        if (prevMapId == mapId) return;&#xD;&#xA;&#xD;&#xA;        if (MineData.TryGetValue(mapId, out var currGroups))&#xD;&#xA;        {&#xD;&#xA;            currGroups.ForEach(g =&gt; g.InitVfx());&#xD;&#xA;        }&#xD;&#xA;        if (MineData.TryGetValue(prevMapId, out var prevGroups))&#xD;&#xA;        {&#xD;&#xA;            prevGroups.ForEach(g =&gt; g.RemoveVfx());&#xD;&#xA;        }&#xD;&#xA;        prevMapId = mapId;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public static void Scan(MultiLineRawArgs data)&#xD;&#xA;    {&#xD;&#xA;        if (MineData == null) InitMineData();&#xD;&#xA;&#xD;&#xA;        var pos = (Vector3)XIVCoord.ParseRawData(data.Get(&quot;pos&quot;));&#xD;&#xA;        var range = data.Get(&quot;isHunter&quot;).FromDataString&lt;bool&gt;() ? 9f : 15f; // 需要确认半径的计算方式，是否包含实体半径&#xD;&#xA;        foreach (var group in MineData.SelectMany(pair =&gt; pair.Value))&#xD;&#xA;        {&#xD;&#xA;            group.TryApplyScan(pos, range);&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public static void Found(MultiLineRawArgs data)&#xD;&#xA;    {&#xD;&#xA;        if (MineData == null) InitMineData();&#xD;&#xA;&#xD;&#xA;        var pos = (Vector3)XIVCoord.ParseRawData(data.Get(&quot;pos&quot;));&#xD;&#xA;        var isLarge = data.Get(&quot;isLarge&quot;).FromDataString&lt;bool&gt;();&#xD;&#xA;        foreach (var group in MineData.SelectMany(pair =&gt; pair.Value))&#xD;&#xA;        {&#xD;&#xA;            if (group.Found(pos, isLarge) != null)&#xD;&#xA;            {&#xD;&#xA;                break;&#xD;&#xA;            }&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public static void End()&#xD;&#xA;    {&#xD;&#xA;        if (MineData == null) return;&#xD;&#xA;        foreach (var group in MineData.SelectMany(kvp =&gt; kvp.Value))&#xD;&#xA;        {&#xD;&#xA;            group.RemoveVfx();&#xD;&#xA;        }&#xD;&#xA;        MineData = null;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;}" ActionType="ExecuteScript">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${ecallback:新月_扫雷}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Name="3c. 扫描（测试）  /e scan 0/1" Id="bc61b4c0-4518-43f4-be4c-67741cf1c6fd" RegularExpression="^.{15}\S+ 00:0038::(?i)scan (?&lt;isHunter&gt;[01])">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="新月_扫雷" NamedCallbackParam="Action: Scan&#xD;&#xA;Pos: ${_me.Pos}&#xD;&#xA;IsHunter: ${isHunter}" UseTTSExclusive="False" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="5. 清空" Id="b56c95f3-7e80-4f0c-b2ee-4764d6408c2b" RegularExpression="^.{15}\S+ 28:(?&lt;mapid&gt;986|967):">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="968 (1) → 969 (1.5) → 985 (2) → 970 (2.5-3) → 971 (3.5 前) → 986 (3.5-4) → 987 (顶) → 大地图 (967)" DescriptionOverride="True" />
-<Action OrderNumber="2" NamedCallbackName="新月_扫雷" NamedCallbackParam="Action: End" UseTTSExclusive="False" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Name="4c. 生成雷（测试） /e scan 0/1" Id="c23d90d6-48e9-4f23-943f-1b21b263f522" RegularExpression="^.{15}\S+ 00:0038::(?i)add (?&lt;isLarge&gt;[01])">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="新月_扫雷" NamedCallbackParam="Action: Found&#xD;&#xA;Pos: ${_me.Pos}&#xD;&#xA;IsLarge: ${isLarge}" UseTTSExclusive="False" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="3a. 扫描（猎人）" Id="b4126490-d6ee-4a87-9979-a4c14df6ab28" RegularExpression="^.{15}\S+ 108:1.{7}:A281:.{8}:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="新月_扫雷" NamedCallbackParam="Action: Scan&#xD;&#xA;Pos: ${x}, ${y}, ${z}&#xD;&#xA;IsHunter: 1" UseTTSExclusive="False" ActionType="NamedCallback" ExecutionDelayExpression="1300" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="3b. 扫描（盗贼）" Id="47bca428-60b6-4b18-9dd5-3ddf6ae5f129" RegularExpression="^.{15}\S+ 15:1.{7}:[^:]*:A2B0:([^:]*:){25}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="新月_扫雷" NamedCallbackParam="Action: Scan&#xD;&#xA;Pos: ${x}, ${y}, ${z}&#xD;&#xA;IsHunter: 0" UseTTSExclusive="False" ActionType="NamedCallback" ExecutionDelayExpression="300" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="4a. 生成雷 （被扫出）" Id="d5c688da-4be6-4058-a476-82365451b21f" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:(?&lt;bnpcid&gt;1EBD7[89]).*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="新月_扫雷" NamedCallbackParam="Action: Found&#xD;&#xA;Pos: ${x}, ${y}, ${z}&#xD;&#xA;IsLarge: 0x${bnpcid} = 0x1EBD79" UseTTSExclusive="False" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="4b. 生成雷 （爆炸）" Id="2376c199-45ec-4262-9a17-a8b094c35883" RegularExpression="^.{15}\S+ 108:4.{7}:(?&lt;aid&gt;A44[23]):.{8}:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" NamedCallbackName="新月_扫雷" NamedCallbackParam="Action: Found&#xD;&#xA;Pos: ${x}, ${y}, ${z}&#xD;&#xA;IsLarge: 0x${aid} = 0xA443" UseTTSExclusive="False" ActionType="NamedCallback" />
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Name="*待修复：从塔里中途直接退本回到幻境村不会执行 End" Id="05ea4dfd-04e3-4c8e-8bda-046148ad7fa0" RegularExpression="">
-<Actions />
 </Trigger>
 </Triggers>
 </Folder>
