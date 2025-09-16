@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TriggernometryExport PluginVersion="1.2.0.751">
+<TriggernometryExport PluginVersion="1.2.0.753">
   <ExportedFolder Id="733a3974-5d1c-4a56-a2c7-ab2f043bf03b" Name="[工具] 运行支持库 Utils.xml" Enabled="true">
     <Folders>
       <Folder Id="602fc21c-f48b-4ab9-b54d-c3b36e38ad60" Name="高级标点工具箱 AdvWm 旧版本 v2.x（仅兼容 即将移除）" Enabled="true">
@@ -1214,7 +1214,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="2a2d791e-eeb3-4e29-96e5-f8e6ac9ef5d6" Name="鲶鱼精邮差扩展 v4.1.3" Enabled="true" RawEnvironmentVariables="version = 4.1.0&#13;&#10;trigversion = 1.2.0.748">
+      <Folder Id="2a2d791e-eeb3-4e29-96e5-f8e6ac9ef5d6" Name="鲶鱼精邮差扩展 v4.2.0" Enabled="true" RawEnvironmentVariables="version = 4.2.0&#13;&#10;trigversion = 1.2.0.752">
         <Folders>
           <Folder Id="9c2e8968-be16-47fc-8457-e377d01362af" Name="core" Enabled="true">
             <Folders>
@@ -1226,7 +1226,7 @@
                       <Action OrderNumber="1" ExecScriptExpression="using Triggernometry.PluginBridges.BridgeNamazu;&#13;&#10;BridgeNamazu.RegisterAnnotatedMethods();" ActionType="ExecuteScript" Description="BridgeNamazu.RegisterAnnotatedMethods()" DescriptionOverride="True"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Sequential="True" Name="2. 新建模组" Id="c662b7c7-df6e-4a48-b7ec-44b3cb07540c" RegularExpression="^PNE_Init:force:(?&lt;bForce&gt;[01])" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
+                  <Trigger Enabled="true" Sequential="True" Name="2. 新建模组 【在这里 sideload】" Id="c662b7c7-df6e-4a48-b7ec-44b3cb07540c" RegularExpression="^PNE_Init:force:(?&lt;bForce&gt;[01])" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="条件：强制 或 未注册" DescriptionOverride="True"/>
                       <Action OrderNumber="2" MessageBoxIconType="Warning" MessageBoxText="远程库所需的触发器插件版本高于当前版本，&#13;&#10;可能是触发器插件与远程库同时更新所致。&#13;&#10;重启 ACT 自动完成更新即可恢复正常。&#13;&#10;" ActionType="MessageBox">
@@ -1234,7 +1234,7 @@
                           <ConditionSingle Enabled="true" ExpressionL="${func:versioncompare(${env:trigversion}):${_pluginversion}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="3" ExecScriptExpression="using System;&#13;&#10;using Triggernometry;&#13;&#10;using Triggernometry.PluginBridges.BridgeNamazu;&#13;&#10;using Triggernometry.PluginBridges.BridgeNamazu.Modules;&#13;&#10;&#13;&#10;BridgeNamazu.InitializeModules(() =&gt; {&#13;&#10;    // 示例：Sideload（版本更新后可覆写偏移或扫描方法等）&#13;&#10;    // var module = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#13;&#10;    // module.PosOffset = () =&gt; BridgeNamazu.NamazuPlugin.IsCN ? 0x74 : 0x70;&#13;&#10;    // module.ScanMethod = () =&gt; { module.GetStatusIndexPtr = ModuleBase.Scanner.ScanText(&quot;xxx&quot;); };&#13;&#10;});" ActionType="ExecuteScript" Description="BridgeNamazu.InitializeModules()" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" ExecScriptExpression="using System;&#13;&#10;using Triggernometry;&#13;&#10;using Triggernometry.PluginBridges.BridgeNamazu;&#13;&#10;using Triggernometry.PluginBridges.BridgeNamazu.Modules;&#13;&#10;&#13;&#10;BridgeNamazu.InitializeModules(() =&gt; {&#13;&#10;    // 示例：Sideload（版本更新后可覆写偏移或扫描方法等）&#13;&#10;    // var module = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#13;&#10;    // module.PosOffset = () =&gt; BridgeNamazu.NamazuPlugin.IsCN ? 0x74 : 0x70;&#13;&#10;    // module.ScanMethod = () =&gt; { module.GetStatusIndexPtr = ModuleBase.Scanner.ScanText(&quot;xxx&quot;); };&#13;&#10;    var module = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#13;&#10;    module.IdOffset = () =&gt; 0x78;&#13;&#10;    module.PosOffset = () =&gt; 0xB0;&#13;&#10;    module.ScaleOffset = () =&gt; 0xC4;&#13;&#10;    module.ModelRelPosOffset = () =&gt; 0xE0;&#13;&#10;    module.ModelOffset = () =&gt; 0x100;&#13;&#10;    module.StatusLoopVfxOffset = () =&gt; 0x1C8;&#13;&#10;    module.OpacityOffset = () =&gt; 0x22D8;&#13;&#10;    module.ModelStatusOffset = () =&gt; 0x118;&#13;&#10;    module.PosOffset = () =&gt; 0x70;&#13;&#10;    var module2 = BridgeNamazu.GetModule&lt;CameraModule&gt;();&#13;&#10;    module2.OffsetsCN = module2.OffsetsGlobal;&#13;&#10;});" ActionType="ExecuteScript" Description="BridgeNamazu.InitializeModules()" DescriptionOverride="True"/>
                     </Actions>
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${ecallback:hint}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
