@@ -1196,42 +1196,7 @@
 </Triggers>
 </Folder>
 <Folder Id="13a10acc-ae43-4c06-becc-2dce7ee2bff3" Name="通用技能播报" Enabled="true">
-<Folders>
-<Folder Id="5d727bb2-a03e-4ee8-b11b-ead90cfb9d0b" Name="自动中断" Enabled="true">
 <Folders />
-<Triggers>
-<Trigger Enabled="true" Name="敌方被插言" Id="e5314f26-ea26-4909-8a21-c9882dfec1e3" RegularExpression="^.{15}\S+ 15:1.{7}:[^:]*:1D72:[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:4C:">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" LogProcess="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ${tid}" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${d:简易播报.ekey(${aid})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Name="敌方被眩晕" Id="3cc986f7-cc15-4f44-9e63-6d0592f47f94" RegularExpression="^.{15}\S+ 1A:02:[^:]+:(?&lt;t&gt;[^:]+):1.{7}:[^:]*:(?&lt;tid&gt;4.{7}):">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" LogProcess="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ${tid}" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${d:简易播报.ekey(${aid})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Name="敌方读条中断" Id="21b9a040-5ebe-4ef2-ae13-08081c2ed3f0" RegularExpression="^.{15}\S+ 17:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;[^:]+):">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" LogProcess="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ${sid}" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${d:简易播报.ekey(${aid})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Name="敌方死亡" Id="37ff59d3-e34c-4703-8114-aed84d7f3b4f" RegularExpression="^.{15}\S+ 25:(?&lt;id&gt;.{8}):(?&lt;name&gt;[^:]+):[^:]*:0:">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" LogProcess="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ${id}" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
 <Triggers>
 <Trigger Enabled="false" Name="注册模板（简）" Id="2dc81f75-8da1-4992-94c2-2e6b8a97de80" RegularExpression="^.{15}\S+ 01:">
 <Actions>
@@ -1266,6 +1231,14 @@
 </Condition>
 </Action>
 <Action OrderNumber="6" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_data" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${d:简易播报.ekey(${aid})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Name="敌方读条中断" Id="21b9a040-5ebe-4ef2-ae13-08081c2ed3f0" RegularExpression="^.{15}\S+ 17:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;[^:]+):">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" LogProcess="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Tag: 简易播报_${sid}_${aid}" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${d:简易播报.ekey(${aid})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
