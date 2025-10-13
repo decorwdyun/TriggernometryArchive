@@ -1245,27 +1245,41 @@
                 <Actions>
                   <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="tmp_data" DictVariableValue="=|${d:简易播报[${aid}]}"/>
                   <Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="SetAll" DictVariableName="tmp_data" DictVariableKey="${f:trim:${_key}}" DictVariableValue="${f:trim:${_val}}"/>
-                  <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0${d:tmp_data[ttsDelay]}:${d:tmp_data[tts]}" LogProcess="True">
+                  <Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="默认的播报 tts 的范围：完全未提供任何参数 =&gt; 999" DescriptionOverride="True"/>
+                  <Action OrderNumber="4" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="tmp_data" DictVariableKey="ttsRange" DictVariableValue="999">
                     <Condition Enabled="true" Grouping="And">
                       <ConditionSingle Enabled="true" ExpressionL="${d:tmp_data.ekey(tts)}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                      <ConditionGroup Enabled="true" Grouping="Or">
-                        <ConditionSingle Enabled="true" ExpressionL="${d:tmp_data.ekey(scale)}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        <ConditionSingle Enabled="true" ExpressionL="d(${_me.xy}, ${x}, ${y})" ExpressionTypeL="Numeric" ExpressionR="max(${d:tmp_data[scale]}) + 10" ExpressionTypeR="Numeric" ConditionType="NumericLess"/>
-                      </ConditionGroup>
+                      <ConditionSingle Enabled="true" ExpressionL="${d:tmp_data.ekey(scale)}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${d:tmp_data.ekey(ttsRange)}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
                   </Action>
-                  <Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" LogProcess="True" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: ${d:tmp_data[omen]}&#13;&#10;delay: 0.001 + 0${d:tmp_data[delay]}&#13;&#10;t: ${if: ${d:tmp_data.ekey(t)} ? ${d:tmp_data[t]} : [简易播报] 绘图未提供 t 参数 }&#13;&#10;Tag: ${if: ${d:tmp_data.ekey(tag)} ? ${d:tmp_data[tag]} : 简易播报_${sid}_${aid} }&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h}&#13;&#10;Scale: ${if: ${d:tmp_data.ekey(scale)} ? ${d:tmp_data[scale]} : [简易播报] 绘图未提供 scale 参数 }&#13;&#10;Color: ${if: ${d:tmp_data.ekey(color)} ? ${d:tmp_data[color]} : 1, 1, 1, 1 }">
+                  <Action OrderNumber="5" ActionType="Placeholder" Asynchronous="False" Description="默认的播报 tts 的范围：提供了 scale =&gt; max(scaleX, scaleY) + 10" DescriptionOverride="True"/>
+                  <Action OrderNumber="6" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="tmp_data" DictVariableKey="ttsRange" DictVariableValue="max(${?l: ${d:tmp_data[scale]}.join(&quot;,&quot;, &quot;1, 2&quot;) }) + 10">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${d:tmp_data.ekey(tts)}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${d:tmp_data.ekey(scale)}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${d:tmp_data.ekey(ttsRange)}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="7" ActionType="Placeholder" Asynchronous="False" Description="输出" DescriptionOverride="True"/>
+                  <Action OrderNumber="8" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0${d:tmp_data[ttsDelay]}:${d:tmp_data[tts]}" LogProcess="True">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${d:tmp_data.ekey(tts)}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="d(${_me.xy}, ${x}, ${y})" ExpressionTypeL="Numeric" ExpressionR="${d:tmp_data[ttsRange]}" ExpressionTypeR="Numeric" ConditionType="NumericLess"/>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="9" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" LogProcess="True" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: ${d:tmp_data[omen]}&#13;&#10;delay: 0.001 + 0${d:tmp_data[delay]}&#13;&#10;t: ${if: ${d:tmp_data.ekey(t)} ? ${d:tmp_data[t]} : [简易播报] 绘图未提供 t 参数 }&#13;&#10;Tag: ${if: ${d:tmp_data.ekey(tag)} ? ${d:tmp_data[tag]} : 简易播报_${sid}_${aid} }&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h}&#13;&#10;Scale: ${if: ${d:tmp_data.ekey(scale)} ? ${d:tmp_data[scale]} : [简易播报] 绘图未提供 scale 参数 }&#13;&#10;Color: ${if: ${d:tmp_data.ekey(color)} ? ${d:tmp_data[color]} : 1, 1, 1, 1 }">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${d:tmp_data.ekey(omen)}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
                   </Action>
-                  <Action OrderNumber="5" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" LogProcess="True" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: ${d:tmp_data[omen]}&#13;&#10;delay: 0.001 + 0${d:tmp_data[delay]}&#13;&#10;t: ${if: ${d:tmp_data.ekey(t)} ? ${d:tmp_data[t]} : [简易播报] 绘图未提供 t 参数 }&#13;&#10;Tag: ${if: ${d:tmp_data.ekey(tag)} ? ${d:tmp_data[tag]} : 简易播报_${sid}_${aid} }&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h} + π/2&#13;&#10;Scale: ${if: ${d:tmp_data.ekey(scale)} ? ${d:tmp_data[scale]} : [简易播报] 绘图未提供 scale 参数 }&#13;&#10;Color: ${if: ${d:tmp_data.ekey(color)} ? ${d:tmp_data[color]} : 1, 1, 1, 1 }">
+                  <Action OrderNumber="10" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" LogProcess="True" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: ${d:tmp_data[omen]}&#13;&#10;delay: 0.001 + 0${d:tmp_data[delay]}&#13;&#10;t: ${if: ${d:tmp_data.ekey(t)} ? ${d:tmp_data[t]} : [简易播报] 绘图未提供 t 参数 }&#13;&#10;Tag: ${if: ${d:tmp_data.ekey(tag)} ? ${d:tmp_data[tag]} : 简易播报_${sid}_${aid} }&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h} + π/2&#13;&#10;Scale: ${if: ${d:tmp_data.ekey(scale)} ? ${d:tmp_data[scale]} : [简易播报] 绘图未提供 scale 参数 }&#13;&#10;Color: ${if: ${d:tmp_data.ekey(color)} ? ${d:tmp_data[color]} : 1, 1, 1, 1 }">
                     <Condition Enabled="true" Grouping="And">
                       <ConditionSingle Enabled="true" ExpressionL="${d:tmp_data.ekey(omen)}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                       <ConditionSingle Enabled="true" ExpressionL="${d:tmp_data[cross]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
                   </Action>
-                  <Action OrderNumber="6" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_data"/>
+                  <Action OrderNumber="11" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_data"/>
                 </Actions>
                 <Condition Enabled="true" Grouping="Or">
                   <ConditionSingle Enabled="true" ExpressionL="${d:简易播报.ekey(${aid})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
@@ -1278,18 +1292,19 @@
                   <Action OrderNumber="3" ActionType="Placeholder" Description="值：如  _=小怪顺劈 | tts=顺劈 | ttsDelay=0 | omen=Fan90 | delay=0 | t=6.7 | scale=6,6,5 | color=1,1,1,1 | cross=0 | tag=M12s" DescriptionOverride="True"/>
                   <Action OrderNumber="4" ActionType="Placeholder" Description="  tts: 播报的文本；未提供时默认不播报" DescriptionOverride="True"/>
                   <Action OrderNumber="5" ActionType="Placeholder" Description="  ttsDelay: 播报文本的延迟/s；未提供时默认为 0" DescriptionOverride="True"/>
-                  <Action OrderNumber="6" ActionType="Placeholder" Description="  omen: Omen 类型，可以使用 omen 名称（general02f）或 PictoACT 模块定义的简称（Rect）；未提供时默认不画图" DescriptionOverride="True"/>
-                  <Action OrderNumber="7" ActionType="Placeholder" Description="  delay: Omen 显示的延迟；未提供时默认为 0" DescriptionOverride="True"/>
-                  <Action OrderNumber="8" ActionType="Placeholder" Description="  t: Omen 显示的时长；需要画图时必须提供" DescriptionOverride="True"/>
-                  <Action OrderNumber="9" ActionType="Placeholder" Description="  scale: Omen 的三维尺寸 (圆形/环形/扇形通常为 半径, 半径, 高度，单侧矩形为 垂直于指向的半宽度, 平行于指向的长度, 高度)；需要画图时必须提供" DescriptionOverride="True"/>
-                  <Action OrderNumber="10" ActionType="Placeholder" Description="  color: 颜色 r, g, b, a；未提供时默认为 1, 1, 1, 1" DescriptionOverride="True"/>
-                  <Action OrderNumber="11" ActionType="Placeholder" Description="  cross: 是否为十字，十字会旋转 90 度再生成一个 Omen；未提供时默认为 0" DescriptionOverride="True"/>
-                  <Action OrderNumber="12" ActionType="Placeholder" Description="  tag: PictoACT 模块中使用的 Omen 标签，不知道是什么的话不建议设置；默认如 简易播报_40001234_A1CB (读条来源的 ID + 技能 ID)" DescriptionOverride="True"/>
-                  <Action OrderNumber="13" ActionType="Placeholder" Description="  _=xxx 可用于注释（如 小怪顺劈）" DescriptionOverride="True"/>
-                  <Action OrderNumber="14" ActionType="Placeholder" Description="空格、大小写不敏感" DescriptionOverride="True"/>
-                  <Action OrderNumber="15" ActionType="Placeholder" Description="此触发器会在每次切换区域时确认下列数据已经加载。（进阶：你可以在触发器条件中设置 zone 以减少不必要的触发）" DescriptionOverride="True"/>
-                  <Action OrderNumber="16" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="示例：A1CB" DictVariableValue="tts=钢铁"/>
-                  <Action OrderNumber="17" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="示例：A1CC" DictVariableValue="omen=Fan90 | t=6.7 | scale=6,6,1"/>
+                  <Action OrderNumber="6" ActionType="Placeholder" Description="  ttsRange: 在什么距离内会播报 tts；如未提供则使用 omen scale 的最大值 + 15" DescriptionOverride="True"/>
+                  <Action OrderNumber="7" ActionType="Placeholder" Description="  omen: Omen 类型，可以使用 omen 名称（general02f）或 PictoACT 模块定义的简称（Rect）；未提供时默认不画图" DescriptionOverride="True"/>
+                  <Action OrderNumber="8" ActionType="Placeholder" Description="  delay: Omen 显示的延迟；未提供时默认为 0" DescriptionOverride="True"/>
+                  <Action OrderNumber="9" ActionType="Placeholder" Description="  t: Omen 显示的时长；需要画图时必须提供" DescriptionOverride="True"/>
+                  <Action OrderNumber="10" ActionType="Placeholder" Description="  scale: Omen 的三维尺寸 (圆形/环形/扇形通常为 半径, 半径, 高度，单侧矩形为 垂直于指向的半宽度, 平行于指向的长度, 高度)；需要画图时必须提供" DescriptionOverride="True"/>
+                  <Action OrderNumber="11" ActionType="Placeholder" Description="  color: 颜色 r, g, b, a；未提供时默认为 1, 1, 1, 1" DescriptionOverride="True"/>
+                  <Action OrderNumber="12" ActionType="Placeholder" Description="  cross: 是否为十字，十字会旋转 90 度再生成一个 Omen；未提供时默认为 0" DescriptionOverride="True"/>
+                  <Action OrderNumber="13" ActionType="Placeholder" Description="  tag: PictoACT 模块中使用的 Omen 标签，不知道是什么的话不建议设置；默认如 简易播报_40001234_A1CB (读条来源的 ID + 技能 ID)" DescriptionOverride="True"/>
+                  <Action OrderNumber="14" ActionType="Placeholder" Description="  _=xxx 可用于注释（如 小怪顺劈）" DescriptionOverride="True"/>
+                  <Action OrderNumber="15" ActionType="Placeholder" Description="空格、大小写不敏感" DescriptionOverride="True"/>
+                  <Action OrderNumber="16" ActionType="Placeholder" Description="此触发器会在每次切换区域时确认下列数据已经加载。（进阶：你可以在触发器条件中设置 zone 以减少不必要的触发）" DescriptionOverride="True"/>
+                  <Action OrderNumber="17" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="示例：A1CB" DictVariableValue="tts=钢铁"/>
+                  <Action OrderNumber="18" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="示例：A1CC" DictVariableValue="omen=Fan90 | t=6.7 | scale=6,6,1"/>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or">
                   <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="在这里填写区域 ID（十进制）并启用条件" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
@@ -1491,7 +1506,7 @@
                   </Trigger>
                   <Trigger Enabled="true" Name="Omen" Id="0c2403df-c127-4c7d-b948-96867b296868" RegularExpression="^.{15}\S+ 00:0038::(?i) *omen +(?&lt;vfxname&gt;.+?) *$">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[1]}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[2]} ?? 3}, ${_me.pos, h}, 5">
+                      <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[1]}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[2]} ?? 3}, ${_me.pos, h}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[3]} ?? 5}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[4]} ?? 5}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[5]} ?? 5}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[6]} ?? 1}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[7]} ?? 1}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[8]} ?? 1}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[9]} ?? 1}">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${vfxname} ?? -1" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess"/>
                         </Condition>
