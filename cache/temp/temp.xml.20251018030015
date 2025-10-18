@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="1.2.0.754">
+<TriggernometryExport PluginVersion="1.2.0.753">
 <ExportedFolder Id="dfd52a11-9997-441a-a689-601c59f74497" Name="临时" Enabled="true">
 <Folders>
 <Folder Id="b25c8548-48d4-4bcb-9d81-491c0663f233" Name="风脉" Enabled="true">
@@ -1168,7 +1168,7 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="ea5d371b-c3ab-491a-85d5-1b286b61e353" Name="Boss" Enabled="true" RawEnvironmentVariables="X0 = -600&#xD;&#xA;Y0 = -300&#xD;&#xA;Z0 = 0&#xD;&#xA;BNpcId光=18667&#xD;&#xA;BNpcId暗=18666&#xD;&#xA;BNpcId小怪=18668">
+<Folder Id="ea5d371b-c3ab-491a-85d5-1b286b61e353" Name="Boss" Enabled="true" RawEnvironmentVariables="X0 = -600&#xD;&#xA;Y0 = -300&#xD;&#xA;Z0 = 0">
 <Folders>
 <Folder Id="b8a413ae-5f12-4e78-b55f-04966032dc19" Name="剑+球" Enabled="true">
 <Folders />
@@ -1220,13 +1220,13 @@
 </Condition>
 </Action>
 <Action OrderNumber="10" ActionType="Placeholder" Description="锁 =&gt; 剑" DescriptionOverride="True" />
-<Action OrderNumber="11" ActionType="UseTTS" DescTextColor="800" UseTTSTextExpression="去${if: ${b打侧} ? 中间 : 两侧 }，先止步">
+<Action OrderNumber="11" ActionType="UseTTS" DescTextColor="800" UseTTSTextExpression="去${if: ${b打侧} ? 中间 : 两侧 }，先停手">
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 <ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="12" ActionType="LogMessage" DescTextColor="800" LogMessageText="tts:4.7:止步" LogProcess="True">
+<Action OrderNumber="12" ActionType="LogMessage" DescTextColor="800" LogMessageText="tts:4.7:停手" LogProcess="True">
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 <ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
@@ -1239,13 +1239,13 @@
 </Condition>
 </Action>
 <Action OrderNumber="14" ActionType="Placeholder" Description="剑 =&gt; 锁" DescriptionOverride="True" />
-<Action OrderNumber="15" ActionType="UseTTS" DescTextColor="880" UseTTSTextExpression="去${if: ${b打侧} ? 中间 : 两侧 }，然后止步">
+<Action OrderNumber="15" ActionType="UseTTS" DescTextColor="880" UseTTSTextExpression="去${if: ${b打侧} ? 中间 : 两侧 }，然后停手">
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 <ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="16" ActionType="LogMessage" DescTextColor="880" LogMessageText="tts:7.7:止步" LogProcess="True">
+<Action OrderNumber="16" ActionType="LogMessage" DescTextColor="880" LogMessageText="tts:7.7:停手" LogProcess="True">
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 <ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
@@ -1329,7 +1329,7 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="856c6714-ec0f-4b7b-9d56-ca3727f21ee7" Name="水晶" Enabled="true">
+<Folder Id="856c6714-ec0f-4b7b-9d56-ca3727f21ee7" Name="地火" Enabled="true">
 <Folders />
 <Triggers>
 <Trigger Enabled="true" Name="2. 播报" Id="38b7f5a3-3ad8-4f3e-baf7-213169af8a29" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:AC2F:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
@@ -1344,67 +1344,14 @@
 <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="D79_地火_b先横" VariableExpression="0x${aid} = 0xAC2A" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Name="1. 获取水晶" Id="5be62a3c-6c35-47ee-b46f-c5aaee9cb482" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:1EBE70.*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;(-611.9|-612.0|-587.9|-588.0)[^:]+):PosY:(?&lt;y&gt;(-305.9|-306.0|-293.9|-294.0)[^:]+):PosZ:(?&lt;z&gt;[^:]+)">
+<Trigger Enabled="true" Name="1. 获取角落水晶" Id="5be62a3c-6c35-47ee-b46f-c5aaee9cb482" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:1EBE70.*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;(-61[78]|-58[12])[^:]+):PosY:(?&lt;y&gt;(-31[12]|-28[78])[^:]+):PosZ:(?&lt;z&gt;[^:]+)">
 <Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="只看斜向一排四个水晶中靠外的第二个 (±12, ±6)" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="先横：初始角落水晶纵向翻转为安全点   先竖：横向翻转" DescriptionOverride="True" />
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_地火_dirN4" VariableExpression="roundvec((${x} - ${env:X0}) * (${v:D79_地火_b先横} ? 1 : -1), (${y} - ${env:Y0}) * (${v:D79_地火_b先横} ? -1 : 1), -4)" />
-<Action OrderNumber="4" ActionType="UseTTS" UseTTSTextExpression="储存${f:pick(${v:D79_地火_dirN4}): 左上, 左下, 右下, 右上}" />
+<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="先横：初始角落水晶纵向翻转为安全点   先竖：横向翻转" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_地火_dirN4" VariableExpression="roundvec((${x} - ${env:X0}) * (${v:D79_地火_b先横} ? 1 : -1), (${y} - ${env:Y0}) * (${v:D79_地火_b先横} ? -1 : 1), -4)" />
+<Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="储存${f:pick(${v:D79_地火_dirN4}): 左上, 左下, 右下, 右上}" />
 </Actions>
-<Condition Enabled="true" Grouping="And">
+<Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${ev:D79_地火_dirN4}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="round(abs(${x} - ${env:X0}), 1)" ExpressionTypeL="Numeric" ExpressionR="12" ExpressionTypeR="String" ConditionType="NumericEqual" />
-<ConditionSingle Enabled="true" ExpressionL="round(abs(${y} - ${env:Y0}), 1)" ExpressionTypeL="Numeric" ExpressionR="6" ExpressionTypeR="String" ConditionType="NumericEqual" />
-</Condition>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="78f213c3-fa78-4d24-b4e9-fb0c2a26d3d9" Name="目标" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="自己打错目标" Id="e4d59512-e8ae-4925-bc10-2797b5c155f8" RegularExpression="^.{15}\S+ 15:(?&lt;sid&gt;1.{7}):[^:]*:(?&lt;aid&gt;[^:]*):(?&lt;an&gt;[^:]*):4.{7}:[^:]*:[^:]*03:0:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1500">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="D79_buff_b光" VariableExpression="${_me.HasStatus(0x11D0)}" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="D79_buff_b暗" VariableExpression="${_me.HasStatus(0x11CF)}" />
-<Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="没有 buff" DescriptionOverride="True" />
-<Action OrderNumber="4" ActionType="UseTTS" UseTTSTextExpression="续buff">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="!${v:D79_buff_b暗} &amp;&amp; !${v:D79_buff_b光}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="5" ActionType="Placeholder" Asynchronous="False" Description="有 buff" DescriptionOverride="True" />
-<Action OrderNumber="6" ActionType="UseTTS" UseTTSTextExpression="打错了">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="!${v:D79_buff_b暗} &amp;&amp; !${v:D79_buff_b光}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="7" ActionType="NamedCallback" NamedCallbackName="Target" NamedCallbackParam="${_entity[bnpcid = ${n: ${v:D79_buff_b光} ? ${env:BNpcId暗} : ${env:BNpcId光} }].id}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="!${v:D79_buff_b暗} &amp;&amp; !${v:D79_buff_b光}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Name="获取光暗 debuff" Id="ec308080-6e9c-4b8c-aa45-053aa5aa03b9" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;11CF|11D0):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):" PrevActions="Interrupt">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_buff_b光" VariableExpression="0x${aid} = 0x11D0" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="D79_tgtId" VariableExpression="${_tgt.id}" />
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="D79_tgtBNpcId" VariableExpression="${_tgt.bnpcid}" />
-<Action OrderNumber="4" ActionType="NamedCallback" NamedCallbackName="Target" NamedCallbackParam="${_entity[bnpcid = ${n: ${v:D79_buff_b光} ? ${env:BNpcId暗} : ${env:BNpcId光} }].id}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:D79_tgtBNpcId} = ${env:BNpcId暗} &amp;&amp; !${v:D79_buff_b光}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${v:D79_tgtBNpcId} = ${env:BNpcId光} &amp;&amp; ${v:D79_buff_b光}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="0x0${v:D79_tgtId} = 0 || 0x0${v:D79_tgtId} == 0xE0000000 || 0x0${v:D79_tgtId} == ${_me.id}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="5" ActionType="UseTTS" ExecutionDelayExpression="(${t} - 15) * 1000" UseTTSTextExpression="续buff" />
-<Action OrderNumber="6" ActionType="UseTTS" ExecutionDelayExpression="10000" UseTTSTextExpression="快续buff" UseTTSExclusive="False" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Trigger>
 </Triggers>
@@ -1437,6 +1384,14 @@
 <Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="踩${if: ${v:D79_以太_先吸暗} ? 光 : 暗 }" />
 <Action OrderNumber="4" ActionType="UseTTS" ExecutionDelayExpression="6700" UseTTSTextExpression="踩${if: ${v:D79_以太_先吸暗} ? 暗 : 光 }" />
 </Actions>
+</Trigger>
+<Trigger Enabled="true" Name="自己打错目标" Id="7e86132f-38d7-4740-b4fc-41225bb0a6b4" RegularExpression="^.{15}\S+ 15:(?&lt;sid&gt;1.{7}):[^:]*:(?&lt;aid&gt;[^:]*):(?&lt;an&gt;[^:]*):4.{7}:[^:]*:[^:]*03:0:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="2500">
+<Actions>
+<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="切目标" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
 </Trigger>
 </Triggers>
 </Folder>
@@ -1615,370 +1570,6 @@
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AF33" DictVariableValue="_=死地 | tts=躲开 | ttsRange=3" />
 <Action OrderNumber="2" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AF34" DictVariableValue="_=怨念 | tts=打断宝箱怪 | ttsRange=20" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="踩雷" Id="6a764e3f-b493-428f-b8d9-1f0f3fcdebb8" RegularExpression="^.{15}\S+ 1[56]:4.{7}:[^:]*:(?&lt;aid&gt;1883):[^:]*:(?&lt;tid&gt;1.{7}):">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="踩雷了" UseTTSExclusive="False" />
-<Action OrderNumber="2" SystemBeepLengthExpression="500" UseTTSTextExpression="踩雷了" UseTTSExclusive="False" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1281$" Id="79a333c7-ad87-440e-9e99-8c9afb818a2b" Name="01-10" Enabled="true">
-<Folders>
-<Folder Id="ff776de7-be24-4023-a075-d1f6a3fe3007" Name="小怪" Enabled="true">
-<Folders />
-<Triggers />
-</Folder>
-<Folder Id="767a0fc2-6d30-4ae2-8fde-eea6a9d9de80" Name="Boss" Enabled="true" RawEnvironmentVariables="X0=-300&#xD;&#xA;Y0=-300&#xD;&#xA;Z0=0">
-<Folders>
-<Folder Id="d465d30a-79b0-4d4d-8708-be68c337ed27" Name="四连跳" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="1. 四连跳" Id="0501b1a7-bd32-4975-9988-e517be7b3203" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;AC1A):.{8}:[01]:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;tid&gt;..{7})">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" UseTTSExclusive="False" VariableOp="Increment" VariableName="D70_四连跳_n" />
-<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;delay: 4.826 - 0.2265 * ${v:D70_四连跳_n}&#xD;&#xA;t: 4&#xD;&#xA;Tag: D70&#xD;&#xA;Pos: ${x}, ${y}, ${z}&#xD;&#xA;Angle: ${h}&#xD;&#xA;Scale: 15, 15, 5" UseTTSExclusive="False" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="0. 初始化" Id="26dd86de-79bc-444e-b38f-c0992b2f22bd" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:AC17:">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" UseTTSExclusive="False" VariableOp="UnsetRegexUniversal" VariableName="^D70_四连跳" />
-<Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="快打小怪" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
-<Triggers>
-<Trigger Enabled="true" Name="注册简易播报" Id="9f31a06b-6ace-4c7c-8fda-80b2175aea05" RegularExpression="^.{15}\S+ 01:">
-<Actions>
-<Action OrderNumber="1" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AC15" DictVariableValue="tts=稍后准备打小怪 | ttsDelay = 3" />
-<Action OrderNumber="2" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AF37" DictVariableValue="_=小怪钢铁 | omen=circle | t=13.2 | scale=14,14,5 | color = 1,1,1,1" />
-<Action OrderNumber="3" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AC17" DictVariableValue="tts=四连钢铁" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
-<Triggers />
-</Folder>
-<Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1282$" Id="76827c56-4702-4a3b-ae79-75f5a78cc702" Name="11-20" Enabled="true">
-<Folders>
-<Folder Id="9e80e694-6fd0-4caf-a8a5-720b9e517ba8" Name="小怪" Enabled="true">
-<Folders />
-<Triggers />
-</Folder>
-<Folder Id="b009598a-fc94-41d9-9be1-99e0e169743e" Name="Boss" Enabled="true" RawEnvironmentVariables="X0=-600&#xD;&#xA;Y0=-300&#xD;&#xA;Z0=0">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="注册简易播报" Id="05d98a1a-1fd1-4bcd-85e8-3e00313890a6" RegularExpression="^.{15}\S+ 01:">
-<Actions>
-<Action OrderNumber="1" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="A9BE" DictVariableValue="tts=爪子四连钢铁" />
-<Action OrderNumber="2" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="A9C0" DictVariableValue="_=爪子1 | omen=circle | delay=0.0 | t=1.7 | scale=11,11,5 | color=2,1,1,1" />
-<Action OrderNumber="3" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="A9C1" DictVariableValue="_=爪子2 | omen=circle | delay=1.3 | t=1.7 | scale=11,11,5 | color=2,1,1,1" />
-<Action OrderNumber="4" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="A9C2" DictVariableValue="_=爪子3 | omen=circle | delay=2.6 | t=1.7 | scale=11,11,5 | color=2,1,1,1" />
-<Action OrderNumber="5" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="A9C3" DictVariableValue="_=爪子4 | omen=circle | delay=3.9 | t=1.7 | scale=11,11,5 | color=2,1,1,1" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="点名冰花" Id="05e52bfc-7241-4a55-895b-d32882336038" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:0017:">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="点名放冰花，尽量贴边" UseTTSExclusive="False" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
-<Triggers />
-</Folder>
-<Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1311$" Id="d2d9cedf-e23e-4b43-b1f6-2db6eeca0c23" Name="Quantum" Enabled="true" RawEnvironmentVariables="X0 = -600&#xD;&#xA;Y0 = -300&#xD;&#xA;Z0 = 0&#xD;&#xA;BNpcId光=18671&#xD;&#xA;BNpcId暗=18670&#xD;&#xA;BNpcId小怪=18672">
-<Folders>
-<Folder Id="20c7c351-4fae-49db-80c3-941d90e5f684" Name="剑+球" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="2. 播报" Id="e94c8134-f7d3-470d-8b30-bdc6ef131b1f" RegularExpression="^D79_剑球:b先剑:(?&lt;b先剑&gt;[01]):b火:(?&lt;b火&gt;[01]):b打侧:(?&lt;b打侧&gt;[01])">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="火 =&gt; 剑" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="UseTTS" DescTextColor="800" UseTTSTextExpression="先放火球，然后去${if: ${b打侧} ? 中间 : 两侧 }">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="LogMessage" DescTextColor="800" LogMessageText="tts:4.7:躲开，去${if: ${b打侧} ? 中间 : 两侧 }" LogProcess="True">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="LogMessage" DescTextColor="800" LogMessageText="cd5:4.7" LogProcess="True">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="5" ActionType="Placeholder" Description="剑 =&gt; 火" DescriptionOverride="True" />
-<Action OrderNumber="6" ActionType="UseTTS" DescTextColor="880" UseTTSTextExpression="先去${if: ${b打侧} ? 中间 : 两侧 }，然后放火球">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="7" ActionType="LogMessage" DescTextColor="880" LogMessageText="tts:4.7:放火球" LogProcess="True">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="8" ActionType="LogMessage" DescTextColor="880" LogMessageText="tts:7.7:躲开" LogProcess="True">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="9" ActionType="LogMessage" DescTextColor="880" LogMessageText="cd5:7.7" LogProcess="True">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="10" ActionType="Placeholder" Description="锁 =&gt; 剑" DescriptionOverride="True" />
-<Action OrderNumber="11" ActionType="UseTTS" DescTextColor="800" UseTTSTextExpression="去${if: ${b打侧} ? 中间 : 两侧 }，先止步">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="12" ActionType="LogMessage" DescTextColor="800" LogMessageText="tts:3.7:止步" LogProcess="True">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="13" ActionType="LogMessage" DescTextColor="800" LogMessageText="cd5:4.6" LogProcess="True">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="14" ActionType="Placeholder" Description="剑 =&gt; 锁" DescriptionOverride="True" />
-<Action OrderNumber="15" ActionType="UseTTS" DescTextColor="880" UseTTSTextExpression="去${if: ${b打侧} ? 中间 : 两侧 }，然后止步">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="16" ActionType="LogMessage" DescTextColor="880" LogMessageText="tts:6.7:止步" LogProcess="True">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="17" ActionType="LogMessage" DescTextColor="880" LogMessageText="cd5:7.6" LogProcess="True">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${b火}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${b先剑}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="1.1 获取剑 =&gt; 2" Id="739b7a37-0810-495b-85e1-0570af9586ad" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AC4[67CD]):">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="AC46 短打中间  &#xD;&#xA;AC47 短打两侧  &#xD;&#xA;AC48 短实际直条  &#xD;&#xA;AC4C 长打中间  &#xD;&#xA;AC4D 长打两侧  &#xD;&#xA;AC4E 长实际直条  " DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_剑球_b先剑" VariableExpression="0x${aid} = 0xAC46 || 0x${aid} = 0xAC47" />
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_剑球_b打侧" VariableExpression="0x${aid} = 0xAC47 || 0x${aid} = 0xAC4D" />
-<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="D79_剑球:b先剑:${v:D79_剑球_b先剑}:b火:${v:D79_剑球_b火}:b打侧:${v:D79_剑球_b打侧}" LogProcess="True" LogProcessACT="True">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${ev:D79_剑球_b先剑}${ev:D79_剑球_b火}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="1.2 获取球 =&gt; 2" Id="baad897e-07cb-49c2-9c68-d3a84cc26983" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AC4[149B]):">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="AC41 4短火球  &#xD;&#xA;AC44 2短锁链  &#xD;&#xA;AC49 4长火球  &#xD;&#xA;AC4B 2长锁链  &#xD;&#xA;AC42 延迟火球  " DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_剑球_b火" VariableExpression="0x${aid} = 0xAC41 || 0x${aid} = 0xAC49" />
-<Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="D79_剑球:b先剑:${v:D79_剑球_b先剑}:b火:${v:D79_剑球_b火}:b打侧:${v:D79_剑球_b打侧}" LogProcess="True" LogProcessACT="True">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${ev:D79_剑球_b先剑}${ev:D79_剑球_b火}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="Variable" ExecutionDelayExpression="5000" VariableOp="UnsetRegexUniversal" VariableName="^D79_剑球" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="a6e937e7-c5ad-4401-9827-438ab2988bb5" Name="牢狱" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="2. 播报" Id="cb78e8a2-1627-4dc3-b3d6-9c8a4892d12e" RegularExpression="^D79_牢狱:b去外:(?&lt;b去外&gt;[01]):dir4:(?&lt;dir4&gt;[0-3]):b两组:(?&lt;b两组&gt;[01])">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${if: ${b去外} ? ${f:pick(${dir4}): 上下, 左右, 上下, 左右 } : 不用动 }">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${b两组}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: e5d1_b1_kblaser_t1&#xD;&#xA;t: 4.4&#xD;&#xA;Tag: D79&#xD;&#xA;Pos: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;Angle: ${n: dir2rad(${dir4}, 4)}&#xD;&#xA;Scale: 0.5, 10&#xD;&#xA;Color: 0, 2, 15, 1.5&#xD;&#xA;---&#xD;&#xA;Omen: e5d1_b1_kblaser_t1&#xD;&#xA;t: 4.4&#xD;&#xA;Tag: D79&#xD;&#xA;Pos: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;Angle: ${n: dir2rad(${dir4}, 4)} + π&#xD;&#xA;Scale: 0.5, 10&#xD;&#xA;Color: 0, 2, 15, 1.5&#xD;&#xA;---&#xD;&#xA;Omen: circle&#xD;&#xA;t: 4.4&#xD;&#xA;Tag: D79&#xD;&#xA;Pos: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;ScaleCyl: 7, 5&#xD;&#xA;">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${b去外}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: gl_sircle_3008bf&#xD;&#xA;t: 4.4&#xD;&#xA;Tag: D79&#xD;&#xA;Pos: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;ScaleCyl: 34/10*8, 5&#xD;&#xA;">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${b去外}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:1.4:走" LogProcess="True">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${b去外}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="beep:1.6" LogProcess="True">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${b去外}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="0. 初始化" Id="5caaa37f-dc52-4c4f-8212-e0d5d031b5e7" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:AC58:">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="牢狱，踩光" />
-<Action OrderNumber="2" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^D79_牢狱" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="1. 黄圈 * 2 =&gt; 2" Id="ea0d4d3c-f70b-4e7d-ab2a-b1398e86cc64" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):AC5A:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="D79_牢狱_n" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_牢狱_b去外" VariableExpression="ispointinray(${x}, ${y}, ${h}, 1, ${env:X0}, ${env:Y0})" />
-<Action OrderNumber="3" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="D79_牢狱_θ" ListVariableExpression="${h}" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_牢狱_b两组" VariableExpression="abs(relθ(${l:D79_牢狱_θ[1]}, ${l:D79_牢狱_θ[2]})) &gt; pi/2">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:D79_牢狱_n}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="5" ActionType="LogMessage" Asynchronous="False" LogMessageText="D79_牢狱:b去外:${v:D79_牢狱_b去外}:dir4:${n: roundir(${l:D79_牢狱_θ[1]}, 4) }:b两组:${v:D79_牢狱_b两组}" LogProcess="True" LogProcessACT="True">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:D79_牢狱_n}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="0${v:D79_牢狱_n}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericLess" />
-</Condition>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="fcf727cf-512b-4c36-a543-a6936073406e" Name="水晶" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="2. 播报" Id="bf13f463-72b7-42fd-a396-6bd2e78460a6" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:AC54:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${f:pick(${v:D79_地火_dirN4}): 左上, 左下, 右下, 右上}躲地火" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="0. 初始化" Id="40fddc0d-0c93-4fca-ab35-0051dbdb765d" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AC4F|AC50):">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^D79_地火" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="D79_地火_b先横" VariableExpression="0x${aid} = 0xAC4F" />
-<Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="水晶，先${if: ${v:D79_地火_b先横} ? 横向 : 纵向 }" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="1. 获取水晶" Id="307107b2-3ad1-4fcd-87dd-f287d1b5000c" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:1EBE70.*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;(-611.9|-612.0|-587.9|-588.0)[^:]+):PosY:(?&lt;y&gt;(-305.9|-306.0|-293.9|-294.0)[^:]+):PosZ:(?&lt;z&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="只看斜向一排四个水晶中靠外的第二个 (±12, ±6)" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="先横：初始角落水晶纵向翻转为安全点   先竖：横向翻转" DescriptionOverride="True" />
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_地火_dirN4" VariableExpression="roundvec((${x} - ${env:X0}) * (${v:D79_地火_b先横} ? 1 : -1), (${y} - ${env:Y0}) * (${v:D79_地火_b先横} ? -1 : 1), -4)" />
-<Action OrderNumber="4" ActionType="UseTTS" UseTTSTextExpression="储存${f:pick(${v:D79_地火_dirN4}): 左上, 左下, 右下, 右上}" />
-</Actions>
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${ev:D79_地火_dirN4}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="round(abs(${x} - ${env:X0}), 1)" ExpressionTypeL="Numeric" ExpressionR="12" ExpressionTypeR="String" ConditionType="NumericEqual" />
-<ConditionSingle Enabled="true" ExpressionL="round(abs(${y} - ${env:Y0}), 1)" ExpressionTypeL="Numeric" ExpressionR="6" ExpressionTypeR="String" ConditionType="NumericEqual" />
-</Condition>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="5b4d6783-a287-42a5-a2a5-33ee406cf3e0" Name="目标" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Name="自己打错目标" Id="3547dcd4-7ec5-45b7-832e-8cf39e948fd9" RegularExpression="^.{15}\S+ 15:(?&lt;sid&gt;1.{7}):[^:]*:(?&lt;aid&gt;[^:]*):(?&lt;an&gt;[^:]*):4.{7}:[^:]*:[^:]*03:0:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1500">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="D79_buff_b光" VariableExpression="${_me.HasStatus(0x11D0)}" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="D79_buff_b暗" VariableExpression="${_me.HasStatus(0x11CF)}" />
-<Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="没有 buff" DescriptionOverride="True" />
-<Action OrderNumber="4" ActionType="UseTTS" UseTTSTextExpression="续buff">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="!${v:D79_buff_b暗} &amp;&amp; !${v:D79_buff_b光}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="5" ActionType="Placeholder" Asynchronous="False" Description="有 buff" DescriptionOverride="True" />
-<Action OrderNumber="6" ActionType="UseTTS" UseTTSTextExpression="打错了">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="!${v:D79_buff_b暗} &amp;&amp; !${v:D79_buff_b光}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="7" ActionType="NamedCallback" NamedCallbackName="Target" NamedCallbackParam="${_entity[bnpcid = ${n: ${v:D79_buff_b光} ? ${env:BNpcId暗} : ${env:BNpcId光} }].id}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="!${v:D79_buff_b暗} &amp;&amp; !${v:D79_buff_b光}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Name="获取光暗 debuff" Id="15109cf3-0b20-4feb-891a-98c172eba118" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;11CF|11D0):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):" PrevActions="Interrupt">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_buff_b光" VariableExpression="0x${aid} = 0x11D0" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="D79_tgtId" VariableExpression="${_tgt.id}" />
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="D79_tgtBNpcId" VariableExpression="${_tgt.bnpcid}" />
-<Action OrderNumber="4" ActionType="NamedCallback" NamedCallbackName="Target" NamedCallbackParam="${_entity[bnpcid = ${n: ${v:D79_buff_b光} ? ${env:BNpcId暗} : ${env:BNpcId光} }].id}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:D79_tgtBNpcId} = ${env:BNpcId暗} &amp;&amp; !${v:D79_buff_b光}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${v:D79_tgtBNpcId} = ${env:BNpcId光} &amp;&amp; ${v:D79_buff_b光}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="0x0${v:D79_tgtId} = 0 || 0x0${v:D79_tgtId} == 0xE0000000 || 0x0${v:D79_tgtId} == ${_me.id}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="5" ActionType="UseTTS" ExecutionDelayExpression="(${t} - 15) * 1000" UseTTSTextExpression="续buff" />
-<Action OrderNumber="6" ActionType="UseTTS" ExecutionDelayExpression="10000" UseTTSTextExpression="快续buff" UseTTSExclusive="False" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
-<Triggers>
-<Trigger Enabled="true" Name="注册简易播报" Id="f93ba784-44bf-42d3-ac83-eaf076a37f1c" RegularExpression="^.{15}\S+ 01:">
-<Actions>
-<Action OrderNumber="1" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AC42" DictVariableValue="_=延迟火球 | omen=circle | t=1.8 | scale=6,6,5" />
-<Action OrderNumber="2" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AC48" DictVariableValue="_=短剑 | omen=Rect | t=4.7 | scale=7.5,30,5" />
-<Action OrderNumber="3" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AC4E" DictVariableValue="_=长剑 | omen=Rect | t=7.7 | scale=7.5,30,5" />
-<Action OrderNumber="4" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AC5D" DictVariableValue="_=点名 | tts=准备点名" />
-<Action OrderNumber="5" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B03E" DictVariableValue="_=点名直条 | omen=Rect | t=1.5 | scale=2,60,5" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="点名直条" Id="0f47b375-e4ad-4201-adca-c5ee79fd12dd" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:00EA:">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="黄线放点名" />
-<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="cd5:5.95" LogProcess="True" />
-<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:5.85:躲开" LogProcess="True" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="false" Name="以太吸取" Id="27a74fc0-f86b-46f0-b58e-7a8daedf2e7d" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AC6[14]):">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="AC61 短暗  &#xD;&#xA;AC62 长暗  &#xD;&#xA;AC64 短光  &#xD;&#xA;AC65 长光  " DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_以太_先吸暗" VariableExpression="0x${aid} = 0xAC61" />
-<Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="踩${if: ${v:D79_以太_先吸暗} ? 光 : 暗 }" />
-<Action OrderNumber="4" ActionType="UseTTS" ExecutionDelayExpression="6700" UseTTSTextExpression="踩${if: ${v:D79_以太_先吸暗} ? 暗 : 光 }" />
 </Actions>
 </Trigger>
 </Triggers>
