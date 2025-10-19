@@ -1875,15 +1875,15 @@
 <Folder Id="fcf727cf-512b-4c36-a543-a6936073406e" Name="水晶" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Name="2. 播报" Id="bf13f463-72b7-42fd-a396-6bd2e78460a6" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:AC56:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
+<Trigger Enabled="true" Name="2. 播报" Id="bf13f463-72b7-42fd-a396-6bd2e78460a6" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:AC54:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
 <Actions>
 <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${f:pick(${v:D79_地火_dirN4}): 左上, 左下, 右下, 右上}躲地火" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Name="0. 初始化" Id="40fddc0d-0c93-4fca-ab35-0051dbdb765d" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AEFD|AEFE):">
+<Trigger Enabled="true" Name="0. 初始化" Id="40fddc0d-0c93-4fca-ab35-0051dbdb765d" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AC4F|AC50):">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^D79_地火" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="D79_地火_b先横" VariableExpression="0x${aid} = 0xAEFD" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="D79_地火_b先横" VariableExpression="0x${aid} = 0xAC4F" />
 <Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="水晶，先${if: ${v:D79_地火_b先横} ? 横向 : 纵向 }" />
 </Actions>
 </Trigger>
@@ -1960,7 +1960,7 @@
 <Action OrderNumber="2" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AC48" DictVariableValue="_=短剑 | omen=Rect | t=4.7 | scale=7.5,30,5" />
 <Action OrderNumber="3" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AC4E" DictVariableValue="_=长剑 | omen=Rect | t=7.7 | scale=7.5,30,5" />
 <Action OrderNumber="4" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AC5D" DictVariableValue="_=点名 | tts=准备点名" />
-<Action OrderNumber="5" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AC81" DictVariableValue="_=对T直条 | omen=Rect | t=2.0 | scale=4.5,42,5" />
+<Action OrderNumber="5" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B03E" DictVariableValue="_=点名直条 | omen=Rect | t=1.5 | scale=2,60,5" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Name="点名直条" Id="0f47b375-e4ad-4201-adca-c5ee79fd12dd" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:00EA:">
@@ -1979,15 +1979,6 @@
 <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_以太_先吸暗" VariableExpression="0x${aid} = 0xAC61" />
 <Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="踩${if: ${v:D79_以太_先吸暗} ? 光 : 暗 }" />
 <Action OrderNumber="4" ActionType="UseTTS" ExecutionDelayExpression="6700" UseTTSTextExpression="踩${if: ${v:D79_以太_先吸暗} ? 暗 : 光 }" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Name="对T直条" Id="34ac09ba-0489-427f-9752-a6d37744ce13" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;AC81):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${if: ${h} &gt; 0 ? 右前 : 左前 }">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${_me.IsT}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
 </Actions>
 </Trigger>
 </Triggers>
