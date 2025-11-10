@@ -293,7 +293,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="3be9b44f-1be8-4b43-8122-2e03c9bd9e41" Name="7.0深宫" Enabled="true">
+      <Folder Id="3be9b44f-1be8-4b43-8122-2e03c9bd9e41" Name="7.0深宫" Enabled="true" RawEnvironmentVariables="prefix = D7">
         <Folders>
           <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1284$" Id="d73d044f-dde2-4b2d-bbdb-e609641c9d7b" Name="31-40" Enabled="true">
             <Folders>
@@ -431,7 +431,7 @@
                       <Action OrderNumber="13" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AEB9" DictVariableValue="_=痛苦旋击 | tts=大月环 | ttsRange=35"/>
                       <Action OrderNumber="14" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AEBA" DictVariableValue="_=高速撞击 | tts=直条 | omen=rect | t=2.7 | scale=3.5,12,10"/>
                       <Action OrderNumber="15" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AEBB" DictVariableValue="_=尾镰 | tts=钢铁 | omen=circle | t=3.7 | scale=10,10,10"/>
-                      <Action OrderNumber="16" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AEBC" DictVariableValue="_=外环雷 | tts=月环 | omen=gl_sircle_6010bf | t=3.7 | scale=60,60,10"/>
+                      <Action OrderNumber="16" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AEBC" DictVariableValue="_=外环雷 | tts=月环 | omen=gl_sircle_6010bf | t=3.7 | scale=30,30,10"/>
                       <Action OrderNumber="17" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AEBD" DictVariableValue="_=蓄能晶须 | tts=钢铁 | ttsRange=7"/>
                       <Action OrderNumber="18" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AEC1" DictVariableValue="_=蛮力金刚臂 | tts=钢铁 | omen=circle | t=2.2 | scale=8,8,10"/>
                       <Action OrderNumber="19" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AEC3" DictVariableValue="_=犀牛防御 | tts=打断 | ttsRange=25"/>
@@ -1308,7 +1308,7 @@
                               <ConditionSingle Enabled="true" ExpressionL="${v:D79_牢狱_n}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_牢狱_b顺" VariableExpression="roundvec(${x} - ${env:X0}, ${y} - ${env:Y0}, 4, 1) % 1 &gt; 0.5">
+                          <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_牢狱_b顺" VariableExpression="roundvec(${x} - ${env:X0}, ${y} - ${env:Y0}, 4, 1) %% 1 &gt; 0.5">
                             <Condition Enabled="true" Grouping="Or">
                               <ConditionSingle Enabled="true" ExpressionL="${v:D79_牢狱_n}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                             </Condition>
@@ -1766,6 +1766,13 @@
                   <Action OrderNumber="2" SystemBeepLengthExpression="500" UseTTSTextExpression="踩雷了" UseTTSExclusive="False"/>
                 </Actions>
               </Trigger>
+              <Trigger Enabled="true" Id="77d522b3-9097-4b61-841f-2f946677d862" Name="埋藏的宝箱" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:(?&lt;bnpcid&gt;1EA1F7).*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+)" DebugLevel="None">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="格式：zoneid:x:y:z" DescriptionOverride="True"/>
+                  <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="啊啊啊啊啊啊"/>
+                  <Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=深宫/埋藏的宝箱.txt id=10000${f:substring(5):${_me.id}}&#13;&#10;${_ffxivzoneid}:${f:format(System.Double,&quot;0.000&quot;):${x}}:${f:format(System.Double,&quot;0.000&quot;):${y}}:${f:format(System.Double,&quot;0.000&quot;):${z}}"/>
+                </Actions>
+              </Trigger>
             </Triggers>
           </Folder>
           <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1281$" Id="5b394be2-fd57-4722-a2fa-d61ec68b0cea" Name="01-10" Enabled="true">
@@ -1838,7 +1845,7 @@
             </Folders>
             <Triggers/>
           </Folder>
-          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1311$" Id="d5745605-4982-4114-ba26-93173788549b" Name="99 Boss（高难）" Enabled="true" RawEnvironmentVariables="X0 = -600&#13;&#10;Y0 = -300&#13;&#10;Z0 = 0&#13;&#10;StatusId光=0x11D0&#13;&#10;StatusId暗=0x11CF&#13;&#10;BNpcId光=18671&#13;&#10;BNpcId暗=18670&#13;&#10;BNpcId小怪=18672">
+          <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1311$" Id="d5745605-4982-4114-ba26-93173788549b" Name="99 Boss（高难）" Enabled="true" RawEnvironmentVariables="X0 = -600&#13;&#10;Y0 = -300&#13;&#10;Z0 = 0&#13;&#10;StatusId光=0x11D0&#13;&#10;StatusId暗=0x11CF&#13;&#10;BNpcId光=18671&#13;&#10;BNpcId暗=18670&#13;&#10;BNpcId小怪=18672&#13;&#10;zone=1311">
             <Folders>
               <Folder Id="bebce906-9561-4506-a571-0e5d989fdda5" Name="A. 剑+球（高难）" Enabled="true">
                 <Folders/>
@@ -1961,6 +1968,8 @@
                   <Trigger Enabled="true" Id="33fbcbc5-5d61-4aa9-96e8-fd1ad14b3e23" Name="2. 播报" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(AC2F|AC56):" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
                     <Actions>
                       <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${f:pick(${v:D79_地火_dirN4}): 左上, 左下, 右下, 右上}躲地火"/>
+                      <Action OrderNumber="2" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Linear&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;Waymarks: ABCD${f:pick(${v:D79_地火_dirN4}): 1, 4, 3, 2}&#13;&#10;Start: 0, 0&#13;&#10;End: 6, 13.8&#13;&#10;ScaleX: ${v:D79_地火_dirN4} &gt;= 2 ? 1 : -1&#13;&#10;ScaleY: ${v:D79_地火_dirN4} % 3 &gt; 0 ? 1 : -1"/>
+                      <Action OrderNumber="3" ActionType="NamedCallback" ExecutionDelayExpression="12000" Asynchronous="False" NamedCallbackName="AdvWm" NamedCallbackParam="load"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="76f5cbb5-d398-4e84-89e6-b8b7edf489f5" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AC2[AB]|AEF[DE]):">
@@ -2100,6 +2109,110 @@
                       </Trigger>
                     </Triggers>
                   </Folder>
+                  <Folder Id="9d8766f6-cd03-4e64-a7ba-2c5f1097d7f1" Name="用户配置" Enabled="true">
+                    <Folders/>
+                    <Triggers>
+                      <Trigger Enabled="true" Id="fdb372fa-5e95-461f-9b9c-30d850568224" Name="记录用户配置（副本内手动 /e cfg)" RegularExpression="^.{15}\S+ 00:0038:: *(?i)cfg *$" Sequential="True">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="${env:prefix}_cfg" LogProcess="True"/>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Id="3386c71d-798c-421a-9f7e-917af2d68dd2" Name="[F] 注册并打开配置" RegularExpression="^(?&lt;prefix&gt;[^[:_]+)_cfg$" PeriodRefire="Deny" RefirePeriodExpression="5000" Sequential="True">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="正在开启配置"/>
+                          <Action OrderNumber="2" ActionType="ExecuteScript" ExecScriptExpression="using System;&#13;&#10;using System.Collections;&#13;&#10;using System.Collections.Generic;&#13;&#10;using System.Drawing;&#13;&#10;using System.Linq;&#13;&#10;using System.Threading;&#13;&#10;using System.Windows.Forms;&#13;&#10;using Triggernometry;&#13;&#10;using Triggernometry.CustomControls;&#13;&#10;using Triggernometry.Forms;&#13;&#10;using Triggernometry.PluginBridges;&#13;&#10;using Triggernometry.Variables;&#13;&#10;using static Triggernometry.Forms.GameConfigForm;&#13;&#10;using static Triggernometry.Interpreter;&#13;&#10;using Newtonsoft.Json.Linq;&#13;&#10;&#13;&#10;RealPlugin.plug.RegisterNamedCallback(D7Entry.Info.ConfigName, new Action&lt;object, string&gt;((_, __) =&gt; D7Entry.Start()), null);&#13;&#10;&#13;&#10;public static class D7Entry&#13;&#10;{&#13;&#10;    public static ConfigInfo Info = new ConfigInfo(&quot;深宫宝宝椅&quot;, &quot;${env:version}&quot;, &quot;阿洛 MnFeN&quot;, &quot;${env:prefix}_cfg&quot;);&#13;&#10;    static Color Blue = Color.FromArgb(0x22, 0x66, 0xff);&#13;&#10;    public static void RunConfigForm()&#13;&#10;    {&#13;&#10;        try { _RunConfigForm(); }&#13;&#10;        catch (Exception ex)&#13;&#10;        { &#13;&#10;            MessageBox.Show(&quot;配置界面运行时遇到问题：\n\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#13;&#10;        }&#13;&#10;    }&#13;&#10;&#13;&#10;    private static void _RunConfigForm()&#13;&#10;    {&#13;&#10;        GameConfigForm form = new GameConfigForm(Info);&#13;&#10;        form.Shown += (sender, e) =&gt; RealPlugin.plug.InvokeNamedCallback(&quot;command&quot;, &quot;/e &lt;se.9&gt;&quot;);&#13;&#10;        //form.FormClosed += (sender, e) =&gt; D7CactbotHelper.DisableTts();&#13;&#10;&#13;&#10;        BijectDictionary&lt;string, string&gt; cbxItems;&#13;&#10;        Option optionCtrl;&#13;&#10;        Label label;&#13;&#10;        string hint = &quot;&quot;;&#13;&#10;        // 在下面倒序添加各个选项组（组内的选项正序）&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableP1 = form.AddOptionGroup(&quot; 解法 &quot;);&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;待定&quot;, &quot; 待定&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot; 传火解法&quot;, &quot;传火&quot;, cbxItems, &quot;待定&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableP1);&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableGeneral = form.AddOptionGroup(&quot; 通用选项 &quot;);&#13;&#10;&#13;&#10;        form.AddLabel(&quot;未提供本地场地标点的开关。如果要关闭，去鲶鱼精邮差临时关闭 WayMark。&quot;, tableGeneral);&#13;&#10;&#13;&#10;        // 开场自动标点&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;2&quot;, &quot; 公开标点（北侧顺时针 1A2、半径 10.0 m）&quot;),&#13;&#10;            (&quot;1&quot;, &quot; 本地标点（同上，队里使用其他标点时可以本地覆盖掉）&quot;),&#13;&#10;            (&quot;0&quot;, &quot; 不开启标点&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;开场自动应用标准场地标点（防内鬼标点）&quot;, &quot;P0场地标点mode&quot;, cbxItems, &quot;2&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableGeneral);&#13;&#10;&#13;&#10;        #region 配置：文本频道&#13;&#10;        OptionsTableLayoutPanel tableChannel = form.AddOptionGroup(&quot; 文本频道 &quot;);&#13;&#10;        var cnlItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;&quot;, &quot; （禁用）&quot;), (&quot;p&quot;, &quot; 小队&quot;), (&quot;e&quot;, &quot; 默语&quot;), (&quot;fc&quot;, &quot; 部队&quot;),&#13;&#10;            (&quot;l1&quot;, &quot; 通讯贝1&quot;), (&quot;l2&quot;, &quot; 通讯贝2&quot;), (&quot;l3&quot;, &quot; 通讯贝3&quot;), (&quot;l4&quot;, &quot; 通讯贝4&quot;),&#13;&#10;            (&quot;l5&quot;, &quot; 通讯贝5&quot;), (&quot;l6&quot;, &quot; 通讯贝6&quot;), (&quot;l7&quot;, &quot; 通讯贝7&quot;), (&quot;l8&quot;, &quot; 通讯贝8&quot;),&#13;&#10;            (&quot;cwl1&quot;, &quot; 跨服通讯贝1&quot;), (&quot;cwl2&quot;, &quot; 跨服通讯贝2&quot;), (&quot;cwl3&quot;, &quot; 跨服通讯贝3&quot;), (&quot;cwl4&quot;, &quot; 跨服通讯贝4&quot;),&#13;&#10;            (&quot;cwl5&quot;, &quot; 跨服通讯贝5&quot;), (&quot;cwl6&quot;, &quot; 跨服通讯贝6&quot;), (&quot;cwl7&quot;, &quot; 跨服通讯贝7&quot;), (&quot;cwl8&quot;, &quot; 跨服通讯贝8&quot;)&#13;&#10;        );&#13;&#10;        var cnlPublicItems = cnlItems.ShallowCopy();&#13;&#10;        cnlPublicItems.RemoveKey(&quot;&quot;);&#13;&#10;        var cnlDebugItems = cnlItems.ShallowCopy();&#13;&#10;        cnlDebugItems.RemoveKey(&quot;p&quot;);&#13;&#10;        cnlDebugItems.RemoveKey(&quot;&quot;); // 暂时&#13;&#10;        var cnlPrivateItems = cnlItems.ShallowCopy();&#13;&#10;        cnlPrivateItems.RemoveKey(&quot;p&quot;);&#13;&#10;        cnlPrivateItems.RemoveKey(&quot;&quot;);&#13;&#10;&#13;&#10;        OptionCbx cnlPublic = new OptionCbx(&quot;公共频道&quot;, &quot;publicChannel&quot;, cnlPublicItems, &quot;e&quot;,&#13;&#10;            hint: &quot;本频道用于播报部分机制、示意图、复盘信息等机制相关内容。\n\n默认设为自己可见的默语频道，\n如有需要可设为小队等。\n\n当开启了某个阶段的指挥模式时，相关播报所用的频道会无视此项设置，覆盖为小队频道。&quot;);&#13;&#10;        OptionCbx cnlPrivate = new OptionCbx(&quot;个人频道&quot;, &quot;privateChannel&quot;, cnlPrivateItems, &quot;e&quot;,&#13;&#10;            hint: &quot;本频道用于发送仅应自己可见的系统提示消息。\n\n本项设置不应选择任何其他人可见的频道。&quot;);&#13;&#10;        OptionCbx cnlDebug = new OptionCbx(&quot;调试频道&quot;, &quot;debugChannel&quot;, cnlDebugItems, &quot;&quot;,&#13;&#10;            hint: &quot;本频道用于发送额外调试信息。\n\n请设置为仅自己可见的频道，或将其关闭。\n\n（测试版暂不提供关闭选项）&quot;);&#13;&#10;        form.AddOption(cnlPublic, tableChannel);&#13;&#10;        form.AddOption(cnlPrivate, tableChannel);&#13;&#10;        form.AddOption(cnlDebug, tableChannel);&#13;&#10;&#13;&#10;        #endregion 配置：文本频道&#13;&#10;/*&#13;&#10;        #region 使用须知&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableInfo = form.AddOptionGroup(&quot; 使用须知 &quot;);&#13;&#10;        var hintCactbot = &quot;Cactbot 官库攻略与国服不兼容。\n&quot; +&#13;&#10;            &quot;如果你当前未关闭 Cactbot 官库 TTS，关闭此界面时会自动帮你关闭。\n\n&quot; +&#13;&#10;            &quot;如果你想将文本显示一起关闭，可以手动操作：\n&quot; +&#13;&#10;            &quot;ACT 页面上方「OverlayPlugin 悬浮窗插件」选项卡 - \n&quot; +&#13;&#10;            &quot;左侧「Cactbot 设置」选项卡 - \n&quot; +&#13;&#10;            &quot;展开右侧菜单「RAIDBOSS / 时间轴与触发器提示」- \n&quot; +&#13;&#10;            &quot;下方 7.x 中找到「光暗未来绝境战」- \n&quot; +&#13;&#10;            &quot;将首个设置更改为「禁用」&quot;;&#13;&#10;        label = form.AddLabel(&quot;· 如果安装了 Cactbot，使用前必须关闭 Cactbot 的播报（双击此行查看说明）&quot;, tableInfo);&#13;&#10;        label.ForeColor = Blue;&#13;&#10;        label.DoubleClick += (sender, e) &#13;&#10;            =&gt; MessageBox.Show(hintCactbot, &quot;关闭 Cactbot 默认播报&quot;, MessageBoxButtons.OK, MessageBoxIcon.Information);&#13;&#10;&#13;&#10;        form.AddLabel(&quot;· 使用前必须查看使用说明，见绝伊甸触发器分组下的「使用说明」触发器。&quot;, tableInfo)&#13;&#10;            .ForeColor = Blue;&#13;&#10;&#13;&#10;        label = form.AddLabel(&quot;· 下方部分选项上悬停鼠标可以显示详细说明。&quot;, tableInfo);&#13;&#10;        label.ForeColor = Blue;&#13;&#10;&#13;&#10;        #endregion 使用须知&#13;&#10;*/&#13;&#10;        #region 配置：队员顺序&#13;&#10;        if (BridgeFFXIV.ZoneID == int.Parse(&quot;0${env:zone}&quot;) &amp;&amp; Triggernometry.FFXIV.Entity.GetEntities().Any(e =&gt; e.InParty))&#13;&#10;        {&#13;&#10;            string[] playerDescriptions = { &quot;坦克&quot;, &quot;治疗&quot;, &quot;近战&quot;, &quot;远程&quot; };&#13;&#10;            var pListPanel = new PartyListPanel(playerDescriptions);&#13;&#10;            form.AddPartyGroup(&quot; 队员顺序（拖拽调整） &quot;, pListPanel);&#13;&#10;        }&#13;&#10;        #endregion 配置：队员顺序&#13;&#10;&#13;&#10;        Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#13;&#10;        form.Run();&#13;&#10;    }&#13;&#10;&#13;&#10;    [STAThread]&#13;&#10;    public static void Start()&#13;&#10;    {&#13;&#10;        try&#13;&#10;        {&#13;&#10;            Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#13;&#10;            Thread staThread = new Thread(new ThreadStart(RunConfigForm));&#13;&#10;            staThread.SetApartmentState(ApartmentState.STA);&#13;&#10;            staThread.Start();&#13;&#10;            staThread.Join();&#13;&#10;        }&#13;&#10;        catch (Exception ex)&#13;&#10;        {&#13;&#10;            MessageBox.Show(&quot;用户配置表单运行错误：\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#13;&#10;        }&#13;&#10;    }&#13;&#10;}&#13;&#10;/*&#13;&#10;public static class D7CactbotHelper&#13;&#10;{&#13;&#10;    public static JToken CallOverlayHandler(JObject o) =&gt; (JToken)ModuleEvents.CallOverlayHandler(o);&#13;&#10;&#13;&#10;    public static void DisableTts()&#13;&#10;    {&#13;&#10;        bool changed = false;&#13;&#10;        JObject config = null;&#13;&#10;        try&#13;&#10;        {&#13;&#10;            config = (JObject)CallOverlayHandler(new JObject&#13;&#10;            {&#13;&#10;                [&quot;call&quot;] = &quot;cactbotLoadData&quot;,&#13;&#10;                [&quot;overlay&quot;] = &quot;options&quot;&#13;&#10;            });&#13;&#10;            if (config == null) return;&#13;&#10;        }&#13;&#10;        catch&#13;&#10;        {&#13;&#10;            return;&#13;&#10;        }&#13;&#10;        try&#13;&#10;        {&#13;&#10;            JObject fruTriggerSet = config&#13;&#10;                .GetOrCreate(&quot;data&quot;)&#13;&#10;                .GetOrCreate(&quot;raidboss&quot;)&#13;&#10;                .GetOrCreate(&quot;triggerSets&quot;)&#13;&#10;                .GetOrCreate(&quot;FuturesRewrittenUltimate&quot;);&#13;&#10;            var ttsSetting = fruTriggerSet.Value&lt;string&gt;(&quot;Output&quot;);&#13;&#10;            string newTtsSetting = null;&#13;&#10;            switch (ttsSetting)&#13;&#10;            {&#13;&#10;                case &quot;ttsOnly&quot;:&#13;&#10;                    newTtsSetting = &quot;disabled&quot;;&#13;&#10;                    break;&#13;&#10;                case null:&#13;&#10;                case &quot;default&quot;:&#13;&#10;                case &quot;ttsAndText&quot;:&#13;&#10;                    newTtsSetting = &quot;textOnly&quot;;&#13;&#10;                    break;&#13;&#10;                default:&#13;&#10;                    break;&#13;&#10;            }&#13;&#10;            if (newTtsSetting != null)&#13;&#10;            {&#13;&#10;                fruTriggerSet[&quot;Output&quot;] = newTtsSetting;&#13;&#10;                CallOverlayHandler(new JObject&#13;&#10;                {&#13;&#10;                    [&quot;call&quot;] = &quot;cactbotSaveData&quot;,&#13;&#10;                    [&quot;overlay&quot;] = &quot;options&quot;,&#13;&#10;                    [&quot;data&quot;] = config[&quot;data&quot;]&#13;&#10;                });&#13;&#10;                CallOverlayHandler(new JObject&#13;&#10;                {&#13;&#10;                    [&quot;call&quot;] = &quot;cactbotReloadOverlays&quot;,&#13;&#10;                });&#13;&#10;&#13;&#10;                MessageBox.Show(&#13;&#10;                    &quot;检测到 Cactbot 官库中绝伊甸副本 TTS 未关闭。\n&quot; +&#13;&#10;                    &quot;已自动关闭相应分组的 TTS 播报：\n&quot; +&#13;&#10;                    &quot;  更改前：&quot; + (ttsSetting ?? &quot;(null)&quot;) + &quot;\n&quot; +&#13;&#10;                    &quot;  更改后：&quot; + newTtsSetting,&#13;&#10;                    D7Entry.Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Warning);&#13;&#10;            }&#13;&#10;        }&#13;&#10;        catch (Exception ex)&#13;&#10;        {&#13;&#10;            MessageBox.Show(&#13;&#10;                &quot;尝试关闭 Cactbot 官库中绝伊甸副本 TTS 时遇到问题。\n&quot; +&#13;&#10;                &quot;你需要手动关闭 Cactbot 的 TTS。错误详情：\n&quot; +&#13;&#10;                ex.ToString(),&#13;&#10;                D7Entry.Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Warning);&#13;&#10;        }&#13;&#10;    }&#13;&#10;&#13;&#10;}&#13;&#10;&#13;&#10;public static JObject GetOrCreate(this JObject parent, string property)&#13;&#10;{&#13;&#10;    if (parent == null)&#13;&#10;        throw new ArgumentNullException(nameof(parent));&#13;&#10;    if (parent[property] is JObject child)&#13;&#10;        return child;&#13;&#10;    child = new JObject();&#13;&#10;    parent[property] = child;&#13;&#10;    return child;&#13;&#10;}&#13;&#10;*/">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${ecallback:${env:prefix}_cfg}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                              <ConditionSingle Enabled="true" ExpressionL="${pd:${env:prefix}_cfg[version]}" ExpressionTypeL="String" ExpressionR="${env:version}" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="${env:prefix}_cfg"/>
+                          <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="PartyList:MyIdx4:${v:myIdx}" LogProcess="True">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${ev:myIdx}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${prefix}" ExpressionTypeL="String" ExpressionR="${env:prefix}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Id="55dcbb00-ba65-49b0-8ff4-3540ac743c96" Name="记录用户配置（自动）" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):" Sequential="True">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="${env:prefix}_cfg" LogProcess="True"/>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="0x${zoneId}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Id="b191106c-c992-4a1a-94c4-48790076a1db" Name="开场检查配置" RegularExpression="^.{15}\S+ 104:.:1:.:1|^.{15}\S+ 10C:[^:]*:[^:]*:(?&lt;cd&gt;[^:]*):00?:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="20000">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableName="tmp_error"/>
+                          <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableName="tmp_error"/>
+                          <Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="检查是否缺少小队列表、是否缺少绝伊甸配置" DescriptionOverride="True"/>
+                          <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_noParty" VariableExpression="${_entity[${l:party[1]}].Exist} &amp;&amp; ${_entity[${l:party[2]}].Exist} &amp;&amp; &#13;&#10;${_entity[${l:party[3]}].Exist} &amp;&amp; ${_entity[${l:party[4]}].Exist} &amp;&amp;&#13;&#10;${_entity[${l:party[5]}].Exist} &amp;&amp; ${_entity[${l:party[6]}].Exist} &amp;&amp; &#13;&#10;${_entity[${l:party[7]}].Exist} &amp;&amp; ${_entity[${l:party[8]}].Exist} &amp;&amp;&#13;&#10;${l:party.size} = 8 ? 0 : 1"/>
+                          <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_noCfg" VariableExpression="0${pd:U7a_cfg.size} &lt;= 40"/>
+                          <Action OrderNumber="6" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="未设置${?d: 01 = 用户配置, 10 = 小队, 11 = 小队及用户配置 [${v:tmp_noParty}${v:tmp_noCfg}]}，详见默语频道">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:tmp_noParty}${v:tmp_noCfg}" ExpressionTypeL="String" ExpressionR="00" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="7" Enabled="False" ActionType="UseTTS" Asynchronous="False" DescBgColor="fdd" UseTTSTextExpression="小队设置正确。">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:tmp_noParty}${v:tmp_noCfg}" ExpressionTypeL="String" ExpressionR="00" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="8" ActionType="Placeholder" Asynchronous="False" Description="文本输出" DescriptionOverride="True"/>
+                          <Action OrderNumber="9" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="tmp_error" ListVariableExpression="绝伊甸未配置，或配置不完整。">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:tmp_noCfg}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="10" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="tmp_error" ListVariableExpression="小队列表不完整，或记录的队员不存在。">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:tmp_noParty}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="11" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_error" VariableExpression="【错误】⏎⏎${l:tmp_error.join(&quot;⏎&quot;)}⏎⏎需要使用 &quot;/e cfg&quot; 设置，参考触发器使用介绍。">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${el:tmp_error}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="12" ActionType="Placeholder" Asynchronous="False" Description="国际服 =&gt; 繁体" DescriptionOverride="True"/>
+                          <Action OrderNumber="13" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_error" VariableExpression="${f:dictreplace(錄=録,絕=絶):${f:totradcn:${v:tmp_error}}}">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${ev:tmp_error}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                              <ConditionSingle Enabled="true" ExpressionL="${_ffxivisglobal}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="14" ActionType="Placeholder" Asynchronous="False" DescriptionOverride="True"/>
+                          <Action OrderNumber="15" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="command" NamedCallbackParam="/e &lt;se.11&gt; ${v:tmp_error}">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${ev:tmp_error}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="16" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="warn" NamedCallbackParam="10&#13;&#10;${v:tmp_error}">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${ev:tmp_error}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="17" ActionType="ListVariable" Asynchronous="False" ListVariableName="tmp_error"/>
+                          <Action OrderNumber="18" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegex" VariableName="^tmp_"/>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Id="cc7591e3-ceed-4f10-ad3e-d70974b7e470" Name="记录用户配置（副本外手动 /e cfg d7）" RegularExpression="^.{15}\S+ 00:0038:: *(?i)cfg +(d7) *$" Sequential="True">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="${env:prefix}_cfg" LogProcess="True"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
                 </Folders>
                 <Triggers>
                   <Trigger Enabled="true" Id="227d0476-66cc-4ad5-a4a3-b7daa244ef57" Name="进战清空变量" RegularExpression="^.{15}\S+ 104:.:1:.:1">
@@ -2137,7 +2250,7 @@
                           <ConditionSingle Enabled="true" ExpressionL="${v:D79_牢狱_n}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_牢狱_b顺" VariableExpression="roundvec(${x} - ${env:X0}, ${y} - ${env:Y0}, 4, 1) % 1 &gt; 0.5">
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_牢狱_b顺" VariableExpression="roundvec(${x} - ${env:X0}, ${y} - ${env:Y0}, 4, 1) %% 1 &gt; 0.5">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:D79_牢狱_n}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
@@ -2200,6 +2313,35 @@
                           <ConditionSingle Enabled="true" ExpressionL="${b去外}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="false" Id="b8d87fad-29a7-4175-a6ba-4ef36307177b" Name="Debug Log 2025-11-10 21:57" Source="None">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[21:15:12.699] StartsCasting 14:40009991:被侵蚀的食罪灵:AC58:净罪之环:40009991:被侵蚀的食罪灵:3.000:-600.00:-314.98:0.00:0.00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="2.10 * 1000"/>
+                      <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[21:15:14.801] 263 107:400099BF:AC5A:-596.515:-306.070:0.000:-0.524" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="0.22 * 1000"/>
+                      <Action OrderNumber="5" ActionType="LogMessage" LogMessageText="[21:15:15.024] 263 107:400099BE:AC5A:-593.951:-303.507:0.000:-1.047" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="0.18 * 1000"/>
+                      <Action OrderNumber="7" ActionType="LogMessage" LogMessageText="[21:15:15.203] 263 107:400099BD:AC5A:-593.005:-299.997:0.000:-1.571" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="0.23 * 1000"/>
+                      <Action OrderNumber="9" ActionType="LogMessage" LogMessageText="[21:15:15.427] 263 107:400099BC:AC5A:-593.951:-296.518:0.000:-2.094" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="0.18 * 1000"/>
+                      <Action OrderNumber="11" ActionType="LogMessage" LogMessageText="[21:15:15.606] 263 107:400099BB:AC5A:-596.515:-293.954:0.000:-2.618" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="12" ActionType="Placeholder" ExecutionDelayExpression="0.22 * 1000"/>
+                      <Action OrderNumber="13" ActionType="LogMessage" LogMessageText="[21:15:15.830] 263 107:400099BA:AC5A:-599.994:-293.008:0.000:3.141" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="0.18 * 1000"/>
+                      <Action OrderNumber="15" ActionType="LogMessage" LogMessageText="[21:15:16.009] 263 107:400099B9:AC5A:-603.504:-293.954:0.000:2.618" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="0.22 * 1000"/>
+                      <Action OrderNumber="17" ActionType="LogMessage" LogMessageText="[21:15:16.234] 263 107:400099B8:AC5A:-606.067:-296.518:0.000:2.094" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="18" ActionType="Placeholder" ExecutionDelayExpression="0.18 * 1000"/>
+                      <Action OrderNumber="19" ActionType="LogMessage" LogMessageText="[21:15:16.413] 263 107:400099B7:AC5A:-607.013:-299.997:0.000:1.571" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="20" ActionType="Placeholder" ExecutionDelayExpression="0.23 * 1000"/>
+                      <Action OrderNumber="21" ActionType="LogMessage" LogMessageText="[21:15:16.638] 263 107:400099B6:AC5A:-606.067:-303.507:0.000:1.047" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="22" ActionType="Placeholder" ExecutionDelayExpression="0.18 * 1000"/>
+                      <Action OrderNumber="23" ActionType="LogMessage" LogMessageText="[21:15:16.817] 263 107:400099C0:AC5A:-603.504:-306.070:0.000:0.523" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="24" ActionType="Placeholder" ExecutionDelayExpression="0.22 * 1000"/>
+                      <Action OrderNumber="25" ActionType="LogMessage" LogMessageText="[21:15:17.041] 263 107:400099B5:AC5A:-599.994:-307.016:0.000:0.000" LogProcess="True" LogProcessACT="True"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -2266,7 +2408,7 @@
                       </Action>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="f6f65b58-ce73-41fc-8a56-d19a1819d991" Name="2. 获取毒" RegularExpression="^.{15}\S+ 1A:11D7:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):">
+                  <Trigger Enabled="true" Id="f6f65b58-ce73-41fc-8a56-d19a1819d991" Name="2. 转录毒日志" RegularExpression="^.{15}\S+ 1A:11D7:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_光暗" VariableExpression="${_entity[${tid}].HasStatus(${env:StatusId光})} - ${_entity[${tid}].HasStatus(${env:StatusId暗})}"/>
                       <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="D79_罪罚:id:${tid}:stack:${n: 0x${stack}}:光暗:${v:tmp_光暗}:b自:${n: 0x${tid} = 0x${_me.id}}" LogProcess="True"/>
@@ -2286,6 +2428,15 @@
                       <ConditionSingle Enabled="true" ExpressionL="${光暗} = 1 &amp;&amp; ${stack} &gt;= 8" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                       <ConditionSingle Enabled="true" ExpressionL="${光暗} = 0 &amp;&amp; ${stack} &gt;= 10" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                       <ConditionSingle Enabled="true" ExpressionL="${光暗} = -1 &amp;&amp; ${stack} &gt;= 12" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="false" Id="bb763303-8cb5-463c-a839-fd29b228c2bc" Name="3. 记录每次初始毒" RegularExpression="^D79_罪罚:id:(?&lt;id&gt;1.{7}):stack:(?&lt;stack&gt;\d+):光暗:(?&lt;光暗&gt;1|0|-1):b自:(?&lt;b自&gt;[01])" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="10000">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="D79_罪罚_n"/>
+                      <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="D79_罪罚_idx" ListVariableExpression="${l:party.indexof(${id})}"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${l:D79_罪罚_id.contain(${id})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
                   </Trigger>
                 </Triggers>
