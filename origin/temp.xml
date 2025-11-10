@@ -1747,7 +1747,70 @@
 <Triggers />
 </Folder>
 <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^(128[1-9]|1290|1333)$" Id="0fc30b43-385e-4a44-a06b-17a57a8633c2" Name="通用" Enabled="true">
+<Folders>
+<Folder Id="191c6304-89ad-4069-9c4e-01b1f244c87c" Name="记录" Enabled="true">
+<Folders>
+<Folder Id="1f9e9393-c36d-4791-bacf-8613183dcf4c" Name="todo：显示可能位置" Enabled="true">
 <Folders />
+<Triggers />
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="true" Id="77d522b3-9097-4b61-841f-2f946677d862" Name="埋藏的宝箱（出现的）" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}).*?:BNpcID:(?&lt;bnpcid&gt;1EA1F7).*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+)" DebugLevel="None">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="格式：zoneid:floor:x:y:z" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="D7_宝箱" ListVariableExpression="${id}" />
+<Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=深宫/埋藏的宝箱.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;${n: ${_ffxivzoneid}-1281}:${n: 0${v:D7_floor}}:1:${f:format(System.Double,&quot;0.000&quot;):${x}}:${f:format(System.Double,&quot;0.000&quot;):${y}}:${f:format(System.Double,&quot;0.000&quot;):${z}}" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${l:D7_宝箱.contain(${id})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="4db81e99-5f30-4d6f-8ba0-c8d4392464c2" Name="陷阱（显示的）" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}).*?:BNpcID:(?&lt;bnpcid&gt;1EA08[DE]|1EA09[01]|1EBEDB).*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+)" DebugLevel="None">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="格式：zoneid:floor:x:y:z" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="D7_陷阱" ListVariableExpression="${id}" />
+<Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=深宫/陷阱.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;${n: ${_ffxivzoneid}-1281}:${n: 0${v:D7_floor}}:${?d:&#xD;&#xA;  1EA08D=地雷,&#xD;&#xA;  1EA08E=诱饵,&#xD;&#xA;  1EA090=弱化,&#xD;&#xA;  1EA091=妨碍,&#xD;&#xA;  1EBEDB=妖灵&#xD;&#xA;  [${bnpcid}]&#xD;&#xA;}:0:${f:format(System.Double,&quot;0.000&quot;):${x}}:${f:format(System.Double,&quot;0.000&quot;):${y}}:${f:format(System.Double,&quot;0.000&quot;):${z}}" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${l:D7_陷阱.contain(${id})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="d6716351-feed-4d38-a4f5-aec583d7ad64" Name="记录楼层（切换）" RegularExpression="^.{15}\S+ 00:0839::第(?&lt;floor&gt;\d+)朝圣路">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="D7_floor" VariableExpression="${floor}" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="87b26ab6-072a-439c-b119-a4737db0083a" Name="记录楼层（重进）" RegularExpression="^.{15}\S+ 00:0839::“朝圣交错路 第(\d+)～(?&lt;floorMax&gt;\d+)朝圣路”任务开始。">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D7_floor" VariableExpression="${floorMax} - 9" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="f5481def-9cfe-4843-b796-a751ffbb18eb" Name="重置" RegularExpression="^.{15}\S+ 01:">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" VariableName="D7_floor" />
+<Action OrderNumber="2" ActionType="ListVariable" ListVariableName="D7_宝箱" />
+<Action OrderNumber="3" ActionType="ListVariable" ListVariableName="D7_陷阱" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="30b4aa24-fec8-420e-a24e-9b4a6eae04d0" Name="陷阱（触发的）" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;188[3456]|AC06):" DebugLevel="None">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="100" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=深宫/陷阱.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;${n: ${_ffxivzoneid}-1281}:${n: 0${v:D7_floor}}:${?d:&#xD;&#xA;  1883=地雷,&#xD;&#xA;  1884=诱饵,&#xD;&#xA;  1885=弱化,&#xD;&#xA;  1886=妨碍,&#xD;&#xA;  AC06=妖灵&#xD;&#xA;  [${aid}]&#xD;&#xA;}:1:${f:format(System.Double,&quot;0.000&quot;):${_entity[${sid}].x}}:${f:format(System.Double,&quot;0.000&quot;):${_entity[${sid}].y}}:${f:format(System.Double,&quot;0.000&quot;):${_entity[${sid}].z}}" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="cc93f869-793f-45e4-8faa-3a487786569a" Name="埋藏的宝箱（金光）" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}).*?:BNpcID:(?&lt;bnpcid&gt;1EA1F6).*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+)" DebugLevel="None">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="格式：zoneid:floor:x:y:z" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="D7_宝箱" ListVariableExpression="${id}" />
+<Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=深宫/埋藏的宝箱.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;${n: ${_ffxivzoneid}-1281}:${n: 0${v:D7_floor}}:0:${f:format(System.Double,&quot;0.000&quot;):${x}}:${f:format(System.Double,&quot;0.000&quot;):${y}}:${f:format(System.Double,&quot;0.000&quot;):${z}}" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${l:D7_宝箱.contain(${id})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
 <Triggers>
 <Trigger Enabled="true" Id="426b091e-2b31-44a0-8e51-6b22a972db80" Name="开出宝箱怪" RegularExpression="^.{15}\S+ 29:.{8}:1C37:01:37B9:00">
 <Actions>
@@ -1764,13 +1827,6 @@
 <Actions>
 <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="踩雷了" UseTTSExclusive="False" />
 <Action OrderNumber="2" SystemBeepLengthExpression="500" UseTTSTextExpression="踩雷了" UseTTSExclusive="False" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="77d522b3-9097-4b61-841f-2f946677d862" Name="埋藏的宝箱" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:(?&lt;bnpcid&gt;1EA1F7).*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+)" DebugLevel="None">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="格式：zoneid:x:y:z" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="啊啊啊啊啊啊" />
-<Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=深宫/埋藏的宝箱.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;${_ffxivzoneid}:${f:format(System.Double,&quot;0.000&quot;):${x}}:${f:format(System.Double,&quot;0.000&quot;):${y}}:${f:format(System.Double,&quot;0.000&quot;):${z}}" />
 </Actions>
 </Trigger>
 </Triggers>
