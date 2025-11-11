@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="1.2.0.756">
+<TriggernometryExport PluginVersion="1.2.0.753">
 <ExportedFolder Id="733a3974-5d1c-4a56-a2c7-ab2f043bf03b" Name="[工具] 运行支持库 Utils.xml" Enabled="true">
 <Folders>
 <Folder Id="602fc21c-f48b-4ab9-b54d-c3b36e38ad60" Name="高级标点工具箱 AdvWm 旧版本 v2.x（仅兼容 即将移除）" Enabled="true">
@@ -9,7 +9,7 @@
 <Folder Id="7278d45c-4ad6-4b3b-9e4c-f1aa7fd13af1" Name="debug" Enabled="false">
 <Folders />
 <Triggers>
-<Trigger Enabled="false" Id="c8d0811c-20b6-4da0-adff-8ce89072b659" Name="测试循环标点     B：自己-B 线性    AC：自己-C 径向" RegularExpression="^.{15}\S+ 1C:Add:(?&lt;wmid&gt;\d+):.{8}:(?&lt;pn&gt;[^:]+):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)">
+<Trigger Enabled="false" Name="测试循环标点     B：自己-B 线性    AC：自己-C 径向" Id="c8d0811c-20b6-4da0-adff-8ce89072b659" RegularExpression="^.{15}\S+ 1C:Add:(?&lt;wmid&gt;\d+):.{8}:(?&lt;pn&gt;[^:]+):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" VariableOp="SetNumeric" VariableName="1" VariableExpression="${v:1} + 1" />
 <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="AdmWm_test_A" VariableExpression="${x}:${y}:${z}">
@@ -37,7 +37,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${pn}" ExpressionTypeL="String" ExpressionR="${_me}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="false" Id="ce826f15-c2e3-4f75-a486-1d68b5a86db3" Name="测试   A-B：线性   A-C：径向" RegularExpression="^.{15}\S+ 1C:Add:(?&lt;wmid&gt;\d+):.{8}:(?&lt;pn&gt;[^:]+):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)">
+<Trigger Enabled="false" Name="测试   A-B：线性   A-C：径向" Id="ce826f15-c2e3-4f75-a486-1d68b5a86db3" RegularExpression="^.{15}\S+ 1C:Add:(?&lt;wmid&gt;\d+):.{8}:(?&lt;pn&gt;[^:]+):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="AdmWm_test_start" VariableExpression="start:${x}:${y}:${z}">
 <Condition Enabled="true" Grouping="Or">
@@ -64,29 +64,29 @@
 <Folder Id="c899c190-b24a-4f6d-8310-4ae0b257c8f6" Name="恢复 / 清空标点" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Id="f37193c8-2714-457c-983f-9e708e9102dd" Name="Load 队列" RegularExpression="^AdvWm_loadQueue:(?&lt;t&gt;.+)$">
+<Trigger Enabled="true" Name="Load 队列" Id="f37193c8-2714-457c-983f-9e708e9102dd" RegularExpression="^AdvWm_loadQueue:(?&lt;t&gt;.+)$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="本触发器会被所有标点指令打断" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="NamedCallback" ExecutionDelayExpression="(${t}) * 1000" NamedCallbackName="place" NamedCallbackParam="load" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="4302ef07-28e0-4a74-88c9-87619009c8de" Name="Load" RegularExpression="^AdvWm_load$">
+<Trigger Enabled="true" Name="Load" Id="4302ef07-28e0-4a74-88c9-87619009c8de" RegularExpression="^AdvWm_load$">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="place" NamedCallbackParam="load" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="62995c19-0bcf-488d-9404-998c955665d6" Name="Clear" RegularExpression="^AdvWm_clear$">
+<Trigger Enabled="true" Name="Clear" Id="62995c19-0bcf-488d-9404-998c955665d6" RegularExpression="^AdvWm_clear$">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="place" NamedCallbackParam="{&#xD;&#xA;  &quot;A&quot;:{}, &#xD;&#xA;  &quot;B&quot;:{}, &#xD;&#xA;  &quot;C&quot;:{}, &#xD;&#xA;  &quot;D&quot;:{}, &#xD;&#xA;  &quot;One&quot;:{}, &#xD;&#xA;  &quot;Two&quot;:{}, &#xD;&#xA;  &quot;Three&quot;:{}, &#xD;&#xA;  &quot;Four&quot;:{}&#xD;&#xA;}" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="1d7f0444-262e-44c1-be6d-ed97673eb69e" Name="Clear 队列" RegularExpression="^AdvWm_clearQueue:(?&lt;t&gt;.+)$">
+<Trigger Enabled="true" Name="Clear 队列" Id="1d7f0444-262e-44c1-be6d-ed97673eb69e" RegularExpression="^AdvWm_clearQueue:(?&lt;t&gt;.+)$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="本触发器会被所有标点指令打断" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="NamedCallback" ExecutionDelayExpression="(${t}) * 1000" NamedCallbackName="place" NamedCallbackParam="{&#xD;&#xA;  &quot;A&quot;:{}, &#xD;&#xA;  &quot;B&quot;:{}, &#xD;&#xA;  &quot;C&quot;:{}, &#xD;&#xA;  &quot;D&quot;:{}, &#xD;&#xA;  &quot;One&quot;:{}, &#xD;&#xA;  &quot;Two&quot;:{}, &#xD;&#xA;  &quot;Three&quot;:{}, &#xD;&#xA;  &quot;Four&quot;:{}&#xD;&#xA;}" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="53455ddf-6244-4fb3-a44b-7a7ca879a758" Name="转发排队" RegularExpression="^AdvWm_(?&lt;type&gt;clear|load):(?&lt;t&gt;.+)$">
+<Trigger Enabled="true" Name="转发排队" Id="53455ddf-6244-4fb3-a44b-7a7ca879a758" RegularExpression="^AdvWm_(?&lt;type&gt;clear|load):(?&lt;t&gt;.+)$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="用这个转发，以免同时执行一条标点和一条排队取消时，后者立刻被前者打断" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="LogMessage" ExecutionDelayExpression="${t} &gt; 0.5 ? 0.5 : ${t}" Asynchronous="False" LogMessageText="AdvWm_${type}Queue:${n: max(0, ${t} - 0.5) }" LogProcess="True" />
@@ -97,7 +97,7 @@
 <Folder Id="fa88e999-52e8-4f96-98d4-ec8ca3e29e94" Name="本地标点转为网络标点" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Id="26cabf50-ba6a-40eb-88ee-eeb48b3dbfcf" Name="本地标点转为网络标点" RegularExpression="^AdvWm_public$" Sequential="True">
+<Trigger Enabled="true" Sequential="True" Name="本地标点转为网络标点" Id="26cabf50-ba6a-40eb-88ee-eeb48b3dbfcf" RegularExpression="^AdvWm_public$">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/waymark save 30" />
 <Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/waymark preset 30" />
@@ -108,7 +108,7 @@
 </Folder>
 </Folders>
 <Triggers>
-<Trigger Enabled="true" Id="4fbafa2a-fc03-4337-bfdf-5ea8408306a3" Name="径向插值标点 polarConnect" RegularExpression="^AdvWm_polarConnect:[Cc]enter:(?&lt;xc&gt;[^:]+):(?&lt;yc&gt;[^:]+)(?::[^:]+)?:[Ss]tart:(?&lt;x0&gt;[^:]+):(?&lt;y0&gt;[^:]+):(?&lt;z0&gt;[^:]+):[Ee]nd:(?&lt;x1&gt;[^:]+):(?&lt;y1&gt;[^:]+):(?&lt;z1&gt;[^:]+):[Ww]aymarkers:(?&lt;wm&gt;[^:]+)">
+<Trigger Enabled="true" Name="径向插值标点 polarConnect" Id="4fbafa2a-fc03-4337-bfdf-5ea8408306a3" RegularExpression="^AdvWm_polarConnect:[Cc]enter:(?&lt;xc&gt;[^:]+):(?&lt;yc&gt;[^:]+)(?::[^:]+)?:[Ss]tart:(?&lt;x0&gt;[^:]+):(?&lt;y0&gt;[^:]+):(?&lt;z0&gt;[^:]+):[Ee]nd:(?&lt;x1&gt;[^:]+):(?&lt;y1&gt;[^:]+):(?&lt;z1&gt;[^:]+):[Ww]aymarkers:(?&lt;wm&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="f37193c8-2714-457c-983f-9e708e9102dd" />
 <Action OrderNumber="2" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="1d7f0444-262e-44c1-be6d-ed97673eb69e" />
@@ -142,7 +142,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${wm}" ExpressionTypeL="String" ExpressionR="[A-D1-4]{2,8}" ExpressionTypeR="String" ConditionType="RegexMatch" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="e0ca4cd2-e2f6-4534-a03e-e2ae13c273f3" Name="绝对坐标标点 abs" RegularExpression="^AdvWm_abs(?&lt;A&gt;:A:(?&lt;xa&gt;[^:]*):(?&lt;ya&gt;[^:]*):(?&lt;za&gt;[^:]*):(?&lt;aa&gt;[^:]*))?(?&lt;B&gt;:B:(?&lt;xb&gt;[^:]*):(?&lt;yb&gt;[^:]*):(?&lt;zb&gt;[^:]*):(?&lt;ab&gt;[^:]*))?(?&lt;C&gt;:C:(?&lt;xc&gt;[^:]*):(?&lt;yc&gt;[^:]*):(?&lt;zc&gt;[^:]*):(?&lt;ac&gt;[^:]*))?(?&lt;D&gt;:D:(?&lt;xd&gt;[^:]*):(?&lt;yd&gt;[^:]*):(?&lt;zd&gt;[^:]*):(?&lt;ad&gt;[^:]*))?(?&lt;One&gt;:One:(?&lt;x1&gt;[^:]*):(?&lt;y1&gt;[^:]*):(?&lt;z1&gt;[^:]*):(?&lt;a1&gt;[^:]*))?(?&lt;Two&gt;:Two:(?&lt;x2&gt;[^:]*):(?&lt;y2&gt;[^:]*):(?&lt;z2&gt;[^:]*):(?&lt;a2&gt;[^:]*))?(?&lt;Three&gt;:Three:(?&lt;x3&gt;[^:]*):(?&lt;y3&gt;[^:]*):(?&lt;z3&gt;[^:]*):(?&lt;a3&gt;[^:]*))?(?&lt;Four&gt;:Four:(?&lt;x4&gt;[^:]*):(?&lt;y4&gt;[^:]*):(?&lt;z4&gt;[^:]*):(?&lt;a4&gt;[^:]*))?$">
+<Trigger Enabled="true" Name="绝对坐标标点 abs" Id="e0ca4cd2-e2f6-4534-a03e-e2ae13c273f3" RegularExpression="^AdvWm_abs(?&lt;A&gt;:A:(?&lt;xa&gt;[^:]*):(?&lt;ya&gt;[^:]*):(?&lt;za&gt;[^:]*):(?&lt;aa&gt;[^:]*))?(?&lt;B&gt;:B:(?&lt;xb&gt;[^:]*):(?&lt;yb&gt;[^:]*):(?&lt;zb&gt;[^:]*):(?&lt;ab&gt;[^:]*))?(?&lt;C&gt;:C:(?&lt;xc&gt;[^:]*):(?&lt;yc&gt;[^:]*):(?&lt;zc&gt;[^:]*):(?&lt;ac&gt;[^:]*))?(?&lt;D&gt;:D:(?&lt;xd&gt;[^:]*):(?&lt;yd&gt;[^:]*):(?&lt;zd&gt;[^:]*):(?&lt;ad&gt;[^:]*))?(?&lt;One&gt;:One:(?&lt;x1&gt;[^:]*):(?&lt;y1&gt;[^:]*):(?&lt;z1&gt;[^:]*):(?&lt;a1&gt;[^:]*))?(?&lt;Two&gt;:Two:(?&lt;x2&gt;[^:]*):(?&lt;y2&gt;[^:]*):(?&lt;z2&gt;[^:]*):(?&lt;a2&gt;[^:]*))?(?&lt;Three&gt;:Three:(?&lt;x3&gt;[^:]*):(?&lt;y3&gt;[^:]*):(?&lt;z3&gt;[^:]*):(?&lt;a3&gt;[^:]*))?(?&lt;Four&gt;:Four:(?&lt;x4&gt;[^:]*):(?&lt;y4&gt;[^:]*):(?&lt;z4&gt;[^:]*):(?&lt;a4&gt;[^:]*))?$">
 <Actions>
 <Action OrderNumber="1" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="f37193c8-2714-457c-983f-9e708e9102dd" />
 <Action OrderNumber="2" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="1d7f0444-262e-44c1-be6d-ed97673eb69e" />
@@ -189,7 +189,7 @@
 <Action OrderNumber="43" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^AdvWm" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="9b685fda-3169-4f07-9387-3f0ea7569e2f" Name="线性插值标点 linearConnect" RegularExpression="^AdvWm_linearConnect:[Ss]tart:(?&lt;x0&gt;[^:]+):(?&lt;y0&gt;[^:]+):(?&lt;z0&gt;[^:]+):[Ee]nd:(?&lt;x1&gt;[^:]+):(?&lt;y1&gt;[^:]+):(?&lt;z1&gt;[^:]+):[Ww]aymarkers:(?&lt;wm&gt;[^:]+)">
+<Trigger Enabled="true" Name="线性插值标点 linearConnect" Id="9b685fda-3169-4f07-9387-3f0ea7569e2f" RegularExpression="^AdvWm_linearConnect:[Ss]tart:(?&lt;x0&gt;[^:]+):(?&lt;y0&gt;[^:]+):(?&lt;z0&gt;[^:]+):[Ee]nd:(?&lt;x1&gt;[^:]+):(?&lt;y1&gt;[^:]+):(?&lt;z1&gt;[^:]+):[Ww]aymarkers:(?&lt;wm&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="f37193c8-2714-457c-983f-9e708e9102dd" />
 <Action OrderNumber="2" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="1d7f0444-262e-44c1-be6d-ed97673eb69e" />
@@ -214,7 +214,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${wm}" ExpressionTypeL="String" ExpressionR="[A-D1-4]{2,8}" ExpressionTypeR="String" ConditionType="RegexMatch" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="6359e73b-bff7-4c64-963e-d4dceb31bba4" Name="旋转矩阵标点 rotate" RegularExpression="^AdvWm_rotate(?::[Ss]cale:(?&lt;scale&gt;[^:]*))?(?::θ:(?&lt;theta&gt;[^:]*))?(?::[Cc]enter:(?&lt;x0&gt;[^:]*):(?&lt;y0&gt;[^:]*):(?&lt;z0&gt;[^:]*))?(?&lt;A&gt;:A:(?&lt;xa&gt;[^:]*):(?&lt;ya&gt;[^:]*):(?&lt;za&gt;[^:]*):(?&lt;aa&gt;[^:]*))?(?&lt;B&gt;:B:(?&lt;xb&gt;[^:]*):(?&lt;yb&gt;[^:]*):(?&lt;zb&gt;[^:]*):(?&lt;ab&gt;[^:]*))?(?&lt;C&gt;:C:(?&lt;xc&gt;[^:]*):(?&lt;yc&gt;[^:]*):(?&lt;zc&gt;[^:]*):(?&lt;ac&gt;[^:]*))?(?&lt;D&gt;:D:(?&lt;xd&gt;[^:]*):(?&lt;yd&gt;[^:]*):(?&lt;zd&gt;[^:]*):(?&lt;ad&gt;[^:]*))?(?&lt;One&gt;:One:(?&lt;x1&gt;[^:]*):(?&lt;y1&gt;[^:]*):(?&lt;z1&gt;[^:]*):(?&lt;a1&gt;[^:]*))?(?&lt;Two&gt;:Two:(?&lt;x2&gt;[^:]*):(?&lt;y2&gt;[^:]*):(?&lt;z2&gt;[^:]*):(?&lt;a2&gt;[^:]*))?(?&lt;Three&gt;:Three:(?&lt;x3&gt;[^:]*):(?&lt;y3&gt;[^:]*):(?&lt;z3&gt;[^:]*):(?&lt;a3&gt;[^:]*))?(?&lt;Four&gt;:Four:(?&lt;x4&gt;[^:]*):(?&lt;y4&gt;[^:]*):(?&lt;z4&gt;[^:]*):(?&lt;a4&gt;[^:]*))?$">
+<Trigger Enabled="true" Name="旋转矩阵标点 rotate" Id="6359e73b-bff7-4c64-963e-d4dceb31bba4" RegularExpression="^AdvWm_rotate(?::[Ss]cale:(?&lt;scale&gt;[^:]*))?(?::θ:(?&lt;theta&gt;[^:]*))?(?::[Cc]enter:(?&lt;x0&gt;[^:]*):(?&lt;y0&gt;[^:]*):(?&lt;z0&gt;[^:]*))?(?&lt;A&gt;:A:(?&lt;xa&gt;[^:]*):(?&lt;ya&gt;[^:]*):(?&lt;za&gt;[^:]*):(?&lt;aa&gt;[^:]*))?(?&lt;B&gt;:B:(?&lt;xb&gt;[^:]*):(?&lt;yb&gt;[^:]*):(?&lt;zb&gt;[^:]*):(?&lt;ab&gt;[^:]*))?(?&lt;C&gt;:C:(?&lt;xc&gt;[^:]*):(?&lt;yc&gt;[^:]*):(?&lt;zc&gt;[^:]*):(?&lt;ac&gt;[^:]*))?(?&lt;D&gt;:D:(?&lt;xd&gt;[^:]*):(?&lt;yd&gt;[^:]*):(?&lt;zd&gt;[^:]*):(?&lt;ad&gt;[^:]*))?(?&lt;One&gt;:One:(?&lt;x1&gt;[^:]*):(?&lt;y1&gt;[^:]*):(?&lt;z1&gt;[^:]*):(?&lt;a1&gt;[^:]*))?(?&lt;Two&gt;:Two:(?&lt;x2&gt;[^:]*):(?&lt;y2&gt;[^:]*):(?&lt;z2&gt;[^:]*):(?&lt;a2&gt;[^:]*))?(?&lt;Three&gt;:Three:(?&lt;x3&gt;[^:]*):(?&lt;y3&gt;[^:]*):(?&lt;z3&gt;[^:]*):(?&lt;a3&gt;[^:]*))?(?&lt;Four&gt;:Four:(?&lt;x4&gt;[^:]*):(?&lt;y4&gt;[^:]*):(?&lt;z4&gt;[^:]*):(?&lt;a4&gt;[^:]*))?$">
 <Actions>
 <Action OrderNumber="1" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="f37193c8-2714-457c-983f-9e708e9102dd" />
 <Action OrderNumber="2" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="1d7f0444-262e-44c1-be6d-ed97673eb69e" />
@@ -280,7 +280,7 @@
 <Action OrderNumber="62" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^AdvWm" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="4bf532ee-05fd-4ba9-bc1f-221b6de383b3" Name="极坐标标点 polarDeg / polarRad" RegularExpression="^AdvWm_polar(?&lt;type&gt;Deg|Rad)(?::[Ss]cale:(?&lt;scale&gt;[^:]*))?(?::θ:(?&lt;theta&gt;[^:]*))?(?::[Cc]enter:(?&lt;x0&gt;[^:]*):(?&lt;y0&gt;[^:]*):(?&lt;z0&gt;[^:]*))?(?&lt;A&gt;:A:(?&lt;ra&gt;[^:]*):(?&lt;thetaa&gt;[^:]*):(?&lt;za&gt;[^:]*):(?&lt;aa&gt;[^:]*))?(?&lt;B&gt;:B:(?&lt;rb&gt;[^:]*):(?&lt;thetab&gt;[^:]*):(?&lt;zb&gt;[^:]*):(?&lt;ab&gt;[^:]*))?(?&lt;C&gt;:C:(?&lt;rc&gt;[^:]*):(?&lt;thetac&gt;[^:]*):(?&lt;zc&gt;[^:]*):(?&lt;ac&gt;[^:]*))?(?&lt;D&gt;:D:(?&lt;rd&gt;[^:]*):(?&lt;thetad&gt;[^:]*):(?&lt;zd&gt;[^:]*):(?&lt;ad&gt;[^:]*))?(?&lt;One&gt;:One:(?&lt;r1&gt;[^:]*):(?&lt;theta1&gt;[^:]*):(?&lt;z1&gt;[^:]*):(?&lt;a1&gt;[^:]*))?(?&lt;Two&gt;:Two:(?&lt;r2&gt;[^:]*):(?&lt;theta2&gt;[^:]*):(?&lt;z2&gt;[^:]*):(?&lt;a2&gt;[^:]*))?(?&lt;Three&gt;:Three:(?&lt;r3&gt;[^:]*):(?&lt;theta3&gt;[^:]*):(?&lt;z3&gt;[^:]*):(?&lt;a3&gt;[^:]*))?(?&lt;Four&gt;:Four:(?&lt;r4&gt;[^:]*):(?&lt;theta4&gt;[^:]*):(?&lt;z4&gt;[^:]*):(?&lt;a4&gt;[^:]*))?$">
+<Trigger Enabled="true" Name="极坐标标点 polarDeg / polarRad" Id="4bf532ee-05fd-4ba9-bc1f-221b6de383b3" RegularExpression="^AdvWm_polar(?&lt;type&gt;Deg|Rad)(?::[Ss]cale:(?&lt;scale&gt;[^:]*))?(?::θ:(?&lt;theta&gt;[^:]*))?(?::[Cc]enter:(?&lt;x0&gt;[^:]*):(?&lt;y0&gt;[^:]*):(?&lt;z0&gt;[^:]*))?(?&lt;A&gt;:A:(?&lt;ra&gt;[^:]*):(?&lt;thetaa&gt;[^:]*):(?&lt;za&gt;[^:]*):(?&lt;aa&gt;[^:]*))?(?&lt;B&gt;:B:(?&lt;rb&gt;[^:]*):(?&lt;thetab&gt;[^:]*):(?&lt;zb&gt;[^:]*):(?&lt;ab&gt;[^:]*))?(?&lt;C&gt;:C:(?&lt;rc&gt;[^:]*):(?&lt;thetac&gt;[^:]*):(?&lt;zc&gt;[^:]*):(?&lt;ac&gt;[^:]*))?(?&lt;D&gt;:D:(?&lt;rd&gt;[^:]*):(?&lt;thetad&gt;[^:]*):(?&lt;zd&gt;[^:]*):(?&lt;ad&gt;[^:]*))?(?&lt;One&gt;:One:(?&lt;r1&gt;[^:]*):(?&lt;theta1&gt;[^:]*):(?&lt;z1&gt;[^:]*):(?&lt;a1&gt;[^:]*))?(?&lt;Two&gt;:Two:(?&lt;r2&gt;[^:]*):(?&lt;theta2&gt;[^:]*):(?&lt;z2&gt;[^:]*):(?&lt;a2&gt;[^:]*))?(?&lt;Three&gt;:Three:(?&lt;r3&gt;[^:]*):(?&lt;theta3&gt;[^:]*):(?&lt;z3&gt;[^:]*):(?&lt;a3&gt;[^:]*))?(?&lt;Four&gt;:Four:(?&lt;r4&gt;[^:]*):(?&lt;theta4&gt;[^:]*):(?&lt;z4&gt;[^:]*):(?&lt;a4&gt;[^:]*))?$">
 <Actions>
 <Action OrderNumber="1" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="f37193c8-2714-457c-983f-9e708e9102dd" />
 <Action OrderNumber="2" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="1d7f0444-262e-44c1-be6d-ed97673eb69e" />
@@ -336,7 +336,7 @@
 <Folder Id="565dce85-e522-405f-890c-0c544711ecb8" Name="实体标点" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Id="2cfccf39-6364-4fb1-9f95-76fcc61c0c6e" Name="清空标点（网络） networkClear" RegularExpression="^AdvHm_networkClear:(?&lt;orders&gt;[1-8]+)">
+<Trigger Enabled="true" Name="清空标点（网络） networkClear" Id="2cfccf39-6364-4fb1-9f95-76fcc61c0c6e" RegularExpression="^AdvHm_networkClear:(?&lt;orders&gt;[1-8]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="AdvHm_clearAll" ListVariableExpression="    { &quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/mk clear &lt;${f:slice(${_idx}):0${orders}}&gt;&quot; }" ListVariableIndex="${f:length:${orders}}" />
 <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="AdvHm_clearAll" VariableExpression="[&#xD;&#xA;${l:AdvHm_clearAll.join(&quot;,⏎&quot;)}&#xD;&#xA;]" />
@@ -345,7 +345,7 @@
 <Action OrderNumber="5" ActionType="ListVariable" Asynchronous="False" ListVariableName="AdvHm_clearAll" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="5e7206e6-9dc1-4d82-836f-b98dbbe90c76" Name="清空标点（本地） localClear" RegularExpression="^AdvHm_localClear:(?!all$)(?&lt;listname&gt;[^:]+)">
+<Trigger Enabled="true" Name="清空标点（本地） localClear" Id="5e7206e6-9dc1-4d82-836f-b98dbbe90c76" RegularExpression="^AdvHm_localClear:(?!all$)(?&lt;listname&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="AdvHm_clearAll" ListVariableExpression="    {&#xD;&#xA;        &quot;c&quot;: &quot;mark&quot;,&#xD;&#xA;        &quot;p&quot;: &quot;{\&quot;Name\&quot;: \&quot;${l:${listname}[${_idx}]}\&quot;, \&quot;MarkType\&quot;: \&quot;0\&quot;, \&quot;LocalOnly\&quot;: 1}&quot;&#xD;&#xA;    }" ListVariableIndex="${l:${listname}.size}" />
 <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="AdvHm_clearAll" VariableExpression="[&#xD;&#xA;${l:AdvHm_clearAll.join(&quot;,⏎&quot;)}&#xD;&#xA;]" />
@@ -354,7 +354,7 @@
 <Action OrderNumber="5" ActionType="ListVariable" Asynchronous="False" ListVariableName="AdvHm_clearAll" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="a8a44179-0e4d-40e9-bb08-529f4f5794e0" Name="清空全部标点（本地） localClear:all" RegularExpression="^AdvHm_localClear:all(?::id:(?&lt;id&gt;.+))?$" Sequential="True">
+<Trigger Enabled="true" Sequential="True" Name="清空全部标点（本地） localClear:all" Id="a8a44179-0e4d-40e9-bb08-529f4f5794e0" RegularExpression="^AdvHm_localClear:all(?::id:(?&lt;id&gt;.+))?$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="指定一个实体 ID，对其遍历执行所有标点后清除标点。ID 未提供时默认为自己。" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Variable" VariableOp="SetString" VariableName="tmp_id" VariableExpression="0x${_me.id}">
@@ -382,7 +382,7 @@
 </Action>
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="3c52e0f3-0ba1-437f-bf47-1be727a4d010" Name="单个实体标点 mark" RegularExpression="^AdvHm_mark:(?&lt;entity&gt;[^:]+):(?&lt;marker&gt;[^:]+):(?&lt;isLocal&gt;[^:]+)">
+<Trigger Enabled="true" Name="单个实体标点 mark" Id="3c52e0f3-0ba1-437f-bf47-1be727a4d010" RegularExpression="^AdvHm_mark:(?&lt;entity&gt;[^:]+):(?&lt;marker&gt;[^:]+):(?&lt;isLocal&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_match" VariableExpression="1">
 <Condition Enabled="true" Grouping="Or">
@@ -413,12 +413,12 @@
 <Folder Id="a2e2801b-0094-45fb-95ab-2cd831323100" Name="查询实体信息" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Id="82d95ea9-b7bb-40a0-b472-d18cfbfbffe5" Name="查询" RegularExpression="^EntityInfo:(.+)">
+<Trigger Enabled="true" Name="查询" Id="82d95ea9-b7bb-40a0-b472-d18cfbfbffe5" RegularExpression="^EntityInfo:(.+)">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="command" NamedCallbackParam="/e 【—————查询实体信息—————】&#xD;&#xA;实体：${_ffxiventity[$1].name}（${_ffxiventity[$1].id}）&#xD;&#xA;BNpcID = ${_ffxiventity[$1].BNpcID}  BNpcNameID = ${_ffxiventity[$1].BNpcNameID}&#xD;&#xA;@ (${n:round(${_entity[$1].x}, 3)}, ${n:round(${_entity[$1].y}, 3)}), ${n:round(${_entity[$1].z}, 3)}&#xD;&#xA;→ ${n:round(${_entity[$1].heading}, 3)} = ${n:round(${_entity[$1].heading}/pi, 3)}π (${f:pick(${n: roundir(${_entity[$1].heading}, 8)}): 上北, 左上, 左西, 左下, 下南, 右下, 右东, 右上}）&#xD;&#xA;水平距离：${n: distance(${_entity[$1].xy}, ${_me.xy})} m&#xD;&#xA;HP：${_entity[$1].currenthp} / ${_ffxiventity[$1].maxhp}&#xD;&#xA;》${_entity[${_entity[$1].targetid}].name}（${_entity[$1].targetid}）" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="37602279-6b97-4c68-aa84-7026e70edba8" Name="/e entity （未指定目标：查询自身/选中的目标）" RegularExpression="^.{15}\S+ 00:0038::(?i)en(?:tity)? ?$">
+<Trigger Enabled="true" Name="/e entity （未指定目标：查询自身/选中的目标）" Id="37602279-6b97-4c68-aa84-7026e70edba8" RegularExpression="^.{15}\S+ 00:0038::(?i)en(?:tity)? ?$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="选中正常目标时：查询目标信息" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="EntityInfo:${_me.targetid}" LogProcess="True">
@@ -440,7 +440,7 @@
 </Action>
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="c34c387b-ccbf-4032-9580-113ad9ae30a0" Name="/e entity [name/id]" RegularExpression="^.{15}\S+ 00:0038::(?i)en(?:tity)? +(.*)$">
+<Trigger Enabled="true" Name="/e entity [name/id]" Id="c34c387b-ccbf-4032-9580-113ad9ae30a0" RegularExpression="^.{15}\S+ 00:0038::(?i)en(?:tity)? +(.*)$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="指定的名字/id存在：查询目标信息" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="EntityInfo:$1" LogProcess="True">
@@ -460,7 +460,7 @@
 </Folder>
 </Folders>
 <Triggers>
-<Trigger Enabled="true" Id="2189fa7b-c3e2-49b5-b781-203fd6c9be9c" Name="ACT Combat Log Filter" RegularExpression="^(.{15}\S+ 00:0038:: *)?(?i:filter) *$">
+<Trigger Enabled="true" Name="ACT Combat Log Filter" Id="2189fa7b-c3e2-49b5-b781-203fd6c9be9c" RegularExpression="^(.{15}\S+ 00:0038:: *)?(?i:filter) *$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="by 阿洛 MnFeN" DescBgColor="def" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Placeholder" Description="使用说明" DescBgColor="acf" DescriptionOverride="True" />
@@ -481,7 +481,7 @@
 <Action OrderNumber="13" ActionType="Variable" Asynchronous="False" VariableName="tmp_tts" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="040fa0f7-e708-41db-862b-cee57bf938a5" Name="ACT Combat Log Anonymizer" RegularExpression="^(.{15}\S+ 00:0038:: *)?(?i:anonymizer|匿名|niming|nm) *$">
+<Trigger Enabled="true" Name="ACT Combat Log Anonymizer" Id="040fa0f7-e708-41db-862b-cee57bf938a5" RegularExpression="^(.{15}\S+ 00:0038:: *)?(?i:anonymizer|匿名|niming|nm) *$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="by 阿洛 MnFeN" DescBgColor="def" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Placeholder" Description="使用说明" DescBgColor="acf" DescriptionOverride="True" />
@@ -498,7 +498,7 @@
 <Action OrderNumber="9" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="处理完成" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="7ca8d67f-7e72-4b36-8a15-16e38c935af6" Name="查询表达式 /e 数学表达式 =?   /e 文本表达式 ==?" RegularExpression="^.{15}\S+ 00:0038::(?&lt;what&gt;.+?) *(?&lt;eq&gt;={1,2}) *[\?？] *$">
+<Trigger Enabled="true" Name="查询表达式 /e 数学表达式 =?   /e 文本表达式 ==?" Id="7ca8d67f-7e72-4b36-8a15-16e38c935af6" RegularExpression="^.{15}\S+ 00:0038::(?&lt;what&gt;.+?) *(?&lt;eq&gt;={1,2}) *[\?？] *$">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" JsonEndpointExpression="http://127.0.0.1:2019/command" NamedCallbackName="command" NamedCallbackParam="/e == ${what}">
 <Condition Enabled="true" Grouping="Or">
@@ -512,7 +512,7 @@
 </Action>
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="74072abf-2863-4c10-ad58-fef10e5fb72c" Name="内存检索/修改" RegularExpression="^.{15}\S+ 00:0038::(?&lt;type&gt;byte|u?short|u?int|u?long|float|double) (?&lt;offset&gt;[^=]+?)( *= *(?&lt;val&gt;.+))?$">
+<Trigger Enabled="true" Name="内存检索/修改" Id="74072abf-2863-4c10-ad58-fef10e5fb72c" RegularExpression="^.{15}\S+ 00:0038::(?&lt;type&gt;byte|u?short|u?int|u?long|float|double) (?&lt;offset&gt;[^=]+?)( *= *(?&lt;val&gt;.+))?$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="查询或修改自己选中的实体（或没选中时：自己）的内存中某处的值" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="查询：/e float 0xc4 （查询自己实体后 0xC4 位置的 float 值）" DescriptionOverride="True" />
@@ -521,12 +521,12 @@
 <Action OrderNumber="5" ActionType="ExecuteScript" Asynchronous="False" ExecScriptExpression="using System;&#xD;&#xA;using System.Linq;&#xD;&#xA;using Triggernometry;&#xD;&#xA;using Triggernometry.Utilities;&#xD;&#xA;&#xD;&#xA;static void Log(string msg) =&gt; Triggernometry.RealPlugin.plug.InvokeNamedCallback(&quot;command&quot;, &quot;/e \n&quot; + msg);&#xD;&#xA;&#xD;&#xA;string s = &quot;${_entity[${_me.targetid}].address}&quot;;&#xD;&#xA;var tgtaddress = s.Length &lt;= 1 ? ${_me.address} : 0${_entity[${_me.targetid}].address};&#xD;&#xA;var offsets = &quot;${offset}&quot;.Split(',').Select(str =&gt; (int)MathParser.Parse(str)).ToList();&#xD;&#xA;var address = (IntPtr)tgtaddress + offsets[0];&#xD;&#xA;&#xD;&#xA;for (int i = 1; i &lt; offsets.Count; i++)&#xD;&#xA;{&#xD;&#xA;    address = Memory.Read&lt;IntPtr&gt;(Memory.XivProcHandle, address) + offsets[i];&#xD;&#xA;}&#xD;&#xA;string tgtValueStr = &quot;${val}&quot;.Trim();&#xD;&#xA;var current = Memory.Read&lt;${type}&gt;(Memory.XivProcHandle, address);&#xD;&#xA;string msg = $&quot;{tgtaddress.ToString(&quot;X&quot;)} + {string.Join(&quot;, &quot;, offsets.Select(o =&gt; o.ToString(&quot;X&quot;)))} =&gt; {address.ToString(&quot;X&quot;)}:\n    Prev: (${type}){current}&quot;;&#xD;&#xA;&#xD;&#xA;if (&quot;${type}&quot; == &quot;byte&quot;)&#xD;&#xA;{&#xD;&#xA;    msg += $&quot; ({Convert.ToString((byte)current, 2).PadLeft(8, '0')})&quot;;&#xD;&#xA;}&#xD;&#xA;if (!string.IsNullOrEmpty(tgtValueStr))&#xD;&#xA;{&#xD;&#xA;    ${type} value = (${type})MathParser.Parse(tgtValueStr);&#xD;&#xA;    Memory.Write&lt;${type}&gt;(Memory.XivProcHandle, address, value);&#xD;&#xA;    msg += $&quot;\n    Set to: {value}&quot;;&#xD;&#xA;    if (&quot;${type}&quot; == &quot;byte&quot;)&#xD;&#xA;    {&#xD;&#xA;        msg += $&quot; ({Convert.ToString((byte)value, 2).PadLeft(8, '0')})&quot;;&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;Log(msg);" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="312e0c25-ca4b-4a78-9112-6bd963c9e72a" Name="进制转换：10→16  /e 数学表达式 = 0x?" RegularExpression="^.{15}\S+ 00:0038::(?&lt;what&gt;.+?) *= *0x[?？] *$">
+<Trigger Enabled="true" Name="进制转换：10→16  /e 数学表达式 = 0x?" Id="312e0c25-ca4b-4a78-9112-6bd963c9e72a" RegularExpression="^.{15}\S+ 00:0038::(?&lt;what&gt;.+?) *= *0x[?？] *$">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e $1 = 0x${f:dec2hex:$1}" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="bde8a4a2-882e-4b30-909a-01e237960c1b" Name="模拟区域切换" RegularExpression="^.{15}\S+ 00:0038::(?i) *zone +(?&lt;zoneId&gt;.+)$" Sequential="True">
+<Trigger Enabled="true" Sequential="True" Name="模拟区域切换" Id="bde8a4a2-882e-4b30-909a-01e237960c1b" RegularExpression="^.{15}\S+ 00:0038::(?i) *zone +(?&lt;zoneId&gt;.+)$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="e.g. /e zone 1238    /e zone 0x4D6" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="可以将触发器内部的当前区域 ID 设置为指定 ID，使限制区域 ID 的触发器临时可工作，用于调试触发器" DescriptionOverride="True" />
@@ -536,20 +536,20 @@
 <Action OrderNumber="6" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e Simulating Zone: ${_ffxivzoneid} (0x${f:dec2hex:${_ffxivzoneid}})" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="74f04d9f-2803-4218-81d4-3d5f7e36c27b" Name="调用回调" RegularExpression="^.{15}\S+ 00:0038::(?i)cb +(?&lt;cbName&gt;[^ ]+)( +(?&lt;cbParam&gt;.*))?$">
+<Trigger Enabled="true" Name="调用回调" Id="74f04d9f-2803-4218-81d4-3d5f7e36c27b" RegularExpression="^.{15}\S+ 00:0038::(?i)cb +(?&lt;cbName&gt;[^ ]+)( +(?&lt;cbParam&gt;.*))?$">
 <Actions>
 <Action OrderNumber="1" />
 <Action OrderNumber="2" ActionType="NamedCallback" JsonEndpointExpression="http://127.0.0.1:2019/command" NamedCallbackName="${cbName}" NamedCallbackParam="${cbParam}" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="85a3327b-0459-4788-a64f-85733ba3db7c" Name="终止所有触发器、悬浮窗" RegularExpression="^.{15}\S+ 00:0038:: *break *$" Sequential="True">
+<Trigger Enabled="true" Sequential="True" Name="终止所有触发器、悬浮窗" Id="85a3327b-0459-4788-a64f-85733ba3db7c" RegularExpression="^.{15}\S+ 00:0038:: *break *$">
 <Actions>
 <Action OrderNumber="1" ActionType="TextAura" TextAuraOp="DeactivateAllAura" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="CancelAllTrigger" />
 <Action OrderNumber="2" ActionType="Aura" AuraOp="DeactivateAllAura" TextAuraOp="DeactivateAllAura" TriggerOp="CancelAllTrigger" />
 <Action OrderNumber="3" ActionType="Trigger" TriggerOp="CancelAllTrigger" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="0e842483-a2ac-47f6-beff-559119f355a0" Name="最大化 ACT Log 窗口" RegularExpression="^.{15}\S+ 00:0038::(?i)actlog">
+<Trigger Enabled="true" Name="最大化 ACT Log 窗口" Id="0e842483-a2ac-47f6-beff-559119f355a0" RegularExpression="^.{15}\S+ 00:0038::(?i)actlog">
 <Actions>
 <Action OrderNumber="1" ActionType="ExecuteScript" ExecScriptExpression="using System;&#xD;&#xA;using System.Diagnostics;&#xD;&#xA;using System.Runtime.InteropServices;&#xD;&#xA;using System.Text;&#xD;&#xA;&#xD;&#xA;const int SW_MAXIMIZE = 3;&#xD;&#xA;string targetTitleKeyword = &quot;Encounter Logs&quot;;&#xD;&#xA;&#xD;&#xA;[DllImport(&quot;user32.dll&quot;)]&#xD;&#xA;static extern bool IsWindowVisible(IntPtr hWnd);&#xD;&#xA;&#xD;&#xA;[DllImport(&quot;user32.dll&quot;, SetLastError = true)]&#xD;&#xA;static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);&#xD;&#xA;&#xD;&#xA;[DllImport(&quot;user32.dll&quot;)]&#xD;&#xA;static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);&#xD;&#xA;&#xD;&#xA;[DllImport(&quot;user32.dll&quot;)]&#xD;&#xA;static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);&#xD;&#xA;&#xD;&#xA;[DllImport(&quot;user32.dll&quot;)]&#xD;&#xA;static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);&#xD;&#xA;&#xD;&#xA;delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);&#xD;&#xA;&#xD;&#xA;EnumWindows((hWnd, lParam) =&gt;&#xD;&#xA;{&#xD;&#xA;    if (!IsWindowVisible(hWnd))&#xD;&#xA;        return true;&#xD;&#xA;&#xD;&#xA;    GetWindowThreadProcessId(hWnd, out uint processId);&#xD;&#xA;    if (processId != (uint)Process.GetCurrentProcess().Id)&#xD;&#xA;        return true;&#xD;&#xA;&#xD;&#xA;    StringBuilder sb = new StringBuilder(256);&#xD;&#xA;    GetWindowText(hWnd, sb, sb.Capacity);&#xD;&#xA;    string title = sb.ToString();&#xD;&#xA;    if (!string.IsNullOrWhiteSpace(title) &amp;&amp; title.Contains(targetTitleKeyword))&#xD;&#xA;    {&#xD;&#xA;        ShowWindow(hWnd, SW_MAXIMIZE);&#xD;&#xA;    }&#xD;&#xA;    return true;&#xD;&#xA;}, IntPtr.Zero);&#xD;&#xA;" />
 </Actions>
@@ -565,7 +565,7 @@
 <Folder Id="29ba7578-3ad5-42be-9b46-503652eb6f57" Name="user" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Id="8cc50d27-123d-4749-8f1b-1d354c66eb5e" Name="1. 询问" RegularExpression="^.{15}\S+ 00:0038::(?&lt;user&gt;[!?！？]user)$" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000" Sequential="True">
+<Trigger Enabled="true" Sequential="True" Name="1. 询问" Id="8cc50d27-123d-4749-8f1b-1d354c66eb5e" RegularExpression="^.{15}\S+ 00:0038::(?&lt;user&gt;[!?！？]user)$" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 发送 (${user})">
 <Condition Enabled="true" Grouping="Or">
@@ -577,7 +577,7 @@
 <Action OrderNumber="4" ActionType="NamedCallback" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Ask&#xD;&#xA;Anonymous: ${f:startwith(?):${f:tohalfwidth:${user}}}&#xD;&#xA;IsAlliance: ${_entity[InAlliance = 1].Exist}" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="3d8531b5-7119-404f-b467-82c36743eb41" Name="3a. 接收（小队）" RegularExpression="^.{15}\S+ 1C:Add:(?&lt;wm&gt;[0-7]):.{8}:[^:]*:(?&lt;x&gt;[^:]+1):(?&lt;y&gt;[^:]+1):(?&lt;z&gt;[^:]+)">
+<Trigger Enabled="true" Name="3a. 接收（小队）" Id="3d8531b5-7119-404f-b467-82c36743eb41" RegularExpression="^.{15}\S+ 1C:Add:(?&lt;wm&gt;[0-7]):.{8}:[^:]*:(?&lt;x&gt;[^:]+1):(?&lt;y&gt;[^:]+1):(?&lt;z&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 接收 小队&#xD;&#xA;[${?l:A,B,C,D,1,2,3,4[${n: ${wm} + 1}]}] @ (${x}, ${y}, ${z})">
 <Condition Enabled="true" Grouping="Or">
@@ -599,7 +599,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${z} - floor(${z})" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="c495a932-d08f-45b2-a821-bdcea62cb89b" Name="2a. 应答 + 播报（小队）" RegularExpression="^.{15}\S+ 1C:Add:(?&lt;wm&gt;[0-7]):.{8}:[^:]*:(?&lt;x&gt;[^:]+1):(?&lt;y&gt;[^:]+1):(?&lt;z&gt;[^:]+)">
+<Trigger Enabled="true" Name="2a. 应答 + 播报（小队）" Id="c495a932-d08f-45b2-a821-bdcea62cb89b" RegularExpression="^.{15}\S+ 1C:Add:(?&lt;wm&gt;[0-7]):.{8}:[^:]*:(?&lt;x&gt;[^:]+1):(?&lt;y&gt;[^:]+1):(?&lt;z&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 应答 小队&#xD;&#xA;[${?l:A,B,C,D,1,2,3,4[${n: ${wm} + 1}]}] @ (${x}, ${y}, ${z})">
 <Condition Enabled="true" Grouping="Or">
@@ -624,7 +624,7 @@
 <ConditionSingle Enabled="false" ExpressionL="注：如果没有形成小队，则不应有 B-4 点" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="NumericEqual" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="98199e5e-2bb7-46a7-b6f8-e46cbe431dbf" Name="2b. 应答 + 播报（团队）" RegularExpression="^.{15}\S+ 1C:Add:0:.{8}:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):329\.(?&lt;offsetZ&gt;..)">
+<Trigger Enabled="true" Name="2b. 应答 + 播报（团队）" Id="98199e5e-2bb7-46a7-b6f8-e46cbe431dbf" RegularExpression="^.{15}\S+ 1C:Add:0:.{8}:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):329\.(?&lt;offsetZ&gt;..)">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 应答 团队&#xD;&#xA;[A] @ (${x}, ${y}, 329.${offsetZ})">
 <Condition Enabled="true" Grouping="Or">
@@ -652,7 +652,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${x} - 80" ExpressionTypeL="Numeric" ExpressionR="40.96" ExpressionTypeR="String" ConditionType="NumericLess" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="690bac7b-e19e-45cd-925d-746aa1c3123d" Name="3b. 接收（团队）" RegularExpression="^.{15}\S+ 1C:Add:0:.{8}:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):329\.(?&lt;offsetZ&gt;..)">
+<Trigger Enabled="true" Name="3b. 接收（团队）" Id="690bac7b-e19e-45cd-925d-746aa1c3123d" RegularExpression="^.{15}\S+ 1C:Add:0:.{8}:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):329\.(?&lt;offsetZ&gt;..)">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 接收 团队&#xD;&#xD;&#xA;[A] @ (${x}, ${y}, 329.${offsetZ})">
 <Condition Enabled="true" Grouping="Or">
@@ -673,7 +673,7 @@
 <ConditionSingle Enabled="false" ExpressionL="注：有 发送者 和 团队模式 的 flag" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="NumericEqual" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="fff30974-913d-4328-b795-1de24bad7baa" Name="0. 初始化" RegularExpression="^.{15}\S+ 01">
+<Trigger Enabled="true" Name="0. 初始化" Id="fff30974-913d-4328-b795-1de24bad7baa" RegularExpression="^.{15}\S+ 01">
 <Actions>
 <Action OrderNumber="1" ActionType="ListVariable" ListVariableName="AdvWm_users" />
 </Actions>
@@ -683,7 +683,7 @@
 <Folder Id="cf6d7fb2-2df1-4dd4-a85e-8f59c0b84dc9" Name="tell" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Id="c4d685c5-162f-4a24-afcc-3cf5d5361629" Name="2. 接收" RegularExpression="^.{15}\S+ 1C:Add:0:.{8}:[^:]*:(?&lt;x&gt;[^:]+):531\.00:531\.(?&lt;offsetZ&gt;..)">
+<Trigger Enabled="true" Name="2. 接收" Id="c4d685c5-162f-4a24-afcc-3cf5d5361629" RegularExpression="^.{15}\S+ 1C:Add:0:.{8}:[^:]*:(?&lt;x&gt;[^:]+):531\.00:531\.(?&lt;offsetZ&gt;..)">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 接收文本消息&#xD;&#xA;[A] @ (${x}, 531.00, 531.${offsetZ})">
 <Condition Enabled="true" Grouping="Or">
@@ -696,12 +696,12 @@
 <ConditionSingle Enabled="true" ExpressionL="(${offsetZ} - 1) &amp; 8" ExpressionTypeL="Numeric" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="8b1199b4-7036-466d-8384-8362f89c6fac" Name="1. 发送" RegularExpression="^.{15}\S+ 00:0038::(?i) *(?&lt;tell&gt;[!?！？]tell) +(?&lt;msg&gt;.+?) *$">
+<Trigger Enabled="true" Name="1. 发送" Id="8b1199b4-7036-466d-8384-8362f89c6fac" RegularExpression="^.{15}\S+ 00:0038::(?i) *(?&lt;tell&gt;[!?！？]tell) +(?&lt;msg&gt;.+?) *$">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Encode&#xD;&#xA;Anonymous: ${f:startwith(?):${f:tohalfwidth:${tell}}}&#xD;&#xA;Data: ${msg}" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="1fe8a865-42e6-4801-8c27-760ada34c6f4" Name="help   /e ?tell" RegularExpression="^.{15}\S+ 00:0038::(?i) *(?&lt;tell&gt;[?？]tell) *$">
+<Trigger Enabled="true" Name="help   /e ?tell" Id="1fe8a865-42e6-4801-8c27-760ada34c6f4" RegularExpression="^.{15}\S+ 00:0038::(?i) *(?&lt;tell&gt;[?？]tell) *$">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e &#xD;&#xA;此聊天频道为加密通讯频道，&#xD;&#xA;由远程触发器的高级标点工具箱提供支持，&#xD;&#xA;通过标点坐标编码文本，&#xD;&#xA;实现仅工具使用者可见的加密通讯。&#xD;&#xA;&#xD;&#xA;你可以使用指令发送消息：&#xD;&#xA;&quot;/e ?tell 消息文本&quot;：匿名发送&#xD;&#xA;&quot;/e !tell 消息文本&quot;：实名发送&#xD;&#xA;&#xD;&#xA;由于发送消息会更改场地标点，&#xD;&#xA;发送消息后注意还原场地标点。" />
 </Actions>
@@ -713,7 +713,7 @@
 </Folder>
 </Folders>
 <Triggers>
-<Trigger Enabled="true" Id="8ba54942-ffa5-4880-b0e5-1f7e11bde791" Name="注册回调" RegularExpression="^.{15}\S+ 01:" Sequential="True">
+<Trigger Enabled="true" Sequential="True" Name="注册回调" Id="8ba54942-ffa5-4880-b0e5-1f7e11bde791" RegularExpression="^.{15}\S+ 01:">
 <Actions>
 <Action OrderNumber="1" ActionType="ExecuteScript" Description="【代码】" DescBgColor="acf" DescriptionOverride="True" ExecScriptExpression="using System;&#xD;&#xA;using System.Collections;&#xD;&#xA;using System.Collections.Generic;&#xD;&#xA;using System.Linq;&#xD;&#xA;using System.Text;&#xD;&#xA;using Triggernometry;&#xD;&#xA;using static System.Math;&#xD;&#xA;using Triggernometry.FFXIV;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu;&#xD;&#xA;using Triggernometry.Utilities;&#xD;&#xA;using Triggernometry.Utilities.Math;&#xD;&#xA;&#xD;&#xA;public struct Info&#xD;&#xA;{&#xD;&#xA;    public const string Name = &quot;AdvWm&quot;;&#xD;&#xA;    public const string NameCN = &quot;高级标点工具箱&quot;;&#xD;&#xA;    public const string Version = &quot;${env:version}&quot;;&#xD;&#xA;    public const string Author = &quot;阿洛 MnFeN&quot;;&#xD;&#xA;&#xD;&#xA;    public static string InitInfo =&gt; $&quot;{Name}：{NameCN} v{Version} by {Author} 已成功初始化。&quot;;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;RealPlugin.plug.RegisterNamedCallback(&quot;AdvWm&quot;, new Action&lt;object, string&gt;(AdvWm.NamedCallback), null, registrant: $&quot;{Info.NameCN} v{Info.Version}&quot;);&#xD;&#xA;RealPlugin.plug.InvokeNamedCallback(&quot;NamazuLog&quot;, Info.InitInfo);&#xD;&#xA;Interpreter.StaticHelpers.Log(RealPlugin.DebugLevelEnum.Custom, Info.InitInfo);&#xD;&#xA;&#xD;&#xA;public class AdvWm&#xD;&#xA;{&#xD;&#xA;    string _command;&#xD;&#xA;    MultiLineRawArgs _data;&#xD;&#xA;    public AdvWm(string command) =&gt; _command = command;&#xD;&#xA;&#xD;&#xA;    public static void Log(string message) =&gt; RealPlugin.plug.InvokeNamedCallback(&quot;command&quot;, $&quot;/e {message}&quot;);&#xD;&#xA;&#xD;&#xA;    public static void NamedCallback(object _, string input)&#xD;&#xA;    {&#xD;&#xA;        var commands = input.Split(new string[] { &quot;---&quot; }, StringSplitOptions.None);&#xD;&#xA;        foreach (var command in commands)&#xD;&#xA;        {&#xD;&#xA;            new AdvWm(command).Execute();&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    static readonly HashSet&lt;string&gt; postNamazuWaymarkKeywords = new HashSet&lt;string&gt; {&#xD;&#xA;        &quot;save&quot;, &quot;backup&quot;, &quot;load&quot;, &quot;restore&quot;, &quot;reset&quot;, &quot;clear&quot;, &quot;public&quot;&#xD;&#xA;    };&#xD;&#xA;&#xD;&#xA;    private void Execute()&#xD;&#xA;    {&#xD;&#xA;        // 首先判断是否为关键词模式&#xD;&#xA;        string simpleCmd = _command.ToLower().Trim();&#xD;&#xA;        if (postNamazuWaymarkKeywords.Contains(simpleCmd))&#xD;&#xA;        {&#xD;&#xA;            RealPlugin.plug.InvokeNamedCallback(&quot;place&quot;, simpleCmd);&#xD;&#xA;            return;&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        // 初始化 解析键值对&#xD;&#xA;        _data = new MultiLineRawArgs(_command);&#xD;&#xA;        // 提取共通参数&#xD;&#xA;        string action = _data.TryGet(&quot;Action&quot;, out action) ? action : &quot;&quot;;&#xD;&#xA;        bool log = !_data.TryGet(&quot;Log&quot;, out string rawLog) || bool.Parse(rawLog.ToLower());&#xD;&#xA;        bool local = !_data.TryGet(out string rawLocal, &quot;Local&quot;, &quot;LocalOnly&quot;) || bool.Parse(rawLocal.ToLower());&#xD;&#xA;&#xD;&#xA;        Waymarks waymarks;&#xD;&#xA;        switch (action?.ToLower())&#xD;&#xA;        {&#xD;&#xA;            case &quot;getversion&quot;:&#xD;&#xA;                Interpreter.StaticHelpers.SetScalarVariable(isPersistent: false, $&quot;{Info.Name}_version&quot;, Info.Version); return;&#xD;&#xA;            case &quot;encode&quot;:&#xD;&#xA;                {&#xD;&#xA;                    bool isAnonymous = _data.Get(&quot;Anonymous&quot;).FromDataString&lt;bool&gt;();&#xD;&#xA;                    WaymarksEncoder.EncryptedMessageHandler.EncodeMessageAndSendWaymarks(_data.Get(&quot;data&quot;), isAnonymous);&#xD;&#xA;                    return;&#xD;&#xA;                }&#xD;&#xA;            case &quot;decode&quot;:&#xD;&#xA;                WaymarksEncoder.EncryptedMessageHandler.DecodeMessageAndPrint();&#xD;&#xA;                return;&#xD;&#xA;            case &quot;ask&quot;:&#xD;&#xA;                {&#xD;&#xA;                    bool isAnonymous = _data.Get(&quot;Anonymous&quot;).FromDataString&lt;bool&gt;();&#xD;&#xA;                    bool isAlliance = _data.Get(&quot;IsAlliance&quot;).FromDataString&lt;bool&gt;();&#xD;&#xA;                    WaymarksEncoder.UserQuery.Ask(isAnonymous, isAlliance);&#xD;&#xA;                    return;&#xD;&#xA;                }&#xD;&#xA;            case &quot;answer&quot;:&#xD;&#xA;                {&#xD;&#xA;                    bool isAlliance = _data.Get(&quot;IsAlliance&quot;).FromDataString&lt;bool&gt;();&#xD;&#xA;                    WaymarksEncoder.UserQuery.Answer(isAlliance); &#xD;&#xA;                    return;&#xD;&#xA;                }&#xD;&#xA;            case &quot;getusers&quot;:&#xD;&#xA;                WaymarksEncoder.UserQuery.GetUsersResult(); return;&#xD;&#xA;            case &quot;polar&quot;: // 不推荐使用，仅为兼容旧版本，可被 default 模式完全替代&#xD;&#xA;                waymarks = ParseWaymarksPolar(); break;&#xD;&#xA;            case &quot;circle&quot;:&#xD;&#xA;                waymarks = ParseWaymarksCircle(); break;&#xD;&#xA;            case &quot;arc&quot;:&#xD;&#xA;                waymarks = ParseWaymarksArc(); break;&#xD;&#xA;            case &quot;linear&quot;:&#xD;&#xA;            case &quot;connect&quot;:&#xD;&#xA;            case &quot;linearconnect&quot;:&#xD;&#xA;                waymarks = ParseWaymarksLinearConnect(); break;&#xD;&#xA;            // case &quot;absolute&quot;:  case &quot;relative&quot;:  case &quot;place&quot;: 旧版本的指令全部整合为默认的标点模式&#xD;&#xA;            default:&#xD;&#xA;                waymarks = ParseWaymarksDefault(); break;&#xD;&#xA;        }&#xD;&#xA;        // Log($&quot;初始：\n{waymarks}&quot;);&#xD;&#xA;        TryApplyScales(waymarks);&#xD;&#xA;        // Log($&quot;伸缩：\n{waymarks}&quot;);&#xD;&#xA;        TryApplyRotation(waymarks);&#xD;&#xA;        // Log($&quot;旋转：\n{waymarks}&quot;);&#xD;&#xA;        TryApplyCenter(waymarks);&#xD;&#xA;        // Log($&quot;平移：\n{waymarks}&quot;);&#xD;&#xA;        waymarks.LocalOnly = local;&#xD;&#xA;        waymarks.Log = log;&#xD;&#xA;        waymarks.Mark();&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt; 根据提供的所有坐标，生成一组初始标点。 &lt;/summary&gt;&#xD;&#xA;    private Waymarks ParseWaymarksDefault()&#xD;&#xA;    {&#xD;&#xA;        Waymarks waymarks = new Waymarks();&#xD;&#xA;        foreach (string name in Waymark.WaymarkNames)  // a b c d 1 2 3 4&#xD;&#xA;        {&#xD;&#xA;            if (_data.TryGet(name, out string rawCoord))&#xD;&#xA;            {&#xD;&#xA;                waymarks.Add(Waymark.Parse(name, rawCoord));&#xD;&#xA;            }&#xD;&#xA;        }&#xD;&#xA;        return waymarks;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt; 根据提供的所有极坐标，生成一组初始标点。建议使用 Default 替代。 &lt;/summary&gt;&#xD;&#xA;    private Waymarks ParseWaymarksPolar()&#xD;&#xA;    {&#xD;&#xA;        Waymarks waymarks = new Waymarks();&#xD;&#xA;        foreach (string name in Waymark.WaymarkNames)  // a b c d 1 2 3 4&#xD;&#xA;        {&#xD;&#xA;            if (_data.TryGet(name, out string rawPolarCoord))&#xD;&#xA;            {   // 已重构为接近正常方法的处理逻辑&#xD;&#xA;                XIVCoord polarCoord = XIVCoord.ParseRawData(rawPolarCoord.StartsWith(&quot;polar &quot;) ? rawPolarCoord : $&quot;polar {rawPolarCoord}&quot;);&#xD;&#xA;                waymarks.Add(new Waymark(name, polarCoord.ToCartesian()));&#xD;&#xA;            }&#xD;&#xA;        }&#xD;&#xA;        return waymarks;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt; 根据提供的半径和标点名，生成一组排列成圆周的初始标点。 &lt;/summary&gt;&#xD;&#xA;    private Waymarks ParseWaymarksCircle()&#xD;&#xA;    {&#xD;&#xA;        Waymarks waymarks = new Waymarks();&#xD;&#xA;        double rCardinal = MathParser.Parse(_data.Get(&quot;R&quot;));&#xD;&#xA;        double rIntercard = _data.TryGet(&quot;R2&quot;, out string rawR2) ? MathParser.Parse(rawR2) : rCardinal;&#xD;&#xA;        string[] usedWaymarkNames = _data.Get(&quot;Waymarks&quot;).Select(c =&gt; char.ToLower(c).ToString()).ToArray(); // 用哪些点 相对正北逆时针 如 A4D3C2B1&#xD;&#xA;        double step = 2 * PI / usedWaymarkNames.Length; // 相邻标点的角度差&#xD;&#xA;        int count = 0;&#xD;&#xA;        foreach (string name in usedWaymarkNames)  // a b c d 1 2 3 4&#xD;&#xA;        {&#xD;&#xA;            if (Waymark.WaymarkNames.Contains(name))&#xD;&#xA;            {&#xD;&#xA;                var r = (count &amp; 1) == 0 ? rCardinal : rIntercard;&#xD;&#xA;                var θ = count * step - PI;&#xD;&#xA;                waymarks.Add(new Waymark(name, new PolarCoord(r, θ, 0)));&#xD;&#xA;            }&#xD;&#xA;            count++;&#xD;&#xA;        }&#xD;&#xA;        return waymarks;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt; 根据提供的半径、标点名、圆心角，生成一组排列成弧线的初始标点。 &lt;/summary&gt;&#xD;&#xA;    private Waymarks ParseWaymarksArc()&#xD;&#xA;    {&#xD;&#xA;        Waymarks waymarks = new Waymarks();&#xD;&#xA;        double r = MathParser.Parse(_data.Get(&quot;R&quot;));   // 半径&#xD;&#xA;        string[] usedWaymarkNames = _data.Get(&quot;Waymarks&quot;).Select(c =&gt; char.ToLower(c).ToString()).ToArray(); // 用哪些点 相对正北逆时针 如 A4D3C2B1&#xD;&#xA;        int stepCount = usedWaymarkNames.Length - 1;&#xD;&#xA;&#xD;&#xA;        // 圆弧的圆心角，不提供的时候默认为使标点紧邻的角度（弧长约 2.6）&#xD;&#xA;        double dθ = _data.TryGet(out string rawdθ, &quot;dθ&quot;, &quot;dTheta&quot;) ? MathParser.Parse(rawdθ) : (stepCount &gt;= 1) ? 2.6 / r * stepCount : 0;&#xD;&#xA;        double θStep = (stepCount &gt;= 1) ? dθ / stepCount : 0; // 相邻标点的角度差&#xD;&#xA;        int count = 0;&#xD;&#xA;        foreach (string name in usedWaymarkNames)  // a b c d 1 2 3 4&#xD;&#xA;        {&#xD;&#xA;            if (Waymark.WaymarkNames.Contains(name)) // 允许使用非标点名的字符占位等分点，不会生成标点&#xD;&#xA;            {&#xD;&#xA;                PolarCoord polarCoord = new PolarCoord(r, (count - stepCount / 2.0) * θStep - PI, 0);&#xD;&#xA;                waymarks.Add(new Waymark(name, polarCoord));&#xD;&#xA;            }&#xD;&#xA;            count++;&#xD;&#xA;        }&#xD;&#xA;        return waymarks;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt; 根据提供的起点、终点、标点名，生成线性插值的初始标点。 &lt;/summary&gt;&#xD;&#xA;    private Waymarks ParseWaymarksLinearConnect()&#xD;&#xA;    {&#xD;&#xA;        Waymarks waymarks = new Waymarks();&#xD;&#xA;        string[] usedWaymarkNames = _data.Get(&quot;Waymarks&quot;).Select(c =&gt; char.ToLower(c).ToString()).ToArray(); // 用哪些点 起点到终点 如 A4D3C2B1&#xD;&#xA;        if (usedWaymarkNames.Length &lt; 2)&#xD;&#xA;        {&#xD;&#xA;            throw new Exception(&quot;AdvWm: LinearConnect 模式下，提供的标点数量不足 2&quot;);&#xD;&#xA;        }&#xD;&#xA;        XIVCoord startCoord = XIVCoord.ParseRawData(_data.Get(&quot;start&quot;));&#xD;&#xA;        XIVCoord endCoord = XIVCoord.ParseRawData(_data.Get(&quot;end&quot;));&#xD;&#xA;        XIVCoord vector = endCoord - startCoord;&#xD;&#xA;        double totalDistance = vector.Length;&#xD;&#xA;        // Log($&quot;{vector}&quot;);&#xD;&#xA;        int count = 0;&#xD;&#xA;        foreach (string name in usedWaymarkNames)  // A B C D 1 2 3 4&#xD;&#xA;        {&#xD;&#xA;            if (Waymark.WaymarkNames.Contains(name))&#xD;&#xA;            {&#xD;&#xA;                double percentage = (double)count / (usedWaymarkNames.Length - 1);  // 标点默认等分&#xD;&#xA;                if (_data.TryGet(name, out string rawDistance))   // 也可以不等分，自定义标点位置&#xD;&#xA;                {&#xD;&#xA;                    if (rawDistance.EndsWith(&quot; m&quot;))      // 以 A: 5 m 形式提供的距离&#xD;&#xA;                    {&#xD;&#xA;                        // @d 代表总长度，如 A: @d - 5 m 意为终点前 5 m&#xD;&#xA;                        string strTotalDistance = totalDistance.ToString(MathParser.CultureInfo);&#xD;&#xA;                        rawDistance = rawDistance.Replace(&quot;@d&quot;, strTotalDistance);&#xD;&#xA;                        double distance = MathParser.Parse(rawDistance.Substring(0, rawDistance.Length - 2));&#xD;&#xA;                        percentage = distance / totalDistance;&#xD;&#xA;                    }&#xD;&#xA;                    else                                // 以 A: 0.125 形式提供的百分比&#xD;&#xA;                    {&#xD;&#xA;                        percentage = MathParser.Parse(rawDistance);&#xD;&#xA;                    }&#xD;&#xA;                }&#xD;&#xA;&#xD;&#xA;                XIVCoord coord = startCoord + percentage * vector;&#xD;&#xA;                waymarks.Add(new Waymark(name, coord));&#xD;&#xA;            }&#xD;&#xA;            count++;&#xD;&#xA;        }&#xD;&#xA;        return waymarks;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt; 如果当前指令提供了任何伸缩，将伸缩变换应用到给定的一组标点坐标。 &lt;/summary&gt;&#xD;&#xA;    /// &lt;returns&gt;&lt;/returns&gt;&#xD;&#xA;    private void TryApplyScales(Waymarks waymarks)&#xD;&#xA;    {&#xD;&#xA;        // 首先尝试解析 Scale 和具体的 ScaleX, ScaleY, ScaleZ 参数&#xD;&#xA;        bool hasScale = _data.TryGet(&quot;Scale&quot;, out string rawScale);&#xD;&#xA;        bool hasScaleX = _data.TryGet(&quot;ScaleX&quot;, out string rawScaleX);&#xD;&#xA;        bool hasScaleY = _data.TryGet(&quot;ScaleY&quot;, out string rawScaleY);&#xD;&#xA;        bool hasScaleZ = _data.TryGet(&quot;ScaleZ&quot;, out string rawScaleZ);&#xD;&#xA;&#xD;&#xA;        // 未给定参数则免去解析直接返回&#xD;&#xA;        if (!hasScale &amp;&amp; !hasScaleX &amp;&amp; !hasScaleY &amp;&amp; !hasScaleZ) return;&#xD;&#xA;&#xD;&#xA;        // 如果存在 scale 参数，按照 scaleX ?? scale ?? 1 的优先级解析&#xD;&#xA;        double defaultScale = hasScale ? MathParser.Parse(rawScale) : 1;&#xD;&#xA;&#xD;&#xA;        double scaleX = hasScaleX ? MathParser.Parse(rawScaleX) : defaultScale;&#xD;&#xA;        double scaleY = hasScaleY ? MathParser.Parse(rawScaleY) : defaultScale;&#xD;&#xA;        double scaleZ = hasScaleZ ? MathParser.Parse(rawScaleZ) : defaultScale;&#xD;&#xA;&#xD;&#xA;        // 如果任一缩放倍率不是 1，则缩放&#xD;&#xA;        if (Abs(scaleX - 1) &gt; 1e-5 || Abs(scaleY - 1) &gt; 1e-5 || Abs(scaleZ - 1) &gt; 1e-5)&#xD;&#xA;        {&#xD;&#xA;            foreach (Waymark wm in waymarks)&#xD;&#xA;            {&#xD;&#xA;                wm.Coord = wm.Coord.ScaleBy(scaleX, scaleY, scaleZ);&#xD;&#xA;            }&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt; 如果当前指令提供了旋转，将伸缩变换应用到给定的一组标点坐标。 &lt;/summary&gt;&#xD;&#xA;    /// &lt;returns&gt;&lt;/returns&gt;&#xD;&#xA;    private void TryApplyRotation(Waymarks waymarks)&#xD;&#xA;    {&#xD;&#xA;        if (_data.TryGet(out string rawθ, &quot;θ&quot;, &quot;Theta&quot;))&#xD;&#xA;        {&#xD;&#xA;            double θ = MathParser.Parse(rawθ);&#xD;&#xA;            foreach (Waymark wm in waymarks)&#xD;&#xA;            {&#xD;&#xA;                wm.Coord = wm.Coord.RotateTo(θ);&#xD;&#xA;            }&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt; 如果当前指令提供了场地中心，将场地中心应用到给定的一组标点坐标。 &lt;/summary&gt;&#xD;&#xA;    void TryApplyCenter(Waymarks waymarks)&#xD;&#xA;    {&#xD;&#xA;        if (_data.TryGet(out string rawCenter, &quot;O&quot;, &quot;Center&quot;))&#xD;&#xA;        {&#xD;&#xA;            XIVCoord centerCoord = XIVCoord.ParseRawData(rawCenter);&#xD;&#xA;            foreach (Waymark wm in waymarks)&#xD;&#xA;            {&#xD;&#xA;                wm.Coord = wm.Coord.MoveTo(centerCoord);&#xD;&#xA;            }&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;#region Waymark(s)&#xD;&#xA;&#xD;&#xA;public enum WaymarkType { A, B, C, D, One, Two, Three, Four }&#xD;&#xA;public class Waymark&#xD;&#xA;{&#xD;&#xA;    public WaymarkType Type { get; set; }&#xD;&#xA;    public XIVCoord Coord { get; set; }&#xD;&#xA;    public bool Ignore { get; set; }&#xD;&#xA;    public bool Active { get; set; }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt;&#xD;&#xA;    /// 用于遍历时保证输出顺序&#xD;&#xA;    /// &lt;/summary&gt;&#xD;&#xA;    public static readonly string[] WaymarkNames = new string[] { &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot; };&#xD;&#xA;    public static readonly WaymarkType[] WaymarkTypes = new WaymarkType[]&#xD;&#xA;    {&#xD;&#xA;        WaymarkType.A, WaymarkType.B, WaymarkType.C, WaymarkType.D,&#xD;&#xA;        WaymarkType.One, WaymarkType.Two, WaymarkType.Three, WaymarkType.Four&#xD;&#xA;    };&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt;&#xD;&#xA;    /// 从用户输入的标点类型转化为实际 Type&#xD;&#xA;    /// &lt;/summary&gt;&#xD;&#xA;    public static readonly Dictionary&lt;string, WaymarkType&gt; TypeMap = Enumerable.Range(0, 8)&#xD;&#xA;        .ToDictionary(i =&gt; WaymarkNames[i], i =&gt; WaymarkTypes[i]);&#xD;&#xA;&#xD;&#xA;    public Waymark(WaymarkType type, XIVCoord coord = null, bool ignore = false)&#xD;&#xA;    {&#xD;&#xA;        Type = type;&#xD;&#xA;        Coord = coord ?? new CartesianCoord(0, 0, 0);&#xD;&#xA;        Active = coord != null;&#xD;&#xA;        Ignore = ignore;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public Waymark(string rawType, XIVCoord coord = null, bool ignore = false)&#xD;&#xA;    {&#xD;&#xA;        if (TypeMap.TryGetValue(rawType, out var mappedType))&#xD;&#xA;        {&#xD;&#xA;            Type = mappedType;&#xD;&#xA;        }&#xD;&#xA;        else&#xD;&#xA;        {&#xD;&#xA;            throw new Exception($&quot;AdvWm: {rawType} 不是合法的标点名之一（A B C D 1 2 3 4）。&quot;);&#xD;&#xA;        }&#xD;&#xA;        Coord = coord ?? new CartesianCoord(0, 0, 0);&#xD;&#xA;        Active = coord != null;&#xD;&#xA;        Ignore = ignore;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public static Waymark Parse(string rawType, string rawCoord, bool ignore = false)&#xD;&#xA;    {&#xD;&#xA;        Waymark wm = new Waymark(rawType, null, ignore);&#xD;&#xA;&#xD;&#xA;        switch (rawCoord.Trim().ToLower())&#xD;&#xA;        {&#xD;&#xA;            // 清除标点&#xD;&#xA;            case &quot;clear&quot;:&#xD;&#xA;                wm.Active = false;&#xD;&#xA;                wm.Coord = new CartesianCoord(0, 0, 0);&#xD;&#xA;                break;&#xD;&#xA;            // 变相地“清除”标点  不会有淡入淡出动画&#xD;&#xA;            case &quot;fakeclear&quot;:&#xD;&#xA;                wm.Active = true;&#xD;&#xA;                wm.Coord = new CartesianCoord(0, 0, 1000);&#xD;&#xA;                break;&#xD;&#xA;            default:&#xD;&#xA;                wm.Active = true;&#xD;&#xA;                wm.Coord = XIVCoord.ParseRawData(rawCoord);&#xD;&#xA;                break;&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        return wm;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public string Jsonify()&#xD;&#xA;    {&#xD;&#xA;        if (Ignore)&#xD;&#xA;            return &quot;&quot;;&#xD;&#xA;        if (Active)&#xD;&#xA;            return $&quot;\&quot;{Type}\&quot;: {{ {Coord.Jsonify()}, \&quot;Active\&quot;: true }}&quot;;&#xD;&#xA;        else&#xD;&#xA;            return $&quot;\&quot;{Type}\&quot;: {{}}&quot;;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public override string ToString() =&gt; Jsonify();&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;public sealed class Waymarks : IEnumerable&lt;Waymark&gt;&#xD;&#xA;{&#xD;&#xA;    private readonly Dictionary&lt;WaymarkType, Waymark&gt; _waymarks;&#xD;&#xA;    public bool Log = true;&#xD;&#xA;    public bool LocalOnly = true;&#xD;&#xA;&#xD;&#xA;    public Waymarks()&#xD;&#xA;    {&#xD;&#xA;        _waymarks = new Dictionary&lt;WaymarkType, Waymark&gt;();&#xD;&#xA;        foreach (var type in Waymark.WaymarkTypes)&#xD;&#xA;        {&#xD;&#xA;            _waymarks[type] = new Waymark(type, ignore: true);&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public Waymark this[WaymarkType type]&#xD;&#xA;    {&#xD;&#xA;        get =&gt; _waymarks[type];&#xD;&#xA;        set =&gt; _waymarks[type] = value;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    IEnumerator IEnumerable.GetEnumerator() =&gt; GetEnumerator();&#xD;&#xA;    public IEnumerator&lt;Waymark&gt; GetEnumerator()&#xD;&#xA;    {&#xD;&#xA;        foreach (var type in Waymark.WaymarkTypes)&#xD;&#xA;        {&#xD;&#xA;            if (_waymarks.TryGetValue(type, out Waymark waymark))&#xD;&#xA;            {&#xD;&#xA;                yield return waymark;&#xD;&#xA;            }&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public void Add(Waymark wm)&#xD;&#xA;    {&#xD;&#xA;        if (wm == null || wm.Ignore) return;&#xD;&#xA;        else _waymarks[wm.Type] = wm;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public string Jsonify()&#xD;&#xA;    {&#xD;&#xA;        var jsonList = _waymarks.Values.Where(wm =&gt; wm?.Ignore == false)&#xD;&#xA;            .Select(wm =&gt; &quot;    &quot; + wm.Jsonify()).ToList();&#xD;&#xA;        if (!Log)&#xD;&#xA;            jsonList.Add($&quot;    \&quot;Log\&quot;: false&quot;);&#xD;&#xA;        if (!LocalOnly)&#xD;&#xA;            jsonList.Add($&quot;    \&quot;LocalOnly\&quot;: false&quot;);&#xD;&#xA;        string data = string.Join(&quot;,\n&quot;, jsonList);&#xD;&#xA;        return $&quot;{{\n{string.Join(&quot;,\n&quot;, jsonList)}\n}}&quot;;&#xD;&#xA;    }&#xD;&#xA;    public override string ToString() =&gt; Jsonify();&#xD;&#xA;&#xD;&#xA;    public void Mark()&#xD;&#xA;    {&#xD;&#xA;        RealPlugin.plug.InvokeNamedCallback(&quot;place&quot;, this.Jsonify());&#xD;&#xA;        //RealPlugin.plug.InvokeNamedCallback(&quot;command&quot;, $&quot;/e {this}&quot;);&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;#endregion Waymark(s)&#xD;&#xA;&#xD;&#xA;public static class WaymarksEncoder&#xD;&#xA;{&#xD;&#xA;    /// &lt;summary&gt; 用于表示用户状态的 flags。 &lt;/summary&gt;&#xD;&#xA;    [Flags]&#xD;&#xA;    public enum StatusFlags : byte&#xD;&#xA;    {&#xD;&#xA;        None = 0,&#xD;&#xA;        /// &lt;summary&gt; 是否将自身标记为匿名。 &lt;/summary&gt;&#xD;&#xA;        IsAnonymous = 1,&#xD;&#xA;        /// &lt;summary&gt; 是否将编码的 ID 替换为空值。 &lt;/summary&gt;&#xD;&#xA;        IsIdHidden = 2,&#xD;&#xA;        /// &lt;summary&gt; 鲶鱼精邮差的 WayMark 功能是否启用。 &lt;/summary&gt;&#xD;&#xA;        IsWaymarkEnabled = 4,&#xD;&#xA;        /// &lt;summary&gt; 是否主动请求数据 / 主动发送消息。 &lt;/summary&gt;&#xD;&#xA;        IsInitiator = 8,&#xD;&#xA;        /// &lt;summary&gt; 是否是团队模式（编码实际 id 而非小队次序） &lt;/summary&gt;&#xD;&#xA;        IsAllianceMode = 16,&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt; 将 StatusFlags 编码为 z 坐标的小数部分。&lt;/summary&gt;&#xD;&#xA;    public static float FlagsToOffsetZ(StatusFlags flags)&#xD;&#xA;    {&#xD;&#xA;        return (byte)flags * 0.01f + 0.01f;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt; 将用于编码 StatusFlags 的 z 坐标转化回 StatusFlags。&lt;/summary&gt;&#xD;&#xA;    public static StatusFlags ZToFlags(float z)&#xD;&#xA;    {&#xD;&#xA;        return (StatusFlags)(byte)Round((z - Floor(z) - 0.01) * 100);&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt; 从用户配置中提取 IsAnonymous 与 IsIdHidden 信息 &lt;/summary&gt;&#xD;&#xA;    static StatusFlags UserConfigAnonymousFlags&#xD;&#xA;    {&#xD;&#xA;        get&#xD;&#xA;        {&#xD;&#xA;            var data = Interpreter.StaticHelpers.GetScalarVariable(true, &quot;AdvWm_Anonymous&quot;);&#xD;&#xA;            StatusFlags result;&#xD;&#xA;            if (data == null)&#xD;&#xA;            {&#xD;&#xA;                result = StatusFlags.None;&#xD;&#xA;            }&#xD;&#xA;            else if (!byte.TryParse(data, out var rawResult))&#xD;&#xA;            {&#xD;&#xA;                result = StatusFlags.IsAnonymous;&#xD;&#xA;            }&#xD;&#xA;            else&#xD;&#xA;            {&#xD;&#xA;                result = (StatusFlags)rawResult;&#xD;&#xA;                result &amp;= (StatusFlags.IsAnonymous | StatusFlags.IsIdHidden);&#xD;&#xA;            }&#xD;&#xA;            // 保存正确格式，或删除&#xD;&#xA;            Interpreter.StaticHelpers.SetScalarVariable(true, &quot;AdvWm_Anonymous&quot;, result != StatusFlags.None ? (byte?)result : null);&#xD;&#xA;            return result;&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt; 用场地标点的坐标加密、解密文本信息，仅通过标点实现用户之间的加密通信频道。&lt;/summary&gt;&#xD;&#xA;    public static class EncryptedMessageHandler&#xD;&#xA;    {&#xD;&#xA;        /// &lt;summary&gt; 将一个 ±16384 以内、三位小数精度的 float 游戏坐标编码为 uint24。&lt;/summary&gt;&#xD;&#xA;        static int CoordToInt(float coord)&#xD;&#xA;        {&#xD;&#xA;            // 标点数据只有三位精度。&#xD;&#xA;            // float 在 ±16384 内时可保证第三位小数准确，小于这个阈值的最大 2^n / 1000 为 ±8388.608，恰好 24 bit&#xD;&#xA;            int encodedInt = (int)Round((double)coord * 1000);&#xD;&#xA;            if (encodedInt &lt; 0)            // -8388608 ~ -1&#xD;&#xA;                encodedInt += 0xFFFFFF;    // 转换为 8388608 (0x800000) ~ 16777215 (0xFFFFFF)&#xD;&#xA;            return encodedInt;&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        /// &lt;summary&gt; 从 uint24 编码的整数解码为 ±16384 以内、三位小数精度的 float 游戏坐标（这里用 double 是为了精度检验）。&lt;/summary&gt;&#xD;&#xA;        static double IntToCoord(int encodedInt) =&gt; (encodedInt &gt; 0x7FFFFF ? encodedInt - 0xFFFFFF : encodedInt) / 1000.0;&#xD;&#xA;&#xD;&#xA;        /// &lt;summary&gt; ID (10XXXXXX) 实际数据量相当于 uint24，将坐标转换为发送者 ID &lt;/summary&gt;&#xD;&#xA;        static uint? CoordToId(float coord) =&gt; coord == 0 ? null : (uint?)(CoordToInt(coord) + 0x10000000);&#xD;&#xA;&#xD;&#xA;        /// &lt;summary&gt; 用于表明发送消息的特征 Y/Z 基准值。&lt;/summary&gt;&#xD;&#xA;        const float A_YZ = 531;&#xD;&#xA;&#xD;&#xA;        /// &lt;summary&gt; &#xD;&#xA;        /// 编码一串文本，以标点形式发送：A 点用于编码发送者 ID 和状态标志，B-4 用于编码文本内容。&lt;br /&gt;&#xD;&#xA;        /// · AX =&gt; uint24 ID ?? 0; &lt;br /&gt;&#xD;&#xA;        /// · AY =&gt; 特征值 531; &lt;br /&gt;&#xD;&#xA;        /// · AZ =&gt; 特征值 531 + flagOffset &lt;br /&gt;&lt;br /&gt;&#xD;&#xA;        /// &lt;/summary&gt;&#xD;&#xA;        public static void EncodeMessageAndSendWaymarks(string msg, bool wantAnonymous)&#xD;&#xA;        {&#xD;&#xA;            try&#xD;&#xA;            {&#xD;&#xA;                // 将信息编码为一组 uint24&#xD;&#xA;                byte[] byteArray = Encoding.UTF8.GetBytes(msg);&#xD;&#xA;                if (byteArray.Length &gt; 63)&#xD;&#xA;                    throw new Exception(&quot;输入字符串过长，不能超过 63 字节。&quot;);&#xD;&#xA;                Array.Resize(ref byteArray, 63);&#xD;&#xA;                List&lt;int&gt; integers = new List&lt;int&gt;();&#xD;&#xA;                for (int i = 0; i &lt; 21; i++)&#xD;&#xA;                {&#xD;&#xA;                    // 每三个字节合并为一个 uint24 整数（大端序）&#xD;&#xA;                    var current = (byteArray[i * 3] &lt;&lt; 16) | (byteArray[i * 3 + 1] &lt;&lt; 8) | (byteArray[i * 3 + 2]);&#xD;&#xA;                    var currentDouble = IntToCoord(current);&#xD;&#xA;                    // 实际发现 ±8192 以外的小数在传给 SE 时有概率丢失小数精度，手动修复此问题&#xD;&#xA;                    if (Abs(currentDouble) &gt; 8192)&#xD;&#xA;                    {&#xD;&#xA;                        bool corrupted = false;&#xD;&#xA;                        var currentErr = (double)(float)currentDouble - currentDouble;&#xD;&#xA;                        var prevDouble = currentDouble - (currentDouble &gt;= 0 ? 0.001 : -0.001);&#xD;&#xA;                        var prevErr = (double)(float)prevDouble - prevDouble;&#xD;&#xA;                        if (currentDouble &gt; 8192 &amp;&amp; currentErr &lt;= -0.00025) // 实测的阈值 0.00025，与 float 强转 int 的取整行为有关&#xD;&#xA;                        {&#xD;&#xA;                            if (prevErr &lt;= -0.00025) // 可以校正&#xD;&#xA;                            {&#xD;&#xA;                                //Debug.Log(current, currentDouble, currentErr, &quot;current++&quot;, prevDouble, prevErr);&#xD;&#xA;                                current++;&#xD;&#xA;                            }&#xD;&#xA;                            else corrupted = true; // 编码后的值被两个原始值共享，无法校正&#xD;&#xA;                        }&#xD;&#xA;                        else if (currentDouble &lt; -8192 &amp;&amp; currentErr &gt;= 0.00025)&#xD;&#xA;                        {&#xD;&#xA;                            if (prevErr &gt;= 0.00025)&#xD;&#xA;                            {&#xD;&#xA;                                //Debug.Log(current, currentDouble, currentErr, &quot;current--&quot;, prevDouble, prevErr);&#xD;&#xA;                                current--;&#xD;&#xA;                            }&#xD;&#xA;                            else corrupted = true;&#xD;&#xA;                        }&#xD;&#xA;                        if (corrupted) &#xD;&#xA;                            throw new Exception(&quot;&lt;se.11&gt;\n你恰好输入了编码会造成精度丢失的字符组合。\n你可以尝试调整文本，如在最前面加一个英文句号\&quot;.\&quot;。&quot;);&#xD;&#xA;                    }&#xD;&#xA;                    integers.Add(current);&#xD;&#xA;                }&#xD;&#xA;&#xD;&#xA;                // 读取配置，应用状态&#xD;&#xA;                var flags = StatusFlags.None;&#xD;&#xA;                if (wantAnonymous)  // 要求匿名时设置匿名&#xD;&#xA;                {&#xD;&#xA;                    flags |= StatusFlags.IsAnonymous;&#xD;&#xA;                    if (UserConfigAnonymousFlags.HasFlag(StatusFlags.IsIdHidden))&#xD;&#xA;                        flags |= StatusFlags.IsIdHidden;&#xD;&#xA;                }&#xD;&#xA;                flags |= StatusFlags.IsInitiator;&#xD;&#xA;                if (BridgeNamazu.NamazuPlugin.ActionEnabled[&quot;WayMark&quot;])&#xD;&#xA;                {&#xD;&#xA;                    flags |= StatusFlags.IsWaymarkEnabled;&#xD;&#xA;                }&#xD;&#xA;&#xD;&#xA;                string advWm = $&quot;Local: false&quot;;&#xD;&#xA;                float ax = flags.HasFlag(StatusFlags.IsIdHidden) ? 0 : (float)IntToCoord((int)(Triggernometry.FFXIV.Entity.MyID - 0x10000000));&#xD;&#xA;                float offsetZ = FlagsToOffsetZ(flags);&#xD;&#xA;                advWm += $&quot;\nA: {ax}, {A_YZ}, {A_YZ + offsetZ}&quot;;&#xD;&#xA;                string[] names = new string[] { &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot; };&#xD;&#xA;                for (int i = 0; i &lt; 7; i++)&#xD;&#xA;                {&#xD;&#xA;                    if (integers[i * 3] == 0 &amp;&amp; integers[i * 3 + 1] == 0 &amp;&amp; integers[i * 3 + 2] == 0)&#xD;&#xA;                        advWm += $&quot;\n{names[i]}: clear&quot;;&#xD;&#xA;                    else&#xD;&#xA;                    {&#xD;&#xA;                        float x = (float)IntToCoord(integers[i * 3]);&#xD;&#xA;                        float y = (float)IntToCoord(integers[i * 3 + 1]);&#xD;&#xA;                        float z = (float)IntToCoord(integers[i * 3 + 2]);&#xD;&#xA;                        advWm += $&quot;\n{names[i]}: {x}, {y}, {z}&quot;;&#xD;&#xA;                    }&#xD;&#xA;                }&#xD;&#xA;                BridgeNamazu.NamazuPlugin.ExecuteWithForcedModuleState(&quot;WayMark&quot;, () =&gt; RealPlugin.plug.InvokeNamedCallback(&quot;AdvWm&quot;, advWm));&#xD;&#xA;            }&#xD;&#xA;            catch (Exception e)&#xD;&#xA;            {&#xD;&#xA;                AdvWm.Log($&quot;发送失败：{e.Message}&quot;);&#xD;&#xA;                //Debug.Show(e);&#xD;&#xA;            }&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        /// &lt;summary&gt; 解码当前标点为文本，并检测发送者 &lt;/summary&gt;&#xD;&#xA;        public static void DecodeMessageAndPrint()&#xD;&#xA;        {&#xD;&#xA;            List&lt;byte&gt; byteList = new List&lt;byte&gt;();&#xD;&#xA;            var waymarks = Triggernometry.Utilities.Memory.Waymarks.Read();&#xD;&#xA;            uint? senderId = CoordToId(waymarks.A.X);&#xD;&#xA;            StatusFlags flags = ZToFlags(waymarks.A.Z);&#xD;&#xA;            var sender = new UserEntry(senderId ?? 0, flags);&#xD;&#xA;&#xD;&#xA;            foreach (var waymark in waymarks.Skip(1)) // 跳过用于表明密语消息的 A 点&#xD;&#xA;            {&#xD;&#xA;                if (!waymark.Active) break;&#xD;&#xA;                foreach (var coord in new[] { waymark.X, waymark.Y, waymark.Z })&#xD;&#xA;                {&#xD;&#xA;                    int encodedInt = CoordToInt(coord);&#xD;&#xA;                    // 从而将 ±8388.608 以内的 float 转换为 24 bit 数据，再分解为 3 字节&#xD;&#xA;                    byteList.Add((byte)((encodedInt &gt;&gt; 16) &amp; 0xFF));   // 高8位&#xD;&#xA;                    byteList.Add((byte)((encodedInt &gt;&gt; 8) &amp; 0xFF));    // 中8位&#xD;&#xA;                    byteList.Add((byte)(encodedInt &amp; 0xFF));           // 低8位&#xD;&#xA;                }&#xD;&#xA;            }&#xD;&#xA;            // 去除末尾多余的 0 字节&#xD;&#xA;            int firstZero = byteList.FindIndex(b =&gt; b == 0);&#xD;&#xA;            if (firstZero &gt;= 0)&#xD;&#xA;            {&#xD;&#xA;                byteList = byteList.GetRange(0, firstZero);&#xD;&#xA;            }&#xD;&#xA;            var msg =  Encoding.UTF8.GetString(byteList.ToArray());&#xD;&#xA;            var se = msg.Contains(&quot;&lt;se.&quot;) ? &quot;&quot; : &quot; &lt;se.10&gt;&quot;;&#xD;&#xA;            var fullMsg = $@&quot;[AdvWm] 加密通讯频道&#xD;&#xA;如果你对此消息有疑问，可输入 /e ?tell&#xD;&#xA;—————————————————&#xD;&#xA;{sender} 发送了消息：{se}&#xD;&#xA;{msg}&quot;;&#xD;&#xA;            AdvWm.Log(fullMsg);&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public static class UserQuery&#xD;&#xA;    {&#xD;&#xA;        /// &lt;summary&gt; 将 0x10000000 - 0x10FFFFFF 的 id 编码为 80.00 - 120.95 范围内的两个 float 坐标 &lt;/summary&gt;&#xD;&#xA;        static (float, float) AllianceModeIdToCoords(uint id)&#xD;&#xA;        {&#xD;&#xA;            id -= 0x10000000;&#xD;&#xA;            return (80 + ((id &gt;&gt; 12) &amp; 0xFFF) / 100f, 80 + (id &amp; 0xFFF) / 100f);&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        public static void Ask(bool wantAnonymous, bool isAlliance)&#xD;&#xA;        {&#xD;&#xA;            var flags = StatusFlags.None;&#xD;&#xA;            if (wantAnonymous)  // 要求匿名时设置匿名&#xD;&#xA;            { &#xD;&#xA;                flags |= StatusFlags.IsAnonymous;&#xD;&#xA;                if (UserConfigAnonymousFlags.HasFlag(StatusFlags.IsIdHidden))&#xD;&#xA;                    flags |= StatusFlags.IsIdHidden;&#xD;&#xA;            }&#xD;&#xA;            flags |= StatusFlags.IsInitiator;&#xD;&#xA;            if (BridgeNamazu.NamazuPlugin.ActionEnabled[&quot;WayMark&quot;])&#xD;&#xA;            {&#xD;&#xA;                flags |= StatusFlags.IsWaymarkEnabled;&#xD;&#xA;            }&#xD;&#xA;            if (isAlliance)&#xD;&#xA;            {&#xD;&#xA;                flags |= StatusFlags.IsAllianceMode;&#xD;&#xA;            }&#xD;&#xA;            AskOrAnswer(flags);&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        public static void Answer(bool isAlliance)&#xD;&#xA;        {&#xD;&#xA;            var flags = UserConfigAnonymousFlags;&#xD;&#xA;            if (BridgeNamazu.NamazuPlugin.ActionEnabled[&quot;WayMark&quot;])&#xD;&#xA;            {&#xD;&#xA;                flags |= StatusFlags.IsWaymarkEnabled;&#xD;&#xA;            }&#xD;&#xA;            if (isAlliance)&#xD;&#xA;            {&#xD;&#xA;                flags |= StatusFlags.IsAllianceMode;&#xD;&#xA;            }&#xD;&#xA;            AskOrAnswer(flags);&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        static List&lt;string&gt; WaymarkNames = new List&lt;string&gt; { &quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot; };&#xD;&#xA;&#xD;&#xA;        /// &lt;summary&gt; &#xD;&#xA;        /// 通过改变标点，发起关于谁在使用此工具箱的询问或应答。&lt;br /&gt;&#xD;&#xA;        /// 小队模式查询：仅修改自己 ID 在小队中数值升序排序对应的标点 &lt;br /&gt;&#xD;&#xA;        /// · X =&gt; (原始值 ?? 0) 近似至最接近的 ±*.*1，以末位 1 为标志位 &lt;br /&gt;&#xD;&#xA;        /// · Y =&gt; (原始值 ?? 0) 近似至最接近的 ±*.*1，以末位 1 为标志位 &lt;br /&gt;&#xD;&#xA;        /// · Z =&gt; (原始值 ?? 0) 取整 + flagOffset &lt;br /&gt;&lt;br /&gt;&#xD;&#xA;        /// 团队模式查询：用 A 点标记，且清除其他所有标点 &lt;br /&gt;&#xD;&#xA;        /// · (AX, AY) =&gt; uint24 ID ?? (0, 0) &lt;br /&gt;&#xD;&#xA;        /// · AZ =&gt; 特征值 329 + flagOffset &#xD;&#xA;        /// &lt;/summary&gt;&#xD;&#xA;        private static void AskOrAnswer(StatusFlags flags)&#xD;&#xA;        {&#xD;&#xA;            try&#xD;&#xA;            {&#xD;&#xA;                int myIdx = 0;&#xD;&#xA;                string myWaymark = &quot;A&quot;;&#xD;&#xA;                float x, y, z;&#xD;&#xA;&#xD;&#xA;                // Party 模式：通过自身 ID 在小队中的排序指定使用的标点，XYZ 坐标大致保持不变，XY 近似到第二位小数为 1 作为识别符，Z 小数部分为 flags&#xD;&#xA;                if (!flags.HasFlag(StatusFlags.IsAllianceMode))&#xD;&#xA;                {&#xD;&#xA;                    var myHexID = Triggernometry.FFXIV.Entity.GetMyself().HexID;&#xD;&#xA;                    var ids = Triggernometry.FFXIV.Entity.GetEntities()&#xD;&#xA;                        .Where(e =&gt; e.HexID == myHexID || (e.Type == EntityType.Pc &amp;&amp; e.InParty)) // 只有自己的时候没有形成小队，加一个条件用于调试&#xD;&#xA;                        .OrderBy(e =&gt; e.ID)&#xD;&#xA;                        .Select(e =&gt; e.HexID)&#xD;&#xA;                        .ToList();&#xD;&#xA;                    // 如果隐藏 ID，则使用 A 点作为标记 &#xD;&#xA;                    myIdx = !flags.HasFlag(StatusFlags.IsIdHidden) ? ids.IndexOf(myHexID) : 0;&#xD;&#xA;                    if (myIdx &lt; 0 || myIdx &gt; 8)&#xD;&#xA;                        throw new Exception($&quot;小队数据错误：myID = {myHexID}, idx = {myIdx}&quot;);&#xD;&#xA;                    myWaymark = WaymarkNames[myIdx];&#xD;&#xA;&#xD;&#xA;                    // 获取当前的该标点信息 ?? (0, 0, 0)，以防标点闪烁&#xD;&#xA;                    var currentWaymark = Memory.Waymarks.Read().ElementAt(myIdx);&#xD;&#xA;                    if (currentWaymark.Active)&#xD;&#xA;                    {&#xD;&#xA;                        x = (float)Round(currentWaymark.X, 1);&#xD;&#xA;                        y = (float)Round(currentWaymark.Y, 1);&#xD;&#xA;                        z = (float)Floor(currentWaymark.Z + 0.01);&#xD;&#xA;                    }&#xD;&#xA;                    else (x, y, z) = (0f, 0f, 0f);&#xD;&#xA;                    // 将 XY 添加末尾的 0.01 特征&#xD;&#xA;                    x += (x &gt;= 0 ? 0.01f : -0.01f);&#xD;&#xA;                    y += (y &gt;= 0 ? 0.01f : -0.01f);&#xD;&#xA;                }&#xD;&#xA;                // Alliance 模式：固定使用 A 点，用 XY 编码自身的 ID，Z 整数部分为特征数值 329，小数部分为 flags&#xD;&#xA;                else&#xD;&#xA;                {&#xD;&#xA;                    if (!flags.HasFlag(StatusFlags.IsIdHidden))&#xD;&#xA;                        (x, y) = AllianceModeIdToCoords(Triggernometry.FFXIV.Entity.GetMyself().ID);&#xD;&#xA;                    else&#xD;&#xA;                        (x, y) = (0f, 0f);&#xD;&#xA;                    z = 329f;&#xD;&#xA;                }&#xD;&#xA;&#xD;&#xA;                // flags 编码到 z 的小数部分&#xD;&#xA;                z += FlagsToOffsetZ(flags);&#xD;&#xA;&#xD;&#xA;                // 生成高级标点工具箱的指令&#xD;&#xA;                var waymarkCmds = WaymarkNames.Select(wm =&gt;&#xD;&#xA;                {&#xD;&#xA;                    if (wm == myWaymark)&#xD;&#xA;                        return $&quot;{wm}: {x}, {y}, {z}&quot;;&#xD;&#xA;                    else&#xD;&#xA;                        return flags.HasFlag(StatusFlags.IsAllianceMode) ? $&quot;{wm}: clear&quot; : &quot;&quot;;&#xD;&#xA;                });&#xD;&#xA;                string advWm = $&quot;Local: false\n{string.Join(&quot;\n&quot;, waymarkCmds)}&quot;;&#xD;&#xA;                BridgeNamazu.NamazuPlugin.ExecuteWithForcedModuleState(&quot;WayMark&quot;, () =&gt; RealPlugin.plug.InvokeNamedCallback(&quot;AdvWm&quot;, advWm));&#xD;&#xA;            }&#xD;&#xA;            catch (Exception e)&#xD;&#xA;            {&#xD;&#xA;                AdvWm.Log($&quot;发送失败：{e.Message}&quot;);&#xD;&#xA;            }&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        public static void GetUsersResult()&#xD;&#xA;        {&#xD;&#xA;            var users = Interpreter.StaticHelpers.GetListVariable(false, &quot;AdvWm_users&quot;)?.Values?.Select(v =&gt; new UserEntry(v.ToString()))?.ToList()&#xD;&#xA;                ?? throw new Exception(&quot;AdvWm_users 列表未存入任何信息。&quot;);&#xD;&#xA;            var ask = users.FirstOrDefault(u =&gt; u.Flags.HasFlag(StatusFlags.IsInitiator))                 ?? throw new Exception(&quot;AdvWm_users 列表未存入任何发送者信息。&quot;);&#xD;&#xA;            // 查询者非自己、查询者要求匿名、且自己非匿名模式时，不显示结果&#xD;&#xA;            if (ask.Id != Triggernometry.FFXIV.Entity.MyID &amp;&amp; &#xD;&#xA;                ask.Flags.HasFlag(StatusFlags.IsAnonymous) &amp;&amp; &#xD;&#xA;                !UserConfigAnonymousFlags.HasFlag(StatusFlags.IsAnonymous)) &#xD;&#xA;                return;&#xD;&#xA;            string msg = $@&quot;[AdvWm] 看看誰是挂友！&lt;se.10&gt;&#xD;&#xA;{(ask.Flags.HasFlag(StatusFlags.IsAllianceMode) ? &quot;团队&quot; : &quot;小队&quot; )}模式&#xD;&#xA;发起询问者：&#xD;&#xA;  · {ask}&#xD;&#xA;所有使用者:&#xD;&#xA;  · {string.Join(&quot;\n  · &quot;, users?.Where(u =&gt; u != ask))} &quot;;&#xD;&#xA;            AdvWm.Log(msg);&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    internal class UserEntry&#xD;&#xA;    {&#xD;&#xA;        public uint Id;&#xD;&#xA;        public StatusFlags Flags;&#xD;&#xA;&#xD;&#xA;        public UserEntry(uint id, StatusFlags flags)&#xD;&#xA;        {&#xD;&#xA;            Id = id;&#xD;&#xA;            Flags = flags;&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        /// &lt;summary&gt; 接收如 10ABCDEF, 13 的输入&lt;/summary&gt;&#xD;&#xA;        public UserEntry(string data)&#xD;&#xA;        {&#xD;&#xA;            var d = data.Split(',');&#xD;&#xA;            Id = uint.Parse(d[0], System.Globalization.NumberStyles.HexNumber);&#xD;&#xA;            Flags = (StatusFlags)byte.Parse(d[1], System.Globalization.CultureInfo.InvariantCulture);&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        string GetEntityDesc()&#xD;&#xA;        {&#xD;&#xA;            bool isCN = !Triggernometry.FFXIV.Entity.GetMyself().Name.Contains(&quot; &quot;);&#xD;&#xA;            var entity = Triggernometry.FFXIV.Entity.GetEntityByID(Id);&#xD;&#xA;            return $&quot;[{(isCN ? entity.Job.NameCN2 : entity.Job.NameTCN2)}] {entity.Name}&quot;;&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        public override string ToString()&#xD;&#xA;        {&#xD;&#xA;            string desc;&#xD;&#xA;&#xD;&#xA;            // 根据匿名状态生成描述&#xD;&#xA;            if (Flags.HasFlag(StatusFlags.IsIdHidden))&#xD;&#xA;            {&#xD;&#xA;                desc = &quot;[匿名]&quot;;&#xD;&#xA;            }&#xD;&#xA;            else if (Flags.HasFlag(StatusFlags.IsAnonymous))&#xD;&#xA;            {&#xD;&#xA;                if (UserConfigAnonymousFlags.HasFlag(StatusFlags.IsIdHidden))&#xD;&#xA;                {&#xD;&#xA;                    desc = $&quot;{GetEntityDesc()} (试图匿名)&quot;;&#xD;&#xA;                }&#xD;&#xA;                else&#xD;&#xA;                {&#xD;&#xA;                    desc = &quot;[匿名]&quot;;&#xD;&#xA;                }&#xD;&#xA;            }&#xD;&#xA;            else&#xD;&#xA;            {&#xD;&#xA;                desc = $&quot;{GetEntityDesc()}&quot;;&#xD;&#xA;            }&#xD;&#xA;&#xD;&#xA;            if (!Flags.HasFlag(StatusFlags.IsWaymarkEnabled))&#xD;&#xA;                desc += &quot; (未使用标点)&quot;;&#xD;&#xA;            return desc;&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;}" />
 <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="AdvWm_Init" LogProcess="True">
@@ -732,12 +732,12 @@
 <ConditionSingle Enabled="true" ExpressionL="${ecallback:AdvWm}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="b637ab73-e621-4b63-943c-a34b5e9adec3" Name="版本" RegularExpression="^AdvWm_getVersion">
+<Trigger Enabled="true" Name="版本" Id="b637ab73-e621-4b63-943c-a34b5e9adec3" RegularExpression="^AdvWm_getVersion">
 <Actions>
 <Action OrderNumber="1" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="AdvWm_version" ListVariableExpression="${env:version}" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="476dd4d7-cfdb-4ed4-b673-e8b7a5ab9ae0" Name="场地标点：/e mk [正点半径] [斜点半径]?    如 &quot;/e mk 15&quot;  &quot;/e mk 18 10&quot;" RegularExpression="^.{15}\S+ 00:0038:: *mk +(?&lt;card&gt;[^ ]+)(?: +(?&lt;intercard&gt;[^ ]+))? *(?&lt;center&gt;@ *(?&lt;x0&gt;[^ ]+) +(?&lt;y0&gt;[^ ]+)(?: +(?&lt;z0&gt;[^ ]+))? *)?$">
+<Trigger Enabled="true" Name="场地标点：/e mk [正点半径] [斜点半径]?    如 &quot;/e mk 15&quot;  &quot;/e mk 18 10&quot;" Id="476dd4d7-cfdb-4ed4-b673-e8b7a5ab9ae0" RegularExpression="^.{15}\S+ 00:0038:: *mk +(?&lt;card&gt;[^ ]+)(?: +(?&lt;intercard&gt;[^ ]+))? *(?&lt;center&gt;@ *(?&lt;x0&gt;[^ ]+) +(?&lt;y0&gt;[^ ]+)(?: +(?&lt;z0&gt;[^ ]+))? *)?$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="需求：高级标点工具箱，没有的在远程触发器 - 自检 里找" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="NamedCallback" Asynchronous="False" Description="ABCD" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="action: circle&#xD;&#xA;waymarks: ADCB&#xD;&#xA;r: ${card}&#xD;&#xA;center: ${n: ${x0} ?? 100}, ${n: ${y0} ?? 100}, ${n: ${z0} ?? ${_me.z}}" />
@@ -749,13 +749,13 @@
 <Action OrderNumber="8" Enabled="False" ActionType="LogMessage" Description="如果解析插件真的完全不工作，双击这行在 mk 之后输入标点参数，右键测试这行（左面的对号不要点）" DescBgColor="fdd" DescTextColor="000" DescriptionOverride="True" LogMessageText="[00:00:00.000] 0 00:0038::mk 15 10" LogProcess="True" />
 </Actions>
 </Trigger>
-<Trigger Enabled="false" Id="0ac89429-e254-450d-bdbc-7fc4c354bc10" Name="导入提示" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
+<Trigger Enabled="false" Name="导入提示" Id="0ac89429-e254-450d-bdbc-7fc4c354bc10" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
 <Actions>
 <Action OrderNumber="1" ActionType="MessageBox" MessageBoxIconType="Information" MessageBoxText="高级标点工具箱已更新 v${env:version}。&#xD;&#xA;如果你有本地版本，请删除本地版本，以免冲突。&#xD;&#xA;如果你是开发者，可以查看使用说明中的新功能介绍。&#xD;&#xA;&#xD;&#xA;本条消息只会提示一次。" />
 <Action OrderNumber="2" ActionType="Trigger" TriggerOp="DisableTrigger" TriggerId="0ac89429-e254-450d-bdbc-7fc4c354bc10" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="53af2402-183b-4be1-8aa9-d0034abcb46b" Name="手动标点： /e pl/place A/B/C/D/1/2/3/4 (x) (y) (z)" RegularExpression="^.{15}\S+ 00:0038:: *[Pp][Ll]([Aa][Cc][Ee])? +(?&lt;wm&gt;[A-Da-d1-4])(?&lt;x&gt; +[^ ]+)?(?&lt;y&gt; +[^ ]+)?(?&lt;z&gt; +[^ ]+)? *$">
+<Trigger Enabled="true" Name="手动标点： /e pl/place A/B/C/D/1/2/3/4 (x) (y) (z)" Id="53af2402-183b-4be1-8aa9-d0034abcb46b" RegularExpression="^.{15}\S+ 00:0038:: *[Pp][Ll]([Aa][Cc][Ee])? +(?&lt;wm&gt;[A-Da-d1-4])(?&lt;x&gt; +[^ ]+)?(?&lt;y&gt; +[^ ]+)?(?&lt;z&gt; +[^ ]+)? *$">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="AdvWm" NamedCallbackParam="action: place&#xD;&#xA;${wm}: (${x} ?? ${_me.x}), (${y} ?? ${_me.y}), (${z} ?? ${_me.z})" />
 </Actions>
@@ -764,12 +764,12 @@
 </Folder>
 </Folders>
 <Triggers>
-<Trigger Enabled="false" Id="bdc27600-8ca5-419f-aa1f-fdd8c601d4ba" Name="启动时文本提示（自行开关）" RegularExpression="^AdvWm_Init" Sequential="True">
+<Trigger Enabled="false" Sequential="True" Name="启动时文本提示（自行开关）" Id="bdc27600-8ca5-419f-aa1f-fdd8c601d4ba" RegularExpression="^AdvWm_Init">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e ${if: ${f:contain(&quot; &quot;):${_me.name}} ? &quot;已激活：高級標点工具箱&quot; : &quot;已激活：高级标点工具箱&quot; } AdvWm v${env:version}" />
 </Actions>
 </Trigger>
-<Trigger Enabled="false" Id="64c21c8a-3467-443f-9182-cc723020e734" Name="本分组不可关闭，否则影响基础功能。如需关闭本地标点，在鲶鱼精邮差插件页面关闭 Waymark。">
+<Trigger Enabled="false" Name="本分组不可关闭，否则影响基础功能。如需关闭本地标点，在鲶鱼精邮差插件页面关闭 Waymark。" Id="64c21c8a-3467-443f-9182-cc723020e734" RegularExpression="">
 <Actions />
 </Trigger>
 </Triggers>
@@ -777,7 +777,7 @@
 <Folder Id="d3265b87-d9f7-4ac9-aaf3-0ed5f31f2b0b" DisableRemoteExpand="True" DisableRemoteToggle="True" Name="日志转录" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Id="cbec361a-a074-4601-a214-5c8275921988" Name="1B Tether" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 23:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):(?&lt;tid&gt;.{8}):(?&lt;tn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]*)">
+<Trigger Enabled="true" Name="1B Tether" Id="cbec361a-a074-4601-a214-5c8275921988" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 23:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):(?&lt;tid&gt;.{8}):(?&lt;tn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]*)">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableValue="${sid}" />
 <Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_tgt" DictVariableValue="${tid}" />
@@ -789,7 +789,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${f:startwith(40):${sid}} || ${f:startwith(40):${tid}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="ad048fb8-bdb1-4994-8c1c-5a46ead9c239" Name="10F ActorSetPos" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 10F:(?&lt;id&gt;4.{7}):(?&lt;h&gt;[^:]+):[^:]+:[^:]+:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)$">
+<Trigger Enabled="true" Name="10F ActorSetPos" Id="ad048fb8-bdb1-4994-8c1c-5a46ead9c239" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 10F:(?&lt;id&gt;4.{7}):(?&lt;h&gt;[^:]+):[^:]+:[^:]+:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)$">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableValue="${id}" />
 <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _ActorSetPos AAA:10F:${id}:${d:tmp_entity[name]}:${d:tmp_entity[bnpcnameid]}:${d:tmp_entity[bnpcid]}:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True">
@@ -800,7 +800,7 @@
 <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_entity" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="1abfbf9c-81e9-4299-8d3a-c9a5f28c8173" Name="111 ActorControl" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 111:(?&lt;id&gt;4.{7}):(?&lt;type&gt;[^:]*):(?&lt;param1&gt;[^:]*):(?&lt;param2&gt;[^:]*)">
+<Trigger Enabled="true" Name="111 ActorControl" Id="1abfbf9c-81e9-4299-8d3a-c9a5f28c8173" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 111:(?&lt;id&gt;4.{7}):(?&lt;type&gt;[^:]*):(?&lt;param1&gt;[^:]*):(?&lt;param2&gt;[^:]*)">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="ProcessedLog_ActorControl" DictVariableValue="=&#xD;&#xA;0031=Unknown49 AAA:200:¤{param1}&#xD;&#xA;003E=AnimationState AAA:201:¤{param1}:¤{param2}&#xD;&#xA;003F=WeaponId AAA:202:¤{param1}&#xD;&#xA;0197=PlayActionTimeline AAA:203:¤{param1}&#xD;&#xA;019D=EObjAnimation AAA:204:¤{param1}:¤{param2}&#xD;&#xA;01F8=StatusUpdate AAA:205:¤{param1}">
 <Condition Enabled="true" Grouping="Or">
@@ -816,7 +816,7 @@
 <Action OrderNumber="4" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_entity" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="2e323fb2-ac51-4e5b-93a2-19505ab79a97" Name="110 ActorSpawnExtra" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 110:(?&lt;id&gt;4.{7}):(?!E0000000:0000:00)(?&lt;params&gt;.+)">
+<Trigger Enabled="true" Name="110 ActorSpawnExtra" Id="2e323fb2-ac51-4e5b-93a2-19505ab79a97" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 110:(?&lt;id&gt;4.{7}):(?!E0000000:0000:00)(?&lt;params&gt;.+)">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableValue="${id}" />
 <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _ActorSpawnExtra AAA:110:${id}:${d:tmp_entity[name]}:${d:tmp_entity[bnpcnameid]}:${d:tmp_entity[bnpcid]}:${d:tmp_entity[x]}:${d:tmp_entity[y]}:${d:tmp_entity[z]}:${d:tmp_entity[h]}:${params}" LogProcess="True" LogProcessACT="True">
@@ -827,7 +827,7 @@
 <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_entity" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="7160c1f3-bf5c-41b1-9c9c-bccefbb7f053" Name="22 NameToggle" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 22:(?&lt;id&gt;4.{7}):(?&lt;name&gt;[^:]*):[^:]*:[^:]*:(?&lt;bTgtable&gt;0?[01])">
+<Trigger Enabled="true" Name="22 NameToggle" Id="7160c1f3-bf5c-41b1-9c9c-bccefbb7f053" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 22:(?&lt;id&gt;4.{7}):(?&lt;name&gt;[^:]*):[^:]*:[^:]*:(?&lt;bTgtable&gt;0?[01])">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableKey="ID, Name, BNpcNameID, BNpcID, X, Y, Z, Heading" DictVariableValue="${id}" />
 <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _NameToggle AAA:22:${n: ${bTgtable}}:${id}:${d:tmp_entity[Name]}:${d:tmp_entity[BNpcNameID]}:${d:tmp_entity[BNpcID]}:${d:tmp_entity[X]}:${d:tmp_entity[Y]}:${d:tmp_entity[Z]}:${d:tmp_entity[Heading]}" LogProcess="True" LogProcessACT="True">
@@ -838,7 +838,7 @@
 <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_entity" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="59f947e6-75d8-4b24-96d5-a3db1ac8a615" Name="转录指令不存在" RegularExpression="^.{15}\S+ 00:003C::(“\/(?&lt;commandCN&gt;.+?)”出现问题：该命令不存在。|The command \/(?&lt;commandEN&gt;.+?) does not exist.|そのコマンドはありません。： \/(?&lt;commandJP&gt;.+?))$">
+<Trigger Enabled="true" Name="转录指令不存在" Id="59f947e6-75d8-4b24-96d5-a3db1ac8a615" RegularExpression="^.{15}\S+ 00:003C::(“\/(?&lt;commandCN&gt;.+?)”出现问题：该命令不存在。|The command \/(?&lt;commandEN&gt;.+?) does not exist.|そのコマンドはありません。： \/(?&lt;commandJP&gt;.+?))$">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="^CommandNotExist:${commandCN}${commandEN}${commandJP}" LogProcess="True" />
 </Actions>
@@ -850,7 +850,7 @@
 <Folder Id="21ea6865-3ea6-4c69-b1e7-6eb27f4d18f5" DisableRemoteToggle="True" Name="记录完整小队" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Id="3815b706-29f6-471c-b856-37985375d3b9" Name="[F] 注册区域      PartyList:Register:[zoneid]:[playerDescs]" RegularExpression="^PartyList:Register:(?&lt;zoneid&gt;\d+):(?&lt;playerDescs&gt;.+)">
+<Trigger Enabled="true" Name="[F] 注册区域      PartyList:Register:[zoneid]:[playerDescs]" Id="3815b706-29f6-471c-b856-37985375d3b9" RegularExpression="^PartyList:Register:(?&lt;zoneid&gt;\d+):(?&lt;playerDescs&gt;.+)">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="PartyListPlayerDescs" DictVariableKey="${zoneid}" DictVariableValue="${playerDescs}" />
 <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="如果当前处于要注册的地图：触发检查" DescriptionOverride="True" />
@@ -864,7 +864,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${playerDescs}" ExpressionTypeL="String" ExpressionR="Self" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="45003223-a691-4f09-aed5-2468c623b1e3" Name="接收：倒计时" RegularExpression="^.{15}\S+ 10C:">
+<Trigger Enabled="true" Name="接收：倒计时" Id="45003223-a691-4f09-aed5-2468c623b1e3" RegularExpression="^.{15}\S+ 10C:">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PartyList:Show:0:1:0" LogProcess="True" />
 </Actions>
@@ -874,7 +874,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${el:party}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="8106c73c-c9be-437a-830c-734678260b3a" Name="接收：文本指令　　/e party　（非全队模式下提示错误）" RegularExpression="^.{15}\S+ 00:0038:: *[Pp][Aa][Rr][Tt][Yy] *$">
+<Trigger Enabled="true" Name="接收：文本指令　　/e party　（非全队模式下提示错误）" Id="8106c73c-c9be-437a-830c-734678260b3a" RegularExpression="^.{15}\S+ 00:0038:: *[Pp][Aa][Rr][Tt][Yy] *$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="条件：当前地图未注册为全队模式" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="当前地图区域未注册小队类型。" />
@@ -884,7 +884,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${d:PartyListPlayerDescs[${_ffxivzoneid}]}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="c9c8904c-a80c-4f26-b6c9-bda4afcae23e" Name="[F][C] 开启窗口   PartyList:Show:..." RegularExpression="^PartyList:Show:(?&lt;successTTS&gt;[01]):(?&lt;failTTS&gt;[01]):(?&lt;forceOpen&gt;[01])(?::(?&lt;zoneid&gt;[^:]*))?" Sequential="True">
+<Trigger Enabled="true" Sequential="True" Name="[F][C] 开启窗口   PartyList:Show:..." Id="c9c8904c-a80c-4f26-b6c9-bda4afcae23e" RegularExpression="^PartyList:Show:(?&lt;successTTS&gt;[01]):(?&lt;failTTS&gt;[01]):(?&lt;forceOpen&gt;[01])(?::(?&lt;zoneid&gt;[^:]*))?">
 <Actions>
 <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="正在开启小队配置">
 <Condition Enabled="true" Grouping="And">
@@ -921,7 +921,7 @@
 </Action>
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="8efd3df4-a361-4907-a347-dda98615e2f0" Name="接收：团灭" RegularExpression="^.{15}\S+ 21:.{8}:4000000(?&lt;type&gt;[16])">
+<Trigger Enabled="true" Name="接收：团灭" Id="8efd3df4-a361-4907-a347-dda98615e2f0" RegularExpression="^.{15}\S+ 21:.{8}:4000000(?&lt;type&gt;[16])">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PartyList:Show:0:1:0" LogProcess="True" />
 </Actions>
@@ -931,7 +931,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${el:party}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="d93ebfba-d743-4b08-8ee3-9b8fb8c88582" Name="接收：文本指令　　/e party　（正确）" RegularExpression="^.{15}\S+ 00:0038:: *[Pp][Aa][Rr][Tt][Yy] *(?&lt;force&gt; force)?$">
+<Trigger Enabled="true" Name="接收：文本指令　　/e party　（正确）" Id="d93ebfba-d743-4b08-8ee3-9b8fb8c88582" RegularExpression="^.{15}\S+ 00:0038:: *[Pp][Aa][Rr][Tt][Yy] *(?&lt;force&gt; force)?$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="条件：当前地图注册为全队模式（或使用 force 强制开启）" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="PartyList:Show:1:1:${if: len(${force}) &gt; 0 ? 1 : 0 }" LogProcess="True" />
@@ -949,7 +949,7 @@
 <Folder Id="c34ee41f-8a12-4015-aed1-80cfcdf5c4d6" DisableRemoteToggle="True" Name="记录自身位置" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Id="a07c1829-3e52-40fd-b0f0-87893aeea924" Name="[F] Setter        PartyList:MyIdx8:[1-8]" RegularExpression="^PartyList:MyIdx8:(?&lt;idx&gt;\d)" Sequential="True">
+<Trigger Enabled="true" Sequential="True" Name="[F] Setter        PartyList:MyIdx8:[1-8]" Id="a07c1829-3e52-40fd-b0f0-87893aeea924" RegularExpression="^PartyList:MyIdx8:(?&lt;idx&gt;\d)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="MyIdx8:序号" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Variable" VariableOp="SetString" VariableName="myIdx" VariableExpression="${idx}" />
@@ -958,7 +958,7 @@
 <Action OrderNumber="5" ActionType="Variable" VariableOp="SetNumeric" VariableName="myIdx_isTM" VariableExpression="${v:myIdx} % 4 % 3 != 0" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="d0c12e2d-2a8e-4373-b35e-c0c3cd42147d" Name="接收：团灭" RegularExpression="^.{15}\S+ 21:.{8}:4000000(?&lt;type&gt;[16])">
+<Trigger Enabled="true" Name="接收：团灭" Id="d0c12e2d-2a8e-4373-b35e-c0c3cd42147d" RegularExpression="^.{15}\S+ 21:.{8}:4000000(?&lt;type&gt;[16])">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="条件：已注册 zoneId =&gt; Self" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="PartyList:MyIdxCheck:0:1:0:1:0:10::&lt;se.11&gt;" LogProcess="True" />
@@ -967,7 +967,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${d:PartyListPlayerDescs[${_ffxivzoneid}]}" ExpressionTypeL="String" ExpressionR="Self" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="296eda7d-ef84-4901-a9d5-502297faf1d1" Name="接收：文本指令　　/e MT 　　（正确）" RegularExpression="^.{15}\S+ 00:0038:: *([MmSs][Tt]|[TtHhDd][1-4]) *$" Sequential="True">
+<Trigger Enabled="true" Sequential="True" Name="接收：文本指令　　/e MT 　　（正确）" Id="296eda7d-ef84-4901-a9d5-502297faf1d1" RegularExpression="^.{15}\S+ 00:0038:: *([MmSs][Tt]|[TtHhDd][1-4]) *$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="条件：当前地图未注册为全队模式" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="PartyList:MyIdx8:${?d: &#xD;&#xA;  MT = 1, T1 = 1,  &#xD;&#xA;  ST = 2, T2 = 2, &#xD;&#xA;  H1 = 3, &#xD;&#xA;  H2 = 4, &#xD;&#xA;  D1 = 5, &#xD;&#xA;  D2 = 6, &#xD;&#xA;  D3 = 7, &#xD;&#xA;  D4 = 8  &#xD;&#xA;  [${f:toupper:$1}]&#xD;&#xA;}" LogProcess="True" />
@@ -979,7 +979,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${d:PartyListPlayerDescs[${_ffxivzoneid}]}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="50e2443b-a21b-4d4a-9a59-dbb1130434b6" Name="[F] 注册区域      PartyList:Register:[zoneid]:Self" RegularExpression="^PartyList:Register:(?&lt;zoneid&gt;\d+):Self">
+<Trigger Enabled="true" Name="[F] 注册区域      PartyList:Register:[zoneid]:Self" Id="50e2443b-a21b-4d4a-9a59-dbb1130434b6" RegularExpression="^PartyList:Register:(?&lt;zoneid&gt;\d+):Self">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="PartyListPlayerDescs" DictVariableKey="${zoneid}" DictVariableValue="Self" />
 <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="如果当前处于要注册的地图：触发检查" DescriptionOverride="True" />
@@ -990,7 +990,7 @@
 </Action>
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="3b0824df-5ce9-406b-b769-e6dc5b5422b8" Name="[F] 检查或播报    PartyList:MyIdxCheck:..." RegularExpression="^PartyList:MyIdxCheck:(?&lt;successTTS&gt;[01]):(?&lt;failTTS&gt;[01]):(?&lt;successEcho&gt;[01]):(?&lt;failEcho&gt;[01]):(?&lt;successHintTime&gt;[^:]+):(?&lt;failHintTime&gt;[^:]+):(?&lt;successSound&gt;[^:]*):(?&lt;failSound&gt;[^:]*)" Sequential="True">
+<Trigger Enabled="true" Sequential="True" Name="[F] 检查或播报    PartyList:MyIdxCheck:..." Id="3b0824df-5ce9-406b-b769-e6dc5b5422b8" RegularExpression="^PartyList:MyIdxCheck:(?&lt;successTTS&gt;[01]):(?&lt;failTTS&gt;[01]):(?&lt;successEcho&gt;[01]):(?&lt;failEcho&gt;[01]):(?&lt;successHintTime&gt;[^:]+):(?&lt;failHintTime&gt;[^:]+):(?&lt;successSound&gt;[^:]*):(?&lt;failSound&gt;[^:]*)">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_success" VariableExpression="(0${v:myIdx} &gt; 0) &amp;&amp; (0${v:myIdx} &lt;= 8) &amp;&amp; (0${v:myIdx} % 1 = 0)" />
 <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="fail" DescriptionOverride="True" />
@@ -1055,7 +1055,7 @@
 <Action OrderNumber="15" ActionType="Variable" Asynchronous="False" VariableName="tmp_success" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="9a7d7d55-a06e-49df-a1ea-2cd2149a3d5b" Name="接收：倒计时" RegularExpression="^.{15}\S+ 10C:">
+<Trigger Enabled="true" Name="接收：倒计时" Id="9a7d7d55-a06e-49df-a1ea-2cd2149a3d5b" RegularExpression="^.{15}\S+ 10C:">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="条件：已注册 zoneId =&gt; Self" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="PartyList:MyIdxCheck:0:1:0:1:0:10::&lt;se.11&gt;" LogProcess="True" />
@@ -1064,7 +1064,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${d:PartyListPlayerDescs[${_ffxivzoneid}]}" ExpressionTypeL="String" ExpressionR="Self" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="0ddaa375-1e5c-4445-8078-23d5acce4481" Name="接收：文本指令　　/e MT 　  （全队模式下提示错误）" RegularExpression="^.{15}\S+ 00:0038:: *([MmSs][Tt]|[TtHhDd][1-4]) *$" Sequential="True">
+<Trigger Enabled="true" Sequential="True" Name="接收：文本指令　　/e MT 　  （全队模式下提示错误）" Id="0ddaa375-1e5c-4445-8078-23d5acce4481" RegularExpression="^.{15}\S+ 00:0038:: *([MmSs][Tt]|[TtHhDd][1-4]) *$">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="条件：当前地图注册为全队模式" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Variable" VariableOp="SetString" VariableName="tmp_hint" VariableExpression="当前地图需要设置全队顺序，而非自身职能顺序。&#xD;&#xA;请使用 /e party（应该会自动弹出窗口）。">
@@ -1090,7 +1090,7 @@
 <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^997$" Id="08fc3a38-a447-4964-a0b2-971cae4b8f0f" Name="测试（真小鸟）" Enabled="false">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Id="a5402fe5-b8da-4b61-821c-32b01ae631a4" Name="小队列表注册区域" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
+<Trigger Enabled="true" Name="小队列表注册区域" Id="a5402fe5-b8da-4b61-821c-32b01ae631a4" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PartyList:Register:${n: 0x${zoneId} }:MT, ST, H1, H2, D1, D2, D3, D4" LogProcess="True" />
 </Actions>
@@ -1099,7 +1099,7 @@
 </Folder>
 </Folders>
 <Triggers>
-<Trigger Enabled="false" Id="a91b1933-07d1-4006-bb41-beb2a19ad8c6" Name="使用说明（面向开发）">
+<Trigger Enabled="false" Name="使用说明（面向开发）" Id="a91b1933-07d1-4006-bb41-beb2a19ad8c6" RegularExpression="">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="首先通过触发器注册某副本的地图 ID" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="注册后可在进本、团灭、倒计时时自动触发提示" DescriptionOverride="True" />
@@ -1121,7 +1121,7 @@
 <Action OrderNumber="18" ActionType="Placeholder" Asynchronous="False" Description="   · 标量 myIdx：自身顺序" DescriptionOverride="True" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="3b01e460-6f2f-4c7d-8895-20e2770829ab" Name="[Debug] 模拟小队：/e setparty [自身idx] [总人数]" RegularExpression="^.{15}\S+ 00:0038:: *(?i:setparty) +(?&lt;idx&gt;[1-8]) +(?&lt;all&gt;[1-8])$">
+<Trigger Enabled="true" Name="[Debug] 模拟小队：/e setparty [自身idx] [总人数]" Id="3b01e460-6f2f-4c7d-8895-20e2770829ab" RegularExpression="^.{15}\S+ 00:0038:: *(?i:setparty) +(?&lt;idx&gt;[1-8]) +(?&lt;all&gt;[1-8])$">
 <Actions>
 <Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="party" ListVariableExpression="10${n: ${_idx}*111111}" ListVariableIndex="${all}" />
 <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Set" ListVariableName="party" ListVariableExpression="${_me.id}" ListVariableIndex="${idx}" />
@@ -1144,7 +1144,7 @@
 <Folder Id="31231d1c-1201-41bf-8ca9-c7ce50e91558" Name="BeepTimer" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Id="54e89700-54ad-4677-82a7-95f7f141972c" Name="CountDown5" RegularExpression="^(?i)cd5:(?&lt;delay&gt;[\d.]+)(?::(?&lt;duration&gt;[\d.]+))?" Tag="延迟咏唱">
+<Trigger Enabled="true" Name="CountDown5" Id="54e89700-54ad-4677-82a7-95f7f141972c" RegularExpression="^(?i)cd5:(?&lt;delay&gt;[\d.]+)(?::(?&lt;duration&gt;[\d.]+))?">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="CountDown5 的延迟至少应为 4 s，实际提供了 ${delay} s。">
 <Condition Enabled="true" Grouping="Or">
@@ -1158,7 +1158,7 @@
 <Action OrderNumber="6" ExecutionDelayExpression="1000" SystemBeepFreqExpression="freq(C7)" SystemBeepLengthExpression="(${duration} ?? 0.2) * 1500" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="e52ff796-3fb4-4617-8870-88fba56d2fc9" Name="CountDown4" RegularExpression="^(?i)cd4:(?&lt;delay&gt;[\d.]+)(?::(?&lt;duration&gt;[\d.]+))?" Tag="延迟咏唱">
+<Trigger Enabled="true" Name="CountDown4" Id="e52ff796-3fb4-4617-8870-88fba56d2fc9" RegularExpression="^(?i)cd4:(?&lt;delay&gt;[\d.]+)(?::(?&lt;duration&gt;[\d.]+))?">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="CountDown4 的延迟至少应为 3 s，实际提供了 ${delay} s。">
 <Condition Enabled="true" Grouping="Or">
@@ -1171,7 +1171,7 @@
 <Action OrderNumber="5" ExecutionDelayExpression="1000" SystemBeepFreqExpression="freq(C7)" SystemBeepLengthExpression="(${duration} ?? 0.2) * 1500" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="acce34b8-a795-48eb-9d7b-15932a4a74a8" Name="CountDown8" RegularExpression="^(?i)cd8:(?&lt;delay&gt;[\d.]+)(?::(?&lt;duration&gt;[\d.]+))?" Tag="延迟咏唱">
+<Trigger Enabled="true" Name="CountDown8" Id="acce34b8-a795-48eb-9d7b-15932a4a74a8" RegularExpression="^(?i)cd8:(?&lt;delay&gt;[\d.]+)(?::(?&lt;duration&gt;[\d.]+))?">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="CountDown8 的延迟至少应为 7 s，实际提供了 ${delay} s。">
 <Condition Enabled="true" Grouping="Or">
@@ -1188,316 +1188,10 @@
 <Action OrderNumber="9" ExecutionDelayExpression="1000" SystemBeepFreqExpression="freq(C7)" SystemBeepLengthExpression="(${duration} ?? 0.2) * 1500" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="cf1e2544-7ab3-478e-81c1-f3d25a805b70" Name="DelayBeep" RegularExpression="^(?i)Beep:(?&lt;delay&gt;[\d.]+)(?::(?&lt;freq&gt;[^:]*))?(?::(?&lt;duration&gt;[^:]*))?" Tag="延迟咏唱">
+<Trigger Enabled="true" Name="DelayBeep" Id="cf1e2544-7ab3-478e-81c1-f3d25a805b70" RegularExpression="^(?i)Beep:(?&lt;delay&gt;[\d.]+)(?::(?&lt;freq&gt;[^:]*))?(?::(?&lt;duration&gt;[^:]*))?">
 <Actions>
 <Action OrderNumber="1" ExecutionDelayExpression="1000 * ${delay}" SystemBeepFreqExpression="(${freq} ?? freq(C6))" SystemBeepLengthExpression="(${duration} ?? 200)" />
 </Actions>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
-<Triggers>
-<Trigger Enabled="true" Id="86319e4a-571b-481d-ac57-c0e4edfaf070" Name="command" RegularExpression="^(?i)cmd:(?&lt;sec&gt;[^:]+):(?&lt;value&gt;.+)$" Tag="延迟咏唱">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="(${sec}) * 1000" NamedCallbackName="command" NamedCallbackParam="${value}" UseTTSExclusive="False" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="abfbc859-c2dd-4d7f-be44-509ebcdb3e26" Name="TTS" RegularExpression="^(?i)tts:(?&lt;sec&gt;[^:]+):(?&lt;value&gt;.+)$" Tag="延迟咏唱">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" ExecutionDelayExpression="(${sec}) * 1000" UseTTSTextExpression="${value}" UseTTSExclusive="False" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="e5c1e081-13a5-44e6-9b6d-802e99f93d7b" Name="log" RegularExpression="^(?i)log:(?&lt;sec&gt;[^:]+):(?&lt;value&gt;.+)$" Tag="延迟咏唱">
-<Actions>
-<Action OrderNumber="1" ActionType="LogMessage" ExecutionDelayExpression="(${sec}) * 1000" LogMessageText="${value}" LogProcess="True" LogProcessACT="True" UseTTSExclusive="False" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="df937a82-309c-44cf-a54c-3711d50269a7" Name="团灭中断" RegularExpression="^.{15}\S+ 21:.{8}:4000000[35]">
-<Actions>
-<Action OrderNumber="1" ActionType="Trigger" UseTTSExclusive="False" TriggerOp="CancelAllTrigger" TriggerTagRegex="^延迟咏唱$" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="2a2d791e-eeb3-4e29-96e5-f8e6ac9ef5d6" DisableRemoteToggle="True" Name="鲶鱼精邮差扩展 v4.2.1" Enabled="true" RawEnvironmentVariables="version = 4.2.0&#xD;&#xA;trigversion = 1.2.0.752">
-<Folders>
-<Folder Id="9c2e8968-be16-47fc-8457-e377d01362af" DisableRemoteExpand="True" DisableRemoteToggle="True" Name="core" Enabled="true">
-<Folders>
-<Folder Id="6f1ac634-666c-478f-ac96-02f7bdb17da4" Name="初始化" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Id="19515cb8-80fc-4e74-a237-f122ce514262" Name="3. 接收：鲶鱼精邮差新建模组成功 =&gt; 注册 Basic" RegularExpression="^PNE_ModulesInited">
-<Actions>
-<Action OrderNumber="1" ActionType="ExecuteScript" Description="BridgeNamazu.RegisterAnnotatedMethods()" DescriptionOverride="True" ExecScriptExpression="using Triggernometry.PluginBridges.BridgeNamazu;&#xD;&#xA;BridgeNamazu.RegisterAnnotatedMethods();" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="c662b7c7-df6e-4a48-b7ec-44b3cb07540c" Name="2. 新建模组 【在这里 sideload】" RegularExpression="^PNE_Init:force:(?&lt;bForce&gt;[01])" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000" Sequential="True">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="条件：强制 或 未注册" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="MessageBox" MessageBoxIconType="Warning" MessageBoxText="远程库所需的触发器插件版本高于当前版本，&#xD;&#xA;可能是触发器插件与远程库同时更新所致。&#xD;&#xA;重启 ACT 自动完成更新即可恢复正常。&#xD;&#xA;">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${func:versioncompare(${env:trigversion}):${_pluginversion}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="ExecuteScript" Description="BridgeNamazu.InitializeModules()" DescriptionOverride="True" ExecScriptExpression="using System;&#xD;&#xA;using Triggernometry;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu.Modules;&#xD;&#xA;&#xD;&#xA;BridgeNamazu.InitializeModules(() =&gt; {&#xD;&#xA;    // 示例：Sideload（版本更新后可覆写偏移或扫描方法等）&#xD;&#xA;    // var module = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#xD;&#xA;    // module.PosOffset = () =&gt; BridgeNamazu.NamazuPlugin.IsCN ? 0x74 : 0x70;&#xD;&#xA;    // module.ScanMethod = () =&gt; { module.GetStatusIndexPtr = ModuleBase.Scanner.ScanText(&quot;xxx&quot;); };&#xD;&#xA;    var mEnt = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#xD;&#xA;    mEnt.IdOffset = () =&gt; 0x78;&#xD;&#xA;    mEnt.PosOffset = () =&gt; 0xB0;&#xD;&#xA;    mEnt.ScaleOffset = () =&gt; 0xC4;&#xD;&#xA;    mEnt.ModelRelPosOffset = () =&gt; 0xE0;&#xD;&#xA;    mEnt.ModelOffset = () =&gt; 0x100;&#xD;&#xA;    mEnt.StatusLoopVfxOffset = () =&gt; 0x1C8;&#xD;&#xA;    mEnt.OpacityOffset = () =&gt; 0x22D8;&#xD;&#xA;    mEnt.ModelStatusOffset = () =&gt; 0x118;&#xD;&#xA;    var mCam = BridgeNamazu.GetModule&lt;CameraModule&gt;();&#xD;&#xA;    mCam.OffsetsCN = mCam.OffsetsGlobal;&#xD;&#xA;});" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${ecallback:hint}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${bForce}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Id="d620479e-efe0-495a-b2d9-f1fe3fce9a0d" Name="1.1 接收：鲶鱼精邮差注入成功 =&gt; 2" RegularExpression="^.{15}\S+ 00:FFFF:PostNamazu:Attached" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000" Sequential="True">
-<Actions>
-<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PNE_Init:force:1" LogProcess="True" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="4293c85d-e493-4788-abd9-4b3eba3b7e80" Name="1.2 接收：地图切换 =&gt; 2" RegularExpression="^.{15}\S+ 01:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000" Sequential="True">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="myAddress_new" VariableExpression="${_me.Address}" />
-<Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="ACT 晚于游戏启动时，鲶鱼精刚加载就会立刻初始化，但远程触发器可能尚未加载，因此 01 行也检测一下" DescriptionOverride="True" />
-<Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="PNE_Init:force:0" LogProcess="True">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${ev:myAddress}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description="如果自身地址意外变动，强制重新扫描" DescriptionOverride="True" />
-<Action OrderNumber="5" ActionType="LogMessage" Asynchronous="False" LogMessageText="PNE_Init:force:1" LogProcess="True">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${ev:myAddress}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${v:myAddress}" ExpressionTypeL="String" ExpressionR="${v:myAddress_new}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="myAddress" VariableExpression="${v:myAddress_new}" />
-<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableName="myAddress_new" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="2c22a529-384e-4c49-aede-1dcd84517fae" Name="接收文本指令" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Id="cc74e381-c93e-4f88-9d73-9b52c954f44e" Name="Scaling" RegularExpression="^.{15}\S+ 00:0038::scale +(?&lt;scales&gt;.+)$">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="ObjectScaling" NamedCallbackParam="${v:tmp_address}, ${f:replace(&quot; &quot;, &quot;,&quot;):${scales}}" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_address" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="3ec67d3c-66e2-4e22-974d-f65565abcddb" Name="SetHighlightColor" RegularExpression="^.{15}\S+ 00:0038::highlight (?&lt;color&gt;\d+)$">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="SetHighlightColor" NamedCallbackParam="${v:tmp_address}, ${color}" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_address" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="75480b7c-eae1-49b7-9187-ea08c1d98a42" Name="SetStatusLoopVfx" RegularExpression="^.{15}\S+ 00:0038::vfx (?&lt;vfxid&gt;.+)$">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${v:tmp_address}, ${vfxid}" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_address" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="9755eda6-04db-4dba-9699-dc73858662fd" Name="Redraw" RegularExpression="^.{15}\S+ 00:0038::redraw$">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="Redraw" NamedCallbackParam="${v:tmp_address}" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_address" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="b6b8b6cc-1b10-4ac0-8e43-333d1d2c03f0" Name="LockOn" RegularExpression="^.{15}\S+ 00:0038::lockon (?&lt;vfxname&gt;.+)$">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="LockOn" NamedCallbackParam="${v:tmp_address}, ${vfxname}" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_address" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="9194afc8-2b3e-463f-93ba-0747954fc152" Name="Hint / Warn" RegularExpression="^.{15}\S+ 00:0038::(?i) *(?&lt;type&gt;hint|warn) +(?&lt;t&gt;[\d.]+) (?&lt;data&gt;.+)">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="${f:tolower:${type}}" NamedCallbackParam="${n:${t}}&#xD;&#xA;${data}" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="f55f36e9-ade4-42c9-a2c9-9d9fbe56ca88" Name="Quit" RegularExpression="^.{15}\S+ 00:0038::(?i) *quit *$">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="QuitInstance" NamedCallbackParam="0" />
-<Action OrderNumber="2" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="QuitInstance" NamedCallbackParam="1" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="2ce38b37-0412-4dce-86dd-f5965b83bfa1" Name="Channeling" RegularExpression="^.{15}\S+ 00:0038::channeling +(?&lt;vfxname&gt;.+?) *$">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Channeling" NamedCallbackParam="${_me.address}, ${_entity[${_me.targetid}].address}, ${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="0${_entity[${_me.targetid}].address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="841a366a-2ac9-4a4b-bf9d-425ae53d07ba" Name="FoV" RegularExpression="^.{15}\S+ 00:0038::(?i) *fov +(?&lt;fov&gt;.+)*$">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="SetCameraParams" NamedCallbackParam="FoV = ${n: ${fov}}" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="fdf07b6a-a7d5-494e-9000-16688b1701aa" Name="Sight" RegularExpression="^.{15}\S+ 00:0038::(?i) *sight +(?&lt;h&gt;[^ ]*) +(?&lt;v&gt;[^ ]*) *$">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="SetCameraParams" NamedCallbackParam="AngleH = ${n: ${h}}&#xD;&#xA;AngleV = ${n: ${v}}&#xD;&#xA;MinAngleV = -π/2 + 0.002&#xD;&#xA;MaxAngleV = π/2 - 0.002" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="e6484ec6-b235-4720-b861-12caa2ee45e0" Name="MapEffect /e map 00020001:00" RegularExpression="^.{15}\S+ 00:0038::(?i)map(?:effect)? (.{8}:.{2})">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="MapEffect" NamedCallbackParam="$1" />
-<Action OrderNumber="2" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="2db88078-1058-46a7-affa-4106f0b0dd2c" Name="MapEffect /e map 0100 1F" RegularExpression="^.{15}\S+ 00:0038::(?i)map(?:effect)? +([01248]{1,4}) +([0-9A-F]{1,2})">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="MapEffect" NamedCallbackParam="${n: 0x$2}, 1, ${n: 0x$1}" />
-<Action OrderNumber="2" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="dd69d01f-5d96-45ad-9194-654f5542ecf1" Name="CastVfx" RegularExpression="^.{15}\S+ 00:0038::castvfx +(?&lt;vfxname&gt;.+?) *$">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="CastVfx" NamedCallbackParam="${_me.address}, ${_entity[${_me.targetid}].address}, ${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="0${_entity[${_me.targetid}].address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="CastVfx" NamedCallbackParam="${_me.address}, ${_me.address}, ${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="0${_entity[${_me.targetid}].address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericEqual" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="0c2403df-c127-4c7d-b948-96867b296868" Name="Omen" RegularExpression="^.{15}\S+ 00:0038::(?i) *omen +(?&lt;vfxname&gt;.+?) *$">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[1]}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[2]} ?? 3}, ${_me.pos, h}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[3]} ?? 5}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[4]} ?? 5}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[5]} ?? 5}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[6]} ?? 1}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[7]} ?? 1}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[8]} ?? 1}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[9]} ?? 1}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${vfxname} ?? -1" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="088df662-c26c-47c1-811f-10f375d1407a" Name="/e SB 10" RegularExpression="^.{15}\S+ 00:0038::(?i) *sb(?: +(?&lt;scale&gt;[\d.]+))? *$" PrevActions="Interrupt">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="x" VariableExpression="${_me.x}" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="y" VariableExpression="${_me.y}" />
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="z" VariableExpression="${_me.z}" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="h" VariableExpression="${_me.h}" />
-<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="k" VariableExpression="(${scale} ?? 1) * 0.6" />
-<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="t" VariableExpression="10" />
-<Action OrderNumber="7" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="gl_fan270_1005af, ${v:t}, ${n: ${v:x} - (-5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (-5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} + π/4, ${v:k} * 4" />
-<Action OrderNumber="8" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="gl_fan270_1005af, ${v:t}, ${n: ${v:x} - (-5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (-5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} + 5 * π/4, ${v:k} * 4" />
-<Action OrderNumber="9" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (1) * ${v:k} * cos(${v:h}) - (-7) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (1) * ${v:k} * sin(${v:h}) - (-7) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 7, ${v:k} * 2" />
-<Action OrderNumber="10" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-7) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-7) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2" />
-<Action OrderNumber="11" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-1) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-1) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2" />
-<Action OrderNumber="12" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-13) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-13) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2" />
-<Action OrderNumber="13" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 50°, ${v:k} * 4" />
-<Action OrderNumber="14" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 130°, ${v:k} * 4" />
-<Action OrderNumber="15" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 50°, ${v:k} * 4" />
-<Action OrderNumber="16" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 130°, ${v:k} * 4" />
-<Action OrderNumber="17" ActionType="Variable" ExecutionDelayExpression="1000" VariableOp="UnsetRegex" VariableName="^[xyzhkt]$" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="47aa43a9-1c5f-4db6-bb50-f394b614f5ce" Name="Polygon" RegularExpression="^.{15}\S+ 00:0038::(?i)polygon +(\d+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="dθ" VariableExpression="random(0, 60) / 180 * π" />
-<Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="test" ListVariableExpression="${n: 15 * sin(${_idx} * 2 * π / $1 + ${v:dθ}) + random(-15, 15) / $1}, ${n: 15 * cos(${_idx} * 2 * π / $1 + ${v:dθ})+ random(-15, 15) / $1}" ListVariableIndex="$1" />
-<Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Triangulate&#xD;&#xA;Tag: test&#xD;&#xA;O: ${_me.Pos}&#xD;&#xA;Points: 0,0; ${l:test.join(&quot;;&quot;)}; ${l:test[1]}+0.01&#xD;&#xA;t: sqrt($1)&#xD;&#xA;Color: 0, 1, 10, 1" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="a35ce658-a6e9-4c34-a302-892fc28e5c76" Name="清除所有特效" RegularExpression="^.{15}\S+ 00:0038::(?i)removevfx(?: +(?&lt;regex&gt;.+?))? *$">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${regex}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ${regex}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${regex}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="63a5277a-0fce-4c0d-a408-656e952bfa44" Name="自动刷新" Enabled="true">
-<Folders />
-<Triggers>
-<Trigger Enabled="true" Id="d18b3a13-5c7d-4211-a4cb-587e2b1f131c" Name="Camera" RegularExpression="^.{15}\S+ 01:|^PNE_ModulesRegistered:Basic">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="SetCameraParams" NamedCallbackParam="Apply">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${pd:PNE_cfg[camera_enabled]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="b14206e2-32a7-4e0c-b8d9-126596af7b79" Name="InstanceAfkTimer" RegularExpression="^.{15}\S+ 01:|(?&lt;update&gt;PNE_cfgUpdate)">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="DisableInstanceAfkTimer" NamedCallbackParam="${pd:PNE_cfg[InstanceAfkTimer]}" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${pd:PNE_cfg[InstanceAfkTimer]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${update}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
-<Triggers>
-<Trigger Enabled="true" Id="6a607878-c3e8-4606-88a3-72683a58a0b1" Name="倒数自检" RegularExpression="^.{15}\S+ 104:.:1:.:1|^.{15}\S+ 10C:[^:]*:[^:]*:(?&lt;cd&gt;[^:]*):00?:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="31000">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;t: 0.1&#xD;&#xA;Scale: 0.01&#xD;&#xA;Pos: ${_me.Pos}" />
-<Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="Channeling" NamedCallbackParam="${_me.Address}, ${_me.Address}, chn_dark001f, 0.1" />
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Id="f0119052-06d4-4255-8447-b6c8a6e3b4cc" Name="更新提示 4.0.4" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
-<Actions>
-<Action OrderNumber="1" ActionType="MessageBox" MessageBoxIconType="Information" MessageBoxText="[提示] &#xD;&#xA;&#xD;&#xA;如果 ACT 开启时退出并重登了游戏，&#xD;&#xA;在准备战斗时可能会游戏闪退。&#xD;&#xA;&#xD;&#xA;这是开场自检触发的，目的是确保战斗中调用特效不会掉线，&#xD;&#xA;在重启游戏后重启 ACT 即可正常工作。&#xD;&#xA;&#xD;&#xA;如果你确实是由于以上原因而闪退，&#xD;&#xA;说明并非插件冲突，暂时按以上方法处理即可。" />
-<Action OrderNumber="2" ActionType="Trigger" TriggerOp="DisableTrigger" TriggerId="f0119052-06d4-4255-8447-b6c8a6e3b4cc" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="0f1c5489-8ba3-4f20-9e55-94086fcfd151" Name="配置界面" RegularExpression="^.{15}\S+ 00:0038::(?i) *cfg +pne *$|^pne_cfg$" Sequential="True">
-<Actions>
-<Action OrderNumber="1" ActionType="ExecuteScript" ExecScriptExpression="using Triggernometry.PluginBridges.BridgeNamazu;&#xD;&#xA;BridgeNamazu.ShowConfig();" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="924bfab2-0d09-4029-9ca3-5806d669d620" Name="团灭清空 vfx" RegularExpression="^.{15}\S+ 21:.{8}:4000000[356]" Sequential="True">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
-<Triggers>
-<Trigger Enabled="false" Id="ad311786-b58e-48e7-8f5a-6683c4bcbfa1" Name="此分组不可更改，如需开关功能，见 远程触发器 - 自检工具箱 的 鲶鱼精邮差扩展" Source="None">
-<Actions />
 </Trigger>
 </Triggers>
 </Folder>
@@ -1506,17 +1200,23 @@
 <Folder Id="5d727bb2-a03e-4ee8-b11b-ead90cfb9d0b" Name="自动中断" Enabled="true">
 <Folders />
 <Triggers>
-<Trigger Enabled="true" Id="e5314f26-ea26-4909-8a21-c9882dfec1e3" Name="敌方被插言" RegularExpression="^.{15}\S+ 15:1.{7}:[^:]*:1D72:[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:4C:">
+<Trigger Enabled="true" Name="敌方被插言" Id="e5314f26-ea26-4909-8a21-c9882dfec1e3" RegularExpression="^.{15}\S+ 15:1.{7}:[^:]*:1D72:[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:4C:">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" LogProcess="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ${tid}" />
 </Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${d:简易播报.ekey(${aid})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
 </Trigger>
-<Trigger Enabled="true" Id="3cc986f7-cc15-4f44-9e63-6d0592f47f94" Name="敌方被眩晕" RegularExpression="^.{15}\S+ 1A:02:[^:]+:(?&lt;t&gt;[^:]+):1.{7}:[^:]*:(?&lt;tid&gt;4.{7}):">
+<Trigger Enabled="true" Name="敌方被眩晕" Id="3cc986f7-cc15-4f44-9e63-6d0592f47f94" RegularExpression="^.{15}\S+ 1A:02:[^:]+:(?&lt;t&gt;[^:]+):1.{7}:[^:]*:(?&lt;tid&gt;4.{7}):">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" LogProcess="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ${tid}" />
 </Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${d:简易播报.ekey(${aid})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
 </Trigger>
-<Trigger Enabled="true" Id="21b9a040-5ebe-4ef2-ae13-08081c2ed3f0" Name="敌方读条中断" RegularExpression="^.{15}\S+ 17:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;[^:]+):">
+<Trigger Enabled="true" Name="敌方读条中断" Id="21b9a040-5ebe-4ef2-ae13-08081c2ed3f0" RegularExpression="^.{15}\S+ 17:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;[^:]+):">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" LogProcess="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ${sid}" />
 </Actions>
@@ -1524,7 +1224,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${d:简易播报.ekey(${aid})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="b0729202-c2cc-40f3-bbb8-936f99c4ff81" Name="敌方死亡" RegularExpression="^.{15}\S+ 25:(?&lt;id&gt;.{8}):(?&lt;name&gt;[^:]+):[^:]*:0:">
+<Trigger Enabled="true" Name="敌方死亡" Id="37ff59d3-e34c-4703-8114-aed84d7f3b4f" RegularExpression="^.{15}\S+ 25:(?&lt;id&gt;.{8}):(?&lt;name&gt;[^:]+):[^:]*:0:">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" LogProcess="True" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ${id}" />
 </Actions>
@@ -1533,7 +1233,7 @@
 </Folder>
 </Folders>
 <Triggers>
-<Trigger Enabled="false" Id="2dc81f75-8da1-4992-94c2-2e6b8a97de80" Name="注册模板（简）" RegularExpression="^.{15}\S+ 01:">
+<Trigger Enabled="false" Name="注册模板（简）" Id="2dc81f75-8da1-4992-94c2-2e6b8a97de80" RegularExpression="^.{15}\S+ 01:">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="示例：A1CB" DictVariableValue="_=小怪顺劈 | tts=顺劈 | ttsDelay=0 | omen=Fan90 | delay=0 | t=6.7 | scale=6,6,5 | color=1,1,1,1 | cross=0 | tag=M12s" />
 </Actions>
@@ -1541,7 +1241,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="9ff16b0d-27b3-42f7-b8d5-d7fe62cbe7c3" Name="接收敌方读条" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;[^:]*):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Trigger Enabled="true" Name="接收敌方读条" Id="9ff16b0d-27b3-42f7-b8d5-d7fe62cbe7c3" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;[^:]*):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="tmp_data" DictVariableValue="=|${d:简易播报[${aid}]}" />
 <Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="SetAll" DictVariableName="tmp_data" DictVariableKey="${f:trim:${_key}}" DictVariableValue="${f:trim:${_val}}" />
@@ -1585,7 +1285,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${d:简易播报.ekey(${aid})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="false" Id="7325e4b4-15b2-468f-8051-218b3dd4ccf5" Name="注册模板 + 说明" RegularExpression="^.{15}\S+ 01:">
+<Trigger Enabled="false" Name="注册模板 + 说明" Id="7325e4b4-15b2-468f-8051-218b3dd4ccf5" RegularExpression="^.{15}\S+ 01:">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="下方每行填写一个需要监测的敌方读条技能" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Placeholder" Description="键：十六进制技能 id，如 A1CB" DescriptionOverride="True" />
@@ -1603,8 +1303,8 @@
 <Action OrderNumber="14" ActionType="Placeholder" Description="  _=xxx 可用于注释（如 小怪顺劈）" DescriptionOverride="True" />
 <Action OrderNumber="15" ActionType="Placeholder" Description="空格、大小写不敏感" DescriptionOverride="True" />
 <Action OrderNumber="16" ActionType="Placeholder" Description="此触发器会在每次切换区域时确认下列数据已经加载。（进阶：你可以在触发器条件中设置 zone 以减少不必要的触发）" DescriptionOverride="True" />
-<Action OrderNumber="17" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="示例：A1CC" DictVariableValue="omen=Fan90 | t=6.7 | scale=6,6,1" />
-<Action OrderNumber="18" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="3DAA" DictVariableValue="tts=插言 | omen=rect | t=10 | scale=5,5,5" />
+<Action OrderNumber="17" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="示例：A1CB" DictVariableValue="tts=钢铁" />
+<Action OrderNumber="18" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="示例：A1CC" DictVariableValue="omen=Fan90 | t=6.7 | scale=6,6,1" />
 </Actions>
 <Condition Enabled="false" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="在这里填写区域 ID（十进制）并启用条件" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
@@ -1614,7 +1314,303 @@
 </Folder>
 </Folders>
 <Triggers>
-<Trigger Enabled="false" Id="1458e834-d266-4b93-9b6f-2759271fa93e" Name="使用说明" Source="None">
+<Trigger Enabled="true" Name="command" Id="86319e4a-571b-481d-ac57-c0e4edfaf070" RegularExpression="^(?i)cmd:(?&lt;sec&gt;[^:]+):(?&lt;value&gt;.+)$">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="(${sec}) * 1000" NamedCallbackName="command" NamedCallbackParam="${value}" UseTTSExclusive="False" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="TTS" Id="abfbc859-c2dd-4d7f-be44-509ebcdb3e26" RegularExpression="^(?i)tts:(?&lt;sec&gt;[^:]+):(?&lt;value&gt;.+)$">
+<Actions>
+<Action OrderNumber="1" ActionType="UseTTS" ExecutionDelayExpression="(${sec}) * 1000" UseTTSTextExpression="${value}" UseTTSExclusive="False" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="log" Id="e5c1e081-13a5-44e6-9b6d-802e99f93d7b" RegularExpression="^(?i)log:(?&lt;sec&gt;[^:]+):(?&lt;value&gt;.+)$">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" ExecutionDelayExpression="(${sec}) * 1000" LogMessageText="${value}" LogProcess="True" LogProcessACT="True" UseTTSExclusive="False" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="2a2d791e-eeb3-4e29-96e5-f8e6ac9ef5d6" DisableRemoteToggle="True" Name="鲶鱼精邮差扩展 v4.2.1" Enabled="true" RawEnvironmentVariables="version = 4.2.0&#xD;&#xA;trigversion = 1.2.0.752">
+<Folders>
+<Folder Id="9c2e8968-be16-47fc-8457-e377d01362af" DisableRemoteExpand="True" DisableRemoteToggle="True" Name="core" Enabled="true">
+<Folders>
+<Folder Id="6f1ac634-666c-478f-ac96-02f7bdb17da4" Name="初始化" Enabled="true">
+<Folders />
+<Triggers>
+<Trigger Enabled="true" Name="3. 接收：鲶鱼精邮差新建模组成功 =&gt; 注册 Basic" Id="19515cb8-80fc-4e74-a237-f122ce514262" RegularExpression="^PNE_ModulesInited">
+<Actions>
+<Action OrderNumber="1" ActionType="ExecuteScript" Description="BridgeNamazu.RegisterAnnotatedMethods()" DescriptionOverride="True" ExecScriptExpression="using Triggernometry.PluginBridges.BridgeNamazu;&#xD;&#xA;BridgeNamazu.RegisterAnnotatedMethods();" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Sequential="True" Name="2. 新建模组 【在这里 sideload】" Id="c662b7c7-df6e-4a48-b7ec-44b3cb07540c" RegularExpression="^PNE_Init:force:(?&lt;bForce&gt;[01])" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="条件：强制 或 未注册" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="MessageBox" MessageBoxIconType="Warning" MessageBoxText="远程库所需的触发器插件版本高于当前版本，&#xD;&#xA;可能是触发器插件与远程库同时更新所致。&#xD;&#xA;重启 ACT 自动完成更新即可恢复正常。&#xD;&#xA;">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${func:versioncompare(${env:trigversion}):${_pluginversion}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="ExecuteScript" Description="BridgeNamazu.InitializeModules()" DescriptionOverride="True" ExecScriptExpression="using System;&#xD;&#xA;using Triggernometry;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu.Modules;&#xD;&#xA;&#xD;&#xA;BridgeNamazu.InitializeModules(() =&gt; {&#xD;&#xA;    // 示例：Sideload（版本更新后可覆写偏移或扫描方法等）&#xD;&#xA;    // var module = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#xD;&#xA;    // module.PosOffset = () =&gt; BridgeNamazu.NamazuPlugin.IsCN ? 0x74 : 0x70;&#xD;&#xA;    // module.ScanMethod = () =&gt; { module.GetStatusIndexPtr = ModuleBase.Scanner.ScanText(&quot;xxx&quot;); };&#xD;&#xA;    var mEnt = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#xD;&#xA;    mEnt.IdOffset = () =&gt; 0x78;&#xD;&#xA;    mEnt.PosOffset = () =&gt; 0xB0;&#xD;&#xA;    mEnt.ScaleOffset = () =&gt; 0xC4;&#xD;&#xA;    mEnt.ModelRelPosOffset = () =&gt; 0xE0;&#xD;&#xA;    mEnt.ModelOffset = () =&gt; 0x100;&#xD;&#xA;    mEnt.StatusLoopVfxOffset = () =&gt; 0x1C8;&#xD;&#xA;    mEnt.OpacityOffset = () =&gt; 0x22D8;&#xD;&#xA;    mEnt.ModelStatusOffset = () =&gt; 0x118;&#xD;&#xA;    var mCam = BridgeNamazu.GetModule&lt;CameraModule&gt;();&#xD;&#xA;    mCam.OffsetsCN = mCam.OffsetsGlobal;&#xD;&#xA;});" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${ecallback:hint}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${bForce}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Sequential="True" Name="1.1 接收：鲶鱼精邮差注入成功 =&gt; 2" Id="d620479e-efe0-495a-b2d9-f1fe3fce9a0d" RegularExpression="^.{15}\S+ 00:FFFF:PostNamazu:Attached" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PNE_Init:force:1" LogProcess="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Sequential="True" Name="1.2 接收：地图切换 =&gt; 2" Id="4293c85d-e493-4788-abd9-4b3eba3b7e80" RegularExpression="^.{15}\S+ 01:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="myAddress_new" VariableExpression="${_me.Address}" />
+<Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="ACT 晚于游戏启动时，鲶鱼精刚加载就会立刻初始化，但远程触发器可能尚未加载，因此 01 行也检测一下" DescriptionOverride="True" />
+<Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="PNE_Init:force:0" LogProcess="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${ev:myAddress}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description="如果自身地址意外变动，强制重新扫描" DescriptionOverride="True" />
+<Action OrderNumber="5" ActionType="LogMessage" Asynchronous="False" LogMessageText="PNE_Init:force:1" LogProcess="True">
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${ev:myAddress}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${v:myAddress}" ExpressionTypeL="String" ExpressionR="${v:myAddress_new}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="myAddress" VariableExpression="${v:myAddress_new}" />
+<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableName="myAddress_new" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="2c22a529-384e-4c49-aede-1dcd84517fae" Name="接收文本指令" Enabled="true">
+<Folders />
+<Triggers>
+<Trigger Enabled="true" Name="Scaling" Id="cc74e381-c93e-4f88-9d73-9b52c954f44e" RegularExpression="^.{15}\S+ 00:0038::scale +(?&lt;scales&gt;.+)$">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="ObjectScaling" NamedCallbackParam="${v:tmp_address}, ${f:replace(&quot; &quot;, &quot;,&quot;):${scales}}" />
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_address" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="SetHighlightColor" Id="3ec67d3c-66e2-4e22-974d-f65565abcddb" RegularExpression="^.{15}\S+ 00:0038::highlight (?&lt;color&gt;\d+)$">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="SetHighlightColor" NamedCallbackParam="${v:tmp_address}, ${color}" />
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_address" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="SetStatusLoopVfx" Id="75480b7c-eae1-49b7-9187-ea08c1d98a42" RegularExpression="^.{15}\S+ 00:0038::vfx (?&lt;vfxid&gt;.+)$">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${v:tmp_address}, ${vfxid}" />
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_address" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="Redraw" Id="9755eda6-04db-4dba-9699-dc73858662fd" RegularExpression="^.{15}\S+ 00:0038::redraw$">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="Redraw" NamedCallbackParam="${v:tmp_address}" />
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_address" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="LockOn" Id="b6b8b6cc-1b10-4ac0-8e43-333d1d2c03f0" RegularExpression="^.{15}\S+ 00:0038::lockon (?&lt;vfxname&gt;.+)$">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="LockOn" NamedCallbackParam="${v:tmp_address}, ${vfxname}" />
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_address" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="Hint / Warn" Id="9194afc8-2b3e-463f-93ba-0747954fc152" RegularExpression="^.{15}\S+ 00:0038::(?i) *(?&lt;type&gt;hint|warn) +(?&lt;t&gt;[\d.]+) (?&lt;data&gt;.+)">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="${f:tolower:${type}}" NamedCallbackParam="${n:${t}}&#xD;&#xA;${data}" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="Quit" Id="f55f36e9-ade4-42c9-a2c9-9d9fbe56ca88" RegularExpression="^.{15}\S+ 00:0038::(?i) *quit *$">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="QuitInstance" NamedCallbackParam="0" />
+<Action OrderNumber="2" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="QuitInstance" NamedCallbackParam="1" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="Channeling" Id="2ce38b37-0412-4dce-86dd-f5965b83bfa1" RegularExpression="^.{15}\S+ 00:0038::channeling +(?&lt;vfxname&gt;.+?) *$">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Channeling" NamedCallbackParam="${_me.address}, ${_entity[${_me.targetid}].address}, ${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}">
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="0${_entity[${_me.targetid}].address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+</Condition>
+</Action>
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="FoV" Id="841a366a-2ac9-4a4b-bf9d-425ae53d07ba" RegularExpression="^.{15}\S+ 00:0038::(?i) *fov +(?&lt;fov&gt;.+)*$">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="SetCameraParams" NamedCallbackParam="FoV = ${n: ${fov}}" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="Sight" Id="fdf07b6a-a7d5-494e-9000-16688b1701aa" RegularExpression="^.{15}\S+ 00:0038::(?i) *sight +(?&lt;h&gt;[^ ]*) +(?&lt;v&gt;[^ ]*) *$">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="SetCameraParams" NamedCallbackParam="AngleH = ${n: ${h}}&#xD;&#xA;AngleV = ${n: ${v}}&#xD;&#xA;MinAngleV = -π/2 + 0.002&#xD;&#xA;MaxAngleV = π/2 - 0.002" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="MapEffect /e map 00020001:00" Id="e6484ec6-b235-4720-b861-12caa2ee45e0" RegularExpression="^.{15}\S+ 00:0038::(?i)map(?:effect)? (.{8}:.{2})">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="MapEffect" NamedCallbackParam="$1" />
+<Action OrderNumber="2" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="MapEffect /e map 0100 1F" Id="2db88078-1058-46a7-affa-4106f0b0dd2c" RegularExpression="^.{15}\S+ 00:0038::(?i)map(?:effect)? +([01248]{1,4}) +([0-9A-F]{1,2})">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="MapEffect" NamedCallbackParam="${n: 0x$2}, 1, ${n: 0x$1}" />
+<Action OrderNumber="2" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="CastVfx" Id="dd69d01f-5d96-45ad-9194-654f5542ecf1" RegularExpression="^.{15}\S+ 00:0038::castvfx +(?&lt;vfxname&gt;.+?) *$">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="CastVfx" NamedCallbackParam="${_me.address}, ${_entity[${_me.targetid}].address}, ${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}">
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="0${_entity[${_me.targetid}].address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="CastVfx" NamedCallbackParam="${_me.address}, ${_me.address}, ${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}">
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="0${_entity[${_me.targetid}].address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericEqual" />
+</Condition>
+</Action>
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="Omen" Id="0c2403df-c127-4c7d-b948-96867b296868" RegularExpression="^.{15}\S+ 00:0038::(?i) *omen +(?&lt;vfxname&gt;.+?) *$">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[1]}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[2]} ?? 3}, ${_me.pos, h}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[3]} ?? 5}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[4]} ?? 5}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[5]} ?? 5}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[6]} ?? 1}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[7]} ?? 1}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[8]} ?? 1}, ${n: ${?l:${f:replace(&quot; &quot;, &quot;,&quot;):${vfxname}}[9]} ?? 1}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${vfxname} ?? -1" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess" />
+</Condition>
+</Action>
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="/e SB 10" Id="088df662-c26c-47c1-811f-10f375d1407a" RegularExpression="^.{15}\S+ 00:0038::(?i) *sb(?: +(?&lt;scale&gt;[\d.]+))? *$" PrevActions="Interrupt">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="x" VariableExpression="${_me.x}" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="y" VariableExpression="${_me.y}" />
+<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="z" VariableExpression="${_me.z}" />
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="h" VariableExpression="${_me.h}" />
+<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="k" VariableExpression="(${scale} ?? 1) * 0.6" />
+<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="t" VariableExpression="10" />
+<Action OrderNumber="7" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="gl_fan270_1005af, ${v:t}, ${n: ${v:x} - (-5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (-5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} + π/4, ${v:k} * 4" />
+<Action OrderNumber="8" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="gl_fan270_1005af, ${v:t}, ${n: ${v:x} - (-5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (-5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} + 5 * π/4, ${v:k} * 4" />
+<Action OrderNumber="9" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (1) * ${v:k} * cos(${v:h}) - (-7) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (1) * ${v:k} * sin(${v:h}) - (-7) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 7, ${v:k} * 2" />
+<Action OrderNumber="10" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-7) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-7) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2" />
+<Action OrderNumber="11" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-1) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-1) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2" />
+<Action OrderNumber="12" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-13) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-13) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2" />
+<Action OrderNumber="13" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 50°, ${v:k} * 4" />
+<Action OrderNumber="14" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 130°, ${v:k} * 4" />
+<Action OrderNumber="15" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 50°, ${v:k} * 4" />
+<Action OrderNumber="16" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 130°, ${v:k} * 4" />
+<Action OrderNumber="17" ActionType="Variable" ExecutionDelayExpression="1000" VariableOp="UnsetRegex" VariableName="^[xyzhkt]$" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="Polygon" Id="47aa43a9-1c5f-4db6-bb50-f394b614f5ce" RegularExpression="^.{15}\S+ 00:0038::(?i)polygon +(\d+)">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="dθ" VariableExpression="random(0, 60) / 180 * π" />
+<Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="test" ListVariableExpression="${n: 15 * sin(${_idx} * 2 * π / $1 + ${v:dθ}) + random(-15, 15) / $1}, ${n: 15 * cos(${_idx} * 2 * π / $1 + ${v:dθ})+ random(-15, 15) / $1}" ListVariableIndex="$1" />
+<Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Triangulate&#xD;&#xA;Tag: test&#xD;&#xA;O: ${_me.Pos}&#xD;&#xA;Points: 0,0; ${l:test.join(&quot;;&quot;)}; ${l:test[1]}+0.01&#xD;&#xA;t: sqrt($1)&#xD;&#xA;Color: 0, 1, 10, 1" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="清除所有特效" Id="a35ce658-a6e9-4c34-a302-892fc28e5c76" RegularExpression="^.{15}\S+ 00:0038::(?i)removevfx(?: +(?&lt;regex&gt;.+?))? *$">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${regex}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ${regex}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${regex}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="63a5277a-0fce-4c0d-a408-656e952bfa44" Name="自动刷新" Enabled="true">
+<Folders />
+<Triggers>
+<Trigger Enabled="true" Name="Camera" Id="d18b3a13-5c7d-4211-a4cb-587e2b1f131c" RegularExpression="^.{15}\S+ 01:|^PNE_ModulesRegistered:Basic">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="SetCameraParams" NamedCallbackParam="Apply">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${pd:PNE_cfg[camera_enabled]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Name="InstanceAfkTimer" Id="b14206e2-32a7-4e0c-b8d9-126596af7b79" RegularExpression="^.{15}\S+ 01:|(?&lt;update&gt;PNE_cfgUpdate)">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="DisableInstanceAfkTimer" NamedCallbackParam="${pd:PNE_cfg[InstanceAfkTimer]}" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${pd:PNE_cfg[InstanceAfkTimer]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${update}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="true" Name="倒数自检" Id="6a607878-c3e8-4606-88a3-72683a58a0b1" RegularExpression="^.{15}\S+ 104:.:1:.:1|^.{15}\S+ 10C:[^:]*:[^:]*:(?&lt;cd&gt;[^:]*):00?:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="31000">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;t: 0.1&#xD;&#xA;Scale: 0.01&#xD;&#xA;Pos: ${_me.Pos}" />
+<Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="Channeling" NamedCallbackParam="${_me.Address}, ${_me.Address}, chn_dark001f, 0.1" />
+</Actions>
+</Trigger>
+<Trigger Enabled="false" Name="更新提示 4.0.4" Id="f0119052-06d4-4255-8447-b6c8a6e3b4cc" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
+<Actions>
+<Action OrderNumber="1" ActionType="MessageBox" MessageBoxIconType="Information" MessageBoxText="[提示] &#xD;&#xA;&#xD;&#xA;如果 ACT 开启时退出并重登了游戏，&#xD;&#xA;在准备战斗时可能会游戏闪退。&#xD;&#xA;&#xD;&#xA;这是开场自检触发的，目的是确保战斗中调用特效不会掉线，&#xD;&#xA;在重启游戏后重启 ACT 即可正常工作。&#xD;&#xA;&#xD;&#xA;如果你确实是由于以上原因而闪退，&#xD;&#xA;说明并非插件冲突，暂时按以上方法处理即可。" />
+<Action OrderNumber="2" ActionType="Trigger" TriggerOp="DisableTrigger" TriggerId="f0119052-06d4-4255-8447-b6c8a6e3b4cc" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Sequential="True" Name="配置界面" Id="0f1c5489-8ba3-4f20-9e55-94086fcfd151" RegularExpression="^.{15}\S+ 00:0038::(?i) *cfg +pne *$|^pne_cfg$">
+<Actions>
+<Action OrderNumber="1" ActionType="ExecuteScript" ExecScriptExpression="using Triggernometry.PluginBridges.BridgeNamazu;&#xD;&#xA;BridgeNamazu.ShowConfig();" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="false" Source="None" Name="此分组不可更改，如需开关功能，见 远程触发器 - 自检工具箱 的 鲶鱼精邮差扩展" Id="ad311786-b58e-48e7-8f5a-6683c4bcbfa1" RegularExpression="">
+<Actions />
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="false" Source="None" Name="使用说明" Id="1458e834-d266-4b93-9b6f-2759271fa93e" RegularExpression="">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="　用户不需要、也不应改变或执行任何触发器，仅需要保持分组开启即可。" DescBgColor="f0f8ff" DescTextColor="234" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="　如果你是普通用户，无需阅读下面的内容。" DescBgColor="f0f8ff" DescTextColor="234" DescriptionOverride="True" />
