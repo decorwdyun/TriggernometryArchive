@@ -2149,12 +2149,16 @@
                       <Action OrderNumber="5" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AC81" DictVariableValue="_=圣锁 对T直条（不需要了） | omen=Rect | t=2.0 | scale=4.5,42,5"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="8bdbbda4-84d0-44fc-bd01-11cf3da86744" Name="以太吸取" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AC6[14]):">
+                  <Trigger Enabled="true" Id="8bdbbda4-84d0-44fc-bd01-11cf3da86744" Name="以太吸取（需要优化）" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AC6[14]):">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="Placeholder" Description="AC61 短暗  &#13;&#10;AC62 长暗  &#13;&#10;AC64 短光  &#13;&#10;AC65 长光  " DescriptionOverride="True"/>
-                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_以太_先吸暗" VariableExpression="0x${aid} = 0xAC61"/>
-                      <Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="踩${if: ${v:D79_以太_先吸暗} ? 光 : 暗 }"/>
-                      <Action OrderNumber="4" ActionType="UseTTS" ExecutionDelayExpression="6700" UseTTSTextExpression="踩${if: ${v:D79_以太_先吸暗} ? 暗 : 光 }"/>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="如果提前踩光那一次过晚，会导致读条时还未传毒，需要做进一步判断" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Description="AC61 短暗  &#13;&#10;AC62 长暗  &#13;&#10;AC64 短光  &#13;&#10;AC65 长光  " DescriptionOverride="True"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_以太_先吸暗" VariableExpression="0x${aid} = 0xAC61"/>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_以太_b带毒" VariableExpression="${_me.HasStatus(0x11D7)}"/>
+                      <Action OrderNumber="5" ActionType="UseTTS" UseTTSTextExpression="${if: ${v:D79_以太_b带毒} ? 保持踩暗 : 先踩${if: ${v:D79_以太_先吸暗} ? 光 : 暗 } } }"/>
+                      <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="6700" UseTTSExclusive="False"/>
+                      <Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_以太_b带毒" VariableExpression="${_me.HasStatus(0x11D7)}"/>
+                      <Action OrderNumber="8" ActionType="UseTTS" UseTTSTextExpression="${if: ${v:D79_以太_b带毒} ? 保持踩暗 : 先踩${if: ${v:D79_以太_先吸暗} ? 暗 : 光 } } }" UseTTSExclusive="False"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="84e9d73f-4766-4c73-8e85-ae4b72b83e52" Name="点名直条" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:00EA:">
@@ -2363,7 +2367,7 @@
               <Folder Id="f3776d80-71a7-45f2-b9a6-191a899cea42" Name="E. 罪罚" Enabled="true">
                 <Folders/>
                 <Triggers>
-                  <Trigger Enabled="true" Id="8931c22a-fc39-41d5-b323-6dce042c0115" Name="3.1 提示自身光暗" RegularExpression="^D79_罪罚:id:(?&lt;id&gt;1.{7}):stack:(?&lt;stack&gt;[1-6]):光暗:(?&lt;光暗&gt;1|0):b自:1" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
+                  <Trigger Enabled="true" Id="8931c22a-fc39-41d5-b323-6dce042c0115" Name="提示自身光暗" RegularExpression="^D79_罪罚:id:(?&lt;id&gt;1.{7}):stack:(?&lt;stack&gt;[1-7]):光暗:(?&lt;光暗&gt;1|0):b自:1" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
                     <Actions>
                       <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="踩暗"/>
                     </Actions>
@@ -2374,84 +2378,79 @@
                       <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="罪与罚，踩暗"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="false" Id="fc6bec2a-d40b-4e26-98ab-e3163a663467" Name="1.2 传毒" RegularExpression="^.{15}\S+ 16:4.{7}:[^:]*:AC87:[^:]*:(?&lt;tid&gt;1.{7}):([^:]*:){38}(?&lt;idx&gt;[^:]*):(?&lt;count&gt;[^:]*)">
+                  <Trigger Enabled="true" Id="ba6283cd-5b72-42e8-a258-6c2a9f4e08ba" Name="1. 初始上毒" RegularExpression="^.{15}\S+ 15:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AC86):[^:]*:(?&lt;tid&gt;1.{7}):">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="count = 2, idx = 1" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="传给了${_entity[${tid}].JobCN2}" UseTTSExclusive="False">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
-                          <ConditionSingle Enabled="true" ExpressionL="${count}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                          <ConditionSingle Enabled="true" ExpressionL="${idx}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="传给了${_entity[${tid}].JobCN2}" UseTTSExclusive="False">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
-                          <ConditionSingle Enabled="true" ExpressionL="${count}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                          <ConditionSingle Enabled="true" ExpressionL="${idx}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="D79_罪罚:传毒:${tid}" LogProcess="True" LogProcessACT="True">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
-                          <ConditionSingle Enabled="true" ExpressionL="${count}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                          <ConditionSingle Enabled="true" ExpressionL="${idx}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="5" ActionType="Placeholder" Asynchronous="False" Description="count = 1" DescriptionOverride="True"/>
-                      <Action OrderNumber="6" ActionType="UseTTS" UseTTSTextExpression="${_entity[${tid}].JobCN2}传毒失败" UseTTSExclusive="False">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${count}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="7" ActionType="Placeholder" Asynchronous="False" Description="count &gt; 2" DescriptionOverride="True"/>
+                      <Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Build" ListVariableExpression=",${?l:&#13;&#10;  &quot;1,3,4,2&quot;,&#13;&#10;  &quot;2,4,3,1&quot;,&#13;&#10;  &quot;3,1,2,4&quot;,&#13;&#10;  &quot;4,2,1,3&quot;&#13;&#10;  [${l:party.indexof(${tid})}]&#13;&#10;}" ListVariableTarget="D79_罪罚_pIdx"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_罪罚_myTurn" VariableExpression="${l:D79_罪罚_pIdx.indexof(${v:myIdx})}"/>
+                      <Action OrderNumber="3" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="D79_罪罚_id" ListVariableExpression="${_entity[${l:party[${l:D79_罪罚_pIdx[${_idx}]}]}].id}" ListVariableIndex="4"/>
+                      <Action OrderNumber="4" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="D79_罪罚_jobOrSelf" ListVariableExpression="${if: ${_idx} = ${v:D79_罪罚_myTurn} ? 自己 : ${_entity[${l:D79_罪罚_id[${_idx}]}].JobCN2} }" ListVariableIndex="4"/>
+                      <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="D79_罪罚_传毒正确" VariableExpression="1"/>
+                      <Action OrderNumber="6" ActionType="UseTTS" UseTTSTextExpression="初始毒在${l:D79_罪罚_jobOrSelf[1]}，&#13;&#10;下次传给${l:D79_罪罚_jobOrSelf[2]}" UseTTSExclusive="False"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="ba6283cd-5b72-42e8-a258-6c2a9f4e08ba" Name="1.1 初始上毒" RegularExpression="^.{15}\S+ 15:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AC86):[^:]*:(?&lt;tid&gt;1.{7}):">
+                  <Trigger Enabled="true" Id="f6f65b58-ce73-41fc-8a56-d19a1819d991" Name="转录毒日志" RegularExpression="^.{15}\S+ 1A:11D7:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):">
                     <Actions>
-                      <Action OrderNumber="1" Enabled="False" ActionType="LogMessage" LogMessageText="D79_罪罚:初始:${tid}" LogProcess="True" LogProcessACT="True"/>
-                      <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="初始毒在${_entity[${tid}].JobCN2}">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="初始毒在自己" UseTTSExclusive="False">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
-                        </Condition>
-                      </Action>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="如：D79_罪罚:id:10123456:stack:12:光暗:(1|0|-1):b自:1" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="D79_罪罚:id:${tid}:stack:${n: 0x${stack}}:光暗:${n: ${_entity[${tid}].HasStatus(${env:StatusId光})} - ${_entity[${tid}].HasStatus(${env:StatusId暗})}}:b自:${n: 0x${tid} = 0x${_me.id}}" LogProcess="True" LogProcessACT="True"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="f6f65b58-ce73-41fc-8a56-d19a1819d991" Name="2. 转录毒日志" RegularExpression="^.{15}\S+ 1A:11D7:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):">
+                  <Trigger Enabled="true" Id="f1e11f3e-2f88-40c8-9c14-d03a8b14b9d5" Name="3. 提示分摊" RegularExpression="^D79_罪罚:id:(?&lt;id&gt;1.{7}):stack:(?&lt;stack&gt;\d+):光暗:(?&lt;光暗&gt;1|0|-1):b自:(?&lt;b自&gt;[01])" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="10000">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_光暗" VariableExpression="${_entity[${tid}].HasStatus(${env:StatusId光})} - ${_entity[${tid}].HasStatus(${env:StatusId暗})}"/>
-                      <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="D79_罪罚:id:${tid}:stack:${n: 0x${stack}}:光暗:${v:tmp_光暗}:b自:${n: 0x${tid} = 0x${_me.id}}" LogProcess="True"/>
-                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableName="tmp_光暗"/>
-                    </Actions>
-                  </Trigger>
-                  <Trigger Enabled="true" Id="d7fe5eb9-ed1b-4296-97e3-37ee5079becb" Name="标记" RegularExpression="^.{15}\S+ 1[AE]:11D7:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):">
-                    <Actions>
-                      <Action OrderNumber="1" Enabled="False" ActionType="NamedCallback" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${tid}].Address}, ${n: 0x${stack} = 0 ? 0 : 418 + 0x${stack}}"/>
-                    </Actions>
-                  </Trigger>
-                  <Trigger Enabled="true" Id="f1e11f3e-2f88-40c8-9c14-d03a8b14b9d5" Name="3.2 提示分摊" RegularExpression="^D79_罪罚:id:(?&lt;id&gt;1.{7}):stack:(?&lt;stack&gt;\d+):光暗:(?&lt;光暗&gt;1|0|-1):b自:(?&lt;b自&gt;[01])" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="10000">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="准备传毒，${_entity[${id}].JobCN2}"/>
+                      <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${_entity[${id}].JobCN2}准备传毒"/>
+                      <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 触发提示&#13;&#10;${_event}"/>
                     </Actions>
                     <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${光暗} = 1 &amp;&amp; ${stack} &gt;= 8" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                      <ConditionSingle Enabled="true" ExpressionL="${光暗} = 0 &amp;&amp; ${stack} &gt;= 10" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${光暗} = 1 &amp;&amp; ${stack} &gt;= 8" ExpressionTypeL="Numeric" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${光暗} = 0 &amp;&amp; ${stack} &gt;= 9" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                       <ConditionSingle Enabled="true" ExpressionL="${光暗} = -1 &amp;&amp; ${stack} &gt;= 12" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
                   </Trigger>
-                  <Trigger Enabled="false" Id="bb763303-8cb5-463c-a839-fd29b228c2bc" Name="3. 记录每次初始毒" RegularExpression="^D79_罪罚:id:(?&lt;id&gt;1.{7}):stack:(?&lt;stack&gt;\d+):光暗:(?&lt;光暗&gt;1|0|-1):b自:(?&lt;b自&gt;[01])" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="10000">
+                  <Trigger Enabled="true" Id="a83ebfec-c01f-4a50-ac8b-224135771d72" Name="2. 获取毒 buff （*4）" RegularExpression="^D79_罪罚:id:(?&lt;id&gt;1.{7}):stack:(?&lt;stack&gt;[123]):光暗:(?&lt;光暗&gt;1|0|-1):b自:(?&lt;b自&gt;[01])" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="4000">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="D79_罪罚_n"/>
-                      <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="D79_罪罚_idx" ListVariableExpression="${l:party.indexof(${id})}"/>
+                      <Action OrderNumber="1" ActionType="NamedCallback" DescTextColor="26f" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${id}].Address}, 876"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="似乎某些情况下初始毒层数可能是 2？捕获 1-3 层的毒以防万一" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="D79_罪罚_n"/>
+                      <Action OrderNumber="4" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="D79_罪罚_实际pIdx" ListVariableExpression="${l:party.indexof(${id})}"/>
+                      <Action OrderNumber="5" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="D79_罪罚_实际id" ListVariableExpression="${id}"/>
+                      <Action OrderNumber="6" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="D79_罪罚_实际jobOrSelf" ListVariableExpression="${if: 0x${id} = 0x${_me.id} ? 自己 : ${_entity[${id}].JobCN2} }"/>
+                      <Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D79_罪罚_传毒正确" VariableExpression="${v:D79_罪罚_传毒正确} &amp;&amp; (0x${id} = 0x${l:D79_罪罚_id[${v:D79_罪罚_n}]})"/>
+                      <Action OrderNumber="8" ActionType="Placeholder" Asynchronous="False" Description="第二个人：" DescriptionOverride="True"/>
+                      <Action OrderNumber="9" ActionType="UseTTS" UseTTSTextExpression="下次${l:D79_罪罚_jobOrSelf[2]}传${l:D79_罪罚_jobOrSelf[3]}" UseTTSExclusive="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:D79_罪罚_n}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericEqual"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_传毒正确}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericEqual"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="10" ActionType="UseTTS" UseTTSTextExpression="传毒错误，${l:D79_罪罚_实际jobOrSelf[2]}获取毒" UseTTSExclusive="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:D79_罪罚_n}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericEqual"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_传毒正确}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericEqual"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="11" ActionType="Placeholder" Asynchronous="False" Description="第三个人：" DescriptionOverride="True"/>
+                      <Action OrderNumber="12" ActionType="UseTTS" UseTTSTextExpression="下次${l:D79_罪罚_jobOrSelf[3]}传${l:D79_罪罚_jobOrSelf[4]}" UseTTSExclusive="False">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:D79_罪罚_n}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="NumericEqual"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_传毒正确}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericEqual"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="13" ActionType="Placeholder" Asynchronous="False" Description="        传错的情况：查找剩余的人" DescriptionOverride="True"/>
+                      <Action OrderNumber="14" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="party" ListVariableExpression="!${l:D79_罪罚_实际id.contain(${_this})}" ListVariableTarget="tmp_剩余"/>
+                      <Action OrderNumber="15" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="传毒错误，下次${l:D79_罪罚_实际jobOrSelf[3]}传${if: 0x0${l:tmp_剩余[1]} = 0x${_me.id} ? 自己 : ${_entity[${l:tmp_剩余[1]}].jobCN2} }，注意配对分组">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:D79_罪罚_n}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="NumericEqual"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_传毒正确}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericEqual"/>
+                        </Condition>
+                      </Action>
                     </Actions>
                     <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${l:D79_罪罚_id.contain(${id})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${l:D79_罪罚_实际id.contain(${id})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="c9edc9fc-ab97-494e-b9e0-4c65dd6b849f" Name="移除毒特效" RegularExpression="^.{15}\S+ 1E:11D7:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${tid}].Address}, 0"/>
+                    </Actions>
                   </Trigger>
                 </Triggers>
               </Folder>
@@ -2491,7 +2490,7 @@
                       <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="log:44.9:水晶" LogProcess="True"/>
                       <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:66.7:中间集合" LogProcess="True"/>
                       <Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:112.3:吸引站位" LogProcess="True"/>
-                      <Action OrderNumber="6" ActionType="LogMessage" LogMessageText="cd5:113.3" LogProcess="True"/>
+                      <Action OrderNumber="6" ActionType="LogMessage" LogMessageText="cd5:118.3" LogProcess="True"/>
                       <Action OrderNumber="7" ActionType="Placeholder" Asynchronous="False" Description="P2 圣锁" DescriptionOverride="True"/>
                       <Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:118.4:准备三连地火" LogProcess="True">
                         <Condition Enabled="true" Grouping="Or">
@@ -2505,23 +2504,24 @@
                         </Condition>
                       </Action>
                       <Action OrderNumber="11" ActionType="LogMessage" LogMessageText="log:184.5:D79_地火_tts:准备吸引，稍后第火去dir" LogProcess="True"/>
-                      <Action OrderNumber="12" ActionType="Placeholder" Asynchronous="False" Description="P3 罪罚" DescriptionOverride="True"/>
-                      <Action OrderNumber="13" ActionType="LogMessage" LogMessageText="tts:299.9:黑白配，前后站位" LogProcess="True"/>
-                      <Action OrderNumber="14" ActionType="LogMessage" LogMessageText="log:305.8:D79_地火_tts:准备以太吸取，稍后第火去dir" LogProcess="True"/>
-                      <Action OrderNumber="15" ActionType="LogMessage" LogMessageText="tts:333.6:流血AoE" LogProcess="True"/>
-                      <Action OrderNumber="16" ActionType="LogMessage" LogMessageText="tts:350.8:火人站位" LogProcess="True"/>
-                      <Action OrderNumber="17" ActionType="Placeholder" Asynchronous="False" Description="P4 火人" DescriptionOverride="True"/>
-                      <Action OrderNumber="18" ActionType="Placeholder" Asynchronous="False" Description="P5" DescriptionOverride="True"/>
-                      <Action OrderNumber="19" ActionType="LogMessage" LogMessageText="tts:392.9:踩光，准备踩塔" LogProcess="True"/>
-                      <Action OrderNumber="20" ActionType="LogMessage" LogMessageText="log:406.6:D79_踩塔" LogProcess="True"/>
-                      <Action OrderNumber="21" ActionType="LogMessage" LogMessageText="log:426.3:D79_地火_tts:准备以太吸取，稍后第火去dir" LogProcess="True"/>
-                      <Action OrderNumber="22" ActionType="LogMessage" LogMessageText="tts:441.4:准备集合拉线" LogProcess="True"/>
-                      <Action OrderNumber="23" ActionType="LogMessage" LogMessageText="tts:454.9:死刑塔" LogProcess="True"/>
-                      <Action OrderNumber="24" ActionType="LogMessage" LogMessageText="tts:468.2:准备三连地火" LogProcess="True"/>
-                      <Action OrderNumber="25" ActionType="LogMessage" LogMessageText="tts:475.4:以太吸取" LogProcess="True"/>
-                      <Action OrderNumber="26" ActionType="LogMessage" LogMessageText="tts:493.4:准备三连地火" LogProcess="True"/>
-                      <Action OrderNumber="27" ActionType="LogMessage" LogMessageText="tts:502.6:准备吸引" LogProcess="True"/>
-                      <Action OrderNumber="28" ActionType="LogMessage" LogMessageText="tts:533.0:流血 AoE，狂暴" LogProcess="True"/>
+                      <Action OrderNumber="12" ActionType="LogMessage" LogMessageText="tts:204.5:准备黑白配" LogProcess="True"/>
+                      <Action OrderNumber="13" ActionType="Placeholder" Asynchronous="False" Description="P3 罪罚" DescriptionOverride="True"/>
+                      <Action OrderNumber="14" ActionType="LogMessage" LogMessageText="tts:299.9:黑白配，前后站位" LogProcess="True"/>
+                      <Action OrderNumber="15" ActionType="LogMessage" LogMessageText="log:305.8:D79_地火_tts:准备以太吸取，稍后第火去dir" LogProcess="True"/>
+                      <Action OrderNumber="16" ActionType="LogMessage" LogMessageText="tts:333.6:流血AoE" LogProcess="True"/>
+                      <Action OrderNumber="17" ActionType="LogMessage" LogMessageText="tts:350.8:火人站位" LogProcess="True"/>
+                      <Action OrderNumber="18" ActionType="Placeholder" Asynchronous="False" Description="P4 火人" DescriptionOverride="True"/>
+                      <Action OrderNumber="19" ActionType="Placeholder" Asynchronous="False" Description="P5" DescriptionOverride="True"/>
+                      <Action OrderNumber="20" ActionType="LogMessage" LogMessageText="tts:392.9:踩光，准备踩塔" LogProcess="True"/>
+                      <Action OrderNumber="21" ActionType="LogMessage" LogMessageText="log:406.6:D79_踩塔" LogProcess="True"/>
+                      <Action OrderNumber="22" ActionType="LogMessage" LogMessageText="log:426.3:D79_地火_tts:准备以太吸取，稍后第火去dir" LogProcess="True"/>
+                      <Action OrderNumber="23" ActionType="LogMessage" LogMessageText="tts:441.4:准备集合拉线" LogProcess="True"/>
+                      <Action OrderNumber="24" ActionType="LogMessage" LogMessageText="tts:454.9:死刑塔" LogProcess="True"/>
+                      <Action OrderNumber="25" ActionType="LogMessage" LogMessageText="tts:468.2:准备三连地火" LogProcess="True"/>
+                      <Action OrderNumber="26" ActionType="LogMessage" LogMessageText="tts:475.4:以太吸取" LogProcess="True"/>
+                      <Action OrderNumber="27" ActionType="LogMessage" LogMessageText="tts:493.4:准备三连地火" LogProcess="True"/>
+                      <Action OrderNumber="28" ActionType="LogMessage" LogMessageText="tts:502.6:准备吸引" LogProcess="True"/>
+                      <Action OrderNumber="29" ActionType="LogMessage" LogMessageText="tts:533.0:流血 AoE，狂暴" LogProcess="True"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
