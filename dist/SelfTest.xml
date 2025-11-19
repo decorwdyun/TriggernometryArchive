@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TriggernometryExport PluginVersion="1.2.0.752">
+<TriggernometryExport PluginVersion="1.2.0.758">
   <ExportedFolder Id="37aba722-ed68-4955-a4b6-874db403c479" Name="[工具] 自检工具箱 SelfTest.xml" Enabled="true" RawEnvironmentVariables="date = 2025.9.4&#13;&#10;trig = 1.2.0.751&#13;&#10;namazu = 1.3.6.6&#13;&#10;advwm = 4.9&#13;&#10;link = https://www.123pan.com/s/1xRXjv-340BH.html&#13;&#10;&#13;&#10;// 标点自检的参数方程&#13;&#10;speed = 0.01&#13;&#10;dt = 30&#13;&#10;x_t = 16 * sin(${_this}) ^ 3&#13;&#10;y_t = -13 * cos(${_this}) + 5 * cos(2 * ${_this}) + 2 * cos(3 * ${_this}) + cos(4 * ${_this})&#13;&#10;z_t = 0&#13;&#10;center = ${_me.x}, ${_me.y}, ${_me.z}&#13;&#10;θ = ${_me.heading}&#13;&#10;scale = abs(sin(${_systemtimems} / 1000)) * 0.75 + 0.25">
     <Folders>
       <Folder Id="b021fb1e-c303-4b85-8c93-6f86da5a129d" Name="控制" Enabled="true">
@@ -7,21 +7,21 @@
           <Folder Id="20d9b521-420c-413c-858a-e9476ba5ccd8" Name="3. 检测 OP 日志" Enabled="true">
             <Folders/>
             <Triggers>
-              <Trigger Enabled="true" Sequential="True" Name="2. 播报" Id="810a0612-e213-436f-a165-82ae63826522" RegularExpression="^SelfTest_OP" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
+              <Trigger Enabled="true" Id="810a0612-e213-436f-a165-82ae63826522" Name="2. 播报" RegularExpression="^SelfTest_OP" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000" Sequential="True">
                 <Actions>
-                  <Action OrderNumber="1" TriggerOp="DisableTrigger" TriggerId="c1579a75-7010-4b4c-828e-1ddd954da8e8" ActionType="Trigger"/>
-                  <Action OrderNumber="2" TriggerOp="DisableTrigger" TriggerId="fc941dd2-b97c-441d-af49-6db7bb723dd7" ActionType="Trigger"/>
-                  <Action OrderNumber="3" LogProcess="True" MessageBoxIconType="Information" MessageBoxText="已检测到全部所需的 OverlayPlugin 日志，可以继续自检。" ActionType="MessageBox"/>
+                  <Action OrderNumber="1" ActionType="Trigger" TriggerOp="DisableTrigger" TriggerId="c1579a75-7010-4b4c-828e-1ddd954da8e8"/>
+                  <Action OrderNumber="2" ActionType="Trigger" TriggerOp="DisableTrigger" TriggerId="fc941dd2-b97c-441d-af49-6db7bb723dd7"/>
+                  <Action OrderNumber="3" ActionType="MessageBox" LogProcess="True" MessageBoxIconType="Information" MessageBoxText="已检测到全部所需的 OverlayPlugin 日志，可以继续自检。"/>
                 </Actions>
               </Trigger>
-              <Trigger Enabled="false" Name="1. 获取" Id="c1579a75-7010-4b4c-828e-1ddd954da8e8" RegularExpression="^.{15}\S+ (?&lt;type&gt;101|107|111):">
+              <Trigger Enabled="false" Id="c1579a75-7010-4b4c-828e-1ddd954da8e8" Name="1. 获取" RegularExpression="^.{15}\S+ (?&lt;type&gt;101|107|111):">
                 <Actions>
-                  <Action OrderNumber="1" DictVariableOp="Set" DictVariableName="SelfTest_OP" DictVariableKey="${type}" DictVariableValue="1" ActionType="DictVariable" Asynchronous="False">
+                  <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="SelfTest_OP" DictVariableKey="${type}" DictVariableValue="1">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${d:SelfTest_OP[${type}]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                     </Condition>
                   </Action>
-                  <Action OrderNumber="2" LogMessageText="SelfTest_OP" LogProcess="True" ActionType="LogMessage" Asynchronous="False">
+                  <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="SelfTest_OP" LogProcess="True">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${d:SelfTest_OP.size}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
@@ -31,20 +31,20 @@
                   <ConditionSingle Enabled="true" ExpressionL="${d:SelfTest_OP[${type}]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                 </Condition>
               </Trigger>
-              <Trigger Enabled="false" Name="3. 播报错误" Id="fc941dd2-b97c-441d-af49-6db7bb723dd7" RegularExpression="^.{15}\S+ 03:4.{7}:([^:]*:){7}10144:">
+              <Trigger Enabled="false" Id="fc941dd2-b97c-441d-af49-6db7bb723dd7" Name="3. 播报错误" RegularExpression="^.{15}\S+ 03:4.{7}:([^:]*:){7}10144:">
                 <Actions>
-                  <Action OrderNumber="1" LogProcess="True" MessageBoxIconType="Information" MessageBoxText="已检测到全部所需的 OverlayPlugin 日志，可以继续自检。" ActionType="MessageBox">
+                  <Action OrderNumber="1" ActionType="MessageBox" LogProcess="True" MessageBoxIconType="Information" MessageBoxText="已检测到全部所需的 OverlayPlugin 日志，可以继续自检。">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${d:SelfTest_OP.size}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
                   </Action>
-                  <Action OrderNumber="2" LogProcess="True" MessageBoxIconType="Error" MessageBoxText="未检测到以下 OverlayPlugin 日志：&#13;&#10;&#13;&#10;${if: 0${d:SelfTest_OP[101]} ? &quot;&quot; : &quot;· 0x101 日志 (场地特效)⏎&quot; }${if: 0${d:SelfTest_OP[107]} ? &quot;&quot; : &quot;· 0x107 日志 (技能咏唱)⏎&quot; }${if: 0${d:SelfTest_OP[111]} ? &quot;&quot; : &quot;· 0x111 日志 (实体控制)⏎&quot; }&#13;&#10;如果你按照前面的提示检查过，但还无法解决，&#13;&#10;可以带着以上结果向 ACT 整合版的开发者提交反馈。" ActionType="MessageBox">
+                  <Action OrderNumber="2" ActionType="MessageBox" LogProcess="True" MessageBoxIconType="Error" MessageBoxText="未检测到以下 OverlayPlugin 日志：&#13;&#10;&#13;&#10;${if: 0${d:SelfTest_OP[101]} ? &quot;&quot; : &quot;· 0x101 日志 (场地特效)⏎&quot; }${if: 0${d:SelfTest_OP[107]} ? &quot;&quot; : &quot;· 0x107 日志 (技能咏唱)⏎&quot; }${if: 0${d:SelfTest_OP[111]} ? &quot;&quot; : &quot;· 0x111 日志 (实体控制)⏎&quot; }&#13;&#10;如果你按照前面的提示检查过，但还无法解决，&#13;&#10;可以带着以上结果向 ACT 整合版的开发者提交反馈。">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${d:SelfTest_OP.size}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                     </Condition>
                   </Action>
-                  <Action OrderNumber="3" TriggerOp="DisableTrigger" TriggerId="c1579a75-7010-4b4c-828e-1ddd954da8e8" ActionType="Trigger"/>
-                  <Action OrderNumber="4" TriggerOp="DisableTrigger" TriggerId="fc941dd2-b97c-441d-af49-6db7bb723dd7" ActionType="Trigger"/>
+                  <Action OrderNumber="3" ActionType="Trigger" TriggerOp="DisableTrigger" TriggerId="c1579a75-7010-4b4c-828e-1ddd954da8e8"/>
+                  <Action OrderNumber="4" ActionType="Trigger" TriggerOp="DisableTrigger" TriggerId="fc941dd2-b97c-441d-af49-6db7bb723dd7"/>
                 </Actions>
               </Trigger>
             </Triggers>
@@ -52,67 +52,67 @@
           <Folder Id="77f2a661-86d5-41bb-9072-5b9181422417" Name="6. 鲶鱼精邮差" Enabled="true">
             <Folders/>
             <Triggers>
-              <Trigger Enabled="true" Sequential="True" Name="5.2 检测功能" Id="8f8cd7e9-00f3-4383-a36f-41bb7df1598e" RegularExpression="^SelfTest:PostNamazu_Modules">
+              <Trigger Enabled="true" Id="8f8cd7e9-00f3-4383-a36f-41bb7df1598e" Name="5.2 检测功能" RegularExpression="^SelfTest:PostNamazu_Modules" Sequential="True">
                 <Actions>
-                  <Action OrderNumber="1" UseTTSTextExpression="等待两秒后看弹窗" ActionType="UseTTS" Asynchronous="False"/>
+                  <Action OrderNumber="1" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="等待两秒后看弹窗"/>
                   <Action OrderNumber="2" ActionType="Placeholder" Description="清除 A 和 攻击1；设置初始状态" DescriptionOverride="True"/>
-                  <Action OrderNumber="3" NamedCallbackName="place" NamedCallbackParam="{&#13;&#10;  &quot;A&quot;:{}, &#13;&#10;}" ActionType="NamedCallback"/>
-                  <Action OrderNumber="4" NamedCallbackName="command" NamedCallbackParam="/mk attack1 &lt;attack1&gt;" ActionType="NamedCallback"/>
-                  <Action OrderNumber="5" VariableOp="SetString" VariableName="echoTest" VariableExpression="1" ActionType="Variable"/>
+                  <Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="place" NamedCallbackParam="{&#13;&#10;  &quot;A&quot;:{}, &#13;&#10;}"/>
+                  <Action OrderNumber="4" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/mk attack1 &lt;attack1&gt;"/>
+                  <Action OrderNumber="5" ActionType="Variable" VariableOp="SetString" VariableName="echoTest" VariableExpression="1"/>
                   <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="1000"/>
                   <Action OrderNumber="7" ActionType="Placeholder" Description="测试三项功能" DescriptionOverride="True"/>
-                  <Action OrderNumber="8" NamedCallbackName="command" NamedCallbackParam="/e echo test &lt;se.10&gt;" ActionType="NamedCallback"/>
-                  <Action OrderNumber="9" NamedCallbackName="place" NamedCallbackParam="{&#13;&#10;  &quot;A&quot;:{&quot;X&quot;:${_me.x}, &quot;Y&quot;:${_me.z}, &quot;Z&quot;:${_me.y}, &quot;Active&quot;:true}, &#13;&#10;}" ActionType="NamedCallback"/>
-                  <Action OrderNumber="10" LogProcess="True" NamedCallbackName="mark" NamedCallbackParam="{&#13;&#10;    &quot;ActorID&quot;: 0x${_me.id},&#13;&#10;    &quot;MarkType&quot;: &quot;attack1&quot;,&#13;&#10;    &quot;LocalOnly&quot;: false &#13;&#10;}" ActionType="NamedCallback"/>
-                  <Action OrderNumber="11" VariableOp="SetString" VariableName="_tmp_myXY" VariableExpression="${_me.xy}" ActionType="Variable"/>
+                  <Action OrderNumber="8" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e echo test &lt;se.10&gt;"/>
+                  <Action OrderNumber="9" ActionType="NamedCallback" NamedCallbackName="place" NamedCallbackParam="{&#13;&#10;  &quot;A&quot;:{&quot;X&quot;:${_me.x}, &quot;Y&quot;:${_me.z}, &quot;Z&quot;:${_me.y}, &quot;Active&quot;:true}, &#13;&#10;}"/>
+                  <Action OrderNumber="10" ActionType="NamedCallback" LogProcess="True" NamedCallbackName="mark" NamedCallbackParam="{&#13;&#10;    &quot;ActorID&quot;: 0x${_me.id},&#13;&#10;    &quot;MarkType&quot;: &quot;attack1&quot;,&#13;&#10;    &quot;LocalOnly&quot;: false &#13;&#10;}"/>
+                  <Action OrderNumber="11" ActionType="Variable" VariableOp="SetString" VariableName="_tmp_myXY" VariableExpression="${_me.xy}"/>
                   <Action OrderNumber="12" ActionType="Placeholder" ExecutionDelayExpression="1500"/>
                   <Action OrderNumber="13" ActionType="Placeholder" Description="检查三项是否成功" DescriptionOverride="True"/>
-                  <Action OrderNumber="14" VariableName="tmp_error" ActionType="Variable"/>
-                  <Action OrderNumber="15" VariableOp="SetString" VariableName="tmp_error" VariableExpression="${v:tmp_error}&#13;&#10;&#13;&#10;&#10;尝试头顶标记攻击 1，但未检测到标记。" ActionType="Variable">
+                  <Action OrderNumber="14" ActionType="Variable" VariableName="tmp_error"/>
+                  <Action OrderNumber="15" ActionType="Variable" VariableOp="SetString" VariableName="tmp_error" VariableExpression="${v:tmp_error}&#13;&#10;&#13;&#10;&#10;尝试头顶标记攻击 1，但未检测到标记。">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${_tm2id[attack1]}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                     </Condition>
                   </Action>
-                  <Action OrderNumber="16" VariableOp="SetString" VariableName="tmp_error" VariableExpression="${v:tmp_error}&#13;&#10;&#13;&#10;&#10;尝试脚下标记 A，但未检测到标记。" ActionType="Variable">
+                  <Action OrderNumber="16" ActionType="Variable" VariableOp="SetString" VariableName="tmp_error" VariableExpression="${v:tmp_error}&#13;&#10;&#13;&#10;&#10;尝试脚下标记 A，但未检测到标记。">
                     <Condition Enabled="true" Grouping="And">
                       <ConditionSingle Enabled="true" ExpressionL="${_wm[A].active}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                       <ConditionSingle Enabled="true" ExpressionL="distance(${_wm[A].xy}, ${v:_tmp_myXY})" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreater"/>
                     </Condition>
                   </Action>
-                  <Action OrderNumber="17" VariableOp="SetString" VariableName="tmp_error" VariableExpression="${v:tmp_error}&#13;&#10;&#13;&#10;尝试发送默语宏 /e echo test &lt;se.10&gt;，但未检测到默语消息。&#13;&#10;检查是否被你关掉了：&#13;&#10;聊天栏下方齿轮图标 - 通常 - 消息过滤设置&#13;&#10;确保频道启用了默语（通知中的第六个）。&#13;&#10;此外，某些魔改聊天栏的插件可能导致此日志失效。" ActionType="Variable">
+                  <Action OrderNumber="17" ActionType="Variable" VariableOp="SetString" VariableName="tmp_error" VariableExpression="${v:tmp_error}&#13;&#10;&#13;&#10;尝试发送默语宏 /e echo test &lt;se.10&gt;，但未检测到默语消息。&#13;&#10;检查是否被你关掉了：&#13;&#10;聊天栏下方齿轮图标 - 通常 - 消息过滤设置&#13;&#10;确保频道启用了默语（通知中的第六个）。&#13;&#10;此外，某些魔改聊天栏的插件可能导致此日志失效。">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${v:echoTest}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
                   </Action>
-                  <Action OrderNumber="18" MessageBoxIconType="Error" MessageBoxText="部分检测项未通过：${v:tmp_error}&#13;&#10;————————————————————&#13;&#10;如果游戏闪退，或者以上内容有错误（除默语没开启的问题以外）：&#13;&#10;1. 确保鲶鱼精邮差插件页面左侧一排选项框已开启。&#13;&#10;2. 鲶鱼精邮差插件页面日志是否无报错。&#13;&#10;3. 如果鲶鱼精邮差提示无法注入，且以上无误，尝试重启游戏。&#13;&#10;4. 版本更新后有小概率需要等待插件更新，请耐心等待。" ActionType="MessageBox">
+                  <Action OrderNumber="18" ActionType="MessageBox" MessageBoxIconType="Error" MessageBoxText="部分检测项未通过：${v:tmp_error}&#13;&#10;————————————————————&#13;&#10;如果游戏闪退，或者以上内容有错误（除默语没开启的问题以外）：&#13;&#10;1. 确保鲶鱼精邮差插件页面左侧一排选项框已开启。&#13;&#10;2. 鲶鱼精邮差插件页面日志是否无报错。&#13;&#10;3. 如果鲶鱼精邮差提示无法注入，且以上无误，尝试重启游戏。&#13;&#10;4. 版本更新后有小概率需要等待插件更新，请耐心等待。">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${ev:tmp_error}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
                   </Action>
-                  <Action OrderNumber="19" MessageBoxIconType="Information" MessageBoxText="鲶鱼精邮差自检无误。&#13;&#10;&#13;&#10;————————————————————&#13;&#10;此外，如果你听到了 &lt;se.10&gt; 提示音，&#13;&#10;但没看见聊天栏出现 echo test，&#13;&#10;说明你没有在当前频道开启默语，会错过某些提示。&#13;&#10;&#13;&#10;聊天栏下方齿轮图标 - 通常 - 消息过滤设置&#13;&#10;确保频道启用了默语（通知中的第六个）。" ActionType="MessageBox">
+                  <Action OrderNumber="19" ActionType="MessageBox" MessageBoxIconType="Information" MessageBoxText="鲶鱼精邮差自检无误。&#13;&#10;&#13;&#10;————————————————————&#13;&#10;此外，如果你听到了 &lt;se.10&gt; 提示音，&#13;&#10;但没看见聊天栏出现 echo test，&#13;&#10;说明你没有在当前频道开启默语，会错过某些提示。&#13;&#10;&#13;&#10;聊天栏下方齿轮图标 - 通常 - 消息过滤设置&#13;&#10;确保频道启用了默语（通知中的第六个）。">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${ev:tmp_error}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
                   </Action>
-                  <Action OrderNumber="20" VariableName="_tmp_myXY" ActionType="Variable"/>
-                  <Action OrderNumber="21" VariableName="echoTest" ActionType="Variable"/>
-                  <Action OrderNumber="22" VariableName="tmp_error" ActionType="Variable"/>
+                  <Action OrderNumber="20" ActionType="Variable" VariableName="_tmp_myXY"/>
+                  <Action OrderNumber="21" ActionType="Variable" VariableName="echoTest"/>
+                  <Action OrderNumber="22" ActionType="Variable" VariableName="tmp_error"/>
                 </Actions>
               </Trigger>
-              <Trigger Enabled="true" Name="获取默语测试日志" Id="77aa6029-8dd2-4f3e-a86e-0561ddbb7849" RegularExpression="^.{15}\S+ 00:0038::echo test &lt;se\.10&gt;$">
+              <Trigger Enabled="true" Id="77aa6029-8dd2-4f3e-a86e-0561ddbb7849" Name="获取默语测试日志" RegularExpression="^.{15}\S+ 00:0038::echo test &lt;se\.10&gt;$">
                 <Actions>
-                  <Action OrderNumber="1" VariableName="echoTest" ActionType="Variable"/>
+                  <Action OrderNumber="1" ActionType="Variable" VariableName="echoTest"/>
                 </Actions>
               </Trigger>
-              <Trigger Enabled="true" Sequential="True" Name="5.1 检测版本" Id="079b4304-1f0d-4bd4-a2ab-a0818a6f963a" RegularExpression="^SelfTest:PostNamazu_Version:isInit:(?&lt;isInit&gt;.)">
+              <Trigger Enabled="true" Id="079b4304-1f0d-4bd4-a2ab-a0818a6f963a" Name="5.1 检测版本" RegularExpression="^SelfTest:PostNamazu_Version:isInit:(?&lt;isInit&gt;.)" Sequential="True">
                 <Actions>
-                  <Action OrderNumber="1" ExecScriptExpression="using Triggernometry;&#13;&#10;using System.Windows.Forms;&#13;&#10;&#13;&#10;void Main()&#13;&#10;{&#13;&#10;    bool showError = &quot;${isInit}&quot; == &quot;0&quot;;&#13;&#10;    var postNamazu = RealPlugin.InstanceHook(null, &quot;PostNamazu.PostNamazu&quot;);&#13;&#10;    if (postNamazu.pluginObj == null)&#13;&#10;    {&#13;&#10;        if (showError) MessageBox.Show(&quot;鲶鱼精邮差插件未安装或未启动。&quot;, &quot;PostNamazu 鲶鱼精邮差&quot;, MessageBoxButtons.OK, MessageBoxIcon.Error);&#13;&#10;        return;&#13;&#10;    }&#13;&#10;    &#13;&#10;    var localVersion = new Version(postNamazu.FileVersion);&#13;&#10;    var remoteVersion = new Version(&quot;${env:namazu}&quot;);&#13;&#10;    &#13;&#10;    if (localVersion &lt; remoteVersion)&#13;&#10;    {&#13;&#10;        if (showError) MessageBox.Show($&quot;鲶鱼精邮差插件版本 {localVersion} 低于所需最低版本 {remoteVersion}。\n正在尝试更新。&quot;, &quot;PostNamazu 鲶鱼精邮差&quot;, MessageBoxButtons.OK, MessageBoxIcon.Warning);&#13;&#10;        RealPlugin.plug.UpdatePostNamazu(&quot;${env:namazu}&quot;);&#13;&#10;        return;&#13;&#10;    }&#13;&#10;    if (showError) MessageBox.Show($&quot;鲶鱼精邮差插件版本 {localVersion} 不低于所需最低版本 {remoteVersion}。\n可以继续测试功能。&quot;, &quot;PostNamazu 鲶鱼精邮差&quot;, MessageBoxButtons.OK, MessageBoxIcon.Information);&#13;&#10;}&#13;&#10;&#13;&#10;Main();" ActionType="ExecuteScript"/>
+                  <Action OrderNumber="1" ActionType="ExecuteScript" ExecScriptExpression="using Triggernometry;&#13;&#10;using System.Windows.Forms;&#13;&#10;&#13;&#10;void Main()&#13;&#10;{&#13;&#10;    bool showError = &quot;${isInit}&quot; == &quot;0&quot;;&#13;&#10;    var postNamazu = RealPlugin.InstanceHook(null, &quot;PostNamazu.PostNamazu&quot;);&#13;&#10;    if (postNamazu.pluginObj == null)&#13;&#10;    {&#13;&#10;        if (showError) MessageBox.Show(&quot;鲶鱼精邮差插件未安装或未启动。&quot;, &quot;PostNamazu 鲶鱼精邮差&quot;, MessageBoxButtons.OK, MessageBoxIcon.Error);&#13;&#10;        return;&#13;&#10;    }&#13;&#10;    &#13;&#10;    var localVersion = new Version(postNamazu.FileVersion);&#13;&#10;    var remoteVersion = new Version(&quot;${env:namazu}&quot;);&#13;&#10;    &#13;&#10;    if (localVersion &lt; remoteVersion)&#13;&#10;    {&#13;&#10;        if (showError) MessageBox.Show($&quot;鲶鱼精邮差插件版本 {localVersion} 低于所需最低版本 {remoteVersion}。\n正在尝试更新。&quot;, &quot;PostNamazu 鲶鱼精邮差&quot;, MessageBoxButtons.OK, MessageBoxIcon.Warning);&#13;&#10;        RealPlugin.plug.UpdatePostNamazu(&quot;${env:namazu}&quot;);&#13;&#10;        return;&#13;&#10;    }&#13;&#10;    if (showError) MessageBox.Show($&quot;鲶鱼精邮差插件版本 {localVersion} 不低于所需最低版本 {remoteVersion}。\n可以继续测试功能。&quot;, &quot;PostNamazu 鲶鱼精邮差&quot;, MessageBoxButtons.OK, MessageBoxIcon.Information);&#13;&#10;}&#13;&#10;&#13;&#10;Main();"/>
                 </Actions>
               </Trigger>
-              <Trigger Enabled="true" Name="启动自检" Id="32f184b5-dfcd-4998-8e0f-36841510b7e2" RegularExpression="^.{15}\S+ 01:">
+              <Trigger Enabled="true" Id="32f184b5-dfcd-4998-8e0f-36841510b7e2" Name="启动自检" RegularExpression="^.{15}\S+ 01:">
                 <Actions>
-                  <Action OrderNumber="1" LogMessageText="SelfTest:PostNamazu_Version:isInit:1" LogProcess="True" ActionType="LogMessage"/>
-                  <Action OrderNumber="2" VariableOp="SetString" VariableName="SelfTest_PostNamazuChecked" VariableExpression="1" ActionType="Variable"/>
+                  <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="SelfTest:PostNamazu_Version:isInit:1" LogProcess="True"/>
+                  <Action OrderNumber="2" ActionType="Variable" VariableOp="SetString" VariableName="SelfTest_PostNamazuChecked" VariableExpression="1"/>
                 </Actions>
                 <Condition Enabled="true" Grouping="Or">
                   <ConditionSingle Enabled="true" ExpressionL="${ev:SelfTest_PostNamazuChecked}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
@@ -123,20 +123,20 @@
           <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^(129|130|132|1186)$" Id="9edf3e44-a7ef-4c8f-91ec-43ee47843c8a" Name="?" Enabled="false">
             <Folders/>
             <Triggers>
-              <Trigger Enabled="true" Name="t" Id="e5d7d8a0-d405-472b-b7e5-df5fc061d5ed" RegularExpression="^.{15}\S+ 01" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="21600 * 1000">
+              <Trigger Enabled="true" Id="e5d7d8a0-d405-472b-b7e5-df5fc061d5ed" Name="t" RegularExpression="^.{15}\S+ 01" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="21600 * 1000">
                 <Actions>
                   <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="60000"/>
-                  <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;您所购买的游戏时间即将结束。&#13;&#10;　月卡剩余时间：0分钟&#13;&#10;　点卡剩余时间：${n: random(3,10)}分钟" ActionType="NamedCallback">
+                  <Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;您所购买的游戏时间即将结束。&#13;&#10;　月卡剩余时间：0分钟&#13;&#10;　点卡剩余时间：${n: random(3,10)}分钟">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${_ffxivlanguageid}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                     </Condition>
                   </Action>
-                  <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;プレイ時間の終了が近づいています。　&#13;&#10;　月額課金：0分&#13;&#10;　時間課金：${n: random(3,10)}分" ActionType="NamedCallback">
+                  <Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;プレイ時間の終了が近づいています。　&#13;&#10;　月額課金：0分&#13;&#10;　時間課金：${n: random(3,10)}分">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${_ffxivlanguageid}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                     </Condition>
                   </Action>
-                  <Action OrderNumber="4" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;It's almost time for an Eorzean re-up.&#13;&#10;　Months remaining: 0 minute&#13;&#10;　Hours remaining: ${n: random(3,10)} minutes" ActionType="NamedCallback">
+                  <Action OrderNumber="4" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;It's almost time for an Eorzean re-up.&#13;&#10;　Months remaining: 0 minute&#13;&#10;　Hours remaining: ${n: random(3,10)} minutes">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${_ffxivlanguageid}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                     </Condition>
@@ -146,11 +146,11 @@
                   <ConditionSingle Enabled="true" ExpressionL="${f:localtime(MMdd):${_systemtime}}" ExpressionTypeL="String" ExpressionR="0401" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                 </Condition>
               </Trigger>
-              <Trigger Enabled="true" Name="○" Id="1abe8dee-dba2-46b0-a7c5-83ebd0a601a5" RegularExpression="^.{15}\S+ 03:(?&lt;sid&gt;10....0[0-7]):">
+              <Trigger Enabled="true" Id="1abe8dee-dba2-46b0-a7c5-83ebd0a601a5" Name="○" RegularExpression="^.{15}\S+ 03:(?&lt;sid&gt;10....0[0-7]):">
                 <Actions>
                   <Action OrderNumber="1" Enabled="False"/>
-                  <Action OrderNumber="2" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${sid}].Address}, 463" ActionType="NamedCallback"/>
-                  <Action OrderNumber="3" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${sid}].Address}, 0" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="10000"/>
+                  <Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${sid}].Address}, 463"/>
+                  <Action OrderNumber="3" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="10000" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${sid}].Address}, 0"/>
                 </Actions>
                 <Condition Enabled="true" Grouping="And">
                   <ConditionGroup Enabled="true" Grouping="Or">
@@ -160,9 +160,9 @@
                   <ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                 </Condition>
               </Trigger>
-              <Trigger Enabled="true" Name="关闭" Id="4ee2bd76-3061-4ddd-a840-6489b421dead" RegularExpression="^.{15}\S+ 00:0038::(?i) *fool *$">
+              <Trigger Enabled="true" Id="4ee2bd76-3061-4ddd-a840-6489b421dead" Name="关闭" RegularExpression="^.{15}\S+ 00:0038::(?i) *fool *$">
                 <Actions>
-                  <Action OrderNumber="1" FolderOp="DisableFolder" FolderId="9edf3e44-a7ef-4c8f-91ec-43ee47843c8a" ActionType="Folder"/>
+                  <Action OrderNumber="1" ActionType="Folder" FolderOp="DisableFolder" FolderId="9edf3e44-a7ef-4c8f-91ec-43ee47843c8a"/>
                   <Action OrderNumber="2" SystemBeepLengthExpression="200"/>
                 </Actions>
               </Trigger>
@@ -170,163 +170,163 @@
           </Folder>
         </Folders>
         <Triggers>
-          <Trigger Enabled="false" Name="2. 检测使用技能" Id="9b010c21-9ad7-4f42-a6a4-43130f82f0ec" RegularExpression="^.{15}\S+ 1[456]:(?&lt;sid&gt;1.{7}):[^:]*:[^:]*:(?&lt;an&gt;[^:]+):">
+          <Trigger Enabled="false" Id="9b010c21-9ad7-4f42-a6a4-43130f82f0ec" Name="2. 检测使用技能" RegularExpression="^.{15}\S+ 1[456]:(?&lt;sid&gt;1.{7}):[^:]*:[^:]*:(?&lt;an&gt;[^:]+):">
             <Actions>
-              <Action OrderNumber="1" TriggerOp="DisableTrigger" TriggerId="9b010c21-9ad7-4f42-a6a4-43130f82f0ec" ActionType="Trigger"/>
-              <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="已检测到技能：${an}⏎⏎区域：${_ffxivzoneid}⏎⏎如果以上技能名正确，区域不为空，说明 ACT 与游戏的数据交互没有问题，可以继续检测第三条。" ActionType="MessageBox"/>
+              <Action OrderNumber="1" ActionType="Trigger" TriggerOp="DisableTrigger" TriggerId="9b010c21-9ad7-4f42-a6a4-43130f82f0ec"/>
+              <Action OrderNumber="1" ActionType="MessageBox" MessageBoxIconType="Information" MessageBoxText="已检测到技能：${an}⏎⏎区域：${_ffxivzoneid}⏎⏎如果以上技能名正确，区域不为空，说明 ACT 与游戏的数据交互没有问题，可以继续检测第三条。"/>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
             </Condition>
           </Trigger>
-          <Trigger Enabled="true" Sequential="True" Name="7.2 标点测试" Id="7c3818c4-c6ed-49ab-a099-b6a67d27f090" RegularExpression="^SelfTest:AdvWm2">
+          <Trigger Enabled="true" Id="7c3818c4-c6ed-49ab-a099-b6a67d27f090" Name="7.2 标点测试" RegularExpression="^SelfTest:AdvWm2" Sequential="True">
             <Actions>
-              <Action OrderNumber="1" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="tmp_wm" ListVariableExpression="(${_systemtimems} + ${env:dt} * ${_idx}) * ${env:speed}" ListVariableIndex="8" ActionType="ListVariable" Asynchronous="False"/>
-              <Action OrderNumber="2" ListVariableOp="SetAll" ListVariableName="tmp_wm" ListVariableExpression="${n: ${env:x_t}}, ${n: ${env:y_t}}, ${n: ${env:z_t}}" ActionType="ListVariable" Asynchronous="False"/>
-              <Action OrderNumber="3" NamedCallbackName="AdvWm" NamedCallbackParam="action:  place&#13;&#10;center: ${env:center}&#13;&#10;θ: ${env:θ}&#13;&#10;scale: ${env:scale}&#13;&#10;&#13;&#10;A: ${l:tmp_wm[1]}&#13;&#10;B: ${l:tmp_wm[2]}&#13;&#10;C: ${l:tmp_wm[3]}&#13;&#10;D: ${l:tmp_wm[4]}&#13;&#10;1: ${l:tmp_wm[5]}&#13;&#10;2: ${l:tmp_wm[6]}&#13;&#10;3: ${l:tmp_wm[7]}&#13;&#10;4: ${l:tmp_wm[8]}&#13;&#10;&#13;&#10;log: false" ActionType="NamedCallback" Asynchronous="False"/>
-              <Action OrderNumber="4" ListVariableName="tmp_wm" ActionType="ListVariable" Asynchronous="False"/>
-              <Action OrderNumber="5" TriggerId="7c3818c4-c6ed-49ab-a099-b6a67d27f090" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="10" Asynchronous="False"/>
+              <Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="tmp_wm" ListVariableExpression="(${_systemtimems} + ${env:dt} * ${_idx}) * ${env:speed}" ListVariableIndex="8"/>
+              <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="tmp_wm" ListVariableExpression="${n: ${env:x_t}}, ${n: ${env:y_t}}, ${n: ${env:z_t}}"/>
+              <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="AdvWm" NamedCallbackParam="action:  place&#13;&#10;center: ${env:center}&#13;&#10;θ: ${env:θ}&#13;&#10;scale: ${env:scale}&#13;&#10;&#13;&#10;A: ${l:tmp_wm[1]}&#13;&#10;B: ${l:tmp_wm[2]}&#13;&#10;C: ${l:tmp_wm[3]}&#13;&#10;D: ${l:tmp_wm[4]}&#13;&#10;1: ${l:tmp_wm[5]}&#13;&#10;2: ${l:tmp_wm[6]}&#13;&#10;3: ${l:tmp_wm[7]}&#13;&#10;4: ${l:tmp_wm[8]}&#13;&#10;&#13;&#10;log: false"/>
+              <Action OrderNumber="4" ActionType="ListVariable" Asynchronous="False" ListVariableName="tmp_wm"/>
+              <Action OrderNumber="5" ActionType="Trigger" ExecutionDelayExpression="10" Asynchronous="False" TriggerId="7c3818c4-c6ed-49ab-a099-b6a67d27f090" TriggerForce="regexp"/>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${v:tmp_wm_on}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
             </Condition>
           </Trigger>
-          <Trigger Enabled="true" Sequential="True" Name="7.1 高级标点工具箱" Id="d6f1745a-3081-4013-bcd0-1c724f38dec3" RegularExpression="^SelfTest:AdvWm1">
+          <Trigger Enabled="true" Id="d6f1745a-3081-4013-bcd0-1c724f38dec3" Name="7.1 高级标点工具箱" RegularExpression="^SelfTest:AdvWm1" Sequential="True">
             <Actions>
-              <Action OrderNumber="1" UseTTSTextExpression="等待三秒" ActionType="UseTTS"/>
-              <Action OrderNumber="2" ListVariableName="AdvWm_version" LogProcess="True" ActionType="ListVariable"/>
-              <Action OrderNumber="3" LogMessageText="AdvWm_getVersion" LogProcess="True" ActionType="LogMessage"/>
-              <Action OrderNumber="4" LogMessageText="[00:00:00.000] 0 01:" LogProcess="True" ActionType="LogMessage"/>
+              <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="等待三秒"/>
+              <Action OrderNumber="2" ActionType="ListVariable" ListVariableName="AdvWm_version" LogProcess="True"/>
+              <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="AdvWm_getVersion" LogProcess="True"/>
+              <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="[00:00:00.000] 0 01:" LogProcess="True"/>
               <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="3000"/>
-              <Action OrderNumber="6" ListVariableOp="SortNumericAsc" ListVariableName="AdvWm_version" LogProcess="True" ActionType="ListVariable"/>
-              <Action OrderNumber="7" VariableOp="SetString" VariableName="tmp_version" VariableExpression="${env:advwm}" ActionType="Variable"/>
-              <Action OrderNumber="8" LogProcess="True" MessageBoxIconType="Information" MessageBoxText="高级标点工具箱版本正确（${l:AdvWm_version[1]}）。&#13;&#10;&#13;&#10;你可以使用下一个自检触发器测试标点功能，你将会看见八个标点在旋转。" ActionType="MessageBox">
+              <Action OrderNumber="6" ActionType="ListVariable" ListVariableOp="SortNumericAsc" ListVariableName="AdvWm_version" LogProcess="True"/>
+              <Action OrderNumber="7" ActionType="Variable" VariableOp="SetString" VariableName="tmp_version" VariableExpression="${env:advwm}"/>
+              <Action OrderNumber="8" ActionType="MessageBox" LogProcess="True" MessageBoxIconType="Information" MessageBoxText="高级标点工具箱版本正确（${l:AdvWm_version[1]}）。&#13;&#10;&#13;&#10;你可以使用下一个自检触发器测试标点功能，你将会看见八个标点在旋转。">
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${f:versioncompare(${v:tmp_version}):${l:AdvWm_version[1]}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
                   <ConditionSingle Enabled="true" ExpressionL="${l:AdvWm_version.size}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                   <ConditionSingle Enabled="true" ExpressionL="${ecallback:AdvWm}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                 </Condition>
               </Action>
-              <Action OrderNumber="9" LogProcess="True" MessageBoxIconType="Warning" MessageBoxText="高级标点工具箱版本正确（${l:AdvWm_version[1]}），但未成功注册回调，无法标点。&#13;&#10;&#13;&#10;首先确保你的触发器右上角没有报错，否则按照报错内容处理。&#13;&#10;&#13;&#10;如果你是手动添加的远程仓库：&#13;&#10;  确保该仓库右键设置中开启了脚本代码执行权限，然后更新仓库。&#13;&#10;&#13;&#10;解决问题后重新使用这条自检，会自动重新尝试注册回调。&#13;&#10;正确注册回调后，游戏内可以看到一条默语消息。" ActionType="MessageBox">
+              <Action OrderNumber="9" ActionType="MessageBox" LogProcess="True" MessageBoxIconType="Warning" MessageBoxText="高级标点工具箱版本正确（${l:AdvWm_version[1]}），但未成功注册回调，无法标点。&#13;&#10;&#13;&#10;首先确保你的触发器右上角没有报错，否则按照报错内容处理。&#13;&#10;&#13;&#10;如果你是手动添加的远程仓库：&#13;&#10;  确保该仓库右键设置中开启了脚本代码执行权限，然后更新仓库。&#13;&#10;&#13;&#10;解决问题后重新使用这条自检，会自动重新尝试注册回调。&#13;&#10;正确注册回调后，游戏内可以看到一条默语消息。">
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${l:AdvWm_version.size}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                   <ConditionSingle Enabled="true" ExpressionL="${ecallback:AdvWm}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                   <ConditionSingle Enabled="true" ExpressionL="${f:versioncompare(${v:tmp_version}):${l:AdvWm_version[1]}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
                 </Condition>
               </Action>
-              <Action OrderNumber="10" LogProcess="True" MessageBoxIconType="Error" MessageBoxText="高级标点工具箱版本版本过低。&#13;&#10;当前：${l:AdvWm_version[1]}，最新：${v:tmp_version}&#13;&#10;&#13;&#10;请从头到尾按顺序自检，自动更新后会自动下载最新版触发器。" ActionType="MessageBox">
+              <Action OrderNumber="10" ActionType="MessageBox" LogProcess="True" MessageBoxIconType="Error" MessageBoxText="高级标点工具箱版本版本过低。&#13;&#10;当前：${l:AdvWm_version[1]}，最新：${v:tmp_version}&#13;&#10;&#13;&#10;请从头到尾按顺序自检，自动更新后会自动下载最新版触发器。">
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${l:AdvWm_version.size}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                   <ConditionSingle Enabled="true" ExpressionL="${f:versioncompare(${v:tmp_version}):${l:AdvWm_version[1]}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess"/>
                 </Condition>
               </Action>
-              <Action OrderNumber="11" LogProcess="True" MessageBoxIconType="Error" MessageBoxText="高级标点工具箱存在多个已开启的版本（${l:AdvWm_version.join(&quot;, &quot;)}）。" ActionType="MessageBox">
+              <Action OrderNumber="11" ActionType="MessageBox" LogProcess="True" MessageBoxIconType="Error" MessageBoxText="高级标点工具箱存在多个已开启的版本（${l:AdvWm_version.join(&quot;, &quot;)}）。">
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${l:AdvWm_version.size}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreater"/>
                 </Condition>
               </Action>
-              <Action OrderNumber="12" LogProcess="True" MessageBoxIconType="Error" MessageBoxText="未检测到已开启的高级标点工具箱，或工具箱版本过低。&#13;&#10;&#13;&#10;使用说明中可以自动添加此远程触发器。" ActionType="MessageBox">
+              <Action OrderNumber="12" ActionType="MessageBox" LogProcess="True" MessageBoxIconType="Error" MessageBoxText="未检测到已开启的高级标点工具箱，或工具箱版本过低。&#13;&#10;&#13;&#10;使用说明中可以自动添加此远程触发器。">
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${l:AdvWm_version.size}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                 </Condition>
               </Action>
-              <Action OrderNumber="13" ListVariableName="AdvWm_version" LogProcess="True" Enabled="False" ActionType="ListVariable"/>
-              <Action OrderNumber="14" VariableName="tmp_version" Enabled="False" ActionType="Variable"/>
+              <Action OrderNumber="13" Enabled="False" ActionType="ListVariable" ListVariableName="AdvWm_version" LogProcess="True"/>
+              <Action OrderNumber="14" Enabled="False" ActionType="Variable" VariableName="tmp_version"/>
             </Actions>
           </Trigger>
-          <Trigger Enabled="true" Name="4.2 [C] 检查 ACT 插件顺序" Id="a51cec9d-c8f1-4c7b-8d30-b87c7074eda2" RegularExpression="^SelfTest_PluginOrder:(?&lt;isManual&gt;[01])">
+          <Trigger Enabled="true" Id="a51cec9d-c8f1-4c7b-8d30-b87c7074eda2" Name="4.2 [C] 检查 ACT 插件顺序" RegularExpression="^SelfTest_PluginOrder:(?&lt;isManual&gt;[01])">
             <Actions>
-              <Action OrderNumber="1" ExecScriptExpression="using Advanced_Combat_Tracker;&#13;&#10;using System.Collections.Generic;&#13;&#10;using System.Windows.Forms;&#13;&#10;using System.Linq;&#13;&#10;using static Triggernometry.Interpreter.StaticHelpers;&#13;&#10;&#13;&#10;// 反射 API 限制，只能获取 Type 的名称，手动转换一下&#13;&#10;var typeToName = new Dictionary&lt;string, string&gt;&#13;&#10;{&#13;&#10;    { &quot;FFXIV_ACT_Plugin.FFXIV_ACT_Plugin&quot;, &quot;FFXIV_ACT_Plugin&quot; },&#13;&#10;    { &quot;RainbowMage.OverlayPlugin.PluginLoader&quot;, &quot;OverlayPlugin&quot; },&#13;&#10;    { &quot;PostNamazu.PostNamazu&quot;, &quot;PostNamazu&quot; },&#13;&#10;    { &quot;TriggernometryProxy.ProxyPlugin&quot;, &quot;Triggernometry&quot; },&#13;&#10;    { &quot;ACT.FoxTTS.FoxTTSPlugin&quot;, &quot;FoxTTS&quot; },&#13;&#10;    { &quot;Cafe.Matcha.MatchaInit&quot;, &quot;Matcha&quot; },&#13;&#10;    { &quot;ACT.FFXIVPing.FFXIVPingPlugin&quot;, &quot;FFXIVPing&quot; },&#13;&#10;    { &quot;Cactbot.PluginLoader&quot;, &quot;Cactbot&quot; },&#13;&#10;    { &quot;StarlightBreaker.MainClass&quot;, &quot;StarlightBreaker&quot; },&#13;&#10;    { &quot;AccurateWorldTravelQueue.PluginMain&quot;, &quot;AccurateWorldTravelQueue&quot; },&#13;&#10;    { &quot;ACT.TTS_CN.PluginMain&quot;, &quot;TTS_CN&quot; },&#13;&#10;    { &quot;SilverDasher.Loader.Loader&quot;, &quot;SilverDasher&quot; }&#13;&#10;};&#13;&#10;&#13;&#10;var pluginNames = ActGlobals.oFormActMain.ActPlugins&#13;&#10;    .Where(p =&gt; p.cbEnabled.Checked)&#13;&#10;    .Select(p =&gt; p.pluginObj.GetType().ToString())&#13;&#10;    .Select(typeName =&gt; typeToName.TryGetValue(typeName, out var name) ? name : typeName)&#13;&#10;    .Where(name =&gt; !name.ToLower().Contains(&quot;cafestore&quot;))&#13;&#10;    .ToList();&#13;&#10;//pluginNames.ForEach(o =&gt; Triggernometry.Debug.Log(o));&#13;&#10;&#13;&#10;List&lt;string&gt; errors = new List&lt;string&gt;();&#13;&#10;&#13;&#10;if (pluginNames[0] != &quot;FFXIV_ACT_Plugin&quot; ||&#13;&#10;    pluginNames[1] != &quot;OverlayPlugin&quot; ||&#13;&#10;    pluginNames[2] != &quot;Triggernometry&quot;)&#13;&#10;{&#13;&#10;    errors.Add(&quot;· 前三个插件按顺序应为：\n  1. FFXIV_ACT_Plugin\n  2. OverlayPlugin\n  3. Triggernometry&quot;);&#13;&#10;}&#13;&#10;var namazuIdx = pluginNames.IndexOf(&quot;PostNamazu&quot;);&#13;&#10;var cactbotIdx = pluginNames.IndexOf(&quot;Cactbot&quot;);&#13;&#10;var trigIdx = pluginNames.IndexOf(&quot;Triggernometry&quot;);&#13;&#10;var overlayIdx = pluginNames.IndexOf(&quot;OverlayPlugin&quot;);&#13;&#10;if (namazuIdx &gt;= 0 &amp;&amp; namazuIdx &lt; trigIdx)&#13;&#10;{&#13;&#10;    errors.Add(&quot;· 鲶鱼精邮差 PostNamazu 应置于触发器 Triggernometry 后面。&quot;);&#13;&#10;}&#13;&#10;if (cactbotIdx &gt;= 0 &amp;&amp; cactbotIdx &lt; overlayIdx)&#13;&#10;{&#13;&#10;    errors.Add(&quot;· Cactbot 应置于 OverlayPlugin 后面。&quot;);&#13;&#10;}&#13;&#10;if (errors.Any())&#13;&#10;{&#13;&#10;    var detail = &quot;${isManual}&quot; == &quot;1&quot; ? &quot;&quot; : &quot;\n（ACT 主界面 - 插件 - Triggernometry - 页面下方 远程触发器）&quot;;&#13;&#10;    MessageBox.Show(&#13;&#10;        &quot;ACT 插件顺序错误，插件不会正常工作：\n\n&quot; + string.Join(&quot;\n&quot;, errors) + &quot;\n\n你需要按远程触发器 - 自检工具箱中的说明调整。&quot; + detail + &quot;\n建议截图此弹窗以便调整。\n修复后需要重启 ACT。\n\n当前插件列表：\n· &quot; + string.Join(&quot;\n· &quot;, pluginNames),&#13;&#10;        &quot;Triggernometry 触发器自检：插件顺序&quot;, MessageBoxButtons.OK, MessageBoxIcon.Error);&#13;&#10;}&#13;&#10;else if (&quot;${isManual}&quot; == &quot;1&quot;)&#13;&#10;{&#13;&#10;    MessageBox.Show(&#13;&#10;        &quot;ACT 插件顺序正确。\n\n当前插件列表：\n· &quot; + string.Join(&quot;\n· &quot;, pluginNames),&#13;&#10;        &quot;触发器自检：插件顺序&quot;, MessageBoxButtons.OK, MessageBoxIcon.Information);&#13;&#10;}" ActionType="ExecuteScript"/>
+              <Action OrderNumber="1" ActionType="ExecuteScript" ExecScriptExpression="using Advanced_Combat_Tracker;&#13;&#10;using System.Collections.Generic;&#13;&#10;using System.Windows.Forms;&#13;&#10;using System.Linq;&#13;&#10;using static Triggernometry.Interpreter.StaticHelpers;&#13;&#10;&#13;&#10;// 反射 API 限制，只能获取 Type 的名称，手动转换一下&#13;&#10;var typeToName = new Dictionary&lt;string, string&gt;&#13;&#10;{&#13;&#10;    { &quot;FFXIV_ACT_Plugin.FFXIV_ACT_Plugin&quot;, &quot;FFXIV_ACT_Plugin&quot; },&#13;&#10;    { &quot;RainbowMage.OverlayPlugin.PluginLoader&quot;, &quot;OverlayPlugin&quot; },&#13;&#10;    { &quot;PostNamazu.PostNamazu&quot;, &quot;PostNamazu&quot; },&#13;&#10;    { &quot;TriggernometryProxy.ProxyPlugin&quot;, &quot;Triggernometry&quot; },&#13;&#10;    { &quot;ACT.FoxTTS.FoxTTSPlugin&quot;, &quot;FoxTTS&quot; },&#13;&#10;    { &quot;Cafe.Matcha.MatchaInit&quot;, &quot;Matcha&quot; },&#13;&#10;    { &quot;ACT.FFXIVPing.FFXIVPingPlugin&quot;, &quot;FFXIVPing&quot; },&#13;&#10;    { &quot;Cactbot.PluginLoader&quot;, &quot;Cactbot&quot; },&#13;&#10;    { &quot;StarlightBreaker.MainClass&quot;, &quot;StarlightBreaker&quot; },&#13;&#10;    { &quot;AccurateWorldTravelQueue.PluginMain&quot;, &quot;AccurateWorldTravelQueue&quot; },&#13;&#10;    { &quot;ACT.TTS_CN.PluginMain&quot;, &quot;TTS_CN&quot; },&#13;&#10;    { &quot;SilverDasher.Loader.Loader&quot;, &quot;SilverDasher&quot; }&#13;&#10;};&#13;&#10;&#13;&#10;var pluginNames = ActGlobals.oFormActMain.ActPlugins&#13;&#10;    .Where(p =&gt; p.cbEnabled.Checked)&#13;&#10;    .Select(p =&gt; p.pluginObj.GetType().ToString())&#13;&#10;    .Select(typeName =&gt; typeToName.TryGetValue(typeName, out var name) ? name : typeName)&#13;&#10;    .Where(name =&gt; !name.ToLower().Contains(&quot;cafestore&quot;))&#13;&#10;    .ToList();&#13;&#10;//pluginNames.ForEach(o =&gt; Triggernometry.Debug.Log(o));&#13;&#10;&#13;&#10;List&lt;string&gt; errors = new List&lt;string&gt;();&#13;&#10;&#13;&#10;if (pluginNames[0] != &quot;FFXIV_ACT_Plugin&quot; ||&#13;&#10;    pluginNames[1] != &quot;OverlayPlugin&quot; ||&#13;&#10;    pluginNames[2] != &quot;Triggernometry&quot;)&#13;&#10;{&#13;&#10;    errors.Add(&quot;· 前三个插件按顺序应为：\n  1. FFXIV_ACT_Plugin\n  2. OverlayPlugin\n  3. Triggernometry&quot;);&#13;&#10;}&#13;&#10;var namazuIdx = pluginNames.IndexOf(&quot;PostNamazu&quot;);&#13;&#10;var cactbotIdx = pluginNames.IndexOf(&quot;Cactbot&quot;);&#13;&#10;var trigIdx = pluginNames.IndexOf(&quot;Triggernometry&quot;);&#13;&#10;var overlayIdx = pluginNames.IndexOf(&quot;OverlayPlugin&quot;);&#13;&#10;if (namazuIdx &gt;= 0 &amp;&amp; namazuIdx &lt; trigIdx)&#13;&#10;{&#13;&#10;    errors.Add(&quot;· 鲶鱼精邮差 PostNamazu 应置于触发器 Triggernometry 后面。&quot;);&#13;&#10;}&#13;&#10;if (cactbotIdx &gt;= 0 &amp;&amp; cactbotIdx &lt; overlayIdx)&#13;&#10;{&#13;&#10;    errors.Add(&quot;· Cactbot 应置于 OverlayPlugin 后面。&quot;);&#13;&#10;}&#13;&#10;if (errors.Any())&#13;&#10;{&#13;&#10;    var detail = &quot;${isManual}&quot; == &quot;1&quot; ? &quot;&quot; : &quot;\n（ACT 主界面 - 插件 - Triggernometry - 页面下方 远程触发器）&quot;;&#13;&#10;    MessageBox.Show(&#13;&#10;        &quot;ACT 插件顺序错误，插件不会正常工作：\n\n&quot; + string.Join(&quot;\n&quot;, errors) + &quot;\n\n你需要按远程触发器 - 自检工具箱中的说明调整。&quot; + detail + &quot;\n建议截图此弹窗以便调整。\n修复后需要重启 ACT。\n\n当前插件列表：\n· &quot; + string.Join(&quot;\n· &quot;, pluginNames),&#13;&#10;        &quot;Triggernometry 触发器自检：插件顺序&quot;, MessageBoxButtons.OK, MessageBoxIcon.Error);&#13;&#10;}&#13;&#10;else if (&quot;${isManual}&quot; == &quot;1&quot;)&#13;&#10;{&#13;&#10;    MessageBox.Show(&#13;&#10;        &quot;ACT 插件顺序正确。\n\n当前插件列表：\n· &quot; + string.Join(&quot;\n· &quot;, pluginNames),&#13;&#10;        &quot;触发器自检：插件顺序&quot;, MessageBoxButtons.OK, MessageBoxIcon.Information);&#13;&#10;}"/>
             </Actions>
           </Trigger>
-          <Trigger Enabled="true" Name="4.1 自动触发检查 ACT 插件顺序" Id="9d2e5b04-481a-473d-8ddc-52442e377034" RegularExpression="^.{15}\S+ 01" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="86400000">
+          <Trigger Enabled="true" Id="9d2e5b04-481a-473d-8ddc-52442e377034" Name="4.1 自动触发检查 ACT 插件顺序" RegularExpression="^.{15}\S+ 01" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="86400000">
             <Actions>
-              <Action OrderNumber="1" LogMessageText="SelfTest_PluginOrder:0" LogProcess="True" ActionType="LogMessage"/>
+              <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="SelfTest_PluginOrder:0" LogProcess="True"/>
             </Actions>
           </Trigger>
         </Triggers>
       </Folder>
     </Folders>
     <Triggers>
-      <Trigger Enabled="false" Source="None" Name="使用说明（双击查看 有任何疑问看这里）" Id="2fd5bd99-4e09-46d8-b1b8-4182517ccb2c" RegularExpression="">
+      <Trigger Enabled="false" Id="2fd5bd99-4e09-46d8-b1b8-4182517ccb2c" Name="使用说明（双击查看 有任何疑问看这里）" Source="None">
         <Actions>
           <Action OrderNumber="1" ActionType="Placeholder" Description="本工具箱可用于自行排查 ACT、触发器等插件使用过程中的绝大多数常见问题。" DescBgColor="fff" DescriptionOverride="True"/>
           <Action OrderNumber="2" ActionType="Placeholder" Description="使用方法：" DescBgColor="acf" DescTextColor="000000" DescriptionOverride="True"/>
           <Action OrderNumber="3" ActionType="Placeholder" Description=" 1. 首先切换到 ACT 插件列表，检查插件是否正常工作。" DescBgColor="fff" DescriptionOverride="True"/>
-          <Action OrderNumber="4" MessageBoxIconType="Information" MessageBoxText="检查插件是否正常工作：&#13;&#10;&#13;&#10;原版 / 呆萌整合：直接点击上方“插件列表”选项卡。&#13;&#10;Cafe 整合：点击上方“插件中心”选项卡，下方点击“高级管理”按钮。&#13;&#10;&#13;&#10;你需要检查：&#13;&#10;  1. 每个插件的提示文本是否有报错；&#13;&#10;  2. 检查是否有重复添加的插件；&#13;&#10;  3. 插件顺序是否正确。" ActionType="MessageBox" Description="    如果你不知道需要检查什么，右键这行 - 测试动作。" DescTextColor="4499ff" DescriptionOverride="True"/>
-          <Action OrderNumber="5" MessageBoxIconType="Information" MessageBoxText="关键插件顺序如下：&#13;&#10;  · CafeStore（仅限 Cafe 整合）&#13;&#10;  · FFXIV_ACT_Plugin（解析插件）&#13;&#10;  · OverlayPlugin （另一个解析插件）&#13;&#10;  · Triggernometry（触发器，前面不要有除此之外的其他插件）&#13;&#10;  · PostNamazu （鲶鱼精邮差，如果你装了的话）&#13;&#10;  · Matcha （抹茶，如果你装了的话）&#13;&#10;&#13;&#10;如果还有疑问，参考教程（在下方打开网盘）。" ActionType="MessageBox" Description="    如果你不知道正确的插件顺序，右键这行 - 测试动作。" DescBgColor="fff" DescTextColor="4499ff" DescriptionOverride="True"/>
+          <Action OrderNumber="4" ActionType="MessageBox" Description="    如果你不知道需要检查什么，右键这行 - 测试动作。" DescTextColor="4499ff" DescriptionOverride="True" MessageBoxIconType="Information" MessageBoxText="检查插件是否正常工作：&#13;&#10;&#13;&#10;原版 / 呆萌整合：直接点击上方“插件列表”选项卡。&#13;&#10;Cafe 整合：点击上方“插件中心”选项卡，下方点击“高级管理”按钮。&#13;&#10;&#13;&#10;你需要检查：&#13;&#10;  1. 每个插件的提示文本是否有报错；&#13;&#10;  2. 检查是否有重复添加的插件；&#13;&#10;  3. 插件顺序是否正确。"/>
+          <Action OrderNumber="5" ActionType="MessageBox" Description="    如果你不知道正确的插件顺序，右键这行 - 测试动作。" DescBgColor="fff" DescTextColor="4499ff" DescriptionOverride="True" MessageBoxIconType="Information" MessageBoxText="关键插件顺序如下：&#13;&#10;  · CafeStore（仅限 Cafe 整合）&#13;&#10;  · FFXIV_ACT_Plugin（解析插件）&#13;&#10;  · OverlayPlugin （另一个解析插件）&#13;&#10;  · Triggernometry（触发器，前面不要有除此之外的其他插件）&#13;&#10;  · PostNamazu （鲶鱼精邮差，如果你装了的话）&#13;&#10;  · Matcha （抹茶，如果你装了的话）&#13;&#10;&#13;&#10;如果还有疑问，参考教程（在下方打开网盘）。"/>
           <Action OrderNumber="6" ActionType="Placeholder" Description=" 2. 每次自检前建议右键更新远程仓库，确保工具箱为最新版。" DescBgColor="fff" DescriptionOverride="True"/>
           <Action OrderNumber="7" ActionType="Placeholder" Description=" 3. 依次在自检工具箱内的每个触发器上点击右键，点击 执行（条件）。 " DescBgColor="fff" DescriptionOverride="True"/>
           <Action OrderNumber="8" ActionType="Placeholder" Description="    如果你看不见 执行（条件），说明你的触发器版本过低。" DescBgColor="fff" DescTextColor="4499ff" DescriptionOverride="True"/>
           <Action OrderNumber="9" ActionType="Placeholder" Description="其他：" DescBgColor="acf" DescTextColor="000000" DescriptionOverride="True"/>
           <Action OrderNumber="10" ActionType="Placeholder" Description="下方每行可以 右键 - 测试动作 执行对应操作。" DescBgColor="fff" DescriptionOverride="True"/>
-          <Action OrderNumber="11" LaunchProcessPathExpression="https://github.com/MnFeN/ACT_Tech_Guide/blob/main/%E6%9C%AC%E5%9C%B0%20TTS%20%E5%AE%89%E8%A3%85%E5%9B%BE%E6%96%87%E8%AF%B4%E6%98%8E.md" ActionType="LaunchProcess" Description=" · 安装本地微软晓晓讲述人 TTS （GitHub 链接，上不去的自己想办法）" DescBgColor="fff" DescriptionOverride="True"/>
-          <Action OrderNumber="12" ExecScriptExpression="Triggernometry.RealPlugin.plug.UpdateTranslationCN(isManual: true);" ActionType="ExecuteScript" Description=" · 强制更新汉化　　　通常会自动更新，但如果未显示中文且右上角翻译中没有中文，可尝试此选项。" DescBgColor="fff" DescriptionOverride="True"/>
-          <Action OrderNumber="13" ExecScriptExpression="using Triggernometry.Forms;&#13;&#10;using Triggernometry.CustomControls;&#13;&#10;using System.Windows.Forms;&#13;&#10;&#13;&#10;Validater.Show();&#13;&#10;&#13;&#10;public static class Validater&#13;&#10;{&#13;&#10;    const string group1 = &quot;556836295&quot;;&#13;&#10;    const string group2 = &quot;133514183&quot;;&#13;&#10;    const string group3 = &quot;624605859&quot;;&#13;&#10;&#13;&#10;    public static void Show()&#13;&#10;    {&#13;&#10;        var form = new SimpleInputForm(&quot;输入你要加的群号：&quot;, ExpressionTextBox.SupportedExpressionTypeEnum.Numeric, group2);&#13;&#10;        form.TopMost = true;&#13;&#10;        form.Shown += (_, __) =&gt; form.BringToFront();&#13;&#10;        string result = form.GetInput().Trim();&#13;&#10;        switch (result)&#13;&#10;        {&#13;&#10;            case group1: MessageBox.Show(&quot;群验证问题答案为：\n\n写出用于获取触发器列表变量 a 的首个元素的表达式。\n如果你的回答包含 \&quot;var\&quot;，请使用简称，删除这三个字母即可。\n\n如果你不知道，可以查阅 Triggernometry GitHub Wiki 获取相关介绍。&quot;, &quot;&quot;, MessageBoxButtons.OK, MessageBoxIcon.Information); return;&#13;&#10;            case group2: MessageBox.Show($&quot;群验证问题答案为：\n\n我{Triggernometry.Interpreter.StaticHelpers.EvaluateStringExpression(&quot;¤{f:chr:30693,36947,21152,32676,20043,21518,30475,20844,21578}&quot;)}\n\n（纯文本，不要添加空格、标点等字符）&quot;, &quot;&quot;, MessageBoxButtons.OK, MessageBoxIcon.Information); return;&#13;&#10;            case group3: MessageBox.Show(&quot;群号错误。&quot;, &quot;&quot;, MessageBoxButtons.OK, MessageBoxIcon.Warning); return;&#13;&#10;            default: MessageBox.Show(&quot;群号错误。&quot;, &quot;&quot;, MessageBoxButtons.OK, MessageBoxIcon.Warning); return;&#13;&#10;        }&#13;&#10;    }&#13;&#10;}" ActionType="ExecuteScript" Description=" · 加 QQ 群 （没反应的话检查是否有被遮挡的窗口，或从头自检并查看右上角是否有报错）" DescBgColor="fff" DescriptionOverride="True"/>
-          <Action OrderNumber="14" LaunchProcessPathExpression="${env:link}" ActionType="LaunchProcess" Description=" · 打开网盘　　　　　在此可查看分享的所有插件、教程，以及各类分享的触发器。" DescBgColor="fff" DescriptionOverride="True"/>
+          <Action OrderNumber="11" ActionType="LaunchProcess" Description=" · 安装本地微软晓晓讲述人 TTS （GitHub 链接，上不去的自己想办法）" DescBgColor="fff" DescriptionOverride="True" LaunchProcessPathExpression="https://github.com/MnFeN/ACT_Tech_Guide/blob/main/%E6%9C%AC%E5%9C%B0%20TTS%20%E5%AE%89%E8%A3%85%E5%9B%BE%E6%96%87%E8%AF%B4%E6%98%8E.md"/>
+          <Action OrderNumber="12" ActionType="ExecuteScript" Description=" · 强制更新汉化　　　通常会自动更新，但如果未显示中文且右上角翻译中没有中文，可尝试此选项。" DescBgColor="fff" DescriptionOverride="True" ExecScriptExpression="using System.Windows.Forms;&#13;&#10;var msg = &quot;如主界面右上角无报错，代表下载成功，重启以应用本地化翻译文件。&quot;;&#13;&#10;try&#13;&#10;{&#13;&#10;    await Triggernometry.RealPlugin.plug.UpdateTranslationExternal();&#13;&#10;}&#13;&#10;catch (Exception ex)&#13;&#10;{&#13;&#10;    msg = &quot;更新失败: \n&quot; + ex.Message;&#13;&#10;}&#13;&#10;MessageBox.Show(msg, &quot;翻译文件更新&quot;);&#13;&#10;"/>
+          <Action OrderNumber="13" ActionType="LaunchProcess" Description=" · 打开网盘　　　　　在此可查看分享的所有插件、教程，以及各类分享的触发器。" DescBgColor="fff" DescriptionOverride="True" LaunchProcessPathExpression="${env:link}"/>
+          <Action OrderNumber="14" ActionType="ExecuteScript" Description=" · 加 QQ 群       （没反应的话检查有无窗口遮挡、从头自检并查看右上角是否有报错）" DescBgColor="fff" DescriptionOverride="True" ExecScriptExpression="using Triggernometry.Forms;&#13;&#10;using Triggernometry.CustomControls;&#13;&#10;using System.Windows.Forms;&#13;&#10;&#13;&#10;Validater.Show();&#13;&#10;&#13;&#10;public static class Validater&#13;&#10;{&#13;&#10;    const string group1 = &quot;556836295&quot;;&#13;&#10;    const string group2 = &quot;133514183&quot;;&#13;&#10;    const string group3 = &quot;612703030&quot;;&#13;&#10;&#13;&#10;    public static void Show()&#13;&#10;    {&#13;&#10;        var form = new SimpleInputForm(&quot;输入你要加的群号：&quot;, ExpressionTextBox.SupportedExpressionTypeEnum.Numeric, group3);&#13;&#10;        form.TopMost = true;&#13;&#10;        form.Shown += (_, __) =&gt; form.BringToFront();&#13;&#10;        string result = form.GetInput().Trim();&#13;&#10;        switch (result)&#13;&#10;        {&#13;&#10;            case group1: MessageBox.Show(&quot;群验证问题答案为：\n\n写出用于获取触发器列表变量 a 的首个元素表达式，含外侧括号。\n如果你的回答包含 \&quot;var\&quot;，请使用简称，删除这三个字母即可。\n\n如果你不知道，可以查阅 Triggernometry GitHub Wiki 获取相关介绍。&quot;, &quot;&quot;, MessageBoxButtons.OK, MessageBoxIcon.Information); return;&#13;&#10;            case group2: MessageBox.Show($&quot;群验证问题答案为：\n\n我{Triggernometry.Interpreter.StaticHelpers.EvaluateStringExpression(&quot;¤{f:chr:30693,36947,21152,32676,20043,21518,30475,20844,21578}&quot;)}\n\n（纯文本，不要添加空格、标点等字符）&quot;, &quot;&quot;, MessageBoxButtons.OK, MessageBoxIcon.Information); return;&#13;&#10;            case group3: MessageBox.Show(&quot;本群可直接进入，仅用于临时提问。&quot;, &quot;&quot;, MessageBoxButtons.OK, MessageBoxIcon.Warning); return;&#13;&#10;            default: MessageBox.Show(&quot;群号错误。&quot;, &quot;&quot;, MessageBoxButtons.OK, MessageBoxIcon.Warning); return;&#13;&#10;        }&#13;&#10;    }&#13;&#10;}"/>
         </Actions>
       </Trigger>
-      <Trigger Enabled="true" Sequential="True" Name="１　　触发器　更新检查" Id="69dbc884-5f6e-4b8a-b0d3-938726f93435" RegularExpression="^SelfTest:cfg">
+      <Trigger Enabled="true" Id="69dbc884-5f6e-4b8a-b0d3-938726f93435" Name="１　　触发器　更新检查" RegularExpression="^SelfTest:cfg" Sequential="True">
         <Actions>
-          <Action OrderNumber="1" ExecScriptExpression="using System.Windows.Forms;&#13;&#10;using static Triggernometry.RealPlugin;&#13;&#10;&#13;&#10;void Main()&#13;&#10;{&#13;&#10;    try &#13;&#10;    {&#13;&#10;        plug.CheckForUpdatesBuiltinCN(isManual: true);&#13;&#10;    }&#13;&#10;    catch &#13;&#10;    {&#13;&#10;        System.Windows.Forms.MessageBox.Show(&#13;&#10;            &quot;你的触发器版本过旧，无法使用国内更新源自动更新。\n你需要查看使用说明并按说明安装，\n否则将无法使用大多数新版触发器。&quot;,&#13;&#10;            &quot;自检工具箱&quot;,&#13;&#10;            MessageBoxButtons.OK, &#13;&#10;            MessageBoxIcon.Error&#13;&#10;        ); &#13;&#10;        return;&#13;&#10;    }&#13;&#10;}&#13;&#10;&#13;&#10;Main();" ActionType="ExecuteScript"/>
+          <Action OrderNumber="1" ActionType="ExecuteScript" ExecScriptExpression="using System.Windows.Forms;&#13;&#10;using static Triggernometry.RealPlugin;&#13;&#10;&#13;&#10;void Main()&#13;&#10;{&#13;&#10;    try &#13;&#10;    {&#13;&#10;        plug.CheckForUpdatesExternal(null, true);&#13;&#10;    }&#13;&#10;    catch &#13;&#10;    {&#13;&#10;        System.Windows.Forms.MessageBox.Show(&#13;&#10;            &quot;你的触发器版本过旧，无法使用国内更新源自动更新。\n你需要查看使用说明并按说明安装，\n否则将无法使用大多数新版触发器。&quot;,&#13;&#10;            &quot;自检工具箱&quot;,&#13;&#10;            MessageBoxButtons.OK, &#13;&#10;            MessageBoxIcon.Error&#13;&#10;        ); &#13;&#10;        return;&#13;&#10;    }&#13;&#10;}&#13;&#10;&#13;&#10;Main();"/>
         </Actions>
       </Trigger>
-      <Trigger Enabled="true" Name="２　　ＡＣＴ解析插件　状态" Id="1281be68-4e72-4b00-8bb8-212d22b2b701" RegularExpression="">
+      <Trigger Enabled="true" Id="1281be68-4e72-4b00-8bb8-212d22b2b701" Name="２　　ＡＣＴ解析插件　状态">
         <Actions>
-          <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="已暂时开启技能检测。&#13;&#10;&#13;&#10;你需要在游戏内使用任意技能，如果有弹窗且区域正确则说明 ACT 工作正常。&#13;&#10;&#13;&#10;如果没有反应：&#13;&#10;  1. 确保 ACT 已推送更新（游戏版本更新后）；&#13;&#10;  2. 确保上方 FFXIV 解析插件 选项卡页面中，注入选项已开启；&#13;&#10;  3. 尝试重启游戏和 ACT（先后顺序无所谓）；&#13;&#10;  4. 如果还不行，关闭游戏和 ACT 后，打开任务管理器（Ctrl + Shift + Esc），检查并终止所有和 FF14、ACT 相关的进程，然后重新开启。&#13;&#10;&#13;&#10;依然无法解决的话，可以带着 ACT 截图（不是这个自检工具的截图）去 ACT 整合作者的群里问，问之前看公告。" ActionType="MessageBox"/>
-          <Action OrderNumber="2" TriggerOp="EnableTrigger" TriggerId="9b010c21-9ad7-4f42-a6a4-43130f82f0ec" ActionType="Trigger"/>
+          <Action OrderNumber="1" ActionType="MessageBox" MessageBoxIconType="Information" MessageBoxText="已暂时开启技能检测。&#13;&#10;&#13;&#10;你需要在游戏内使用任意技能，如果有弹窗且区域正确则说明 ACT 工作正常。&#13;&#10;&#13;&#10;如果没有反应：&#13;&#10;  1. 确保 ACT 已推送更新（游戏版本更新后）；&#13;&#10;  2. 确保上方 FFXIV 解析插件 选项卡页面中，注入选项已开启；&#13;&#10;  3. 尝试重启游戏和 ACT（先后顺序无所谓）；&#13;&#10;  4. 如果还不行，关闭游戏和 ACT 后，打开任务管理器（Ctrl + Shift + Esc），检查并终止所有和 FF14、ACT 相关的进程，然后重新开启。&#13;&#10;&#13;&#10;依然无法解决的话，可以带着 ACT 截图（不是这个自检工具的截图）去 ACT 整合作者的群里问，问之前看公告。"/>
+          <Action OrderNumber="2" ActionType="Trigger" TriggerOp="EnableTrigger" TriggerId="9b010c21-9ad7-4f42-a6a4-43130f82f0ec"/>
         </Actions>
       </Trigger>
-      <Trigger Enabled="true" Source="None" Name="５　　ＴＴＳ插件　配置检查" Id="c0a9456f-8d3e-4e34-8555-0490883f954b" RegularExpression="">
+      <Trigger Enabled="true" Id="c0a9456f-8d3e-4e34-8555-0490883f954b" Name="５　　ＴＴＳ插件　配置检查" Source="None">
         <Actions>
-          <Action OrderNumber="1" MessageBoxIconType="Information" MessageBoxText="这个触发器会播放以下三个声音片段：&#13;&#10;&#13;&#10;TTS：“TTS 测试：（一串随机数字）”&#13;&#10;开始提示音：低-高 的两声快速蜂鸣&#13;&#10;结束提示音：高-低 的两声快速蜂鸣&#13;&#10;&#13;&#10;如果你听到的是：&#13;&#10;&#13;&#10;· TTS开始 - 开始提示音 - TTS结束 - 结束提示音：&#13;&#10;  TTS 正常工作，语速合适。&#13;&#10;&#13;&#10;· 只有提示音，没有 TTS：&#13;&#10;  未安装 TTS 插件，或插件未工作，见下文 “换源”。&#13;&#10;&#13;&#10;· 开始提示音 早于 TTS开始：&#13;&#10;  获取 TTS 的网络延迟过高，会导致机制播报延后，见下文 “换源”。&#13;&#10;&#13;&#10;· 结束提示音 早于 TTS结束：&#13;&#10;  TTS 过慢，需要在 TTS 插件页面加快语速，否则很可能导致播报重叠。&#13;&#10;&#13;&#10;· TTS开始 - TTS结束 - 连续的开始 + 结束提示音：&#13;&#10;  可能没有安装 TTS 插件，程序回退到了使用系统讲述人播报。&#13;&#10;  系统讲述人会像这样严重阻塞触发器动作，导致机制播报严重拖后，甚至结果错误。&#13;&#10;&#13;&#10;【换源】&#13;&#10;如果你安装了 TTS 但不工作，可在 TTS 插件页面尝试换用不同源。&#13;&#10;如果所有源都无法使用，可安装本地微软晓晓 TTS（见自检的使用说明），实在不行就只能用 TTS 插件调用系统机械合成音。&#13;&#10;个人设置（供参考）：&#13;&#10;微软晓晓，语速 1.30，WASAPI，音量 200%。" ActionType="MessageBox"/>
-          <Action OrderNumber="2" UseTTSTextExpression="TTS 测试：${n:random(10000000,100000000)}${n:random(10000000,100000000)}${n:random(10000000,100000000)}" ActionType="UseTTS" Asynchronous="False"/>
-          <Action OrderNumber="3" SystemBeepFreqExpression="" SystemBeepLengthExpression="" ActionType="Placeholder" ExecutionDelayExpression="800"/>
-          <Action OrderNumber="4" SystemBeepFreqExpression="freq(C6)" Asynchronous="False"/>
-          <Action OrderNumber="5" SystemBeepFreqExpression="freq(E6)" Asynchronous="False"/>
-          <Action OrderNumber="6" SystemBeepFreqExpression="" SystemBeepLengthExpression="" ActionType="Placeholder" ExecutionDelayExpression="5300" Asynchronous="False"/>
-          <Action OrderNumber="7" SystemBeepFreqExpression="freq(E6)" Asynchronous="False"/>
-          <Action OrderNumber="8" SystemBeepFreqExpression="freq(C6)" Asynchronous="False"/>
+          <Action OrderNumber="1" ActionType="MessageBox" MessageBoxIconType="Information" MessageBoxText="这个触发器会播放以下三个声音片段：&#13;&#10;&#13;&#10;TTS：“TTS 测试：（一串随机数字）”&#13;&#10;开始提示音：低-高 的两声快速蜂鸣&#13;&#10;结束提示音：高-低 的两声快速蜂鸣&#13;&#10;&#13;&#10;如果你听到的是：&#13;&#10;&#13;&#10;· TTS开始 - 开始提示音 - TTS结束 - 结束提示音：&#13;&#10;  TTS 正常工作，语速合适。&#13;&#10;&#13;&#10;· 只有提示音，没有 TTS：&#13;&#10;  未安装 TTS 插件，或插件未工作，见下文 “换源”。&#13;&#10;&#13;&#10;· 开始提示音 早于 TTS开始：&#13;&#10;  获取 TTS 的网络延迟过高，会导致机制播报延后，见下文 “换源”。&#13;&#10;&#13;&#10;· 结束提示音 早于 TTS结束：&#13;&#10;  TTS 过慢，需要在 TTS 插件页面加快语速，否则很可能导致播报重叠。&#13;&#10;&#13;&#10;· TTS开始 - TTS结束 - 连续的开始 + 结束提示音：&#13;&#10;  可能没有安装 TTS 插件，程序回退到了使用系统讲述人播报。&#13;&#10;  系统讲述人会像这样严重阻塞触发器动作，导致机制播报严重拖后，甚至结果错误。&#13;&#10;&#13;&#10;【换源】&#13;&#10;如果你安装了 TTS 但不工作，可在 TTS 插件页面尝试换用不同源。&#13;&#10;如果所有源都无法使用，可安装本地微软晓晓 TTS（见自检的使用说明），实在不行就只能用 TTS 插件调用系统机械合成音。&#13;&#10;个人设置（供参考）：&#13;&#10;微软晓晓，语速 1.30，WASAPI，音量 200%。"/>
+          <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="TTS 测试：${n:random(10000000,100000000)}${n:random(10000000,100000000)}${n:random(10000000,100000000)}"/>
+          <Action OrderNumber="3" ActionType="Placeholder" ExecutionDelayExpression="800" SystemBeepFreqExpression="" SystemBeepLengthExpression=""/>
+          <Action OrderNumber="4" Asynchronous="False" SystemBeepFreqExpression="freq(C6)"/>
+          <Action OrderNumber="5" Asynchronous="False" SystemBeepFreqExpression="freq(E6)"/>
+          <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="5300" Asynchronous="False" SystemBeepFreqExpression="" SystemBeepLengthExpression=""/>
+          <Action OrderNumber="7" Asynchronous="False" SystemBeepFreqExpression="freq(E6)"/>
+          <Action OrderNumber="8" Asynchronous="False" SystemBeepFreqExpression="freq(C6)"/>
         </Actions>
       </Trigger>
-      <Trigger Enabled="true" Source="None" Sequential="True" Name="６ｂ　鲶鱼精邮差　功能测试" Id="1d70cea8-15ca-40fc-b674-a698bbc11048" RegularExpression="">
+      <Trigger Enabled="true" Id="1d70cea8-15ca-40fc-b674-a698bbc11048" Name="６ｂ　鲶鱼精邮差　功能测试" Source="None" Sequential="True">
         <Actions>
-          <Action OrderNumber="1" LogMessageText="SelfTest:PostNamazu_Modules" LogProcess="True" LogProcessACT="True" TriggerId="8f8cd7e9-00f3-4383-a36f-41bb7df1598e" ActionType="LogMessage"/>
+          <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="SelfTest:PostNamazu_Modules" LogProcess="True" LogProcessACT="True" TriggerId="8f8cd7e9-00f3-4383-a36f-41bb7df1598e"/>
         </Actions>
       </Trigger>
-      <Trigger Enabled="true" Sequential="True" Name="７ａ　高级标点工具箱　安装检查" Id="227e620a-628c-4b55-b2e6-02e53d3e43b2" RegularExpression="">
+      <Trigger Enabled="true" Id="227e620a-628c-4b55-b2e6-02e53d3e43b2" Name="７ａ　高级标点工具箱　安装检查" Sequential="True">
         <Actions>
-          <Action OrderNumber="1" LogMessageText="SelfTest:AdvWm1" LogProcess="True" ActionType="LogMessage"/>
+          <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="SelfTest:AdvWm1" LogProcess="True"/>
         </Actions>
       </Trigger>
-      <Trigger Enabled="true" Source="None" Sequential="True" Name="７ｂ　高级标点工具箱　运行测试　（再次执行时停止）" Id="d3209bbe-47d4-4320-bfee-774367edbe58" RegularExpression="">
+      <Trigger Enabled="true" Id="d3209bbe-47d4-4320-bfee-774367edbe58" Name="７ｂ　高级标点工具箱　运行测试　（再次执行时停止）" Source="None" Sequential="True">
         <Actions>
-          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="tmp_wm_on" VariableExpression="!0${v:tmp_wm_on}" ActionType="Variable" Asynchronous="False"/>
-          <Action OrderNumber="2" UseTTSTextExpression="${if: ${v:tmp_wm_on} ? 已开始 : 已停止}" ActionType="UseTTS" Asynchronous="False"/>
-          <Action OrderNumber="3" NamedCallbackName="NamazuLog" NamedCallbackParam="场地标点：本地标记：${if: ${v:tmp_wm_on} ? 开始 : 停止}动态标点。" ActionType="NamedCallback" Asynchronous="False"/>
-          <Action OrderNumber="4" LogMessageText="SelfTest:AdvWm2" LogProcess="True" ActionType="LogMessage" Asynchronous="False"/>
-          <Action OrderNumber="5" NamedCallbackName="AdvWm" NamedCallbackParam="clear" ActionType="NamedCallback" ExecutionDelayExpression="500" Asynchronous="False"/>
+          <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_wm_on" VariableExpression="!0${v:tmp_wm_on}"/>
+          <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${v:tmp_wm_on} ? 已开始 : 已停止}"/>
+          <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="NamazuLog" NamedCallbackParam="场地标点：本地标记：${if: ${v:tmp_wm_on} ? 开始 : 停止}动态标点。"/>
+          <Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="SelfTest:AdvWm2" LogProcess="True"/>
+          <Action OrderNumber="5" ActionType="NamedCallback" ExecutionDelayExpression="500" Asynchronous="False" NamedCallbackName="AdvWm" NamedCallbackParam="clear"/>
         </Actions>
       </Trigger>
-      <Trigger Enabled="true" Name="３　　悬浮窗解析插件　状态" Id="bc31d74c-2a25-48b5-a89e-22056625d37c" RegularExpression="">
+      <Trigger Enabled="true" Id="bc31d74c-2a25-48b5-a89e-22056625d37c" Name="３　　悬浮窗解析插件　状态">
         <Actions>
-          <Action OrderNumber="1" DictVariableName="SelfTest_OP" ActionType="DictVariable"/>
-          <Action OrderNumber="2" TriggerOp="EnableTrigger" TriggerId="c1579a75-7010-4b4c-828e-1ddd954da8e8" ActionType="Trigger"/>
-          <Action OrderNumber="3" TriggerOp="EnableTrigger" TriggerId="fc941dd2-b97c-441d-af49-6db7bb723dd7" ActionType="Trigger"/>
-          <Action OrderNumber="4" MessageBoxIconType="Warning" MessageBoxText="【你需要按下面操作，而不是把这个弹窗当做自检通过了的提示。】&#13;&#10;&#13;&#10;已暂时开启 OverlayPlugin 日志检测。&#13;&#10;如果你需要阅读此弹窗内容，可以暂时保留此弹窗不关闭。&#13;&#10;&#13;&#10;你需要解限进入 80 级副本 “末日暗影亚马乌罗提”，向前走几步至陨石落下（第一波小怪前），此时应出现弹窗提示。&#13;&#10;&#13;&#10;如果没有反应：&#13;&#10;  1. 在插件中心页面确保已安装了 OverlayPlugin 插件；&#13;&#10;  2. 任意整合版：确认游戏版本更新后整合作者已推送 OverlayPlugin 的更新；&#13;&#10;  3. 国服整合版：确认你没有私自更新国际服的插件版本；&#13;&#10;  4. 自己整合：确认你已经正确更新。&#13;&#10;  5. 尝试重启游戏和 ACT（先后顺序无所谓）。&#13;&#10;  &#13;&#10;正常情况下这条不应有问题，如果没看见弹窗可以继续前进到第一波小怪出现，会弹出额外的提示内容。" ActionType="MessageBox"/>
+          <Action OrderNumber="1" ActionType="DictVariable" DictVariableName="SelfTest_OP"/>
+          <Action OrderNumber="2" ActionType="Trigger" TriggerOp="EnableTrigger" TriggerId="c1579a75-7010-4b4c-828e-1ddd954da8e8"/>
+          <Action OrderNumber="3" ActionType="Trigger" TriggerOp="EnableTrigger" TriggerId="fc941dd2-b97c-441d-af49-6db7bb723dd7"/>
+          <Action OrderNumber="4" ActionType="MessageBox" MessageBoxIconType="Warning" MessageBoxText="【你需要按下面操作，而不是把这个弹窗当做自检通过了的提示。】&#13;&#10;&#13;&#10;已暂时开启 OverlayPlugin 日志检测。&#13;&#10;如果你需要阅读此弹窗内容，可以暂时保留此弹窗不关闭。&#13;&#10;&#13;&#10;你需要解限进入 80 级副本 “末日暗影亚马乌罗提”，向前走几步至陨石落下（第一波小怪前），此时应出现弹窗提示。&#13;&#10;&#13;&#10;如果没有反应：&#13;&#10;  1. 在插件中心页面确保已安装了 OverlayPlugin 插件；&#13;&#10;  2. 任意整合版：确认游戏版本更新后整合作者已推送 OverlayPlugin 的更新；&#13;&#10;  3. 国服整合版：确认你没有私自更新国际服的插件版本；&#13;&#10;  4. 自己整合：确认你已经正确更新。&#13;&#10;  5. 尝试重启游戏和 ACT（先后顺序无所谓）。&#13;&#10;  &#13;&#10;正常情况下这条不应有问题，如果没看见弹窗可以继续前进到第一波小怪出现，会弹出额外的提示内容。"/>
         </Actions>
       </Trigger>
-      <Trigger Enabled="true" Source="None" Sequential="True" Name="６ａ　鲶鱼精邮差　更新检查" Id="47db3552-48f9-4b40-a678-3240b3144df0" RegularExpression="">
+      <Trigger Enabled="true" Id="47db3552-48f9-4b40-a678-3240b3144df0" Name="６ａ　鲶鱼精邮差　更新检查" Source="None" Sequential="True">
         <Actions>
-          <Action OrderNumber="1" LogMessageText="SelfTest:PostNamazu_Version:isInit:0" LogProcess="True" ActionType="LogMessage"/>
+          <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="SelfTest:PostNamazu_Version:isInit:0" LogProcess="True"/>
         </Actions>
       </Trigger>
-      <Trigger Enabled="true" Name="４　　ＡＣＴ插件顺序" Id="aacd31b8-a2c2-4f76-9e01-1e610084b6fa" RegularExpression="">
+      <Trigger Enabled="true" Id="aacd31b8-a2c2-4f76-9e01-1e610084b6fa" Name="４　　ＡＣＴ插件顺序">
         <Actions>
-          <Action OrderNumber="1" LogMessageText="SelfTest_PluginOrder:1" LogProcess="True" ActionType="LogMessage"/>
+          <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="SelfTest_PluginOrder:1" LogProcess="True"/>
         </Actions>
       </Trigger>
-      <Trigger Enabled="true" Source="None" Name="８　　鲶鱼精邮差扩展 说明/自检/配置【双击查看】" Id="e6e8dad3-0d9f-430b-b2fb-5d4b4c6e00f0" RegularExpression="">
+      <Trigger Enabled="true" Id="e6e8dad3-0d9f-430b-b2fb-5d4b4c6e00f0" Name="８　　鲶鱼精邮差扩展 说明/自检/配置【双击查看】" Source="None">
         <Actions>
           <Action OrderNumber="1" Enabled="False" ActionType="Placeholder" Description="现已支持任意版本 ACT。（但国际服呆萌整合如果 OverlayPlugin 更新不及时则无法使用）" DescBgColor="f0f8ff" DescTextColor="800" DescriptionOverride="True"/>
           <Action OrderNumber="2" Enabled="False" ActionType="Placeholder" Description="使用说明" DescBgColor="acf" DescTextColor="248" DescriptionOverride="True"/>
@@ -335,32 +335,32 @@
           <Action OrderNumber="5" Enabled="False" ActionType="Placeholder" Description="　注：此工具与鲶鱼精邮差本身无关，类似于游戏与 mod 的关系，因此请不要去鲶鱼精邮差的频道或 GitHub 提问相关问题。" DescBgColor="f0f8ff" DescTextColor="800" DescriptionOverride="True"/>
           <Action OrderNumber="6" Enabled="False" ActionType="Placeholder" Description="用户配置" DescBgColor="acf" DescTextColor="248" DescriptionOverride="True"/>
           <Action OrderNumber="7" Enabled="False" ActionType="Placeholder" Description="　可调节是否开启某些功能，如调用特效、实体视觉效果、解锁相机参数等" DescBgColor="f0f8ff" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="8" LogMessageText="pne_cfg" LogProcess="True" Enabled="False" ActionType="LogMessage" Description="　开启配置：游戏内输入 /e cfg pne，或右键此行 - 测试动作" DescBgColor="f0f8ff" DescTextColor="800" DescriptionOverride="True"/>
+          <Action OrderNumber="8" Enabled="False" ActionType="LogMessage" Description="　开启配置：游戏内输入 /e cfg pne，或右键此行 - 测试动作" DescBgColor="f0f8ff" DescTextColor="800" DescriptionOverride="True" LogMessageText="pne_cfg" LogProcess="True"/>
           <Action OrderNumber="9" Enabled="False" ActionType="Placeholder" Description="自检说明 / 效果演示" DescBgColor="acf" DescTextColor="248" DescriptionOverride="True"/>
           <Action OrderNumber="10" Enabled="False" ActionType="Placeholder" Description="　下方所有绿色文本行可以右键点击 - 测试动作（注意看每行的额外说明）。" DescBgColor="f0f8ff" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="11" MessageBoxIconType="Warning" MessageBoxText="${if: ${ecallback:Hint} &#13;&#10;  ? 如果你看到这行文本，说明模块已初始化，可以继续后面的自检。&#13;&#10;  : 如果你看到这行文本，说明模块尚未初始化。⏎先确认前面的自检均已通过，然后尝试重启 ACT。&#13;&#10;}" Enabled="False" ActionType="MessageBox" Description="· 首先右键测试这行，确认模组是否初始化" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
+          <Action OrderNumber="11" Enabled="False" ActionType="MessageBox" Description="· 首先右键测试这行，确认模组是否初始化" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" MessageBoxIconType="Warning" MessageBoxText="${if: ${ecallback:Hint} &#13;&#10;  ? 如果你看到这行文本，说明模块已初始化，可以继续后面的自检。&#13;&#10;  : 如果你看到这行文本，说明模块尚未初始化。⏎先确认前面的自检均已通过，然后尝试重启 ACT。&#13;&#10;}"/>
           <Action OrderNumber="12" Enabled="False" ActionType="Placeholder" Description="　然后可以测试下面的动作，并在游戏内查看对应效果。" DescBgColor="f0f8ff" DescTextColor="234" DescriptionOverride="True"/>
           <Action OrderNumber="13" Enabled="False" ActionType="Placeholder" Description="　如果游戏闪退，说明你相应的功能不正常，查看触发器错误日志的文本或弹窗提示。" DescBgColor="f0f8ff" DescTextColor="234" DescriptionOverride="True"/>
           <Action OrderNumber="14" Enabled="False" ActionType="Placeholder" Description="以下内容容易出现问题，优先测试：" DescBgColor="f0f8ff" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="15" NamedCallbackName="Warn" NamedCallbackParam="3&#13;&#10;我是 Honey Bee 小姐的狗！" Enabled="False" ActionType="NamedCallback" Description="· [Hint/Warn] 提示文本" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
-          <Action OrderNumber="16" NamedCallbackName="LockOn" NamedCallbackParam="${_me.address}, m0857_stop_s5t1" Enabled="False" ActionType="NamedCallback" Description="· [LockOn] 点名特效" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
-          <Action OrderNumber="17" NamedCallbackName="Channeling" NamedCallbackParam="${_me.address}, ${_me.address}, chn_m0906_ht02k2, 5" Enabled="False" ActionType="NamedCallback" Description="· [Channeling] 连线特效 （注：测试时会自己连到自己）" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
-          <Action OrderNumber="18" NamedCallbackName="Omen" NamedCallbackParam="m0071_fan180_01k2, 5, ${_me.Pos}, ${_me.h}, 5, 5" Enabled="False" ActionType="NamedCallback" Description="· [Omen] 固定位置的预兆类特效" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
-          <Action OrderNumber="19" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#13;&#10;t: 5&#13;&#10;Pos: ${_me.Pos}&#13;&#10;Angle: ${_me.h}&#13;&#10;Scale: 1, 50" Enabled="False" ActionType="NamedCallback" Description="· [PictoACT] 新版特效绘制" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
+          <Action OrderNumber="15" Enabled="False" ActionType="NamedCallback" Description="· [Hint/Warn] 提示文本" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="Warn" NamedCallbackParam="3&#13;&#10;我是 Honey Bee 小姐的狗！"/>
+          <Action OrderNumber="16" Enabled="False" ActionType="NamedCallback" Description="· [LockOn] 点名特效" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="LockOn" NamedCallbackParam="${_me.address}, m0857_stop_s5t1"/>
+          <Action OrderNumber="17" Enabled="False" ActionType="NamedCallback" Description="· [Channeling] 连线特效 （注：测试时会自己连到自己）" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="Channeling" NamedCallbackParam="${_me.address}, ${_me.address}, chn_m0906_ht02k2, 5"/>
+          <Action OrderNumber="18" Enabled="False" ActionType="NamedCallback" Description="· [Omen] 固定位置的预兆类特效" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="Omen" NamedCallbackParam="m0071_fan180_01k2, 5, ${_me.Pos}, ${_me.h}, 5, 5"/>
+          <Action OrderNumber="19" Enabled="False" ActionType="NamedCallback" Description="· [PictoACT] 新版特效绘制" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#13;&#10;t: 5&#13;&#10;Pos: ${_me.Pos}&#13;&#10;Angle: ${_me.h}&#13;&#10;Scale: 1, 50"/>
           <Action OrderNumber="20" Enabled="False" ActionType="Placeholder" Description="以下内容相对稳定：" DescBgColor="f0f8ff" DescTextColor="234" DescriptionOverride="True"/>
-          <Action OrderNumber="21" NamedCallbackName="QuitInstance" Enabled="False" ActionType="NamedCallback" Description="· [QuitInstance] 退出副本" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
-          <Action OrderNumber="22" NamedCallbackName="Target" NamedCallbackParam="${_entity[Distance &gt; 15 &amp;&amp; Distance &lt; 50].id}" Enabled="False" ActionType="NamedCallback" Description="· [Target] 选择实体" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
-          <Action OrderNumber="23" NamedCallbackName="RemoveStatus" NamedCallbackParam="${_me.address}, 0x32" Enabled="False" ActionType="NamedCallback" Description="· [RemoveStatus] 本地取消状态   使用冲刺后测试动作" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
-          <Action OrderNumber="24" NamedCallbackName="MapEffect" NamedCallbackParam="00020001:00" Enabled="False" ActionType="NamedCallback" Description="· [MapEffect] 场地特效 【注：解限进入极火天王副本测试 地图错误可能无效甚至炸游戏】" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
-          <Action OrderNumber="25" NamedCallbackName="UseActionLocation" NamedCallbackParam="Action, 0xdf1, ${_me.x}, ${_me.y} - 15, ${_me.z}" Enabled="False" ActionType="NamedCallback" Description="· [UseAction] [UseActionLocation] 使用技能  切换白魔，以自己为南侧边缘放置庇护所" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
-          <Action OrderNumber="26" NamedCallbackName="SetObjectScale" NamedCallbackParam="${_me.address}, 3" Enabled="False" ActionType="NamedCallback" Description="· [SetObjectScale] 实体缩放" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
-          <Action OrderNumber="27" NamedCallbackName="SetOpacity" NamedCallbackParam="${_me.address}, 0.2" Enabled="False" ActionType="NamedCallback" Description="· [SetOpacity] 透明度" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
-          <Action OrderNumber="28" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_me.address}, 683" Enabled="False" ActionType="NamedCallback" Description="· [SetStatusLoopVfx] 状态 (buff) 附带的特效" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
-          <Action OrderNumber="29" NamedCallbackName="SetCameraParams" NamedCallbackParam="MaxDistance = 100&#13;&#10;Distance = 100" Enabled="False" ActionType="NamedCallback" Description="· [SetCameraParams] 一次性设置相机参数，如视距、视场、视角范围（永久改变的方式见配置）" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
-          <Action OrderNumber="30" NamedCallbackName="ChangeWeather" NamedCallbackParam="187" Enabled="False" ActionType="NamedCallback" Description="· [ChangeWeather] 切换天气 【注：7.0 主线结束后在 7.0 最后一张地图测试】" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
-          <Action OrderNumber="31" NamedCallbackName="StatusOff" NamedCallbackParam="0x32 " Enabled="False" ActionType="NamedCallback" Description="· [StatusOff] 取消状态   使用冲刺后测试动作" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True"/>
+          <Action OrderNumber="21" Enabled="False" ActionType="NamedCallback" Description="· [QuitInstance] 退出副本" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="QuitInstance"/>
+          <Action OrderNumber="22" Enabled="False" ActionType="NamedCallback" Description="· [Target] 选择实体" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="Target" NamedCallbackParam="${_entity[Distance &gt; 15 &amp;&amp; Distance &lt; 50].id}"/>
+          <Action OrderNumber="23" Enabled="False" ActionType="NamedCallback" Description="· [RemoveStatus] 本地取消状态   使用冲刺后测试动作" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="RemoveStatus" NamedCallbackParam="${_me.address}, 0x32"/>
+          <Action OrderNumber="24" Enabled="False" ActionType="NamedCallback" Description="· [MapEffect] 场地特效 【注：解限进入极火天王副本测试 地图错误可能无效甚至炸游戏】" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="MapEffect" NamedCallbackParam="00020001:00"/>
+          <Action OrderNumber="25" Enabled="False" ActionType="NamedCallback" Description="· [UseAction] [UseActionLocation] 使用技能  切换白魔，以自己为南侧边缘放置庇护所" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="UseActionLocation" NamedCallbackParam="Action, 0xdf1, ${_me.x}, ${_me.y} - 15, ${_me.z}"/>
+          <Action OrderNumber="26" Enabled="False" ActionType="NamedCallback" Description="· [SetObjectScale] 实体缩放" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="SetObjectScale" NamedCallbackParam="${_me.address}, 3"/>
+          <Action OrderNumber="27" Enabled="False" ActionType="NamedCallback" Description="· [SetOpacity] 透明度" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="SetOpacity" NamedCallbackParam="${_me.address}, 0.2"/>
+          <Action OrderNumber="28" Enabled="False" ActionType="NamedCallback" Description="· [SetStatusLoopVfx] 状态 (buff) 附带的特效" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_me.address}, 683"/>
+          <Action OrderNumber="29" Enabled="False" ActionType="NamedCallback" Description="· [SetCameraParams] 一次性设置相机参数，如视距、视场、视角范围（永久改变的方式见配置）" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="SetCameraParams" NamedCallbackParam="MaxDistance = 100&#13;&#10;Distance = 100"/>
+          <Action OrderNumber="30" Enabled="False" ActionType="NamedCallback" Description="· [ChangeWeather] 切换天气 【注：7.0 主线结束后在 7.0 最后一张地图测试】" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="ChangeWeather" NamedCallbackParam="187"/>
+          <Action OrderNumber="31" Enabled="False" ActionType="NamedCallback" Description="· [StatusOff] 取消状态   使用冲刺后测试动作" DescBgColor="f0f8ff" DescTextColor="2a8" DescriptionOverride="True" NamedCallbackName="StatusOff" NamedCallbackParam="0x32 "/>
           <Action OrderNumber="32" Enabled="False" ActionType="Placeholder" Description="面向开发" DescBgColor="acf" DescTextColor="248" DescriptionOverride="True"/>
-          <Action OrderNumber="33" LaunchProcessPathExpression="https://github.com/MnFeN/ACT_Tech_Guide/blob/main/PostNamazuExtension" Enabled="False" ActionType="LaunchProcess" Description="　右键此行测试可打开 GitHub 查看详细说明" DescBgColor="f0f8ff" DescTextColor="26f" DescriptionOverride="True"/>
+          <Action OrderNumber="33" Enabled="False" ActionType="LaunchProcess" Description="　右键此行测试可打开 GitHub 查看详细说明" DescBgColor="f0f8ff" DescTextColor="26f" DescriptionOverride="True" LaunchProcessPathExpression="https://github.com/MnFeN/ACT_Tech_Guide/blob/main/PostNamazuExtension"/>
         </Actions>
       </Trigger>
     </Triggers>
