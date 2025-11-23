@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="1.2.0.760">
+<TriggernometryExport PluginVersion="1.2.0.756">
 <ExportedFolder Id="3be9b44f-1be8-4b43-8122-2e03c9bd9e41" Name="7.0深宫" Enabled="true" RawEnvironmentVariables="prefix = D7&#xD;&#xA;version = 0.1">
 <Folders>
 <Folder FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1284$" Id="d73d044f-dde2-4b2d-bbdb-e609641c9d7b" Name="31-40" Enabled="true">
@@ -1187,6 +1187,13 @@
 <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${f:pick(${v:D79_地火_dirN4}): 左上, 左下, 右下, 右上}躲地火" />
 </Actions>
 </Trigger>
+<Trigger Enabled="true" Id="145d41ce-32a1-48d8-a4ac-000dc17e67c3" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AC2[AB]|AEF[DE]):">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^D79_地火" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="D79_地火_b先横" VariableExpression="0x${aid} = 0xAC2A || 0x${aid} = 0xAEFD" />
+<Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="水晶，先${if: ${v:D79_地火_b先横} ? 横向 : 纵向 }" />
+</Actions>
+</Trigger>
 <Trigger Enabled="true" Id="b464dbc1-ac5e-4305-9437-b2a572e382ab" Name="1. 获取水晶" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:1EBE70.*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;(-611.9|-612.0|-587.9|-588.0)[^:]+):PosY:(?&lt;y&gt;(-305.9|-306.0|-293.9|-294.0)[^:]+):PosZ:(?&lt;z&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="只看斜向一排四个水晶中靠外的第二个 (±12, ±6)" DescriptionOverride="True" />
@@ -1199,14 +1206,6 @@
 <ConditionSingle Enabled="true" ExpressionL="round(abs(${x} - ${env:X0}), 1)" ExpressionTypeL="Numeric" ExpressionR="12" ExpressionTypeR="String" ConditionType="NumericEqual" />
 <ConditionSingle Enabled="true" ExpressionL="round(abs(${y} - ${env:Y0}), 1)" ExpressionTypeL="Numeric" ExpressionR="6" ExpressionTypeR="String" ConditionType="NumericEqual" />
 </Condition>
-</Trigger>
-<Trigger Enabled="true" Id="d8efe7e8-0b8f-440e-8d2e-4d174a0d8575" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AC2[AB]|AC(4F|50)|AEF[DE]):">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="三组分别是 普通 / 低贡品（深渊烈炎，形状和普通一致） / 高贡品（深渊爆炎，每次水晶比普通多两个）" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^D79_地火" />
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="D79_地火_b先横" VariableExpression="0x${aid} = 0xAC2A || 0x${aid} = 0xAC4F || 0x${aid} = 0xAEFD" />
-<Action OrderNumber="4" ActionType="UseTTS" UseTTSTextExpression="水晶，先${if: ${v:D79_地火_b先横} ? 横向 : 纵向 }" />
-</Actions>
 </Trigger>
 </Triggers>
 </Folder>
@@ -1478,7 +1477,7 @@
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="格式：zoneid:floor:x:y:z" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="D7_陷阱" ListVariableExpression="${id}" />
-<Action OrderNumber="3" ActionType="NamedCallback" ExecutionDelayExpression="random(0, 1000)" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=深宫/陷阱.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;${n: ${_ffxivzoneid}-1281}:${n: 0${v:D7_floor}}:${?d:&#xD;&#xA;  1EA08D=地雷,&#xD;&#xA;  1EA08E=诱饵,&#xD;&#xA;  1EA090=弱化,&#xD;&#xA;  1EA091=妨碍,&#xD;&#xA;  1EBEDB=妖灵&#xD;&#xA;  [${bnpcid}]&#xD;&#xA;}:0:${f:format(System.Double,&quot;0.000&quot;):${x}}:${f:format(System.Double,&quot;0.000&quot;):${y}}:${f:format(System.Double,&quot;0.000&quot;):${z}}" />
+<Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=深宫/陷阱.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;${n: ${_ffxivzoneid}-1281}:${n: 0${v:D7_floor}}:${?d:&#xD;&#xA;  1EA08D=地雷,&#xD;&#xA;  1EA08E=诱饵,&#xD;&#xA;  1EA090=弱化,&#xD;&#xA;  1EA091=妨碍,&#xD;&#xA;  1EBEDB=妖灵&#xD;&#xA;  [${bnpcid}]&#xD;&#xA;}:0:${f:format(System.Double,&quot;0.000&quot;):${x}}:${f:format(System.Double,&quot;0.000&quot;):${y}}:${f:format(System.Double,&quot;0.000&quot;):${z}}" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${l:D7_陷阱.contain(${id})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
@@ -1487,6 +1486,11 @@
 <Trigger Enabled="true" Id="d6716351-feed-4d38-a4f5-aec583d7ad64" Name="记录楼层（切换）" RegularExpression="^.{15}\S+ 00:0839::第(?&lt;floor&gt;\d+)朝圣路">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="D7_floor" VariableExpression="${floor}" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="87b26ab6-072a-439c-b119-a4737db0083a" Name="记录楼层（重进）" RegularExpression="^.{15}\S+ 00:0839::“朝圣交错路 第(\d+)～(?&lt;floorMax&gt;\d+)朝圣路”任务开始。">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D7_floor" VariableExpression="${floorMax} - 9" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="f5481def-9cfe-4843-b796-a751ffbb18eb" Name="重置" RegularExpression="^.{15}\S+ 01:">
@@ -1510,11 +1514,6 @@
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${l:D7_宝箱.contain(${id})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
-</Trigger>
-<Trigger Enabled="true" Id="87b26ab6-072a-439c-b119-a4737db0083a" Name="记录楼层（重进）" RegularExpression="^.{15}\S+ 00:0839::“朝圣交错路 第(\d+)～(?&lt;floorMax&gt;\d+)朝圣路”任务开始。">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="D7_floor" VariableExpression="${floorMax} - 9" />
-</Actions>
 </Trigger>
 </Triggers>
 </Folder>
@@ -1736,12 +1735,11 @@
 <Action OrderNumber="3" ActionType="NamedCallback" ExecutionDelayExpression="12000" Asynchronous="False" NamedCallbackName="AdvWm" NamedCallbackParam="load" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="76f5cbb5-d398-4e84-89e6-b8b7edf489f5" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AC2[AB]|AC(4F|50)|AEF[DE]):">
+<Trigger Enabled="true" Id="76f5cbb5-d398-4e84-89e6-b8b7edf489f5" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;AC2[AB]|AEF[DE]):">
 <Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="三组分别是 普通 / 低贡品（深渊烈炎，形状和普通一致） / 高贡品（深渊爆炎，每次水晶比普通多两个）" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^D79_地火" />
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="D79_地火_b先横" VariableExpression="0x${aid} = 0xAC2A || 0x${aid} = 0xAC4F || 0x${aid} = 0xAEFD" />
-<Action OrderNumber="4" ActionType="UseTTS" UseTTSTextExpression="水晶，先${if: ${v:D79_地火_b先横} ? 横向 : 纵向 }" />
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^D79_地火" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="D79_地火_b先横" VariableExpression="0x${aid} = 0xAC2A || 0x${aid} = 0xAEFD" />
+<Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="水晶，先${if: ${v:D79_地火_b先横} ? 横向 : 纵向 }" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="ea7ff3e0-0396-426f-b6a6-8b4874156cc4" Name="1. 获取水晶" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:1EBE70.*?:Heading:(?&lt;h&gt;[^:]+).*?:PosX:(?&lt;x&gt;(-611.9|-612.0|-587.9|-588.0)[^:]+):PosY:(?&lt;y&gt;(-305.9|-306.0|-293.9|-294.0)[^:]+):PosZ:(?&lt;z&gt;[^:]+)">
