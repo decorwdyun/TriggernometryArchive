@@ -1,12 +1,235 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="1.2.0.761">
-<ExportedFolder Id="b0d59ca2-c5c0-4f3d-abba-6600b8a346b5" Name="7.4 M9-12 阿卡狄亚重量级" Enabled="true">
+<TriggernometryExport PluginVersion="2.0.1.0">
+<ExportedFolder Id="e1e1fa1c-6045-4fd7-ba05-59607effe15e" Enabled="true" Name="7.4 M9-12 阿卡狄亚重量级" RawEnvironmentVariables="prefix = S7c">
 <Folders>
-<Folder Id="92195ebd-b030-42dc-a3e8-974c2204b06d" Name="新建文件夹" Enabled="true">
-<Folders />
-<Triggers />
+<Folder Id="1ca93e8f-76df-41ba-819a-40eba8b581dc" Enabled="true" Name=".总体控制">
+<Folders>
+<Folder Id="9122f9c3-d852-4520-9c1f-ec64d45377b7" Enabled="true" Name="区域" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^132[0-7]$" DisableRemoteExpand="True" DisableRemoteToggle="True">
+<Folders>
+<Folder Id="1a9d0201-77b8-464d-9314-534194a47b7d" Enabled="true" Name="标点">
+<Triggers>
+<Trigger Enabled="true" Id="d73ae04a-c0f1-45d4-87f5-6cd08586a30f" Name="标点保存（有人标点）" RegularExpression="^.{15}\S+ 1C:">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="place" NamedCallbackParam="save" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="72558db8-63c7-487b-9fa1-50348af7fe80" Name="标点重载（重新挑战 / 进入战斗）" RegularExpression="^.{15}\S+ (21:.{8}:40000006|104:.:1:.:1)">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="place" NamedCallbackParam="load" />
+<Action OrderNumber="2" ActionType="NamedCallback" ExecutionDelayExpression="500" NamedCallbackName="place" NamedCallbackParam="save" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="b520737b-2b9e-4b65-bbe1-6ceec2dff739" Name="场地标点" RegularExpression="^.{15}\S+ 21:.{8}:40000001" Sequential="True">
+<Actions>
+<Action OrderNumber="1" Enabled="False" ActionType="NamedCallback" Description="M9s" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#xD;&#xA;O: 100, 100&#xD;&#xA;Waymarks: A1D4C3B2&#xD;&#xA;R: 10&#xD;&#xA;R2: 12.5√2&#xD;&#xA;local: false">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="1257" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="504e9fbd-f983-48a3-bac3-1088b779f4b1" Enabled="true" Name="用户配置">
+<Triggers>
+<Trigger Enabled="false" Id="ea83e908-def1-4ad6-a891-1b3b10cf7d8d" Name="记录用户配置（进本自动）" RegularExpression="^.{15}\S+ 01:(?&lt;zoneId&gt;[^:]*):" Sequential="True">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="${env:prefix}_cfg" LogProcess="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="01e5559d-ed9d-4b2f-b78a-050324a49f00" Name="记录用户配置（副本内手动 /e cfg)" RegularExpression="^.{15}\S+ 00:0038:: *(?i)cfg *$" Sequential="True">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="${env:prefix}_cfg" LogProcess="True" />
+</Actions>
+</Trigger>
+</Triggers>
 </Folder>
 </Folders>
-<Triggers />
+<Triggers>
+<Trigger Enabled="true" Id="f9d902e7-e06b-4091-add4-16b0571f32b3" Name="进战清空变量" RegularExpression="^.{15}\S+ 104:.:1:.:1">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^M[9abc][sn]" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="a3380e41-03d8-4b5e-872a-b483326293d2" Name="团灭中断动作" RegularExpression="^.{15}\S+ 21:.{8}:400000(03|05)" Sequential="True">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="500" />
+<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^M[9abc]s" />
+<Action OrderNumber="3" ActionType="Trigger" FolderOp="CancelFolder" FolderId="6364c12b-83b6-4bd2-b572-e094ca101527" TriggerOp="CancelAllTrigger" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="e7c67b29-9d05-42a6-8719-ce7dd29b0b32" Enabled="true" Name="无区域">
+<Folders>
+<Folder Id="4d2f8847-a446-40e8-b617-7091a74cea8f" Enabled="true" Name="用户配置">
+<Triggers>
+<Trigger Enabled="true" Id="2b351ea6-5e77-499e-9a56-7a8a8a83b2cd" Name="[F] 注册并打开配置" RegularExpression="^(?&lt;prefix&gt;[^[:_]+)_cfg$" PeriodRefire="Deny" RefirePeriodExpression="5000" Sequential="True">
+<Actions>
+<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="正在开启配置" />
+<Action OrderNumber="2" ActionType="ExecuteScript" ExecScriptExpression="using System;&#xD;&#xA;using System.Drawing;&#xD;&#xA;using System.Linq;&#xD;&#xA;using System.Threading;&#xD;&#xA;using System.Windows.Forms;&#xD;&#xA;using Triggernometry.Core;&#xD;&#xA;using Triggernometry.UI.Forms;&#xD;&#xA;using static Triggernometry.UI.Forms.GameConfigForm;&#xD;&#xA;&#xD;&#xA;RealPlugin.Instance.RegisterNamedCallback(S7cEntry.Info.ConfigName, new Action&lt;object, string&gt;((_, __) =&gt; S7cEntry.Start()), null);&#xD;&#xA;&#xD;&#xA;public static class S7cEntry&#xD;&#xA;{&#xD;&#xA;    public static ConfigInfo Info = new ConfigInfo(&quot;阿卡狄亚重量级 M9-12 宝宝椅&quot;, null, &quot;阿洛&quot;, &quot;${env:prefix}_cfg&quot;);&#xD;&#xA;    static Color Blue = Color.FromArgb(0x22, 0x66, 0xff);&#xD;&#xA;    public static void RunConfigForm()&#xD;&#xA;    {&#xD;&#xA;        try { _RunConfigForm(); }&#xD;&#xA;        catch (Exception ex)&#xD;&#xA;        {&#xD;&#xA;            MessageBox.Show(&quot;配置界面运行时遇到问题：\n\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    private static void _RunConfigForm()&#xD;&#xA;    {&#xD;&#xA;        GameConfigForm form = new GameConfigForm(Info);&#xD;&#xA;        form.Shown += (sender, e) =&gt; RealPlugin.Instance.InvokeNamedCallback(&quot;command&quot;, &quot;/e &lt;se.9&gt;&quot;);&#xD;&#xA;&#xD;&#xA;        BijectDictionary&lt;string, string&gt; cbxItems;&#xD;&#xA;        Option optionCtrl;&#xD;&#xA;        Label label;&#xD;&#xA;        string hint = &quot;&quot;;&#xD;&#xA;        // 在下面倒序添加各个选项组（组内的选项正序）&#xD;&#xA;&#xD;&#xA;        OptionsTableLayoutPanel tableM8s = form.AddOptionGroup(&quot; 占位 &quot;);&#xD;&#xA;        /*&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;国&quot;, &quot; [国服] 斜八方固定位置&quot;),&#xD;&#xA;            (&quot;美&quot;, &quot; [美服] 浮游炮安全区方向 TH 顺 D 逆&quot;)&#xD;&#xA;        );&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　钢铁浮游炮时的分散站位&quot;, &quot;M8s_钢铁站位&quot;, cbxItems, &quot;国&quot;);&#xD;&#xA;        form.AddOption(optionCtrl, tableM8s);&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;1&quot;, &quot; [国服] 先撞绿色风球&quot;),&#xD;&#xA;            (&quot;0&quot;, &quot; [美服] 先撞黄色土立方体&quot;)&#xD;&#xA;        );&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　小怪阶段消除风土 debuff 顺序&quot;, &quot;M8s_b先撞绿&quot;, cbxItems, &quot;1&quot;);&#xD;&#xA;        form.AddOption(optionCtrl, tableM8s);&#xD;&#xA;        */&#xD;&#xA;       &#xD;&#xA;        #region 使用须知&#xD;&#xA;&#xD;&#xA;        OptionsTableLayoutPanel tableInfo = form.AddOptionGroup(&quot; 使用须知 &quot;);&#xD;&#xA;&#xD;&#xA;        form.AddLabel(&quot;· 使用前必须查看使用说明，见绝伊甸触发器分组下的「使用说明」触发器。&quot;, tableInfo)&#xD;&#xA;            .ForeColor = Blue;&#xD;&#xA;&#xD;&#xA;        //label = form.AddLabel(&quot;· 下方部分选项上悬停鼠标可以显示详细说明。&quot;, tableInfo);&#xD;&#xA;        //label.ForeColor = Blue;&#xD;&#xA;&#xD;&#xA;        #endregion 使用须知&#xD;&#xA;&#xD;&#xA;        Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#xD;&#xA;        form.Run();&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;    [STAThread]&#xD;&#xA;    public static void Start()&#xD;&#xA;    {&#xD;&#xA;        try&#xD;&#xA;        {&#xD;&#xA;            Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#xD;&#xA;            Thread staThread = new Thread(new ThreadStart(RunConfigForm));&#xD;&#xA;            staThread.SetApartmentState(ApartmentState.STA);&#xD;&#xA;            staThread.Start();&#xD;&#xA;            staThread.Join();&#xD;&#xA;        }&#xD;&#xA;        catch (Exception ex)&#xD;&#xA;        {&#xD;&#xA;            MessageBox.Show(&quot;用户配置表单运行错误：\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${ecallback:${env:prefix}_cfg}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${pd:${env:prefix}_cfg[version]}" ExpressionTypeL="String" ExpressionR="${env:version}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="${env:prefix}_cfg" />
+</Actions>
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${prefix}" ExpressionTypeL="String" ExpressionR="${env:prefix}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="32f1bc49-cd02-4cc5-b5bb-0c19091f83f2" Name="记录用户配置（副本外手动 /e cfg m9-12/U7c）" RegularExpression="^.{15}\S+ 00:0038:: *(?i)cfg +(m9-12|U7c) *$" Sequential="True">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="${env:prefix}_cfg" LogProcess="True" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="false" Id="bcdc4339-8340-4392-8a58-9b3411c6d165" Name="导入提示" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
+<Actions>
+<Action OrderNumber="1" ActionType="MessageBox" MessageBoxIconType="Information" MessageBoxText="M8s 已更新：&#xD;&#xA;· 优化了门神第一次分散分摊的绘制：&#xD;&#xA;  · 初始分散分摊后预先指路自己的大致方向&#xD;&#xA;  · 分身出现后修正至实际安全区&#xD;&#xA;· 本体改为绘制蓝色安全区：&#xD;&#xA;  · 钢铁月环 + 半场刀，附加 TTS 指明露线（已修复之前第二次报错的问题）&#xD;&#xA;  · 五连转盘&#xD;&#xA;  &#xD;&#xA;【如果你导入过群里的临时版本，请删除本地版并重新开启远程版】" />
+<Action OrderNumber="2" ActionType="Trigger" TriggerOp="DisableTrigger" TriggerId="bcdc4339-8340-4392-8a58-9b3411c6d165" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+</Folder>
+<Folder Id="6364c12b-83b6-4bd2-b572-e094ca101527" Enabled="true" Name="M9-12s">
+<Folders>
+<Folder Id="1beff67e-f514-43b2-a4f9-d4e9682d9b10" Enabled="true" Name="M11s v0.0.0" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1325$" RawEnvironmentVariables="zone = 1261">
+<Folders>
+<Folder Id="e4876137-57ec-4925-93d0-23645de387de" Enabled="true" Name="杂项">
+<Triggers>
+<Trigger Enabled="true" Id="8421af6a-2d17-4517-bd8c-3207a95f8b70" Name="注册简易播报" RegularExpression="^.{15}\S+ 104:.:1:.:1">
+<Actions>
+<Action OrderNumber="1" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AB87" DictVariableValue="_=0-8 | omen=circle | delay=5.2 | t=2 | scale=8,8,1" />
+<Action OrderNumber="2" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B034" DictVariableValue="_=右刀 | tts=boss左半场分散 | omen=Fan180 | t=5.7 | scale=40,40,1" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="true" Id="bc53eee4-f0fd-416a-8491-a3dba3668c92" Name="注册小队：自身" RegularExpression="^.{15}\S+ 01:(?&lt;zoneid&gt;[^:]*):">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PartyList:Register:${env:zone}:Self" LogProcess="True" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0x${zoneid}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="00c80112-d095-443f-9db8-ee5be630a507" Enabled="true" Name="M12s v0.0.0" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1327$" RawEnvironmentVariables="zone = 1263">
+<Folders>
+<Folder Id="e323fdc7-5fe2-42c1-8b7a-7a950f7c4490" Enabled="true" Name="杂项">
+<Triggers>
+<Trigger Enabled="true" Id="455db703-9259-43de-a112-32556269d625" Name="注册简易播报" RegularExpression="^.{15}\S+ 104:.:1:.:1">
+<Actions>
+<Action OrderNumber="1" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AB87" DictVariableValue="_=0-8 | omen=circle | delay=5.2 | t=2 | scale=8,8,1" />
+<Action OrderNumber="2" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B034" DictVariableValue="_=右刀 | tts=boss左半场分散 | omen=Fan180 | t=5.7 | scale=40,40,1" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="true" Id="347eff6d-21b5-4729-beae-a216b14174bd" Name="注册小队：自身" RegularExpression="^.{15}\S+ 01:(?&lt;zoneid&gt;[^:]*):">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PartyList:Register:${env:zone}:Self" LogProcess="True" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0x${zoneid}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="bcf81400-c8e3-4858-9e93-281fdf9060da" Enabled="true" Name="M09s v0.0.0" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1321$" RawEnvironmentVariables="zone = 1257">
+<Folders>
+<Folder Id="cee33954-9db1-4e0c-9962-164e91fc1b98" Enabled="true" Name="杂项">
+<Triggers>
+<Trigger Enabled="true" Id="9d90ed33-5484-4fa3-a127-d83f556d38a4" Name="注册简易播报" RegularExpression="^.{15}\S+ 104:.:1:.:1">
+<Actions>
+<Action OrderNumber="1" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AB87" DictVariableValue="_=0-8 | omen=circle | delay=5.2 | t=2 | scale=8,8,1" />
+<Action OrderNumber="2" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B034" DictVariableValue="_=右刀 | tts=boss左半场分散 | omen=Fan180 | t=5.7 | scale=40,40,1" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="true" Id="8420d236-7f6f-4d0f-9aae-21bc7f735e93" Name="注册小队：自身" RegularExpression="^.{15}\S+ 01:(?&lt;zoneid&gt;[^:]*):">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PartyList:Register:${env:zone}:Self" LogProcess="True" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0x${zoneid}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="695eb375-2f3b-4b28-802c-40d1634132cf" Enabled="true" Name="M10s v0.0.0" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1323$" RawEnvironmentVariables="zone = 1259">
+<Folders>
+<Folder Id="9a2eacb0-53d8-44d6-85f0-cb951617b8f1" Enabled="true" Name="杂项">
+<Triggers>
+<Trigger Enabled="true" Id="3b5bd630-4db7-4d21-b29d-4283373ecf6d" Name="注册简易播报" RegularExpression="^.{15}\S+ 104:.:1:.:1">
+<Actions>
+<Action OrderNumber="1" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AB87" DictVariableValue="_=0-8 | omen=circle | delay=5.2 | t=2 | scale=8,8,1" />
+<Action OrderNumber="2" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B034" DictVariableValue="_=右刀 | tts=boss左半场分散 | omen=Fan180 | t=5.7 | scale=40,40,1" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="true" Id="92173df6-0fc8-4ade-96cc-f8258b834970" Name="注册小队：自身" RegularExpression="^.{15}\S+ 01:(?&lt;zoneid&gt;[^:]*):">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PartyList:Register:${env:zone}:Self" LogProcess="True" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0x${zoneid}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+</Folder>
+<Folder Id="1d38e2dc-9af0-4443-882b-b83deae8e732" Enabled="true" Name="M9-12n">
+<Folders>
+<Folder Id="a8a820f7-1725-40e9-b492-58768e0942b7" Enabled="true" Name="M12" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1326$" RawEnvironmentVariables="zone = 1262" />
+<Folder Id="a5512752-1d18-4d23-a691-eba1db5b725d" Enabled="true" Name="M11" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1324$" RawEnvironmentVariables="zone = 1260" />
+<Folder Id="2a704e15-cde7-4d2b-9fc5-6cc6a3101e47" Enabled="true" Name="M10" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1322$" RawEnvironmentVariables="zone = 1258" />
+<Folder Id="7fd471eb-25ed-4e70-96e5-7b2add97749b" Enabled="true" Name="M09" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1320$" RawEnvironmentVariables="zone = 1256" />
+</Folders>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="false" Id="594bb2b9-df6a-4b42-97bb-561457849c5d" Name="【使用说明】 必读 点开看" Source="None">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="【本说明当前只是复制自 M5-8s 的模板】" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Placeholder" Description="·前置&#xD;&#xA;" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True" />
+<Action OrderNumber="3" ActionType="Placeholder" Description="　触发器（2.0.0.0+，会自动更新） 鲶鱼精邮差（会自动更新）  远程触发器中的运行支持库（触发器自带）  不需要cactbotself" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="4" ActionType="Placeholder" Description="　如果你有 cactbot，使用前去 OverlayPlugin 悬浮窗插件选项卡中关掉零式的 TTS" DescBgColor="f4faff" DescTextColor="800" DescriptionOverride="True" />
+<Action OrderNumber="5" ActionType="Placeholder" Description="·用户配置" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True" />
+<Action OrderNumber="6" ActionType="Placeholder" Description="　你只需要按说明操作即可完成配置（选择不同打法），不需要手动开关任何触发器。" DescBgColor="f4faff" DescTextColor="800" DescriptionOverride="True" />
+<Action OrderNumber="7" ActionType="Placeholder" Description="　如需手动开启，游戏内输入指令（大小写不敏感）：" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="8" ActionType="Placeholder" Description="　  M9-12s 副本内：/e cfg" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="9" ActionType="Placeholder" Description="　  M9-12s 副本外：/e cfg m9-12 或 /e cfg s7c" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="10" ActionType="LogMessage" Description="　  或右键此行 - 测试动作" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" LogMessageText="${env:prefix}_cfg" LogProcess="True" />
+<Action OrderNumber="11" ActionType="LaunchProcess" Description="　使用视频或图文说明见 b 站视频合集（右键此行-测试动作 打开）或专栏（个人主页），没有的话可能还没发" DescBgColor="f4faff" DescTextColor="800" DescriptionOverride="True" LaunchProcessPathExpression="https://space.bilibili.com/83429972/lists/2967544" />
+<Action OrderNumber="12" ActionType="Placeholder" Description="　如需关闭标点：在鲶鱼精邮差插件选项卡中取消勾选 WayMark 选项框。" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="13" ActionType="Placeholder" Description="　如需关闭某类视觉特效：在远程触发器 - 运行支持库 - 鲶鱼精邮差扩展 中查看并更改用户配置。" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="14" ActionType="Placeholder" Description="　进本需要输入职能，按照进本后的提示输入即可。" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="15" ActionType="LaunchProcess" Description="　有问题的话首先使用远程触发器 - 自检工具箱，完整执行一遍自检。" DescBgColor="f4faff" DescTextColor="800" DescriptionOverride="True" LaunchProcessPathExpression="https://space.bilibili.com/83429972/lists/2967544" />
+<Action OrderNumber="16" ActionType="Placeholder" Description="·关于" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True" />
+<Action OrderNumber="17" ActionType="Placeholder" Description="　　by 阿洛 MnFeN" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" />
+<Action OrderNumber="18" ActionType="LaunchProcess" Description="　　你可以关注这个 b 站账号，不定期更新视频介绍（右键这一行 - 测试动作）" DescBgColor="f4faff" DescTextColor="234" DescriptionOverride="True" LaunchProcessPathExpression="https://space.bilibili.com/83429972" />
+</Actions>
+</Trigger>
+</Triggers>
 </ExportedFolder>
 </TriggernometryExport>
