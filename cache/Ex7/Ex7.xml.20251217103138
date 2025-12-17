@@ -2303,6 +2303,14 @@
 <Action OrderNumber="2" ActionType="Folder" ExecutionDelayExpression="500" FolderOp="CancelFolder" FolderId="feecefd8-8eec-403b-99ce-b3b72f8e752c" />
 </Actions>
 </Trigger>
+<Trigger Enabled="true" Id="5a4594b3-3c7f-46d7-a1a8-6009ef42bff6" Name="注册小队：自身" RegularExpression="^.{15}\S+ 01:(?&lt;zoneid&gt;[^:]*):">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PartyList:Register:${env:zone}:Self" LogProcess="True" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0x${zoneid}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
 </Triggers>
 </Folder>
 <Folder Id="b81b58df-4c0a-443d-bfa7-c63ee724273e" Enabled="true" Name="杂项">
@@ -3486,7 +3494,7 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="2166503e-df71-4fc8-9e0c-5795e1d02b45" Enabled="true" Name="Ex7f 格莱杨拉波尔 v0.1" RawEnvironmentVariables="version = 0.0&#xD;&#xA;zone = 1308">
+<Folder Id="2166503e-df71-4fc8-9e0c-5795e1d02b45" Enabled="true" Name="Ex7f 格莱杨拉波尔" RawEnvironmentVariables="version = 0.0&#xD;&#xA;zone = 1308">
 <Folders>
 <Folder Id="4d97398f-4985-4eca-93fc-3e6ab0292008" Enabled="true" Name="区域限制" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1308$">
 <Folders>
@@ -3525,55 +3533,23 @@
 <Action OrderNumber="2" ActionType="Folder" ExecutionDelayExpression="500" FolderOp="CancelFolder" FolderId="2166503e-df71-4fc8-9e0c-5795e1d02b45" />
 </Actions>
 </Trigger>
-</Triggers>
-</Folder>
-<Folder Id="0f2a044e-8c53-4410-af53-0b521e6d576e" Enabled="true" Name="A. 分散分摊">
-<Triggers>
-<Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="分散分摊" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B25F|B260):">
+<Trigger Enabled="true" Id="99081938-de97-4e77-98e8-bbc8d9207086" Name="注册小队：自身" RegularExpression="^.{15}\S+ 01:(?&lt;zoneid&gt;[^:]*):">
 <Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_散摊_b散" VariableExpression="0x${aid} = 0xB25F" />
-<Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${!v:Ex7f_散摊_b散} ? 储存分散 : 储存分摊 }" />
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PartyList:Register:${env:zone}:Self" LogProcess="True" />
 </Actions>
-</Trigger>
-<Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="击退吸引" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B266|B26D):">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_散摊_b击退" VariableExpression="0x${aid} = 0xB266" />
-<Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${!v:Ex7f_散摊_b击退} ? 击退 : 吸引 }" />
-<Action OrderNumber="3" ActionType="UseTTS" ExecutionDelayExpression="5000" Asynchronous="False" UseTTSTextExpression="准备${if: ${!v:Ex7f_散摊_b散} ? 分散 : 分摊 }" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="Ex7f_散摊_b散" />
-</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0x${zoneid}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
 </Trigger>
 </Triggers>
 </Folder>
+<Folder Id="0f2a044e-8c53-4410-af53-0b521e6d576e" Enabled="true" Name="A. Placeholder" />
 <Folder Id="2efeec1d-f50c-49bc-a8d8-4a97492df696" Enabled="true" Name="杂项">
 <Triggers>
 <Trigger Enabled="true" Id="97b0b010-d0aa-40b1-b92e-b26e6d978a82" Name="注册简易播报" RegularExpression="^.{15}\S+ 104:.:1:.:1">
 <Actions>
-<Action OrderNumber="1" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B262" DictVariableValue="_=雷光一闪（拍手） | omen=Circle | t=2.7 | Scale=4,4,1" />
-<Action OrderNumber="2" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B237" DictVariableValue="_=无控急行 | tts=转场 AoE" />
-<Action OrderNumber="3" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B25C" DictVariableValue="tts=双死刑" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="f2579a6c-d095-4783-8398-93de436a643d" Name="拍手" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B262):" PeriodRefire="Deny" RefirePeriodExpression="1000">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="躲开" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="6c491336-15a3-4250-8933-77fd963703f6" Name="上/下" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B277|B27A):">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_上下_b先去上" VariableExpression="0x${aid} = 0xB277" />
-<Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${_me.z} &lt; 2.5 &#xD;&#xA;  ? ${if: ${!v:Ex7f_上下_b先去上} ? 去上面 : 留在下面 }&#xD;&#xA;  : ${if: ${!v:Ex7f_上下_b先去上} ? 留在上面 : 去下面 }&#xD;&#xA;}" />
-<Action OrderNumber="3" ActionType="UseTTS" ExecutionDelayExpression="6000" UseTTSTextExpression="${if: ${_me.z} &lt; 2.5 &#xD;&#xA;  ? ${if: !${!v:Ex7f_上下_b先去上} ? 去上面 : 留在下面 }&#xD;&#xA;  : ${if: !${!v:Ex7f_上下_b先去上} ? 留在上面 : 去下面 }&#xD;&#xA;}" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="98e2885e-21f7-4f4f-b58a-43e42e622983" Name="P2 列车鸣笛 散/摊" RegularExpression="^.{15}\S+ 1B:4.{7}:[^:]*:[^:]*:[^:]*:(?&lt;type&gt;027[DE])">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_鸣笛_b摊" VariableExpression="0x${type} = 0x027D" />
-<Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${!v:Ex7f_鸣笛_b摊} ? 三人分摊 : 全体分散 }">
-<Condition Enabled="false" Grouping="Or">
-<ConditionSingle Enabled="false" ExpressionL="${_me.isT}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
+<Action OrderNumber="1" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="AB87" DictVariableValue="_=0-8 | omen=circle | delay=5.2 | t=2 | scale=8,8,1" />
+<Action OrderNumber="2" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B034" DictVariableValue="_=右刀 | tts=boss左半场分散 | omen=Fan180 | t=5.7 | scale=40,40,1" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -3597,11 +3573,6 @@
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="0x${zoneid}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
-</Trigger>
-<Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="储存entity" RegularExpression="^.{15}\S+ 00:0038::(?i)ens">
-<Actions>
-<Action OrderNumber="1" ActionType="TableVariable" TableVariableOp="GetAllEntities" TableVariableName="entities_${n: round(${_timestampms}/100) % 1000000}" TableVariableX="ID, Name, BNpcID, X, Y, Z, Heading" TableVariableY="Type != 1" />
-</Actions>
 </Trigger>
 </Triggers>
 </Folder>
