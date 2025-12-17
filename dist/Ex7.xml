@@ -3486,7 +3486,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="2166503e-df71-4fc8-9e0c-5795e1d02b45" Enabled="true" Name="Ex7f 格莱杨拉波尔 v0.1" RawEnvironmentVariables="version = 0.0&#13;&#10;zone = 1308">
+      <Folder Id="2166503e-df71-4fc8-9e0c-5795e1d02b45" Enabled="true" Name="Ex7f 格莱杨拉波尔 v1.0" RawEnvironmentVariables="version = 0.0&#13;&#10;zone = 1308">
         <Folders>
           <Folder Id="4d97398f-4985-4eca-93fc-3e6ab0292008" Enabled="true" Name="区域限制" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1308$">
             <Folders>
@@ -3527,46 +3527,118 @@
                   </Trigger>
                 </Triggers>
               </Folder>
-              <Folder Id="0f2a044e-8c53-4410-af53-0b521e6d576e" Enabled="true" Name="A. 分散分摊">
+              <Folder Id="0f2a044e-8c53-4410-af53-0b521e6d576e" Enabled="true" Name="分散分摊">
                 <Triggers>
-                  <Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="分散分摊" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B25F|B260):">
+                  <Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="1. 分散分摊" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B25F|B260):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_散摊_b散" VariableExpression="0x${aid} = 0xB25F"/>
-                      <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${!v:Ex7f_散摊_b散} ? 储存分散 : 储存分摊 }"/>
+                      <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="Ex7f_散摊:b散:${!v:Ex7f_散摊_b散}" LogProcess="True" LogProcessACT="True"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="击退吸引" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B266|B26D):">
+                  <Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="2. 击退吸引" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B266|B26D):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_散摊_b击退" VariableExpression="0x${aid} = 0xB266"/>
-                      <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${!v:Ex7f_散摊_b击退} ? 击退 : 吸引 }"/>
-                      <Action OrderNumber="3" ActionType="UseTTS" ExecutionDelayExpression="5000" Asynchronous="False" UseTTSTextExpression="准备${if: ${!v:Ex7f_散摊_b散} ? 分散 : 分摊 }"/>
-                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="Ex7f_散摊_b散"/>
+                      <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="Ex7f_散摊_位移:b击退:${!v:Ex7f_散摊_b击退}:b散:${!v:Ex7f_散摊_b散}" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableName="Ex7f_散摊_b散"/>
                     </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="a13f2ca3-0048-4445-9e2b-b1cd43df16e6" Name="雷光环（前方高低魔法阵）" RegularExpression="^.{15}\S+ 03:4.{7}:([^:]*:){7}19000:([^:]*:){6}(?&lt;x&gt;(97|102)[^:]+):(?&lt;y&gt;[^:]+):-?0">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase；只取中间两列低的" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#13;&#10;t: 6.4&#13;&#10;Tag: Ex7f&#13;&#10;Pos: ${x}, ${y}, 0&#13;&#10;Angle: 0&#13;&#10;Scale: 2.5, 30, 1" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="3" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#13;&#10;t: 6.4&#13;&#10;Tag: Ex7f&#13;&#10;Pos: 400 - 3 * ${x}, ${y}, 0&#13;&#10;Angle: 0&#13;&#10;Scale: 2.5, 30, 1" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="4" ActionType="UseTTS" UseTTSTextExpression="${if: ${x} &lt; 100 ? 一三 : 二四 }列"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:Ex7f_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
                   </Trigger>
                 </Triggers>
               </Folder>
               <Folder Id="2efeec1d-f50c-49bc-a8d8-4a97492df696" Enabled="true" Name="杂项">
                 <Triggers>
-                  <Trigger Enabled="true" Id="97b0b010-d0aa-40b1-b92e-b26e6d978a82" Name="注册简易播报" RegularExpression="^.{15}\S+ 104:.:1:.:1">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B262" DictVariableValue="_=雷光一闪（拍手） | omen=Circle | t=2.7 | Scale=4,4,1"/>
-                      <Action OrderNumber="2" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B237" DictVariableValue="_=无控急行 | tts=转场 AoE"/>
-                      <Action OrderNumber="3" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B25C" DictVariableValue="tts=双死刑"/>
-                    </Actions>
-                  </Trigger>
                   <Trigger Enabled="true" Id="f2579a6c-d095-4783-8398-93de436a643d" Name="拍手" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B262):" PeriodRefire="Deny" RefirePeriodExpression="1000">
                     <Actions>
                       <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="躲开"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="97b0b010-d0aa-40b1-b92e-b26e6d978a82" Name="注册简易播报" RegularExpression="^.{15}\S+ 104:.:1:.:1">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B262" DictVariableValue="_=雷光一闪（拍手） | omen=Circle | t=2.7 | Scale=4,4,1"/>
+                      <Action OrderNumber="2" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B237" DictVariableValue="_=无控急行 | tts=AoE，碎平台"/>
+                      <Action OrderNumber="3" ActionType="Placeholder" Description="浮游炮" DescriptionOverride="True"/>
+                      <Action OrderNumber="4" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B271" DictVariableValue="_=雷转质射线: 2.5 × 25 m 矩形 (12) | omen=Rect | t=6.7 | Scale=2.5,25,1"/>
+                      <Action OrderNumber="5" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B272" DictVariableValue="_=雷转质射线: 2.5 × 25 m 矩形 (12) | omen=Rect | t=6.7 | Scale=2.5,25,1"/>
+                      <Action OrderNumber="6" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B273" DictVariableValue="_=雷转质射线: 2.5 × 20 m 矩形 (12) | omen=Rect | t=6.7 | Scale=2.5,20,1"/>
+                      <Action OrderNumber="7" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B274" DictVariableValue="_=雷转质射线: 2.5 × 15 m 矩形 (12) | omen=Rect | t=6.7 | Scale=2.5,15,1"/>
+                      <Action OrderNumber="8" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B275" DictVariableValue="_=雷转质射线: 2.5 × 10 m 矩形 (12) | omen=Rect | t=6.7 | Scale=2.5,10,1"/>
+                      <Action OrderNumber="9" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B276" DictVariableValue="_=雷转质射线: 2.5 × 5 m 矩形 (12) | omen=Rect | t=6.7 | Scale=2.5,5,1"/>
+                      <Action OrderNumber="10" ActionType="Placeholder" Description="脱轨捶打" DescriptionOverride="True"/>
+                      <Action OrderNumber="11" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B250" DictVariableValue="_=脱轨捶打 | tts=分摊塔"/>
+                      <Action OrderNumber="12" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B285" DictVariableValue="_=脱轨捶打 | tts=分摊塔"/>
+                      <Action OrderNumber="13" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B253" DictVariableValue="_=脱轨捶打 | tts=快跑"/>
+                      <Action OrderNumber="14" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B28B" DictVariableValue="_=脱轨捶打 | tts=快跑"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="6c491336-15a3-4250-8933-77fd963703f6" Name="上/下" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B277|B27A):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_上下_b先去上" VariableExpression="0x${aid} = 0xB277"/>
                       <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${_me.z} &lt; 2.5 &#13;&#10;  ? ${if: ${!v:Ex7f_上下_b先去上} ? 去上面 : 留在下面 }&#13;&#10;  : ${if: ${!v:Ex7f_上下_b先去上} ? 留在上面 : 去下面 }&#13;&#10;}"/>
-                      <Action OrderNumber="3" ActionType="UseTTS" ExecutionDelayExpression="6000" UseTTSTextExpression="${if: ${_me.z} &lt; 2.5 &#13;&#10;  ? ${if: !${!v:Ex7f_上下_b先去上} ? 去上面 : 留在下面 }&#13;&#10;  : ${if: !${!v:Ex7f_上下_b先去上} ? 留在上面 : 去下面 }&#13;&#10;}"/>
+                      <Action OrderNumber="3" ActionType="UseTTS" ExecutionDelayExpression="6000" UseTTSTextExpression="${if: ${_me.z} &lt; 2.5 &#13;&#10;  ? ${if: !${!v:Ex7f_上下_b先去上} ? 上去 : 留在下面 }&#13;&#10;  : ${if: !${!v:Ex7f_上下_b先去上} ? 留在上面 : 下来 }&#13;&#10;}"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="98e2885e-21f7-4f4f-b58a-43e42e622983" Name="P2 列车鸣笛 散/摊" RegularExpression="^.{15}\S+ 1B:4.{7}:[^:]*:[^:]*:[^:]*:(?&lt;type&gt;027[DE])">
+                  <Trigger Enabled="true" Id="682dea6e-daa9-4c9f-adb3-6eb87f1b4e86" Name="魔法阵启动" RegularExpression="^.{15}\S+ 1[56]:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B25[89A]):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="车厢 4/6，Y = 250/350" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_Y0" VariableExpression="${_me.Y} &gt; 300 ? 350 : 250"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_步数" VariableExpression="0x${aid} - 0xB256"/>
+                      <Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description="获取魔法阵实体当前和半秒后的位置，判断初始方向以及顺逆" DescriptionOverride="True"/>
+                      <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="Ex7f_菱形_pos0" VariableExpression="${_entity[BNpcID = 18998].XY}"/>
+                      <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_dir4_0" VariableExpression="roundvec(${?l:${v:Ex7f_菱形_pos0}[1]} - 100, ${?l:${v:Ex7f_菱形_pos0}[2]} - ${v:tmp_Y0}, 4)"/>
+                      <Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_θ0" VariableExpression="θ(100, ${v:tmp_Y0}, ${v:Ex7f_菱形_pos0})"/>
+                      <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="500" Asynchronous="False"/>
+                      <Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="Ex7f_菱形_pos1" VariableExpression="${_entity[BNpcID = 18998].XY}"/>
+                      <Action OrderNumber="10" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_θ1" VariableExpression="θ(100, ${v:tmp_Y0}, ${v:Ex7f_菱形_pos1})"/>
+                      <Action OrderNumber="11" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_b逆" VariableExpression="relθ(${v:Ex7f_菱形_θ0}, ${v:Ex7f_菱形_θ1}) &gt; 0"/>
+                      <Action OrderNumber="12" ActionType="Placeholder" Asynchronous="False"/>
+                      <Action OrderNumber="13" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_dir4终" VariableExpression="(${v:Ex7f_菱形_dir4_0} + (${v:Ex7f_菱形_b逆} ? 1 : -1) * ${v:Ex7f_菱形_步数}) %% 4"/>
+                      <Action OrderNumber="14" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_θ终" VariableExpression="dir2rad(${v:Ex7f_菱形_dir4终}, 4)"/>
+                      <Action OrderNumber="15" Enabled="False" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] @ (100, ${v:tmp_Y0})&#13;&#10;步数: ${v:Ex7f_菱形_步数}&#13;&#10;pos0: ${v:Ex7f_菱形_pos0}&#13;&#10;dir4_0: ${v:Ex7f_菱形_dir4_0}&#13;&#10;θ0: ${v:Ex7f_菱形_θ0}&#13;&#10;pos1: ${v:Ex7f_菱形_pos0}&#13;&#10;θ1: ${v:Ex7f_菱形_θ0}&#13;&#10;b逆: ${v:Ex7f_菱形_b逆}&#13;&#10;dir4终: ${v:Ex7f_菱形_dir4终}&#13;&#10;θ终: ${v:Ex7f_菱形_θ终}" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="16" ActionType="UseTTS" UseTTSTextExpression="${f:pick(${v:Ex7f_菱形_dir4终}): 前方, 左侧, 后方, 右侧}危险"/>
+                      <Action OrderNumber="17" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#13;&#10;t: ${v:Ex7f_菱形_步数} * 3 + 0.7&#13;&#10;Tag: Ex7f&#13;&#10;Pos: 100 + 5 * sin(${v:Ex7f_菱形_θ终}), ${v:tmp_Y0} + 10 * cos(${v:Ex7f_菱形_θ终}), 0&#13;&#10;Scale: 16, 16, 1" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="8d7779ba-f811-460c-bc6e-de8fff0b027a" Enabled="true" Name="C. 平台3 + 异空间" RawEnvironmentVariables="phase = 平台3">
+                <Triggers>
+                  <Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="1. 鸣笛时获取位置" RegularExpression="^.{15}\S+ 1B:4.{7}:[^:]*:[^:]*:[^:]*:(?&lt;type&gt;027F)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableName="Ex7f_鸣笛_θ" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Description="鸣笛后 9.6 秒死刑判定" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" ActionType="Placeholder" Description="运动速度随机，鸣笛至停下的距离相当于匀速段运动约 7.15 s （←计算值，写完实测 7.6 才能对上）" DescriptionOverride="True"/>
+                      <Action OrderNumber="4" ActionType="Placeholder" Description="取 t = 0 0.5 1 1.5 2 2.5 3 七个点" DescriptionOverride="True"/>
+                      <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" UseTTSTextExpression="Ex7f_鸣笛_θ" VariableOp="SetNumeric" VariableName="Ex7f_鸣笛_θ0" VariableExpression="θ(-400, -400, ${_entity[BNpcID = 19329].XY})"/>
+                      <Action OrderNumber="6" ActionType="ListVariable" ExecutionDelayExpression="500" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="Ex7f_鸣笛_θ" ListVariableExpression="θ(-400, -400, ${_entity[BNpcID = 19329].XY})" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="7" ActionType="ListVariable" ExecutionDelayExpression="500" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="Ex7f_鸣笛_θ" ListVariableExpression="θ(-400, -400, ${_entity[BNpcID = 19329].XY})" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="8" ActionType="ListVariable" ExecutionDelayExpression="500" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="Ex7f_鸣笛_θ" ListVariableExpression="θ(-400, -400, ${_entity[BNpcID = 19329].XY})" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="9" ActionType="ListVariable" ExecutionDelayExpression="500" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="Ex7f_鸣笛_θ" ListVariableExpression="θ(-400, -400, ${_entity[BNpcID = 19329].XY})" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="10" ActionType="ListVariable" ExecutionDelayExpression="500" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="Ex7f_鸣笛_θ" ListVariableExpression="θ(-400, -400, ${_entity[BNpcID = 19329].XY})" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="11" ActionType="ListVariable" ExecutionDelayExpression="500" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="Ex7f_鸣笛_θ" ListVariableExpression="θ(-400, -400, ${_entity[BNpcID = 19329].XY})" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="12" ActionType="Placeholder" Description="相对初始角度的值" DescriptionOverride="True"/>
+                      <Action OrderNumber="13" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="Ex7f_鸣笛_θ" ListVariableExpression="relθ(${v:Ex7f_鸣笛_θ0}, ${_this})" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="14" ActionType="Placeholder" Description="线性拟合" DescriptionOverride="True"/>
+                      <Action OrderNumber="15" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_鸣笛_ω" VariableExpression="(- 2 * ${l:Ex7f_鸣笛_θ[1]} &#13;&#10; - 1 * ${l:Ex7f_鸣笛_θ[2]}&#13;&#10; + 1 * ${l:Ex7f_鸣笛_θ[4]}&#13;&#10; + 2 * ${l:Ex7f_鸣笛_θ[5]}&#13;&#10; + 3 * ${l:Ex7f_鸣笛_θ[6]}) / 14"/>
+                      <Action OrderNumber="16" ActionType="Variable" Asynchronous="False" UseTTSTextExpression="Ex7f_鸣笛_θ" VariableOp="SetNumeric" VariableName="Ex7f_鸣笛_θerr" VariableExpression="${l:Ex7f_鸣笛_θ.sum} / 7 - 1.5 * ${v:Ex7f_鸣笛_ω}"/>
+                      <Action OrderNumber="17" ActionType="Placeholder" Description="最终位置" DescriptionOverride="True"/>
+                      <Action OrderNumber="18" ActionType="Variable" Asynchronous="False" UseTTSTextExpression="Ex7f_鸣笛_θ" VariableOp="SetNumeric" VariableName="Ex7f_鸣笛_θ停" VariableExpression="${v:Ex7f_鸣笛_θ0} + 7.6 * ${v:Ex7f_鸣笛_ω} + ${v:Ex7f_鸣笛_θerr}"/>
+                      <Action OrderNumber="19" ActionType="Placeholder" Description="画出：中心扇形安全区；双 T 引导方向（两个半径）" DescriptionOverride="True"/>
+                      <Action OrderNumber="20" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan30&#13;&#10;t: 6.6&#13;&#10;Tag: Ex7f&#13;&#10;θ: ${!v:Ex7f_鸣笛_θ停}&#13;&#10;O: -400, -400, -900&#13;&#10;Pos: 0, -25&#13;&#10;Angle: 0&#13;&#10;Scale: 50, 50, 5&#13;&#10;Color: 0, 1, 6, 1&#13;&#10;&#13;&#10;// T 的引导线 两条半径&#13;&#10;---&#13;&#10;Omen: m131om_setu0f&#13;&#10;t: 6.6&#13;&#10;Tag: Ex7f&#13;&#10;θ: ${!v:Ex7f_鸣笛_θ停}&#13;&#10;O: -400, -400, -900&#13;&#10;Pos: 0, 0&#13;&#10;Angle: (180-53)°&#13;&#10;Scale: 0.1, 15, 0.1&#13;&#10;Color: 1, 2, 9, 1&#13;&#10;---&#13;&#10;Omen: m131om_setu0f&#13;&#10;t: 6.6&#13;&#10;Tag: Ex7f&#13;&#10;θ: ${!v:Ex7f_鸣笛_θ停}&#13;&#10;O: -400, -400, -900&#13;&#10;Pos: 0, 0&#13;&#10;Angle: (180+53)°&#13;&#10;Scale: 0.1, 15, 0.1&#13;&#10;Color: 1, 2, 9, 1" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="21" Enabled="False" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan30&#13;&#10;t: 9.5&#13;&#10;Tag: Ex7f&#13;&#10;θ: ${_me.h}&#13;&#10;O: ${_me.pos}&#13;&#10;Pos: 0, -25&#13;&#10;Angle: 0&#13;&#10;Scale: 50, 50, 5&#13;&#10;Color: 0, 1, 6, 1&#13;&#10;&#13;&#10;// T 的引导线 两条半径&#13;&#10;---&#13;&#10;Omen: m131om_setu0f&#13;&#10;t: 9.5&#13;&#10;Tag: Ex7f&#13;&#10;θ: ${_me.h}&#13;&#10;O: ${_me.pos}&#13;&#10;Pos: 0, 0&#13;&#10;Angle: (180-53)°&#13;&#10;Scale: 0.1, 15, 0.1&#13;&#10;Color: 1, 2, 9, 1&#13;&#10;---&#13;&#10;Omen: m131om_setu0f&#13;&#10;t: 9.5&#13;&#10;Tag: Ex7f&#13;&#10;θ: ${_me.h}&#13;&#10;O: ${_me.pos}&#13;&#10;Pos: 0, 0&#13;&#10;Angle: (180+53)°&#13;&#10;Scale: 0.1, 15, 0.1&#13;&#10;Color: 1, 2, 9, 1" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="22" Enabled="False" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;θ0: ${v:Ex7f_鸣笛_θ0}&#13;&#10;· ${l:Ex7f_鸣笛_θ.join(&quot;⏎· &quot;)}&#13;&#10;ω = ${v:Ex7f_鸣笛_ω}&#13;&#10;err = ${v:Ex7f_鸣笛_θerr}&#13;&#10;θ停 = ${v:Ex7f_鸣笛_θ停}" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="98e2885e-21f7-4f4f-b58a-43e42e622983" Name="2. 分散/分摊" RegularExpression="^.{15}\S+ 1B:4.{7}:[^:]*:[^:]*:[^:]*:(?&lt;type&gt;027[DE])">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_鸣笛_b摊" VariableExpression="0x${type} = 0x027D"/>
                       <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${!v:Ex7f_鸣笛_b摊} ? 三人分摊 : 全体分散 }">
@@ -3575,6 +3647,259 @@
                         </Condition>
                       </Action>
                     </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="b4eee58c-f342-42dd-8096-132e61834c7d" Name="0. 阶段开始" RegularExpression="^.{15}\S+ 101:.{8}:00020001:05">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="Ex7f_phase" VariableExpression="${env:phase}"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="变身 AoE" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B24E):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="变身，AoE"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="1fba60fe-5133-4f05-80ee-a3378cbe4129" Name="3. 小怪结束" RegularExpression="^.{15}\S+ 101:.{8}:00080004:26">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#13;&#10;Tag: Ex7f" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="558981f4-bdc2-4e78-8baa-493939f097b0" Name="后半时间轴" RegularExpression="^.{15}\S+ 101:.{8}:00080004:30">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="tts:10.7:变身，AoE" LogProcess="True"/>
+                      <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:16.0:双死刑" LogProcess="True"/>
+                      <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:26.2:第一轮塔" LogProcess="True"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="895d7bcc-d113-44ea-9c7f-b4da2110ff82" Enabled="true" Name="A. 平台1" RawEnvironmentVariables="phase = 平台1">
+                <Triggers>
+                  <Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="0. 阶段开始" RegularExpression="^.{15}\S+ 104:.:1:.:1">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" ExecutionDelayExpression="3000" VariableOp="SetString" VariableName="Ex7f_phase" VariableExpression="${env:phase}"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="b3b3e364-1b87-4dde-988e-76b06a8e2073" Name="1. 分散分摊" RegularExpression="^Ex7f_散摊:b散:(?&lt;b散&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="储存${if: ${b散} ? 分散 : 分摊 }"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:Ex7f_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="雷光环（前方高低魔法阵）" RegularExpression="^.{15}\S+ 03:4.{7}:([^:]*:){7}19000:([^:]*:){6}(?&lt;x&gt;(97|102)[^:]+):(?&lt;y&gt;[^:]+):-?0">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase；只取中间两列低的" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#13;&#10;t: 6.4&#13;&#10;Tag: Ex7f&#13;&#10;Pos: ${x}, ${y}, 0&#13;&#10;Angle: 0&#13;&#10;Scale: 2.5, 30, 1" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="3" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#13;&#10;t: 6.4&#13;&#10;Tag: Ex7f&#13;&#10;Pos: 400 - 3 * ${x}, ${y}, 0&#13;&#10;Angle: 0&#13;&#10;Scale: 2.5, 30, 1" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="4" ActionType="UseTTS" UseTTSTextExpression="${if: ${x} &lt; 100 ? 一三 : 二四 }列"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:Ex7f_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="ab362bfe-f3da-43b0-998f-2b47e93aa912" Name="2. 击退吸引" RegularExpression="^Ex7f_散摊_位移:b击退:(?&lt;b击退&gt;[01]):b散:(?&lt;b散&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="${if: ${b击退} ? 击退 : 吸引 }"/>
+                      <Action OrderNumber="3" ActionType="UseTTS" ExecutionDelayExpression="6500" UseTTSTextExpression="${if: ${b散} ? 分散 : 分摊 }"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:Ex7f_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="3bf6b17d-cc24-47ba-b5be-9850071f4736" Enabled="true" Name="B. 平台2" RawEnvironmentVariables="phase = 平台2">
+                <Triggers>
+                  <Trigger Enabled="true" Id="6aa691b1-0bf1-47e7-9862-dc24a0544ed2" Name="0. 阶段开始" RegularExpression="^.{15}\S+ 101:.{8}:00020001:04">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="Ex7f_phase" VariableExpression="${env:phase}"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="35998fa7-4c73-4a8e-913a-9e506bf400b8" Name="1. 分散分摊" RegularExpression="^Ex7f_散摊:b散:(?&lt;b散&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="储存${if: ${b散} ? 分散 : 分摊 }"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:Ex7f_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="d983363d-a548-438b-9e66-1d37fc2fd76f" Name="雷转质射线（左右浮游炮）" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B271):(?&lt;x&gt;[^:]+):(?&lt;y&gt;13[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase；只取第一行" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="${if: ${x} &lt; 100 ? 后排 : 前排 }"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:Ex7f_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="a1122b9f-f4f3-447a-b3e5-c944be2b55ef" Name="2. 击退吸引" RegularExpression="^Ex7f_散摊_位移:b击退:(?&lt;b击退&gt;[01]):b散:(?&lt;b散&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="${if: ${b击退} ? 击退 : 吸引 }"/>
+                      <Action OrderNumber="3" ActionType="UseTTS" ExecutionDelayExpression="6500" UseTTSTextExpression="${if: ${b散} ? 分散 : 分摊 }"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:Ex7f_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="83158147-ed6e-4caa-a191-3ec1a85937c1" Name="雷光环（前方高低魔法阵）" RegularExpression="^.{15}\S+ 03:4.{7}:([^:]*:){7}19000:([^:]*:){6}(?&lt;x&gt;(97|102)[^:]+):(?&lt;y&gt;[^:]+):-?0">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase；只取中间两列低的" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Description="左侧" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#13;&#10;t: 6.4&#13;&#10;Tag: Ex7f&#13;&#10;Pos: 97.5, ${y}, 0&#13;&#10;Angle: 0&#13;&#10;Scale: 2.5, 30, 1&#13;&#10;---&#13;&#10;Omen: Rect&#13;&#10;t: 6.4&#13;&#10;Tag: Ex7f&#13;&#10;Pos: 92.5, ${y}, 0&#13;&#10;Angle: 0&#13;&#10;Scale: 2.5, 20, 1" UseTTSTextExpression="Ex7f_鸣笛_θ">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="100" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ActionType="Placeholder" Description="右侧" DescriptionOverride="True"/>
+                      <Action OrderNumber="5" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#13;&#10;t: 6.4&#13;&#10;Tag: Ex7f&#13;&#10;Pos: 102.5, ${y}, 0&#13;&#10;Angle: 0&#13;&#10;Scale: 2.5, 30, 1&#13;&#10;---&#13;&#10;Omen: Rect&#13;&#10;t: 6.4&#13;&#10;Tag: Ex7f&#13;&#10;Pos: 107.5, ${y}, 0&#13;&#10;Angle: 0&#13;&#10;Scale: 2.5, 10, 1" UseTTSTextExpression="Ex7f_鸣笛_θ">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${x}" ExpressionTypeL="String" ExpressionR="100" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="6" ActionType="UseTTS" UseTTSTextExpression="${if: ${x} &lt; 100 ? 右半场 : 左半场 }"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:Ex7f_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="7764b4d5-5d89-4e35-ace9-374ea235e36e" Enabled="true" Name="D. 平台4" RawEnvironmentVariables="phase = 平台4">
+                <Triggers>
+                  <Trigger Enabled="true" Id="d5427600-b4af-44d3-8265-48ec32ca0928" Name="0. 阶段开始" RegularExpression="^.{15}\S+ 101:.{8}:00080004:0A">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="Ex7f_phase" VariableExpression="${env:phase}"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="1. 魔法阵启动" RegularExpression="^.{15}\S+ 1[56]:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B25[89A]):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_Y0" VariableExpression="250"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_步数" VariableExpression="0x${aid} - 0xB256"/>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="Ex7f_菱形_pos0" VariableExpression="${_entity[BNpcID = 18998].XY}"/>
+                      <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_dir4_0" VariableExpression="roundvec(${?l:${v:Ex7f_菱形_pos0}[1]} - 100, ${?l:${v:Ex7f_菱形_pos0}[2]} - ${v:tmp_Y0}, 4)"/>
+                      <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_θ0" VariableExpression="θ(100, ${v:tmp_Y0}, ${v:Ex7f_菱形_pos0})"/>
+                      <Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="500" Asynchronous="False"/>
+                      <Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="Ex7f_菱形_pos1" VariableExpression="${_entity[BNpcID = 18998].XY}"/>
+                      <Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_θ1" VariableExpression="θ(100, ${v:tmp_Y0}, ${v:Ex7f_菱形_pos1})"/>
+                      <Action OrderNumber="10" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_b逆" VariableExpression="relθ(${v:Ex7f_菱形_θ0}, ${v:Ex7f_菱形_θ1}) &gt; 0"/>
+                      <Action OrderNumber="11" ActionType="Placeholder" Asynchronous="False"/>
+                      <Action OrderNumber="12" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_dir4终" VariableExpression="(${v:Ex7f_菱形_dir4_0} + (${v:Ex7f_菱形_b逆} ? 1 : -1) * ${v:Ex7f_菱形_步数}) %% 4"/>
+                      <Action OrderNumber="13" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_θ终" VariableExpression="dir2rad(${v:Ex7f_菱形_dir4终}, 4)"/>
+                      <Action OrderNumber="14" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] @ (100, ${v:tmp_Y0})&#13;&#10;步数: ${v:Ex7f_菱形_步数}&#13;&#10;pos0: ${v:Ex7f_菱形_pos0}&#13;&#10;dir4_0: ${v:Ex7f_菱形_dir4_0}&#13;&#10;θ0: ${v:Ex7f_菱形_θ0}&#13;&#10;pos1: ${v:Ex7f_菱形_pos0}&#13;&#10;θ1: ${v:Ex7f_菱形_θ0}&#13;&#10;b逆: ${v:Ex7f_菱形_b逆}&#13;&#10;dir4终: ${v:Ex7f_菱形_dir4终}&#13;&#10;θ终: ${v:Ex7f_菱形_θ终}" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="15" ActionType="UseTTS" UseTTSTextExpression="${f:pick(${v:Ex7f_菱形_dir4终}): 前方, 左侧, 后方, 右侧}危险"/>
+                      <Action OrderNumber="16" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#13;&#10;t: ${v:Ex7f_菱形_步数} * 3 + 0.7&#13;&#10;Tag: Ex7f&#13;&#10;Pos: 100 + 5 * sin(${v:Ex7f_菱形_θ终}), ${v:tmp_Y0} + 10 * cos(${v:Ex7f_菱形_θ终}), 0&#13;&#10;Scale: 16, 16, 1" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:Ex7f_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="d7fb787b-fd42-40f8-ba71-4308138aea73" Name="时间轴" RegularExpression="^.{15}\S+ 101:.{8}:00080004:0A">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="tts:7.1:集合引导" LogProcess="True"/>
+                      <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="cd5:12.1" LogProcess="True"/>
+                      <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:86.6:集合引导" LogProcess="True"/>
+                      <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="cd5:91.1" LogProcess="True"/>
+                      <Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:94.6:双死刑" LogProcess="True"/>
+                      <Action OrderNumber="6" ActionType="LogMessage" LogMessageText="tts:103.3:第二轮塔" LogProcess="True"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="e8012ac5-76b7-4cf7-9907-64c42762fde7" Enabled="true" Name="E. 平台5" RawEnvironmentVariables="phase = 平台5">
+                <Triggers>
+                  <Trigger Enabled="true" Id="911bd127-d897-4ceb-8b5b-4d2ad9de0f7f" Name="0. 阶段开始" RegularExpression="^.{15}\S+ 101:.{8}:00080004:0B">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="Ex7f_phase" VariableExpression="${env:phase}"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="d288a227-84ab-450e-a081-465e9ecbb381" Name="时间轴" RegularExpression="^.{15}\S+ 101:.{8}:00080004:0B">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="tts:15.2:集合引导" LogProcess="True"/>
+                      <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="cd5:20.2" LogProcess="True"/>
+                      <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:31.1:双死刑" LogProcess="True"/>
+                      <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:46.5:集合引导" LogProcess="True"/>
+                      <Action OrderNumber="5" ActionType="LogMessage" LogMessageText="cd5:51.5" LogProcess="True"/>
+                      <Action OrderNumber="6" ActionType="LogMessage" LogMessageText="tts:55.3:第三轮塔" LogProcess="True"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="f9464e7a-550c-4a1a-965f-390ecd86a9b2" Enabled="true" Name="F. 平台6" RawEnvironmentVariables="phase = 平台6">
+                <Triggers>
+                  <Trigger Enabled="true" Id="981f3bed-dbae-445a-8967-be17b268c3c2" Name="0. 阶段开始" RegularExpression="^.{15}\S+ 101:.{8}:00080004:0C">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="Ex7f_phase" VariableExpression="${env:phase}"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="4028724a-8398-4227-aec7-0c9b4f89ff3c" Name="1. 分散分摊" RegularExpression="^Ex7f_散摊:b散:(?&lt;b散&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="储存${if: ${b散} ? 分散 : 分摊 }"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:Ex7f_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="4efca268-11d9-4cec-b722-b732b39747ad" Name="2. 击退吸引" RegularExpression="^Ex7f_散摊_位移:b击退:(?&lt;b击退&gt;[01]):b散:(?&lt;b散&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="${if: ${b击退} ? 击退 : 吸引 }"/>
+                      <Action OrderNumber="3" ActionType="UseTTS" ExecutionDelayExpression="6500" UseTTSTextExpression="${if: ${b散} ? 分散 : 分摊 }"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:Ex7f_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="1aca778f-0045-43d1-9ea4-2ee0da57eb72" Name="3. 魔法阵启动" RegularExpression="^.{15}\S+ 1[56]:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B25[89A]):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_Y0" VariableExpression="350"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_步数" VariableExpression="0x${aid} - 0xB256"/>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="Ex7f_菱形_pos0" VariableExpression="${_entity[BNpcID = 18998].XY}"/>
+                      <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_dir4_0" VariableExpression="roundvec(${?l:${v:Ex7f_菱形_pos0}[1]} - 100, ${?l:${v:Ex7f_菱形_pos0}[2]} - ${v:tmp_Y0}, 4)"/>
+                      <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_θ0" VariableExpression="θ(100, ${v:tmp_Y0}, ${v:Ex7f_菱形_pos0})"/>
+                      <Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="500" Asynchronous="False"/>
+                      <Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="Ex7f_菱形_pos1" VariableExpression="${_entity[BNpcID = 18998].XY}"/>
+                      <Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_θ1" VariableExpression="θ(100, ${v:tmp_Y0}, ${v:Ex7f_菱形_pos1})"/>
+                      <Action OrderNumber="10" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_b逆" VariableExpression="relθ(${v:Ex7f_菱形_θ0}, ${v:Ex7f_菱形_θ1}) &gt; 0"/>
+                      <Action OrderNumber="11" ActionType="Placeholder" Asynchronous="False"/>
+                      <Action OrderNumber="12" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_dir4终" VariableExpression="(${v:Ex7f_菱形_dir4_0} + (${v:Ex7f_菱形_b逆} ? 1 : -1) * ${v:Ex7f_菱形_步数}) %% 4"/>
+                      <Action OrderNumber="13" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="Ex7f_菱形_θ终" VariableExpression="dir2rad(${v:Ex7f_菱形_dir4终}, 4)"/>
+                      <Action OrderNumber="14" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] @ (100, ${v:tmp_Y0})&#13;&#10;步数: ${v:Ex7f_菱形_步数}&#13;&#10;pos0: ${v:Ex7f_菱形_pos0}&#13;&#10;dir4_0: ${v:Ex7f_菱形_dir4_0}&#13;&#10;θ0: ${v:Ex7f_菱形_θ0}&#13;&#10;pos1: ${v:Ex7f_菱形_pos0}&#13;&#10;θ1: ${v:Ex7f_菱形_θ0}&#13;&#10;b逆: ${v:Ex7f_菱形_b逆}&#13;&#10;dir4终: ${v:Ex7f_菱形_dir4终}&#13;&#10;θ终: ${v:Ex7f_菱形_θ终}" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                      <Action OrderNumber="15" ActionType="UseTTS" UseTTSTextExpression="${f:pick(${v:Ex7f_菱形_dir4终}): 前方, 左侧, 后方, 右侧}危险"/>
+                      <Action OrderNumber="16" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#13;&#10;t: ${v:Ex7f_菱形_步数} * 3 + 0.7&#13;&#10;Tag: Ex7f&#13;&#10;Pos: 100 + 5 * sin(${v:Ex7f_菱形_θ终}), ${v:tmp_Y0} + 10 * cos(${v:Ex7f_菱形_θ终}), 0&#13;&#10;Scale: 16, 16, 1" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:Ex7f_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="4e91caf9-40a8-4ccf-b904-90f1020c2d24" Name="时间轴" RegularExpression="^.{15}\S+ 101:.{8}:00080004:0C">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="tts:35.0:去上方，准备分散" LogProcess="True"/>
+                      <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:45.2:集合引导" LogProcess="True"/>
+                      <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="cd5:50.2" LogProcess="True"/>
+                      <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:68.6:双死刑" LogProcess="True"/>
+                      <Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:111.7:集合引导" LogProcess="True"/>
+                      <Action OrderNumber="6" ActionType="LogMessage" LogMessageText="cd5:116.7" LogProcess="True"/>
+                      <Action OrderNumber="7" ActionType="LogMessage" LogMessageText="tts:145.9:双死刑" LogProcess="True"/>
+                      <Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:152.7:集合引导" LogProcess="True"/>
+                      <Action OrderNumber="9" ActionType="LogMessage" LogMessageText="cd5:157.7" LogProcess="True"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="e79a5817-3dd3-4d3c-a4ab-8b85c4ccb7df" Name="雷光环（前方高低魔法阵）" RegularExpression="^.{15}\S+ 03:4.{7}:([^:]*:){7}19000:([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#13;&#10;t: 6.4&#13;&#10;Tag: Ex7f&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: 0&#13;&#10;Scale: 2.5, 30, 1" UseTTSTextExpression="Ex7f_鸣笛_θ"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:Ex7f_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
                   </Trigger>
                 </Triggers>
               </Folder>
@@ -3597,11 +3922,6 @@
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="0x${zoneid}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
             </Condition>
-          </Trigger>
-          <Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="储存entity" RegularExpression="^.{15}\S+ 00:0038::(?i)ens">
-            <Actions>
-              <Action OrderNumber="1" ActionType="TableVariable" TableVariableOp="GetAllEntities" TableVariableName="entities_${n: round(${_timestampms}/100) % 1000000}" TableVariableX="ID, Name, BNpcID, X, Y, Z, Heading" TableVariableY="Type != 1"/>
-            </Actions>
           </Trigger>
         </Triggers>
       </Folder>
