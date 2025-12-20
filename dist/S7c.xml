@@ -191,24 +191,27 @@
                       <Action OrderNumber="4" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B49F" DictVariableValue="_=大爆炸（碎肉） | omen=Circle | t=2.2 | Scale=12,12,1"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="大蛇出口" RegularExpression="^.{15}\S+ 101:[^:]*:00010001:(?&lt;pos&gt;0[2-9])">
+                  <Trigger Enabled="true" Id="569ba763-48a1-4e54-bc4a-d14412e166f3" Name="大蛇出口" RegularExpression="^.{15}\S+ 101:[^:]*:00010001:(?&lt;pos&gt;0[2-9])">
                     <Actions>
                       <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${f:pick(${n: ${pos} - 2}): 上北, 右上, 右东, 右下, 下南, 左下, 左西, 左上}"/>
                       <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: e5d1_b1_kblaser_t1&#13;&#10;t: 3.5&#13;&#10;Tag: D79&#13;&#10;Pos: 100, 100&#13;&#10;Angle: ${n: dir2rad(2 - ${pos}, 8)}&#13;&#10;Scale: 0.5, 14&#13;&#10;Color: 0, 2, 15, 5"/>
                     </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="d(100, 100, ${_me.xy})" ExpressionTypeL="Numeric" ExpressionR="13" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                    </Condition>
                   </Trigger>
                 </Triggers>
               </Folder>
               <Folder Id="d53166de-ec80-4e1e-b9b2-59d3f0f94cd7" Enabled="true" Name="碎肉 大爆炸">
                 <Triggers>
-                  <Trigger Enabled="true" Id="6ded4773-3685-46ca-800e-647f23bc26a7" Name="碎肉 大爆炸" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:1EBF29.*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: n4b5_tr_g05o0g&#13;&#10;t: 30&#13;&#10;Tag: MCs_大爆炸&#13;&#10;Pos: ${x}, ${y}, 0&#13;&#10;Scale: 12 * 1.09&#13;&#10;Color: 1, 0.8, 0.1"/>
-                    </Actions>
-                  </Trigger>
                   <Trigger Enabled="true" Id="ee349f7e-5a1c-4184-be4e-fd1d06b2773e" Name="碎肉 大爆炸 (销毁)" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:B4[69]F:" PeriodRefire="Deny" RefirePeriodExpression="3000">
                     <Actions>
                       <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#13;&#10;Tag: MCs_大爆炸"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="3b8c9f4b-0436-4811-8e3a-bd596e251af8" Name="碎肉 大爆炸" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:1EBF29.*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: n4b5_tr_g05o0g&#13;&#10;delay: 10&#13;&#10;t: 20&#13;&#10;Tag: MCs_大爆炸&#13;&#10;Pos: ${x}, ${y}, 0&#13;&#10;Scale: 12 * 1.09&#13;&#10;Color: 1, 0.8, 0.1"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -283,7 +286,7 @@
                 <Triggers>
                   <Trigger Enabled="true" Id="f4e87d83-d4e1-4b6f-bd29-52c650a57619" Name="碎肉 大爆炸" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:1EBF29.*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: n4b5_tr_g05o0g&#13;&#10;t: 30&#13;&#10;Tag: MCs_大爆炸&#13;&#10;Pos: ${x}, ${y}, 0&#13;&#10;Scale: 12 * 1.09&#13;&#10;Color: 1, 0.8, 0.1"/>
+                      <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: n4b5_tr_g05o0g&#13;&#10;delay: 10&#13;&#10;t: 20&#13;&#10;Tag: MCs_大爆炸&#13;&#10;Pos: ${x}, ${y}, 0&#13;&#10;Scale: 12 * 1.09&#13;&#10;Color: 1, 0.8, 0.1"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="0f882cb7-eece-492c-bc02-36697a5160c8" Name="碎肉 大爆炸 (销毁)" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:B4[69]F:" PeriodRefire="Deny" RefirePeriodExpression="3000">
@@ -307,6 +310,9 @@
                   <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${f:pick(${n: ${pos} - 2}): 上北, 右上, 右东, 右下, 下南, 左下, 左西, 左上}"/>
                   <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: e5d1_b1_kblaser_t1&#13;&#10;t: 3.5&#13;&#10;Tag: D79&#13;&#10;Pos: 100, 100&#13;&#10;Angle: ${n: dir2rad(2 - ${pos}, 8)}&#13;&#10;Scale: 0.5, 14&#13;&#10;Color: 0, 2, 15, 5"/>
                 </Actions>
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="d(100, 100, ${_me.xy})" ExpressionTypeL="Numeric" ExpressionR="13" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                </Condition>
               </Trigger>
               <Trigger Enabled="true" Id="8b18ffa8-9ad1-43eb-a424-5e04e1c6161c" Name="【临时】提示" RegularExpression="^.{15}\S+ 01">
                 <Actions>
