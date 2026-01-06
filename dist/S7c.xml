@@ -851,8 +851,8 @@
                       <Action OrderNumber="12" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B5D6" DictVariableValue="_=跳场边击退 | omen=m0501_nockback_omen02v | t=6.5 | Scale=60,60,1"/>
                       <Action OrderNumber="13" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B891" DictVariableValue="_=跳场边顺劈读条 | tts=场边顺劈"/>
                       <Action OrderNumber="14" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B892" DictVariableValue="_=跳场边击退读条 | tts=场边击退"/>
-                      <Action OrderNumber="15" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B5DD" DictVariableValue="_=八方分散 | tts=八方，然后全体分散"/>
-                      <Action OrderNumber="16" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B5E0" DictVariableValue="_=八方分散 | tts=八方，然后两人分摊"/>
+                      <Action OrderNumber="15" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B5DD" DictVariableValue="_=八方分散 | tts=八方，然后穿"/>
+                      <Action OrderNumber="16" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B5E0" DictVariableValue="_=八方分散 | tts=八方，然后不动"/>
                       <Action OrderNumber="17" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B5D9" DictVariableValue="_=极限炫技 | tts=转场"/>
                       <Action OrderNumber="18" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B5FB" DictVariableValue="_=混合爆炸 | omen=Circle | t=2.7 | Scale=9,9,1"/>
                       <Action OrderNumber="19" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B5FC" DictVariableValue="tts=狂暴"/>
@@ -982,6 +982,24 @@
                         </Condition>
                       </Action>
                     </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="77e006f2-8d13-4853-a193-c319c233c8b6" Name="蝙蝠钢铁月环" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;808):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:(?&lt;stack&gt;42[67]):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${if: 0x${stack} = 0x426 ? 远离蝙蝠 : 靠近蝙蝠 }">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="d(${_me.xy}, ${_entity[${tid}].xy})" ExpressionTypeL="Numeric" ExpressionR="12" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" ActionType="LogMessage" DescBgColor="fdd" LogMessageText="M9s_蝙蝠 ${stack} @ ${_entity[${tid}].pos, h}" LogProcess="True" LogProcessACT="True"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="6449d043-3fec-4be8-99c1-48538aef551c" Name="披萨倒计时" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;028C):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="cd5:5" LogProcess="True"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
                   </Trigger>
                 </Triggers>
               </Folder>
