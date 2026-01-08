@@ -528,11 +528,6 @@
 <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="MBs_phase" VariableExpression="${env:phase}" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="8db1585c-5d56-422d-b896-404b4d5a0dcb" Name="星轨链数据统计" RegularExpression="^.{15}\S+ ？">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" />
-</Actions>
-</Trigger>
 </Triggers>
 </Folder>
 <Folder Id="4ea9ef0a-b991-42dc-a6b6-9340695aab02" Enabled="true" Name="B. 历战之极武（多连）" RawEnvironmentVariables="phase = 多连">
@@ -706,49 +701,6 @@
 <Trigger Enabled="true" Id="cd6cf993-198b-477e-a682-c3dcc589306f" Name="0. 阶段开始" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:B41F:">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^MBs_白线" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="1f8c7829-cfac-4269-a0d6-e30742e20206" Enabled="true" Name="D. 星轨链">
-<Triggers>
-<Trigger Enabled="true" Id="2dac1e01-9a2c-4823-9270-f4c1d60e3dd2" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B432):">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="22e03788-afb4-4a57-a400-f786bfcd1b9d" Name="1. 获取法阵" RegularExpression="^.{15}\S+ 101:[^:]*:00020001:(?&lt;pos&gt;0[2-9])">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="2-5：上北 左到右； 6-9 右东 上到下" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="MBs_星轨_${if: 0x${pos} &lt;= 5 ? 列 : 行 }" ListVariableExpression="(${pos} - 2) % 4 + 1" />
-<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=mech/MBs_星轨链.txt id=10000000&#xD;&#xA;${l:MBs_星轨_列[1]}${l:MBs_星轨_行[1]} ${l:MBs_星轨_列[2]}${l:MBs_星轨_行[2]} ${l:MBs_星轨_列[3]}${l:MBs_星轨_行[3]} ${l:MBs_星轨_列[4]}${l:MBs_星轨_行[4]}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${l:MBs_星轨_列.size}${l:MBs_星轨_行.size}" ExpressionTypeL="String" ExpressionR="44" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] ${l:MBs_星轨_列[1]}${l:MBs_星轨_行[1]} ${l:MBs_星轨_列[2]}${l:MBs_星轨_行[2]} ${l:MBs_星轨_列[3]}${l:MBs_星轨_行[3]} ${l:MBs_星轨_列[4]}${l:MBs_星轨_行[4]}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${l:MBs_星轨_列.size}${l:MBs_星轨_行.size}" ExpressionTypeL="String" ExpressionR="44" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="5" ActionType="Placeholder" Description="统计所有可能情况用的 统计完才能写播报&#xD;&#xA;" DescriptionOverride="True" />
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Id="7916a28b-20fe-4472-830b-0d5a305201a3" Name="Debug Log 2026-01-09 02:35" Source="None">
-<Actions>
-<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[18:30:57.465] StartsCasting 14:4001BE22:霸王:B432:星轨链:4001BE22:霸王:4.700:99.99:99.99:0.00:3.06" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="1000" />
-<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[18:31:03.570] 257 101:800375CF:00020001:02::" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="[18:31:03.570] 257 101:800375CF:00020001:08::" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="1.48 * 1000" />
-<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="[18:31:05.044] 257 101:800375CF:00020001:04::" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="[18:31:05.044] 257 101:800375CF:00020001:07::" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="1.52 * 1000" />
-<Action OrderNumber="9" ActionType="LogMessage" LogMessageText="[18:31:06.561] 257 101:800375CF:00020001:03::" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="10" ActionType="LogMessage" LogMessageText="[18:31:06.561] 257 101:800375CF:00020001:06::" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="11" ActionType="Placeholder" ExecutionDelayExpression="1.47 * 1000" />
-<Action OrderNumber="12" ActionType="LogMessage" LogMessageText="[18:31:08.032] 257 101:800375CF:00020001:05::" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="13" ActionType="LogMessage" LogMessageText="[18:31:08.032] 257 101:800375CF:00020001:09::" LogProcess="True" LogProcessACT="True" />
 </Actions>
 </Trigger>
 </Triggers>
