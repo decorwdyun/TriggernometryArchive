@@ -417,7 +417,7 @@
 </Folder>
 <Folder Id="6364c12b-83b6-4bd2-b572-e094ca101527" Enabled="true" Name="M9-12s">
 <Folders>
-<Folder Id="1beff67e-f514-43b2-a4f9-d4e9682d9b10" Enabled="true" Name="M11s v0.4.1" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1325$" RawEnvironmentVariables="zone = 1261&#xD;&#xA;CactbotTriggerSetName = &#xD;&#xA;OssFolder = MBs">
+<Folder Id="1beff67e-f514-43b2-a4f9-d4e9682d9b10" Enabled="true" Name="M11s v0.4.2" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1325$" RawEnvironmentVariables="zone = 1261&#xD;&#xA;CactbotTriggerSetName = AacHeavyweightM3Savage, SoumaM11s&#xD;&#xA;OssFolder = MBs">
 <Folders>
 <Folder Id="e4876137-57ec-4925-93d0-23645de387de" Enabled="true" Name="杂项">
 <Triggers>
@@ -521,9 +521,10 @@
 </Trigger>
 <Trigger Enabled="true" Id="5a1709f6-4286-41c2-bc18-284ae7e8cb1b" Name="1. 获取兵器" RegularExpression="^.{15}\S+ AAA:203:11D[123]:4.{7}:[^:]*:[^:]*:(?&lt;bnpcid&gt;1918[456]):(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]*)" Sequential="True">
 <Actions>
-<Action OrderNumber="1" ActionType="Variable" VariableOp="Increment" VariableName="MBs_多连_n" />
-<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="${?l: 0, 4850, 6050, 7160, 8320, 9490 [${v:MBs_多连_n}]}" />
-<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="MBs_兵器_${?d:19184=斧, 19185=镰, 19186=剑 [${bnpcid}]}:${x}:${y}:${h}:${n: ${v:MBs_多连_n} = 1 ? 8.8 : 5.1}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Variable" VariableOp="Increment" VariableName="MBs_多连_n" />
+<Action OrderNumber="3" ActionType="Placeholder" ExecutionDelayExpression="${?l: 0, 4850, 6050, 7160, 8320, 9490 [${v:MBs_多连_n}]}" />
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="MBs_兵器_${?d:19184=斧, 19185=镰, 19186=剑 [${bnpcid}]}:${x}:${y}:${h}:${n: ${v:MBs_多连_n} = 1 ? 8.8 : 5.1}" LogProcess="True" LogProcessACT="True" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:MBs_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
@@ -813,19 +814,62 @@
 </Trigger>
 <Trigger Enabled="true" Id="70a6294e-6d8f-4585-83ff-1876edd50220" Name="场边直条" RegularExpression="^.{15}\S+ 101:[^:]*:0002....:(?&lt;pos&gt;1[6789])">
 <Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;Tag: MBs_王者陨石&#xD;&#xA;delay: 19&#xD;&#xA;t: 9&#xD;&#xA;Pos: ${?d: 16=79, 17=89, 18=111, 19=121 [${pos}]}, 80, 0&#xD;&#xA;Angle: 0&#xD;&#xA;Scale: 5, 40, 1" />
+<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;Tag: MBs_王者陨石&#xD;&#xA;delay: 24&#xD;&#xA;t: 4&#xD;&#xA;Pos: ${?d: 16=79, 17=89, 18=111, 19=121 [${pos}]}, 80, 0&#xD;&#xA;Angle: 0&#xD;&#xA;Scale: 5, 40, 1" />
 </Actions>
 </Trigger>
 </Triggers>
 </Folder>
 <Folder Id="e96b55e6-343d-40e9-83b3-0ba8d3e7585c" Enabled="true" Name="G. 陨石狂奔" RawEnvironmentVariables="phase = 陨石狂奔">
 <Triggers>
-<Trigger Enabled="true" Id="25f328c2-ec1c-43c9-b6c3-d444603bee24" Name="0. 初始化 ？" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;？):">
+<Trigger Enabled="true" Id="25f328c2-ec1c-43c9-b6c3-d444603bee24" Name="0. 初始化 " RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B452):">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="MBs_phase" VariableExpression="${env:phase}" />
-<Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="去两侧，击飞" />
-<Action OrderNumber="3" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^MBs_分割" />
+<Action OrderNumber="2" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^MBs_狂奔" />
 </Actions>
+</Trigger>
+<Trigger Enabled="true" Id="6b6359ce-a583-4b8a-a74d-1b796a2edeec" Name="4. 2/4 引导" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B45A|B7BD):">
+<Actions>
+<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${if: 0x${aid} = 0xB45A ? 四向引导 : 双向引导 }" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="3de4ebd2-1faf-487f-b9d1-5b19abcfea9d" Name="1. 火圈点名" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;001E):">
+<Actions>
+<Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="MBs_狂奔_火圈_id" ListVariableExpression="${tid}" />
+<Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="点名火圈，同组${_entity[${l:MBs_狂奔_火圈_id[ 3 - ${l:MBs_狂奔_火圈_id.indexof(${_me.id})} ]}].JobCN2}">
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${l:MBs_狂奔_火圈_id.size}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${l:MBs_狂奔_火圈_id.contain(${_me.id})}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${_me.IsTM} ? 集合放黄圈 : 无点名，集合放黄圈 }">
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${l:MBs_狂奔_火圈_id.size}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${l:MBs_狂奔_火圈_id.contain(${_me.id})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="bd526630-1c4d-49e7-9446-387a4b30d012" Name="3. 连线" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;0039|00F9):">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_recorded" VariableExpression="${l:MBs_狂奔_连线_id.contain(${tid})}" />
+<Action OrderNumber="3" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="MBs_狂奔_连线_id" ListVariableExpression="${tid}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_recorded}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="4" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${l:MBs_狂奔_连线_id.contain(${_me.id})} ? 拉线 : 无连线，脚下集合 }">
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_recorded}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${l:MBs_狂奔_连线_id.size}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+</Actions>
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${v:MBs_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+<ConditionSingle Enabled="true" ExpressionL="${l:MBs_狂奔_连线_id.contain(${tid})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${l:MBs_狂奔_连线_id.size}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="NumericLess" />
+</Condition>
 </Trigger>
 </Triggers>
 </Folder>
@@ -966,6 +1010,14 @@
 <Trigger Enabled="true" Id="cb3d51b6-b02c-4cb7-92a6-2c44c438f626" Name="喷毒方向 **" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;808|...):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;40[CDEF]):">
 <Actions>
 <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${?l: 前,右,后,左 [${n: 0x${stack} - 0x40B}]}" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="f3c9c9b8-1b67-4546-baa6-6a52f3158f49" Name="踩塔方向 **" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;808|...):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;43[6-9]):">
+<Actions>
+<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${?l: 左,前,右,后 [${n: 0x${stack} - 0x435}]}" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
