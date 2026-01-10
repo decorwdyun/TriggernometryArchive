@@ -55,7 +55,7 @@
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="500" />
 <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Regex: ^M[9abc]s" />
-<Action OrderNumber="3" ActionType="Trigger" FolderOp="CancelFolder" FolderId="6364c12b-83b6-4bd2-b572-e094ca101527" TriggerOp="CancelAllTrigger" />
+<Action OrderNumber="3" ActionType="Folder" FolderOp="CancelFolder" FolderId="e1e1fa1c-6045-4fd7-ba05-59607effe15e" TriggerOp="CancelAllTrigger" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -417,7 +417,7 @@
 </Folder>
 <Folder Id="6364c12b-83b6-4bd2-b572-e094ca101527" Enabled="true" Name="M9-12s">
 <Folders>
-<Folder Id="1beff67e-f514-43b2-a4f9-d4e9682d9b10" Enabled="true" Name="M11s v0.4.2" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1325$" RawEnvironmentVariables="zone = 1261&#xD;&#xA;CactbotTriggerSetName = AacHeavyweightM3Savage, SoumaM11s&#xD;&#xA;OssFolder = MBs">
+<Folder Id="1beff67e-f514-43b2-a4f9-d4e9682d9b10" Enabled="true" Name="M11s v0.4.3" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1325$" RawEnvironmentVariables="zone = 1261&#xD;&#xA;CactbotTriggerSetName = AacHeavyweightM3Savage, SoumaM11s&#xD;&#xA;OssFolder = MBs">
 <Folders>
 <Folder Id="e4876137-57ec-4925-93d0-23645de387de" Enabled="true" Name="杂项">
 <Triggers>
@@ -493,7 +493,7 @@
 <Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:165.6:准备大漩涡" LogProcess="True" />
 <Action OrderNumber="9" ActionType="LogMessage" LogMessageText="tts:180.8:多连兵器" LogProcess="True" />
 <Action OrderNumber="10" ActionType="LogMessage" LogMessageText="tts:220.4:引导风圈" LogProcess="True" />
-<Action OrderNumber="11" ActionType="LogMessage" LogMessageText="cd5:227.4" LogProcess="True" />
+<Action OrderNumber="11" ActionType="LogMessage" LogMessageText="cd5:226.4" LogProcess="True" />
 <Action OrderNumber="12" ActionType="LogMessage" LogMessageText="tts:232.5:大AoE" LogProcess="True" />
 <Action OrderNumber="13" ActionType="LogMessage" LogMessageText="tts:244.4:准备挡枪死刑" LogProcess="True" />
 <Action OrderNumber="14" ActionType="LogMessage" LogMessageText="tts:335.3:陨石后躲避" LogProcess="True" />
@@ -885,7 +885,7 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="00c80112-d095-443f-9db8-ee5be630a507" Enabled="true" Name="M12s v0.2.0" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1327$" RawEnvironmentVariables="zone = 1263&#xD;&#xA;CactbotTriggerSetName = &#xD;&#xA;OssFolder = MCs">
+<Folder Id="00c80112-d095-443f-9db8-ee5be630a507" Enabled="true" Name="M12s v0.3.1" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1327$" RawEnvironmentVariables="zone = 1263&#xD;&#xA;CactbotTriggerSetName = &#xD;&#xA;OssFolder = MCs">
 <Folders>
 <Folder Id="e323fdc7-5fe2-42c1-8b7a-7a950f7c4490" Enabled="true" Name="杂项">
 <Folders>
@@ -893,7 +893,7 @@
 <Triggers>
 <Trigger Enabled="true" Id="ee349f7e-5a1c-4184-be4e-fd1d06b2773e" Name="碎肉 大爆炸 (销毁)" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:B4[69]F:" PeriodRefire="Deny" RefirePeriodExpression="3000">
 <Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Tag: MCs_大爆炸" />
+<Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="2000" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Tag: MCs_大爆炸" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="3b8c9f4b-0436-4811-8e3a-bd596e251af8" Name="碎肉 大爆炸" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:1EBF29.*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):">
@@ -903,111 +903,20 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="704f6940-ddd4-44d1-be3f-c811ca8cb76a" Enabled="true" Name="【猜测】debuff 相关">
-<Triggers>
-<Trigger Enabled="true" Id="beb7c6bf-5248-423d-bdcf-bdc7649abad9" Name="爆风细胞：前/后 标记飞行轨迹" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;128[BC]|129[78]):([^:]| :)*:(?&lt;t&gt;[^:]*):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):" Sequential="True">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="(${t} - 7) * 1000" />
-<Action OrderNumber="2" ActionType="Variable" VariableOp="SetNumeric" VariableName="MCs_前后_b前" VariableExpression="0x${aid} = 0x128B || 0x${aid} = 0x1297" />
-<Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="${if: ${v:MCs_前后_b前} ? 向前飞 : 向后飞 }" />
-<Action OrderNumber="4" ActionType="Variable" VariableOp="SetNumeric" VariableName="MCs_前后_hOld" VariableExpression="${_me.Heading}" />
-<Action OrderNumber="5" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: m0746_er_sicle_4010_o0t&#xD;&#xA;Tag: MCs_前后_落地点&#xD;&#xA;t: 7&#xD;&#xA;O: ${_me.xy}, 0&#xD;&#xA;θ: ${v:MCs_前后_hOld}&#xD;&#xA;Pos: 0, ${v:MCs_前后_b前} ? -15 : 15&#xD;&#xA;Scale: 0.5, 0.5, 0.03&#xD;&#xA;Color: 1, 1.5, 1, 1&#xD;&#xA;---&#xD;&#xA;Omen: z6r1_laser_01t1&#xD;&#xA;Tag: MCs_前后_落地点&#xD;&#xA;t: 7&#xD;&#xA;O: ${_me.xy}, 0&#xD;&#xA;θ: ${v:MCs_前后_hOld}&#xD;&#xA;Angle: 0${v:MCs_前后_b前} ? π : 0&#xD;&#xA;Scale: 0.1, 15, 1&#xD;&#xA;Color: 1, 3, 6, 1.5" />
-<Action OrderNumber="6" ActionType="Loop" DescBgColor="ffd" LoopDelayExpression="10">
-<LoopCondition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${_sincems}" ExpressionTypeL="String" ExpressionR="${t} * 1000" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
-</LoopCondition>
-<LoopActions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="判定 0.5 秒前做渐变转向动画 (差值超过 45 度转 45 度，低于 45 度转一半差值)；0.5 秒内直接转" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Variable" VariableOp="SetString" VariableName="MCs_前后_hNew" VariableExpression="${_me.Heading}" />
-<Action OrderNumber="3" ActionType="Variable" VariableOp="SetNumeric" VariableName="MCs_前后_relθ" VariableExpression="relθ(${v:MCs_前后_hOld}, ${v:MCs_前后_hNew})" />
-<Action OrderNumber="4" ActionType="Variable" VariableOp="SetNumeric" VariableName="MCs_前后_hTmp" VariableExpression="${v:MCs_前后_hOld} + sign(${v:MCs_前后_relθ}) * (abs(${v:MCs_前后_relθ}) &gt; π/4 ? π/4 : abs(${v:MCs_前后_relθ})) / 2">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${t} * 1000 - ${_sincems}" ExpressionTypeL="Numeric" ExpressionR="500" ExpressionTypeR="String" ConditionType="NumericGreater" />
-</Condition>
-</Action>
-<Action OrderNumber="5" ActionType="Variable" VariableOp="SetString" VariableName="MCs_前后_hTmp" VariableExpression="${v:MCs_前后_hNew}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${t} * 1000 - ${_sincems}" ExpressionTypeL="Numeric" ExpressionR="500" ExpressionTypeR="String" ConditionType="NumericLess" />
-</Condition>
-</Action>
-<Action OrderNumber="6" ActionType="Variable" VariableOp="SetString" VariableName="MCs_前后_hOld" VariableExpression="${v:MCs_前后_hTmp}" />
-<Action OrderNumber="7" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Change&#xD;&#xA;Tag: MCs_前后_落地点&#xD;&#xA;O: ${_me.xy}, 0&#xD;&#xA;θ: ${v:MCs_前后_hTmp}" />
-</LoopActions>
-</Action>
-<Action OrderNumber="7" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Tag: MCs_前后_落地点" />
-<Action OrderNumber="8" ActionType="Variable" VariableName="MCs_前后_hOld" />
-<Action OrderNumber="9" ActionType="Variable" VariableName="MCs_前后_hNew" />
-<Action OrderNumber="10" ActionType="Variable" VariableName="MCs_前后_hTmp" />
-<Action OrderNumber="11" ActionType="Variable" VariableName="MCs_前后_relθ" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Id="ff7dffef-ae51-4403-8977-f05a780dd3c0" Name="TTS：致死细胞" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;129B):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="致死细胞" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Id="c7cb9696-081e-45b7-8ad1-db340517a32b" Name="TTS：分散细胞" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;129C):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="分散细胞" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-</Triggers>
-</Folder>
 </Folders>
 <Triggers>
-<Trigger Enabled="true" Id="569ba763-48a1-4e54-bc4a-d14412e166f3" Name="大蛇出口" RegularExpression="^.{15}\S+ 101:[^:]*:00010001:(?&lt;pos&gt;0[2-9])">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${f:pick(${n: ${pos} - 2}): 上北, 右上, 右东, 右下, 下南, 左下, 左西, 左上}" />
-<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: e5d1_b1_kblaser_t1&#xD;&#xA;t: 3.5&#xD;&#xA;Tag: D79&#xD;&#xA;Pos: 100, 100&#xD;&#xA;Angle: ${n: dir2rad(2 - ${pos}, 8)}&#xD;&#xA;Scale: 0.5, 14&#xD;&#xA;Color: 0, 2, 15, 5" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="d(100, 100, ${_me.xy})" ExpressionTypeL="Numeric" ExpressionR="13" ExpressionTypeR="String" ConditionType="NumericLess" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Id="87b019ec-3ca3-490f-aaeb-3a22810921aa" Name="【猜测】拆地板：四边/四角" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B4A[0123]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)" PeriodRefire="Deny" RefirePeriodExpression="10000">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="临时：收集第一个黄圈出现的位置，判断是哪一种拆地板模式" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" SystemBeepFreqExpression="" SystemBeepLengthExpression="" VariableOp="SetNumeric" VariableName="tmp_idx" VariableExpression="(${x} - 82.5) / 5 + 8 * (${y} - 87.5) / 5 + 1" />
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" SystemBeepFreqExpression="" SystemBeepLengthExpression="" VariableOp="SetString" VariableName="tmp_b剩四角" VariableExpression="${?l: 3, 14, 17, 19, 23, 26, 30, 32, 35, 46 .contain(${v:tmp_idx})}" />
-<Action OrderNumber="4" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="去${if: ${v:tmp_b剩四角} ? 四角 : 四边 }" />
-<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" SystemBeepFreqExpression="" SystemBeepLengthExpression="" VariableName="tmp_b剩四角" />
-</Actions>
-</Trigger>
 <Trigger Enabled="true" Id="455db703-9259-43de-a112-32556269d625" Name="注册简易播报" RegularExpression="^.{15}\S+ 104:.:1:.:1">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" DictVariableName="简易播报" />
 <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="1000" />
-<Action OrderNumber="3" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B2C7" DictVariableValue="_=补天之手 | tts=AoE" />
-<Action OrderNumber="4" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B4D7" DictVariableValue="_=补天之手 | tts=AoE" />
-<Action OrderNumber="5" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B9C1" DictVariableValue="_=溅血 | tts=AoE" />
-<Action OrderNumber="6" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B9C2" DictVariableValue="_=溅血 | tts=AoE" />
-<Action OrderNumber="7" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B9C3" DictVariableValue="_=溅血 | tts=AoE" />
-<Action OrderNumber="8" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B9C4" DictVariableValue="_=溅血 | tts=AoE" />
-<Action OrderNumber="9" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B4C3" DictVariableValue="_=喋血 | tts=AoE" />
-<Action OrderNumber="10" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B4C4" DictVariableValue="_=喋血 | tts=AoE" />
-<Action OrderNumber="11" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B4C5" DictVariableValue="_=喋血 | tts=AoE" />
-<Action OrderNumber="12" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B4C6" DictVariableValue="_=喋血 | tts=AoE" />
-<Action OrderNumber="13" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BE09" DictVariableValue="_=野性分裂 | tts=碎地板" />
-<Action OrderNumber="14" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B49F" DictVariableValue="_=大爆炸（碎肉） | omen=Circle | t=2.2 | Scale=12,12,1" />
-<Action OrderNumber="15" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B4A4" DictVariableValue="_=震场: 10 × 10 m 矩形 (12) | omen=Rect | t=0.7 | Scale=10,10,1" />
-<Action OrderNumber="16" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B4A5" DictVariableValue="_=震场: 7.5 × 10 m 矩形 (12) | omen=Rect | t=0.7 | Scale=7.5,10,1" />
-<Action OrderNumber="17" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B4A6" DictVariableValue="_=震场: 5 × 10 m 矩形 (12) | omen=Rect | t=0.7 | Scale=5,10,1" />
-<Action OrderNumber="18" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B49D" DictVariableValue="_=极饿伸展: 35 m 扇形 (13) | omen=Fan120 | delay=4 | t=6.3 | Scale=35,35,1" />
+<Action OrderNumber="3" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B49F" DictVariableValue="_=大爆炸（碎肉） | omen=Circle | t=2.2 | Scale=12,12,1" />
+<Action OrderNumber="4" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B49D" DictVariableValue="_=极饿伸展: 35 m 扇形 (13) | omen=Fan120 | delay=4 | t=6.3 | Scale=35,35,1" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="74594936-e426-4dd4-86be-b22cd1fb5674" Name="【猜测】拆地板阶段 小蛇直条喷毒" RegularExpression="^.{15}\S+ AAA:203:11..:4.{7}:林德布鲁姆:[^:]*:19...:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Trigger Enabled="false" Id="74594936-e426-4dd4-86be-b22cd1fb5674" Name="【猜测】拆地板阶段 小蛇直条喷毒" RegularExpression="^.{15}\S+ AAA:203:11..:4.{7}:林德布鲁姆:[^:]*:19...:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
 <Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="躲直条，分散" />
-<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;t: 7.1&#xD;&#xA;Pos: ${x}, ${y}, 0&#xD;&#xA;Angle: ${h}&#xD;&#xA;Scale: 5, 60, 1" />
+<Action OrderNumber="1" Enabled="False" ActionType="UseTTS" UseTTSTextExpression="躲直条，分散" />
+<Action OrderNumber="2" Enabled="False" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;t: 7.1&#xD;&#xA;Pos: ${x}, ${y}, 0&#xD;&#xA;Angle: ${h}&#xD;&#xA;Scale: 5, 60, 1" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
 <ConditionGroup Enabled="true" Grouping="And">
@@ -1074,8 +983,9 @@
 <Trigger Enabled="true" Id="b05e0af2-a1ab-4fe9-a02b-9ad795f56f64" Name="0. 阶段开始 + 时间轴" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:BEBD:">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="MCs_phase" VariableExpression="${env:phase}" />
-<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:0.0:早期" LogProcess="True" />
-<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:35.6:AoE" LogProcess="True" />
+<Action OrderNumber="2" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^MCs_早期" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:0.0:早期" LogProcess="True" />
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:35.6:AoE" LogProcess="True" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="cb3d51b6-b02c-4cb7-92a6-2c44c438f626" Name="3. 喷毒方向" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;DE6):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;40[CDEF]):">
@@ -1088,12 +998,12 @@
 <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="3e0314a8-50ef-42ad-ad1d-3934c9ec52c4" Name="标记：引爆细胞（分散）" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;1299):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+<Trigger Enabled="true" Id="3e0314a8-50ef-42ad-ad1d-3934c9ec52c4" Name="标记：分散" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;1299):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="(${t} - 5) * 1000" DescTextColor="26f" NamedCallbackName="LockOn" NamedCallbackParam="${_entity[${tid}].Address}, target_ae_s5f" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="d2a51591-a7f2-4551-ae0e-8ba66cebe5ee" Name="标记：引爆细胞：大爆炸（分摊）" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;129A):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+<Trigger Enabled="true" Id="d2a51591-a7f2-4551-ae0e-8ba66cebe5ee" Name="标记：分摊" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;129A):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="(${t} - 5) * 1000" DescTextColor="26f" NamedCallbackName="LockOn" NamedCallbackParam="${_entity[${tid}].Address}, com_share1f" />
 </Actions>
@@ -1134,34 +1044,256 @@
 </Triggers>
 </Folder>
 <Folder Id="69ec9e5e-3657-4799-8f21-643aceae2301" Enabled="true" Name="C. 中期" RawEnvironmentVariables="phase = 中期">
+<Folders>
+<Folder Id="234feeae-76e0-4892-b4f6-72a2c26163a3" Enabled="true" Name="时间轴">
 <Triggers>
-<Trigger Enabled="true" Id="864b31d5-d520-48c2-aa00-a1d3b4f56f72" Name="0. 阶段开始 + 时间轴" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:BEBE:">
+<Trigger Enabled="true" Id="ef847e0b-fb21-4248-9bc2-464ebda2aeeb" Name="α1" RegularExpression="^MCs_中期:type:(?&lt;type&gt;1):初dir4:(?&lt;初dir4&gt;[0-3])">
 <Actions>
-<Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="MCs_phase" VariableExpression="${env:phase}" />
-<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:0.0:中期" LogProcess="True" />
-<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:63.2:AoE，溅血" LogProcess="True" />
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 1}:贰" LogProcess="True" />
+<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 1 + 2}:下次出去拉线" LogProcess="True" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 2}:三，出去拉线" LogProcess="True" />
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 2 + 2}:${l:MCs_中期_场地塔_desc[3]}准备踩塔" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 3}:四" LogProcess="True" />
+<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 4}:五，踩塔" LogProcess="True" />
+<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 5}:六" LogProcess="True" />
+<Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 6}:七" LogProcess="True" />
+<Action OrderNumber="9" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 7}:八" LogProcess="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="dccbb970-3ad5-4d76-a717-4ba255894ed3" Name="α2" RegularExpression="^MCs_中期:type:(?&lt;type&gt;2):初dir4:(?&lt;初dir4&gt;[0-3])">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 1}:贰" LogProcess="True" />
+<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 2}:三" LogProcess="True" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 2 + 2}:下次出去拉线" LogProcess="True" />
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 3}:四，出去拉线" LogProcess="True" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 3 + 2}:${l:MCs_中期_场地塔_desc[4]}准备踩四号塔" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 4}:五" LogProcess="True" />
+<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 5}:六，踩四号塔" LogProcess="True" />
+<Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 6}:七" LogProcess="True" />
+<Action OrderNumber="9" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 7}:八" LogProcess="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="384b786c-c8ab-4a37-a886-7d74ded11419" Name="α4" RegularExpression="^MCs_中期:type:(?&lt;type&gt;4):初dir4:(?&lt;初dir4&gt;[0-3])">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 1}:贰" LogProcess="True" />
+<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 2}:三，去${l:MCs_中期_场地塔_desc[2]}，准备踩贰号塔" LogProcess="True" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 3}:四，踩贰号塔" LogProcess="True" />
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 4}:五" LogProcess="True" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 4 + 2}:下次出去拉线" LogProcess="True" />
+<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 5}:六，出去拉线" LogProcess="True" />
+<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 6}:七" LogProcess="True" />
+<Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 7}:八" LogProcess="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="e870e109-b8ee-4c85-9d2b-938e7348d521" Name="α3" RegularExpression="^MCs_中期:type:(?&lt;type&gt;3):初dir4:(?&lt;初dir4&gt;[0-3])">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 1}:贰，去${l:MCs_中期_场地塔_desc[1]}，准备踩壹号塔" LogProcess="True" />
+<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 2}:三，踩壹号塔" LogProcess="True" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 3}:四" LogProcess="True" />
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 3 + 2}:下次出去拉线" LogProcess="True" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 4}:五，拉线" LogProcess="True" />
+<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 5}:六" LogProcess="True" />
+<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 6}:七" LogProcess="True" />
+<Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 7}:八" LogProcess="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="8a5e0498-3ee8-40f4-a9c6-8b3089101095" Name="β1" RegularExpression="^MCs_中期:type:(?&lt;type&gt;5):初dir4:(?&lt;初dir4&gt;[0-3])">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 1}:贰" LogProcess="True" />
+<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 1 + 2}:下次反向拉线" LogProcess="True" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 2}:三，反向拉线" LogProcess="True" />
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 3}:四" LogProcess="True" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 4}:五，找${_entity[${d:MCs_中期_id2type.keyof(7)}].JobCN2}踩塔" LogProcess="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_entity[${d:MCs_中期_id2type.keyof(7)}].Exist}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 4}:五，找三号踩塔" LogProcess="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_entity[${d:MCs_中期_id2type.keyof(7)}].Exist}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 5}:六" LogProcess="True" />
+<Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 6}:七，出去" LogProcess="True" />
+<Action OrderNumber="9" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 7}:八" LogProcess="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="b4275ff8-6bf0-4adf-a3b5-548b91e00c7c" Name="β2" RegularExpression="^MCs_中期:type:(?&lt;type&gt;6):初dir4:(?&lt;初dir4&gt;[0-3])">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 1}:贰" LogProcess="True" />
+<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 2}:三" LogProcess="True" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 2 + 2}:下次反向拉线" LogProcess="True" />
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 3}:四，反向拉线" LogProcess="True" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 4}:五" LogProcess="True" />
+<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 5}:六，找${_entity[${d:MCs_中期_id2type.keyof(8)}].JobCN2}踩塔" LogProcess="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_entity[${d:MCs_中期_id2type.keyof(8)}].Exist}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 5}:六，找四号踩塔" LogProcess="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_entity[${d:MCs_中期_id2type.keyof(8)}].Exist}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 6}:七" LogProcess="True" />
+<Action OrderNumber="9" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 7}:八，出去" LogProcess="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="90273575-b4c5-492f-8770-fb3982af6bc1" Name="β3" RegularExpression="^MCs_中期:type:(?&lt;type&gt;7):初dir4:(?&lt;初dir4&gt;[0-3])">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 1}:贰" LogProcess="True" />
+<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 2}:三，找${_entity[${d:MCs_中期_id2type.keyof(5)}].JobCN2}踩塔" LogProcess="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_entity[${d:MCs_中期_id2type.keyof(5)}].Exist}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 2}:三，找壹号踩塔" LogProcess="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_entity[${d:MCs_中期_id2type.keyof(5)}].Exist}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 3}:四" LogProcess="True" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 3 + 2}:下次反向拉线" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 4}:五，反向拉线" LogProcess="True" />
+<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 5}:六" LogProcess="True" />
+<Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 6}:七，出去" LogProcess="True" />
+<Action OrderNumber="9" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 7}:八" LogProcess="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="24a15d8f-82b3-44f0-b71a-590e19e380b6" Name="β4" RegularExpression="^MCs_中期:type:(?&lt;type&gt;8):初dir4:(?&lt;初dir4&gt;[0-3])">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 1}:贰" LogProcess="True" />
+<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 2}:三" LogProcess="True" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 3}:四，找${_entity[${d:MCs_中期_id2type.keyof(6)}].JobCN2}踩塔" LogProcess="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_entity[${d:MCs_中期_id2type.keyof(6)}].Exist}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 3}:四，找二号踩塔" LogProcess="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_entity[${d:MCs_中期_id2type.keyof(6)}].Exist}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 4}:五" LogProcess="True" />
+<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 4 + 2}:下次反向拉线" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 5}:六，反向拉线" LogProcess="True" />
+<Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 6}:七，出去" LogProcess="True" />
+<Action OrderNumber="9" ActionType="LogMessage" LogMessageText="tts:${n: 4.35 + 4.95 * 7}:八" LogProcess="True" />
 </Actions>
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="e8fb793a-4f6c-4136-a8c4-4bfa89e8d2c8" Enabled="true" Name="D. 晚期" RawEnvironmentVariables="phase = 晚期">
+</Folders>
 <Triggers>
-<Trigger Enabled="true" Id="dbd77f56-f190-4f9b-ac37-c95d09b4c1d8" Name="0. 阶段开始 + 时间轴" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:BEBF:">
+<Trigger Enabled="true" Id="864b31d5-d520-48c2-aa00-a1d3b4f56f72" Name="0. 阶段开始 + 时间轴" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:BEBE:">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="MCs_phase" VariableExpression="${env:phase}" />
-<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:0.0:晚期" LogProcess="True" />
-<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:11.3:分散踩塔" LogProcess="True" />
-<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:29.6:AoE" LogProcess="True" />
-<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:39.1:集合放黄圈" LogProcess="True" />
+<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="clear&#xD;&#xA;---&#xD;&#xA;Action: Circle&#xD;&#xA;Waymarks: ADCB&#xD;&#xA;R: 10&#xD;&#xA;O: 100, 100" />
+<Action OrderNumber="3" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^MCs_中期" />
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:0.0:中期" LogProcess="True" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:63.2:AoE，溅血" LogProcess="True" />
+<Action OrderNumber="6" ActionType="NamedCallback" ExecutionDelayExpression="50000" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="load" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="f3c9c9b8-1b67-4546-baa6-6a52f3158f49" Name="踩塔方向 **" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;DE6):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;43[6-9]):">
+<Trigger Enabled="true" Id="35b76b3f-af05-4e46-86dd-2b6769541e09" Name="2. 初始播报" RegularExpression="^MCs_中期:idx:(?&lt;idx&gt;[1-4]):bβ:(?&lt;bβ&gt;[01]):type:(?&lt;type&gt;[1-8])">
 <Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${?l: 前,右,后,左 [${n: 0x${stack} - 0x435}]}" />
+<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${?l:&#xD;&#xA;  壹号α，第三轮出去,&#xD;&#xA;  贰号α，第四轮出去,&#xD;&#xA;  三号α，第三轮踩场地壹塔,&#xD;&#xA;  四号α，第四轮踩场地贰塔,&#xD;&#xA;  壹号β，第三轮反拉线,&#xD;&#xA;  贰号β，第四轮反拉线,&#xD;&#xA;  三号β，第三轮踩β1塔,&#xD;&#xA;  四号β，第四轮踩β2塔&#xD;&#xA;  [${type}]&#xD;&#xA;}" />
+<Action OrderNumber="2" ActionType="NamedCallback" ExecutionDelayExpression="10000" NamedCallbackName="hint" NamedCallbackParam="25&#xD;&#xA;${?l:&#xD;&#xA;  α1： 出去 →  踩场地3塔,&#xD;&#xA;  α2： 出去 →  踩场地4塔,&#xD;&#xA;  α3： 踩场地1塔 →  出去,&#xD;&#xA;  α4： 踩场地2塔 →  出去,&#xD;&#xA;  β1： 反拉线 →  踩β3塔 →  出去,&#xD;&#xA;  β2： 反拉线 →  踩β4塔 →  出去,&#xD;&#xA;  β3： 踩β1塔 →  反拉线 →  出去,&#xD;&#xA;  β4： 踩β2塔 →  反拉线 →  出去&#xD;&#xA;  [${type}]&#xD;&#xA;}" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="2aef0f94-4367-4142-ad43-776f5211ad72" Name="3. 获取场地塔" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B4B6):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Actions>
+<Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="MCs_中期_场地塔_dirN4" ListVariableExpression="roundvec(${x}-100, ${y}-100, -4)" />
+<Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="MCs_中期_场地塔_desc" ListVariableExpression="${f:pick(${l:MCs_中期_场地塔_dirN4[-1]}): 左上, 左下, 右下, 右上}" />
+<Action OrderNumber="3" ActionType="NamedCallback" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="${l:MCs_中期_场地塔_dirN4.size}: ${x}, ${y}" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="604190aa-1898-41b2-8e95-ecef8fcf42bb" Name="4. 初始方向" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B4B[89AB]):">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="MCs_中期_初dir4" VariableExpression="${?d: B4B8=3, B4B9=1, B4BA=0, B4BB=2 [${aid}]}" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="MCs_中期:type:${v:MCs_中期_type}:初dir4:${v:MCs_中期_初dir4}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="3" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: ExaFlare&#xD;&#xA;Tag: MCs_中期&#xD;&#xA;O: 100, 100, 0&#xD;&#xA;θ: ${n: dir2rad(${!v:MCs_中期_初dir4}, 4)}&#xD;&#xA;delay0: 9.3 - 4.95&#xD;&#xA;t:  4.95&#xD;&#xA;dt: 4.95&#xD;&#xA;dθ: π/2&#xD;&#xA;n:  8&#xD;&#xA;Omen: e5d1_b1_kblaser_t1&#xD;&#xA;Pos: 0, 4&#xD;&#xA;Scale: 0.5, 19&#xD;&#xA;Color: 0, 2, 15, 5" />
+<Action OrderNumber="4" Enabled="False" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e Action: ExaFlare&#xD;&#xA;Tag: MCs_中期&#xD;&#xA;O: 100, 100, 0&#xD;&#xA;θ: ${n: dir2rad(${!v:MCs_中期_初dir4} + 1, 4)}&#xD;&#xA;delay0: 7.3&#xD;&#xA;t:  4.95&#xD;&#xA;dt: 4.95&#xD;&#xA;dθ: π/2&#xD;&#xA;n:  7&#xD;&#xA;Omen: e5d1_b1_kblaser_t1&#xD;&#xA;Pos: 0, 4&#xD;&#xA;Scale: 0.5, 19&#xD;&#xA;Color: 0, 2, 15, 5" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="7ffe7f7c-1f86-435e-8fd2-a3ea747936a8" Name="1. 获取 debuff（全队）" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;BB[CDEF]|D7B|129[02]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="phase&#xD;&#xA;" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="DictVariable" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="MCs_中期_id2type" DictVariableKey="${tid}" DictVariableValue="${_val} + (0x${aid} = 0x1292 ? 4 : 0)">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0x${aid}" ExpressionTypeL="Numeric" ExpressionR="0x1000" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="DictVariable" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="MCs_中期_id2type" DictVariableKey="${tid}" DictVariableValue="${_val} + ${?d: BBC=1, BBD=2, BBE=3, D7B=4 [${aid}]}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0x${aid}" ExpressionTypeL="Numeric" ExpressionR="0x1000" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+</Condition>
+</Action>
 </Actions>
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+<ConditionSingle Enabled="true" ExpressionL="${v:MCs_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
+</Trigger>
+<Trigger Enabled="true" Id="8e83a4df-543c-43e8-b181-929a09c5e9cc" Name="1. 获取 debuff（自身）" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;BB[CDEF]|D7B|129[02]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="phase&#xD;&#xA;" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="MCs_中期_idx" VariableExpression="${?d: BBC=1, BBD=2, BBE=3, D7B=4 [${aid}]}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0x${aid}" ExpressionTypeL="Numeric" ExpressionR="0x1000" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="MCs_中期_bβ" VariableExpression="0x${aid} = 0x1292">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0x${aid}" ExpressionTypeL="Numeric" ExpressionR="0x1000" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+</Condition>
+</Action>
+<Action OrderNumber="4" ActionType="Placeholder" />
+<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="MCs_中期_type" VariableExpression="${v:MCs_中期_idx} + 4 * ${v:MCs_中期_bβ}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${ev:MCs_中期_bβ}${ev:MCs_中期_idx}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="6" ActionType="LogMessage" Asynchronous="False" LogMessageText="MCs_中期:idx:${v:MCs_中期_idx}:bβ:${v:MCs_中期_bβ}:type:${v:MCs_中期_type}" LogProcess="True" LogProcessACT="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${ev:MCs_中期_bβ}${ev:MCs_中期_idx}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+</Actions>
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+<ConditionSingle Enabled="true" ExpressionL="${v:MCs_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="false" Id="ce861eb9-e3f5-4e0d-a990-e0dd5ed32e11" Name="Debug Log 2026-01-10 16:16" Source="None">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[11:17:23.018] StartsCasting 14:4000221C:林德布鲁姆:BEBE:细胞附身·中期:4000221C:林德布鲁姆:2.700:100.00:85.00:0.00:0.00" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="4.13 * 1000" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:1290:_rsv_4752_-1_4_0_0_S74CFC3B0_E74CFC3B0:26.00:E0000000::${l:party[3]}:队员:00:188713:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:1292:_rsv_4754_-1_4_0_0_S74CFC3B0_E74CFC3B0:26.00:E0000000::${l:party[2]}:队员:00:186575:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:BBC:第一目标:9999.00:E0000000::${l:party[3]}:队员:00:188713:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:BBC:第一目标:9999.00:E0000000::${l:party[2]}:队员:00:186575:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:1290:_rsv_4752_-1_4_0_0_S74CFC3B0_E74CFC3B0:31.00:E0000000::${l:party[1]}:队员:00:292539:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="8" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:1292:_rsv_4754_-1_4_0_0_S74CFC3B0_E74CFC3B0:31.00:E0000000::${l:party[4]}:队员:00:207474:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="9" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:BBD:第二目标:9999.00:E0000000::${l:party[1]}:队员:00:292539:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="10" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:BBD:第二目标:9999.00:E0000000::${l:party[4]}:队员:00:207474:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="11" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:1290:_rsv_4752_-1_4_0_0_S74CFC3B0_E74CFC3B0:36.00:E0000000::${l:party[5]}:队员:00:293184:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="12" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:1292:_rsv_4754_-1_4_0_0_S74CFC3B0_E74CFC3B0:36.00:E0000000::${l:party[6]}:队员:00:219694:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="13" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:BBE:第三目标:9999.00:E0000000::${l:party[5]}:队员:00:293184:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="14" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:BBE:第三目标:9999.00:E0000000::${l:party[6]}:队员:00:219694:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="15" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:1290:_rsv_4752_-1_4_0_0_S74CFC3B0_E74CFC3B0:41.00:E0000000::${l:party[7]}:队员:00:185101:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="16" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:1292:_rsv_4754_-1_4_0_0_S74CFC3B0_E74CFC3B0:41.00:E0000000::${l:party[8]}:队员:00:190187:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="17" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:D7B:第四目标:9999.00:E0000000::${l:party[7]}:队员:00:185101:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="18" ActionType="LogMessage" LogMessageText="[11:17:27.147] StatusAdd 1A:D7B:第四目标:9999.00:E0000000::${l:party[8]}:队员:00:190187:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="19" ActionType="Placeholder" ExecutionDelayExpression="5.07 * 1000" />
+<Action OrderNumber="20" ActionType="LogMessage" LogMessageText="[11:17:32.218] 263 107:40002249:B4B6:96.011:96.011:0.000:-3.142" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="21" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000" />
+<Action OrderNumber="22" ActionType="LogMessage" LogMessageText="[11:17:34.219] 263 107:40002248:B4B6:104.007:104.007:0.000:-3.142" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="23" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000" />
+<Action OrderNumber="24" ActionType="LogMessage" LogMessageText="[11:17:36.222] 263 107:40002247:B4B6:114.994:89.999:0.000:-3.142" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="25" ActionType="Placeholder" ExecutionDelayExpression="1.96 * 1000" />
+<Action OrderNumber="26" ActionType="LogMessage" LogMessageText="[11:17:38.179] StartsCasting 14:4000221C:林德布鲁姆:B4B9:残暴拘束:E0000000::2.700:100.00:85.00:0.00:0.00" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="27" ActionType="LogMessage" LogMessageText="[11:17:38.223] 263 107:40002249:B4B6:84.994:109.989:0.000:-3.142" LogProcess="True" LogProcessACT="True" />
+</Actions>
 </Trigger>
 </Triggers>
 </Folder>
@@ -1179,16 +1311,25 @@
 <Trigger Enabled="true" Id="d587b513-eb4b-443c-b212-92ddd6f37f51" Name="0. 阶段开始 + 时间轴" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:BEC0:">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="MCs_phase" VariableExpression="${env:phase}" />
-<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:0.0:末期" LogProcess="True" />
-<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:17.4:集合，准备拉线" LogProcess="True" />
-<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:22.7:拉线" LogProcess="True" />
-<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="cd5:22.9" LogProcess="True" />
-<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="tts:31.5:AoE，溅血" LogProcess="True" />
-<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="tts:84.1:左右预站位" LogProcess="True" />
-<Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:113.1:左右预站位" LogProcess="True" />
-<Action OrderNumber="9" ActionType="LogMessage" LogMessageText="tts:142.0:左右预站位" LogProcess="True" />
-<Action OrderNumber="10" ActionType="LogMessage" LogMessageText="tts:175.5:狂暴" LogProcess="True" />
+<Action OrderNumber="2" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^MCs_末期" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:0.0:末期" LogProcess="True" />
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:17.4:集合，准备拉线" LogProcess="True" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:22.7:拉线" LogProcess="True" />
+<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="cd5:22.9" LogProcess="True" />
+<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="tts:31.5:AoE，溅血" LogProcess="True" />
+<Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:84.1:左右预站位" LogProcess="True" />
+<Action OrderNumber="9" ActionType="LogMessage" LogMessageText="tts:113.1:左右预站位" LogProcess="True" />
+<Action OrderNumber="10" ActionType="LogMessage" LogMessageText="tts:142.0:左右预站位" LogProcess="True" />
+<Action OrderNumber="11" ActionType="LogMessage" LogMessageText="tts:175.5:狂暴" LogProcess="True" />
 </Actions>
+</Trigger>
+<Trigger Enabled="true" Id="ff7dffef-ae51-4403-8977-f05a780dd3c0" Name="致死细胞" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;129B):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+<Actions>
+<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="吃扇形，分散" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
 </Trigger>
 </Triggers>
 </Folder>
@@ -1197,23 +1338,132 @@
 <Trigger Enabled="true" Id="4b3ce6f1-6bee-49ec-9798-85b684bed5b3" Name="1. 获取球" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}(?&lt;bnpcid&gt;1920[01]):([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="19200 紫球*2  19201 绿球*6" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="MCs_灾变_n" />
-<Action OrderNumber="3" ActionType="NamedCallback" DescTextColor="26f" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${id}].Address}, ${n: 418 + ceiling(${v:MCs_灾变_n} / 2)}" />
+<Action OrderNumber="2" ActionType="Placeholder" Description="球的位置在四组范围内，位置持续波动。从翅膀顶端开始： z &gt; 6;   z &lt; 6 &amp;&amp; |dx| &gt; 11.3; 7.2 &lt; |dx| &lt; 11.3;  |dx| &lt; 7.2" DescriptionOverride="True" />
+<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="MCs_灾变_n" />
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b右" VariableExpression="${x} &gt; 100" />
+<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_type" VariableExpression="${z} &gt; 6 ? 1 : abs(${x}-100) &gt; 11.3 ? 2 : abs(${x}-100) &gt; 7.2 ? 3 : 4" />
+<Action OrderNumber="6" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] ${if: ${bnpcid}=19200 ? 紫 : 绿 }：${if: ${v:tmp_b右} ? 右 : 左 }${v:tmp_type}" />
+<Action OrderNumber="7" ActionType="NamedCallback" DescTextColor="26f" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${id}].Address}, ${n: 418 + ceiling(${v:MCs_灾变_n} / 2)}" />
+<Action OrderNumber="8" ActionType="NamedCallback" ExecutionDelayExpression="13000" DescTextColor="26f" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${id}].Address}, 0">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_entity[${id}].Exist}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="eda01a25-1ee8-48fa-b431-45db614d6255" Name="0. 阶段开始 + 时间轴 **" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:B495:">
+<Trigger Enabled="true" Id="eda01a25-1ee8-48fa-b431-45db614d6255" Name="0. 阶段开始 + 时间轴" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:B495:">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="MCs_phase" VariableExpression="${env:phase}" />
-<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:0.0:看球" LogProcess="True" />
+<Action OrderNumber="2" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^MCs_灾变" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:0.0:看球" LogProcess="True" />
 </Actions>
 </Trigger>
 </Triggers>
 </Folder>
 <Folder Id="d85b6b65-7b7e-4d76-b333-263171424185" Enabled="true" Name="G. 喋血" RawEnvironmentVariables="phase = 喋血">
 <Triggers>
-<Trigger Enabled="true" Id="a1549f70-aec7-4ca6-bdb5-184ac4b7ca9c" Name="0. 阶段开始 + 时间轴 **" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*::">
+<Trigger Enabled="true" Id="a1549f70-aec7-4ca6-bdb5-184ac4b7ca9c" Name="0. 阶段开始 + 时间轴" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:B4C[3456]:">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="MCs_phase" VariableExpression="${env:phase}" />
+<Action OrderNumber="2" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^MCs_喋血" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="a3afc3b8-214a-4396-a0a4-cbbd046743b7" Name="1. 手臂" RegularExpression="^.{15}\S+ 15:4.{7}:[^:]*:(?&lt;aid&gt;B4C[BCDE]):">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="phase&#xD;&#xA;" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Variable" VariableOp="SetNumeric" VariableName="MCs_喋血_b击退" VariableExpression="0x${aid} = 0xB4CC || 0x${aid} = 0xB4CE" />
+<Action OrderNumber="3" ActionType="Variable" VariableOp="SetNumeric" VariableName="MCs_喋血_b先左" VariableExpression="0x${aid} &lt;= 0xB4CC" />
+<Action OrderNumber="4" ActionType="UseTTS" ExecutionDelayExpression="7300" UseTTSTextExpression="${if: ${v:MCs_喋血_b击退} &#xD;&#xA;  ? 去${if: ${v:MCs_喋血_b先左} ? 左 : 右 }击退&#xD;&#xA;  : 去${if: ${v:MCs_喋血_b先左} ? 右 : 左 }半场&#xD;&#xA;}" />
+<Action OrderNumber="5" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;t: 10.8&#xD;&#xA;Tag: MCs_喋血_左右&#xD;&#xA;O: 100, 100&#xD;&#xA;Pos: 0${v:MCs_喋血_b先左} ? -10 : 10, -15&#xD;&#xA;Angle: 0&#xD;&#xA;Scale: 10, 30, 1">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:MCs_喋血_b击退}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="6" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan20&#xD;&#xA;t: 10.8&#xD;&#xA;Tag: MCs_喋血_左右&#xD;&#xA;O: 100, 100&#xD;&#xA;Pos: 0${v:MCs_喋血_b先左} ? -18 : 18, -11&#xD;&#xA;Angle: 0${v:MCs_喋血_b先左} ? 75° : -75°&#xD;&#xA;Scale: 33&#xD;&#xA;Color: 0, 1, 6, 1">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:MCs_喋血_b击退}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="7" ActionType="NamedCallback" ExecutionDelayExpression="6400" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Change&#xD;&#xA;Tag: MCs_喋血_左右&#xD;&#xA;+X: 0" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:MCs_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="a61aa94e-5aee-4c02-b4ff-1cd0595eb47c" Name="2. 碎肉" RegularExpression="^.{15}\S+ 105:Add.*?:BNpcID:1EBF29.*?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;96\.[45][^:]+):">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="和喋血读条同时的，所以等待一秒" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Variable" ExecutionDelayExpression="1000" VariableOp="SetNumeric" VariableName="MCs_喋血_b左散" VariableExpression="${x} &gt; 100" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="c5399790-20bc-4fb3-a9c4-7f557bbab63e" Name="4. 播报" RegularExpression="^MCs_喋血_散:b散:(?&lt;b散&gt;[01]):b左散:(?&lt;b左散&gt;[01])">
+<Actions>
+<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${if: ${b散} = ${b左散} ? 左侧 : 右侧 }${if: ${b散} ? 分散 : 分摊 }" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="e111fe7f-5574-4a78-920d-28f6cfa1efeb" Name="3. 点名" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;0177):">
+<Actions>
+<Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="MCs_喋血_散" ListVariableExpression="${tid}" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="MCs_喋血_散:b散:${l:MCs_喋血_散.contain(${_me.id})}:b左散:${!v:MCs_喋血_b左散}" LogProcess="True" LogProcessACT="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${l:MCs_喋血_散.size}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="e8fb793a-4f6c-4136-a8c4-4bfa89e8d2c8" Enabled="true" Name="D. 晚期" RawEnvironmentVariables="phase = 晚期">
+<Triggers>
+<Trigger Enabled="true" Id="dbd77f56-f190-4f9b-ac37-c95d09b4c1d8" Name="0. 阶段开始 + 时间轴" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:BEBF:">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="MCs_phase" VariableExpression="${env:phase}" />
+<Action OrderNumber="2" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^MCs_晚期" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:0.0:晚期" LogProcess="True" />
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:17.6:${if: ${_me.isT} ? 引导死刑 : 远离小蛇，然后分散 }" LogProcess="True" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:29.6:AoE" LogProcess="True" />
+<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="tts:39.1:集合放黄圈" LogProcess="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="f3c9c9b8-1b67-4546-baa6-6a52f3158f49" Name="1. 方向 debuff" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;DE6):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;43[6-9]):">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="MCs_晚期_附身dir4" VariableExpression="(0x43A - 0x${stack}) % 4" />
+<Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="去${?l: 下偏左, 右偏下, 上偏右, 左偏上 [1 + ${v:MCs_晚期_附身dir4}]}" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="d85ef5ae-8669-4966-a0fe-5663376b37fb" Name="3. 播报" RegularExpression="^MCs_晚期_地板:b剩角:(?&lt;b剩角&gt;[01]):附身dir4:(?&lt;附身dir4&gt;[0-3])">
+<Actions>
+<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${?l: 上北, 左上, 左西, 左下, 下南, 右下, 右东, 右上 [(${附身dir4} * 2 - ${b剩角} + 4) %% 8 + 1]}，分散踩塔" />
+<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#xD;&#xA;A: -18.75, -13.75&#xD;&#xA;B: -11.25,  -6.25&#xD;&#xA;C:  11.75, -13.75&#xD;&#xA;D:  18.75,  -6.25&#xD;&#xA;1: -18.75,   6.25&#xD;&#xA;2: -11.25,  13.75&#xD;&#xA;3:  11.75,   6.25&#xD;&#xA;4:  18.75,  13.75">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${b剩角}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="NamedCallback" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#xD;&#xA;A: -3.75,  -6.25&#xD;&#xA;B:  3.75, -13.75&#xD;&#xA;C: -3.75,  13.75&#xD;&#xA;D:  3.75,   6.25&#xD;&#xA;1: -18.75, -3.75&#xD;&#xA;2: -11.25,  3.75&#xD;&#xA;3:  11.75, -3.75&#xD;&#xA;4:  18.75,  3.75">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${b剩角}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="4" ActionType="NamedCallback" ExecutionDelayExpression="9700" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="load" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="04fad3dc-9066-4701-af70-a5223c2f268e" Name="2. 拆地板：四边/四角" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B4A[01]):(?&lt;x&gt;[89]2[^:]+):(?&lt;y&gt;87[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="最北侧偏左的两个黄圈之一" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" SystemBeepFreqExpression="" SystemBeepLengthExpression="" VariableOp="SetNumeric" VariableName="MCs_晚期_b剩角" VariableExpression="${x} &gt; 87.5" />
+<Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" SystemBeepFreqExpression="" SystemBeepLengthExpression="" LogMessageText="MCs_晚期_地板:b剩角:${!v:MCs_晚期_b剩角}:附身dir4:${!v:MCs_晚期_附身dir4}" LogProcess="True" LogProcessACT="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="false" Id="4e8073f1-d3a4-487f-b850-506b8a3cbe68" Name="Debug Log 2026-01-10 14:02" Source="None">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[13:02:34.399] StartsCasting 14:4000091F:林德布鲁姆:BEBF:细胞附身·晚期:4000091F:林德布鲁姆:2.700:99.99:84.98:0.00:0.00" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="4.16 * 1000" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[13:02:38.556] StatusAdd 1A:DE6:Unknown_DE6:9999.00:E0000000::${_me.id}:队员:436:270609:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="2.05 * 1000" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="[13:02:40.610] 263 107:40000FB7:B4A0:92.502:87.497:0.000:1.249" LogProcess="True" LogProcessACT="True" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -1842,13 +2092,6 @@
 </Triggers>
 </Folder>
 </Folders>
-<Triggers>
-<Trigger Enabled="true" Id="f3ee2dec-4455-411e-aa7d-ff52693b808b" Name="临时提示" RegularExpression="^.{15}\S+ 01:52[9BDF]:" PeriodRefire="Deny" RefirePeriodExpression="1000 * 86400">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="1000" NamedCallbackName="command" NamedCallbackParam="/e &lt;se.10&gt;&#xD;&#xA;========= [临时提示] =========&#xD;&#xA;·  已添加重量级零式宝宝椅（先行版）&#xD;&#xA;·  机制播报完全基于猜测制作，&#xD;&#xA;　有错误属于正常情况。&#xD;&#xA;　若遇到了你觉得影响打本的错误，&#xD;&#xA;　请关闭重量级远程分组并重启 ACT。&#xD;&#xA;·  本工具的目的是适配而非提出机制解法，&#xD;&#xA;　所以请勿在招募里声称“宝宝椅一套”等字样。&#xD;&#xA;·  请勿使用本工具参与竞速。" />
-</Actions>
-</Trigger>
-</Triggers>
 </Folder>
 </Folders>
 <Triggers>
