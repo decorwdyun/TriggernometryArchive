@@ -259,29 +259,17 @@
 <Action OrderNumber="2" ActionType="Trigger" TriggerOp="EnableTrigger" TriggerId="9b010c21-9ad7-4f42-a6a4-43130f82f0ec" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="c0a9456f-8d3e-4e34-8555-0490883f954b" Name="５　　ＴＴＳ插件　配置检查" Source="None">
-<Actions>
-<Action OrderNumber="1" ActionType="MessageBox" MessageBoxIconType="Information" MessageBoxText="这个触发器会播放以下三个声音片段：&#xD;&#xA;&#xD;&#xA;TTS：“TTS 测试：（一串随机数字）”&#xD;&#xA;开始提示音：低-高 的两声快速蜂鸣&#xD;&#xA;结束提示音：高-低 的两声快速蜂鸣&#xD;&#xA;&#xD;&#xA;如果你听到的是：&#xD;&#xA;&#xD;&#xA;· TTS开始 - 开始提示音 - TTS结束 - 结束提示音：&#xD;&#xA;  TTS 正常工作，语速合适。&#xD;&#xA;&#xD;&#xA;· 只有提示音，没有 TTS：&#xD;&#xA;  未安装 TTS 插件，或插件未工作，见下文 “换源”。&#xD;&#xA;&#xD;&#xA;· 开始提示音 早于 TTS开始：&#xD;&#xA;  获取 TTS 的网络延迟过高，会导致机制播报延后，见下文 “换源”。&#xD;&#xA;&#xD;&#xA;· 结束提示音 早于 TTS结束：&#xD;&#xA;  TTS 过慢，需要在 TTS 插件页面加快语速，否则很可能导致播报重叠。&#xD;&#xA;&#xD;&#xA;· TTS开始 - TTS结束 - 连续的开始 + 结束提示音：&#xD;&#xA;  可能没有安装 TTS 插件，程序回退到了使用系统讲述人播报。&#xD;&#xA;  系统讲述人会像这样严重阻塞触发器动作，导致机制播报严重拖后，甚至结果错误。&#xD;&#xA;&#xD;&#xA;【换源】&#xD;&#xA;如果你安装了 TTS 但不工作，可在 TTS 插件页面尝试换用不同源。&#xD;&#xA;如果所有源都无法使用，可安装本地微软晓晓 TTS（见自检的使用说明），实在不行就只能用 TTS 插件调用系统机械合成音。&#xD;&#xA;个人设置（供参考）：&#xD;&#xA;微软晓晓，语速 1.30，WASAPI，音量 200%。" />
-<Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="TTS 测试：${n:random(10000000,100000000)}${n:random(10000000,100000000)}${n:random(10000000,100000000)}" />
-<Action OrderNumber="3" ActionType="Placeholder" ExecutionDelayExpression="800" SystemBeepFreqExpression="" SystemBeepLengthExpression="" />
-<Action OrderNumber="4" Asynchronous="False" SystemBeepFreqExpression="freq(C6)" />
-<Action OrderNumber="5" Asynchronous="False" SystemBeepFreqExpression="freq(E6)" />
-<Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="5300" Asynchronous="False" SystemBeepFreqExpression="" SystemBeepLengthExpression="" />
-<Action OrderNumber="7" Asynchronous="False" SystemBeepFreqExpression="freq(E6)" />
-<Action OrderNumber="8" Asynchronous="False" SystemBeepFreqExpression="freq(C6)" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="1d70cea8-15ca-40fc-b674-a698bbc11048" Name="６ｂ　鲶鱼精邮差　功能测试" Source="None" Sequential="True">
+<Trigger Enabled="true" Id="1d70cea8-15ca-40fc-b674-a698bbc11048" Name="７ｂ　鲶鱼精邮差　功能测试" Source="None" Sequential="True">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="SelfTest:PostNamazu_Modules" LogProcess="True" LogProcessACT="True" TriggerId="8f8cd7e9-00f3-4383-a36f-41bb7df1598e" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="227e620a-628c-4b55-b2e6-02e53d3e43b2" Name="７ａ　高级标点工具箱　安装检查" Sequential="True">
+<Trigger Enabled="true" Id="227e620a-628c-4b55-b2e6-02e53d3e43b2" Name="７ｃ　高级标点工具箱　安装检查" Sequential="True">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="SelfTest:AdvWm1" LogProcess="True" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="d3209bbe-47d4-4320-bfee-774367edbe58" Name="７ｂ　高级标点工具箱　运行测试　（再次执行时停止）" Source="None" Sequential="True">
+<Trigger Enabled="true" Id="d3209bbe-47d4-4320-bfee-774367edbe58" Name="７ｄ　高级标点工具箱　运行测试　（再次执行时停止）" Source="None" Sequential="True">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_wm_on" VariableExpression="!0${v:tmp_wm_on}" />
 <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${v:tmp_wm_on} ? 已开始 : 已停止}" />
@@ -298,7 +286,7 @@
 <Action OrderNumber="4" ActionType="MessageBox" MessageBoxIconType="Warning" MessageBoxText="【你需要按下面操作，而不是把这个弹窗当做自检通过了的提示。】&#xD;&#xA;&#xD;&#xA;已暂时开启 OverlayPlugin 日志检测。&#xD;&#xA;如果你需要阅读此弹窗内容，可以暂时保留此弹窗不关闭。&#xD;&#xA;&#xD;&#xA;你需要解限进入 80 级副本 “末日暗影亚马乌罗提”，向前走几步至陨石落下（第一波小怪前），此时应出现弹窗提示。&#xD;&#xA;&#xD;&#xA;如果没有反应：&#xD;&#xA;  1. 在插件中心页面确保已安装了 OverlayPlugin 插件；&#xD;&#xA;  2. 任意整合版：确认游戏版本更新后整合作者已推送 OverlayPlugin 的更新；&#xD;&#xA;  3. 国服整合版：确认你没有私自更新国际服的插件版本；&#xD;&#xA;  4. 自己整合：确认你已经正确更新。&#xD;&#xA;  5. 尝试重启游戏和 ACT（先后顺序无所谓）。&#xD;&#xA;  &#xD;&#xA;正常情况下这条不应有问题，如果没看见弹窗可以继续前进到第一波小怪出现，会弹出额外的提示内容。" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="47db3552-48f9-4b40-a678-3240b3144df0" Name="６ａ　鲶鱼精邮差　更新检查" Source="None" Sequential="True">
+<Trigger Enabled="true" Id="47db3552-48f9-4b40-a678-3240b3144df0" Name="７ａ　鲶鱼精邮差　更新检查" Source="None" Sequential="True">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="SelfTest:PostNamazu_Version:isInit:0" LogProcess="True" />
 </Actions>
@@ -308,7 +296,7 @@
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="SelfTest_PluginOrder:1" LogProcess="True" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="e6e8dad3-0d9f-430b-b2fb-5d4b4c6e00f0" Name="８　　鲶鱼精邮差扩展 说明/自检/配置【双击查看】" Source="None">
+<Trigger Enabled="true" Id="e6e8dad3-0d9f-430b-b2fb-5d4b4c6e00f0" Name="７ｅ　　鲶鱼精邮差扩展 说明/自检/配置【双击查看】" Source="None">
 <Actions>
 <Action OrderNumber="1" Enabled="False" ActionType="Placeholder" Description="现已支持任意版本 ACT。（但国际服呆萌整合如果 OverlayPlugin 更新不及时则无法使用）" DescBgColor="f0f8ff" DescTextColor="800" DescriptionOverride="True" />
 <Action OrderNumber="2" Enabled="False" ActionType="Placeholder" Description="使用说明" DescBgColor="acf" DescTextColor="248" DescriptionOverride="True" />
@@ -361,6 +349,24 @@
 <Action OrderNumber="12" ActionType="ExecuteScript" Description=" · 强制更新汉化　　　通常会自动更新，但如果未显示中文且右上角翻译中没有中文，可尝试此选项。" DescBgColor="fff" DescriptionOverride="True" ExecScriptExpression="using System;&#xD;&#xA;using System.Windows.Forms;&#xD;&#xA;using Triggernometry.Core;&#xD;&#xA;var msg = &quot;如主界面右上角无报错，代表下载成功，重启以应用本地化翻译文件。&quot;;&#xD;&#xA;try&#xD;&#xA;{&#xD;&#xA;    await RealPlugin.Instance.UpdateTranslationExternal();&#xD;&#xA;}&#xD;&#xA;catch (Exception ex)&#xD;&#xA;{&#xD;&#xA;    msg = &quot;更新失败: \n&quot; + ex.Message;&#xD;&#xA;}&#xD;&#xA;MessageBox.Show(msg, &quot;翻译文件更新&quot;);&#xD;&#xA;" />
 <Action OrderNumber="13" ActionType="LaunchProcess" Description=" · 打开网盘　　　　　在此可查看分享的所有插件、教程，以及各类分享的触发器。" DescBgColor="fff" DescriptionOverride="True" LaunchProcessPathExpression="${env:link}" />
 <Action OrderNumber="14" ActionType="ExecuteScript" Description=" · 加 QQ 群       （没反应的话从头自检并查看右上角是否有报错）" DescBgColor="fff" DescriptionOverride="True" ExecScriptExpression="using System.Windows.Forms;&#xD;&#xA;using Triggernometry.UI.CustomControls;&#xD;&#xA;using Triggernometry.UI.Forms;&#xD;&#xA;using Triggernometry.Core.Scripting;&#xD;&#xA;&#xD;&#xA;Validater.Show();&#xD;&#xA;&#xD;&#xA;public static class Validater&#xD;&#xA;{&#xD;&#xA;    const string group1 = &quot;556836295&quot;;&#xD;&#xA;    const string group2 = &quot;133514183&quot;;&#xD;&#xA;    const string group3 = &quot;612703030&quot;;&#xD;&#xA;&#xD;&#xA;    public static void Show()&#xD;&#xA;    {&#xD;&#xA;        var form = new SimpleInputForm(&quot;输入你要加的群号：&quot;, ExpressionTextBox.SupportedExpressionTypeEnum.Numeric, group3);&#xD;&#xA;        form.TopMost = true;&#xD;&#xA;        form.Shown += (_, __) =&gt; form.BringToFront();&#xD;&#xA;        string result = form.GetInput()?.Trim();&#xD;&#xA;        if (string.IsNullOrEmpty(result)) return;&#xD;&#xA;        switch (result)&#xD;&#xA;        {&#xD;&#xA;            case group1: MessageBox.Show(&quot;本群并非答疑群，使用遇到问题请加群 612703030。\n本群验证问题答案为：\n\n写出用于获取触发器表格变量 a 第 2 行 1 列的值的表达式，不含外侧括号 $&quot; + &quot;{ }，无空格。\n如果你的回答包含 \&quot;var\&quot;，请使用简称，删除这三个字母即可。\n\n如果你不知道，可以查阅 Triggernometry GitHub Wiki 获取相关介绍。&quot;, &quot;&quot;, MessageBoxButtons.OK, MessageBoxIcon.Information); return;&#xD;&#xA;            case group2: MessageBox.Show($&quot;此群已暂停开放。&quot;, &quot;&quot;, MessageBoxButtons.OK, MessageBoxIcon.Information); return;&#xD;&#xA;            case group3: MessageBox.Show(&quot;本群可直接进入，仅用于临时提问。验证问题见群简介，如果看不见的话可以切换设备看。&quot;, &quot;&quot;, MessageBoxButtons.OK, MessageBoxIcon.Warning); return;&#xD;&#xA;            default: MessageBox.Show(&quot;群号错误。&quot;, &quot;&quot;, MessageBoxButtons.OK, MessageBoxIcon.Warning); return;&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;}" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="878107bc-9cfa-44c3-8885-a1929da43976" Name="５　　ＴＴＳ插件　配置检查" Source="None">
+<Actions>
+<Action OrderNumber="1" ActionType="MessageBox" MessageBoxIconType="Information" MessageBoxText="这个触发器会播放以下三个声音片段：&#xD;&#xA;&#xD;&#xA;TTS：“TTS 测试：（一串随机数字）”&#xD;&#xA;开始提示音：低-高 的两声快速蜂鸣&#xD;&#xA;结束提示音：高-低 的两声快速蜂鸣&#xD;&#xA;&#xD;&#xA;如果你听到的是：&#xD;&#xA;&#xD;&#xA;· TTS开始 - 开始提示音 - TTS结束 - 结束提示音：&#xD;&#xA;  TTS 正常工作，语速合适。&#xD;&#xA;&#xD;&#xA;· 只有提示音，没有 TTS：&#xD;&#xA;  未安装 TTS 插件，或插件未工作，见下文 “换源”。&#xD;&#xA;&#xD;&#xA;· 开始提示音 早于 TTS开始：&#xD;&#xA;  获取 TTS 的网络延迟过高，会导致机制播报延后，见下文 “换源”。&#xD;&#xA;&#xD;&#xA;· 结束提示音 早于 TTS结束：&#xD;&#xA;  TTS 过慢，需要在 TTS 插件页面加快语速，否则很可能导致播报重叠。&#xD;&#xA;&#xD;&#xA;· TTS开始 - TTS结束 - 连续的开始 + 结束提示音：&#xD;&#xA;  可能没有安装 TTS 插件，程序回退到了使用系统讲述人播报。&#xD;&#xA;  系统讲述人会像这样严重阻塞触发器动作，导致机制播报严重拖后，甚至结果错误。&#xD;&#xA;&#xD;&#xA;· 此外，如果你觉得蜂鸣音量有问题，请在触发器页面右上角配置中调整并测试。&#xD;&#xA;&#xD;&#xA;【换源】&#xD;&#xA;如果你安装了 TTS 但不工作，可在 TTS 插件页面尝试换用不同源。&#xD;&#xA;如果所有源都无法使用，可安装本地微软晓晓 TTS（见自检的使用说明），实在不行就只能用 TTS 插件调用系统机械合成音。&#xD;&#xA;个人设置（供参考）：&#xD;&#xA;微软晓晓，语速 1.30，WASAPI，音量 200%。" />
+<Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="TTS 测试：${n:random(10000000,100000000)}${n:random(10000000,100000000)}${n:random(10000000,100000000)}" />
+<Action OrderNumber="3" ActionType="Placeholder" ExecutionDelayExpression="800" SystemBeepFreqExpression="" SystemBeepLengthExpression="" />
+<Action OrderNumber="4" Asynchronous="False" SystemBeepFreqExpression="freq(C6)" />
+<Action OrderNumber="5" Asynchronous="False" SystemBeepFreqExpression="freq(E6)" />
+<Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="5300" Asynchronous="False" SystemBeepFreqExpression="" SystemBeepLengthExpression="" />
+<Action OrderNumber="7" Asynchronous="False" SystemBeepFreqExpression="freq(E6)" />
+<Action OrderNumber="8" Asynchronous="False" SystemBeepFreqExpression="freq(C6)" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="d64b0ab2-2fae-4e89-ada8-0fe222934d3b" Name="６　　运行支持库" Source="None">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="tts:0:测试" LogProcess="True" />
+<Action OrderNumber="2" ActionType="MessageBox" MessageBoxIconType="Information" MessageBoxText="你现在应该听到一句 TTS：“测试”，&#xD;&#xA;如果有的话说明此项正常。&#xD;&#xA;&#xD;&#xA;如果你前一项 TTS 自检没有问题，&#xD;&#xA;且现在什么都没听到，&#xD;&#xA;可能是你关闭了远程触发器中的“运行支持库（必需）”，或其部分功能。" />
 </Actions>
 </Trigger>
 </Triggers>
