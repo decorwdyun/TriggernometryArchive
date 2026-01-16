@@ -800,7 +800,7 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="00c80112-d095-443f-9db8-ee5be630a507" Enabled="true" Name="M12s v0.7.2" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1327$" RawEnvironmentVariables="zone = 1327&#xD;&#xA;CactbotTriggerSetName = &#xD;&#xA;OssFolder = MCs">
+<Folder Id="00c80112-d095-443f-9db8-ee5be630a507" Enabled="true" Name="M12s v0.7.3" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1327$" RawEnvironmentVariables="zone = 1327&#xD;&#xA;CactbotTriggerSetName = &#xD;&#xA;OssFolder = MCs">
 <Folders>
 <Folder Id="e323fdc7-5fe2-42c1-8b7a-7a950f7c4490" Enabled="true" Name="杂项">
 <Folders>
@@ -925,7 +925,7 @@
 <Trigger Enabled="true" Id="3bf5602d-9908-44bf-971e-59e4866fd2e6" Name="[F] 队员点名 LockOn：分摊/大圈/扇形/本体/无" RegularExpression="^MCs_线点名_队员:(?&lt;type&gt;分摊|大圈|扇形|本体|无):(?&lt;tid&gt;1.{7}):(?&lt;untilEnd&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="${untilEnd} * 1000 - (${type} == 扇形 ? 2000 : 5000)" />
-<Action OrderNumber="2" ActionType="NamedCallback" DescTextColor="26f" NamedCallbackName="LockOn" NamedCallbackParam="${_entity[${tid}].Address}, ${?d:&#xD;&#xA;  分摊 = com_share_5_5s_c0c,&#xD;&#xA;  大圈 = target_ae_s5_20_x,&#xD;&#xA;  无 = target_ae_s5_20_x,&#xD;&#xA;  扇形 = m0982trg_d0c,&#xD;&#xA;  本体 = m0625trg_a0c&#xD;&#xA;  [${type}]&#xD;&#xA;}" UseTTSExclusive="False">
+<Action OrderNumber="2" ActionType="NamedCallback" DescTextColor="26f" NamedCallbackName="LockOn" NamedCallbackParam="${_entity[${tid}].Address}, ${?d:&#xD;&#xA;  分摊 = com_share_5_5s_c0c,&#xD;&#xA;  大圈 = target_ae_s5_20_x,&#xD;&#xA;  无 = target_ae_s5_20_x,&#xD;&#xA;  扇形 = m0982trg_d0c,&#xD;&#xA;  本体 = lock_eur01f&#xD;&#xA;  [${type}]&#xD;&#xA;}" UseTTSExclusive="False">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${_entity[${tid}].Exist}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
@@ -934,7 +934,7 @@
 </Trigger>
 <Trigger Enabled="true" Id="62afbff8-396a-4372-b664-7c71a6ab9b7b" Name="[F] 影子点名 Omen：分摊/大圈/扇形/本体" RegularExpression="^MCs_线点名_影子:(?&lt;type&gt;分摊|大圈|扇形|本体):(?&lt;dir8&gt;\d):(?&lt;delay&gt;[^:]+):(?&lt;t&gt;[^:]+)">
 <Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: ${?d: 分摊 = share_trap01k1, 大圈 = Circle, 扇形 = Fan45, 本体 = Circle [${type}] }&#xD;&#xA;Tag: MCs_线点名_影子&#xD;&#xA;delay: ${delay}&#xD;&#xA;t: ${t}&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${n: dir2rad(${dir8}, 8)}&#xD;&#xA;Pos: 0, -14&#xD;&#xA;Angle: 0&#xD;&#xA;Scale: ${?d:&#xD;&#xA;  &quot;分摊 = 5, 5, 5&quot;,&#xD;&#xA;  &quot;大圈 = 20, 20, 1&quot;,&#xD;&#xA;  &quot;扇形 = 60, 60, 1&quot;,&#xD;&#xA;  &quot;本体 = 4, 4, 1&quot;&#xD;&#xA;  [${type}]&#xD;&#xA;}" UseTTSExclusive="False" />
+<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: ${?d: 分摊 = share_trap01k1, 大圈 = Circle, 扇形 = Fan45, 本体 = Circle [${type}] }&#xD;&#xA;Tag: MCs_线点名_影子&#xD;&#xA;delay: ${delay}&#xD;&#xA;t: ${t}&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${n: dir2rad(${dir8}, 8)}&#xD;&#xA;Pos: 0, -14&#xD;&#xA;Angle: 0&#xD;&#xA;Scale: ${?d:&#xD;&#xA;  &quot;分摊 = 5, 5, 5&quot;,&#xD;&#xA;  &quot;大圈 = 20, 20, 1&quot;,&#xD;&#xA;  &quot;扇形 = 60, 60, 1&quot;,&#xD;&#xA;  &quot;本体 = 5, 5, 1&quot;&#xD;&#xA;  [${type}]&#xD;&#xA;}" UseTTSExclusive="False" />
 <Action OrderNumber="2" ActionType="Placeholder" Description="超级跳时，在对位放大圈" DescriptionOverride="True" />
 <Action OrderNumber="3" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="MCs_线点名_影子:大圈:${n:(${dir8} + 4) % 8}:${delay}:${t}" LogProcess="True" LogProcessACT="True">
 <Condition Enabled="true" Grouping="Or">
