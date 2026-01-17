@@ -332,7 +332,7 @@
       </Folder>
       <Folder Id="6364c12b-83b6-4bd2-b572-e094ca101527" Enabled="true" Name="M9-12s">
         <Folders>
-          <Folder Id="1beff67e-f514-43b2-a4f9-d4e9682d9b10" Enabled="true" Name="M11s v0.4.3" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1325$" RawEnvironmentVariables="zone = 1325&#13;&#10;CactbotTriggerSetName = AacHeavyweightM3Savage, SoumaM11s&#13;&#10;OssFolder = MBs">
+          <Folder Id="1beff67e-f514-43b2-a4f9-d4e9682d9b10" Enabled="true" Name="M11s v0.4.3" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1325$" RawEnvironmentVariables="zone = 1325&#13;&#10;CactbotTriggerSetName = AacHeavyweightM3Savage, SoumaM11s, SoumaAacHeavyweightM3Savage&#13;&#10;OssFolder = MBs">
             <Folders>
               <Folder Id="e4876137-57ec-4925-93d0-23645de387de" Enabled="true" Name="杂项">
                 <Triggers>
@@ -800,7 +800,7 @@
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder Id="00c80112-d095-443f-9db8-ee5be630a507" Enabled="true" Name="M12s v0.7.3" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1327$" RawEnvironmentVariables="zone = 1327&#13;&#10;CactbotTriggerSetName = &#13;&#10;OssFolder = MCs">
+          <Folder Id="00c80112-d095-443f-9db8-ee5be630a507" Enabled="true" Name="M12s v0.7.4" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1327$" RawEnvironmentVariables="zone = 1327&#13;&#10;CactbotTriggerSetName = AacHeavyweightM4Savage, SoumaM12s, SoumaAacHeavyweightM4Savage&#13;&#10;OssFolder = MCs">
             <Folders>
               <Folder Id="e323fdc7-5fe2-42c1-8b7a-7a950f7c4490" Enabled="true" Name="杂项">
                 <Folders>
@@ -1917,6 +1917,41 @@
                           <ConditionSingle Enabled="true" ExpressionL="${v:MCs_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Trigger>
+                      <Trigger Enabled="true" Id="47b16e2d-ae16-4126-9772-523fe3a7a810" Name="6. 初始点名（自身）" RegularExpression="^MCs_四运_绿_自身:b左侧组:(?&lt;b左侧组&gt;[01]):点名:(?&lt;点名&gt;分摊|大圈):轮次:(?&lt;n&gt;[1-4])">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Description="蓝 → 绿读条一半时提示" DescriptionOverride="True"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="27000"/>
+                          <Action OrderNumber="3" ActionType="NamedCallback" DescTextColor="26f" NamedCallbackName="hint" NamedCallbackParam="24.7&#13;&#10;${if: ${!v:MCs_四运_绿_b正点分摊线} ? 1分摊 → 2大圈 → 3分摊 → 4大圈 : 1大圈 → 2分摊 → 3大圈 → 4分摊 }&#13;&#10;点名：${n}${点名}"/>
+                          <Action OrderNumber="4" ActionType="UseTTS" UseTTSTextExpression="去${if: ${b左侧组} ? 左上肆点 : 右上壹点 }，分摊两次">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${点名}" ExpressionTypeL="String" ExpressionR="分摊" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="5" ActionType="UseTTS" UseTTSTextExpression="去${if: ${b左侧组} ? 左下叁点 : 右下贰点 }，贴边放大圈">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${点名}" ExpressionTypeL="String" ExpressionR="大圈" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                              <ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="6" ActionType="UseTTS" UseTTSTextExpression="先去${if: ${b左侧组} ? 左上肆点 : 右上壹点 }分摊，第${n}轮出去放大圈">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${点名}" ExpressionTypeL="String" ExpressionR="大圈" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                              <ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="7" ActionType="LogMessage" LogMessageText="cd5:${n: ${n} * 5 + 4.7}" LogProcess="True">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${点名}" ExpressionTypeL="String" ExpressionR="大圈" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:${n: ${n} * 5 - 1.6}:出去放大圈" LogProcess="True">
+                            <Condition Enabled="true" Grouping="And">
+                              <ConditionSingle Enabled="true" ExpressionL="${点名}" ExpressionTypeL="String" ExpressionR="大圈" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                              <ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
+                            </Condition>
+                          </Action>
+                        </Actions>
+                      </Trigger>
                       <Trigger Enabled="false" Id="12c46336-592d-47d4-a584-2ac6fd13389d" Name="Debug Log 先正后斜 正点分摊 初始连线左D 接线左上大圈" Source="None">
                         <Actions>
                           <Action OrderNumber="1" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^MCs_"/>
@@ -1952,41 +1987,6 @@
                           <Action OrderNumber="31" ActionType="LogMessage" LogMessageText="[18:03:05.862] M12s_Tether M12s_Tether:固定:40005398:人形分身:19204:92.9289:107.0711:2.356182:10000005:Player" LogProcess="True" LogProcessACT="True"/>
                           <Action OrderNumber="32" ActionType="LogMessage" LogMessageText="[18:03:05.862] M12s_Tether M12s_Tether:固定:40005399:人形分身:19204:90:100:1.570772:10000008:Player" LogProcess="True" LogProcessACT="True"/>
                           <Action OrderNumber="33" ActionType="LogMessage" LogMessageText="[18:03:05.862] M12s_Tether M12s_Tether:固定:4000539A:人形分身:19204:92.9289:92.9289:0.7853622:${_me.id}:Player" LogProcess="True" LogProcessACT="True"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Id="47b16e2d-ae16-4126-9772-523fe3a7a810" Name="6. 初始点名（自身）" RegularExpression="^MCs_四运_绿_自身:b左侧组:(?&lt;b左侧组&gt;[01]):点名:(?&lt;点名&gt;分摊|大圈):轮次:(?&lt;n&gt;[1-4])">
-                        <Actions>
-                          <Action OrderNumber="1" ActionType="Placeholder" Description="蓝 → 绿读条一半时提示" DescriptionOverride="True"/>
-                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="27000"/>
-                          <Action OrderNumber="3" ActionType="NamedCallback" DescTextColor="26f" NamedCallbackName="hint" NamedCallbackParam="24.7&#13;&#10;${if: ${!v:MCs_四运_绿_b正点分摊线} ? 1分摊 → 2大圈 → 3分摊 → 4大圈 : 1大圈 → 2分摊 → 3大圈 → 4分摊 }&#13;&#10;点名：${n}${点名}"/>
-                          <Action OrderNumber="4" ActionType="UseTTS" UseTTSTextExpression="去${if: ${b左侧组} ? 左上肆点 : 右上壹点 }，分摊两次">
-                            <Condition Enabled="true" Grouping="Or">
-                              <ConditionSingle Enabled="true" ExpressionL="${点名}" ExpressionTypeL="String" ExpressionR="分摊" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                            </Condition>
-                          </Action>
-                          <Action OrderNumber="5" ActionType="UseTTS" UseTTSTextExpression="去${if: ${b左侧组} ? 左下叁点 : 右下贰点 }，贴边放大圈">
-                            <Condition Enabled="true" Grouping="And">
-                              <ConditionSingle Enabled="true" ExpressionL="${点名}" ExpressionTypeL="String" ExpressionR="大圈" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                              <ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                            </Condition>
-                          </Action>
-                          <Action OrderNumber="6" ActionType="UseTTS" UseTTSTextExpression="先去${if: ${b左侧组} ? 左上肆点 : 右上壹点 }分摊，第${n}轮出去放大圈">
-                            <Condition Enabled="true" Grouping="And">
-                              <ConditionSingle Enabled="true" ExpressionL="${点名}" ExpressionTypeL="String" ExpressionR="大圈" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                              <ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
-                            </Condition>
-                          </Action>
-                          <Action OrderNumber="7" ActionType="LogMessage" LogMessageText="cd5:${n: ${n} * 5 + 4.7}" LogProcess="True">
-                            <Condition Enabled="true" Grouping="Or">
-                              <ConditionSingle Enabled="true" ExpressionL="${点名}" ExpressionTypeL="String" ExpressionR="大圈" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                            </Condition>
-                          </Action>
-                          <Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:${n: ${n} * 5 - 1.6}:出去放大圈" LogProcess="True">
-                            <Condition Enabled="true" Grouping="And">
-                              <ConditionSingle Enabled="true" ExpressionL="${点名}" ExpressionTypeL="String" ExpressionR="大圈" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                              <ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
-                            </Condition>
-                          </Action>
                         </Actions>
                       </Trigger>
                     </Triggers>
@@ -2590,7 +2590,7 @@
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder Id="695eb375-2f3b-4b28-802c-40d1634132cf" Enabled="true" Name="M10s v0.4.1" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1323$" RawEnvironmentVariables="zone = 1323&#13;&#10;CactbotTriggerSetName = AacHeavyweightM2Savage, SoumaM10s&#13;&#10;OssFolder = MAs">
+          <Folder Id="695eb375-2f3b-4b28-802c-40d1634132cf" Enabled="true" Name="M10s v0.4.1" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1323$" RawEnvironmentVariables="zone = 1323&#13;&#10;CactbotTriggerSetName = AacHeavyweightM2Savage, SoumaM10s, SoumaAacHeavyweightM2Savage&#13;&#10;OssFolder = MAs">
             <Folders>
               <Folder Id="9a2eacb0-53d8-44d6-85f0-cb951617b8f1" Enabled="true" Name="杂项">
                 <Triggers>
@@ -3086,7 +3086,7 @@
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder Id="bcf81400-c8e3-4858-9e93-281fdf9060da" Enabled="true" Name="M09s v0.2.0" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1321$" RawEnvironmentVariables="zone = 1321&#13;&#10;CactbotTriggerSetName = AacHeavyweightM1Savage, SoumaM9s&#13;&#10;OssFolder = M9s">
+          <Folder Id="bcf81400-c8e3-4858-9e93-281fdf9060da" Enabled="true" Name="M09s v0.2.0" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1321$" RawEnvironmentVariables="zone = 1321&#13;&#10;CactbotTriggerSetName = AacHeavyweightM1Savage, SoumaM9s, SoumaAacHeavyweightM1Savage&#13;&#10;OssFolder = M9s">
             <Folders>
               <Folder Id="cee33954-9db1-4e0c-9962-164e91fc1b98" Enabled="true" Name="杂项">
                 <Triggers>
