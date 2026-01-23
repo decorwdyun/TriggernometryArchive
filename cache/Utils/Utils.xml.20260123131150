@@ -1144,7 +1144,7 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="b2fc5397-02bd-4bd1-ae10-d7bc4d849fb4" Enabled="true" Name="鲶鱼精邮差扩展 v4.3.0" RawEnvironmentVariables="version = 4.3.0&#xD;&#xA;trigversion = 2.0.2.4" DisableRemoteToggle="True">
+<Folder Id="b2fc5397-02bd-4bd1-ae10-d7bc4d849fb4" Enabled="true" Name="鲶鱼精邮差扩展 v4.2.3" RawEnvironmentVariables="version = 4.2.2&#xD;&#xA;trigversion = 2.0.2.4" DisableRemoteToggle="True">
 <Folders>
 <Folder Id="f7b6f7f2-8adb-449b-a774-96c58632c822" Enabled="true" Name="core" DisableRemoteExpand="True" DisableRemoteToggle="True">
 <Folders>
@@ -1163,7 +1163,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${func:versioncompare(${env:trigversion}):${_pluginversion}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess" />
 </Condition>
 </Action>
-<Action OrderNumber="3" ActionType="ExecuteScript" Description="BridgeNamazu.InitializeModules()" DescriptionOverride="True" ExecScriptExpression="using System;&#xD;&#xA;using Triggernometry;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu.Modules;&#xD;&#xA;&#xD;&#xA;BridgeNamazu.InitializeModules(() =&gt; {&#xD;&#xA;    // 示例：Sideload（版本更新后可覆写偏移或扫描方法等）&#xD;&#xA;    // var module = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#xD;&#xA;    // module.PosOffset = () =&gt; BridgeNamazu.NamazuPlugin.IsCN ? 0x74 : 0x70;&#xD;&#xA;    // module.ScanMethod = () =&gt; { module.GetStatusIndexPtr = ModuleBase.Scanner.ScanText(&quot;xxx&quot;); };&#xD;&#xA;    // var mEnt = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#xD;&#xA;    // mEnt.IdOffset = () =&gt; 0x78;&#xD;&#xA;    // mEnt.PosOffset = () =&gt; 0xB0;&#xD;&#xA;    // mEnt.ScaleOffset = () =&gt; 0xC4;&#xD;&#xA;    // mEnt.ModelRelPosOffset = () =&gt; 0xE0;&#xD;&#xA;    // mEnt.ModelOffset = () =&gt; 0x100;&#xD;&#xA;    // mEnt.StatusLoopVfxOffset = () =&gt; 0x1C8;&#xD;&#xA;    // mEnt.OpacityOffset = () =&gt; 0x22E8;&#xD;&#xA;    // mEnt.ModelStatusOffset = () =&gt; 0x118;&#xD;&#xA;    // var mCam = BridgeNamazu.GetModule&lt;CameraModule&gt;();&#xD;&#xA;    // mCam.OffsetsCN = mCam.OffsetsGlobal;&#xD;&#xA;});" />
+<Action OrderNumber="3" ActionType="ExecuteScript" Description="BridgeNamazu.InitializeModules()" DescriptionOverride="True" ExecScriptExpression="using System;&#xD;&#xA;using Triggernometry;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu.Modules;&#xD;&#xA;&#xD;&#xA;BridgeNamazu.InitializeModules(() =&gt; {&#xD;&#xA;    // 示例：Sideload（版本更新后可覆写偏移或扫描方法等）&#xD;&#xA;    // var module = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#xD;&#xA;    // module.PosOffset = () =&gt; BridgeNamazu.NamazuPlugin.IsCN ? 0x74 : 0x70;&#xD;&#xA;    // module.ScanMethod = () =&gt; { module.GetStatusIndexPtr = ModuleBase.Scanner.ScanText(&quot;xxx&quot;); };&#xD;&#xA;    var mEnt = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#xD;&#xA;    mEnt.IdOffset = () =&gt; 0x78;&#xD;&#xA;    mEnt.PosOffset = () =&gt; 0xB0;&#xD;&#xA;    mEnt.ScaleOffset = () =&gt; 0xC4;&#xD;&#xA;    mEnt.ModelRelPosOffset = () =&gt; 0xE0;&#xD;&#xA;    mEnt.ModelOffset = () =&gt; 0x100;&#xD;&#xA;    mEnt.StatusLoopVfxOffset = () =&gt; 0x1C8;&#xD;&#xA;    mEnt.OpacityOffset = () =&gt; 0x22D8;&#xD;&#xA;    mEnt.ModelStatusOffset = () =&gt; 0x118;&#xD;&#xA;    var mCam = BridgeNamazu.GetModule&lt;CameraModule&gt;();&#xD;&#xA;    mCam.OffsetsCN = mCam.OffsetsGlobal;&#xD;&#xA;});" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${ecallback:hint}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
@@ -1375,23 +1375,6 @@
 <Trigger Enabled="true" Id="6b990054-24e0-4896-9f84-9782fe1edc1d" Name="测试：重绘全部实体" RegularExpression="^.{15}\S+ 00:0038::(?i)fix$">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="InvokeOnMultipleEntities" NamedCallbackParam="!0&#xD;&#xA;Redraw, _address" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="8c5d0424-3c23-4d8b-ad7c-f6642f6b8487" Name="Opacity" RegularExpression="^.{15}\S+ 00:0038::(?i) *opacity +(?&lt;opacity&gt;.+)$">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableName="tmp_address" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${_entity[${_me.targetid}].Exist}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="SetOpacity" NamedCallbackParam="${v:tmp_address}, ${n:${opacity}}" />
-<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="tmp_address" />
 </Actions>
 </Trigger>
 </Triggers>
