@@ -343,7 +343,7 @@
 </Folder>
 <Folder Id="6364c12b-83b6-4bd2-b572-e094ca101527" Enabled="true" Name="M9-12s">
 <Folders>
-<Folder Id="1beff67e-f514-43b2-a4f9-d4e9682d9b10" Enabled="true" Name="M11s v1.0.1" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1325$" RawEnvironmentVariables="zone = 1325&#xD;&#xA;CactbotTriggerSetName = AacHeavyweightM3Savage, SoumaM11s, SoumaAacHeavyweightM3Savage&#xD;&#xA;OssFolder = MBs">
+<Folder Id="1beff67e-f514-43b2-a4f9-d4e9682d9b10" Enabled="true" Name="M11s v1.0.0" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1325$" RawEnvironmentVariables="zone = 1325&#xD;&#xA;CactbotTriggerSetName = AacHeavyweightM3Savage, SoumaM11s, SoumaAacHeavyweightM3Savage&#xD;&#xA;OssFolder = MBs">
 <Folders>
 <Folder Id="e4876137-57ec-4925-93d0-23645de387de" Enabled="true" Name="杂项">
 <Folders>
@@ -474,11 +474,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${v:MBs_死刑_n}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="8" ActionType="NamedCallback" ExecutionDelayExpression="4500" DescTextColor="26f" NamedCallbackName="InvokeOnMultipleEntities" NamedCallbackParam="Type = 1 &amp;&amp; !IsT &amp;&amp; HP &gt; 0&#xD;&#xA;LockOn, _address, target_ae_s5f&#xD;&#xA;">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:MBs_死刑_bT分摊}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
+<Action OrderNumber="8" ActionType="NamedCallback" ExecutionDelayExpression="4500" DescTextColor="26f" NamedCallbackName="InvokeOnMultipleEntities" NamedCallbackParam="Type = 1 &amp;&amp; !IsT &amp;&amp; HP &gt; 0&#xD;&#xA;LockOn, _address, target_ae_s5f&#xD;&#xA;" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="7a7ceeb9-6c1c-491c-88f9-fb05d79a4853" Name="时间轴" RegularExpression="^.{15}\S+ 104:.:1:.:1">
@@ -1394,9 +1390,9 @@
 <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:37.8:AoE" LogProcess="True" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="cca3b62a-cd24-47e5-86e4-3c5bb51ad580" Name="2. 八方水波" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B5DD|B5E0):">
+<Trigger Enabled="true" Id="cca3b62a-cd24-47e5-86e4-3c5bb51ad580" Name="八方水波" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B5DD|B5E0):">
 <Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${if: 0x${aid} = 0xB5DD ? 然后穿 : 然后不动 }" />
+<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${if: 0x${aid} = 0xB5DD ? ${if: ${_me.isT} ? TLB : 然后穿 } : 然后不动 }" />
 <Action OrderNumber="2" ActionType="UseTTS" ExecutionDelayExpression="5000" UseTTSTextExpression="${if: 0x${aid} = 0xB5DD ? 穿 : 不动 }，然后两人火分摊" />
 <Action OrderNumber="3" ActionType="UseTTS" ExecutionDelayExpression="2500" UseTTSTextExpression="南北分摊" />
 </Actions>
@@ -1404,50 +1400,17 @@
 <ConditionSingle Enabled="true" ExpressionL="${v:MAs_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="01386c44-fd02-4351-957e-0fef7346aa99" Name="水球分摊" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:B5D4:">
+<Trigger Enabled="true" Id="acbb48af-3d28-43a1-a9cd-f26818c6b463" Name="* 2 8 1 4 本体水球 svfx 临时" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;[^:]+):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:(?&lt;stack&gt;3E[DEF]|3F0):">
 <Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="分摊" />
-<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="33000" />
-<Action OrderNumber="3" ActionType="Placeholder" Description="活着的；优先找治疗，没有治疗的话找最远的" DescriptionOverride="True" />
-<Action OrderNumber="4" ActionType="TableVariable" Asynchronous="False" TableVariableOp="GetAllEntities" TableVariableName="tmp_players" TableVariableX="ID, Role, Distance, X, Address" TableVariableY="IsPlayer &amp;&amp; HP &gt; 0" />
-<Action OrderNumber="5" ActionType="TableVariable" Asynchronous="False" TableVariableOp="RemoveLine" TableVariableName="tmp_players" TableVariableY="1" />
-<Action OrderNumber="6" ActionType="TableVariable" Asynchronous="False" TableVariableOp="SortLine" TableVariableName="tmp_players" TableVariableY="n-: ${_row[2]} == Healer, n-: ${_row[3]}" />
-<Action OrderNumber="7" ActionType="TableVariable" Asynchronous="False" TableVariableOp="FilterLine" TableVariableName="tmp_players" TableVariableTarget="tmp_players_L" TableVariableY="${_row[4]} &lt; 100" />
-<Action OrderNumber="8" ActionType="TableVariable" Asynchronous="False" TableVariableOp="FilterLine" TableVariableName="tmp_players" TableVariableTarget="tmp_players_R" TableVariableY="${_row[4]} &gt; 100" />
-<Action OrderNumber="9" ActionType="NamedCallback" Asynchronous="False" DescTextColor="26f" NamedCallbackName="LockOn" NamedCallbackParam="${t:tmp_players_L[5][1]}, com_share_5_5s_c0c">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${t:tmp_players_L.height}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreater" />
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="MAs_本体水球_type" VariableExpression="${?l: 2, 8, 1, 4 [${n: 0x${stack} - 0x3EC}]}" />
+<Action OrderNumber="2" Enabled="False" ActionType="UseTTS" UseTTSTextExpression="${?d: &#xD;&#xA;  1 = 储存分摊,&#xD;&#xA;  2 = 储存分摊,&#xD;&#xA;  4 = 储存分散,&#xD;&#xA;  8 = 储存分散&#xD;&#xA;  [${v:MAs_本体水球_type}]&#xD;&#xA;}" />
+<Action OrderNumber="3" Enabled="False" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 储存 ${v:MAs_本体水球_type} &lt;se.10&gt;" />
+<Action OrderNumber="4" ActionType="UseTTS" ExecutionDelayExpression="8000" UseTTSTextExpression="${?d: &#xD;&#xA;  1 = 分摊,&#xD;&#xA;  2 = 分摊,&#xD;&#xA;  4 = 分散,&#xD;&#xA;  8 = 分散&#xD;&#xA;  [${v:MAs_本体水球_type}]&#xD;&#xA;}" />
+</Actions>
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${v:MAs_phase}" ExpressionTypeL="String" ExpressionR="P1" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+<ConditionSingle Enabled="true" ExpressionL="${v:MAs_phase}" ExpressionTypeL="String" ExpressionR="P2" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
 </Condition>
-</Action>
-<Action OrderNumber="10" ActionType="NamedCallback" Asynchronous="False" DescTextColor="26f" NamedCallbackName="LockOn" NamedCallbackParam="${t:tmp_players_R[5][1]}, com_share_5_5s_c0c">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${t:tmp_players_R.height}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreater" />
-</Condition>
-</Action>
-<Action OrderNumber="11" ActionType="TableVariable" Asynchronous="False" TableVariableName="tmp_players" />
-<Action OrderNumber="12" ActionType="TableVariable" Asynchronous="False" TableVariableName="tmp_players_L" />
-<Action OrderNumber="13" ActionType="TableVariable" Asynchronous="False" TableVariableName="tmp_players_R" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="33b9617f-4398-4951-8aa4-d2a803220376" Name="1. 深蓝跳到一侧" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B579):.{8}:[^:]*:(?&lt;x&gt;(87.9|88.0|111.9|112.0)[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="MAs_P4_b蓝右" VariableExpression="${x} &gt; 100" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="MAs_P4_b蓝同侧" VariableExpression="(${x} &gt; 100) = ${!v:MAs_P4_b蓝右}" />
-<Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="深蓝在${if: ${!v:MAs_P4_b蓝同侧} ? 同侧 : 对侧 }，八方" />
-<Action OrderNumber="4" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="MAs_P4_八方线:D:-139.64°" LogProcess="True" />
-<Action OrderNumber="5" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="MAs_P4_八方线:T:-99.54°" LogProcess="True" />
-<Action OrderNumber="6" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="MAs_P4_八方线:D:-80.46°" LogProcess="True" />
-<Action OrderNumber="7" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="MAs_P4_八方线:H:-40.36°" LogProcess="True" />
-<Action OrderNumber="8" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="MAs_P4_八方线:H:0°" LogProcess="True" />
-<Action OrderNumber="9" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="MAs_P4_八方线:D:60°" LogProcess="True" />
-<Action OrderNumber="10" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="MAs_P4_八方线:T:120°" LogProcess="True" />
-<Action OrderNumber="11" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="MAs_P4_八方线:D:180°" LogProcess="True" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="bee57e31-8c9a-4e3c-9b62-eb039957cdac" Name="[F] P4 八方线" RegularExpression="^MAs_P4_八方线:(?&lt;role&gt;[THD]):(?&lt;θ&gt;[^:]*)">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: m131om_setu0f&#xD;&#xA;Tag: MAs_P4_八方&#xD;&#xA;t:  8&#xD;&#xA;+X: ${!v:MAs_P4_b蓝右}&#xD;&#xA;O: 100, 100&#xD;&#xA;Pos: 12, 0&#xD;&#xA;Angle: ${θ}&#xD;&#xA;Scale: 0.1, 35, 0.1&#xD;&#xA;Color: ${?d: &#xD;&#xA;  &quot;T = 0.3, 1, 3, 0.5&quot;,&#xD;&#xA;  &quot;H = 0, 1.5, 0.2, 0.5&quot;,&#xD;&#xA;  &quot;D = 1.5, 0.3, 0.2, 0.5&quot;&#xD;&#xA;  [${role}]&#xD;&#xA;}" />
-</Actions>
 </Trigger>
 </Triggers>
 </Folder>
