@@ -1083,21 +1083,11 @@
                   <Trigger Enabled="true" Id="02d51f0a-0dfb-4834-b754-32621262298f" Name="水波 分裂" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B5E1):.{8}:[^:]*:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]+)">
                     <Actions>
                       <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan15&#13;&#10;Tag: MAs_水波_分裂&#13;&#10;t: 2.5&#13;&#10;Pos: ${_entity[${sid}].xy}&#13;&#10;Angle: ${h} + 22.5°&#13;&#10;Scale: 60, 60, 1&#13;&#10;---&#13;&#10;Omen: Fan15&#13;&#10;Tag: MAs_水波_分裂&#13;&#10;t: 2.5&#13;&#10;Pos: ${_entity[${sid}].xy}&#13;&#10;Angle: ${h} - 22.5°&#13;&#10;Scale: 60, 60, 1"/>
-                      <Action OrderNumber="2" Enabled="False" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;Omen: Fan15&#13;&#10;Tag: MAs_水波_分裂&#13;&#10;t: 2.5&#13;&#10;Pos: ${_entity[${sid}].xy}&#13;&#10;Angle: ${h} + 22.5°&#13;&#10;Scale: 60, 60, 1">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="0x${sid}%8" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="4accb6d3-6208-4258-bee2-51e021fb1d5c" Name="水波 原位" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B5DE):.{8}:[^:]*:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]+)">
                     <Actions>
                       <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan30&#13;&#10;Tag: MAs_水波_原位&#13;&#10;t: 2.5&#13;&#10;Pos: ${_entity[${sid}].xy}&#13;&#10;Angle: ${h}&#13;&#10;Scale: 60, 60, 1"/>
-                      <Action OrderNumber="2" Enabled="False" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e &#13;&#10;Omen: Fan30&#13;&#10;Tag: MAs_水波_原位&#13;&#10;t: 2.5&#13;&#10;Pos: ${_entity[${sid}].xy}&#13;&#10;Angle: ${h}&#13;&#10;Scale: 60, 60, 1">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="0x${sid}%8" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
-                        </Condition>
-                      </Action>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="b3dc9eaf-6db8-4439-8f86-e182d4618db3" Name="[F] 水分散追踪特效" RegularExpression="^MAs_水分散:(?&lt;id&gt;.{8}):(?&lt;t&gt;[^:]+)" Sequential="True">
@@ -1110,6 +1100,23 @@
                         <LoopActions>
                           <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Change&#13;&#10;Tag: MAs_水分散_${id}&#13;&#10;Pos: ${_entity[${id}].XY}, 0"/>
                         </LoopActions>
+                      </Action>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="false" Id="7c7b8e5a-3955-4127-b7a9-48638dc9e5d6" Name="滑水分散辅助线" RegularExpression="^.{15}\S+ 101:[^:]*:(?&lt;type&gt;0002|0200).{4}:(?&lt;pos&gt;0[EF]|1[0-6])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="0002 水分散，0200 火分散；pos：左上开始横向递增" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Variable" VariableOp="SetNumeric" VariableName="dx_${pos}" VariableExpression="((0x${pos} - 0x0E) % 3 - 1) * 13"/>
+                      <Action OrderNumber="3" ActionType="Variable" VariableOp="SetNumeric" VariableName="dy_${pos}" VariableExpression="((0x${pos} - 0x0E) // 3 - 1) * 13"/>
+                      <Action OrderNumber="4" ActionType="Variable" VariableOp="SetNumeric" VariableName="θ_${pos}" VariableExpression="0x${type} = 0x2 ? π/2 : -π/2">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:dx_${pos}} = 0 &amp;&amp; ${v:dy_${pos}} = 0" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="5" ActionType="Variable" VariableOp="SetNumeric" VariableName="θ_${pos}">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:dx_${pos}} = 0 &amp;&amp; ${v:dy_${pos}} = 0" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
                       </Action>
                     </Actions>
                   </Trigger>
@@ -1579,7 +1586,7 @@
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder Id="bcf81400-c8e3-4858-9e93-281fdf9060da" Enabled="true" Name="M09s v1.0.1" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1321$" RawEnvironmentVariables="zone = 1321&#13;&#10;CactbotTriggerSetName = AacHeavyweightM1Savage, SoumaM9s, SoumaAacHeavyweightM1Savage&#13;&#10;OssFolder = M9s">
+          <Folder Id="bcf81400-c8e3-4858-9e93-281fdf9060da" Enabled="true" Name="M09s v1.0.2" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1321$" RawEnvironmentVariables="zone = 1321&#13;&#10;CactbotTriggerSetName = AacHeavyweightM1Savage, SoumaM9s, SoumaAacHeavyweightM1Savage&#13;&#10;OssFolder = M9s">
             <Folders>
               <Folder Id="cee33954-9db1-4e0c-9962-164e91fc1b98" Enabled="true" Name="杂项">
                 <Triggers>
@@ -2074,7 +2081,7 @@
                   </Trigger>
                   <Trigger Enabled="true" Id="a8352c2a-ecf6-488c-8027-af3bc8baa0b3" Name="蝙蝠方向" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B3A4):" PeriodRefire="Deny" RefirePeriodExpression="40000">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="NamedCallback" DescTextColor="26f" NamedCallbackName="InvokeOnMultipleEntities" NamedCallbackParam="BNpcId = 19503&#13;&#10;SetStatusLoopVfx, _address, 364"/>
+                      <Action OrderNumber="1" Enabled="False" ActionType="NamedCallback" DescTextColor="26f" NamedCallbackName="InvokeOnMultipleEntities" NamedCallbackParam="BNpcId = 19503&#13;&#10;SetStatusLoopVfx, _address, 364"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -3884,7 +3891,7 @@
       </Folder>
     </Folders>
     <Triggers>
-      <Trigger Enabled="false" Id="594bb2b9-df6a-4b42-97bb-561457849c5d" Name="【使用说明】 必读 点开看" Source="None">
+      <Trigger Enabled="false" Id="594bb2b9-df6a-4b42-97bb-561457849c5d" Name="_" RegularExpression="【使用说明】 必读 点开看" Source="None">
         <Actions>
           <Action OrderNumber="1" ActionType="Placeholder" Description="【本说明当前只是复制自 M5-8s 的模板】" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True"/>
           <Action OrderNumber="2" ActionType="Placeholder" Description="·前置&#13;&#10;" DescBgColor="346" DescTextColor="fff" DescriptionOverride="True"/>
