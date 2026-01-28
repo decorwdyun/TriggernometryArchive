@@ -513,15 +513,6 @@
                       <Action OrderNumber="24" ActionType="LogMessage" LogMessageText="tts:651.9:狂暴" LogProcess="True"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="b82880cf-915f-4379-b495-2ad82b681366" Name="清除星轨链直条特效" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B433):">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="400" DescTextColor="26f" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${_entity[${sid}].Exist}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                    </Actions>
-                  </Trigger>
                   <Trigger Enabled="true" Id="8a11d480-7f7a-45a0-9b07-f454a99a3103" Name="清除陨石黄圈特效" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B413|B441|B455):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="NamedCallback" DescTextColor="26f" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}">
@@ -530,6 +521,15 @@
                         </Condition>
                       </Action>
                       <Action OrderNumber="2" ActionType="NamedCallback" ExecutionDelayExpression="100" DescTextColor="26f" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${_entity[${sid}].Exist}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="b82880cf-915f-4379-b495-2ad82b681366" Name="清除星轨链直条特效" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B433):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="400" DescTextColor="26f" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${_entity[${sid}].Exist}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
@@ -1039,7 +1039,7 @@
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder Id="695eb375-2f3b-4b28-802c-40d1634132cf" Enabled="true" Name="M10s v0.5.0" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1323$" RawEnvironmentVariables="zone = 1323&#13;&#10;CactbotTriggerSetName = AacHeavyweightM2Savage, SoumaM10s, SoumaAacHeavyweightM2Savage&#13;&#10;OssFolder = MAs">
+          <Folder Id="695eb375-2f3b-4b28-802c-40d1634132cf" Enabled="true" Name="M10s v0.5.1" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1323$" RawEnvironmentVariables="zone = 1323&#13;&#10;CactbotTriggerSetName = AacHeavyweightM2Savage, SoumaM10s, SoumaAacHeavyweightM2Savage&#13;&#10;OssFolder = MAs">
             <Folders>
               <Folder Id="9a2eacb0-53d8-44d6-85f0-cb951617b8f1" Enabled="true" Name="杂项">
                 <Triggers>
@@ -1100,23 +1100,6 @@
                         <LoopActions>
                           <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Change&#13;&#10;Tag: MAs_水分散_${id}&#13;&#10;Pos: ${_entity[${id}].XY}, 0"/>
                         </LoopActions>
-                      </Action>
-                    </Actions>
-                  </Trigger>
-                  <Trigger Enabled="false" Id="7c7b8e5a-3955-4127-b7a9-48638dc9e5d6" Name="滑水分散辅助线" RegularExpression="^.{15}\S+ 101:[^:]*:(?&lt;type&gt;0002|0200).{4}:(?&lt;pos&gt;0[EF]|1[0-6])">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="Placeholder" Description="0002 水分散，0200 火分散；pos：左上开始横向递增" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" ActionType="Variable" VariableOp="SetNumeric" VariableName="dx_${pos}" VariableExpression="((0x${pos} - 0x0E) % 3 - 1) * 13"/>
-                      <Action OrderNumber="3" ActionType="Variable" VariableOp="SetNumeric" VariableName="dy_${pos}" VariableExpression="((0x${pos} - 0x0E) // 3 - 1) * 13"/>
-                      <Action OrderNumber="4" ActionType="Variable" VariableOp="SetNumeric" VariableName="θ_${pos}" VariableExpression="0x${type} = 0x2 ? π/2 : -π/2">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${v:dx_${pos}} = 0 &amp;&amp; ${v:dy_${pos}} = 0" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="5" ActionType="Variable" VariableOp="SetNumeric" VariableName="θ_${pos}">
-                        <Condition Enabled="true" Grouping="And">
-                          <ConditionSingle Enabled="true" ExpressionL="${v:dx_${pos}} = 0 &amp;&amp; ${v:dy_${pos}} = 0" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                        </Condition>
                       </Action>
                     </Actions>
                   </Trigger>
@@ -1390,7 +1373,7 @@
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
                       <Action OrderNumber="2" ActionType="Placeholder" Description="B578: 红   蓝必定在水平对称位置" DescriptionOverride="True"/>
-                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="MAs_水牢_b初始北" VariableExpression="${y} &gt; 100"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="MAs_水牢_b初始北" VariableExpression="${y} &lt; 100"/>
                       <Action OrderNumber="4" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: m131om_setu0f&#13;&#10;Tag: MAs_P3_水&#13;&#10;t: 51.6&#13;&#10;+Y: ${!v:MAs_水牢_b初始北}&#13;&#10;O: 100, 100&#13;&#10;Pos: -10, -15&#13;&#10;Angle: 0&#13;&#10;Scale: 0.15, 30, 0.1&#13;&#10;Color: 0.2, 1, 3, 0.5&#13;&#10;---&#13;&#10;Omen: m131om_setu0f&#13;&#10;Tag: MAs_P3_中&#13;&#10;t: 51.6&#13;&#10;O: 100, 100&#13;&#10;Pos: 0, -20&#13;&#10;Angle: 0&#13;&#10;Scale: 0.05, 40, 0.1&#13;&#10;Color: 1, 1, 0.5, 0.3&#13;&#10;---&#13;&#10;Omen: m131om_setu0f&#13;&#10;Tag: MAs_P3_火&#13;&#10;t: 51.6&#13;&#10;+Y: ${!v:MAs_水牢_b初始北}&#13;&#10;O: 100, 100&#13;&#10;Pos: 11.48, -11.48&#13;&#10;Angle: -π/8&#13;&#10;Scale: 0.15, 30, 0.1&#13;&#10;Color: 1.5, 0.3, 0.2, 0.5"/>
                     </Actions>
                     <Condition Enabled="true" Grouping="Or">
@@ -1409,16 +1392,19 @@
                   <Trigger Enabled="true" Id="b4b3a250-1eae-43ba-b1d8-6eed22ba277f" Name="时间轴" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:B5D4:">
                     <Actions>
                       <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="tts:7.4:贴边放火圈" LogProcess="True"/>
-                      <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:13.0:准备八方" LogProcess="True"/>
-                      <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:29.0:防击退" LogProcess="True"/>
-                      <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:37.8:AoE" LogProcess="True"/>
+                      <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="tts:22.2:去${if: ${v:myIdx} &lt;= 2 || ${v:myIdx} &gt;= 7 ? 北侧 : 南侧 }场边，二人火分摊" LogProcess="True"/>
+                      <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="cd5:26.7" LogProcess="True"/>
+                      <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:29.0:防击退" LogProcess="True"/>
+                      <Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:33.5:四人分摊" LogProcess="True"/>
+                      <Action OrderNumber="6" ActionType="LogMessage" LogMessageText="tts:37.8:AoE" LogProcess="True"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="cca3b62a-cd24-47e5-86e4-3c5bb51ad580" Name="2. 八方水波" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;aid&gt;B5DD|B5E0):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${if: 0x${aid} = 0xB5DD ? 然后穿 : 然后不动 }"/>
-                      <Action OrderNumber="2" ActionType="UseTTS" ExecutionDelayExpression="5000" UseTTSTextExpression="${if: 0x${aid} = 0xB5DD ? 穿 : 不动 }，然后两人火分摊"/>
-                      <Action OrderNumber="3" ActionType="UseTTS" ExecutionDelayExpression="2500" UseTTSTextExpression="南北分摊"/>
+                      <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="cd5:7.5" LogProcess="True"/>
+                      <Action OrderNumber="3" ActionType="UseTTS" ExecutionDelayExpression="5000" UseTTSTextExpression="${if: 0x${aid} = 0xB5DD ? 穿 : 不动 }"/>
+                      <Action OrderNumber="4" ActionType="UseTTS" ExecutionDelayExpression="2000" UseTTSTextExpression="去南北，两人分摊"/>
                     </Actions>
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${v:MAs_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
@@ -1426,34 +1412,33 @@
                   </Trigger>
                   <Trigger Enabled="true" Id="01386c44-fd02-4351-957e-0fef7346aa99" Name="水球分摊" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):[^:]*:B5D4:">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="分摊"/>
-                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="33000"/>
-                      <Action OrderNumber="3" ActionType="Placeholder" Description="活着的；优先找治疗，没有治疗的话找最远的" DescriptionOverride="True"/>
-                      <Action OrderNumber="4" ActionType="TableVariable" Asynchronous="False" TableVariableOp="GetAllEntities" TableVariableName="tmp_players" TableVariableX="ID, Role, Distance, X, Address" TableVariableY="IsPlayer &amp;&amp; HP &gt; 0"/>
-                      <Action OrderNumber="5" ActionType="TableVariable" Asynchronous="False" TableVariableOp="RemoveLine" TableVariableName="tmp_players" TableVariableY="1"/>
-                      <Action OrderNumber="6" ActionType="TableVariable" Asynchronous="False" TableVariableOp="SortLine" TableVariableName="tmp_players" TableVariableY="n-: ${_row[2]} == Healer, n-: ${_row[3]}"/>
-                      <Action OrderNumber="7" ActionType="TableVariable" Asynchronous="False" TableVariableOp="FilterLine" TableVariableName="tmp_players" TableVariableTarget="tmp_players_L" TableVariableY="${_row[4]} &lt; 100"/>
-                      <Action OrderNumber="8" ActionType="TableVariable" Asynchronous="False" TableVariableOp="FilterLine" TableVariableName="tmp_players" TableVariableTarget="tmp_players_R" TableVariableY="${_row[4]} &gt; 100"/>
-                      <Action OrderNumber="9" ActionType="NamedCallback" Asynchronous="False" DescTextColor="26f" NamedCallbackName="LockOn" NamedCallbackParam="${t:tmp_players_L[5][1]}, com_share_5_5s_c0c">
+                      <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="33000"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Description="活着的；优先找治疗，没有治疗的话找最远的" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" ActionType="TableVariable" Asynchronous="False" TableVariableOp="GetAllEntities" TableVariableName="tmp_players" TableVariableX="ID, Role, Distance, X, Address" TableVariableY="IsPlayer &amp;&amp; HP &gt; 0"/>
+                      <Action OrderNumber="4" ActionType="TableVariable" Asynchronous="False" TableVariableOp="RemoveLine" TableVariableName="tmp_players" TableVariableY="1"/>
+                      <Action OrderNumber="5" ActionType="TableVariable" Asynchronous="False" TableVariableOp="SortLine" TableVariableName="tmp_players" TableVariableY="n-: ${_row[2]} == Healer, n-: ${_row[3]}"/>
+                      <Action OrderNumber="6" ActionType="TableVariable" Asynchronous="False" TableVariableOp="FilterLine" TableVariableName="tmp_players" TableVariableTarget="tmp_players_L" TableVariableY="${_row[4]} &lt; 100"/>
+                      <Action OrderNumber="7" ActionType="TableVariable" Asynchronous="False" TableVariableOp="FilterLine" TableVariableName="tmp_players" TableVariableTarget="tmp_players_R" TableVariableY="${_row[4]} &gt; 100"/>
+                      <Action OrderNumber="8" ActionType="NamedCallback" Asynchronous="False" DescTextColor="26f" NamedCallbackName="LockOn" NamedCallbackParam="${t:tmp_players_L[5][1]}, com_share_5_5s_c0c">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${t:tmp_players_L.height}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreater"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="10" ActionType="NamedCallback" Asynchronous="False" DescTextColor="26f" NamedCallbackName="LockOn" NamedCallbackParam="${t:tmp_players_R[5][1]}, com_share_5_5s_c0c">
+                      <Action OrderNumber="9" ActionType="NamedCallback" Asynchronous="False" DescTextColor="26f" NamedCallbackName="LockOn" NamedCallbackParam="${t:tmp_players_R[5][1]}, com_share_5_5s_c0c">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${t:tmp_players_R.height}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreater"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="11" ActionType="TableVariable" Asynchronous="False" TableVariableName="tmp_players"/>
-                      <Action OrderNumber="12" ActionType="TableVariable" Asynchronous="False" TableVariableName="tmp_players_L"/>
-                      <Action OrderNumber="13" ActionType="TableVariable" Asynchronous="False" TableVariableName="tmp_players_R"/>
+                      <Action OrderNumber="10" ActionType="TableVariable" Asynchronous="False" TableVariableName="tmp_players"/>
+                      <Action OrderNumber="11" ActionType="TableVariable" Asynchronous="False" TableVariableName="tmp_players_L"/>
+                      <Action OrderNumber="12" ActionType="TableVariable" Asynchronous="False" TableVariableName="tmp_players_R"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="33b9617f-4398-4951-8aa4-d2a803220376" Name="1. 深蓝跳到一侧" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B579):.{8}:[^:]*:(?&lt;x&gt;(87.9|88.0|111.9|112.0)[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="MAs_P4_b蓝右" VariableExpression="${x} &gt; 100"/>
                       <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="MAs_P4_b蓝同侧" VariableExpression="(${_me.x} &gt; 100) = ${!v:MAs_P4_b蓝右}"/>
-                      <Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="深蓝在${if: ${!v:MAs_P4_b蓝同侧} ? 同侧 : 对侧 }，八方"/>
+                      <Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="${if: ${!v:MAs_P4_b蓝同侧} ? 同侧 : 对侧 }八方"/>
                       <Action OrderNumber="4" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="MAs_P4_八方线:D:-139.64°" LogProcess="True"/>
                       <Action OrderNumber="5" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="MAs_P4_八方线:T:-99.54°" LogProcess="True"/>
                       <Action OrderNumber="6" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="MAs_P4_八方线:D:-80.46°" LogProcess="True"/>
@@ -1526,7 +1511,7 @@
                       <Trigger Enabled="false" Id="2c6945b4-0b49-43a4-bb05-4c9eff6aecaf" Name="Debug Log 2026-01-08 05:07" Source="None">
                         <Actions>
                           <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[02:55:33.000] StatusAdd 1A:12DC:_rsv_4828_-1_4_0_0_S74CFC3B0_E74CFC3B0:51.00:E0000000::${_me.id}:me:00:295377:" LogProcess="True" LogProcessACT="True"/>
-                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="2.44 * 1000"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="500"/>
                           <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[02:55:35.438] 257 101:800375CD:00200010:0F::" LogProcess="True" LogProcessACT="True"/>
                           <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="[02:55:35.438] 257 101:800375CD:08000400:15::" LogProcess="True" LogProcessACT="True"/>
                           <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="4000"/>
@@ -1570,6 +1555,30 @@
                       <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="tts:95.9:AoE" LogProcess="True"/>
                       <Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:105.0:AoE" LogProcess="True"/>
                       <Action OrderNumber="6" ActionType="LogMessage" LogMessageText="tts:115.0:狂暴" LogProcess="True"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="7709bd79-f6a6-49a9-905d-0465334eeb9e" Enabled="true" Name="滑水">
+                <Triggers>
+                  <Trigger Enabled="true" Id="7c7b8e5a-3955-4127-b7a9-48638dc9e5d6" Name="分散辅助线（中心）" RegularExpression="^.{15}\S+ 101:[^:]*:(?&lt;type&gt;0002|0200).{4}:(?&lt;pos&gt;12)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="0002 水分散，0200 火分散；pos：左上开始横向递增" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="θ_${pos}" VariableExpression="0x${type} = 0x2 ? π/2 : -π/2"/>
+                      <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: m131om_setu0f&#13;&#10;Tag: MAs_滑水分散线&#13;&#10;delay: 0.01&#13;&#10;t:  12&#13;&#10;O: 100, 100&#13;&#10;θ: ${!v:θ_${pos}} + π&#13;&#10;Angle: -70°&#13;&#10;Scale: 0.07, 21, 0.1&#13;&#10;Color: 0.3, 1, 3, 0.5&#13;&#10;---&#13;&#10;Omen: m131om_setu0f&#13;&#10;Tag: MAs_滑水分散线&#13;&#10;delay: 0.01&#13;&#10;t:  12&#13;&#10;O: 100, 100&#13;&#10;θ: ${!v:θ_${pos}} + π&#13;&#10;Angle: -20°&#13;&#10;Scale: 0.07, 22, 0.1&#13;&#10;Color: 0, 1.5, 0.2, 0.5&#13;&#10;---&#13;&#10;Omen: m131om_setu0f&#13;&#10;Tag: MAs_滑水分散线&#13;&#10;delay: 0.01&#13;&#10;t:  12&#13;&#10;O: 100, 100&#13;&#10;θ: ${!v:θ_${pos}} + π&#13;&#10;Angle: 20°&#13;&#10;Scale: 0.07, 22, 0.1&#13;&#10;Color: 2, 0.2, 0.2, 0.5&#13;&#10;---&#13;&#10;Omen: m131om_setu0f&#13;&#10;Tag: MAs_滑水分散线&#13;&#10;delay: 0.01&#13;&#10;t:  12&#13;&#10;O: 100, 100&#13;&#10;θ: ${!v:θ_${pos}} + π&#13;&#10;Angle: 70°&#13;&#10;Scale: 0.07, 21, 0.1&#13;&#10;Color: 2, 0.2, 0.2, 0.5"/>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="θ_${pos}"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="9376dc9a-9c7a-4cd7-83e6-cd88e83cbda8" Name="分散辅助线（角落）" RegularExpression="^.{15}\S+ 101:[^:]*:(?&lt;type&gt;0002|0200).{4}:(?&lt;pos&gt;0[EF]|1[013456])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="0002 水分散，0200 火分散；pos：左上开始横向递增" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="dx_${pos}" VariableExpression="((0x${pos} - 0x0E) % 3 - 1) * 13"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="dy_${pos}" VariableExpression="((0x${pos} - 0x0E) // 3 - 1) * 13"/>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="θ_${pos}" VariableExpression="θ(0, 0, ${!v:dx_${pos}}, ${!v:dy_${pos}})"/>
+                      <Action OrderNumber="5" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: m131om_setu0f&#13;&#10;Tag: MAs_滑水分散线&#13;&#10;delay: 0.01&#13;&#10;t:  12&#13;&#10;O: 100 + ${!v:dx_${pos}}, 100 + ${!v:dy_${pos}}&#13;&#10;θ: ${!v:θ_${pos}} + π&#13;&#10;Angle: -60°&#13;&#10;Scale: 0.07, 9, 0.1&#13;&#10;Color: 0.3, 1, 3, 0.5&#13;&#10;---&#13;&#10;Omen: m131om_setu0f&#13;&#10;Tag: MAs_滑水分散线&#13;&#10;delay: 0.01&#13;&#10;t:  12&#13;&#10;O: 100 + ${!v:dx_${pos}}, 100 + ${!v:dy_${pos}}&#13;&#10;θ: ${!v:θ_${pos}} + π&#13;&#10;Angle: -20°&#13;&#10;Scale: 0.07, 9, 0.1&#13;&#10;Color: 0, 1.5, 0.2, 0.5&#13;&#10;---&#13;&#10;Omen: m131om_setu0f&#13;&#10;Tag: MAs_滑水分散线&#13;&#10;delay: 0.01&#13;&#10;t:  12&#13;&#10;O: 100 + ${!v:dx_${pos}}, 100 + ${!v:dy_${pos}}&#13;&#10;θ: ${!v:θ_${pos}} + π&#13;&#10;Angle: 20°&#13;&#10;Scale: 0.07, 9, 0.1&#13;&#10;Color: 2, 0.2, 0.2, 0.5&#13;&#10;---&#13;&#10;Omen: m131om_setu0f&#13;&#10;Tag: MAs_滑水分散线&#13;&#10;t:  12&#13;&#10;O: 100 + ${!v:dx_${pos}}, 100 + ${!v:dy_${pos}}&#13;&#10;θ: ${!v:θ_${pos}} + π&#13;&#10;Angle: 60°&#13;&#10;Scale: 0.07, 9, 0.1&#13;&#10;Color: 2, 0.2, 0.2, 0.5"/>
+                      <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableName="dx_${pos}"/>
+                      <Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableName="dy_${pos}"/>
+                      <Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableName="θ_${pos}"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
