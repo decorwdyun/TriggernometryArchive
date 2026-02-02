@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="2.0.4.0">
+<TriggernometryExport PluginVersion="2.0.3.1">
 <ExportedFolder Id="e1e1fa1c-6045-4fd7-ba05-59607effe15e" Enabled="true" Name="7.4 M9-12 阿卡狄亚重量级" RawEnvironmentVariables="prefix = S7c">
 <Folders>
 <Folder Id="1ca93e8f-76df-41ba-819a-40eba8b581dc" Enabled="true" Name=".总体控制">
@@ -2156,7 +2156,7 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="00c80112-d095-443f-9db8-ee5be630a507" Enabled="true" Name="M12s v1.1.1" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1327$" RawEnvironmentVariables="zone = 1327&#xD;&#xA;CactbotTriggerSetName = AacHeavyweightM4Savage, SoumaM12s, SoumaAacHeavyweightM4Savage&#xD;&#xA;OssFolder = MCs">
+<Folder Id="00c80112-d095-443f-9db8-ee5be630a507" Enabled="true" Name="M12s v1.1.0" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1327$" RawEnvironmentVariables="zone = 1327&#xD;&#xA;CactbotTriggerSetName = AacHeavyweightM4Savage, SoumaM12s, SoumaAacHeavyweightM4Savage&#xD;&#xA;OssFolder = MCs">
 <Folders>
 <Folder Id="e323fdc7-5fe2-42c1-8b7a-7a950f7c4490" Enabled="true" Name="杂项">
 <Folders>
@@ -2984,6 +2984,59 @@
 <Action OrderNumber="2" ActionType="DictVariable" ExecutionDelayExpression="1000" DictVariableOp="Set" DictVariableName="MCs_三运_实体type" DictVariableKey="${id}" DictVariableValue="${?d: 19206=蓝球, 19207=绿环, 19208=紫竖, 19209=橙横 [${bnpcid}]}" />
 </Actions>
 </Trigger>
+<Trigger Enabled="true" Id="e3404812-90cf-425a-9b27-73990e520393" Name="2. 获取 αβ debuff" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;12A[13]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):" Sequential="True">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Variable" VariableOp="SetNumeric" VariableName="MCs_三运_bβ" VariableExpression="0x${aid} = 0x12A3" />
+<Action OrderNumber="3" ActionType="UseTTS" SystemBeepFreqExpression="" SystemBeepLengthExpression="" UseTTSTextExpression="${if: ${v:myIdx} &lt;= 2 ? ${if: ${v:MCs_三运_bβ} ? 挑衅 : 退避 } : &quot;&quot; }，点名${if: ${v:MCs_三运_bβ} ? β组，准备撞球 : α组闲人 }" />
+<Action OrderNumber="4" ActionType="UseTTS" ExecutionDelayExpression="16000" SystemBeepFreqExpression="" SystemBeepLengthExpression="" UseTTSTextExpression="${if: ${v:myIdx} &lt;= 2 ? ${if: ${v:MCs_三运_bβ} ? 退避 : 挑衅 } : &quot;&quot; }" />
+</Actions>
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${ev:MCs_三运_bβ}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${v:MCs_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="e8be2fa3-2735-408c-a71d-e418963cdd80" Name="3. 实体设置位置 =&gt; 4" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B4FD):.{8}:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="记录左右两侧每种实体方向" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_type" VariableExpression="${!d:MCs_三运_实体type[${sid}]}" />
+<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b左" VariableExpression="${x} &lt; 100" />
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_dirN4" VariableExpression="roundvec(${x} - (${v:tmp_b左} ? 90 : 110), ${y} - 100, -4)" />
+<Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="MCs_三运_${if: ${v:tmp_b左} ? 左 : 右 }type至dirN4" DictVariableKey="${v:tmp_type}" DictVariableValue="${v:tmp_dirN4}" />
+<Action OrderNumber="6" ActionType="Placeholder" Description="如果是近的，记录哪种近" DescriptionOverride="True" />
+<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b近" VariableExpression="abs(${y} - 100) &lt; 6" />
+<Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="MCs_三运_b球近" VariableExpression="${v:tmp_type} == 蓝球">
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_type} == 蓝球 || ${v:tmp_type} == 绿环" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b近}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="MCs_三运_b左近" VariableExpression="${v:tmp_b左}">
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_type} == 蓝球 || ${v:tmp_type} == 绿环" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b近}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="10" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="MCs_三运_b横近" VariableExpression="${v:tmp_type} == 橙横">
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_type} == 紫竖 || ${v:tmp_type} == 橙横" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b近}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="11" ActionType="Placeholder" DescriptionOverride="True" />
+<Action OrderNumber="12" ActionType="LogMessage" Asynchronous="False" LogMessageText="_MCs_三运:bβ:${!v:MCs_三运_bβ}:b左近:${!v:MCs_三运_b左近}:b球近:${!v:MCs_三运_b球近}:b横近:${!v:MCs_三运_b横近}" LogProcess="True" LogProcessACT="True">
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${d:MCs_三运_左type至dirN4.size}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${d:MCs_三运_右type至dirN4.size}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="13" ActionType="Variable" Asynchronous="False" VariableName="tmp_type" />
+<Action OrderNumber="14" ActionType="Variable" Asynchronous="False" VariableName="tmp_b左" />
+<Action OrderNumber="15" ActionType="Variable" Asynchronous="False" VariableName="tmp_dirN4" />
+<Action OrderNumber="16" ActionType="Variable" Asynchronous="False" VariableName="tmp_b近" />
+</Actions>
+</Trigger>
 <Trigger Enabled="false" Id="dec6afc8-6a90-438d-91f3-55bfb3c2df9a" Name="Debug Log 2026-01-13 07:29" Source="None">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[18:04:35.664] StartsCasting 14:400212F2:林德布鲁姆:B505:_rsv_46341:400212F2:林德布鲁姆:2.700:99.99:99.99:0.00:-1.19" LogProcess="True" LogProcessACT="True" />
@@ -3041,59 +3094,6 @@
 <Action OrderNumber="2" ActionType="Placeholder" Description="这里 bβ 是相反的" DescriptionOverride="True" />
 <Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="${if: ${!v:MCs_三运_bβ} = (0x${aid} = 0xB52B) ? 远离 : 去脚下 }${if: ${!v:MCs_三运_bβ} ? 躲避 : 引导分摊 }" />
 </Actions>
-</Trigger>
-<Trigger Enabled="true" Id="e8be2fa3-2735-408c-a71d-e418963cdd80" Name="3. 实体设置位置 =&gt; 4" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B4FD):.{8}:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="记录左右两侧每种实体方向" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_type" VariableExpression="${!d:MCs_三运_实体type[${sid}]}" />
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b左" VariableExpression="${x} &lt; 100" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_dirN4" VariableExpression="roundvec(${x} - (${v:tmp_b左} ? 90 : 110), ${y} - 100, -4)" />
-<Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="MCs_三运_${if: ${v:tmp_b左} ? 左 : 右 }type至dirN4" DictVariableKey="${v:tmp_type}" DictVariableValue="${v:tmp_dirN4}" />
-<Action OrderNumber="6" ActionType="Placeholder" Description="如果是近的，记录哪种近" DescriptionOverride="True" />
-<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b近" VariableExpression="abs(${y} - 100) &lt; 6" />
-<Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="MCs_三运_b球近" VariableExpression="${v:tmp_type} == 蓝球">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_type} == 蓝球 || ${v:tmp_type} == 绿环" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b近}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="MCs_三运_b左近" VariableExpression="${v:tmp_b左}">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_type} == 蓝球 || ${v:tmp_type} == 绿环" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b近}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="10" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="MCs_三运_b横近" VariableExpression="${v:tmp_type} == 橙横">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_type} == 紫竖 || ${v:tmp_type} == 橙横" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b近}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="11" ActionType="Placeholder" DescriptionOverride="True" />
-<Action OrderNumber="12" ActionType="LogMessage" Asynchronous="False" LogMessageText="_MCs_三运:bβ:${!v:MCs_三运_bβ}:b左近:${!v:MCs_三运_b左近}:b球近:${!v:MCs_三运_b球近}:b横近:${!v:MCs_三运_b横近}" LogProcess="True" LogProcessACT="True">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${d:MCs_三运_左type至dirN4.size}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${d:MCs_三运_右type至dirN4.size}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="13" ActionType="Variable" Asynchronous="False" VariableName="tmp_type" />
-<Action OrderNumber="14" ActionType="Variable" Asynchronous="False" VariableName="tmp_b左" />
-<Action OrderNumber="15" ActionType="Variable" Asynchronous="False" VariableName="tmp_dirN4" />
-<Action OrderNumber="16" ActionType="Variable" Asynchronous="False" VariableName="tmp_b近" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="e3404812-90cf-425a-9b27-73990e520393" Name="2. 获取 αβ debuff" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;12A[13]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):" Sequential="True">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Variable" VariableOp="SetNumeric" VariableName="MCs_三运_bβ" VariableExpression="0x${aid} = 0x12A3" />
-<Action OrderNumber="3" ActionType="UseTTS" SystemBeepFreqExpression="" SystemBeepLengthExpression="" UseTTSTextExpression="${if: ${v:myIdx} &lt;= 2 ? ${if: ${v:MCs_三运_bβ} ? 挑衅 : 退避 } : &quot;&quot; }，点名${if: ${v:MCs_三运_bβ} ? β组，准备撞球 : α组闲人 }" />
-<Action OrderNumber="4" ActionType="UseTTS" ExecutionDelayExpression="16000" SystemBeepFreqExpression="" SystemBeepLengthExpression="" UseTTSTextExpression="${if: ${v:myIdx} &lt;= 2 ? ${if: ${v:MCs_三运_bβ} ? 退避 : 挑衅 } : &quot;&quot; }" />
-</Actions>
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${ev:MCs_三运_bβ}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${v:MCs_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
 </Trigger>
 </Triggers>
 </Folder>
@@ -3732,7 +3732,7 @@
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_扇" VariableExpression="${if: ${b前后扇形} ? &quot;X &quot; : &quot;&gt;&lt;&quot; }" />
 <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_text" VariableExpression="${if: ${b暗主斜} ? ${if: ${v:b暗北外} ? 暗 : 火 } : ${v:tmp_扇} } 　 　 　 ${if: ${b暗主斜} ? ${v:tmp_扇} : ${if: ${v:b暗北外} ? 暗 : 火 } }&#xD;&#xA;　 ${if: ${b暗主斜} ? ${if: ${v:b暗北外} ? 火 : 暗 } : ${v:tmp_扇} } 　 ${if: ${b暗主斜} ? ${v:tmp_扇} : ${if: ${v:b暗北外} ? 火 : 暗 } }&#xD;&#xA;　 　  ·&#xD;&#xA;　 ${if: ${b暗主斜} ? ${v:tmp_扇} : ${if: ${v:b暗北外} ? 暗 : 火 } } 　 ${if: ${b暗主斜} ? ${if: ${v:b暗北外} ? 暗 : 火 } : ${v:tmp_扇} } 　&#xD;&#xA;${if: ${b暗主斜} ? ${v:tmp_扇} : ${if: ${v:b暗北外} ? 火 : 暗 } } 　 　 　 ${if: ${b暗主斜} ? ${if: ${v:b暗北外} ? 火 : 暗 } : ${v:tmp_扇} }" />
-<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="command" NamedCallbackParam="/e 分身位置&#xD;&#xA;${v:tmp_text}" />
+<Action OrderNumber="3" Enabled="False" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="command" NamedCallbackParam="/e 分身位置 &lt;se.10&gt;&#xD;&#xA;${v:tmp_text}" />
 <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_扇" />
 <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="tmp_text" />
 </Actions>
@@ -3758,7 +3758,7 @@
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="TTS" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_外" VariableExpression="${if: ${b暗主斜} &#xD;&#xA;  ? ${if: ${b暗北外} = ${b引导火} ? 右下 : 左上}&#xD;&#xA;  : ${if: ${b暗北外} = ${b引导火} ? 左下 : 右上}&#xD;&#xA;}外" />
 <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_内" VariableExpression="${if: ${b暗主斜} &#xD;&#xA;  ? ${if: ${b暗北外} = ${b引导火} ? 左上 : 右下}&#xD;&#xA;  : ${if: ${b暗北外} = ${b引导火} ? 右上 : 左下}&#xD;&#xA;}内" />
-<Action OrderNumber="4" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="找${if: ${!v:myIdx_isTM} ? ${v:tmp_内} : ${v:tmp_外} }侧${if: ${b引导火} ? 火分身，分摊 : 暗分身，分散 }" />
+<Action OrderNumber="4" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="找${if: ${_me.isTM} ? ${v:tmp_内} : ${v:tmp_外} }侧${if: ${b引导火} ? 火分身，分摊 : 暗分身，分散 }" />
 <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="tmp_外" />
 <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableName="tmp_内" />
 </Actions>
