@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TriggernometryExport PluginVersion="1.2.0.761">
-  <ExportedFolder Id="dfd52a11-9997-441a-a689-601c59f74497" Name="临时" Enabled="true">
+<TriggernometryExport PluginVersion="2.0.4.0">
+  <ExportedFolder Id="dfd52a11-9997-441a-a689-601c59f74497" Enabled="true" Name="临时">
     <Folders>
-      <Folder Id="b25c8548-48d4-4bcb-9d81-491c0663f233" Name="风脉" Enabled="true">
+      <Folder Id="b25c8548-48d4-4bcb-9d81-491c0663f233" Enabled="true" Name="风脉">
         <Folders>
-          <Folder Id="79aeba41-28f0-4ed7-93ca-cf1a609f429b" Name="如果使用转圈圈标点则开启这个分组" Enabled="true">
-            <Folders/>
+          <Folder Id="79aeba41-28f0-4ed7-93ca-cf1a609f429b" Enabled="true" Name="如果使用转圈圈标点则开启这个分组">
             <Triggers>
               <Trigger Enabled="true" Id="797b4ee9-a88d-40fb-99d9-189fe829e55a" Name="循环" RegularExpression="^风脉_loop" PrevActions="Interrupt">
                 <Actions>
@@ -289,6 +288,53 @@
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${ecallback:AdvWm}${ecallback:place}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+            </Condition>
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="f7d33878-1b08-43ef-a392-c05479e88da2" Enabled="true" Name="女儿节自动应援 By 凛子" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^130$">
+        <Triggers>
+          <Trigger Enabled="true" Id="2e6a9932-93ab-42e9-8aa0-176faa886cef" Name="3. NPC 可选中：自动应援" RegularExpression="^.{15}\S+ AAA:22:1:(?&lt;tid&gt;4.{7}):[^:]*:[^:]*:(?&lt;BNpcId&gt;18859|18860|18861|18862):" PeriodRefire="Deny" RefirePeriodExpression="1000" Sequential="True" Description="开着触发器 进入观众模式在舞台面前会自己用对应的技能&#13;&#10;&#13;&#10;灌注洛可利亚奏鸣曲谢谢喵&#13;&#10;灌注洛可利亚奏鸣曲谢谢喵&#13;&#10;灌注洛可利亚奏鸣曲谢谢喵&#13;&#10;灌注洛可利亚奏鸣曲谢谢喵&#13;&#10;灌注洛可利亚奏鸣曲谢谢喵&#13;&#10;灌注洛可利亚奏鸣曲谢谢喵&#13;&#10;https://space.bilibili.com/83429972">
+            <Actions>
+              <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Target" NamedCallbackParam="${tid}"/>
+              <Action OrderNumber="2" ActionType="NamedCallback" ExecutionDelayExpression="random(500, 2500)" NamedCallbackName="UseAction" NamedCallbackParam="Action, ${BNpcId} - 18859 + 44501, 0x${tid}, 1"/>
+            </Actions>
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${_me.HasStatus(1494)}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Id="39dcc30f-4dd8-4830-868f-5214a28d3bb5" Name="1.1 活动开始 =&gt; 2" RegularExpression="^.{15}\S+ 10[23]:Add:[^:]*:000007F[ABCD]">
+            <Actions>
+              <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="女儿节应援" LogProcess="True" LogProcessACT="True"/>
+              <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="活动开始"/>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${_me.HasStatus(1494)}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Id="5abfa958-5eb7-43ba-9791-5e6fbb45dd2b" Name="2. 文本提示" RegularExpression="^女儿节应援">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="isFirst" VariableExpression="${ev:UseActionEnabled} = 0"/>
+              <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="UseActionEnabled" VariableExpression="${ecallback:UseAction}"/>
+              <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="command" NamedCallbackParam="/e ${if: ${v:isFirst} ? &lt;se.10&gt; : &quot;&quot; }&#13;&#10;———————————————&#13;&#10;女儿节自动应援 by 凛子&#13;&#10;&#13;&#10;应援状态下，站在区域内&#13;&#10;即可自动选择 NPC 并使用动作&#13;&#10;&#13;&#10;本触发器位于：远程触发器 - 临时">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${v:UseActionEnabled}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="command" NamedCallbackParam="/e ${if: ${v:isFirst} ? &lt;se.10&gt; : &quot;&quot; }&#13;&#10;———————————————&#13;&#10;女儿节自动应援 by 凛子&#13;&#10;&#13;&#10;运行支持库未初始化，无法使用此功能&#13;&#10;&#13;&#10;本触发器位于：远程触发器 - 临时">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${v:UseActionEnabled}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="isFirst"/>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Id="c1aa5b06-bed1-4f1a-adee-8bedb67d4f0f" Name="1.2 获取 buff =&gt; 2" RegularExpression="^.{15}\S+ 1A:5D6:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;23[1234]):">
+            <Actions>
+              <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="女儿节应援" LogProcess="True" LogProcessACT="True"/>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
             </Condition>
           </Trigger>
         </Triggers>
