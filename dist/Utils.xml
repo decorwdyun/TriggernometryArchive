@@ -731,18 +731,23 @@
           </Trigger>
           <Trigger Enabled="true" Id="8003a098-ab99-4f75-b51b-af8a9a84cc6f" Name="111 ActorControl" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 111:(?&lt;id&gt;4.{7}):(?&lt;type&gt;[^:]*):(?&lt;param1&gt;[^:]*):(?&lt;param2&gt;[^:]*)">
             <Actions>
-              <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="ProcessedLog_ActorControl" DictVariableValue="=&#13;&#10;0031=Unknown49 AAA:200:¤{param1}&#13;&#10;003E=AnimationState AAA:201:¤{param1}:¤{param2}&#13;&#10;003F=WeaponId AAA:202:¤{param1}&#13;&#10;0197=PlayActionTimeline AAA:203:¤{param1}&#13;&#10;019D=EObjAnimation AAA:204:¤{param1}:¤{param2}&#13;&#10;01F8=StatusUpdate AAA:205:¤{param1}">
+              <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="ProcessedLog_ActorControl" DictVariableValue="=&#13;&#10;0031=Unknown49 AAA:200:¤{param1}&#13;&#10;003E=AnimationState AAA:201:¤{param1}:¤{param2}&#13;&#10;003F=WeaponId AAA:202:¤{param1}&#13;&#10;0197=PlayActionTimeline AAA:203:¤{param1}&#13;&#10;019D=EObjAnimation AAA:204:¤{param1}:¤{param2}&#13;&#10;01F8=StatusUpdate AAA:205:¤{param1}&#13;&#10;00B8=Unk_B8 AAA:206:¤{param1}">
                 <Condition Enabled="true" Grouping="Or">
                   <ConditionSingle Enabled="true" ExpressionL="${ed:ProcessedLog_ActorControl}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                 </Condition>
               </Action>
-              <Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableValue="${id}"/>
-              <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _${d:ProcessedLog_ActorControl[${type}]}:${id}:${d:tmp_entity[name]}:${d:tmp_entity[bnpcnameid]}:${d:tmp_entity[bnpcid]}:${d:tmp_entity[x]}:${d:tmp_entity[y]}:${d:tmp_entity[z]}:${d:tmp_entity[h]}" LogProcess="True" LogProcessACT="True">
+              <Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableKey="bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${id}"/>
+              <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="tmp_entity" DictVariableKey="bnpcnameid" DictVariableValue="0">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="2000000" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _${d:ProcessedLog_ActorControl[${type}]}:${id}:${d:tmp_entity[name]}:${d:tmp_entity[bnpcnameid]}:${d:tmp_entity[bnpcid]}:${d:tmp_entity[x]}:${d:tmp_entity[y]}:${d:tmp_entity[z]}:${d:tmp_entity[h]}" LogProcess="True" LogProcessACT="True">
                 <Condition Enabled="false" Grouping="Or">
                   <ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="9020" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                 </Condition>
               </Action>
-              <Action OrderNumber="4" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_entity"/>
+              <Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_entity"/>
             </Actions>
           </Trigger>
           <Trigger Enabled="true" Id="1d44f62a-a70f-4849-b8a2-b10b9869009b" Name="110 ActorSpawnExtra" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 110:(?&lt;id&gt;4.{7}):(?!E0000000:0000:00)(?&lt;params&gt;.+)">
@@ -782,6 +787,11 @@
               </Action>
               <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="日志转录_01" DictVariableKey="id" DictVariableValue="${id}"/>
               <Action OrderNumber="4" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="日志转录_01" DictVariableKey="name" DictVariableValue="${name}"/>
+            </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Id="86c76bd8-4fc8-4a85-a0dc-06f626d28893" Name="注册额外的 ActorControl category" RegularExpression="^.{15}\S+ 01" RefirePeriodExpression="60000">
+            <Actions>
+              <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="RegisterActorControlCategories" NamedCallbackParam="0xB8"/>
             </Actions>
           </Trigger>
         </Triggers>
