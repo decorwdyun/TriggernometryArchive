@@ -6150,8 +6150,7 @@
 <Trigger Enabled="true" Id="161c15f3-3c47-43db-aaab-c33716501418" Name="直条" RegularExpression="^V7a2_灵击波:x:(?&lt;x&gt;[^:]*):y:(?&lt;y&gt;[^:]*):h:(?&lt;h&gt;[^:]*):源dir4:(?&lt;源dir4&gt;[0-3]):折dir4:(?&lt;折dir4&gt;[0-3]):tid:(?&lt;tid&gt;1.{7})">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True" />
-<Action OrderNumber="2" Enabled="False" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: V7a2_凶兆2_自身剑气&#xD;&#xA;omen: m131om_setu0f&#xD;&#xA;O: ${x}, ${y}, ${env:Z0}&#xD;&#xA;θ: ${h}&#xD;&#xA;t: 10&#xD;&#xA;Scale: 2, 40, 0.05&#xD;&#xA;Color: 1,1,1,2&#xD;&#xA;---&#xD;&#xA;Tag: V7a2_凶兆2_自身剑气&#xD;&#xA;omen: m131om_setu0f&#xD;&#xA;O: ${x}, ${y}, ${env:Z0}&#xD;&#xA;θ: ${h}&#xD;&#xA;t: 10&#xD;&#xA;Pos: 0, -25&#xD;&#xA;Angle: π/2&#xD;&#xA;Scale: 2, 40, 0.05&#xD;&#xA;Color: 1,1,1,2" />
-<Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="${?l: 上北, 左西, 下南, 右东 [${源dir4} + 1]}连线" />
+<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: V7a2_凶兆2_自身剑气&#xD;&#xA;omen: m131om_setu0f&#xD;&#xA;O: ${x}, ${y}, ${env:Z0}&#xD;&#xA;θ: ${h}&#xD;&#xA;t: 10&#xD;&#xA;Scale: 2, 40, 0.05&#xD;&#xA;Color: 1,1,1,2&#xD;&#xA;---&#xD;&#xA;Tag: V7a2_凶兆2_自身剑气&#xD;&#xA;omen: m131om_setu0f&#xD;&#xA;O: ${x}, ${y}, ${env:Z0}&#xD;&#xA;θ: ${h}&#xD;&#xA;t: 10&#xD;&#xA;Pos: 0, -25&#xD;&#xA;Angle: π/2&#xD;&#xA;Scale: 2, 40, 0.05&#xD;&#xA;Color: 1,1,1,2" />
 </Actions>
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${v:V7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
@@ -6224,8 +6223,8 @@
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="phase" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="此日志可能同时多次生成（连线 id 不一样），原因未知，必须同步以保证后出现的 id 覆盖先出现的" DescriptionOverride="True" />
-<Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="上 右 左 下 " DescriptionOverride="True" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a2_凶兆3_my线dir4" VariableExpression="${?l: 0, 3, 1, 2 [0x${type} - 0x164]}" />
+<Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="上 右 下 左" DescriptionOverride="True" />
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a2_凶兆3_my线dir4" VariableExpression="(0x169 - 0x${type}) % 4" />
 </Actions>
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${v:V7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
@@ -6350,8 +6349,8 @@
 <Action OrderNumber="1" ActionType="Placeholder" Description="omen" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_dir4_b有" />
 <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Merge" DictVariableName="V7a2_凶兆_dir4_b有" DictVariableTarget="tmp_dir4_b有" />
-<Action OrderNumber="4" ActionType="Placeholder" Description="有可能有问题" DescriptionOverride="True" />
-<Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DescBgColor="fdd" DictVariableOp="Set" DictVariableName="tmp_dir4_b有" DictVariableKey="${!v:V7a2_凶兆3_my线dir4}" DictVariableValue="1" />
+<Action OrderNumber="4" ActionType="Placeholder" Description="现在连线日志有问题 只能无视" DescriptionOverride="True" />
+<Action OrderNumber="5" Enabled="False" ActionType="DictVariable" Asynchronous="False" DescBgColor="f88" DictVariableOp="Set" DictVariableName="tmp_dir4_b有" DictVariableKey="${!v:V7a2_凶兆3_my线dir4}" DictVariableValue="1" />
 <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_西安全" VariableExpression="!${d:tmp_dir4_b有[ ${n: ${b左列朝下} ? 0 : 2} ]}" />
 <Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_东安全" VariableExpression="!${d:tmp_dir4_b有[ ${n: !${b左列朝下} ? 0 : 2} ]}" />
 <Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_北安全" VariableExpression="!${d:tmp_dir4_b有[ ${n: ${b上行朝右} ? 1 : 3} ]}" />
@@ -6616,7 +6615,7 @@
 </Action>
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="d652ebb5-cd0d-4eef-9fb1-d3aa0a8a0601" Name="2. 直条 * 2 =&gt; 3  （速度或许可以优化）" RegularExpression="^V7a2_灵击波:x:(?&lt;x&gt;[^:]+):y:(?&lt;y&gt;[^:]+):h:(?&lt;h&gt;[^:]+):源dir4:(?&lt;源dir4&gt;[0-3]):折dir4:(?&lt;折dir4&gt;[0-3]):tid:(?&lt;tid&gt;1.{7})">
+<Trigger Enabled="true" Id="d652ebb5-cd0d-4eef-9fb1-d3aa0a8a0601" Name="2. 连线 * 2 =&gt; 3" RegularExpression="^V7a2_灵击波:x:(?&lt;x&gt;[^:]+):y:(?&lt;y&gt;[^:]+):h:(?&lt;h&gt;[^:]+):源dir4:(?&lt;源dir4&gt;[0-3]):折dir4:(?&lt;折dir4&gt;[0-3]):tid:(?&lt;tid&gt;1.{7})">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Placeholder" Description="储存 tid" DescriptionOverride="True" />
@@ -6655,7 +6654,7 @@
 </Folder>
 </Folders>
 </Folder>
-<Folder Id="042e5e26-2e51-4bd2-94f5-5efd66d5daf3" Enabled="true" Name="3 火仙女佩莉" RawEnvironmentVariables="X0 = -760&#xD;&#xA;Y0 = -805&#xD;&#xA;Z0 = -54">
+<Folder Id="042e5e26-2e51-4bd2-94f5-5efd66d5daf3" Enabled="true" Name="3 " RawEnvironmentVariables="X0 = -760&#xD;&#xA;Y0 = -805&#xD;&#xA;Z0 = -54">
 <Folders>
 <Folder Id="0e75d012-2975-4a07-9a28-1d994ae0d9b8" Enabled="true" Name="杂项" />
 </Folders>
