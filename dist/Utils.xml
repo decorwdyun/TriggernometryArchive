@@ -305,13 +305,11 @@
       </Folder>
       <Folder Id="01d11a0b-fcea-4e61-bdfc-368455790827" Enabled="true" Name="日志转录">
         <Triggers>
-          <Trigger Enabled="true" Id="1bbf5ab6-ef76-4800-a7ae-f6e3f209c6fd" Name="1B Tether" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 23:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):(?&lt;tid&gt;.{8}):(?&lt;tn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]*)">
+          <Trigger Enabled="true" Id="1bbf5ab6-ef76-4800-a7ae-f6e3f209c6fd" Name="1B TargetIcon (LockOn)" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 1B:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]+):">
             <Actions>
-              <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableValue="${sid}"/>
-              <Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_tgt" DictVariableValue="${tid}"/>
-              <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _Tether AAA:23:${type}:${sid}:${sn}:${d:tmp_src[bnpcnameid]}:${d:tmp_src[bnpcid]}:${d:tmp_src[x]}:${d:tmp_src[y]}:${d:tmp_src[z]}:${d:tmp_src[h]}:${tid}:${tn}:${d:tmp_tgt[bnpcnameid]}:${d:tmp_tgt[bnpcid]}:${d:tmp_tgt[x]}:${d:tmp_tgt[y]}:${d:tmp_tgt[z]}:${d:tmp_tgt[h]}:0" LogProcess="True" LogProcessACT="True"/>
-              <Action OrderNumber="4" ActionType="DictVariable" Asynchronous="False" DictVariableValueType="Numeric" DictVariableName="tmp_src"/>
-              <Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_tgt"/>
+              <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${sid}"/>
+              <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _TargetIcon AAA:1B:${type}:${sid}:${sn}:${d:tmp_src.joinvalues(&quot;:&quot;, bnpcnameid, bnpcid, x, y, z, h)}" LogProcess="True" LogProcessACT="True"/>
+              <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableValueType="Numeric" DictVariableName="tmp_src"/>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${f:startwith(40):${sid}} || ${f:startwith(40):${tid}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
@@ -392,6 +390,18 @@
             <Actions>
               <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="RegisterActorControlCategories" NamedCallbackParam="0xB8"/>
             </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Id="7dcc8c3d-3192-4fa6-98a6-256793a5e2be" Name="23 Tether" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 23:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):(?&lt;tid&gt;.{8}):(?&lt;tn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]*)">
+            <Actions>
+              <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableValue="${sid}"/>
+              <Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_tgt" DictVariableValue="${tid}"/>
+              <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _Tether AAA:23:${type}:${sid}:${sn}:${d:tmp_src[bnpcnameid]}:${d:tmp_src[bnpcid]}:${d:tmp_src[x]}:${d:tmp_src[y]}:${d:tmp_src[z]}:${d:tmp_src[h]}:${tid}:${tn}:${d:tmp_tgt[bnpcnameid]}:${d:tmp_tgt[bnpcid]}:${d:tmp_tgt[x]}:${d:tmp_tgt[y]}:${d:tmp_tgt[z]}:${d:tmp_tgt[h]}:0" LogProcess="True" LogProcessACT="True"/>
+              <Action OrderNumber="4" ActionType="DictVariable" Asynchronous="False" DictVariableValueType="Numeric" DictVariableName="tmp_src"/>
+              <Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_tgt"/>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${f:startwith(40):${sid}} || ${f:startwith(40):${tid}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+            </Condition>
           </Trigger>
         </Triggers>
       </Folder>
