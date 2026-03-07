@@ -5958,82 +5958,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="14bc54f9-0efc-4bf7-bbd8-08e703969284" Enabled="true" Name="收集路线" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^x$" RawEnvironmentVariables="ZoneName = 商客奇谭">
-        <Triggers>
-          <Trigger Enabled="true" Id="31a3c3c9-0388-4bc7-8c60-f662232404bb" Name="0. 进本" RegularExpression="^(?&lt;time&gt;.{15})\S+ AAA:01:(?&lt;id&gt;[^:]*):(?&lt;name&gt;[^:]*)">
-            <Actions>
-              <Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableName="VC_routeEvents"/>
-              <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="VC_routeEvents" ListVariableExpression="${time}[Zone] ${id}:${name}"/>
-              <Action OrderNumber="3" ActionType="UseTTS" Asynchronous="False" DescBgColor="fdd" UseTTSTextExpression="记录进本">
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${ev:debug}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                </Condition>
-              </Action>
-            </Actions>
-          </Trigger>
-          <Trigger Enabled="true" Id="5b8b6aa5-fbea-4a20-aef8-cf19dc5f0126" Name="1b. NPC 台词" RegularExpression="^(?&lt;time&gt;.{15})\S+ 00:0044:(?&lt;data&gt;.+)">
-            <Actions>
-              <Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="VC_routeEvents" ListVariableExpression="${time}[NpcTalk] ${data}"/>
-              <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" DescBgColor="fdd" UseTTSTextExpression="记录台词">
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${ev:debug}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                </Condition>
-              </Action>
-            </Actions>
-          </Trigger>
-          <Trigger Enabled="true" Id="503fca36-9824-43c9-8a80-839e5480b3f0" Name="1c. MapEffect" RegularExpression="^(?&lt;time&gt;.{15})\S+ 101:[^:]*:(?&lt;a2&gt;.{4})....:(?&lt;a0&gt;..)">
-            <Actions>
-              <Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="VC_routeEvents" ListVariableExpression="${time}[MapEffect] ${a2}:${a0}"/>
-              <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" DescBgColor="fdd" UseTTSTextExpression="记录地图特效">
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${ev:debug}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                </Condition>
-              </Action>
-            </Actions>
-          </Trigger>
-          <Trigger Enabled="true" Id="f5266ef8-db39-438d-814a-3232f750fbf5" Name="2. 解锁笔记 - 输出" RegularExpression="^.{15}\S+ 00:0839::.+探索记中记录了“(?&lt;name&gt;.+)”！">
-            <Actions>
-              <Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="UploadTextV2" NamedCallbackParam="stat/异闻路线/${env:ZoneName}_${name}&#13;&#10;笔记：${name}&#13;&#10;${l:VC_routeEvents.join(&quot;⏎&quot;)}"/>
-              <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" DescBgColor="fdd" UseTTSTextExpression="输出结果">
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${ev:debug}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                </Condition>
-              </Action>
-            </Actions>
-          </Trigger>
-          <Trigger Enabled="true" Id="7f61086f-97da-4873-88d3-a3afd000aa33" Name="1a. 切换地图" RegularExpression="^(?&lt;time&gt;.{15})\S+ 28:(?&lt;data&gt;.+)">
-            <Actions>
-              <Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="VC_routeEvents" ListVariableExpression="${time}[ChangeMap] ${data}"/>
-              <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" DescBgColor="fdd" UseTTSTextExpression="记录切换地图">
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${ev:debug}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                </Condition>
-              </Action>
-            </Actions>
-          </Trigger>
-          <Trigger Enabled="true" Id="9ea9a3ca-dd42-4b2d-8c9a-d5ef1e41b1b8" Name="1d. 封锁区域" RegularExpression="^(?&lt;time&gt;.{15})\S+ 00:0839::距(?&lt;name&gt;.+)被封锁还有15秒">
-            <Actions>
-              <Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="VC_routeEvents" ListVariableExpression="${time}[Lock+] ${name}"/>
-              <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" DescBgColor="fdd" UseTTSTextExpression="记录封锁">
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${ev:debug}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                </Condition>
-              </Action>
-            </Actions>
-          </Trigger>
-          <Trigger Enabled="true" Id="1508988c-4fcc-436d-8468-a315db5f82b4" Name="1e. 封锁区域解除" RegularExpression="^(?&lt;time&gt;.{15})\S+ 00:0839::(?&lt;name&gt;.+)的封锁解除了">
-            <Actions>
-              <Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="VC_routeEvents" ListVariableExpression="${time}[Lock-] ${name}"/>
-              <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" DescBgColor="fdd" UseTTSTextExpression="记录封锁解除">
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${ev:debug}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                </Condition>
-              </Action>
-            </Actions>
-          </Trigger>
-        </Triggers>
-      </Folder>
-      <Folder Id="5cbfd52a-163e-415c-a324-532a9e473e2a" Enabled="true" Name="V7a 商客奇谭　　　v0.1.0（在玩无攻略 不用等" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1317$" RawEnvironmentVariables="CactbotTriggerSetName = Another?, Another?Savage&#13;&#10;OssFolder = V7a">
+      <Folder Id="5cbfd52a-163e-415c-a324-532a9e473e2a" Enabled="true" Name="V7a 商客奇谭　　　v0.2.0（在玩无攻略 不用等" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1317$" RawEnvironmentVariables="//CactbotTriggerSetName = Another?, Another?Savage&#13;&#10;OssFolder = V7a">
         <Folders>
           <Folder Id="b85420ae-0335-4ce5-a8cb-ca7f78697404" Enabled="true" Name=". 控制">
             <Folders>
@@ -6087,17 +6012,647 @@
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder Id="4a65cfeb-058c-4842-9f01-ce0c0dec513c" Enabled="true" Name="2 " RawEnvironmentVariables="X0 = 170&#13;&#10;Y0 = -815&#13;&#10;Z0 = -16">
+          <Folder Id="4a65cfeb-058c-4842-9f01-ce0c0dec513c" Enabled="true" Name="2 剑术大师" RawEnvironmentVariables="X0 = 170&#13;&#10;Y0 = -815&#13;&#10;Z0 = -16">
             <Folders>
-              <Folder Id="57d2831b-e1eb-45bc-a069-14dd90e08b45" Enabled="true" Name="杂项"/>
+              <Folder Id="57d2831b-e1eb-45bc-a069-14dd90e08b45" Enabled="true" Name="杂项">
+                <Folders>
+                  <Folder Id="263d5846-f0d8-4f19-908e-20edf05a6d9f" Enabled="true" Name="剑刃连线日志转录">
+                    <Triggers>
+                      <Trigger Enabled="true" Id="a7f8d58b-d567-4618-a093-cd813d0c5db8" Name="2. 获取 拐点 → 玩家 连线" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;0173)">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="V7a2_灵击波_拐to人" DictVariableKey="${sid}" DictVariableValue="${tid}"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Id="bd66bc38-eff2-4b10-a0a5-3e91ee1cee62" Name="3. 接收脚本日志 =&gt; 输出" RegularExpression="^_V7a2_灵击波:x:(?&lt;x&gt;[^:]*):y:(?&lt;y&gt;[^:]*):h:(?&lt;h&gt;[^:]*):tid:(?&lt;tid&gt;1.{7})">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Description="小剑气自身的 dir4；以及如果剑气转弯，转弯点的 dir4" DescriptionOverride="True"/>
+                          <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_源dir4" VariableExpression="RadToDir(${h} + π, 4)"/>
+                          <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_折dir4" VariableExpression="VecToDir(${x} - ${env:X0} + 20 * sin(${h}),  ${y} - ${env:Y0} + 20 * cos(${h}),  4)"/>
+                          <Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="V7a2_灵击波:x:${x}:y:${y}:h:${h}:源dir4:${!v:tmp_源dir4}:折dir4:${!v:tmp_折dir4}:tid:${tid}" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="5" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [灵击波] ${x}:${y}:${h}:${!v:tmp_源dir4}:${!v:tmp_折dir4}:${tid}"/>
+                          <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableName="tmp_源dir4"/>
+                          <Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableName="tmp_折dir4"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Id="43a9ba0f-42e4-4b8c-be73-6007633b9040" Name="1. 获取 剑气 → 拐点 连线" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;4.{7}):[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;0173)">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="X, Y, H" DictVariableValue="${sid}"/>
+                          <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="V7a2_灵击波_拐前" ListVariableExpression="${sid}:${tid}:${!d:tmp_src.joinvalues(&quot;:&quot;, X, Y, H)}"/>
+                          <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src"/>
+                          <Action OrderNumber="4" ActionType="Placeholder" Description="等待 500 ms 收集全部拐前连线，及部分拐后连线，开始计算连线" DescriptionOverride="True"/>
+                          <Action OrderNumber="5" ActionType="NamedCallback" ExecutionDelayExpression="300" NamedCallbackName="V7a2_灵击波" NamedCallbackParam="${l:V7a2_灵击波_拐前.join(&quot;⏎&quot;)}">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${f:startwith(${sid}):${l:V7a2_灵击波_拐前[1]}}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Id="e751a362-890b-49fd-a10f-2bccbf8268bf" Name="注册回调" RegularExpression="^.{15}\S+ 104:">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="ExecuteScript" ExecScriptExpression="using System;&#13;&#10;using System.Collections.Generic;&#13;&#10;using System.Linq;&#13;&#10;using System.Numerics;&#13;&#10;using System.Threading.Tasks;&#13;&#10;using Triggernometry.Core;&#13;&#10;using Triggernometry.FFXIV;&#13;&#10;using static Triggernometry.Core.Scripting.ScriptHelper;&#13;&#10;&#13;&#10;// 注册回调&#13;&#10;RealPlugin.Instance.RegisterNamedCallback(&quot;V7a2_灵击波&quot;, (Action&lt;object, string&gt;)V7a2_灵击波_Entry.Callback, registrant: &quot;异闻迷宫宝宝椅&quot;);&#13;&#10;&#13;&#10;public static class V7a2_灵击波_Entry&#13;&#10;{&#13;&#10;    &#13;&#10;    public static void Callback(object _, string data)&#13;&#10;    {&#13;&#10;        CustomLog(&quot;[灵击波] 接收数据：&quot; + data);&#13;&#10;        // 每行：&quot;sid:tid:x:y:h&quot;&#13;&#10;        var parts = data&#13;&#10;            .Split('\n')&#13;&#10;            .Where(line =&gt; !string.IsNullOrWhiteSpace(line))&#13;&#10;            .Select(line =&gt; line.Split(':').Select(s =&gt; s.Trim()).ToList())&#13;&#10;            .ToList();&#13;&#10;&#13;&#10;        if (parts.Count == 0)&#13;&#10;        {&#13;&#10;            ErrorLog(&quot;[灵击波] 没有传入数据&quot;);&#13;&#10;            return;&#13;&#10;        }&#13;&#10;        var remainedBlades = parts.Select(raw =&gt; new Blade(raw)).ToList();&#13;&#10;        var remainedPlayerIds = GetListVariable(false, &quot;party&quot;)?.Values.Select(v =&gt; v.ToString()).ToList()&#13;&#10;            ?? throw new Exception(&quot;[灵击波] 小队列表 lvar:party 不存在&quot;);&#13;&#10;&#13;&#10;        // 启动异步轮询，直到完全匹配或超时（10 s）&#13;&#10;        Task.Run(async () =&gt; {&#13;&#10;            try&#13;&#10;            {&#13;&#10;                await PollMatchingAsync(remainedBlades, remainedPlayerIds);&#13;&#10;            }&#13;&#10;            catch (Exception ex)&#13;&#10;            {&#13;&#10;                ErrorLog(&quot;[灵击波] 轮询匹配连线发生异常: &quot; + ex.Message);&#13;&#10;            }&#13;&#10;        });&#13;&#10;    }&#13;&#10;&#13;&#10;    private static async Task PollMatchingAsync(List&lt;Blade&gt; remainedBlades, List&lt;string&gt; remainedPlayerIds)&#13;&#10;    {&#13;&#10;        int timeoutMs = 10000; // 10 s 超时&#13;&#10;        int intervalMs = 100;   // 0.1 s 间隔&#13;&#10;        DateTime startTime = DateTime.Now;&#13;&#10;&#13;&#10;        void Output(Blade blade)&#13;&#10;        {&#13;&#10;            if (blade.PlayerId == null)&#13;&#10;                throw new Exception($&quot;Blade {blade.SourceId} 无法生成日志，未匹配玩家 ID。&quot;);&#13;&#10;            var msg = $&quot;_V7a2_灵击波:x:{blade.X}:y:{blade.Y}:h:{blade.Heading}:tid:{blade.PlayerId}&quot;;&#13;&#10;            RealPlugin.Instance.LogLineQueuer(msg, null, LogEvent.SourceEnum.Log);&#13;&#10;            RealPlugin.Instance.ACTEncounterLogHook(msg);&#13;&#10;            remainedBlades.Remove(blade);&#13;&#10;            remainedPlayerIds.Remove(blade.PlayerId);&#13;&#10;        }&#13;&#10;&#13;&#10;        CustomLog(&quot;[灵击波] 开始异步轮询...&quot;);&#13;&#10;&#13;&#10;        while ((DateTime.Now - startTime).TotalMilliseconds &lt; timeoutMs &amp;&amp; remainedBlades.Count &gt; 0 &amp;&amp; remainedPlayerIds.Count &gt; 0)&#13;&#10;        {&#13;&#10;            // 1. 若已经记录了到玩家的折线，直接输出&#13;&#10;            var midToPlayer = GetDictVariable(false, &quot;V7a2_灵击波_拐to人&quot;) ?? new Triggernometry.Core.Variables.VariableDictionary();&#13;&#10;&#13;&#10;            foreach (var blade in remainedBlades.ToList())&#13;&#10;            {&#13;&#10;                if (!midToPlayer.Values.TryGetValue(blade.MidpointId, out var varPlayerId))&#13;&#10;                    continue;&#13;&#10;&#13;&#10;                var playerId = varPlayerId.ToString();&#13;&#10;                blade.PlayerId = playerId;&#13;&#10;                Output(blade);&#13;&#10;            }&#13;&#10;&#13;&#10;            // 2. 剩余的剑气根据距离匹配玩家&#13;&#10;&#13;&#10;            if (remainedBlades.Count &gt; 0)&#13;&#10;            {&#13;&#10;                // 提前快照玩家位置，避免循环内重复获取&#13;&#10;                var playersPos = remainedPlayerIds&#13;&#10;                    .Select(id =&gt; Entity.GetEntityByID(id))&#13;&#10;                    .Where(e =&gt; e.Exist)&#13;&#10;                    .ToDictionary(e =&gt; e.HexID, e =&gt; e.PosXY);&#13;&#10;&#13;&#10;                var bladesMidpointPos = remainedBlades&#13;&#10;                    .Select(b =&gt; new { Blade = b, Entity = Entity.GetEntityByID(b.MidpointId) })&#13;&#10;                    .Where(x =&gt; x.Entity.Exist)&#13;&#10;                    .ToDictionary(x =&gt; x.Blade, x =&gt; x.Entity.PosXY);&#13;&#10;&#13;&#10;                bool hasMatchedAny = false;&#13;&#10;&#13;&#10;                // 遍历每一个剑气&#13;&#10;                foreach (var blade in remainedBlades.ToList()) // 避免修改枚举的集合&#13;&#10;                {&#13;&#10;                    if (!bladesMidpointPos.TryGetValue(blade, out var bPos))&#13;&#10;                        continue;&#13;&#10;&#13;&#10;                    // 计算该剑气到所有存活玩家的距离并排序&#13;&#10;                    var sortedDistances = playersPos.Select(p =&gt; new&#13;&#10;                    {&#13;&#10;                        Id = p.Key,&#13;&#10;                        Distance = Vector2.Distance(bPos, p.Value)&#13;&#10;                    }).OrderBy(d =&gt; d.Distance).ToList();&#13;&#10;&#13;&#10;                    if (sortedDistances.Count &gt; 0)&#13;&#10;                    {&#13;&#10;                        var closest = sortedDistances[0];&#13;&#10;                        // 判定条件：最近的在 1 米内，或再无可能的匹配（只有一个玩家和剑）&#13;&#10;                        bool isSingleMatch = sortedDistances.Count == 1 &amp;&amp; remainedBlades.Count == 1;&#13;&#10;                        bool isClosestNear = isSingleMatch || closest.Distance &lt; 1.0;&#13;&#10;                        // 判定条件：如果没有第二个玩家，或者第二个玩家在 2 米外&#13;&#10;                        bool isOthersFar = sortedDistances.Count == 1 || sortedDistances[1].Distance &gt; 2.0;&#13;&#10;&#13;&#10;                        if (isClosestNear &amp;&amp; isOthersFar)&#13;&#10;                        {&#13;&#10;                            CustomLog($&quot;[灵击波] 匹配成功: 剑 {blade.SourceId} -&gt; 玩家 {closest.Id} (距离: {closest.Distance:F2}m)&quot;);&#13;&#10;                            blade.PlayerId = closest.Id;&#13;&#10;                            Output(blade);&#13;&#10;                            bladesMidpointPos.Remove(blade);&#13;&#10;                            playersPos.Remove(blade.PlayerId);&#13;&#10;                            hasMatchedAny = true;&#13;&#10;                        }&#13;&#10;                        else&#13;&#10;                        {&#13;&#10;                            var secondText = sortedDistances.Count &gt; 1 ? $&quot;{sortedDistances[1].Distance:F2} m&quot; : &quot;(无)&quot;;&#13;&#10;                            Custom2Log($&quot;[灵击波] 匹配不确定: 剑 {blade.SourceId} 最近玩家 {closest.Id} {closest.Distance:F2} m，次近玩家 {secondText}&quot;);&#13;&#10;                        }&#13;&#10;                    }&#13;&#10;                }&#13;&#10;                if (hasMatchedAny)&#13;&#10;                {&#13;&#10;                    continue; // 如果本轮有匹配成功，立刻重算，因为剩余列表已更新，可能使原本无法匹配的可以匹配了&#13;&#10;                }&#13;&#10;            }&#13;&#10;            await Task.Delay(intervalMs);&#13;&#10;        }&#13;&#10;&#13;&#10;        if (remainedBlades.Count &gt; 0 || remainedPlayerIds.Count &gt; 0)&#13;&#10;        {&#13;&#10;            var elapsedMs = (DateTime.Now - startTime).TotalMilliseconds;&#13;&#10;            WarningLog($&quot;[灵击波] 轮询结束 ({elapsedMs / 1000:F2} s) 后仍有未匹配实体：\n&quot; +&#13;&#10;                $&quot;剩余 blades: {string.Join(&quot;, &quot;, remainedBlades.Select(b =&gt; b.SourceId))}；\n&quot; +&#13;&#10;                $&quot;剩余 players：{string.Join(&quot;, &quot;, remainedPlayerIds)}&quot;);&#13;&#10;        }&#13;&#10;        &#13;&#10;    }&#13;&#10;&#13;&#10;    public class Blade&#13;&#10;    {&#13;&#10;        public string SourceId { get; set; }&#13;&#10;        public string MidpointId { get; set; }&#13;&#10;        public string PlayerId { get; set; }&#13;&#10;        public string X { get; set; }&#13;&#10;        public string Y { get; set; }&#13;&#10;        public string Heading { get; set; }&#13;&#10;        public Blade(List&lt;string&gt; raw)&#13;&#10;        {&#13;&#10;            // 每行：&quot;sid:tid:x:y:h&quot;&#13;&#10;            if (raw.Count != 5)&#13;&#10;                throw new Exception(&quot;数据格式不符合 sid:tid:x:y:h。数据：&quot; + string.Join(&quot;:&quot;, raw));&#13;&#10;            SourceId = raw[0];&#13;&#10;            MidpointId = raw[1];&#13;&#10;            X = raw[2];&#13;&#10;            Y = raw[3];&#13;&#10;            Heading = raw[4];&#13;&#10;        }&#13;&#10;    }&#13;&#10;}">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${ecallback:V7a2_灵击波}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Id="57ae0125-6b7c-4e62-88a8-2cf8c6043a24" Name="0. 初始化 四方凶兆" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B665):">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^V7a2_灵击波"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="false" Id="9f22b914-a575-4eb1-a215-a5d2517bc5a3" Name="Debug Log 2026-03-06 13:16" Source="None">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[22:29:47.153] Tether 23:4001BE22:灵击波:4001BE20:灵击波:0000:0000:0173:4001BE20:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="[22:29:47.153] Tether 23:4001BE25:灵击波:4001BE23:灵击波:0000:0000:0173:4001BE23:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[22:29:47.466] Tether 23:4001BE20:灵击波:${l:party[4]}:队员:0000:0000:0173:${l:party[4]}:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="[22:29:47.466] Tether 23:4001BE23:灵击波:${l:party[1]}:队员:0000:0000:0173:${l:party[1]}:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="1000"/>
+                          <Action OrderNumber="6" ActionType="LogMessage" LogMessageText="[22:31:22.898] Tether 23:4001BE60:灵击波:4001BE5E:灵击波:0000:0000:0173:4001BE5E:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="7" ActionType="LogMessage" LogMessageText="[22:31:22.898] Tether 23:4001BE64:灵击波:4001BE62:灵击波:0000:0000:0173:4001BE62:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="8" ActionType="LogMessage" LogMessageText="[22:31:22.898] Tether 23:4001BE68:灵击波:4001BE66:灵击波:0000:0000:0173:4001BE66:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="9" ActionType="LogMessage" LogMessageText="[22:31:22.898] Tether 23:4001BE6C:灵击波:4001BE6A:灵击波:0000:0000:0173:4001BE6A:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="10" ActionType="LogMessage" LogMessageText="[22:31:22.898] Tether 23:4001BE62:灵击波:${l:party[2]}:队员:0000:0000:0173:${l:party[2]}:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="11" ActionType="LogMessage" LogMessageText="[22:31:22.898] Tether 23:4001BE6A:灵击波:${l:party[1]}:队员:0000:0000:0173:${l:party[1]}:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="12" ActionType="Placeholder" ExecutionDelayExpression="100"/>
+                          <Action OrderNumber="13" ActionType="LogMessage" LogMessageText="[22:31:24.723] Tether 23:4001BE5E:灵击波:${l:party[3]}:队员:0000:0000:0173:${l:party[3]}:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="100"/>
+                          <Action OrderNumber="15" ActionType="LogMessage" LogMessageText="[22:31:25.035] Tether 23:4001BE66:灵击波:${l:party[4]}:队员:0000:0000:0173:${l:party[4]}:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="100"/>
+                          <Action OrderNumber="17" ActionType="LogMessage" LogMessageText="[22:31:25.928] Tether 23:4001BE5E:灵击波:${l:party[3]}:队员:0000:0000:0173:${l:party[3]}:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="18" ActionType="Placeholder" ExecutionDelayExpression="100"/>
+                          <Action OrderNumber="19" ActionType="LogMessage" LogMessageText="[22:31:26.820] Tether 23:4001BE5E:灵击波:${l:party[3]}:队员:0000:0000:0173:${l:party[3]}:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="20" ActionType="Placeholder" ExecutionDelayExpression="100"/>
+                          <Action OrderNumber="21" ActionType="LogMessage" LogMessageText="[22:31:27.712] Tether 23:4001BE5E:灵击波:${l:party[3]}:队员:0000:0000:0173:${l:party[3]}:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="22" ActionType="LogMessage" LogMessageText="[22:31:27.712] Tether 23:4001BE62:灵击波:${l:party[2]}:队员:0000:0000:0173:${l:party[2]}:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                          <Action OrderNumber="23" ActionType="Placeholder" ExecutionDelayExpression="100"/>
+                          <Action OrderNumber="24" ActionType="LogMessage" LogMessageText="[22:31:28.604] Tether 23:4001BE5E:灵击波:${l:party[3]}:队员:0000:0000:0173:${l:party[3]}:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                  <Folder Id="47dcd06a-a10b-490f-93a0-c6fea12102e9" Enabled="true" Name="储存凶兆">
+                    <Triggers>
+                      <Trigger Enabled="true" Id="76dc82ab-e541-4805-9d31-5de21dbb373b" Name="2. 移除" RegularExpression="^.{15}\S+ 1E:(?&lt;aid&gt;12A[5-9A-F]|12B[0-3]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Placeholder" Description="检测是覆盖还是真正移除" DescriptionOverride="True"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="500"/>
+                          <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b移除" VariableExpression="0x${aid} == 0x0${v:V7a2_凶兆_statusId}"/>
+                          <Action OrderNumber="4" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="V7a2_凶兆_dir4_b有" DictVariableValue="=,0=0,1=0,2=0,3=0">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:tmp_b移除}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="V7a2_凶兆_statusId">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:tmp_b移除}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                          <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableName="tmp_b移除"/>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Id="5f05d3dc-1ea4-42f7-af8b-afcc93683f78" Name="1. 获取" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;12A[5-9A-F]|12B[0-3]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a2_凶兆_statusId" VariableExpression="${aid}"/>
+                          <Action OrderNumber="2" ActionType="Placeholder" Description="[Flags] 东 = 1, 西 = 2, 南 = 4, 北 = 8" DescriptionOverride="True"/>
+                          <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_flag" VariableExpression="0x${aid} - 0x12A4"/>
+                          <Action OrderNumber="4" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="V7a2_凶兆_dir4_b有" DictVariableKey="3" DictVariableValue="(${!v:tmp_flag} &amp; 1) != 0"/>
+                          <Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="V7a2_凶兆_dir4_b有" DictVariableKey="1" DictVariableValue="(${!v:tmp_flag} &amp; 2) != 0"/>
+                          <Action OrderNumber="6" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="V7a2_凶兆_dir4_b有" DictVariableKey="2" DictVariableValue="(${!v:tmp_flag} &amp; 4) != 0"/>
+                          <Action OrderNumber="7" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="V7a2_凶兆_dir4_b有" DictVariableKey="0" DictVariableValue="(${!v:tmp_flag} &amp; 8) != 0"/>
+                          <Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableName="tmp_flag"/>
+                        </Actions>
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Trigger>
+                      <Trigger Enabled="true" Id="b7705672-2fdd-4ca0-80c1-b19343b2b97f" Name="0. 初始化 四方凶兆" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B665):">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="V7a2_凶兆_dir4_b有" DictVariableValue="=,0=0,1=0,2=0,3=0"/>
+                          <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableName="V7a2_凶兆_statusId"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                </Folders>
+              </Folder>
+              <Folder Id="738776d4-5a99-4708-a1b7-3cac79c3fdcb" Enabled="true" Name="B. 四方凶兆2 四边拉线" RawEnvironmentVariables="phase = 凶兆2">
+                <Triggers>
+                  <Trigger Enabled="true" Id="ef5ed9d4-5e93-4024-8bbc-f1e74c582b1c" Name="0. 初始化" RegularExpression="^V7a_phase:2_凶兆:2">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^V7a2_凶兆2"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a_phase" VariableExpression="${env:phase}"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="161c15f3-3c47-43db-aaab-c33716501418" Name="直条" RegularExpression="^V7a2_灵击波:x:(?&lt;x&gt;[^:]*):y:(?&lt;y&gt;[^:]*):h:(?&lt;h&gt;[^:]*):源dir4:(?&lt;源dir4&gt;[0-3]):折dir4:(?&lt;折dir4&gt;[0-3]):tid:(?&lt;tid&gt;1.{7})">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: V7a2_凶兆2_自身剑气&#13;&#10;omen: m131om_setu0f&#13;&#10;O: ${x}, ${y}, ${env:Z0}&#13;&#10;θ: ${h}&#13;&#10;t: 10&#13;&#10;Scale: 2, 40, 0.05&#13;&#10;Color: 1,1,1,2&#13;&#10;---&#13;&#10;Tag: V7a2_凶兆2_自身剑气&#13;&#10;omen: m131om_setu0f&#13;&#10;O: ${x}, ${y}, ${env:Z0}&#13;&#10;θ: ${h}&#13;&#10;t: 10&#13;&#10;Pos: 0, -25&#13;&#10;Angle: π/2&#13;&#10;Scale: 2, 40, 0.05&#13;&#10;Color: 1,1,1,2"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:V7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="1213ff68-3756-4810-ad68-c858b7d8438d" Enabled="true" Name="X. 天界交叉斩 钢/月">
+                <Triggers>
+                  <Trigger Enabled="true" Id="533000a1-3eb3-4e31-897f-2c4bc683efc7" Name="1. 钢铁月环" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B9C[EF]|B9D[01]):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a2_钢月_b先钢" VariableExpression="0x${aid} = 0xB9CE || 0x${aid} = 0xB9D0"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a2_钢月_b散" VariableExpression="0x${aid} = 0xB9CE || 0x${aid} = 0xB9CF"/>
+                      <Action OrderNumber="3" ActionType="Variable" ExecutionDelayExpression="10000" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^V7a2_钢月"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="7a225ea4-eafe-4703-b7cb-7ff8a2c7f69c" Name="2.3 点名红标" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;028C):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a2_钢月_自" VariableExpression="0"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="300"/>
+                      <Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="去前方，点名${if: ${!v:V7a2_钢月_b散} ? 分散 : 分摊 }"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="eedbb419-5e57-4829-8070-7088f66f9aae" Name="2.2 点名 2" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;014D):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a2_钢月_自" VariableExpression="2"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="300"/>
+                      <Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="${if: !${!v:V7a2_钢月_b先钢} ? 去后方，点名贰钢铁 : 去中心，点名贰月环 }"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="a68dca92-f185-4a19-86db-7b33a4caed82" Name="2.1 点名 1" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;014C):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a2_钢月_自" VariableExpression="1"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="300"/>
+                      <Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="${if: ${!v:V7a2_钢月_b先钢} ? 去后方，点名壹钢铁 : 去中心，点名壹月环 }"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="9052ddac-7b67-4a78-af4f-b6c57b2f65d7" Name="2.4 无点名" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B9C[EF]|B9D[01]):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="300"/>
+                      <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="${if: ${!v:V7a2_钢月_b散} ? 去中心分散，无点名 : 去前方分摊，无点名 }">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${ev:V7a2_钢月_自}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="f69ec1fd-82cd-4152-9707-e681ae55949d" Enabled="true" Name="C. 四方凶兆3 四连双刀" RawEnvironmentVariables="phase = 凶兆3">
+                <Triggers>
+                  <Trigger Enabled="true" Id="f8c658ea-0334-44c5-b98f-df3da8c29f20" Name="0. 初始化" RegularExpression="^V7a_phase:2_凶兆:3">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^V7a2_凶兆3"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a_phase" VariableExpression="${env:phase}"/>
+                      <Action OrderNumber="3" ActionType="DictVariable" DescBgColor="ffd" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B67C" DictVariableValue="_=咬击古狼闪 | tts=去背面 | omen=Rect | t=4.7 | Scale=40,80,1 | Color=1.5,1,1,1.5"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="ea4cabda-4e87-4f62-98ee-3a692bb83c31" Name="2. 获取连线方向" RegularExpression="^.{15}\S+ 23:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;sid&gt;4.{7}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;016[5678])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="此日志可能同时多次生成（连线 id 不一样），原因未知，必须同步以保证后出现的 id 覆盖先出现的" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="上 右 下 左" DescriptionOverride="True"/>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a2_凶兆3_my线dir4" VariableExpression="(0x169 - 0x${type}) % 4"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:V7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="4a12d049-5480-4369-8d64-4ec20a6836e4" Name="3.1 前三轮播报" RegularExpression="^V7a2_凶兆3:n:(?&lt;n&gt;[1-3]):b上行朝右:(?&lt;b上行朝右&gt;[01]):b左列朝下:(?&lt;b左列朝下&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="omen" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_西安全" VariableExpression="!${d:V7a2_凶兆_dir4_b有[ ${n: ${b左列朝下} ? 0 : 2} ]}"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_东安全" VariableExpression="!${d:V7a2_凶兆_dir4_b有[ ${n: !${b左列朝下} ? 0 : 2} ]}"/>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_北安全" VariableExpression="!${d:V7a2_凶兆_dir4_b有[ ${n: ${b上行朝右} ? 1 : 3} ]}"/>
+                      <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_南安全" VariableExpression="!${d:V7a2_凶兆_dir4_b有[ ${n: !${b上行朝右} ? 1 : 3} ]}"/>
+                      <Action OrderNumber="6" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="V7a2_凶兆3_安全omen:col:2:row:2" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_西安全} &amp;&amp; ${v:tmp_北安全}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="7" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="V7a2_凶兆3_安全omen:col:3:row:2" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_东安全} &amp;&amp; ${v:tmp_北安全}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="8" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="V7a2_凶兆3_安全omen:col:2:row:3" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_西安全} &amp;&amp; ${v:tmp_南安全}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="9" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="V7a2_凶兆3_安全omen:col:3:row:3" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_东安全} &amp;&amp; ${v:tmp_南安全}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="10" ActionType="Placeholder" Description="tts" DescriptionOverride="True"/>
+                      <Action OrderNumber="11" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_凶兆数" VariableExpression="${!d:V7a2_凶兆_dir4_b有.sum}"/>
+                      <Action OrderNumber="12" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0.5:第${n}轮，去${if: ${!v:tmp_西安全} ? 左 : 右}${if: ${!v:tmp_北安全} ? 上 : 下}" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_凶兆数}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="13" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0.5:第${n}轮，去${?l: 下南, 右东, 上北, 左西 [ !${!v:tmp_北安全} + !${!v:tmp_西安全} * 2 + !${!v:tmp_南安全} * 3 + !${!v:tmp_东安全} * 4 ]}" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_凶兆数}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="14" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0.5:第${n}轮，随便站" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_凶兆数}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="15" ActionType="Placeholder" DescriptionOverride="True"/>
+                      <Action OrderNumber="16" ActionType="Variable" Asynchronous="False" VariableName="tmp_西安全"/>
+                      <Action OrderNumber="17" ActionType="Variable" Asynchronous="False" VariableName="tmp_东安全"/>
+                      <Action OrderNumber="18" ActionType="Variable" Asynchronous="False" VariableName="tmp_北安全"/>
+                      <Action OrderNumber="19" ActionType="Variable" Asynchronous="False" VariableName="tmp_南安全"/>
+                      <Action OrderNumber="20" ActionType="Variable" Asynchronous="False" VariableName="tmp_凶兆数"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="19d00392-e19a-400e-938a-9f425dad89c7" Name="1. 获取左、上剑气 * 2n =&gt; 3" RegularExpression="^.{15}\S+ 03:(?&lt;sid&gt;4.{7}):([^:]*:){7}19227:([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;(?=-?0|1)[^:]*)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="V7a2_凶兆3_b上行朝右" ListVariableExpression="${y} &lt; ${env:Y0}">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${h}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="V7a2_凶兆3_b左列朝下" ListVariableExpression="${x} &lt; ${env:X0}">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${h}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="V7a2_凶兆3:n:${!l:V7a2_凶兆3_b上行朝右.size}:b上行朝右:${!l:V7a2_凶兆3_b上行朝右[-1]}:b左列朝下:${!l:V7a2_凶兆3_b左列朝下[-1]}" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:V7a2_凶兆3_b上行朝右.size}" ExpressionTypeL="String" ExpressionR="${l:V7a2_凶兆3_b左列朝下.size}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:V7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="f3d3e76c-959d-4dd5-b6b4-5f8df3482446" Name="[F] 安全格 omen" RegularExpression="^V7a2_凶兆3_安全omen:col:(?&lt;col&gt;[1-4]):row:(?&lt;row&gt;[1-4])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: z6r1_b4_ibox_01k1&#13;&#10;Tag: V7a2_凶兆3_安全&#13;&#10;delay: 0.9&#13;&#10;t: 5.6&#13;&#10;Pos: ${env:X0} + (${col} - 2.5) * 10, ${env:Y0} + (${row} - 2) * 10, ${env:Z0}&#13;&#10;Scale: 5, 10, 1&#13;&#10;Color: 0, 1, 10, 1"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="false" Id="a20972e4-a409-4235-8b67-3cc3a5039c07" Name="Debug Log 2026-03-07 18:05" Source="None">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="V7a_phase:2_凶兆:3" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="1.02 * 1000"/>
+                      <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[23:00:51.109] StatusAdd 1A:12A6:凶兆：西:41.96:E0000000::${l:party[1]}:队员:00:322037:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="1.02 * 1000"/>
+                      <Action OrderNumber="5" ActionType="LogMessage" LogMessageText="[23:00:52.132] StatusRemove 1E:12A6:凶兆：西:0.00:E0000000::${l:party[1]}:队员:00:322037:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="6" ActionType="LogMessage" LogMessageText="[23:00:52.132] StatusAdd 1A:12AE:凶兆：西北:40.93:E0000000::${l:party[1]}:队员:00:322037:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="1000"/>
+                      <Action OrderNumber="8" ActionType="LogMessage" LogMessageText="[23:00:57.395] AddCombatant 03:40008A01:灵击波:00:64:0000:00::14326:19227:188300:188300:10000:10000:::175.00:-835.00:-16.00:0.00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="9" ActionType="Placeholder" ExecutionDelayExpression="1000"/>
+                      <Action OrderNumber="10" ActionType="LogMessage" LogMessageText="[23:00:59.483] AddCombatant 03:40008A08:灵击波:00:64:0000:00::14326:19227:188300:188300:10000:10000:::150.00:-820.00:-16.00:1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="11" ActionType="Placeholder" ExecutionDelayExpression="5.57 * 1000"/>
+                      <Action OrderNumber="12" ActionType="LogMessage" LogMessageText="[23:01:05.048] AddCombatant 03:40008A0D:灵击波:00:64:0000:00::14326:19227:188300:188300:10000:10000:::150.00:-820.00:-16.00:1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="13" ActionType="LogMessage" LogMessageText="[23:01:05.048] AddCombatant 03:40008A0B:灵击波:00:64:0000:00::14326:19227:188300:188300:10000:10000:::165.00:-835.00:-16.00:0.00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="5.59 * 1000"/>
+                      <Action OrderNumber="15" ActionType="LogMessage" LogMessageText="[23:01:10.637] AddCombatant 03:40008A33:灵击波:00:64:0000:00::14326:19227:188300:188300:10000:10000:::150.00:-810.00:-16.00:1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="16" ActionType="LogMessage" LogMessageText="[23:01:10.637] AddCombatant 03:40008A31:灵击波:00:64:0000:00::14326:19227:188300:188300:10000:10000:::175.00:-835.00:-16.00:0.00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="17" ActionType="Placeholder" ExecutionDelayExpression="3.38 * 1000"/>
+                      <Action OrderNumber="18" ActionType="LogMessage" LogMessageText="[23:01:14.015] Tether 23:${l:party[1]}:队员:400087E9:剑术大师:0000:0000:0166:400087E9:000F:0000" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="19" ActionType="Placeholder" ExecutionDelayExpression="2.34 * 1000"/>
+                      <Action OrderNumber="20" ActionType="LogMessage" LogMessageText="[23:01:16.359] AddCombatant 03:40008A3A:灵击波:00:64:0000:00::14326:19227:188300:188300:10000:10000:::165.00:-835.00:-16.00:0.00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="21" ActionType="LogMessage" LogMessageText="[23:01:16.359] AddCombatant 03:40008A3C:灵击波:00:64:0000:00::14326:19227:188300:188300:10000:10000:::150.00:-810.00:-16.00:1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="22" ActionType="Placeholder" ExecutionDelayExpression="5.17 * 1000"/>
+                      <Action OrderNumber="23" ActionType="LogMessage" LogMessageText="[23:01:21.534] StatusRemove 1E:12AE:凶兆：西北:0.00:E0000000::${l:party[1]}:队员:00:322037:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="24" ActionType="LogMessage" LogMessageText="[23:01:21.534] StatusAdd 1A:12AF:凶兆：东西北:11.53:E0000000::${l:party[1]}:队员:00:322037:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="25" ActionType="Placeholder" ExecutionDelayExpression="8.68 * 1000"/>
+                      <Action OrderNumber="26" ActionType="LogMessage" LogMessageText="[23:01:30.206] StatusRemove 1E:12AF:凶兆：东西北:0.00:E0000000::${l:party[1]}:队员:00:322037:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="27" ActionType="LogMessage" LogMessageText="[23:01:30.206] StatusAdd 1A:12B3:凶兆：东西南北:2.86:E0000000::${l:party[1]}:队员:00:322037:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="28" ActionType="Placeholder" ExecutionDelayExpression="2.89 * 1000"/>
+                      <Action OrderNumber="29" ActionType="LogMessage" LogMessageText="[23:01:33.103] StatusRemove 1E:12B3:凶兆：东西南北:0.00:E0000000::${l:party[1]}:队员:00:322037:" LogProcess="True" LogProcessACT="True"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="29990346-780e-45ec-82f6-0fae8c480942" Name="3.2 第四轮播报" RegularExpression="^V7a2_凶兆3:n:(?&lt;n&gt;4):b上行朝右:(?&lt;b上行朝右&gt;[01]):b左列朝下:(?&lt;b左列朝下&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="omen" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_dir4_b有"/>
+                      <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Merge" DictVariableName="V7a2_凶兆_dir4_b有" DictVariableTarget="tmp_dir4_b有"/>
+                      <Action OrderNumber="4" ActionType="Placeholder" Description="现在连线日志有问题 只能无视" DescriptionOverride="True"/>
+                      <Action OrderNumber="5" Enabled="False" ActionType="DictVariable" Asynchronous="False" DescBgColor="f88" DictVariableOp="Set" DictVariableName="tmp_dir4_b有" DictVariableKey="${!v:V7a2_凶兆3_my线dir4}" DictVariableValue="1"/>
+                      <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_西安全" VariableExpression="!${d:tmp_dir4_b有[ ${n: ${b左列朝下} ? 0 : 2} ]}"/>
+                      <Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_东安全" VariableExpression="!${d:tmp_dir4_b有[ ${n: !${b左列朝下} ? 0 : 2} ]}"/>
+                      <Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_北安全" VariableExpression="!${d:tmp_dir4_b有[ ${n: ${b上行朝右} ? 1 : 3} ]}"/>
+                      <Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_南安全" VariableExpression="!${d:tmp_dir4_b有[ ${n: !${b上行朝右} ? 1 : 3} ]}"/>
+                      <Action OrderNumber="10" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="V7a2_凶兆3_安全omen:col:2:row:1" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_西安全}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="11" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="V7a2_凶兆3_安全omen:col:3:row:4" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_东安全}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="12" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="V7a2_凶兆3_安全omen:col:4:row:2" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_北安全}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="13" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="V7a2_凶兆3_安全omen:col:1:row:3" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_南安全}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="14" ActionType="Placeholder" Description="tts" DescriptionOverride="True"/>
+                      <Action OrderNumber="15" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_安全区数" VariableExpression="${!v:tmp_西安全} + ${!v:tmp_东安全} + ${!v:tmp_北安全} + ${!v:tmp_南安全}"/>
+                      <Action OrderNumber="16" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0.5:第${n}轮，去${f:slice(:-2):${if: ${!v:tmp_西安全} ? 上北，或 : }${if: ${!v:tmp_东安全} ? 下南，或 : }${if: ${!v:tmp_北安全} ? 右东，或 : }${if: ${!v:tmp_南安全} ? 左西，或 : }}" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_安全区数}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="17" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0.5:没有安全区，中间${if: ${_me.isT} ? 开无敌 : 等死吧 }" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_安全区数}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="18" ActionType="Placeholder" DescriptionOverride="True"/>
+                      <Action OrderNumber="19" ActionType="Variable" Asynchronous="False" VariableName="tmp_西安全"/>
+                      <Action OrderNumber="20" ActionType="Variable" Asynchronous="False" VariableName="tmp_东安全"/>
+                      <Action OrderNumber="21" ActionType="Variable" Asynchronous="False" VariableName="tmp_北安全"/>
+                      <Action OrderNumber="22" ActionType="Variable" Asynchronous="False" VariableName="tmp_南安全"/>
+                      <Action OrderNumber="23" ActionType="Variable" Asynchronous="False" VariableName="tmp_安全区数"/>
+                      <Action OrderNumber="24" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_dir4_b有"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="546c4c1d-976d-48e4-8c57-f5e39eadeaca" Enabled="true" Name="D. 四方凶兆4 落石" RawEnvironmentVariables="phase = 凶兆4">
+                <Triggers>
+                  <Trigger Enabled="true" Id="18ae07af-42f7-4681-a43a-28ebf72d5150" Name="0. 初始化 + 时间轴" RegularExpression="^V7a_phase:2_AoE:2">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^V7a2_凶兆4"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a_phase" VariableExpression="${env:phase}"/>
+                      <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="tts:15.5:中间集合，准备拉线" LogProcess="True"/>
+                      <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="cd5:21.5" LogProcess="True"/>
+                      <Action OrderNumber="5" ActionType="LogMessage" LogMessageText="tts:22.5:放黄圈" LogProcess="True"/>
+                      <Action OrderNumber="6" ActionType="LogMessage" LogMessageText="cd5:27.0" LogProcess="True"/>
+                      <Action OrderNumber="7" ActionType="LogMessage" LogMessageText="tts:27.0:石头附近躲避" LogProcess="True"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="2e715d29-af79-446f-861d-457c24adb4a5" Name="1. 生成岩块" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B687):(?&lt;x&gt;16[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a2_凶兆4_b主斜岩" VariableExpression="VecToDir(${x} - ${env:X0}, ${y} - ${env:Y0}, -4) % 2 = 0"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="a99cc765-f848-4c20-8317-fb33c11afce9" Name="3b. 播报（有相邻缺口）" RegularExpression="^V7a2_凶兆4:n:(?&lt;n&gt;[1-4]):b上行朝右:(?&lt;b上行朝右&gt;[01]):b左列朝下:(?&lt;b左列朝下&gt;[01]):b主斜岩:(?&lt;b主斜岩&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="等效于凶兆3" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Description="omen" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_西安全" VariableExpression="!${d:V7a2_凶兆_dir4_b有[ ${n: ${b左列朝下} ? 0 : 2} ]}"/>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_东安全" VariableExpression="!${d:V7a2_凶兆_dir4_b有[ ${n: !${b左列朝下} ? 0 : 2} ]}"/>
+                      <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_北安全" VariableExpression="!${d:V7a2_凶兆_dir4_b有[ ${n: ${b上行朝右} ? 1 : 3} ]}"/>
+                      <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_南安全" VariableExpression="!${d:V7a2_凶兆_dir4_b有[ ${n: !${b上行朝右} ? 1 : 3} ]}"/>
+                      <Action OrderNumber="7" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="V7a2_凶兆4_安全omen:col:2:row:2" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_西安全} &amp;&amp; ${v:tmp_北安全}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="8" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="V7a2_凶兆4_安全omen:col:3:row:2" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_东安全} &amp;&amp; ${v:tmp_北安全}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="9" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="V7a2_凶兆4_安全omen:col:2:row:3" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_西安全} &amp;&amp; ${v:tmp_南安全}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="10" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="V7a2_凶兆4_安全omen:col:3:row:3" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_东安全} &amp;&amp; ${v:tmp_南安全}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="11" ActionType="Placeholder" Description="tts" DescriptionOverride="True"/>
+                      <Action OrderNumber="12" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_凶兆数" VariableExpression="${!d:V7a2_凶兆_dir4_b有.sum}"/>
+                      <Action OrderNumber="13" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0.5:第${n}轮，去${if: ${!v:tmp_西安全} ? 左 : 右}${if: ${!v:tmp_北安全} ? 上 : 下}" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_凶兆数}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="14" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0.5:第${n}轮，去${?l: 下南, 右东, 上北, 左西 [ !${!v:tmp_北安全} + !${!v:tmp_西安全} * 2 + !${!v:tmp_南安全} * 3 + !${!v:tmp_东安全} * 4 ]}" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_凶兆数}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="15" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0.5:第${n}轮，随便站" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_凶兆数}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="16" ActionType="Placeholder" DescriptionOverride="True"/>
+                      <Action OrderNumber="17" ActionType="Variable" Asynchronous="False" VariableName="tmp_西安全"/>
+                      <Action OrderNumber="18" ActionType="Variable" Asynchronous="False" VariableName="tmp_东安全"/>
+                      <Action OrderNumber="19" ActionType="Variable" Asynchronous="False" VariableName="tmp_北安全"/>
+                      <Action OrderNumber="20" ActionType="Variable" Asynchronous="False" VariableName="tmp_南安全"/>
+                      <Action OrderNumber="21" ActionType="Variable" Asynchronous="False" VariableName="tmp_凶兆数"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="!${d:V7a2_凶兆_dir4_b有[0]} &amp;&amp; !${d:V7a2_凶兆_dir4_b有[1]}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="!${d:V7a2_凶兆_dir4_b有[1]} &amp;&amp; !${d:V7a2_凶兆_dir4_b有[2]}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="!${d:V7a2_凶兆_dir4_b有[2]} &amp;&amp; !${d:V7a2_凶兆_dir4_b有[3]}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="!${d:V7a2_凶兆_dir4_b有[3]} &amp;&amp; !${d:V7a2_凶兆_dir4_b有[0]}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="2fba66a0-c0ba-4608-92f9-727595d80cf5" Name="3a. 播报（正常/无相邻缺口）" RegularExpression="^V7a2_凶兆4:n:(?&lt;n&gt;[1-4]):b上行朝右:(?&lt;b上行朝右&gt;[01]):b左列朝下:(?&lt;b左列朝下&gt;[01]):b主斜岩:(?&lt;b主斜岩&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_缺口dir4" VariableExpression="${d:V7a2_凶兆_dir4_b有.keyof(0)}"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Description="根据缺口找石头所在方向" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_岩dirN4" VariableExpression="(${!v:tmp_缺口dir4} = 0) = ${b左列朝下}&#13;&#10; ? (${b主斜岩} ? 0 : 1)&#13;&#10; : (${b主斜岩} ? 2 : 3)">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_缺口dir4} % 2" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_岩dirN4" VariableExpression="(${!v:tmp_缺口dir4} = 1) = ${b上行朝右}&#13;&#10; ? (${b主斜岩} ? 0 : 3)&#13;&#10; : (${b主斜岩} ? 2 : 1)">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${v:tmp_缺口dir4} % 2" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="5" ActionType="Placeholder" Description="判断石头要挡的方向" DescriptionOverride="True"/>
+                      <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b岩挡横" VariableExpression="${!v:tmp_缺口dir4} % 2 = 0"/>
+                      <Action OrderNumber="7" ActionType="Placeholder" Description="计算躲避方向" DescriptionOverride="True"/>
+                      <Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_躲dir4" VariableExpression="${v:tmp_b岩挡横}&#13;&#10; ? (${?l: 0, 3.contain(${!v:tmp_岩dirN4})} = ${b上行朝右} ? 3 : 1)&#13;&#10; : (${?l: 0, 1.contain(${!v:tmp_岩dirN4})} = ${b左列朝下} ? 2 : 0)"/>
+                      <Action OrderNumber="9" ActionType="Placeholder" DescriptionOverride="True"/>
+                      <Action OrderNumber="10" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: z6r1_b4_ibox_01k1&#13;&#10;Tag: V7a2_凶兆4_安全_${n}&#13;&#10;delay: 1.2&#13;&#10;t: 5.6&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;Pos: ${!v:tmp_岩dirN4} &lt;= 1 ? -5.5 : 5.5, ${!v:tmp_岩dirN4} % 3 ? 5.5 : -5.5&#13;&#10;Angle: DirToRad(${!v:tmp_躲dir4}, 4)&#13;&#10;Scale: 1.8, 5.5, 1&#13;&#10;Color: 0, 1, 10, 1"/>
+                      <Action OrderNumber="11" ActionType="Placeholder" Description="如果石头恰好靠近两个剑气，石头旋转 90° 位置会挡出两个额外安全区" DescriptionOverride="True"/>
+                      <Action OrderNumber="12" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: z6r1_b4_ibox_01k1&#13;&#10;Tag: V7a2_凶兆4_安全_${n}&#13;&#10;delay: 1.2&#13;&#10;t: 5.6&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;+X: ${b主斜岩}&#13;&#10;Pos: 5.5, -3.7&#13;&#10;Angle: π&#13;&#10;Scale: 1.8, 3.6, 1&#13;&#10;Color: 0, 1, 10, 1&#13;&#10;---&#13;&#10;Omen: z6r1_b4_ibox_01k1&#13;&#10;Tag: V7a2_凶兆4_安全_${n}&#13;&#10;delay: 1.2&#13;&#10;t: 5.6&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;+X: ${b主斜岩}&#13;&#10;Pos: -5.5, 3.7&#13;&#10;Angle: 0&#13;&#10;Scale: 1.8, 3.6, 1&#13;&#10;Color: 0, 1, 10, 1">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${b上行朝右} &amp;&amp; ${b左列朝下} &amp;&amp; ${b主斜岩}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="!${b上行朝右} &amp;&amp; !${b左列朝下} &amp;&amp; !${b主斜岩}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="13" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0.5:第${n}轮，找${?l: 左上, 左下, 右下, 右上 [${!v:tmp_岩dirN4} + 1]}石头，偏${?l: 上, 左, 下, 右 [${!v:tmp_躲dir4} + 1]}" LogProcess="True"/>
+                      <Action OrderNumber="14" ActionType="Variable" Asynchronous="False" VariableName="tmp_缺口dir4"/>
+                      <Action OrderNumber="15" ActionType="Variable" Asynchronous="False" VariableName="tmp_岩dirN4"/>
+                      <Action OrderNumber="16" ActionType="Variable" Asynchronous="False" VariableName="tmp_b岩挡横"/>
+                      <Action OrderNumber="17" ActionType="Variable" Asynchronous="False" VariableName="tmp_躲dir4"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="!${d:V7a2_凶兆_dir4_b有[0]} &amp;&amp; !${d:V7a2_凶兆_dir4_b有[1]}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="!${d:V7a2_凶兆_dir4_b有[1]} &amp;&amp; !${d:V7a2_凶兆_dir4_b有[2]}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="!${d:V7a2_凶兆_dir4_b有[2]} &amp;&amp; !${d:V7a2_凶兆_dir4_b有[3]}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="!${d:V7a2_凶兆_dir4_b有[3]} &amp;&amp; !${d:V7a2_凶兆_dir4_b有[0]}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="3148f451-baed-4cf3-9718-6d87aa5e09ae" Name="2. 获取左、上剑气 * 2n =&gt; 3" RegularExpression="^.{15}\S+ 03:(?&lt;sid&gt;4.{7}):([^:]*:){7}19518:([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;(?=-?0|1)[^:]*)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="V7a2_凶兆4_b上行朝右" ListVariableExpression="${y} &lt; ${env:Y0}">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${h}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="V7a2_凶兆4_b左列朝下" ListVariableExpression="${x} &lt; ${env:X0}">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${h}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="V7a2_凶兆4:n:${!l:V7a2_凶兆4_b上行朝右.size}:b上行朝右:${!l:V7a2_凶兆4_b上行朝右[-1]}:b左列朝下:${!l:V7a2_凶兆4_b左列朝下[-1]}:b主斜岩:${!v:V7a2_凶兆4_b主斜岩}" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:V7a2_凶兆4_b上行朝右.size}" ExpressionTypeL="String" ExpressionR="${l:V7a2_凶兆4_b左列朝下.size}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:V7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="3faf1c3e-bf99-4327-86fa-e39d5a4cf592" Name="[F] 安全格 omen" RegularExpression="^V7a2_凶兆4_安全omen:col:(?&lt;col&gt;[1-4]):row:(?&lt;row&gt;[1-4])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: z6r1_b4_ibox_01k1&#13;&#10;Tag: V7a2_凶兆4_安全&#13;&#10;delay: 1.2&#13;&#10;t: 5.6&#13;&#10;Pos: ${env:X0} + (${col} - 2.5) * 10, ${env:Y0} + (${row} - 2) * 10, ${env:Z0}&#13;&#10;Scale: 5, 10, 1&#13;&#10;Color: 0, 1, 10, 1"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="false" Id="499235af-2586-4443-be50-93700a84239e" Name="Debug Log 2026-03-07 23:35" Source="None">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="V7a_phase:2_AoE:2" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="1.02 * 1000"/>
+                      <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[19:56:03.219] 263 107:40004996:B687:164.477:-820.523:-16.007:-3.142" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="10000"/>
+                      <Action OrderNumber="5" ActionType="LogMessage" LogMessageText="[19:56:29.097] StatusAdd 1A:12A6:凶兆：西:37.96:E0000000::${l:party[1]}:队员:00:322037:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="1.02 * 1000"/>
+                      <Action OrderNumber="7" ActionType="LogMessage" LogMessageText="[19:56:30.122] StatusRemove 1E:12A6:凶兆：西:0.00:E0000000::${l:party[1]}:队员:00:322037:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="8" ActionType="LogMessage" LogMessageText="[19:56:30.122] StatusAdd 1A:12AA:凶兆：西南:36.93:E0000000::${l:party[1]}:队员:00:322037:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="9" ActionType="Placeholder" ExecutionDelayExpression="0.98 * 1000"/>
+                      <Action OrderNumber="10" ActionType="LogMessage" LogMessageText="[19:56:31.102] StatusRemove 1E:12AA:凶兆：西南:0.00:E0000000::${l:party[1]}:队员:00:322037:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="11" ActionType="LogMessage" LogMessageText="[19:56:31.102] StatusAdd 1A:12B2:凶兆：西南北:35.95:E0000000::${l:party[1]}:队员:00:322037:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="12" ActionType="Placeholder" ExecutionDelayExpression="6.36 * 1000"/>
+                      <Action OrderNumber="13" ActionType="LogMessage" LogMessageText="[19:56:37.460] AddCombatant 03:40004ABA:灵击波:00:64:0000:00::14326:19518:188300:188300:10000:10000:::160.00:-835.00:-16.00:0.00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="2.11 * 1000"/>
+                      <Action OrderNumber="15" ActionType="LogMessage" LogMessageText="[19:56:39.565] AddCombatant 03:40004ABC:灵击波:00:64:0000:00::14326:19518:188300:188300:10000:10000:::150.00:-805.00:-16.00:1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="5.22 * 1000"/>
+                      <Action OrderNumber="17" ActionType="LogMessage" LogMessageText="[19:56:44.788] AddCombatant 03:40004AC1:灵击波:00:64:0000:00::14326:19518:188300:188300:10000:10000:::150.00:-825.00:-16.00:1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="18" ActionType="LogMessage" LogMessageText="[19:56:44.788] AddCombatant 03:40004ABF:灵击波:00:64:0000:00::14326:19518:188300:188300:10000:10000:::160.00:-835.00:-16.00:0.00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="19" ActionType="Placeholder" ExecutionDelayExpression="5.59 * 1000"/>
+                      <Action OrderNumber="20" ActionType="LogMessage" LogMessageText="[19:56:50.379] AddCombatant 03:40004AC7:灵击波:00:64:0000:00::14326:19518:188300:188300:10000:10000:::180.00:-835.00:-16.00:0.00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="21" ActionType="LogMessage" LogMessageText="[19:56:50.379] AddCombatant 03:40004AC9:灵击波:00:64:0000:00::14326:19518:188300:188300:10000:10000:::150.00:-805.00:-16.00:1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="22" ActionType="Placeholder" ExecutionDelayExpression="5.77 * 1000"/>
+                      <Action OrderNumber="23" ActionType="LogMessage" LogMessageText="[19:56:56.150] AddCombatant 03:40004ACE:灵击波:00:64:0000:00::14326:19518:188300:188300:10000:10000:::150.00:-825.00:-16.00:1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="24" ActionType="LogMessage" LogMessageText="[19:56:56.150] AddCombatant 03:40004ACC:灵击波:00:64:0000:00::14326:19518:188300:188300:10000:10000:::180.00:-835.00:-16.00:0.00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="25" ActionType="Placeholder" ExecutionDelayExpression="10.94 * 1000"/>
+                      <Action OrderNumber="26" ActionType="LogMessage" LogMessageText="[19:57:07.089] StatusRemove 1E:12B2:凶兆：西南北:0.00:E0000000::${l:party[1]}:队员:00:322037:" LogProcess="True" LogProcessACT="True"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="4ab5eab0-4f81-40a4-a7f3-e9c80e2b8e15" Enabled="true" Name="0. 阶段">
+                <Triggers>
+                  <Trigger Enabled="true" Id="c6953d55-fc32-42eb-87c9-a065fdbc7979" Name="四方凶兆" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B665):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="V7a_phase" DictVariableKey="2_凶兆" DictVariableValue="${_val} + 1"/>
+                      <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="V7a_phase:2_凶兆:${!d:V7a_phase[2_凶兆]}" LogProcess="True" LogProcessACT="True"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="24b70258-a63e-474a-8d4a-ba5e34c823d6" Name="剑气解放" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B680):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="注：开场的不是这个读条 后两次是" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="V7a_phase" DictVariableKey="2_AoE" DictVariableValue="${_val} + 1"/>
+                      <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="V7a_phase:2_AoE:${!d:V7a_phase[2_AoE]}" LogProcess="True" LogProcessACT="True"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="42db1da5-64f3-4a26-8b92-210fee051523" Enabled="true" Name="A. 四方凶兆1 2线2直条" RawEnvironmentVariables="phase = 凶兆1">
+                <Triggers>
+                  <Trigger Enabled="true" Id="ce8e31cb-9d5c-465b-8be9-05e14d5929eb" Name="3. 播报无点名" RegularExpression="^V7a2_凶兆1_直条:b自身直条:0">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="尝试查找谁和自己一组，找到的话用职业名播报" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Copy" ListVariableName="V7a2_凶兆1_${!v:V7a2_凶兆1_myStatusId}" ListVariableTarget="tmp_同组"/>
+                      <Action OrderNumber="3" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Remove" ListVariableName="tmp_同组" ListVariableIndex="${l:tmp_同组.indexof(${_me.id})}"/>
+                      <Action OrderNumber="4" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${!l:tmp_同组.size} = 1 ? 找${_entity[${!l:tmp_同组[1]}].JobCN2}接线 : 找同组接线 }，然后去 boss 脚下"/>
+                      <Action OrderNumber="5" ActionType="ListVariable" Asynchronous="False" ListVariableName="tmp_同组"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="79473a81-7638-4db6-8e74-38795bbe889f" Name="1. 凶兆（三向）" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;12A[BF]|12B[12]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Description="[Flags] 东 = 1, 西 = 2, 南 = 4, 北 = 8    12A4 = 0" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="V7a2_凶兆1_${aid}" ListVariableExpression="${tid}"/>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a2_凶兆1_myStatusId" VariableExpression="${aid}">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="d652ebb5-cd0d-4eef-9fb1-d3aa0a8a0601" Name="2. 连线 * 2 =&gt; 3" RegularExpression="^V7a2_灵击波:x:(?&lt;x&gt;[^:]+):y:(?&lt;y&gt;[^:]+):h:(?&lt;h&gt;[^:]+):源dir4:(?&lt;源dir4&gt;[0-3]):折dir4:(?&lt;折dir4&gt;[0-3]):tid:(?&lt;tid&gt;1.{7})">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Description="储存 tid" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="V7a2_凶兆1_直条idx" ListVariableExpression="${!l:party.indexof(${tid})}"/>
+                      <Action OrderNumber="4" ActionType="Placeholder" Description="* 2 =&gt; 输出" DescriptionOverride="True"/>
+                      <Action OrderNumber="5" ActionType="LogMessage" Asynchronous="False" LogMessageText="V7a2_凶兆1_直条:b自身直条:${!l:V7a2_凶兆1_直条idx.contain(${!v:myIdx})}" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:V7a2_凶兆1_直条idx.size}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="6" ActionType="Placeholder" Description="是自己：播报" DescriptionOverride="True"/>
+                      <Action OrderNumber="7" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="等待接线，然后${if: ${!d:V7a2_凶兆_dir4_b有[${折dir4}]} ? 去场外 : 留在场内 }">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableName="tmp_valid"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:V7a_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="c51659c9-542d-408b-9f05-612390e2dd74" Name="前方顺劈" RegularExpression="^.{15}\S+ ？">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="UseTTS"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="3c119ef9-5502-4b8a-85df-34dbfa9f8c02" Name="0. 初始化" RegularExpression="^V7a_phase:2_凶兆:1">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^V7a2_凶兆1"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a_phase" VariableExpression="${env:phase}"/>
+                      <Action OrderNumber="3" ActionType="DictVariable" DescBgColor="ffd" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B67C" DictVariableValue="_=咬击古狼闪 | tts=去背面 | ttsDelay=1 | omen=Rect | delay=1.5 | t=3.2 | Scale=40,80,1 | Color=1.5,1,1,1.5"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
             </Folders>
-            <Triggers>
-              <Trigger Enabled="true" Id="be6deb6d-b12e-42ca-ba97-8bdf12e4349a" Name="钢铁月环" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B9C[EF]|B9D[01]):">
-                <Actions>
-                  <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="${?d: B9CE = 先钢铁，分散, B9CF = 先月环，分散, B9D0 = 先钢铁，分摊, B9D1 = 先月环，分摊 [${aid}]}"/>
-                </Actions>
-              </Trigger>
-            </Triggers>
           </Folder>
           <Folder Id="042e5e26-2e51-4bd2-94f5-5efd66d5daf3" Enabled="true" Name="3 " RawEnvironmentVariables="X0 = -760&#13;&#10;Y0 = -805&#13;&#10;Z0 = -54">
             <Folders>
@@ -6141,13 +6696,6 @@
                       <Action OrderNumber="5" ActionType="LogMessage" LogMessageText="[22:34:33.470] 263 107:40010162:B32A:374.990:529.992:-29.374:-2.356" LogProcess="True" LogProcessACT="True"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="c735e5cb-e821-4907-b91c-6301c854b28e" Name="激涌的洋流 1/4扇形" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B32A):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)" PeriodRefire="Deny" RefirePeriodExpression="5000">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a1_Quad_b打主斜" VariableExpression="DirToRad(${h}, -4) % 2 = 0"/>
-                      <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="V7a1_Quad:b打主斜:${!v:V7a1_Quad_b打主斜}" LogProcess="True" LogProcessACT="True"/>
-                      <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: V7a1_Quad&#13;&#10;Omen: Fan90&#13;&#10;delay: 1.2&#13;&#10;t: 4.5&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h}&#13;&#10;Scale: 60, 60, 1&#13;&#10;---&#13;&#10;Tag: V7a1_Quad&#13;&#10;Omen: Fan90&#13;&#10;delay: 1.2&#13;&#10;t: 4.5&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h} + π&#13;&#10;Scale: 60, 60, 1&#13;&#10;---&#13;&#10;Tag: V7a1_Quad&#13;&#10;Omen: Fan90&#13;&#10;delay: 5.7&#13;&#10;t: 3.0&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h} + π/2&#13;&#10;Scale: 60, 60, 1&#13;&#10;---&#13;&#10;Tag: V7a1_Quad&#13;&#10;Omen: Fan90&#13;&#10;delay: 5.7&#13;&#10;t: 3.0&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h} - π/2&#13;&#10;Scale: 60, 60, 1"/>
-                    </Actions>
-                  </Trigger>
                   <Trigger Enabled="true" Id="06832720-a41f-4e99-93a6-a63ea3b26867" Name="移动命令" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;87[1-4]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="cd5:${t}" LogProcess="True"/>
@@ -6156,6 +6704,13 @@
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                     </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="c735e5cb-e821-4907-b91c-6301c854b28e" Name="激涌的洋流 1/4扇形" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B32A):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)" PeriodRefire="Deny" RefirePeriodExpression="5000">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a1_Quad_b打主斜" VariableExpression="RadToDir(${h}, -4) % 2 = 0"/>
+                      <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="V7a1_Quad:b打主斜:${!v:V7a1_Quad_b打主斜}" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: V7a1_Quad&#13;&#10;Omen: Fan90&#13;&#10;delay: 1.2&#13;&#10;t: 4.5&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h}&#13;&#10;Scale: 60, 60, 1&#13;&#10;---&#13;&#10;Tag: V7a1_Quad&#13;&#10;Omen: Fan90&#13;&#10;delay: 1.2&#13;&#10;t: 4.5&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h} + π&#13;&#10;Scale: 60, 60, 1&#13;&#10;---&#13;&#10;Tag: V7a1_Quad&#13;&#10;Omen: Fan90&#13;&#10;delay: 5.7&#13;&#10;t: 3.0&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h} + π/2&#13;&#10;Scale: 60, 60, 1&#13;&#10;---&#13;&#10;Tag: V7a1_Quad&#13;&#10;Omen: Fan90&#13;&#10;delay: 5.7&#13;&#10;t: 3.0&#13;&#10;Pos: ${x}, ${y}, ${z}&#13;&#10;Angle: ${h} - π/2&#13;&#10;Scale: 60, 60, 1"/>
+                    </Actions>
                   </Trigger>
                 </Triggers>
               </Folder>
@@ -6407,7 +6962,6 @@
                       <Action OrderNumber="13" ActionType="NamedCallback" ExecutionDelayExpression="3100" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="3: clear"/>
                       <Action OrderNumber="14" ActionType="UseTTS" UseTTSTextExpression="去4，分散"/>
                       <Action OrderNumber="15" ActionType="NamedCallback" ExecutionDelayExpression="3100" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="load"/>
-                      <Action OrderNumber="16" ActionType="UseTTS" UseTTSTextExpression="${if: ${!v:V7a1_Quad_b打主斜} ? 去右上、左下 : 去左上、右下 }"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="e603bffd-e264-4308-8601-76bae6b5ab73" Name="1. 生成小怪 * 12 =&gt; 2" RegularExpression="^.{15}\S+ 03:4.{7}:([^:]*:){7}(?&lt;bnpcid&gt;1909[789]|1910[012]):([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
@@ -6631,6 +7185,11 @@
                       <ConditionSingle Enabled="true" ExpressionL="${_me.IsTM}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
                   </Trigger>
+                  <Trigger Enabled="true" Id="5e44c1f9-e208-4431-8820-fc014ee83de9" Name="5. Quad" RegularExpression="^V7a1_Quad:b打主斜:(?&lt;b打主斜&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="UseTTS" ExecutionDelayExpression="2500" UseTTSTextExpression="${if: ${b打主斜} = (${!v:V7a1_家臣1_myDirN4} % 2 = 0) ? 穿到相邻扇形 : 自己扇形安全 }"/>
+                    </Actions>
+                  </Trigger>
                 </Triggers>
               </Folder>
               <Folder Id="1cbc60a9-0062-4b6b-8082-a04bb8ad5dd0" Enabled="true" Name="D. 迷人的指令 2" RawEnvironmentVariables="phase = 1_指令2">
@@ -6713,21 +7272,13 @@
             <Actions>
               <Action OrderNumber="1" ActionType="DictVariable" DictVariableName="简易播报"/>
               <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="1000"/>
-              <Action OrderNumber="3" ActionType="Placeholder" Description="小怪 1" DescriptionOverride="True"/>
-              <Action OrderNumber="4" ActionType="Placeholder" Description="Boss 1" DescriptionOverride="True"/>
+              <Action OrderNumber="3" ActionType="Placeholder" Description="Boss 1" DescriptionOverride="True"/>
+              <Action OrderNumber="4" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B32E" DictVariableValue="_=尖声坠刺 | tts=AoE"/>
               <Action OrderNumber="5" ActionType="Placeholder" Description="Boss 2" DescriptionOverride="True"/>
-              <Action OrderNumber="6" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B67C" DictVariableValue="_=咬击古狼闪 | tts=半场刀 | omen=Rect | t=4.7 | Scale=40,80,1"/>
-              <Action OrderNumber="7" ActionType="Placeholder" Description="Boss 3" DescriptionOverride="True"/>
+              <Action OrderNumber="6" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B67D" DictVariableValue="_=冥界重光波 | tts=三连分摊"/>
+              <Action OrderNumber="7" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B680" DictVariableValue="_=剑气解放 | tts=AoE"/>
+              <Action OrderNumber="8" ActionType="Placeholder" Description="Boss 3" DescriptionOverride="True"/>
             </Actions>
-          </Trigger>
-          <Trigger Enabled="true" Id="76dc82ab-e541-4805-9d31-5de21dbb373b" Name="凶兆：方向" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;12A[5-9A-F]|12B[0-3]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):">
-            <Actions>
-              <Action OrderNumber="1" ActionType="Placeholder" Description="[Flags] 东 = 1, 西 = 2, 南 = 4, 北 = 8" DescriptionOverride="True"/>
-              <Action OrderNumber="2" ActionType="Variable" VariableOp="SetNumeric" VariableName="tmp_flag" VariableExpression="0x${aid} - 0x12A4"/>
-            </Actions>
-            <Condition Enabled="true" Grouping="Or">
-              <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
-            </Condition>
           </Trigger>
         </Triggers>
       </Folder>
