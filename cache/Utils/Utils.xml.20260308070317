@@ -307,16 +307,23 @@
 <Triggers>
 <Trigger Enabled="true" Id="1bbf5ab6-ef76-4800-a7ae-f6e3f209c6fd" Name="1B TargetIcon (LockOn)" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 1B:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]+):">
 <Actions>
-<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${sid}" />
-<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _TargetIcon AAA:1B:${type}:${sid}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
+<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${sid}" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _TargetIcon AAA:1B:${type}:${sid}:${sn}:${d:tmp_src.joinvalues(&quot;:&quot;, bnpcnameid, bnpcid, x, y, z, h)}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableValueType="Numeric" DictVariableName="tmp_src" />
 </Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${f:startwith(40):${sid}} || ${f:startwith(40):${tid}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
 </Trigger>
 <Trigger Enabled="true" Id="1958f1b5-5fd1-49b2-83eb-08a80036241e" Name="10F ActorSetPos" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 10F:(?&lt;id&gt;4.{7}):(?&lt;h&gt;[^:]+):[^:]+:[^:]+:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)$">
 <Actions>
-<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid" DictVariableValue="${id}" />
-<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _ActorSetPos AAA:10F:${id}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid)}:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
+<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableValue="${id}" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _ActorSetPos AAA:10F:${id}:${d:tmp_entity[name]}:${d:tmp_entity[bnpcnameid]}:${d:tmp_entity[bnpcid]}:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True">
+<Condition Enabled="false" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="9020" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_entity" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="8003a098-ab99-4f75-b51b-af8a9a84cc6f" Name="111 ActorControl" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 111:(?&lt;id&gt;4.{7}):(?&lt;type&gt;[^:]*):(?&lt;param1&gt;[^:]*):(?&lt;param2&gt;[^:]*)">
@@ -326,21 +333,40 @@
 <ConditionSingle Enabled="true" ExpressionL="${ed:ProcessedLog_ActorControl}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${id}" />
-<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="tmp_src" DictVariableKey="bnpcnameid" DictVariableValue="0">
+<Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableKey="bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${id}" />
+<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="tmp_entity" DictVariableKey="bnpcnameid" DictVariableValue="0">
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${d:tmp_src[bnpcid]}" ExpressionTypeL="String" ExpressionR="2000000" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
+<ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="2000000" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
 </Condition>
 </Action>
-<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _${d:ProcessedLog_ActorControl[${type}]}:${id}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
+<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _${d:ProcessedLog_ActorControl[${type}]}:${id}:${d:tmp_entity[name]}:${d:tmp_entity[bnpcnameid]}:${d:tmp_entity[bnpcid]}:${d:tmp_entity[x]}:${d:tmp_entity[y]}:${d:tmp_entity[z]}:${d:tmp_entity[h]}" LogProcess="True" LogProcessACT="True">
+<Condition Enabled="false" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="9020" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_entity" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="1d44f62a-a70f-4849-b8a2-b10b9869009b" Name="110 ActorSpawnExtra" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 110:(?&lt;id&gt;4.{7}):(?!E0000000:0000:00)(?&lt;params&gt;.+)">
 <Actions>
-<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${id}" />
-<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _ActorSpawnExtra AAA:110:${id}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}:${params}" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
+<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableValue="${id}" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _ActorSpawnExtra AAA:110:${id}:${d:tmp_entity[name]}:${d:tmp_entity[bnpcnameid]}:${d:tmp_entity[bnpcid]}:${d:tmp_entity[x]}:${d:tmp_entity[y]}:${d:tmp_entity[z]}:${d:tmp_entity[h]}:${params}" LogProcess="True" LogProcessACT="True">
+<Condition Enabled="false" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="9020" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_entity" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="e5e46c0b-4c10-4f93-9e8f-3546a58a7705" Name="22 NameToggle" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 22:(?&lt;id&gt;4.{7}):(?&lt;name&gt;[^:]*):[^:]*:[^:]*:(?&lt;bTgtable&gt;0?[01])">
+<Actions>
+<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableKey="ID, Name, BNpcNameID, BNpcID, X, Y, Z, Heading" DictVariableValue="${id}" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _NameToggle AAA:22:${n: ${bTgtable}}:${id}:${d:tmp_entity[Name]}:${d:tmp_entity[BNpcNameID]}:${d:tmp_entity[BNpcID]}:${d:tmp_entity[X]}:${d:tmp_entity[Y]}:${d:tmp_entity[Z]}:${d:tmp_entity[Heading]}" LogProcess="True" LogProcessACT="True">
+<Condition Enabled="false" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="9020" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_entity" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="31761d9d-e5e6-4135-8c88-d6236b5cc9fe" Name="转录指令不存在" RegularExpression="^.{15}\S+ 00:003C::(“\/(?&lt;commandCN&gt;.+?)”出现问题：该命令不存在。|The command \/(?&lt;commandEN&gt;.+?) does not exist.|そのコマンドはありません。： \/(?&lt;commandJP&gt;.+?))$">
@@ -367,22 +393,15 @@
 </Trigger>
 <Trigger Enabled="true" Id="7dcc8c3d-3192-4fa6-98a6-256793a5e2be" Name="23 Tether" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 23:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):(?&lt;tid&gt;.{8}):(?&lt;tn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]*)">
 <Actions>
-<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${sid}" />
-<Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_tgt" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${tid}" />
-<Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _Tether AAA:23:${type}:${sid}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}:${tid}:${d:tmp_tgt.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="4" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
+<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableValue="${sid}" />
+<Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_tgt" DictVariableValue="${tid}" />
+<Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _Tether AAA:23:${type}:${sid}:${sn}:${d:tmp_src[bnpcnameid]}:${d:tmp_src[bnpcid]}:${d:tmp_src[x]}:${d:tmp_src[y]}:${d:tmp_src[z]}:${d:tmp_src[h]}:${tid}:${tn}:${d:tmp_tgt[bnpcnameid]}:${d:tmp_tgt[bnpcid]}:${d:tmp_tgt[x]}:${d:tmp_tgt[y]}:${d:tmp_tgt[z]}:${d:tmp_tgt[h]}:0" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="4" ActionType="DictVariable" Asynchronous="False" DictVariableValueType="Numeric" DictVariableName="tmp_src" />
 <Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_tgt" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${f:startwith(40):${sid}} || ${f:startwith(40):${tid}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
-</Trigger>
-<Trigger Enabled="true" Id="e5e46c0b-4c10-4f93-9e8f-3546a58a7705" Name="22 NameToggle" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 22:(?&lt;id&gt;4.{7}):(?&lt;name&gt;[^:]*):[^:]*:[^:]*:(?&lt;bTgtable&gt;0?[01])">
-<Actions>
-<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${id}" />
-<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _NameToggle AAA:22:${n: ${bTgtable}}:${id}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
-</Actions>
 </Trigger>
 </Triggers>
 </Folder>
