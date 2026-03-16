@@ -5958,7 +5958,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="5cbfd52a-163e-415c-a324-532a9e473e2a" Enabled="true" Name="V7a 商客奇谭　　　v0.4.1" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1317$" RawEnvironmentVariables="//CactbotTriggerSetName = Another?, Another?Savage&#13;&#10;OssFolder = V7a">
+      <Folder Id="5cbfd52a-163e-415c-a324-532a9e473e2a" Enabled="true" Name="V7a 商客奇谭　　　v1.0.0" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1317$" RawEnvironmentVariables="//CactbotTriggerSetName = Another?, Another?Savage&#13;&#10;OssFolder = V7a">
         <Folders>
           <Folder Id="b85420ae-0335-4ce5-a8cb-ca7f78697404" Enabled="true" Name=". 控制">
             <Folders>
@@ -6967,7 +6967,7 @@
                   </Trigger>
                 </Triggers>
               </Folder>
-              <Folder Id="99c54044-7212-4136-ae28-d2cb4872adb0" Enabled="true" Name="D. 火灵的诅咒" RawEnvironmentVariables="phase = 冰火">
+              <Folder Id="99c54044-7212-4136-ae28-d2cb4872adb0" Enabled="true" Name="D. 火灵的诅咒" RawEnvironmentVariables="phase = 冰火&#13;&#10;吃冰颜色   = 0.4, 1.0, 4.0, 2&#13;&#10;不吃冰颜色 = 0.3, 1.0, 1.2, 2">
                 <Triggers>
                   <Trigger Enabled="true" Id="dc9a0372-76c5-4a07-9bf7-1577f5f633a2" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B1EF):">
                     <Actions>
@@ -7002,6 +7002,7 @@
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Description="打右 打左" DescriptionOverride="True"/>
                       <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a3_冰火_b北安全" VariableExpression="0x${aid} = 0xB17F"/>
+                      <Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="${if: ${!v:V7a3_冰火_b北安全} ? 北侧安全，面向南侧 : 南侧安全，面向北侧 }"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="bc2d5144-8020-4b85-842f-40640d75f11d" Name="2. 处理 debuff" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;120[789]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
@@ -7071,7 +7072,7 @@
                   <Trigger Enabled="true" Id="3736f39e-6a67-411f-be05-dae4758e5f18" Name="8. 输出" RegularExpression="^V7a3_冰火:自安全区:(?&lt;自安全区&gt;[1-3]):b北安全:(?&lt;b北安全&gt;[01]):冰1冰2无_列行:(?&lt;c1&gt;[1-4]):(?&lt;r1&gt;[1-4]):(?&lt;c2&gt;[1-4]):(?&lt;r2&gt;[1-4]):(?&lt;c3&gt;[1-4]):(?&lt;r3&gt;[1-4])">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Description="行列是左上危险时的相对行列" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="面向${if: ${b北安全} ? 南侧 : 北侧}，去${?l:壹,贰,叁,肆[${r${自安全区}}]}航${?l:壹,贰,叁,肆[${c${自安全区}}]}列"/>
+                      <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="${if: ${b北安全} ? 面向南侧 : 面向北侧 }，${?l: 左侧蓝色安全区, 右侧蓝色安全区, 绿色安全区 [${自安全区}]}，${?l:壹,贰,叁,肆[${r${自安全区}}]}航${?l:壹,贰,叁,肆[${c${自安全区}}]}列"/>
                       <Action OrderNumber="3" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="V7a3_冰火_安全区:b北安全:${b北安全}:b冰:1:col:${c1}:row:${r1}" LogProcess="True"/>
                       <Action OrderNumber="4" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="V7a3_冰火_安全区:b北安全:${b北安全}:b冰:1:col:${c2}:row:${r2}" LogProcess="True"/>
                       <Action OrderNumber="5" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="V7a3_冰火_安全区:b北安全:${b北安全}:b冰:0:col:${c3}:row:${r3}" LogProcess="True"/>
@@ -7079,12 +7080,17 @@
                   </Trigger>
                   <Trigger Enabled="true" Id="3481d0c5-81fd-46c4-9d44-2d9025b70afc" Name="[F] 安全区 omen" RegularExpression="^V7a3_冰火_安全区:b北安全:(?&lt;b北安全&gt;[01]):b冰:(?&lt;b冰&gt;[01]):col:(?&lt;col&gt;[1-4]):row:(?&lt;row&gt;[1-4])">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: x6d3_b2_triangle90_p1&#13;&#10;Tag: V7a3_冰火_安全区&#13;&#10;t: 9&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;θ: ${b北安全} ? 0 : π&#13;&#10;Pos: (${col} - 2) * 10, (${row} - 2) * 10&#13;&#10;Angle: -3 * π/4&#13;&#10;Scale: 10, 10, 1&#13;&#10;Color: ${if: ${b冰} ? 0.3,1,3.5,1 : 0.3,1,1.5,1 }">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${col} + ${row}" ExpressionTypeL="Numeric" ExpressionR="5" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                      <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: x6d3_b2_triangle90_p1&#13;&#10;Tag: V7a3_冰火_安全区&#13;&#10;t: 9&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;θ: ${b北安全} ? 0 : π&#13;&#10;Pos: (${col} - 2) * 10, (${row} - 2) * 10&#13;&#10;Angle: -3 * π/4&#13;&#10;Scale: 10, 10, 1&#13;&#10;Color: ${if: ${b冰} ? ${env:吃冰颜色} : ${env:不吃冰颜色} }">
+                        <Condition Enabled="false" Grouping="Or">
+                          <ConditionSingle Enabled="false" ExpressionL="${col} + ${row}" ExpressionTypeL="Numeric" ExpressionR="5" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: m0830_laser_dark_01k1&#13;&#10;Tag: V7a3_冰火_安全区&#13;&#10;t: 9&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;θ: ${b北安全} ? 0 : π&#13;&#10;Pos: (${col} - 2.5) * 10, (${row} - 2) * 10&#13;&#10;Scale: 5, 10, 1&#13;&#10;Color: ${if: ${b冰} ? 0.5,4,2,0.5 : 0.3,4,0.6,0.5 }">
+                      <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: x6d3_b2_triangle90_p1&#13;&#10;Tag: V7a3_冰火_安全区&#13;&#10;t: 9&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;θ: ${b北安全} ? 0 : π&#13;&#10;Pos: (${col} - 3) * 10, (${row} - 3) * 10&#13;&#10;Angle: π/4&#13;&#10;Scale: 10, 10, 1&#13;&#10;Color: ${if: ${b冰} ? ${env:吃冰颜色} : ${env:不吃冰颜色} }">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${col} + ${row}" ExpressionTypeL="Numeric" ExpressionR="5" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" Enabled="False" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: d1070_laser_01c2&#13;&#10;Tag: V7a3_冰火_安全区&#13;&#10;t: 9&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;θ: ${b北安全} ? 0 : π&#13;&#10;Pos: (${col} - 2.5) * 10, (${row} - 2) * 10&#13;&#10;Scale: 5, 10, 1&#13;&#10;Color: ${if: ${b冰} ? 0.5,4,2,1 : 0.3,4,0.6,1 }">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${col} + ${row}" ExpressionTypeL="Numeric" ExpressionR="5" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                         </Condition>
@@ -7191,27 +7197,41 @@
                       <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a_phase" VariableExpression="${env:phase}"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="2821476a-74e4-485d-8211-45eefe56afc2" Name="1. 直条" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B18[AB]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                  <Trigger Enabled="true" Id="2821476a-74e4-485d-8211-45eefe56afc2" Name="1. 直条（北）" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B18[AB]):(?&lt;x&gt;-7[56][^:]+):(?&lt;y&gt;-82[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="UseTTS"/>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a3_线塔_b先打主斜" VariableExpression="${h} &lt; 0"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="f0a33864-a1d3-43d4-ad52-ac1ce9b024ba" Name="2. 塔" RegularExpression="^.{15}\S+ 101:[^:]*:0002....:(?&lt;pos&gt;0[13579BDF])">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Description="↖ ↗ ↙ ↘ 分别 上、下" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_dirN8" VariableExpression="${?l: 0, 1, 7, 6, 2, 3, 5, 4 [(0x${pos} + 1) / 2]}"/>
+                      <Action OrderNumber="2" Enabled="False" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_dirN8" VariableExpression="${?l: 0, 1, 7, 6, 2, 3, 5, 4 [(0x${pos} + 1) / 2]}"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="c012db51-795b-4070-b48f-64104bb298cc" Name="3. 线" RegularExpression="^.{15}\S+ AAA:23:0011:(?&lt;sid&gt;4.{7}):[^:]*:[^:]*:19057:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;tid&gt;1.{7})"/>
-                  <Trigger Enabled="true" Id="13d3edc3-5598-47cf-a1f2-757d44254462" Name="4. 猎物 debuff" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;B7B):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):">
+                  <Trigger Enabled="true" Id="c012db51-795b-4070-b48f-64104bb298cc" Name="3. 线" RegularExpression="^.{15}\S+ AAA:23:0011:(?&lt;sid&gt;4.{7}):[^:]*:[^:]*:19057:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;tid&gt;1.{7})">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a3_线塔_dir4" VariableExpression="VecToDir(${x} - ${env:X0}, ${y} - ${env:Y0}, 4)"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="13d3edc3-5598-47cf-a1f2-757d44254462" Name="4. 猎物 debuff（暂未处理重复点名）" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;B7B):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="1000">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Description="t: 6 / 13" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a3_线塔_b短" VariableExpression="${t} &lt; 10"/>
+                      <Action OrderNumber="3" ActionType="UseTTS" UseTTSTextExpression="面朝连线"/>
+                      <Action OrderNumber="4" ActionType="UseTTS" ExecutionDelayExpression="800" UseTTSTextExpression="去${if: (${!v:V7a3_线塔_b短} = ${!v:V7a3_线塔_b先打主斜}) = (${!v:V7a3_线塔_dir4} % 2 = 0) &#13;&#10; ? 左&#13;&#10; : 右&#13;&#10;}"/>
+                      <Action OrderNumber="5" ActionType="UseTTS" ExecutionDelayExpression="7000" UseTTSTextExpression="去${if: (${!v:V7a3_线塔_b短} = ${!v:V7a3_线塔_b先打主斜}) != (${!v:V7a3_线塔_dir4} % 2 = 0) &#13;&#10; ? 左&#13;&#10; : 右&#13;&#10;}"/>
                     </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
                   </Trigger>
-                  <Trigger Enabled="false" Id="89b6f340-542d-431c-ae88-b18a02baebbb" Name="Debug Log 2026-03-10 04:58" Source="None">
+                  <Trigger Enabled="false" Id="89b6f340-542d-431c-ae88-b18a02baebbb" Name="Debug Log 2026-03-10 04:58" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B18[AB]):(?&lt;x&gt;-7[56][^:]+):(?&lt;y&gt;-82[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)" Source="None">
                     <Actions>
                       <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[21:32:45.197] StartsCasting 14:40018DA4:火仙女佩莉:B7C1:幻影生成:40018DA4:火仙女佩莉:2.700:-760.01:-805.02:-54.00:-3.02" LogProcess="True" LogProcessACT="True"/>
-                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="7.24 * 1000"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="1000"/>
                       <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[21:32:52.442] 263 107:40018D91:B18A:-760.006:-824.918:-54.002:1.571" LogProcess="True" LogProcessACT="True"/>
                       <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="[21:32:52.487] 263 107:40018D8E:B18B:-779.904:-804.990:-54.002:0.000" LogProcess="True" LogProcessACT="True"/>
                       <Action OrderNumber="5" ActionType="LogMessage" LogMessageText="[21:32:52.487] 263 107:40018D8F:B18A:-760.006:-785.122:-54.002:-1.570" LogProcess="True" LogProcessACT="True"/>
@@ -7724,17 +7744,18 @@
                       <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a_phase" VariableExpression="${env:phase}"/>
                       <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="V7a1_cd5333:19.9" LogProcess="True" LogProcessACT="True"/>
                       <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a1_家臣1_myDirN4" VariableExpression="${!pd:V&amp;C_cfg[V7a1_dirN4Override]} ?? ${?l: 3, 0, 1, 2 [${!v:myIdx}]}"/>
-                      <Action OrderNumber="5" ActionType="NamedCallback" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;R: 18&#13;&#10;R2: 100&#13;&#10;Waymarks: A1D4C3B2"/>
-                      <Action OrderNumber="6" ActionType="UseTTS" UseTTSTextExpression="小怪1，去${?l: 左上, 左下, 右下, 右上 [${!v:V7a1_家臣1_myDirN4} + 1]}"/>
-                      <Action OrderNumber="7" ActionType="Placeholder" ExecutionDelayExpression="15000"/>
-                      <Action OrderNumber="8" ActionType="UseTTS" UseTTSTextExpression="去壹点"/>
-                      <Action OrderNumber="9" ActionType="NamedCallback" ExecutionDelayExpression="5000" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="1: clear"/>
-                      <Action OrderNumber="10" ActionType="UseTTS" UseTTSTextExpression="去2，分散"/>
-                      <Action OrderNumber="11" ActionType="NamedCallback" ExecutionDelayExpression="3100" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="2: clear"/>
-                      <Action OrderNumber="12" ActionType="UseTTS" UseTTSTextExpression="去3点"/>
-                      <Action OrderNumber="13" ActionType="NamedCallback" ExecutionDelayExpression="3100" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="3: clear"/>
-                      <Action OrderNumber="14" ActionType="UseTTS" UseTTSTextExpression="去4，分散"/>
-                      <Action OrderNumber="15" ActionType="NamedCallback" ExecutionDelayExpression="3100" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="load"/>
+                      <Action OrderNumber="5" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="RegisterActorControlCategories" NamedCallbackParam="0xB8"/>
+                      <Action OrderNumber="6" ActionType="NamedCallback" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#13;&#10;R: 18&#13;&#10;R2: 100&#13;&#10;Waymarks: A1D4C3B2"/>
+                      <Action OrderNumber="7" ActionType="UseTTS" UseTTSTextExpression="小怪1，去${?l: 左上, 左下, 右下, 右上 [${!v:V7a1_家臣1_myDirN4} + 1]}"/>
+                      <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="15000"/>
+                      <Action OrderNumber="9" ActionType="UseTTS" UseTTSTextExpression="去壹点"/>
+                      <Action OrderNumber="10" ActionType="NamedCallback" ExecutionDelayExpression="5000" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="1: clear"/>
+                      <Action OrderNumber="11" ActionType="UseTTS" UseTTSTextExpression="去2，分散"/>
+                      <Action OrderNumber="12" ActionType="NamedCallback" ExecutionDelayExpression="3100" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="2: clear"/>
+                      <Action OrderNumber="13" ActionType="UseTTS" UseTTSTextExpression="去3点"/>
+                      <Action OrderNumber="14" ActionType="NamedCallback" ExecutionDelayExpression="3100" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="3: clear"/>
+                      <Action OrderNumber="15" ActionType="UseTTS" UseTTSTextExpression="去4，分散"/>
+                      <Action OrderNumber="16" ActionType="NamedCallback" ExecutionDelayExpression="3100" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="load"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="e603bffd-e264-4308-8601-76bae6b5ab73" Name="1. 生成小怪 * 12 =&gt; 2" RegularExpression="^.{15}\S+ 03:4.{7}:([^:]*:){7}(?&lt;bnpcid&gt;1909[789]|1910[012]):([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
