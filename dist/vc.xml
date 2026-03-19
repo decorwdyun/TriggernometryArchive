@@ -1887,7 +1887,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="1ea48c19-87a2-469d-945a-5679deb8747e" Enabled="true" Name="V6b 六根山　　　　v1.4.0（旧版 尚未重置）" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^115[56]$" RawEnvironmentVariables="CactbotTriggerSetName = AnotherAloaloIsland, AnotherAloaloIslandSavage&#13;&#10;OssFolder = V6b">
+      <Folder Id="1ea48c19-87a2-469d-945a-5679deb8747e" Enabled="true" Name="V6b 六根山　　　　v1.5.0（旧版，Boss 只有标点）" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^115[56]$" RawEnvironmentVariables="CactbotTriggerSetName = AnotherAloaloIsland, AnotherAloaloIslandSavage&#13;&#10;OssFolder = V6b">
         <Folders>
           <Folder Id="a3613245-576d-42af-a334-fdd27ac2a2d8" Enabled="true" Name=".控制">
             <Folders>
@@ -2021,7 +2021,7 @@
               </Trigger>
             </Triggers>
           </Folder>
-          <Folder Id="7aab2b78-8797-4ba9-947f-628f3d26254d" Enabled="true" Name="1 狮王">
+          <Folder Id="7aab2b78-8797-4ba9-947f-628f3d26254d" Enabled="true" Name="1 狮王" RawEnvironmentVariables="X0 = 0&#13;&#10;Y0 = -100&#13;&#10;Z0 = 0">
             <Folders>
               <Folder Id="1e060452-68a1-443e-9cc9-78bee85bc786" Enabled="true" Name="杂项">
                 <Triggers>
@@ -2042,6 +2042,11 @@
                           <ConditionSingle Enabled="true" ExpressionL="${_me.isT}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                         </Condition>
                       </Action>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="ba5ffc07-4c41-4c3a-a29d-0a7b0ebdf023" Name="传送" RegularExpression="^.{15}\S+ 00:0038::(?i) *tp1 *$">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Teleport" NamedCallbackParam="${env:X0}, ${env:Y0}+30, ${env:Z0}"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -2112,50 +2117,50 @@
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V6b1_钢月_b先月" VariableExpression="0x${type} = 0x8415 || 0x${type} = 0x843C"/>
                       <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${f:pick(${v:V6b1_钢月_b先月}): 外面, 中间}${f:pick(${v:V6b1_钢月_b先摊}): 分散, 分摊}"/>
-                      <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" Description="标点：钢铁分散" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_polarDeg:Scale:16.25:Center:0:-100:0:A:1:180::1:B:1:90::1:C:1:0::1:D:1:-90::1:One:0:0:100:1:Two:0:0:100:1:Three:0:0:100:1:Four:0:0:100:1" LogProcess="True">
+                      <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" Description="标点：钢铁分散" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 0, -100, 0&#13;&#10;Scale: 16.25&#13;&#10;A: polar 1, 180°&#13;&#10;B: polar 1, 90°&#13;&#10;C: polar 1, 0°&#13;&#10;D: polar 1, -90°&#13;&#10;1: fakeclear&#13;&#10;2: fakeclear&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先月}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先摊}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" Description="标点：钢铁分摊" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_polarDeg:Scale:16.25:Center:0:-100:0:A:1:180::1:B:1:90::1:C:1:0::1:D:1:-90::1:One:1:-139:0:1:Two:1:49:0:1:Three:1:41:0:1:Four:1:-131:0:1" LogProcess="True">
+                      <Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" Description="标点：钢铁分摊" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 0, -100, 0&#13;&#10;Scale: 16.25&#13;&#10;A: polar 1, 180°&#13;&#10;B: polar 1, 90°&#13;&#10;C: polar 1, 0°&#13;&#10;D: polar 1, -90°&#13;&#10;1: polar 1, -139°&#13;&#10;2: polar 1, 49°&#13;&#10;3: polar 1, 41°&#13;&#10;4: polar 1, -131°">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先月}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先摊}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="5" ActionType="LogMessage" Asynchronous="False" Description="标点：月环分散" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_polarDeg:Scale:6.25:Center:0:-100:0:A:1:180::1:B:1:90::1:C:1:0::1:D:1:-90::1:One:0:0:100:1:Two:0:0:100:1:Three:0:0:100:1:Four:0:0:100:1" LogProcess="True">
+                      <Action OrderNumber="5" ActionType="NamedCallback" Asynchronous="False" Description="标点：月环分散" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 0, -100, 0&#13;&#10;Scale: 6.25&#13;&#10;A: polar 1, 180°&#13;&#10;B: polar 1, 90°&#13;&#10;C: polar 1, 0°&#13;&#10;D: polar 1, -90°&#13;&#10;1: fakeclear&#13;&#10;2: fakeclear&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先月}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先摊}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="6" ActionType="LogMessage" Asynchronous="False" Description="标点：月环分摊" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_polarDeg:Scale:6.25:Center:0:-100:0:A:1:180::1:B:1:90::1:C:1:0::1:D:1:-90::1:One:1:-142::1:Two:1:52::1:Three:1:38::1:Four:1:-128::1" LogProcess="True">
+                      <Action OrderNumber="6" ActionType="NamedCallback" Asynchronous="False" Description="标点：月环分摊" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 0, -100, 0&#13;&#10;Scale: 6.25&#13;&#10;A: polar 1, 180°&#13;&#10;B: polar 1, 90°&#13;&#10;C: polar 1, 0°&#13;&#10;D: polar 1, -90°&#13;&#10;1: polar 1, -142°&#13;&#10;2: polar 1, 52°&#13;&#10;3: polar 1, 38°&#13;&#10;4: polar 1, -128°">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先月}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先摊}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
                       <Action OrderNumber="7" ActionType="UseTTS" ExecutionDelayExpression="5000" Asynchronous="False" UseTTSTextExpression="${f:pick(${v:V6b1_钢月_b先月}): 中间, 外面}${f:pick(${v:V6b1_钢月_b先摊}): 分摊, 分散}"/>
-                      <Action OrderNumber="8" ActionType="LogMessage" Asynchronous="False" Description="标点：钢铁分散" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_polarDeg:Scale:16.25:Center:0:-100:0:A:1:180::1:B:1:90::1:C:1:0::1:D:1:-90::1:One:0:0:100:1:Two:0:0:100:1:Three:0:0:100:1:Four:0:0:100:1" LogProcess="True">
+                      <Action OrderNumber="8" ActionType="NamedCallback" Asynchronous="False" Description="标点：钢铁分散" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 0, -100, 0&#13;&#10;Scale: 16.25&#13;&#10;A: polar 1, 180°&#13;&#10;B: polar 1, 90°&#13;&#10;C: polar 1, 0°&#13;&#10;D: polar 1, -90°&#13;&#10;1: fakeclear&#13;&#10;2: fakeclear&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先月}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先摊}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="9" ActionType="LogMessage" Asynchronous="False" Description="标点：钢铁分摊" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_polarDeg:Scale:16.25:Center:0:-100:0:A:1:180::1:B:1:90::1:C:1:0::1:D:1:-90::1:One:1:-139:0:1:Two:1:49:0:1:Three:1:41:0:1:Four:1:-131:0:1" LogProcess="True">
+                      <Action OrderNumber="9" ActionType="NamedCallback" Asynchronous="False" Description="标点：钢铁分摊" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 0, -100, 0&#13;&#10;Scale: 16.25&#13;&#10;A: polar 1, 180°&#13;&#10;B: polar 1, 90°&#13;&#10;C: polar 1, 0°&#13;&#10;D: polar 1, -90°&#13;&#10;1: polar 1, -139°&#13;&#10;2: polar 1, 49°&#13;&#10;3: polar 1, 41°&#13;&#10;4: polar 1, -131°">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先月}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先摊}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="10" ActionType="LogMessage" Asynchronous="False" Description="标点：月环分散" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_polarDeg:Scale:6.25:Center:0:-100:0:A:1:180::1:B:1:90::1:C:1:0::1:D:1:-90::1:One:0:0:100:1:Two:0:0:100:1:Three:0:0:100:1:Four:0:0:100:1" LogProcess="True">
+                      <Action OrderNumber="10" ActionType="NamedCallback" Asynchronous="False" Description="标点：月环分散" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 0, -100, 0&#13;&#10;Scale: 6.25&#13;&#10;A: polar 1, 180°&#13;&#10;B: polar 1, 90°&#13;&#10;C: polar 1, 0°&#13;&#10;D: polar 1, -90°&#13;&#10;1: fakeclear&#13;&#10;2: fakeclear&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先月}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先摊}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="11" ActionType="LogMessage" Asynchronous="False" Description="标点：月环分摊" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_polarDeg:Scale:6.25:Center:0:-100:0:A:1:180::1:B:1:90::1:C:1:0::1:D:1:-90::1:One:1:-142::1:Two:1:52::1:Three:1:38::1:Four:1:-128::1" LogProcess="True">
+                      <Action OrderNumber="11" ActionType="NamedCallback" Asynchronous="False" Description="标点：月环分摊" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 0, -100, 0&#13;&#10;Scale: 6.25&#13;&#10;A: polar 1, 180°&#13;&#10;B: polar 1, 90°&#13;&#10;C: polar 1, 0°&#13;&#10;D: polar 1, -90°&#13;&#10;1: polar 1, -142°&#13;&#10;2: polar 1, 52°&#13;&#10;3: polar 1, 38°&#13;&#10;4: polar 1, -128°">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先月}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b1_钢月_b先摊}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
@@ -2194,12 +2199,12 @@
                       </Action>
                       <Action OrderNumber="8" ActionType="Placeholder" Description="小怪距离中心：斜点 10√2，正点 12   以斜点小怪情况（安全点 θ 为正点）为基准算坐标，正点情况下缩放系数 12 / 10√2 = 0.8485" DescriptionOverride="True"/>
                       <Action OrderNumber="9" ActionType="Variable" VariableOp="SetNumeric" VariableName="tmp_scale" VariableExpression="roundir(${v:tmp_θ}, 8) % 2 = 0 ? 1 : 0.8485"/>
-                      <Action OrderNumber="10" ActionType="LogMessage" Description="标点：分散" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:Scale:${v:tmp_scale}:θ:${v:tmp_θ}:Center:0:-100:0:A:0:-4::1:B:-8:-10::1:C:0:-16::1:D:8:-10::1:One:0:-9::1:Two:-1:-10::1:Three:0:-11::1:Four:1:-10::1" LogProcess="True">
+                      <Action OrderNumber="10" ActionType="NamedCallback" Description="标点：分散" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 0, -100, 0&#13;&#10;θ: ${v:tmp_θ}&#13;&#10;Scale: ${v:tmp_scale}&#13;&#10;A: 0, -4&#13;&#10;B: -8, -10&#13;&#10;C: 0, -16&#13;&#10;D: 8, -10&#13;&#10;1: 0, -9&#13;&#10;2: -1, -10&#13;&#10;3: 0, -11&#13;&#10;4: 1, -10">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${round} = 2" ExpressionTypeL="Numeric" ExpressionR="${v:V6b1_小怪_b先摊}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="11" ActionType="LogMessage" Description="标点：分摊" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:Scale:${v:tmp_scale}:θ:${v:tmp_θ}:Center:0:-100:0:A:7:-9.3::1:B:-7:-9.3::1:C:-7:-10.7::1:D:7:-10.7::1:One:0.7:-9.7::1:Two:-0.7:-9.7::1:Three:-0.7:-10.3::1:Four:0.7:-10.3::1" LogProcess="True">
+                      <Action OrderNumber="11" ActionType="NamedCallback" Description="标点：分摊" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 0, -100, 0&#13;&#10;θ: ${v:tmp_θ}&#13;&#10;Scale: ${v:tmp_scale}&#13;&#10;A: 7, -9.3&#13;&#10;B: -7, -9.3&#13;&#10;C: -7, -10.7&#13;&#10;D: 7, -10.7&#13;&#10;1: 0.7, -9.7&#13;&#10;2: -0.7, -9.7&#13;&#10;3: -0.7, -10.3&#13;&#10;4: 0.7, -10.3">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${round} = 1" ExpressionTypeL="Numeric" ExpressionR="${v:V6b1_小怪_b先摊}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
@@ -2282,10 +2287,10 @@
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_xsign" VariableExpression="${f:pick(${n: ${h3} &lt; 0}): &quot;-&quot;, &quot;&quot;}"/>
                       <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_ysign" VariableExpression="${f:pick(${n: abs(${h4}) &lt; 3}): &quot;-&quot;, &quot;&quot;}"/>
                       <Action OrderNumber="3" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${f:pick(${n: ${h3} &lt; 0}): 左, 右}${f:pick(${n: abs(${h4}) &lt; 3}): 上, 下}"/>
-                      <Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" Description="标点：除 1 以外" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:Center:0:-100:0:A:${v:tmp_xsign}7.25:${v:tmp_ysign}3::1:B:${v:tmp_xsign}9.2:${v:tmp_ysign}1.25::1:C:${v:tmp_xsign}11.15:${v:tmp_ysign}3::1:D:${v:tmp_xsign}12.75:${v:tmp_ysign}5.875::1:Two:${v:tmp_xsign}10:${v:tmp_ysign}8.75::1:Three:${v:tmp_xsign}7.25:${v:tmp_ysign}8.75::1:Four:${v:tmp_xsign}7.25:${v:tmp_ysign}5.875::1" LogProcess="True"/>
-                      <Action OrderNumber="5" ActionType="NamedCallback" Asynchronous="False" Description="标点：用 1 标记近战输出位" DescBgColor="dff" DescriptionOverride="True" LogProcess="True" NamedCallbackName="place" NamedCallbackParam="{&#13;&#10;  &quot;One&quot;:{&quot;X&quot;:${v:tmp_xsign}7.1, &quot;Y&quot;:0, &quot;Z&quot;:-111, &quot;Active&quot;:true},&#13;&#10;}"/>
+                      <Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" Description="标点：除 1 以外" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 0, -100, 0&#13;&#10;ScaleX: ${v:tmp_xsign}1&#13;&#10;ScaleY: ${v:tmp_ysign}1&#13;&#10;A: 7.25, 3&#13;&#10;B: 9.2, 1.25&#13;&#10;C: 11.15, 3&#13;&#10;D: 12.75, 5.875&#13;&#10;2: 10, 8.75&#13;&#10;3: 7.25, 8.75&#13;&#10;4: 7.25, 5.875"/>
+                      <Action OrderNumber="5" ActionType="NamedCallback" Asynchronous="False" Description="标点：用 1 标记近战输出位" DescBgColor="dff" DescriptionOverride="True" LogProcess="True" NamedCallbackName="AdvWm" NamedCallbackParam="1: ${v:tmp_xsign}7.1, -111"/>
                       <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="3400" Asynchronous="False" DescBgColor="ffd"/>
-                      <Action OrderNumber="7" ActionType="LogMessage" Asynchronous="False" Description="标点：补回 1" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:Center:0:-100:0:One:${v:tmp_xsign}12.75:${v:tmp_ysign}8.75::1" LogProcess="True"/>
+                      <Action OrderNumber="7" ActionType="NamedCallback" Asynchronous="False" Description="标点：补回 1" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 0, -100, 0&#13;&#10;ScaleX: ${v:tmp_xsign}1&#13;&#10;ScaleY: ${v:tmp_ysign}1&#13;&#10;1: 12.75, 8.75"/>
                       <Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableName="tmp_xsign"/>
                       <Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableName="tmp_ysign"/>
                       <Action OrderNumber="10" ActionType="NamedCallback" ExecutionDelayExpression="7400" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="load"/>
@@ -2305,29 +2310,6 @@
               </Folder>
               <Folder Id="f55fde96-e7d0-4bcf-807e-7a3b51dceaea" Enabled="true" Name="1A. 雷云">
                 <Triggers>
-                  <Trigger Enabled="true" Id="0d45d29e-b05b-42e7-9595-4fac87f4569c" Name="1.1 记录雷云生成 =&gt; 1.2" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):[^:]+:00:[^:]+:0000:00::12429:1620[16]:[^:]+:[^:]+:[^:]+:[^:]+:[^:]*:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="Placeholder" Description="计算雷云到场中的均方根距离从而预判吸收次数：吸收 1-3 次的分别约为：14.65 15.01 16.13 （由于坐标只有两位小数 有一定误差）" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="V6b1_云_ids" ListVariableExpression="${id}"/>
-                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_d²" VariableExpression="(${x})^2 + (${y} + 100)^2"/>
-                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V6b1_云_Σd²" VariableExpression="${v:V6b1_云_Σd²} + ${v:tmp_d²}"/>
-                      <Action OrderNumber="5" ActionType="Placeholder" Description="坐标存入表格" DescriptionOverride="True"/>
-                      <Action OrderNumber="6" ActionType="TableVariable" Asynchronous="False" ListVariableOp="Push" TableVariableOp="InsertLine" TableVariableName="V6b1_云" TableVariableExpression=",${id},${x},${y},${v:tmp_d²}" TableVariableY="${t:V6b1_云.h} + 1"/>
-                      <Action OrderNumber="7" ActionType="Placeholder" Description="d = 5 的雷云旋转 90 度即为吸一次的直线角度" DescriptionOverride="True"/>
-                      <Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V6b1_云_θ1" VariableExpression="θ(0, -100, ${x}, ${y}) + pi/2">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="round(${v:tmp_d²})" ExpressionTypeL="Numeric" ExpressionR="25" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
-                        </Condition>
-                      </Action>
-                      <Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableName="tmp_d²"/>
-                      <Action OrderNumber="10" ActionType="Placeholder" Description="记录 18 个：" DescriptionOverride="True"/>
-                      <Action OrderNumber="11" ActionType="LogMessage" Asynchronous="False" LogMessageText="_V6b1_云_add" LogProcess="True">
-                        <Condition Enabled="true" Grouping="Or">
-                          <ConditionSingle Enabled="true" ExpressionL="${l:V6b1_云_ids.size}" ExpressionTypeL="String" ExpressionR="18" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
-                        </Condition>
-                      </Action>
-                    </Actions>
-                  </Trigger>
                   <Trigger Enabled="true" Id="c12a5e03-f585-43b0-aae4-c0cef937b350" Name="1.2 处理雷云生成" RegularExpression="^_V6b1_云_add">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="计算雷云到场中的均方根距离从而预判吸收次数：吸收 1-3 次的分别约为：14.65 15.01 16.13 （由于坐标只有两位小数 有一定误差）" DescriptionOverride="True"/>
@@ -2580,11 +2562,34 @@
                       <Action OrderNumber="4" ActionType="NamedCallback" ExecutionDelayExpression="27500" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="load"/>
                     </Actions>
                   </Trigger>
+                  <Trigger Enabled="true" Id="0d45d29e-b05b-42e7-9595-4fac87f4569c" Name="1.1 记录雷云生成 =&gt; 1.2" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):[^:]+:00:[^:]+:0000:00::12429:1620[16]:[^:]+:[^:]+:[^:]+:[^:]+:[^:]*:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="计算雷云到场中的均方根距离从而预判吸收次数：吸收 1-3 次的分别约为：14.65 15.01 16.13 （由于坐标只有两位小数 有一定误差）" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="V6b1_云_ids" ListVariableExpression="${id}"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_d²" VariableExpression="(${x})^2 + (${y} + 100)^2"/>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V6b1_云_Σd²" VariableExpression="${v:V6b1_云_Σd²} + ${v:tmp_d²}"/>
+                      <Action OrderNumber="5" ActionType="Placeholder" Description="坐标存入表格" DescriptionOverride="True"/>
+                      <Action OrderNumber="6" ActionType="TableVariable" Asynchronous="False" ListVariableOp="Push" TableVariableOp="InsertLine" TableVariableName="V6b1_云" TableVariableExpression=",${id},${x},${y},${v:tmp_d²}" TableVariableY="${t:V6b1_云.h} + 1"/>
+                      <Action OrderNumber="7" ActionType="Placeholder" Description="d = 5 的雷云旋转 90 度即为吸一次的直线角度" DescriptionOverride="True"/>
+                      <Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V6b1_云_θ1" VariableExpression="θ(0, -100, ${x}, ${y}) + pi/2">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="round(${v:tmp_d²})" ExpressionTypeL="Numeric" ExpressionR="25" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableName="tmp_d²"/>
+                      <Action OrderNumber="10" ActionType="Placeholder" Description="记录 18 个：" DescriptionOverride="True"/>
+                      <Action OrderNumber="11" ActionType="LogMessage" Asynchronous="False" LogMessageText="_V6b1_云_add" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:V6b1_云_ids.size}" ExpressionTypeL="String" ExpressionR="18" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                  </Trigger>
                 </Triggers>
               </Folder>
             </Folders>
           </Folder>
-          <Folder Id="957a8357-8fd2-4aed-9637-5cd1142a93de" Enabled="true" Name="2 鼠鼠">
+          <Folder Id="957a8357-8fd2-4aed-9637-5cd1142a93de" Enabled="true" Name="2 鼠鼠" RawEnvironmentVariables="X0 = 300&#13;&#10;Y0 = -120&#13;&#10;Z0 = 7">
             <Folders>
               <Folder Id="30461449-9d2b-42c3-82ac-10cb7a769874" Enabled="true" Name="2D. 地火">
                 <Triggers>
@@ -2635,6 +2640,11 @@
                       </Action>
                     </Actions>
                   </Trigger>
+                  <Trigger Enabled="true" Id="9276a9cc-e05e-47ca-9146-be4ea1503f74" Name="传送" RegularExpression="^.{15}\S+ 00:0038::(?i) *tp2 *$">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Teleport" NamedCallbackParam="${env:X0}, ${env:Y0}+30, ${env:Z0}"/>
+                    </Actions>
+                  </Trigger>
                 </Triggers>
               </Folder>
               <Folder Id="bf4952e4-255f-4844-a1fe-4cec45f7a5b7" Enabled="true" Name="2B. 雷球">
@@ -2667,23 +2677,23 @@
                       <Action OrderNumber="7" ActionType="LogMessage" ExecutionDelayExpression="0.0 * 1000" LogMessageText="[18:39:09.864] AddCombatant 03:4000C60D:Ball of Levin:00:5A:0000:00::12375:16226:69200:69200:10000:10000:::310.00:-115.00:7.00:0.00" LogProcess="True"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="af8e8244-ee55-432b-bee8-27ab19c60444" Name="2. 处理" RegularExpression="^V6b2_orb:recorded" Sequential="True">
+                  <Trigger Enabled="true" Id="af8e8244-ee55-432b-bee8-27ab19c60444" Name="2. 处理" RegularExpression="^V6b2_orb:recorded">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="Variable" VariableOp="SetNumeric" VariableName="tmp_θ" VariableExpression="θ(300 * 6, -120 * 6, ${v:V6b2_orb_sumX}, ${v:V6b2_orb_sumY})"/>
-                      <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="${f:pick(${n: roundir(${v:tmp_θ}, -4)}): 去右下, 去右上, 去左上, 去左下}"/>
-                      <Action OrderNumber="3" ActionType="LogMessage" Description="标点：T（1 2 两点用于拉面向 使背侧身位交界线正对安全区）" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_polarDeg:θ:${v:tmp_θ}:Center:300:-120:7:A:2.5√2:0::1:B:5√2:0::1:C:7.5√2:0::1:D:10√2:0::1:One:3.9:135::1:Two:3.9:-135::1:Three:12.5√2:0::1:Four:15√2:0::1" LogProcess="True">
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_θ" VariableExpression="θ(300 * 6, -120 * 6, ${v:V6b2_orb_sumX}, ${v:V6b2_orb_sumY})"/>
+                      <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${f:pick(${n: roundir(${v:tmp_θ}, -4)}): 去右下, 去右上, 去左上, 去左下}"/>
+                      <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" Description="标点：T（1 2 两点用于拉面向 使背侧身位交界线正对安全区）" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 300, -120, 7&#13;&#10;θ: ${v:tmp_θ}&#13;&#10;A: polar 2.5√2, 0°&#13;&#10;B: polar 5√2, 0°&#13;&#10;C: polar 7.5√2, 0°&#13;&#10;D: polar 10√2, 0°&#13;&#10;1: polar 3.9, 135°&#13;&#10;2: polar 3.9, -135°&#13;&#10;3: polar 12.5√2, 0°&#13;&#10;4: polar 15√2, 0°">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${_me.isT}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${_me.job}" ExpressionTypeL="String" ExpressionR="BLU" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="4" ActionType="LogMessage" Description="标点：非 T" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_polarDeg:θ:${v:tmp_θ}:Center:300:-120:7:A:2.5√2:0::1:B:5√2:0::1:C:7.5√2:0::1:D:10√2:0::1:One:12.5√2:0::1:Two:15√2:0::1:Three:17.5√2:0::1:Four:20√2:0::1" LogProcess="True">
+                      <Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" Description="标点：非 T" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 300, -120, 7&#13;&#10;θ: ${v:tmp_θ}&#13;&#10;A: polar 2.5√2, 0°&#13;&#10;B: polar 5√2, 0°&#13;&#10;C: polar 7.5√2, 0°&#13;&#10;D: polar 10√2, 0°&#13;&#10;1: polar 12.5√2, 0°&#13;&#10;2: polar 15√2, 0°&#13;&#10;3: polar 17.5√2, 0°&#13;&#10;4: polar 20√2, 0°">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${_me.isT}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${_me.job}" ExpressionTypeL="String" ExpressionR="BLU" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="5" ActionType="Variable" VariableName="tmp_θ"/>
+                      <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="tmp_θ"/>
                       <Action OrderNumber="6" ActionType="NamedCallback" ExecutionDelayExpression="12200" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="load"/>
                     </Actions>
                   </Trigger>
@@ -2695,12 +2705,12 @@
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" VariableOp="SetNumeric" VariableName="V6b2_ballad_isRed" VariableExpression="${type} == 9"/>
                       <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="${f:pick(${v:V6b2_ballad_isRed}): 蓝, 红}"/>
-                      <Action OrderNumber="3" ActionType="LogMessage" Description="标点：红" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:${v:V6b2_ballad_θ}:Center:300:-120:7:B:${v:V6b2_ballad_signdx}-16.67:-11.25::1:D:${v:V6b2_ballad_signdx}16.67:11.25::1:One:${v:V6b2_ballad_signdx}-18.75:-11.25::1:Two:${v:V6b2_ballad_signdx}-17.13:-13.25::1:Three:${v:V6b2_ballad_signdx}18.75:11.25::1:Four:${v:V6b2_ballad_signdx}17.13:13.25::1" LogProcess="True">
+                      <Action OrderNumber="3" ActionType="NamedCallback" Description="标点：红" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 300, -120, 7&#13;&#10;θ: ${v:V6b2_ballad_θ}&#13;&#10;ScaleX: ${v:V6b2_ballad_signdx}1&#13;&#10;B: -16.67, -11.25&#13;&#10;D: 16.67, 11.25&#13;&#10;1: -18.75, -11.25&#13;&#10;2: -17.13, -13.25&#13;&#10;3: 18.75, 11.25&#13;&#10;4: 17.13, 13.25">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b2_ballad_isRed}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="4" ActionType="LogMessage" Description="标点：蓝" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:${v:V6b2_ballad_θ}:Center:300:-120:7:B:${v:V6b2_ballad_signdx}-6.25:-16.84::1:D:${v:V6b2_ballad_signdx}6.25:16.84::1:One:${v:V6b2_ballad_signdx}-8.08:-17.15::1:Two:${v:V6b2_ballad_signdx}-6.25:-18.54::1:Three:${v:V6b2_ballad_signdx}8.08:17.15::1:Four:${v:V6b2_ballad_signdx}6.25:18.54::1" LogProcess="True">
+                      <Action OrderNumber="4" ActionType="NamedCallback" Description="标点：蓝" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 300, -120, 7&#13;&#10;θ: ${v:V6b2_ballad_θ}&#13;&#10;ScaleX: ${v:V6b2_ballad_signdx}1&#13;&#10;B: -6.25, -16.84&#13;&#10;D: 6.25, 16.84&#13;&#10;1: -8.08, -17.15&#13;&#10;2: -6.25, -18.54&#13;&#10;3: 8.08, 17.15&#13;&#10;4: 6.25, 18.54">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b2_ballad_isRed}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
@@ -2722,7 +2732,7 @@
                       <Action OrderNumber="10" ActionType="Variable" VariableOp="SetNumeric" VariableName="V6b2_ballad_θ" VariableExpression="(roundvec(${x}-300, ${y}+120, 4) %% 2 - 2) * pi/2"/>
                       <Action OrderNumber="11" ActionType="Placeholder" Description="dir-8 用于判断标点在相对北的左/右" DescriptionOverride="True"/>
                       <Action OrderNumber="12" ActionType="Variable" VariableOp="SetString" VariableName="V6b2_ballad_signdx" VariableExpression="${f:pick(${n:roundvec(${x}-300, ${y}+120, -8) %% 2 = 0}): &quot;-&quot;, &quot;&quot;}"/>
-                      <Action OrderNumber="13" ActionType="LogMessage" Description="初始标点：两组可能位置  标点以 dir-8 = 0/4 （左偏上）的情况为基准" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:${v:V6b2_ballad_θ}:Center:300:-120:7:One:${v:V6b2_ballad_signdx}-6.25:-16.84::1:Two:${v:V6b2_ballad_signdx}-16.67:-11.25::1:Three:${v:V6b2_ballad_signdx}6.25:16.84::1:Four:${v:V6b2_ballad_signdx}16.67:11.25::1" LogProcess="True"/>
+                      <Action OrderNumber="13" ActionType="NamedCallback" Description="初始标点：两组可能位置  标点以 dir-8 = 0/4 （左偏上）的情况为基准" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 300, -120, 7&#13;&#10;θ: ${v:V6b2_ballad_θ}&#13;&#10;ScaleX: ${v:V6b2_ballad_signdx}1&#13;&#10;1: -6.25, -16.84&#13;&#10;2: -16.67, -11.25&#13;&#10;3: 6.25, 16.84&#13;&#10;4: 16.67, 11.25"/>
                     </Actions>
                     <Condition Enabled="true" Grouping="And">
                       <ConditionSingle Enabled="true" ExpressionL="round((${x}) %% 10)" ExpressionTypeL="Numeric" ExpressionR="5" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
@@ -2883,10 +2893,10 @@
                       <Action OrderNumber="15" ActionType="Placeholder" Asynchronous="False" Description="标记路线时的 x 是否镜像" DescriptionOverride="True"/>
                       <Action OrderNumber="16" ActionType="Variable" Asynchronous="False" LogProcess="True" VariableOp="SetString" VariableName="tmp_signx" VariableExpression="${f:pick(${v:V6b2_tower2_shouldDropCW}): &quot;-&quot;, &quot;&quot;}"/>
                       <Action OrderNumber="17" ActionType="Placeholder" Asynchronous="False" Description="播报结果" DescriptionOverride="True"/>
-                      <Action OrderNumber="18" ActionType="LogMessage" Asynchronous="False" Description="标点：高亮放塔位置" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_polarDeg:Center:300 + ${v:tmp_x1}:-120 + ${v:tmp_y1}:7:A:2.5:180::1:B:2.5:90::1:C:2.5:0::1:D:2.5:-90::1:One:2.5:135::1:Two:2.5:45::1:Three:2.5:-45::1:Four:2.5:-135::1" LogProcess="True"/>
+                      <Action OrderNumber="18" ActionType="NamedCallback" Asynchronous="False" Description="标点：高亮放塔位置" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 300 + ${v:tmp_x1}, -120 + ${v:tmp_y1}, 7&#13;&#10;A: polar 2.5, 180°&#13;&#10;B: polar 2.5, 90°&#13;&#10;C: polar 2.5, 0°&#13;&#10;D: polar 2.5, -90°&#13;&#10;1: polar 2.5, 135°&#13;&#10;2: polar 2.5, 45°&#13;&#10;3: polar 2.5, -45°&#13;&#10;4: polar 2.5, -135°"/>
                       <Action OrderNumber="19" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="去${f:pick(${v:V6b2_tower2_dir4}): 上北, 左西, 下南, 右东}，${f:pick(${d:V6b2_tower2_isBlue1[${_me}]}): 蓝塔, 红塔}外侧放塔"/>
                       <Action OrderNumber="20" ActionType="Placeholder" ExecutionDelayExpression="8300" Asynchronous="False"/>
-                      <Action OrderNumber="21" ActionType="LogMessage" Asynchronous="False" Description="标点：路线" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:${v:tmp_θ}:Center:300:-120:7:A:${v:tmp_signx}-5:-5::1:B:${v:tmp_signx}-7.5:-7.5::1:C:${v:tmp_signx}-10:-10::1:D:${v:tmp_signx}-12.5:-12.5::1:One:${v:tmp_signx}-12.5:-15::1:Two:${v:tmp_signx}-10:-15::1:Three:${v:tmp_signx}-7.5:-15::1:Four:${v:tmp_signx}-5:-15::1" LogProcess="True"/>
+                      <Action OrderNumber="21" ActionType="NamedCallback" Asynchronous="False" Description="标点：路线" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 300, -120, 7&#13;&#10;θ: ${v:tmp_θ}&#13;&#10;ScaleX: ${v:tmp_signx}1&#13;&#10;A: -5, -5&#13;&#10;B: -7.5, -7.5&#13;&#10;C: -10, -10&#13;&#10;D: -12.5, -12.5&#13;&#10;1: -12.5, -15&#13;&#10;2: -10, -15&#13;&#10;3: -7.5, -15&#13;&#10;4: -5, -15"/>
                       <Action OrderNumber="22" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="踩壹塔"/>
                       <Action OrderNumber="23" ActionType="UseTTS" ExecutionDelayExpression="4400" Asynchronous="False" UseTTSTextExpression="踩贰塔"/>
                       <Action OrderNumber="24" ExecutionDelayExpression="300" Asynchronous="False" SystemBeepFreqExpression="freq(C6)" SystemBeepLengthExpression="300"/>
@@ -2926,7 +2936,7 @@
                   </Trigger>
                   <Trigger Enabled="true" Id="8b43daf5-278b-4203-964a-8568ea3f4895" Name="3.3 处理直条" RegularExpression="^V6b2_tower2_line:θsafe:(.+)$">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="LogMessage" Asynchronous="False" Description="标点：直条安全区" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_polarDeg:θ:$1:Center:300 + ${v:tmp_x4}:-120 + ${v:tmp_y4}:7:A:3.89:-180::1:Two:1.56:-180::1:Three:3.11:-156::1:Four:3.11:156::1" LogProcess="True"/>
+                      <Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" Description="标点：直条安全区" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: 300 + ${v:tmp_x4}, -120 + ${v:tmp_y4}, 7&#13;&#10;θ: $1&#13;&#10;A: polar 3.89, -180°&#13;&#10;2: polar 1.56, -180°&#13;&#10;3: polar 3.11, -156°&#13;&#10;4: polar 3.11, 156°"/>
                       <Action OrderNumber="2" ActionType="NamedCallback" ExecutionDelayExpression="3200" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="clear"/>
                       <Action OrderNumber="3" ActionType="NamedCallback" ExecutionDelayExpression="3200" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="load"/>
                       <Action OrderNumber="4" ActionType="Variable" LogProcess="True" VariableOp="UnsetRegexUniversal" VariableName="^tmp_"/>
@@ -3013,9 +3023,9 @@
                       <Action OrderNumber="1" ActionType="Variable" VariableOp="SetNumeric" VariableName="tmp_θ" VariableExpression="(${dir8} - 4) * pi/4"/>
                       <Action OrderNumber="2" ActionType="Variable" VariableOp="SetNumeric" VariableName="tmp_x" VariableExpression="300 + 11 * sin(${v:tmp_θ})"/>
                       <Action OrderNumber="3" ActionType="Variable" VariableOp="SetNumeric" VariableName="tmp_y" VariableExpression="-120 + 11 * cos(${v:tmp_θ})"/>
-                      <Action OrderNumber="4" ActionType="LogMessage" Description="标点：高亮塔" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_polarDeg:θ:${v:tmp_θ}:Center:${v:tmp_x}:${v:tmp_y}:7:A:2.5:180::1:B:2.5:90::1:C:2.5:0::1:D:2.5:-90::1:One:2.5:135::1:Two:2.5:45::1:Three:2.5:-45::1:Four:2.5:-135::1" LogProcess="True"/>
+                      <Action OrderNumber="4" ActionType="NamedCallback" Description="标点：高亮塔" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${v:tmp_x}, ${v:tmp_y}, 7&#13;&#10;θ: ${v:tmp_θ}&#13;&#10;A: polar 2.5, 180°&#13;&#10;B: polar 2.5, 90°&#13;&#10;C: polar 2.5, 0°&#13;&#10;D: polar 2.5, -90°&#13;&#10;1: polar 2.5, 135°&#13;&#10;2: polar 2.5, 45°&#13;&#10;3: polar 2.5, -45°&#13;&#10;4: polar 2.5, -135°"/>
                       <Action OrderNumber="5" ActionType="Variable" VariableOp="UnsetRegex" VariableName="^tmp_[θxy]$"/>
-                      <Action OrderNumber="6" ActionType="LogMessage" ExecutionDelayExpression="10000" DescBgColor="dff" LogMessageText="AdvWm_abs:A:::100:1:B:::100:1:C:::100:1:D:::100:1:One:::100:1:Two:::100:1:Three:::100:1:Four:::100:1" LogProcess="True"/>
+                      <Action OrderNumber="6" ActionType="NamedCallback" ExecutionDelayExpression="10000" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="A: fakeclear&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear&#13;&#10;1: fakeclear&#13;&#10;2: fakeclear&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="a742ed64-5f33-4c03-bc38-9fd471843588" Name="5.3 时间轴：蓝3" RegularExpression="^V6b2_tower1_myBlue:3">
@@ -3071,7 +3081,7 @@
               </Folder>
             </Folders>
           </Folder>
-          <Folder Id="f05bd43a-addc-40bf-ad5f-7f9a6c936a04" Enabled="true" Name="3 怨灵">
+          <Folder Id="f05bd43a-addc-40bf-ad5f-7f9a6c936a04" Enabled="true" Name="3 怨灵" RawEnvironmentVariables="X0 = -200&#13;&#10;Y0 = 0&#13;&#10;Z0 = -195">
             <Folders>
               <Folder Id="aa1abe4b-e5e2-4022-ac84-35bfb5e2b658" Enabled="true" Name="3A. 三刀">
                 <Triggers>
@@ -3177,7 +3187,7 @@
                         </Condition>
                       </Action>
                       <Action OrderNumber="35" ActionType="Placeholder" Asynchronous="False" Description="第一次：取安全点倒数第二个作为临时标记点 （水线结束前 / 分身 2 不标）" DescriptionOverride="True"/>
-                      <Action OrderNumber="36" ActionType="LogMessage" Asynchronous="False" DescBgColor="dff" LogMessageText="AdvWm_rotate:θ:${v:V6b3_triple_θ0}:Center:${v:V6b3_triple_pos0}:A:${t:V6b3_triple_spots1[1][-2]}:${t:V6b3_triple_spots1[2][-2]}::1:B:::100:1:C:::100:1:D:::100:1:One:::100:1:Two:::100:1:Three:::100:1:Four:::100:1" LogProcess="True">
+                      <Action OrderNumber="36" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${v:V6b3_triple_pos0}&#13;&#10;θ: ${v:V6b3_triple_θ0}&#13;&#10;A: ${t:V6b3_triple_spots1[1][-2]}, ${t:V6b3_triple_spots1[2][-2]}&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear&#13;&#10;1: fakeclear&#13;&#10;2: fakeclear&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b3_triple_n}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b3_phase}" ExpressionTypeL="String" ExpressionR="water" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
@@ -3313,7 +3323,7 @@
                       <Action OrderNumber="24" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_y1" VariableExpression="${v:tmp_y1} * ${v:tmp_rscale}"/>
                       <Action OrderNumber="25" ActionType="Variable" Asynchronous="False" VariableName="tmp_rscale"/>
                       <Action OrderNumber="26" ActionType="Placeholder" Asynchronous="False" Description="标点 1-2" DescriptionOverride="True"/>
-                      <Action OrderNumber="27" ActionType="LogMessage" Asynchronous="False" DescBgColor="dff" LogMessageText="AdvWm_rotate:θ:${v:V6b3_triple_θ0}:Center:${v:V6b3_triple_pos0}:A:${v:tmp_x1}:${v:tmp_y1}::1:B:${v:tmp_x2}:${v:tmp_y2}::1:C:::100:1:D:::100:1:One:::100:1:Two:::100:1:Three:::100:1:Four:::100:1" LogProcess="True"/>
+                      <Action OrderNumber="27" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${v:V6b3_triple_pos0}&#13;&#10;θ: ${v:V6b3_triple_θ0}&#13;&#10;A: ${v:tmp_x1}, ${v:tmp_y1}&#13;&#10;B: ${v:tmp_x2}, ${v:tmp_y2}&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear&#13;&#10;1: fakeclear&#13;&#10;2: fakeclear&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear"/>
                       <Action OrderNumber="28" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegex" VariableName="^tmp_[xy]\d$"/>
                     </Actions>
                   </Trigger>
@@ -3365,18 +3375,18 @@
                       <Action OrderNumber="28" ActionType="Variable" Asynchronous="False" VariableName="tmp_d"/>
                       <Action OrderNumber="29" ActionType="Variable" Asynchronous="False" VariableName="tmp_rscale"/>
                       <Action OrderNumber="30" ActionType="Placeholder" Asynchronous="False" Description="标点 1-2-2'-3" DescriptionOverride="True"/>
-                      <Action OrderNumber="31" ActionType="LogMessage" Asynchronous="False" DescBgColor="dff" LogMessageText="AdvWm_rotate:θ:${v:V6b3_triple_θ0}:Center:${v:V6b3_triple_pos0}:A:${v:tmp_x1}:${v:tmp_y1}::1:B:${v:tmp_x2}:${v:tmp_y2}::1:C:${v:tmp_x3}:${v:tmp_y3}::1:D:${v:tmp_x2'}:${v:tmp_y2'}::1:One:::100:1:Two:::100:1:Three:::100:1:Four:::100:1" LogProcess="True">
+                      <Action OrderNumber="31" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${v:V6b3_triple_pos0}&#13;&#10;θ: ${v:V6b3_triple_θ0}&#13;&#10;A: ${v:tmp_x1}, ${v:tmp_y1}&#13;&#10;B: ${v:tmp_x2}, ${v:tmp_y2}&#13;&#10;C: ${v:tmp_x3}, ${v:tmp_y3}&#13;&#10;D: ${v:tmp_x2'}, ${v:tmp_y2'}&#13;&#10;1: fakeclear&#13;&#10;2: fakeclear&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:tmp_spot2}" ExpressionTypeL="String" ExpressionR="${v:tmp_spot2'}" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="32" ActionType="LogMessage" Asynchronous="False" DescBgColor="dff" LogMessageText="AdvWm_polarConnect:Center:${v:V6b3_triple_pos0}:Start:${v:V6b3_triple_x0} - ${v:tmp_x2} * cos(${v:V6b3_triple_θ0}) - ${v:tmp_y2} * sin(${v:V6b3_triple_θ0}):${v:V6b3_triple_y0} + ${v:tmp_x2} * sin(${v:V6b3_triple_θ0}) - ${v:tmp_y2} * cos(${v:V6b3_triple_θ0}):${v:V6b3_triple_z0}:End:${v:V6b3_triple_x0} - ${v:tmp_x2'} * cos(${v:V6b3_triple_θ0}) - ${v:tmp_y2'} * sin(${v:V6b3_triple_θ0}):${v:V6b3_triple_y0} + ${v:tmp_x2'} * sin(${v:V6b3_triple_θ0}) - ${v:tmp_y2'} * cos(${v:V6b3_triple_θ0}):${v:V6b3_triple_z0}:Waymarkers:B24D" LogProcess="True">
+                      <Action OrderNumber="32" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="Action: polarConnect&#13;&#10;O: ${v:V6b3_triple_pos0}&#13;&#10;Start: ${v:V6b3_triple_x0} - ${v:tmp_x2} * cos(${v:V6b3_triple_θ0}) - ${v:tmp_y2} * sin(${v:V6b3_triple_θ0}), ${v:V6b3_triple_y0} + ${v:tmp_x2} * sin(${v:V6b3_triple_θ0}) - ${v:tmp_y2} * cos(${v:V6b3_triple_θ0}), ${v:V6b3_triple_z0}&#13;&#10;End: ${v:V6b3_triple_x0} - ${v:tmp_x2'} * cos(${v:V6b3_triple_θ0}) - ${v:tmp_y2'} * sin(${v:V6b3_triple_θ0}), ${v:V6b3_triple_y0} + ${v:tmp_x2'} * sin(${v:V6b3_triple_θ0}) - ${v:tmp_y2'} * cos(${v:V6b3_triple_θ0}), ${v:V6b3_triple_z0}&#13;&#10;Waymarks: B24D">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:tmp_spot2}" ExpressionTypeL="String" ExpressionR="${v:tmp_spot2'}" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
                         </Condition>
                       </Action>
                       <Action OrderNumber="33" ActionType="Placeholder" Asynchronous="False" Description="标点 1-2-3" DescriptionOverride="True"/>
-                      <Action OrderNumber="34" ActionType="LogMessage" Asynchronous="False" DescBgColor="dff" LogMessageText="AdvWm_rotate:θ:${v:V6b3_triple_θ0}:Center:${v:V6b3_triple_pos0}:A:${v:tmp_x1}:${v:tmp_y1}::1:B:${v:tmp_x2}:${v:tmp_y2}::1:C:${v:tmp_x3}:${v:tmp_y3}::1:D:::100:1:One:::100:1:Two:::100:1:Three:::100:1:Four:::100:1" LogProcess="True">
+                      <Action OrderNumber="34" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${v:V6b3_triple_pos0}&#13;&#10;θ: ${v:V6b3_triple_θ0}&#13;&#10;A: ${v:tmp_x1}, ${v:tmp_y1}&#13;&#10;B: ${v:tmp_x2}, ${v:tmp_y2}&#13;&#10;C: ${v:tmp_x3}, ${v:tmp_y3}&#13;&#10;D: fakeclear&#13;&#10;1: fakeclear&#13;&#10;2: fakeclear&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:tmp_spot2}" ExpressionTypeL="String" ExpressionR="${v:tmp_spot2'}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
@@ -3519,7 +3529,7 @@
                       <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_signdx" VariableExpression="${f:pick(${v:V6b3_fire_dir-4_1}): &quot;-&quot;, &quot;&quot;, &quot;-&quot;, &quot;&quot; }"/>
                       <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_θ1" VariableExpression="${v:V6b3_fire_dir-4_1} * pi/2 - 3 * pi/4"/>
                       <Action OrderNumber="7" Enabled="False" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_θ2" VariableExpression="${v:V6b3_fire_dir-4_2} * pi/2 - 3 * pi/4"/>
-                      <Action OrderNumber="8" ActionType="LogMessage" Asynchronous="False" Description="[同] 标点：中心→1" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:${v:tmp_θ1}:Center:-200:0:-195:A:0:0::1:B:0:-2::1:C:0:-4::1:D:0:-6::1:One:0:-8::1:Two:0:-10::1:Three:0:-12::1:Four:0:-14::1" LogProcess="True"/>
+                      <Action OrderNumber="8" ActionType="NamedCallback" Asynchronous="False" Description="[同] 标点：中心→1" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;θ: ${v:tmp_θ1}&#13;&#10;A: 0, 0&#13;&#10;B: 0, -2&#13;&#10;C: 0, -4&#13;&#10;D: 0, -6&#13;&#10;1: 0, -8&#13;&#10;2: 0, -10&#13;&#10;3: 0, -12&#13;&#10;4: 0, -14"/>
                       <Action OrderNumber="9" ActionType="Placeholder" Asynchronous="False" Description="等待半秒获取连线和剑的数据" DescriptionOverride="True"/>
                       <Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="500" Asynchronous="False" DescBgColor="ffd"/>
                       <Action OrderNumber="11" ActionType="LogMessage" Asynchronous="False" LogMessageText="V6b3_fire:process1" LogProcess="True"/>
@@ -3553,7 +3563,7 @@
                         </Condition>
                       </Action>
                       <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="500" Asynchronous="False" DescBgColor="ffd"/>
-                      <Action OrderNumber="9" ActionType="LogMessage" Asynchronous="False" Description="[同] [条] 标点：引导面向（角落内侧）" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:${v:tmp_θ1} + ${v:V6b3_fire_dθbait}:Center:${n:-200 + 10√2 * sin(${v:tmp_θ1})}:${n:0 + 10√2 * cos(${v:tmp_θ1})}:-195:One:0:-2:0:1:Two:0:-4:-0.5:1:Three:0:-6:-1:1:Four:0:-8:-1.5:1" LogProcess="True">
+                      <Action OrderNumber="9" ActionType="NamedCallback" Asynchronous="False" Description="[同] [条] 标点：引导面向（角落内侧）" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${n:-200 + 10√2 * sin(${v:tmp_θ1})}, ${n:0 + 10√2 * cos(${v:tmp_θ1})}, -195&#13;&#10;θ: ${v:tmp_θ1} + ${v:V6b3_fire_dθbait}&#13;&#10;1: 0, -2&#13;&#10;2: 0, -4, -0.5&#13;&#10;3: 0, -6, -1&#13;&#10;4: 0, -8, -1.5">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b3_fire_tgt}" ExpressionTypeL="String" ExpressionR="${_me}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
@@ -3566,15 +3576,15 @@
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="后续：&#13;&#10;" DescriptionOverride="True"/>
                       <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="6500" Asynchronous="False" DescBgColor="ffd"/>
-                      <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" Description="[同] 标点：安全区 1" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:${v:tmp_θ1to2} + pi:Center:-200:0:-195:A:${v:tmp_signdx}15:-8::1:B:${v:tmp_signdx}12.67:-10.33::1:C:${v:tmp_signdx}10.33:-12.67::1:D:${v:tmp_signdx}8:-15::1:One:${v:tmp_signdx}18.9:-6.1::1:Two:${v:tmp_signdx}17.1:-6.1::1:Three:${v:tmp_signdx}5.67:-17.33::1:Four:${v:tmp_signdx}3.33:-19.67::1" LogProcess="True"/>
+                      <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" Description="[同] 标点：安全区 1" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;θ: ${v:tmp_θ1to2} + pi&#13;&#10;ScaleX: ${v:tmp_signdx}1&#13;&#10;A: 15, -8&#13;&#10;B: 12.67, -10.33&#13;&#10;C: 10.33, -12.67&#13;&#10;D: 8, -15&#13;&#10;1: 18.9, -6.1&#13;&#10;2: 17.1, -6.1&#13;&#10;3: 5.67, -17.33&#13;&#10;4: 3.33, -19.67"/>
                       <Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="1000" Asynchronous="False" DescBgColor="ffd"/>
                       <Action OrderNumber="5" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="准备${f:pick(${v:V6b3_fire_isStackFirst}): 分散, 分摊}"/>
                       <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="2500" Asynchronous="False" DescBgColor="ffd"/>
-                      <Action OrderNumber="7" ActionType="LogMessage" Asynchronous="False" Description="[同] 标点：1→2" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:${v:tmp_θ1to2}:Center:${n:-200 + 15√2 * sin(${v:tmp_θ1})}:${n:0 + 15√2 * cos(${v:tmp_θ1})}:-195:A:0:0::1:B:0:-2::1:C:0:-4::1:D:0:-6::1:One:0:-8::1:Two:0:-10::1:Three:0:-12::1:Four:0:-14::1" LogProcess="True"/>
+                      <Action OrderNumber="7" ActionType="NamedCallback" Asynchronous="False" Description="[同] 标点：1→2" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${n:-200 + 15√2 * sin(${v:tmp_θ1})}, ${n:0 + 15√2 * cos(${v:tmp_θ1})}, -195&#13;&#10;θ: ${v:tmp_θ1to2}&#13;&#10;A: 0, 0&#13;&#10;B: 0, -2&#13;&#10;C: 0, -4&#13;&#10;D: 0, -6&#13;&#10;1: 0, -8&#13;&#10;2: 0, -10&#13;&#10;3: 0, -12&#13;&#10;4: 0, -14"/>
                       <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="500" Asynchronous="False" DescBgColor="ffd"/>
                       <Action OrderNumber="9" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${f:pick(${n: ${v:V6b3_fire_dir-4_1} % 2}): 右侧, 左侧}${f:pick(${v:V6b3_fire_isStackFirst}): 分摊, 分散}"/>
                       <Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="2500" Asynchronous="False" DescBgColor="ffd"/>
-                      <Action OrderNumber="11" ActionType="LogMessage" Asynchronous="False" Description="[同] 标点：安全区 2 &#13;&#10; " DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:${v:tmp_θ1to2}:Center:-200:0:-195:A:-${v:tmp_signdx}15:-8::1:B:-${v:tmp_signdx}12.67:-10.33::1:C:-${v:tmp_signdx}10.33:-12.67::1:D:-${v:tmp_signdx}8:-15::1:One:-${v:tmp_signdx}18.9:-6.1::1:Two:-${v:tmp_signdx}17.1:-6.1::1:Three:-${v:tmp_signdx}5.67:-17.33::1:Four:-${v:tmp_signdx}3.33:-19.67::1" LogProcess="True"/>
+                      <Action OrderNumber="11" ActionType="NamedCallback" Asynchronous="False" Description="[同] 标点：安全区 2 &#13;&#10; " DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;θ: ${v:tmp_θ1to2}&#13;&#10;ScaleX: -${v:tmp_signdx}1&#13;&#10;A: 15, -8&#13;&#10;B: 12.67, -10.33&#13;&#10;C: 10.33, -12.67&#13;&#10;D: 8, -15&#13;&#10;1: 18.9, -6.1&#13;&#10;2: 17.1, -6.1&#13;&#10;3: 5.67, -17.33&#13;&#10;4: 3.33, -19.67"/>
                       <Action OrderNumber="12" ActionType="Variable" Asynchronous="False" VariableName="tmp_pos1"/>
                       <Action OrderNumber="13" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegex" VariableName="^tmp_θ"/>
                       <Action OrderNumber="14" ActionType="NamedCallback" ExecutionDelayExpression="6000" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="load"/>
@@ -3610,7 +3620,7 @@
                         </Condition>
                       </Action>
                       <Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="500" Asynchronous="False" DescBgColor="ffd"/>
-                      <Action OrderNumber="11" ActionType="LogMessage" Asynchronous="False" Description="[同] [条] 标点：引导面向（正南北）" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:(${v:V6b3_fire_isTopFirst} * 2 + ${v:V6b3_fire_dir4_bait}) * pi/2 - pi:Center:-200:${n:${v:V6b3_fire_isTopFirst} ? 19 : -19}:-195:One:0:-2:0:1:Two:0:-4:-0.5:1:Three:0:-6:-1:1:Four:0:-8:-1.5:1" LogProcess="True">
+                      <Action OrderNumber="11" ActionType="NamedCallback" Asynchronous="False" Description="[同] [条] 标点：引导面向（正南北）" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, ${n:${v:V6b3_fire_isTopFirst} ? 19 : -19}, -195&#13;&#10;θ: (${v:V6b3_fire_isTopFirst} * 2 + ${v:V6b3_fire_dir4_bait}) * pi/2 - pi&#13;&#10;1: 0, -2&#13;&#10;2: 0, -4, -0.5&#13;&#10;3: 0, -6, -1&#13;&#10;4: 0, -8, -1.5">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b3_fire_tgt}" ExpressionTypeL="String" ExpressionR="${_me}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
@@ -3647,7 +3657,7 @@
                         </Condition>
                       </Action>
                       <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="500" Asynchronous="False" DescBgColor="ffd"/>
-                      <Action OrderNumber="9" ActionType="LogMessage" Asynchronous="False" Description="[同] [条] 标点：引导面向（角落外侧）" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:${v:tmp_θ1} + ${v:V6b3_fire_dθbait}:Center:${n:-200 + 19√2 * sin(${v:tmp_θ1})}:${n:0 + 19√2 * cos(${v:tmp_θ1})}:-195:One:0:0:0:1:Two:0:2:-0.5:1:Three:0:4:-1:1:Four:0:6:-1.5:1" LogProcess="True">
+                      <Action OrderNumber="9" ActionType="NamedCallback" Asynchronous="False" Description="[同] [条] 标点：引导面向（角落外侧）" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${n:-200 + 19√2 * sin(${v:tmp_θ1})}, ${n:0 + 19√2 * cos(${v:tmp_θ1})}, -195&#13;&#10;θ: ${v:tmp_θ1} + ${v:V6b3_fire_dθbait}&#13;&#10;1: 0, 0&#13;&#10;2: 0, 2, -0.5&#13;&#10;3: 0, 4, -1&#13;&#10;4: 0, 6, -1.5">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${v:V6b3_fire_tgt}" ExpressionTypeL="String" ExpressionR="${_me}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
@@ -3677,6 +3687,11 @@
                           <ConditionSingle Enabled="true" ExpressionL="${_me.isT}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                         </Condition>
                       </Action>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="59652bb7-5365-47f6-a1bc-06095906d9ee" Name="传送" RegularExpression="^.{15}\S+ 00:0038::(?i) *tp3 *$">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Teleport" NamedCallbackParam="${env:X0}, ${env:Y0}+30, ${env:Z0}"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -3711,19 +3726,19 @@
                       <Action OrderNumber="3" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${f:pick(${v:V6b3_water_isRight}): 左西, 右东}开始，去红A"/>
                       <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V6b3_water_signdx" VariableExpression="${f:pick(${v:V6b3_water_isRight}): &quot;-&quot;, &quot;&quot;}"/>
                       <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V6b3_water_dy" VariableExpression="$1 = 0 ? 1 : -1"/>
-                      <Action OrderNumber="6" ActionType="LogMessage" Asynchronous="False" Description="标点：前两次路线 ABC" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:Center:-200:0:-195:A:${v:V6b3_water_signdx}8.5:${v:V6b3_water_dy}::1:B:${v:V6b3_water_signdx}9.2:-${v:V6b3_water_dy}::1:C:${v:V6b3_water_signdx}9.9:${v:V6b3_water_dy}::1:D:0:0:100:1:One:0:0:100:1:Two:0:0:100:1:Three:0:0:100:1:Four:0:0:100:1" LogProcess="True"/>
+                      <Action OrderNumber="6" ActionType="NamedCallback" Asynchronous="False" Description="标点：前两次路线 ABC" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;ScaleX: ${v:V6b3_water_signdx}1&#13;&#10;A: 8.5, ${v:V6b3_water_dy}&#13;&#10;B: 9.2, -${v:V6b3_water_dy}&#13;&#10;C: 9.9, ${v:V6b3_water_dy}&#13;&#10;D: fakeclear&#13;&#10;1: fakeclear&#13;&#10;2: fakeclear&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear"/>
                       <Action OrderNumber="7" ActionType="Placeholder" Asynchronous="False" Description="后续：&#13;&#10;" DescriptionOverride="True"/>
                       <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="5000" Asynchronous="False" DescBgColor="ffd"/>
                       <Action OrderNumber="9" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="穿黄B"/>
                       <Action OrderNumber="10" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V6b3_water_signdy" VariableExpression="${f:pick(${n: ${v:V6b3_water_isRight} = (${l:V6b3_water[3]} = 1) }): &quot;-&quot;, &quot;&quot;}"/>
                       <Action OrderNumber="11" ActionType="NamedCallback" DescBgColor="faa" NamedCallbackName="command" NamedCallbackParam="/${pd:V&amp;C_cfg[cnlDebug]} &#13;&#10;isRight = ${v:V6b3_water_isRight}; &#13;&#10;water: ${l:V6b3_water.join};&#13;&#10;signdy = &quot;${v:V6b3_water_signdy}&quot;" VariableOp="SetNumeric"/>
-                      <Action OrderNumber="12" ActionType="LogMessage" Asynchronous="False" Description="标点：后两次路线 12" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:-pi:Center:-200:0:-195:One:${v:V6b3_water_signdx}7.07:${v:V6b3_water_signdy}1.43::1:Two:${v:V6b3_water_signdx}5.64:0::1" LogProcess="True"/>
+                      <Action OrderNumber="12" ActionType="NamedCallback" Asynchronous="False" Description="标点：后两次路线 12" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;θ: -pi&#13;&#10;ScaleX: ${v:V6b3_water_signdx}1&#13;&#10;ScaleY: ${v:V6b3_water_signdy}1&#13;&#10;1: 7.07, 1.43&#13;&#10;2: 5.64, 0"/>
                       <Action OrderNumber="13" Asynchronous="False" SystemBeepFreqExpression="freq(C6)" SystemBeepLengthExpression="300"/>
                       <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="3000" Asynchronous="False" DescBgColor="ffd"/>
                       <Action OrderNumber="15" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="穿蓝C"/>
                       <Action OrderNumber="16" Asynchronous="False" SystemBeepFreqExpression="freq(C6)" SystemBeepLengthExpression="300"/>
                       <Action OrderNumber="17" ActionType="Placeholder" ExecutionDelayExpression="1000" Asynchronous="False" DescBgColor="ffd"/>
-                      <Action OrderNumber="18" ActionType="LogMessage" Asynchronous="False" Description="标点：清除 AB       //:C:${v:V6b3_water_signdx}8.5:0::1" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:-pi:Center:-200:0:-195:A:0:0:100:1:B:0:0:100:1" LogProcess="True"/>
+                      <Action OrderNumber="18" ActionType="NamedCallback" Asynchronous="False" Description="标点：清除 AB       //:C:${v:V6b3_water_signdx}8.5:0::1" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;θ: -pi&#13;&#10;A: fakeclear&#13;&#10;B: fakeclear"/>
                       <Action OrderNumber="19" ActionType="Placeholder" ExecutionDelayExpression="500" Asynchronous="False" DescBgColor="ffd"/>
                       <Action OrderNumber="20" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="穿红1"/>
                       <Action OrderNumber="21" Asynchronous="False" SystemBeepFreqExpression="freq(C6)" SystemBeepLengthExpression="300"/>
@@ -3777,13 +3792,13 @@
                       </Action>
                       <Action OrderNumber="7" ActionType="NamedCallback" Asynchronous="False" DescBgColor="faa" NamedCallbackName="command" NamedCallbackParam="/${pd:V&amp;C_cfg[cnlDebug]} &#13;&#10;θ = ${v:V6b3_water_θ}; &#13;&#10;signdx = &quot;${v:V6b3_water_signdx}&quot;" VariableOp="SetNumeric"/>
                       <Action OrderNumber="8" ActionType="Placeholder" Asynchronous="False" Description="横斜" DescriptionOverride="True"/>
-                      <Action OrderNumber="9" ActionType="LogMessage" Asynchronous="False" Description="标点：先横再斜" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:${v:V6b3_water_θ}:Center:-200:0:-195:A:0:-4::1:B:0:-8.5::1:C:${v:V6b3_water_signdx}2.5:-6::1:D:0:0:100:1:One:0:0:100:1:Two:0:0:100:1:Three:0:0:100:1:Four:0:0:100:1" LogProcess="True">
+                      <Action OrderNumber="9" ActionType="NamedCallback" Asynchronous="False" Description="标点：先横再斜" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;θ: ${v:V6b3_water_θ}&#13;&#10;ScaleX: ${v:V6b3_water_signdx}1&#13;&#10;A: 0, -4&#13;&#10;B: 0, -8.5&#13;&#10;C: 2.5, -6&#13;&#10;D: fakeclear&#13;&#10;1: fakeclear&#13;&#10;2: fakeclear&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="$1 % 3" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
                       <Action OrderNumber="10" ActionType="Placeholder" Asynchronous="False" Description="斜横&#13;&#10;" DescriptionOverride="True"/>
-                      <Action OrderNumber="11" ActionType="LogMessage" Asynchronous="False" Description="标点：先斜再横" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:${v:V6b3_water_θ}:Center:-200:0:-195:A:${v:V6b3_water_signdx}-2.5:-6::1:B:0:-4::1:C:${v:V6b3_water_signdx}2.5:-6::1:D:0:0:100:1:One:0:0:100:1:Two:0:0:100:1:Three:0:0:100:1:Four:0:0:100:1" LogProcess="True">
+                      <Action OrderNumber="11" ActionType="NamedCallback" Asynchronous="False" Description="标点：先斜再横" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;θ: ${v:V6b3_water_θ}&#13;&#10;ScaleX: ${v:V6b3_water_signdx}1&#13;&#10;A: -2.5, -6&#13;&#10;B: 0, -4&#13;&#10;C: 2.5, -6&#13;&#10;D: fakeclear&#13;&#10;1: fakeclear&#13;&#10;2: fakeclear&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="$2 % 3" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
@@ -3794,7 +3809,7 @@
                       <Action OrderNumber="15" Asynchronous="False" SystemBeepFreqExpression="freq(C6)" SystemBeepLengthExpression="300"/>
                       <Action OrderNumber="16" ActionType="Placeholder" ExecutionDelayExpression="3000" Asynchronous="False" DescBgColor="ffd"/>
                       <Action OrderNumber="17" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="穿蓝C"/>
-                      <Action OrderNumber="18" ActionType="LogMessage" Asynchronous="False" Description="标点：最后两个点" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:${v:V6b3_water_θ}:Center:-200:0:-195:A:0:0:100:1:B:0:0:100:1:One:0:-6::1:Two:0:-4::1" LogProcess="True"/>
+                      <Action OrderNumber="18" ActionType="NamedCallback" Asynchronous="False" Description="标点：最后两个点" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;θ: ${v:V6b3_water_θ}&#13;&#10;A: fakeclear&#13;&#10;B: fakeclear&#13;&#10;1: 0, -6&#13;&#10;2: 0, -4"/>
                       <Action OrderNumber="19" ActionType="Placeholder" Asynchronous="False" Description="3斜：" DescriptionOverride="True"/>
                       <Action OrderNumber="20" ActionType="LogMessage" Asynchronous="False" LogMessageText="V6b3_water:3斜4横" LogProcess="True">
                         <Condition Enabled="true" Grouping="And">
@@ -3830,13 +3845,13 @@
                       <Action OrderNumber="3" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${f:pick(${n: ${v:V6b3_water_θ} &gt; 0}): 左西, 右东}开始，去红A"/>
                       <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V6b3_water_signdx" VariableExpression="${f:pick(${n: $1 = 1 }): &quot;-&quot;, &quot;&quot;}"/>
                       <Action OrderNumber="5" ActionType="NamedCallback" Asynchronous="False" DescBgColor="faa" NamedCallbackName="command" NamedCallbackParam="/${pd:V&amp;C_cfg[cnlDebug]} &#13;&#10;θ = ${v:V6b3_water_θ}; &#13;&#10;signdx = &quot;${v:V6b3_water_signdx}&quot;" VariableOp="SetNumeric"/>
-                      <Action OrderNumber="6" ActionType="LogMessage" Asynchronous="False" Description="标点：前两次路线 AB" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:${v:V6b3_water_θ}:Center:-200:0:-195:A:0:-8.5::1:B:${v:V6b3_water_signdx}1.43:-7.07::1:C:0:0:100:1:D:0:0:100:1:One:0:0:100:1:Two:0:0:100:1:Three:0:0:100:1:Four:0:0:100:1" LogProcess="True"/>
+                      <Action OrderNumber="6" ActionType="NamedCallback" Asynchronous="False" Description="标点：前两次路线 AB" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;θ: ${v:V6b3_water_θ}&#13;&#10;ScaleX: ${v:V6b3_water_signdx}1&#13;&#10;A: 0, -8.5&#13;&#10;B: 1.43, -7.07&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear&#13;&#10;1: fakeclear&#13;&#10;2: fakeclear&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear"/>
                       <Action OrderNumber="7" ActionType="Placeholder" Asynchronous="False" Description="后续：&#13;&#10;" DescriptionOverride="True"/>
                       <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="3500" Asynchronous="False" DescBgColor="ffd"/>
                       <Action OrderNumber="9" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="穿黄B"/>
                       <Action OrderNumber="10" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V6b3_water_signdx" VariableExpression="${f:pick(${n: ${v:V6b3_water_θ} &lt; 0 }): &quot;&quot;, &quot;-&quot;}"/>
                       <Action OrderNumber="11" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V6b3_water_dy" VariableExpression="${l:V6b3_water[3]} = 0 ? 1 : -1"/>
-                      <Action OrderNumber="12" ActionType="LogMessage" Asynchronous="False" Description="标点：后两次路线 C12" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:-pi:Center:-200:0:-195:C:${v:V6b3_water_signdx}5.64:${v:V6b3_water_dy}::1:One:${v:V6b3_water_signdx}4.94:-${v:V6b3_water_dy}::1:Two:${v:V6b3_water_signdx}4.14:${v:V6b3_water_dy}::1" LogProcess="True"/>
+                      <Action OrderNumber="12" ActionType="NamedCallback" Asynchronous="False" Description="标点：后两次路线 C12" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;θ: -pi&#13;&#10;ScaleX: ${v:V6b3_water_signdx}1&#13;&#10;C: 5.64, ${v:V6b3_water_dy}&#13;&#10;1: 4.94, -${v:V6b3_water_dy}&#13;&#10;2: 4.14, ${v:V6b3_water_dy}"/>
                       <Action OrderNumber="13" Asynchronous="False" SystemBeepFreqExpression="freq(C6)" SystemBeepLengthExpression="300"/>
                       <Action OrderNumber="14" ActionType="Placeholder" ExecutionDelayExpression="3000" Asynchronous="False" DescBgColor="ffd"/>
                       <Action OrderNumber="15" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="穿蓝C"/>
@@ -3889,8 +3904,8 @@
                       <Trigger Enabled="true" Id="84b71442-21ea-49da-944c-3885337cfb99" Name="2. 手臂出现" RegularExpression="^.{15}\S+ AAA:10F:4.{7}:[^:]*:[^:]*:162(68|73):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
                         <Actions>
                           <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_isNSSafe" VariableExpression="${y} = 0"/>
-                          <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" DescBgColor="dff" LogMessageText="AdvWm_rotate:θ:${n: ${v:tmp_isNSSafe} ? -pi : pi/2}:Center:-200:0:-195:One:0:19::1:Two:0:12.5::1:Three:0:-19::1:Four:0:-12.5::1" LogProcess="True"/>
-                          <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" DescBgColor="dff" LogMessageText="AdvWm_rotate:Center:-200:0:-195:A:0:-15::1:B:15:0::1:C:0:15::1:D:-15:0::1" LogProcess="True"/>
+                          <Action OrderNumber="2" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;θ: ${n: ${v:tmp_isNSSafe} ? -pi : pi/2}&#13;&#10;1: 0, 19&#13;&#10;2: 0, 12.5&#13;&#10;3: 0, -19&#13;&#10;4: 0, -12.5"/>
+                          <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;A: 0, -15&#13;&#10;B: 15, 0&#13;&#10;C: 0, 15&#13;&#10;D: -15, 0"/>
                           <Action OrderNumber="4" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${f:pick(${v:tmp_isNSSafe}): 东希, 南北}安全"/>
                         </Actions>
                         <Condition Enabled="true" Grouping="And">
@@ -3900,8 +3915,8 @@
                       <Trigger Enabled="true" Id="e82ca9dc-b670-4614-8b12-aaf66c979aa6" Name="5. 第二刀安全区" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(85CA|85F9):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="5000">
                         <Actions>
                           <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="条件：phase 不是 adds2，小怪 dir4 方向和自己一致" DescriptionOverride="True"/>
-                          <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" DescBgColor="dff" LogMessageText="AdvWm_rotate:θ:${h}:Center:${x}:${y}:${z}:A:0:0:100:1:B:0:0:100:1:C:0:0:100:1:D:0:0:100:1:One:0:2::1:Three:0:0:100:1:Four:0:0:100:1" LogProcess="True"/>
-                          <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" DescBgColor="dff" LogMessageText="AdvWm_rotate:θ:${h} + ${d:V6b3_adds_sword2_dir4[${sid}]} * pi/2:Center:${x}:${y}:${z}:Two:0:-2::1" LogProcess="True"/>
+                          <Action OrderNumber="2" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${x}, ${y}, ${z}&#13;&#10;θ: ${h}&#13;&#10;A: fakeclear&#13;&#10;B: fakeclear&#13;&#10;C: fakeclear&#13;&#10;D: fakeclear&#13;&#10;1: 0, 2&#13;&#10;3: fakeclear&#13;&#10;4: fakeclear"/>
+                          <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="O: ${x}, ${y}, ${z}&#13;&#10;θ: ${h} + ${d:V6b3_adds_sword2_dir4[${sid}]} * pi/2&#13;&#10;2: 0, -2"/>
                           <Action OrderNumber="4" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${f:pick(${d:V6b3_adds_sword2_dir4[${sid}]}): 前前前, 左左左, 错误, 右右右}">
                             <Condition Enabled="false" Grouping="Or">
                               <ConditionSingle Enabled="true" ExpressionL="${d:V6b3_adds_tgt[${sid}]}" ExpressionTypeL="String" ExpressionR="${_me}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
@@ -3932,12 +3947,12 @@
                         <Actions>
                           <Action OrderNumber="1" ActionType="Placeholder" Description="条件：phase != adds2，tgt = me" DescriptionOverride="True"/>
                           <Action OrderNumber="2" ActionType="Placeholder" Description="紫：248下  249左  24A上  24B右" DescriptionOverride="True"/>
-                          <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" DescBgColor="dff" LogMessageText="AdvWm_rotate:θ:${n: ${v:tmp_isNSSafe} ? -pi : pi/2}:Center:-200:0:-195:One:-2:19::1:Two:0:12.5::1:Three:2:-19::1:Four:0:-12.5::1" LogProcess="True">
+                          <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;θ: ${v:tmp_isNSSafe} ? -pi : pi/2&#13;&#10;1: -2, 19&#13;&#10;2: 0, 12.5&#13;&#10;3: 2, -19&#13;&#10;4: 0, -12.5">
                             <Condition Enabled="true" Grouping="Or">
                               <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="249" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" DescBgColor="dff" LogMessageText="AdvWm_rotate:θ:${n: ${v:tmp_isNSSafe} ? -pi : pi/2}:Center:-200:0:-195:One:2:19::1:Two:0:12.5::1:Three:-2:-19::1:Four:0:-12.5::1" LogProcess="True">
+                          <Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;θ: ${v:tmp_isNSSafe} ? -pi : pi/2&#13;&#10;1: 2, 19&#13;&#10;2: 0, 12.5&#13;&#10;3: -2, -19&#13;&#10;4: 0, -12.5">
                             <Condition Enabled="true" Grouping="Or">
                               <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="24B" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                             </Condition>
@@ -3973,15 +3988,14 @@
                               <ConditionSingle Enabled="true" ExpressionL="${_me.isTH} = 1" ExpressionTypeL="Numeric" ExpressionR="roundir(${v:tmp_h}, 4) % 2 = 0" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual"/>
                             </Condition>
                           </Action>
-                          <Action OrderNumber="11" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="faa" NamedCallbackName="command" NamedCallbackParam="/${pd:V&amp;C_cfg[cnlDebug]} &#13;&#10;Pos: (${x}, ${y}, ${z}), ${h}&#13;&#10;θ: ${v:tmp_θ}&#13;&#10;spots_init: ${l:V6b3_adds2_spots.join()} &#13;&#10;cond1: _me.isTH = 1 =&gt; ${_me.isTH} = 1 =&gt; ${n:${_me.isTH} = 1} &#13;&#10;cond2: roundir(h, 4) % 2 = 0 =&gt; ${n:roundir(${h}, 4) % 2 = 0} &#13;&#10;multiplier: ${l:tmp_multiplier.join()} "/>
-                          <Action OrderNumber="12" ActionType="NamedCallback" Asynchronous="False" DescBgColor="faa" NamedCallbackName="command" NamedCallbackParam="/${pd:V&amp;C_cfg[cnlDebug]} 分身 2：&#13;&#10;Pos: (${x}, ${y}, ${z}), &#13;&#10;Heading: &#13;&#10;  日志: ${h}&#13;&#10;  实体: ${v:tmp_h}"/>
-                          <Action OrderNumber="13" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="V6b3_adds2_spots" ListVariableExpression="${l:V6b3_adds2_spots[${_idx}]} * ${l:tmp_multiplier[${_idx}]}"/>
-                          <Action OrderNumber="14" ActionType="Placeholder" Asynchronous="False" Description="现在列表应如 [0, 1, -1, 0]，代表自己组去西边，另一组去南边" DescriptionOverride="True"/>
-                          <Action OrderNumber="15" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${f:pick(${l:V6b3_adds2_spots.indexof(1)}): 0, 上北, 左西, 下南, 右东}"/>
-                          <Action OrderNumber="16" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="faa" NamedCallbackName="command" NamedCallbackParam="/${pd:V&amp;C_cfg[cnlDebug]} &#13;&#10;spots_final: ${l:V6b3_adds2_spots.join()}  &#13;&#10;idx: ${l:V6b3_adds2_spots.indexof(1)} "/>
-                          <Action OrderNumber="17" ActionType="LogMessage" Asynchronous="False" Description="标点：安全区贴边 1 2，其余点指路" DescBgColor="dff" DescriptionOverride="True" LogMessageText="AdvWm_rotate:θ:(${l:V6b3_adds2_spots.indexof(1)} - 3) * pi/2:Center:-200:0:-195:A:0:-2.5::1:B:0:-5::1:C:0:-7.5::1:D:0:-10::1:One:-4.25:-19.25::1:Two:4.25:-19.25::1:Three:0:-12.5::1:Four:0:-15::1" LogProcess="True"/>
-                          <Action OrderNumber="18" ActionType="Variable" Asynchronous="False" VariableName="tmp_θ"/>
-                          <Action OrderNumber="19" ActionType="ListVariable" Asynchronous="False" ListVariableName="tmp_multiplier"/>
+                          <Action OrderNumber="11" ActionType="NamedCallback" Asynchronous="False" DescBgColor="faa" NamedCallbackName="command" NamedCallbackParam="/${pd:V&amp;C_cfg[cnlDebug]} 分身 2：&#13;&#10;Pos: (${x}, ${y}, ${z}), &#13;&#10;Heading: &#13;&#10;  日志: ${h}&#13;&#10;  实体: ${v:tmp_h}"/>
+                          <Action OrderNumber="12" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="V6b3_adds2_spots" ListVariableExpression="${l:V6b3_adds2_spots[${_idx}]} * ${l:tmp_multiplier[${_idx}]}"/>
+                          <Action OrderNumber="13" ActionType="Placeholder" Asynchronous="False" Description="现在列表应如 [0, 1, -1, 0]，代表自己组去西边，另一组去南边" DescriptionOverride="True"/>
+                          <Action OrderNumber="14" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${f:pick(${l:V6b3_adds2_spots.indexof(1)}): 0, 上北, 左西, 下南, 右东}"/>
+                          <Action OrderNumber="15" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="faa" NamedCallbackName="command" NamedCallbackParam="/${pd:V&amp;C_cfg[cnlDebug]} &#13;&#10;spots_final: ${l:V6b3_adds2_spots.join()}  &#13;&#10;idx: ${l:V6b3_adds2_spots.indexof(1)} "/>
+                          <Action OrderNumber="16" ActionType="NamedCallback" Asynchronous="False" Description="标点：安全区贴边 1 2，其余点指路" DescBgColor="dff" DescriptionOverride="True" NamedCallbackName="AdvWm" NamedCallbackParam="O: -200, 0, -195&#13;&#10;θ: (${l:V6b3_adds2_spots.indexof(1)} - 3) * pi/2&#13;&#10;A: 0, -2.5&#13;&#10;B: 0, -5&#13;&#10;C: 0, -7.5&#13;&#10;D: 0, -10&#13;&#10;1: -4.25, -19.25&#13;&#10;2: 4.25, -19.25&#13;&#10;3: 0, -12.5&#13;&#10;4: 0, -15"/>
+                          <Action OrderNumber="17" ActionType="Variable" Asynchronous="False" VariableName="tmp_θ"/>
+                          <Action OrderNumber="18" ActionType="ListVariable" Asynchronous="False" ListVariableName="tmp_multiplier"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Id="168c7d62-4867-452d-951e-559ec97db430" Name="2. 第二刀" RegularExpression="^.{15}\S+ 1A:B9A:[^:]+:5.00:.{8}:[^:]*:(?&lt;id&gt;.{8}):[^:]+:(?&lt;type&gt;24[9B]):">
@@ -4106,7 +4120,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="4122e7bf-0c7c-4919-8fa9-a2018ec2d2da" Enabled="true" Name="V6c 阿罗阿罗岛　　v1.3.0（旧版 尚未重置）" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^11(79|80)$" RawEnvironmentVariables="CactbotTriggerSetName = AnotherMountRokkon, AnotherMountRokkonSavage&#13;&#10;OssFolder = V6c">
+      <Folder Id="4122e7bf-0c7c-4919-8fa9-a2018ec2d2da" Enabled="true" Name="V6c 阿罗阿罗岛　　v1.3.0（旧版，Boss 只有标点）" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^11(79|80)$" RawEnvironmentVariables="CactbotTriggerSetName = AnotherMountRokkon, AnotherMountRokkonSavage&#13;&#10;OssFolder = V6c">
         <Folders>
           <Folder Id="4bf04296-73a6-4cff-a440-be0b9ed3b38d" Enabled="true" Name=". 控制">
             <Folders>
