@@ -1,408 +1,7 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="2.0.3.1">
+<TriggernometryExport PluginVersion="2.0.5.0">
 <ExportedFolder Id="b608e8a2-adbf-4973-b08b-bda20d9e637b" Enabled="true" Name="[工具] 运行支持库 Utils.xml" RawEnvironmentVariables="w = 3">
 <Folders>
-<Folder Id="23887533-752e-42fd-b6b8-f66fdd20d61e" Enabled="true" Name="高级标点工具箱 AdvWm 旧版本 v2.x（仅兼容 即将移除）">
-<Folders>
-<Folder Id="fd9d8dab-a195-4b65-ab9c-db63bb9d8791" Enabled="true" Name="场地标点">
-<Folders>
-<Folder Id="f25a4b25-b4fe-4e9e-8d27-aa41d0667426" Enabled="false" Name="debug">
-<Triggers>
-<Trigger Enabled="false" Id="722519c0-37fb-4ef8-a3d6-0d88fc5490ff" Name="测试循环标点     B：自己-B 线性    AC：自己-C 径向" RegularExpression="^.{15}\S+ 1C:Add:(?&lt;wmid&gt;\d+):.{8}:(?&lt;pn&gt;[^:]+):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" VariableOp="SetNumeric" VariableName="1" VariableExpression="${v:1} + 1" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="AdmWm_test_A" VariableExpression="${x}:${y}:${z}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${wmid}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericEqual" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="AdvWm_linearConnect:start:${_me.x}:${_me.y}:${_me.z}:end:${x}:${y}:${z}:waymarkers:ABCD1234" LogProcess="True" VariableOp="SetString">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${wmid}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericEqual" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="AdvWm_polarConnect:center:${v:AdmWm_test_A}:start:${_me.x}:${_me.y}:${_me.z}:end:${x}:${y}:${z}:waymarkers:BCD1234" LogProcess="True" VariableOp="SetString">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${wmid}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericEqual" />
-</Condition>
-</Action>
-<Action OrderNumber="5" ActionType="LogMessage" Asynchronous="False" LogMessageText="${_event}" LogProcess="True">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${wmid} = 1 || ${wmid} = 2" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-</Condition>
-</Action>
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${pn}" ExpressionTypeL="String" ExpressionR="${_me}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="false" Id="b9b3f60a-d740-4c47-8ff9-45f26395ffc2" Name="测试   A-B：线性   A-C：径向" RegularExpression="^.{15}\S+ 1C:Add:(?&lt;wmid&gt;\d+):.{8}:(?&lt;pn&gt;[^:]+):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="AdmWm_test_start" VariableExpression="start:${x}:${y}:${z}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${wmid}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericEqual" />
-</Condition>
-</Action>
-<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="AdvWm:linear:${v:AdmWm_test_start}:end:${x}:${y}:${z}:waymarkers:ABCD1234" LogProcess="True" VariableOp="SetString">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${wmid}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericEqual" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="AdvWm:polar:center:${_me.x}:${_me.y}:${v:AdmWm_test_start}:end:${x}:${y}:${z}:waymarkers:ABCD1234" LogProcess="True" VariableOp="SetString">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${wmid}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericEqual" />
-</Condition>
-</Action>
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${pn}" ExpressionTypeL="String" ExpressionR="${_me}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="4537d87d-76bc-45eb-938e-89fa73b08b8f" Enabled="true" Name="恢复 / 清空标点">
-<Triggers>
-<Trigger Enabled="true" Id="0ace1129-1f82-4630-9887-5382596b9595" Name="Load 队列" RegularExpression="^AdvWm_loadQueue:(?&lt;t&gt;.+)$">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="本触发器会被所有标点指令打断" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="NamedCallback" ExecutionDelayExpression="(${t}) * 1000" NamedCallbackName="place" NamedCallbackParam="load" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="f841d37a-cc68-4dba-9a3e-3bc4b5212c95" Name="Load" RegularExpression="^AdvWm_load$">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="place" NamedCallbackParam="load" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="de1384f7-0865-46d3-9f64-bbfbc6b742a7" Name="Clear" RegularExpression="^AdvWm_clear$">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="place" NamedCallbackParam="{&#xD;&#xA;  &quot;A&quot;:{}, &#xD;&#xA;  &quot;B&quot;:{}, &#xD;&#xA;  &quot;C&quot;:{}, &#xD;&#xA;  &quot;D&quot;:{}, &#xD;&#xA;  &quot;One&quot;:{}, &#xD;&#xA;  &quot;Two&quot;:{}, &#xD;&#xA;  &quot;Three&quot;:{}, &#xD;&#xA;  &quot;Four&quot;:{}&#xD;&#xA;}" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="917673a7-eb88-4fe7-8213-8ff2a31fee71" Name="Clear 队列" RegularExpression="^AdvWm_clearQueue:(?&lt;t&gt;.+)$">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="本触发器会被所有标点指令打断" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="NamedCallback" ExecutionDelayExpression="(${t}) * 1000" NamedCallbackName="place" NamedCallbackParam="{&#xD;&#xA;  &quot;A&quot;:{}, &#xD;&#xA;  &quot;B&quot;:{}, &#xD;&#xA;  &quot;C&quot;:{}, &#xD;&#xA;  &quot;D&quot;:{}, &#xD;&#xA;  &quot;One&quot;:{}, &#xD;&#xA;  &quot;Two&quot;:{}, &#xD;&#xA;  &quot;Three&quot;:{}, &#xD;&#xA;  &quot;Four&quot;:{}&#xD;&#xA;}" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="76e290c7-c036-4909-a3cf-21dc2f5226a5" Name="转发排队" RegularExpression="^AdvWm_(?&lt;type&gt;clear|load):(?&lt;t&gt;.+)$">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="用这个转发，以免同时执行一条标点和一条排队取消时，后者立刻被前者打断" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="LogMessage" ExecutionDelayExpression="${t} &gt; 0.5 ? 0.5 : ${t}" Asynchronous="False" LogMessageText="AdvWm_${type}Queue:${n: max(0, ${t} - 0.5) }" LogProcess="True" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="820ba11f-5b7f-482b-be1d-29c3981481fe" Enabled="true" Name="本地标点转为网络标点">
-<Triggers>
-<Trigger Enabled="true" Id="204868c9-527a-4969-ae81-2227364439ca" Name="本地标点转为网络标点" RegularExpression="^AdvWm_public$" Sequential="True">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/waymark save 30" />
-<Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/waymark preset 30" />
-<Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="如果你无论如何一定想在 30 号位置存自己的标点，把上面两个 30 换成你不用的槽位。" DescriptionOverride="True" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
-<Triggers>
-<Trigger Enabled="true" Id="e9a3d6f5-6d2f-422d-95e2-4d90551216f9" Name="径向插值标点 polarConnect" RegularExpression="^AdvWm_polarConnect:[Cc]enter:(?&lt;xc&gt;[^:]+):(?&lt;yc&gt;[^:]+)(?::[^:]+)?:[Ss]tart:(?&lt;x0&gt;[^:]+):(?&lt;y0&gt;[^:]+):(?&lt;z0&gt;[^:]+):[Ee]nd:(?&lt;x1&gt;[^:]+):(?&lt;y1&gt;[^:]+):(?&lt;z1&gt;[^:]+):[Ww]aymarkers:(?&lt;wm&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="0ace1129-1f82-4630-9887-5382596b9595" />
-<Action OrderNumber="2" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="917673a7-eb88-4fe7-8213-8ff2a31fee71" />
-<Action OrderNumber="3" ActionType="Placeholder" Description="初始化" DescriptionOverride="True" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_len" VariableExpression="${f:length:${wm}}" />
-<Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="AdvWm_WmMapping" DictVariableValue="=,A=A,B=B,C=C,D=D,1=One,2=Two,3=Three,4=Four" DictTargetPersist="True">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${pd:AdvWm_WmMapping.size}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="NumericNotEqual" />
-</Condition>
-</Action>
-<Action OrderNumber="6" ActionType="Placeholder" Description="极坐标转换（注：实际为不考虑高度的柱坐标系）" DescriptionOverride="True" />
-<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_r0" VariableExpression="d(${xc}, ${yc}, ${x0}, ${y0})" />
-<Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_r1" VariableExpression="d(${xc}, ${yc}, ${x1}, ${y1})" />
-<Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_θ0" VariableExpression="θ(${xc}, ${yc}, ${x0}, ${y0})" />
-<Action OrderNumber="10" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_θ1" VariableExpression="θ(${xc}, ${yc}, ${x1}, ${y1})" />
-<Action OrderNumber="11" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_θ1" VariableExpression="relθ(${v:AdvWm_θ0}, ${v:AdvWm_θ1}) + ${v:AdvWm_θ0}" />
-<Action OrderNumber="12" ActionType="Placeholder" Description="wm 拆分为列表   转换为标点名" DescriptionOverride="True" />
-<Action OrderNumber="13" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="AdvWm_polar" ListVariableExpression="${pd:AdvWm_WmMapping[${f:slice(${n:${_idx}-1}):${wm}}]}" ListVariableIndex="${v:AdvWm_len}" />
-<Action OrderNumber="14" ActionType="Placeholder" Description="计算所有半径和角度" DescriptionOverride="True" />
-<Action OrderNumber="15" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="AdvWm_r" ListVariableExpression="((${v:AdvWm_len} - ${_idx}) * ${v:AdvWm_r0} + (${_idx} - 1) * ${v:AdvWm_r1}) / (${v:AdvWm_len} - 1)" ListVariableIndex="${v:AdvWm_len}" />
-<Action OrderNumber="16" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="AdvWm_θ" ListVariableExpression="((${v:AdvWm_len} - ${_idx}) * ${v:AdvWm_θ0} + (${_idx} - 1) * ${v:AdvWm_θ1}) / (${v:AdvWm_len} - 1)" ListVariableIndex="${v:AdvWm_len}" />
-<Action OrderNumber="17" ActionType="Placeholder" Description="加权计算坐标   转换为 JSON 格式" DescriptionOverride="True" />
-<Action OrderNumber="18" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="AdvWm_polar" ListVariableExpression="&quot;${_this}&quot;: {&#xD;&#xA;    &quot;X&quot;: ${n: ${xc} + ${l:AdvWm_r[${_idx}]} * sin(${l:AdvWm_θ[${_idx}]})}, &#xD;&#xA;    &quot;Z&quot;: ${n: ${yc} + ${l:AdvWm_r[${_idx}]} * cos(${l:AdvWm_θ[${_idx}]})}, &#xD;&#xA;    &quot;Y&quot;: ${n: ((${v:AdvWm_len} - ${_idx}) * ${z0} + (${_idx} - 1) * ${z1}) / (${v:AdvWm_len} - 1)}, &#xD;&#xA;    &quot;Active&quot;: true&#xD;&#xA;}" />
-<Action OrderNumber="19" ActionType="Placeholder" Description="输出" DescriptionOverride="True" />
-<Action OrderNumber="20" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="AdvWm_json" VariableExpression="{&#xD;&#xA;${l:AdvWm_polar.join(&quot;,⏎&quot;)}&#xD;&#xA;}" />
-<Action OrderNumber="21" Enabled="False" ActionType="Variable" Asynchronous="False" VariableOp="Clipboard" VariableName="AdvWm_json" />
-<Action OrderNumber="22" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="place" NamedCallbackParam="${v:AdvWm_json}" VariableOp="SetString" />
-<Action OrderNumber="23" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^AdvWm" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${wm}" ExpressionTypeL="String" ExpressionR="[A-D1-4]{2,8}" ExpressionTypeR="String" ConditionType="RegexMatch" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Id="4f274422-8784-450b-bfbe-bdad2445c347" Name="绝对坐标标点 abs" RegularExpression="^AdvWm_abs(?&lt;A&gt;:A:(?&lt;xa&gt;[^:]*):(?&lt;ya&gt;[^:]*):(?&lt;za&gt;[^:]*):(?&lt;aa&gt;[^:]*))?(?&lt;B&gt;:B:(?&lt;xb&gt;[^:]*):(?&lt;yb&gt;[^:]*):(?&lt;zb&gt;[^:]*):(?&lt;ab&gt;[^:]*))?(?&lt;C&gt;:C:(?&lt;xc&gt;[^:]*):(?&lt;yc&gt;[^:]*):(?&lt;zc&gt;[^:]*):(?&lt;ac&gt;[^:]*))?(?&lt;D&gt;:D:(?&lt;xd&gt;[^:]*):(?&lt;yd&gt;[^:]*):(?&lt;zd&gt;[^:]*):(?&lt;ad&gt;[^:]*))?(?&lt;One&gt;:One:(?&lt;x1&gt;[^:]*):(?&lt;y1&gt;[^:]*):(?&lt;z1&gt;[^:]*):(?&lt;a1&gt;[^:]*))?(?&lt;Two&gt;:Two:(?&lt;x2&gt;[^:]*):(?&lt;y2&gt;[^:]*):(?&lt;z2&gt;[^:]*):(?&lt;a2&gt;[^:]*))?(?&lt;Three&gt;:Three:(?&lt;x3&gt;[^:]*):(?&lt;y3&gt;[^:]*):(?&lt;z3&gt;[^:]*):(?&lt;a3&gt;[^:]*))?(?&lt;Four&gt;:Four:(?&lt;x4&gt;[^:]*):(?&lt;y4&gt;[^:]*):(?&lt;z4&gt;[^:]*):(?&lt;a4&gt;[^:]*))?$">
-<Actions>
-<Action OrderNumber="1" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="0ace1129-1f82-4630-9887-5382596b9595" />
-<Action OrderNumber="2" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="917673a7-eb88-4fe7-8213-8ff2a31fee71" />
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_A" VariableExpression="(${xa})" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_A" VariableExpression="(${ya})" />
-<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_A" VariableExpression="(${za})" />
-<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_A" VariableExpression="(${aa})" />
-<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_B" VariableExpression="(${xb})" />
-<Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_B" VariableExpression="(${yb})" />
-<Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_B" VariableExpression="(${zb})" />
-<Action OrderNumber="10" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_B" VariableExpression="(${ab})" />
-<Action OrderNumber="11" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_C" VariableExpression="(${xc})" />
-<Action OrderNumber="12" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_C" VariableExpression="(${yc})" />
-<Action OrderNumber="13" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_C" VariableExpression="(${zc})" />
-<Action OrderNumber="14" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_C" VariableExpression="(${ac})" />
-<Action OrderNumber="15" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_D" VariableExpression="(${xd})" />
-<Action OrderNumber="16" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_D" VariableExpression="(${yd})" />
-<Action OrderNumber="17" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_D" VariableExpression="(${zd})" />
-<Action OrderNumber="18" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_D" VariableExpression="(${ad})" />
-<Action OrderNumber="19" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_One" VariableExpression="(${x1})" />
-<Action OrderNumber="20" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_One" VariableExpression="(${y1})" />
-<Action OrderNumber="21" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_One" VariableExpression="(${z1})" />
-<Action OrderNumber="22" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_One" VariableExpression="(${a1})" />
-<Action OrderNumber="23" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_Two" VariableExpression="(${x2})" />
-<Action OrderNumber="24" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_Two" VariableExpression="(${y2})" />
-<Action OrderNumber="25" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_Two" VariableExpression="(${z2})" />
-<Action OrderNumber="26" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_Two" VariableExpression="(${a2})" />
-<Action OrderNumber="27" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_Three" VariableExpression="(${x3})" />
-<Action OrderNumber="28" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_Three" VariableExpression="(${y3})" />
-<Action OrderNumber="29" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_Three" VariableExpression="(${z3})" />
-<Action OrderNumber="30" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_Three" VariableExpression="(${a1})" />
-<Action OrderNumber="31" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_Four" VariableExpression="(${x4})" />
-<Action OrderNumber="32" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_Four" VariableExpression="(${y4})" />
-<Action OrderNumber="33" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_Four" VariableExpression="(${z4})" />
-<Action OrderNumber="34" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_Four" VariableExpression="(${a4})" />
-<Action OrderNumber="35" ActionType="Placeholder" Description="加权计算坐标   转换为 JSON 格式" DescriptionOverride="True" />
-<Action OrderNumber="36" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Build" ListVariableExpression=",A,B,C,D,One,Two,Three,Four" ListVariableTarget="AdvWm_abs" />
-<Action OrderNumber="37" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="AdvWm_abs" ListVariableExpression="${f:length:${${_this}}} != 0" ListVariableTarget="AdvWm_abs" />
-<Action OrderNumber="38" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="AdvWm_abs" ListVariableExpression="&quot;${_this}&quot;: {&#xD;&#xA;    &quot;X&quot;:${var:AdvWm_x_${_this}}, &#xD;&#xA;    &quot;Y&quot;:${var:AdvWm_z_${_this}}, &#xD;&#xA;    &quot;Z&quot;:${var:AdvWm_y_${_this}}, &#xD;&#xA;    &quot;Active&quot;:${var:AdvWm_a_${_this}}&#xD;&#xA;}" />
-<Action OrderNumber="39" ActionType="Placeholder" Description="输出" DescriptionOverride="True" />
-<Action OrderNumber="40" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="AdvWm_json" VariableExpression="{&#xD;&#xA;${l:AdvWm_abs.join(&quot;,⏎&quot;)}&#xD;&#xA;}" />
-<Action OrderNumber="41" Enabled="False" ActionType="Variable" Asynchronous="False" VariableOp="Clipboard" VariableName="AdvWm_json" />
-<Action OrderNumber="42" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="place" NamedCallbackParam="${v:AdvWm_json}" VariableOp="SetString" />
-<Action OrderNumber="43" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^AdvWm" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="87eed0fa-a213-41f4-8fcd-bf8aba728473" Name="线性插值标点 linearConnect" RegularExpression="^AdvWm_linearConnect:[Ss]tart:(?&lt;x0&gt;[^:]+):(?&lt;y0&gt;[^:]+):(?&lt;z0&gt;[^:]+):[Ee]nd:(?&lt;x1&gt;[^:]+):(?&lt;y1&gt;[^:]+):(?&lt;z1&gt;[^:]+):[Ww]aymarkers:(?&lt;wm&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="0ace1129-1f82-4630-9887-5382596b9595" />
-<Action OrderNumber="2" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="917673a7-eb88-4fe7-8213-8ff2a31fee71" />
-<Action OrderNumber="3" ActionType="Placeholder" Description="初始化" DescriptionOverride="True" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_len" VariableExpression="${f:length:${wm}}" />
-<Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="AdvWm_WmMapping" DictVariableValue="=,A=A,B=B,C=C,D=D,1=One,2=Two,3=Three,4=Four" DictTargetPersist="True">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${pd:AdvWm_WmMapping.size}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="NumericNotEqual" />
-</Condition>
-</Action>
-<Action OrderNumber="6" ActionType="Placeholder" Description="wm 拆分为列表   转换为标点名" DescriptionOverride="True" />
-<Action OrderNumber="7" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="AdvWm_linear" ListVariableExpression="${pd:AdvWm_WmMapping[${f:slice(${n:${_idx}-1}):${wm}}]}" ListVariableIndex="${v:AdvWm_len}" />
-<Action OrderNumber="8" ActionType="Placeholder" Description="加权计算坐标   转换为 JSON 格式" DescriptionOverride="True" />
-<Action OrderNumber="9" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="AdvWm_linear" ListVariableExpression="&quot;${_this}&quot;: {&#xD;&#xA;    &quot;X&quot;: ${n: ((${v:AdvWm_len} - ${_idx}) * ${x0} + (${_idx} - 1) * ${x1}) / (${v:AdvWm_len} - 1)}, &#xD;&#xA;    &quot;Z&quot;: ${n: ((${v:AdvWm_len} - ${_idx}) * ${y0} + (${_idx} - 1) * ${y1}) / (${v:AdvWm_len} - 1)}, &#xD;&#xA;    &quot;Y&quot;: ${n: ((${v:AdvWm_len} - ${_idx}) * ${z0} + (${_idx} - 1) * ${z1}) / (${v:AdvWm_len} - 1)}, &#xD;&#xA;    &quot;Active&quot;: true&#xD;&#xA;}" />
-<Action OrderNumber="10" ActionType="Placeholder" Description="输出" DescriptionOverride="True" />
-<Action OrderNumber="11" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="AdvWm_json" VariableExpression="{&#xD;&#xA;${l:AdvWm_linear.join(&quot;,⏎&quot;)}&#xD;&#xA;}" />
-<Action OrderNumber="12" Enabled="False" ActionType="Variable" Asynchronous="False" VariableOp="Clipboard" VariableName="AdvWm_json" />
-<Action OrderNumber="13" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="place" NamedCallbackParam="${v:AdvWm_json}" VariableOp="SetString" />
-<Action OrderNumber="14" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^AdvWm" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${wm}" ExpressionTypeL="String" ExpressionR="[A-D1-4]{2,8}" ExpressionTypeR="String" ConditionType="RegexMatch" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Id="03a9f49e-4d66-46a0-b8fa-b20117d5bb14" Name="旋转矩阵标点 rotate" RegularExpression="^AdvWm_rotate(?::[Ss]cale:(?&lt;scale&gt;[^:]*))?(?::θ:(?&lt;theta&gt;[^:]*))?(?::[Cc]enter:(?&lt;x0&gt;[^:]*):(?&lt;y0&gt;[^:]*):(?&lt;z0&gt;[^:]*))?(?&lt;A&gt;:A:(?&lt;xa&gt;[^:]*):(?&lt;ya&gt;[^:]*):(?&lt;za&gt;[^:]*):(?&lt;aa&gt;[^:]*))?(?&lt;B&gt;:B:(?&lt;xb&gt;[^:]*):(?&lt;yb&gt;[^:]*):(?&lt;zb&gt;[^:]*):(?&lt;ab&gt;[^:]*))?(?&lt;C&gt;:C:(?&lt;xc&gt;[^:]*):(?&lt;yc&gt;[^:]*):(?&lt;zc&gt;[^:]*):(?&lt;ac&gt;[^:]*))?(?&lt;D&gt;:D:(?&lt;xd&gt;[^:]*):(?&lt;yd&gt;[^:]*):(?&lt;zd&gt;[^:]*):(?&lt;ad&gt;[^:]*))?(?&lt;One&gt;:One:(?&lt;x1&gt;[^:]*):(?&lt;y1&gt;[^:]*):(?&lt;z1&gt;[^:]*):(?&lt;a1&gt;[^:]*))?(?&lt;Two&gt;:Two:(?&lt;x2&gt;[^:]*):(?&lt;y2&gt;[^:]*):(?&lt;z2&gt;[^:]*):(?&lt;a2&gt;[^:]*))?(?&lt;Three&gt;:Three:(?&lt;x3&gt;[^:]*):(?&lt;y3&gt;[^:]*):(?&lt;z3&gt;[^:]*):(?&lt;a3&gt;[^:]*))?(?&lt;Four&gt;:Four:(?&lt;x4&gt;[^:]*):(?&lt;y4&gt;[^:]*):(?&lt;z4&gt;[^:]*):(?&lt;a4&gt;[^:]*))?$">
-<Actions>
-<Action OrderNumber="1" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="0ace1129-1f82-4630-9887-5382596b9595" />
-<Action OrderNumber="2" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="917673a7-eb88-4fe7-8213-8ff2a31fee71" />
-<Action OrderNumber="3" ActionType="Placeholder" Description="本触发器为带有旋转角度的标点函数，以 给定的各组坐标偏移 与 给定角度对应的旋转矩阵 分别相乘得到各组实际坐标，并以计算结果调用鲶鱼精邮差场地标点。" DescriptionOverride="True" />
-<Action OrderNumber="4" ActionType="Placeholder" DescriptionOverride="True" />
-<Action OrderNumber="5" ActionType="Placeholder" Description="格式：AdvWm_rotate:θ:-3.14:Center:100:100:0:A:0:-10:0:1:B:10:0:0:1:C:...:D:...:One:...:Two:...:Three:...:Four:..." DescriptionOverride="True" />
-<Action OrderNumber="6" ActionType="Placeholder" DescriptionOverride="True" />
-<Action OrderNumber="7" ActionType="Placeholder" Description="θ: 作为相对北的参照物所处的坐标的 atan2(dx, dy) 值，即从绝对正北开始逆时针一周 -pi 至 pi" DescriptionOverride="True" />
-<Action OrderNumber="8" ActionType="Placeholder" Description="Center：场中心坐标，作为旋转中心。需要 (x0, y0, z0) 三个数值。" DescriptionOverride="True" />
-<Action OrderNumber="9" ActionType="Placeholder" Description="A/B/C/D/One/Two/Three/Four: 四个值：(dx, dy, dz, isActive)。其中坐标偏移以相对中心、相对方向为正北时的参考系计算。如以参照物为正北（正上）" DescriptionOverride="True" />
-<Action OrderNumber="10" ActionType="Placeholder" Description="如以参照物为正北（正上）时，位于场地中心左 5 下 2 的 A 点，可以记为 “A:-5:2:0:1”" DescriptionOverride="True" />
-<Action OrderNumber="11" ActionType="Placeholder" DescriptionOverride="True" />
-<Action OrderNumber="12" ActionType="Placeholder" Description="可以缺少整组数据（如 B:xB:yB:zB:isActiveB 整组省略），但剩余组要按顺序。" DescriptionOverride="True" />
-<Action OrderNumber="13" ActionType="Placeholder" Description="省略的θ、Center组将使用缺省值：-pi, (100, 100, 0), 省略某个标点组则不会修改该标点（与鲶鱼精邮差相同）。" DescriptionOverride="True" />
-<Action OrderNumber="14" ActionType="Placeholder" DescriptionOverride="True" />
-<Action OrderNumber="15" ActionType="Placeholder" Description="也可以缺少单个数据，但要保留冒号，如前文“A:-5:2:0:1”可以记做“A:-5:2::1”，场地中心的 3 点可记做“Three::::1”。" DescriptionOverride="True" />
-<Action OrderNumber="16" ActionType="Placeholder" Description="省略的参数将使用缺省值：x0 = 100, y0 = 100, z0 = 0, θ = -pi, 标点的四个参数均为 0" DescriptionOverride="True" />
-<Action OrderNumber="17" ActionType="Placeholder" DescriptionOverride="True" />
-<Action OrderNumber="18" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_θ" VariableExpression="${theta} ?? -pi" />
-<Action OrderNumber="19" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x0" VariableExpression="${x0} ?? 100" />
-<Action OrderNumber="20" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y0" VariableExpression="${y0} ?? 100" />
-<Action OrderNumber="21" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z0" VariableExpression="(${z0})" />
-<Action OrderNumber="22" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_A" VariableExpression="(${xa})" />
-<Action OrderNumber="23" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_A" VariableExpression="(${ya})" />
-<Action OrderNumber="24" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_A" VariableExpression="(${za})" />
-<Action OrderNumber="25" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_A" VariableExpression="(${aa})" />
-<Action OrderNumber="26" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_B" VariableExpression="(${xb})" />
-<Action OrderNumber="27" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_B" VariableExpression="(${yb})" />
-<Action OrderNumber="28" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_B" VariableExpression="(${zb})" />
-<Action OrderNumber="29" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_B" VariableExpression="(${ab})" />
-<Action OrderNumber="30" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_C" VariableExpression="(${xc})" />
-<Action OrderNumber="31" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_C" VariableExpression="(${yc})" />
-<Action OrderNumber="32" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_C" VariableExpression="(${zc})" />
-<Action OrderNumber="33" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_C" VariableExpression="(${ac})" />
-<Action OrderNumber="34" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_D" VariableExpression="(${xd})" />
-<Action OrderNumber="35" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_D" VariableExpression="(${yd})" />
-<Action OrderNumber="36" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_D" VariableExpression="(${zd})" />
-<Action OrderNumber="37" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_D" VariableExpression="(${ad})" />
-<Action OrderNumber="38" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_One" VariableExpression="(${x1})" />
-<Action OrderNumber="39" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_One" VariableExpression="(${y1})" />
-<Action OrderNumber="40" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_One" VariableExpression="(${z1})" />
-<Action OrderNumber="41" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_One" VariableExpression="(${a1})" />
-<Action OrderNumber="42" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_Two" VariableExpression="(${x2})" />
-<Action OrderNumber="43" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_Two" VariableExpression="(${y2})" />
-<Action OrderNumber="44" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_Two" VariableExpression="(${z2})" />
-<Action OrderNumber="45" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_Two" VariableExpression="(${a2})" />
-<Action OrderNumber="46" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_Three" VariableExpression="(${x3})" />
-<Action OrderNumber="47" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_Three" VariableExpression="(${y3})" />
-<Action OrderNumber="48" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_Three" VariableExpression="(${z3})" />
-<Action OrderNumber="49" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_Three" VariableExpression="(${a3})" />
-<Action OrderNumber="50" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x_Four" VariableExpression="(${x4})" />
-<Action OrderNumber="51" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y_Four" VariableExpression="(${y4})" />
-<Action OrderNumber="52" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_Four" VariableExpression="(${z4})" />
-<Action OrderNumber="53" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_Four" VariableExpression="(${a4})" />
-<Action OrderNumber="54" ActionType="Placeholder" Description="加权计算坐标   转换为 JSON 格式" DescriptionOverride="True" />
-<Action OrderNumber="55" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Build" ListVariableExpression=",A,B,C,D,One,Two,Three,Four" ListVariableTarget="AdvWm_rotate" />
-<Action OrderNumber="56" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="AdvWm_rotate" ListVariableExpression="${f:length:${${_this}}} != 0" ListVariableTarget="AdvWm_rotate" />
-<Action OrderNumber="57" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="AdvWm_rotate" ListVariableExpression="&quot;${_this}&quot;: {&#xD;&#xA;    &quot;X&quot;:${n: ${var:AdvWm_x0} + (${scale} ?? 1) * (- ${var:AdvWm_x_${_this}}*cos(${var:AdvWm_θ}) - ${var:AdvWm_y_${_this}}*sin(${var:AdvWm_θ}))}, &#xD;&#xA;    &quot;Y&quot;:${n: ${var:AdvWm_z0} + (${scale} ?? 1) * ${var:AdvWm_z_${_this}}}, &#xD;&#xA;    &quot;Z&quot;:${n: ${var:AdvWm_y0} + (${scale} ?? 1) * (+ ${var:AdvWm_x_${_this}}*sin(${var:AdvWm_θ}) - ${var:AdvWm_y_${_this}}*cos(${var:AdvWm_θ}))}, &#xD;&#xA;    &quot;Active&quot;:${var:AdvWm_a_${_this}}&#xD;&#xA;}" />
-<Action OrderNumber="58" ActionType="Placeholder" Description="输出" DescriptionOverride="True" />
-<Action OrderNumber="59" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="AdvWm_json" VariableExpression="{&#xD;&#xA;${l:AdvWm_rotate.join(&quot;,⏎&quot;)}&#xD;&#xA;}" />
-<Action OrderNumber="60" Enabled="False" ActionType="Variable" Asynchronous="False" VariableOp="Clipboard" VariableName="AdvWm_json" />
-<Action OrderNumber="61" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="place" NamedCallbackParam="${v:AdvWm_json}" VariableOp="SetString" />
-<Action OrderNumber="62" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^AdvWm" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="1ee1920e-ea5e-4075-bd68-0d994e91a213" Name="极坐标标点 polarDeg / polarRad" RegularExpression="^AdvWm_polar(?&lt;type&gt;Deg|Rad)(?::[Ss]cale:(?&lt;scale&gt;[^:]*))?(?::θ:(?&lt;theta&gt;[^:]*))?(?::[Cc]enter:(?&lt;x0&gt;[^:]*):(?&lt;y0&gt;[^:]*):(?&lt;z0&gt;[^:]*))?(?&lt;A&gt;:A:(?&lt;ra&gt;[^:]*):(?&lt;thetaa&gt;[^:]*):(?&lt;za&gt;[^:]*):(?&lt;aa&gt;[^:]*))?(?&lt;B&gt;:B:(?&lt;rb&gt;[^:]*):(?&lt;thetab&gt;[^:]*):(?&lt;zb&gt;[^:]*):(?&lt;ab&gt;[^:]*))?(?&lt;C&gt;:C:(?&lt;rc&gt;[^:]*):(?&lt;thetac&gt;[^:]*):(?&lt;zc&gt;[^:]*):(?&lt;ac&gt;[^:]*))?(?&lt;D&gt;:D:(?&lt;rd&gt;[^:]*):(?&lt;thetad&gt;[^:]*):(?&lt;zd&gt;[^:]*):(?&lt;ad&gt;[^:]*))?(?&lt;One&gt;:One:(?&lt;r1&gt;[^:]*):(?&lt;theta1&gt;[^:]*):(?&lt;z1&gt;[^:]*):(?&lt;a1&gt;[^:]*))?(?&lt;Two&gt;:Two:(?&lt;r2&gt;[^:]*):(?&lt;theta2&gt;[^:]*):(?&lt;z2&gt;[^:]*):(?&lt;a2&gt;[^:]*))?(?&lt;Three&gt;:Three:(?&lt;r3&gt;[^:]*):(?&lt;theta3&gt;[^:]*):(?&lt;z3&gt;[^:]*):(?&lt;a3&gt;[^:]*))?(?&lt;Four&gt;:Four:(?&lt;r4&gt;[^:]*):(?&lt;theta4&gt;[^:]*):(?&lt;z4&gt;[^:]*):(?&lt;a4&gt;[^:]*))?$">
-<Actions>
-<Action OrderNumber="1" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="0ace1129-1f82-4630-9887-5382596b9595" />
-<Action OrderNumber="2" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="917673a7-eb88-4fe7-8213-8ff2a31fee71" />
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_dθ" VariableExpression="(${theta} ?? -pi) + pi" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_x0" VariableExpression="${x0} ?? 100" />
-<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_y0" VariableExpression="${y0} ?? 100" />
-<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z0" VariableExpression="(${z0})" />
-<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_r_A" VariableExpression="(${ra})" />
-<Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_θ_A" VariableExpression="((${type} == Deg) ? pi/180 : 1) * (${thetaa})" />
-<Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_A" VariableExpression="(${za})" />
-<Action OrderNumber="10" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_A" VariableExpression="(${aa})" />
-<Action OrderNumber="11" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_r_B" VariableExpression="(${rb})" />
-<Action OrderNumber="12" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_θ_B" VariableExpression="((${type} == Deg) ? pi/180 : 1) * (${thetab})" />
-<Action OrderNumber="13" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_B" VariableExpression="(${zb})" />
-<Action OrderNumber="14" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_B" VariableExpression="(${ab})" />
-<Action OrderNumber="15" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_r_C" VariableExpression="(${rc})" />
-<Action OrderNumber="16" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_θ_C" VariableExpression="((${type} == Deg) ? pi/180 : 1) * (${thetac})" />
-<Action OrderNumber="17" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_C" VariableExpression="(${zc})" />
-<Action OrderNumber="18" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_C" VariableExpression="(${ac})" />
-<Action OrderNumber="19" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_r_D" VariableExpression="(${rd})" />
-<Action OrderNumber="20" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_θ_D" VariableExpression="((${type} == Deg) ? pi/180 : 1) * (${thetad})" />
-<Action OrderNumber="21" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_D" VariableExpression="(${zd})" />
-<Action OrderNumber="22" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_D" VariableExpression="(${ad})" />
-<Action OrderNumber="23" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_r_One" VariableExpression="(${r1})" />
-<Action OrderNumber="24" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_θ_One" VariableExpression="((${type} == Deg) ? pi/180 : 1) * (${theta1})" />
-<Action OrderNumber="25" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_One" VariableExpression="(${z1})" />
-<Action OrderNumber="26" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_One" VariableExpression="(${a1})" />
-<Action OrderNumber="27" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_r_Two" VariableExpression="(${r2})" />
-<Action OrderNumber="28" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_θ_Two" VariableExpression="((${type} == Deg) ? pi/180 : 1) * (${theta2})" />
-<Action OrderNumber="29" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_Two" VariableExpression="(${z2})" />
-<Action OrderNumber="30" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_Two" VariableExpression="(${a2})" />
-<Action OrderNumber="31" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_r_Three" VariableExpression="(${r3})" />
-<Action OrderNumber="32" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_θ_Three" VariableExpression="((${type} == Deg) ? pi/180 : 1) * (${theta3})" />
-<Action OrderNumber="33" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_Three" VariableExpression="(${z3})" />
-<Action OrderNumber="34" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_Three" VariableExpression="(${a3})" />
-<Action OrderNumber="35" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_r_Four" VariableExpression="(${r4})" />
-<Action OrderNumber="36" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_θ_Four" VariableExpression="((${type} == Deg) ? pi/180 : 1) * (${theta4})" />
-<Action OrderNumber="37" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_z_Four" VariableExpression="(${z4})" />
-<Action OrderNumber="38" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="AdvWm_a_Four" VariableExpression="(${a4})" />
-<Action OrderNumber="39" Enabled="False" ActionType="Placeholder" Description="加权计算坐标   转换为 JSON 格式" DescriptionOverride="True" />
-<Action OrderNumber="40" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Build" ListVariableExpression=",A,B,C,D,One,Two,Three,Four" ListVariableTarget="AdvWm_polar" />
-<Action OrderNumber="41" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="AdvWm_polar" ListVariableExpression="${f:length:${${_this}}} != 0" ListVariableTarget="AdvWm_polar" />
-<Action OrderNumber="42" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="AdvWm_polar" ListVariableExpression="&quot;${_this}&quot;: {&#xD;&#xA;    &quot;X&quot;: ${n: ${v:AdvWm_x0} + (${scale} ?? 1) * ${v:AdvWm_r_${_this}} * sin(${v:AdvWm_θ_${_this}} + ${v:AdvWm_dθ}) }, &#xD;&#xA;    &quot;Y&quot;: ${n: ${v:AdvWm_z0} + (${scale} ?? 1) * ${v:AdvWm_z_${_this}} }, &#xD;&#xA;    &quot;Z&quot;: ${n: ${v:AdvWm_y0} + (${scale} ?? 1) * ${v:AdvWm_r_${_this}} * cos(${v:AdvWm_θ_${_this}} + ${v:AdvWm_dθ}) }, &#xD;&#xA;    &quot;Active&quot;: ${v:AdvWm_a_${_this}}&#xD;&#xA;}" />
-<Action OrderNumber="43" Enabled="False" ActionType="Placeholder" Description="输出" DescriptionOverride="True" />
-<Action OrderNumber="44" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="AdvWm_json" VariableExpression="{&#xD;&#xA;${l:AdvWm_polar.join(&quot;,⏎&quot;)}&#xD;&#xA;}" />
-<Action OrderNumber="45" Enabled="False" ActionType="Variable" Asynchronous="False" VariableOp="Clipboard" VariableName="AdvWm_json" />
-<Action OrderNumber="46" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="place" NamedCallbackParam="${v:AdvWm_json}" VariableOp="SetString" />
-<Action OrderNumber="47" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^AdvWm" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="a7821f6a-934b-4c0a-a8d7-3ee78191e3a5" Enabled="true" Name="实体标点">
-<Triggers>
-<Trigger Enabled="true" Id="8c8cd941-4bdb-430c-b067-4382c95502c1" Name="清空标点（网络） networkClear" RegularExpression="^AdvHm_networkClear:(?&lt;orders&gt;[1-8]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="AdvHm_clearAll" ListVariableExpression="    { &quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/mk clear &lt;${f:slice(${_idx}):0${orders}}&gt;&quot; }" ListVariableIndex="${f:length:${orders}}" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="AdvHm_clearAll" VariableExpression="[&#xD;&#xA;${l:AdvHm_clearAll.join(&quot;,⏎&quot;)}&#xD;&#xA;]" />
-<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="queue" NamedCallbackParam="${v:AdvHm_clearAll}" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="AdvHm_clearAll" />
-<Action OrderNumber="5" ActionType="ListVariable" Asynchronous="False" ListVariableName="AdvHm_clearAll" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="3c235e59-797c-4ecc-8b30-a45a3f4c513e" Name="清空标点（本地） localClear" RegularExpression="^AdvHm_localClear:(?!all$)(?&lt;listname&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableName="AdvHm_clearAll" ListVariableExpression="    {&#xD;&#xA;        &quot;c&quot;: &quot;mark&quot;,&#xD;&#xA;        &quot;p&quot;: &quot;{\&quot;Name\&quot;: \&quot;${l:${listname}[${_idx}]}\&quot;, \&quot;MarkType\&quot;: \&quot;0\&quot;, \&quot;LocalOnly\&quot;: 1}&quot;&#xD;&#xA;    }" ListVariableIndex="${l:${listname}.size}" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="AdvHm_clearAll" VariableExpression="[&#xD;&#xA;${l:AdvHm_clearAll.join(&quot;,⏎&quot;)}&#xD;&#xA;]" />
-<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="queue" NamedCallbackParam="${v:AdvHm_clearAll}" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="AdvHm_clearAll" />
-<Action OrderNumber="5" ActionType="ListVariable" Asynchronous="False" ListVariableName="AdvHm_clearAll" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="0d77bf8b-8133-4658-99ed-70c8bd92c9e1" Name="清空全部标点（本地） localClear:all" RegularExpression="^AdvHm_localClear:all(?::id:(?&lt;id&gt;.+))?$" Sequential="True">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="指定一个实体 ID，对其遍历执行所有标点后清除标点。ID 未提供时默认为自己。" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Variable" VariableOp="SetString" VariableName="tmp_id" VariableExpression="0x${_me.id}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${id}" ExpressionTypeL="String" ExpressionR="[14]0.{6}" ExpressionTypeR="String" ConditionType="RegexNotMatch" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="Variable" VariableOp="SetString" VariableName="tmp_id" VariableExpression="0x${id}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${id}" ExpressionTypeL="String" ExpressionR="[14]0.{6}" ExpressionTypeR="String" ConditionType="RegexMatch" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="Loop" LoopInitExpression="32" LoopIncrExpression="-1">
-<LoopCondition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${_i}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
-</LoopCondition>
-<LoopActions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;    &quot;ActorID&quot;: ${v:tmp_id},&#xD;&#xA;    &quot;MarkType&quot;: ${_i},&#xD;&#xA;    &quot;LocalOnly&quot;: true&#xD;&#xA;}" />
-</LoopActions>
-</Action>
-<Action OrderNumber="5" ActionType="Variable" VariableName="tmp_id">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${id}" ExpressionTypeL="String" ExpressionR="[14]0.{6}" ExpressionTypeR="String" ConditionType="RegexMatch" />
-</Condition>
-</Action>
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="2d6e5c83-5c1e-454c-ad61-1d71ca705f76" Name="单个实体标点 mark" RegularExpression="^AdvHm_mark:(?&lt;entity&gt;[^:]+):(?&lt;marker&gt;[^:]+):(?&lt;isLocal&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_match" VariableExpression="1">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${entity}" ExpressionTypeL="String" ExpressionR="^[14]0[A-F0-9].{6}$" ExpressionTypeR="String" ConditionType="RegexMatch" />
-</Condition>
-</Action>
-<Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;ActorID&quot;: 0x${entity},&#xD;&#xA;  &quot;MarkType&quot;: &quot;${marker}&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${isLocal} &#xD;&#xA;}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_match}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  &quot;Name&quot;: &quot;${entity}&quot;,&#xD;&#xA;  &quot;MarkType&quot;: &quot;${marker}&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${isLocal} &#xD;&#xA;}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_match}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="NamedCallback" NamedCallbackName="mark" NamedCallbackParam="{&#xD;&#xA;  ${f:ifmatch(${entity}, '&quot;ActorID&quot;: 0x${entity}', '&quot;Name&quot;: &quot;${entity}&quot;'):[14]0[0-9A-F]｛6｝},&#xD;&#xA;  &quot;MarkType&quot;: &quot;${marker}&quot;,&#xD;&#xA;  &quot;LocalOnly&quot;: ${isLocal} &#xD;&#xA;}" />
-<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="tmp_match" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
-</Folder>
 <Folder Id="a7e8b210-6676-4804-ac0a-ce23b6f1b5b6" Enabled="true" Name="调试工具 / 实用工具">
 <Folders>
 <Folder Id="cb3f4718-617e-486a-876b-cfa2d8a91895" Enabled="true" Name="查询实体信息">
@@ -706,70 +305,83 @@
 </Folder>
 <Folder Id="01d11a0b-fcea-4e61-bdfc-368455790827" Enabled="true" Name="日志转录" DisableRemoteExpand="True" DisableRemoteToggle="True">
 <Triggers>
-<Trigger Enabled="true" Id="1bbf5ab6-ef76-4800-a7ae-f6e3f209c6fd" Name="1B Tether" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 23:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):(?&lt;tid&gt;.{8}):(?&lt;tn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]*)">
+<Trigger Enabled="true" Id="1bbf5ab6-ef76-4800-a7ae-f6e3f209c6fd" Name="1B TargetIcon (LockOn)" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 1B:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]+):">
 <Actions>
-<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableValue="${sid}" />
-<Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_tgt" DictVariableValue="${tid}" />
-<Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _Tether AAA:23:${type}:${sid}:${sn}:${d:tmp_src[bnpcnameid]}:${d:tmp_src[bnpcid]}:${d:tmp_src[x]}:${d:tmp_src[y]}:${d:tmp_src[z]}:${d:tmp_src[h]}:${tid}:${tn}:${d:tmp_tgt[bnpcnameid]}:${d:tmp_tgt[bnpcid]}:${d:tmp_tgt[x]}:${d:tmp_tgt[y]}:${d:tmp_tgt[z]}:${d:tmp_tgt[h]}:0" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="4" ActionType="DictVariable" Asynchronous="False" DictVariableValueType="Numeric" DictVariableName="tmp_src" />
+<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${sid}" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _TargetIcon AAA:1B:${type}:${sid}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="1958f1b5-5fd1-49b2-83eb-08a80036241e" Name="10F ActorSetPos" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 10F:(?&lt;id&gt;4.{7}):(?&lt;h&gt;[^:]+):[^:]+:[^:]+:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)$">
+<Actions>
+<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid" DictVariableValue="${id}" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _ActorSetPos AAA:10F:${id}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid)}:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="8003a098-ab99-4f75-b51b-af8a9a84cc6f" Name="111 ActorControl" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 111:(?&lt;id&gt;4.{7}):(?&lt;type&gt;[^:]*):(?&lt;param1&gt;[^:]*):(?&lt;param2&gt;[^:]*)">
+<Actions>
+<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="ProcessedLog_ActorControl" DictVariableValue="=&#xD;&#xA;0031=Unknown49 AAA:200:¤{param1}&#xD;&#xA;003E=AnimationState AAA:201:¤{param1}:¤{param2}&#xD;&#xA;003F=WeaponId AAA:202:¤{param1}&#xD;&#xA;0197=PlayActionTimeline AAA:203:¤{param1}&#xD;&#xA;019D=EObjAnimation AAA:204:¤{param1}:¤{param2}&#xD;&#xA;01F8=StatusUpdate AAA:205:¤{param1}&#xD;&#xA;00B8=TargetVfx AAA:206:¤{param1}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${ed:ProcessedLog_ActorControl}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${id}" />
+<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="tmp_src" DictVariableKey="bnpcnameid" DictVariableValue="0">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${d:tmp_src[bnpcid]}" ExpressionTypeL="String" ExpressionR="2000000" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
+</Condition>
+</Action>
+<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _${d:ProcessedLog_ActorControl[${type}]}:${id}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="1d44f62a-a70f-4849-b8a2-b10b9869009b" Name="110 ActorSpawnExtra" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 110:(?&lt;id&gt;4.{7}):(?!E0000000:0000:00)(?&lt;params&gt;.+)">
+<Actions>
+<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${id}" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _ActorSpawnExtra AAA:110:${id}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}:${params}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="31761d9d-e5e6-4135-8c88-d6236b5cc9fe" Name="转录指令不存在" RegularExpression="^.{15}\S+ 00:003C::(“\/(?&lt;commandCN&gt;.+?)”出现问题：该命令不存在。|The command \/(?&lt;commandEN&gt;.+?) does not exist.|そのコマンドはありません。： \/(?&lt;commandJP&gt;.+?))$">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="^CommandNotExist:${commandCN}${commandEN}${commandJP}" LogProcess="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="bdd0e432-af7a-4641-a827-32c1681d4347" Name="01 Territory" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 01:(?&lt;id&gt;[^:]*):(?&lt;name&gt;[^:]*)">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="防止 01 行在同一副本中多次产生（如看完动画时）" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _Territory AAA:01:${n: 0x${id}}:${name}:${n: 0x0${d:日志转录_01[id]}}:${d:日志转录_01[name]}" LogProcess="True" LogProcessACT="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${id}" ExpressionTypeL="String" ExpressionR="${d:日志转录_01[id]}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="日志转录_01" DictVariableKey="id" DictVariableValue="${id}" />
+<Action OrderNumber="4" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="日志转录_01" DictVariableKey="name" DictVariableValue="${name}" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="86c76bd8-4fc8-4a85-a0dc-06f626d28893" Name="注册额外的 ActorControl category" RegularExpression="^.{15}\S+ 01" RefirePeriodExpression="60000">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="RegisterActorControlCategories" NamedCallbackParam="0xB8" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="7dcc8c3d-3192-4fa6-98a6-256793a5e2be" Name="23 Tether" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 23:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):(?&lt;tid&gt;.{8}):(?&lt;tn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]*)">
+<Actions>
+<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${sid}" />
+<Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_tgt" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${tid}" />
+<Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _Tether AAA:23:${type}:${sid}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}:${tid}:${d:tmp_tgt.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="4" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
 <Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_tgt" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${f:startwith(40):${sid}} || ${f:startwith(40):${tid}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="1958f1b5-5fd1-49b2-83eb-08a80036241e" Name="10F ActorSetPos" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 10F:(?&lt;id&gt;4.{7}):(?&lt;h&gt;[^:]+):[^:]+:[^:]+:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)$">
-<Actions>
-<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableValue="${id}" />
-<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _ActorSetPos AAA:10F:${id}:${d:tmp_entity[name]}:${d:tmp_entity[bnpcnameid]}:${d:tmp_entity[bnpcid]}:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True">
-<Condition Enabled="false" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="9020" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_entity" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="8003a098-ab99-4f75-b51b-af8a9a84cc6f" Name="111 ActorControl" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 111:(?&lt;id&gt;4.{7}):(?&lt;type&gt;[^:]*):(?&lt;param1&gt;[^:]*):(?&lt;param2&gt;[^:]*)">
-<Actions>
-<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="ProcessedLog_ActorControl" DictVariableValue="=&#xD;&#xA;0031=Unknown49 AAA:200:¤{param1}&#xD;&#xA;003E=AnimationState AAA:201:¤{param1}:¤{param2}&#xD;&#xA;003F=WeaponId AAA:202:¤{param1}&#xD;&#xA;0197=PlayActionTimeline AAA:203:¤{param1}&#xD;&#xA;019D=EObjAnimation AAA:204:¤{param1}:¤{param2}&#xD;&#xA;01F8=StatusUpdate AAA:205:¤{param1}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${ed:ProcessedLog_ActorControl}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableValue="${id}" />
-<Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _${d:ProcessedLog_ActorControl[${type}]}:${id}:${d:tmp_entity[name]}:${d:tmp_entity[bnpcnameid]}:${d:tmp_entity[bnpcid]}:${d:tmp_entity[x]}:${d:tmp_entity[y]}:${d:tmp_entity[z]}:${d:tmp_entity[h]}" LogProcess="True" LogProcessACT="True">
-<Condition Enabled="false" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="9020" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_entity" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="1d44f62a-a70f-4849-b8a2-b10b9869009b" Name="110 ActorSpawnExtra" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 110:(?&lt;id&gt;4.{7}):(?!E0000000:0000:00)(?&lt;params&gt;.+)">
-<Actions>
-<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableValue="${id}" />
-<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _ActorSpawnExtra AAA:110:${id}:${d:tmp_entity[name]}:${d:tmp_entity[bnpcnameid]}:${d:tmp_entity[bnpcid]}:${d:tmp_entity[x]}:${d:tmp_entity[y]}:${d:tmp_entity[z]}:${d:tmp_entity[h]}:${params}" LogProcess="True" LogProcessACT="True">
-<Condition Enabled="false" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="9020" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_entity" />
-</Actions>
-</Trigger>
 <Trigger Enabled="true" Id="e5e46c0b-4c10-4f93-9e8f-3546a58a7705" Name="22 NameToggle" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 22:(?&lt;id&gt;4.{7}):(?&lt;name&gt;[^:]*):[^:]*:[^:]*:(?&lt;bTgtable&gt;0?[01])">
 <Actions>
-<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_entity" DictVariableKey="ID, Name, BNpcNameID, BNpcID, X, Y, Z, Heading" DictVariableValue="${id}" />
-<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _NameToggle AAA:22:${n: ${bTgtable}}:${id}:${d:tmp_entity[Name]}:${d:tmp_entity[BNpcNameID]}:${d:tmp_entity[BNpcID]}:${d:tmp_entity[X]}:${d:tmp_entity[Y]}:${d:tmp_entity[Z]}:${d:tmp_entity[Heading]}" LogProcess="True" LogProcessACT="True">
-<Condition Enabled="false" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${d:tmp_entity[bnpcid]}" ExpressionTypeL="String" ExpressionR="9020" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_entity" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="31761d9d-e5e6-4135-8c88-d6236b5cc9fe" Name="转录指令不存在" RegularExpression="^.{15}\S+ 00:003C::(“\/(?&lt;commandCN&gt;.+?)”出现问题：该命令不存在。|The command \/(?&lt;commandEN&gt;.+?) does not exist.|そのコマンドはありません。： \/(?&lt;commandJP&gt;.+?))$">
-<Actions>
-<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="^CommandNotExist:${commandCN}${commandEN}${commandJP}" LogProcess="True" />
+<Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${id}" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _NameToggle AAA:22:${n: ${bTgtable}}:${id}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -1144,7 +756,7 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="b2fc5397-02bd-4bd1-ae10-d7bc4d849fb4" Enabled="true" Name="鲶鱼精邮差扩展 v4.2.3" RawEnvironmentVariables="version = 4.2.2&#xD;&#xA;trigversion = 2.0.2.4" DisableRemoteToggle="True">
+<Folder Id="b2fc5397-02bd-4bd1-ae10-d7bc4d849fb4" Enabled="true" Name="鲶鱼精邮差扩展 v4.3.0" RawEnvironmentVariables="version = 4.3.0&#xD;&#xA;trigversion = 2.0.2.4" DisableRemoteToggle="True">
 <Folders>
 <Folder Id="f7b6f7f2-8adb-449b-a774-96c58632c822" Enabled="true" Name="core" DisableRemoteExpand="True" DisableRemoteToggle="True">
 <Folders>
@@ -1163,7 +775,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${func:versioncompare(${env:trigversion}):${_pluginversion}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericLess" />
 </Condition>
 </Action>
-<Action OrderNumber="3" ActionType="ExecuteScript" Description="BridgeNamazu.InitializeModules()" DescriptionOverride="True" ExecScriptExpression="using System;&#xD;&#xA;using Triggernometry;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu.Modules;&#xD;&#xA;&#xD;&#xA;BridgeNamazu.InitializeModules(() =&gt; {&#xD;&#xA;    // 示例：Sideload（版本更新后可覆写偏移或扫描方法等）&#xD;&#xA;    // var module = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#xD;&#xA;    // module.PosOffset = () =&gt; BridgeNamazu.NamazuPlugin.IsCN ? 0x74 : 0x70;&#xD;&#xA;    // module.ScanMethod = () =&gt; { module.GetStatusIndexPtr = ModuleBase.Scanner.ScanText(&quot;xxx&quot;); };&#xD;&#xA;    var mEnt = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#xD;&#xA;    mEnt.IdOffset = () =&gt; 0x78;&#xD;&#xA;    mEnt.PosOffset = () =&gt; 0xB0;&#xD;&#xA;    mEnt.ScaleOffset = () =&gt; 0xC4;&#xD;&#xA;    mEnt.ModelRelPosOffset = () =&gt; 0xE0;&#xD;&#xA;    mEnt.ModelOffset = () =&gt; 0x100;&#xD;&#xA;    mEnt.StatusLoopVfxOffset = () =&gt; 0x1C8;&#xD;&#xA;    mEnt.OpacityOffset = () =&gt; 0x22D8;&#xD;&#xA;    mEnt.ModelStatusOffset = () =&gt; 0x118;&#xD;&#xA;    var mCam = BridgeNamazu.GetModule&lt;CameraModule&gt;();&#xD;&#xA;    mCam.OffsetsCN = mCam.OffsetsGlobal;&#xD;&#xA;});" />
+<Action OrderNumber="3" ActionType="ExecuteScript" Description="BridgeNamazu.InitializeModules()" DescriptionOverride="True" ExecScriptExpression="using System;&#xD;&#xA;using Triggernometry;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu.Modules;&#xD;&#xA;&#xD;&#xA;BridgeNamazu.InitializeModules(() =&gt; {&#xD;&#xA;    // 示例：Sideload（版本更新后可覆写偏移或扫描方法等）&#xD;&#xA;    // var module = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#xD;&#xA;    // module.PosOffset = () =&gt; BridgeNamazu.NamazuPlugin.IsCN ? 0x74 : 0x70;&#xD;&#xA;    // module.ScanMethod = () =&gt; { module.GetStatusIndexPtr = ModuleBase.Scanner.ScanText(&quot;xxx&quot;); };&#xD;&#xA;    // var mEnt = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#xD;&#xA;    // mEnt.IdOffset = () =&gt; 0x78;&#xD;&#xA;    // mEnt.PosOffset = () =&gt; 0xB0;&#xD;&#xA;    // mEnt.ScaleOffset = () =&gt; 0xC4;&#xD;&#xA;    // mEnt.ModelRelPosOffset = () =&gt; 0xE0;&#xD;&#xA;    // mEnt.ModelOffset = () =&gt; 0x100;&#xD;&#xA;    // mEnt.StatusLoopVfxOffset = () =&gt; 0x1C8;&#xD;&#xA;    // mEnt.OpacityOffset = () =&gt; 0x22E8;&#xD;&#xA;    // mEnt.ModelStatusOffset = () =&gt; 0x118;&#xD;&#xA;    // var mCam = BridgeNamazu.GetModule&lt;CameraModule&gt;();&#xD;&#xA;    // mCam.OffsetsCN = mCam.OffsetsGlobal;&#xD;&#xA;});" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${ecallback:hint}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
@@ -1375,6 +987,23 @@
 <Trigger Enabled="true" Id="6b990054-24e0-4896-9f84-9782fe1edc1d" Name="测试：重绘全部实体" RegularExpression="^.{15}\S+ 00:0038::(?i)fix$">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="InvokeOnMultipleEntities" NamedCallbackParam="!0&#xD;&#xA;Redraw, _address" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="8c5d0424-3c23-4d8b-ad7c-f6642f6b8487" Name="Opacity" RegularExpression="^.{15}\S+ 00:0038::(?i) *opacity +(?&lt;opacity&gt;.+)$">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableName="tmp_address" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_entity[${_me.targetid}].address}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_entity[${_me.targetid}].Exist}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_address" VariableExpression="${_me.address}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0${v:tmp_address}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="SetOpacity" NamedCallbackParam="${v:tmp_address}, ${n:${opacity}}" />
+<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="tmp_address" />
 </Actions>
 </Trigger>
 </Triggers>
