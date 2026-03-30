@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="2.0.5.0">
+<TriggernometryExport PluginVersion="2.0.4.0">
 <ExportedFolder Id="37aba722-ed68-4955-a4b6-874db403c479" Enabled="true" Name="[工具] 自检工具箱 SelfTest.xml" RawEnvironmentVariables="date = 2025.9.4&#xD;&#xA;trig = 1.2.0.751&#xD;&#xA;namazu = 1.3.6.6&#xD;&#xA;advwm = 4.9&#xD;&#xA;link = https://www.123865.com/s/1xRXjv-n9qBH&#xD;&#xA;&#xD;&#xA;// 标点自检的参数方程&#xD;&#xA;speed = 0.01&#xD;&#xA;dt = 30&#xD;&#xA;x_t = 16 * sin(${_this}) ^ 3&#xD;&#xA;y_t = -13 * cos(${_this}) + 5 * cos(2 * ${_this}) + 2 * cos(3 * ${_this}) + cos(4 * ${_this})&#xD;&#xA;z_t = 0&#xD;&#xA;center = ${_me.x}, ${_me.y}, ${_me.z}&#xD;&#xA;θ = ${_me.heading}&#xD;&#xA;scale = abs(sin(${_systemtimems} / 1000)) * 0.75 + 0.25">
 <Folders>
 <Folder Id="b021fb1e-c303-4b85-8c93-6f86da5a129d" Enabled="true" Name="控制" DisableRemoteExpand="True" DisableRemoteToggle="True">
@@ -118,14 +118,35 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="527bc6b8-52e5-43a0-96ae-b9eb4688aad6" Enabled="true" Name="?" DescendingSort="True">
-<Folders>
-<Folder Id="42d46e03-1e4d-4b0f-a6ef-b2b4853b24bb" Enabled="false" Name="zone" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^(129|130|132|1186)$" DescendingSort="True">
+<Folder Id="9edf3e44-a7ef-4c8f-91ec-43ee47843c8a" Enabled="false" Name="?" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^(129|130|132|1186)$">
 <Triggers>
-<Trigger Enabled="false" Id="24081704-e989-4403-a157-b239b19e5e30" Name="○" RegularExpression="^.{15}\S+ 03:(?&lt;sid&gt;10....00):">
+<Trigger Enabled="true" Id="e5d7d8a0-d405-472b-b7e5-df5fc061d5ed" Name="t" RegularExpression="^.{15}\S+ 01" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="21600 * 1000">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="60000" />
+<Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e &#xD;&#xA;您所购买的游戏时间即将结束。&#xD;&#xA;　月卡剩余时间：0分钟&#xD;&#xA;　点卡剩余时间：${n: random(3,10)}分钟">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_ffxivlanguageid}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e &#xD;&#xA;プレイ時間の終了が近づいています。　&#xD;&#xA;　月額課金：0分&#xD;&#xA;　時間課金：${n: random(3,10)}分">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_ffxivlanguageid}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="4" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e &#xD;&#xA;It's almost time for an Eorzean re-up.&#xD;&#xA;　Months remaining: 0 minute&#xD;&#xA;　Hours remaining: ${n: random(3,10)} minutes">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${_ffxivlanguageid}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${f:localtime(MMdd):${_systemtime}}" ExpressionTypeL="String" ExpressionR="0401" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="1abe8dee-dba2-46b0-a7c5-83ebd0a601a5" Name="○" RegularExpression="^.{15}\S+ 03:(?&lt;sid&gt;10....0[0-7]):">
 <Actions>
 <Action OrderNumber="1" Enabled="False" />
-<Action OrderNumber="2" Enabled="False" ActionType="NamedCallback" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${sid}].Address}, 463" />
+<Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${sid}].Address}, 463" />
 <Action OrderNumber="3" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="10000" NamedCallbackName="SetStatusLoopVfx" NamedCallbackParam="${_entity[${sid}].Address}, 0" />
 </Actions>
 <Condition Enabled="true" Grouping="And">
@@ -136,60 +157,11 @@
 <ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
 </Condition>
 </Trigger>
-</Triggers>
-</Folder>
-</Folders>
-<Triggers>
-<Trigger Enabled="true" Id="72039e82-30a6-4b34-aa8f-e9723436c490" Name="关闭" RegularExpression="^.{15}\S+ 00:0038::(?i) *fool *$">
+<Trigger Enabled="true" Id="4ee2bd76-3061-4ddd-a840-6489b421dead" Name="关闭" RegularExpression="^.{15}\S+ 00:0038::(?i) *fool *$">
 <Actions>
-<Action OrderNumber="1" ActionType="Folder" FolderOp="DisableFolder" FolderId="527bc6b8-52e5-43a0-96ae-b9eb4688aad6" />
+<Action OrderNumber="1" ActionType="Folder" FolderOp="DisableFolder" FolderId="9edf3e44-a7ef-4c8f-91ec-43ee47843c8a" />
 <Action OrderNumber="2" SystemBeepLengthExpression="200" />
 </Actions>
-</Trigger>
-<Trigger Enabled="true" Id="ced6f040-748d-4cd3-b58a-cd2b5d7c43cd" Name="t" RegularExpression="^.{15}\S+ 01" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="86400 * 1000">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="30000" />
-<Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e 您所购买的游戏时间即将结束。&#xD;&#xA;　月卡剩余时间：0分钟&#xD;&#xA;　点卡剩余时间：${n: random(3,10)}分钟">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${_ffxivlanguageid}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e プレイ時間の終了が近づいています。　&#xD;&#xA;　月額課金：0分&#xD;&#xA;　時間課金：${n: random(3,10)}分">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${_ffxivlanguageid}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e It's almost time for an Eorzean re-up.&#xD;&#xA;　Months remaining: 0 minute&#xD;&#xA;　Hours remaining: ${n: random(3,10)} minutes">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${_ffxivlanguageid}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Action>
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${f:localtime(MMdd):${_systemtime}}" ExpressionTypeL="String" ExpressionR="0401" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Id="0be2f843-c9fe-4a0b-ac6b-e10297068a0a" Name="爆发药" RegularExpression="^.{15}\S+ 1A:31:[^:]*:[^:]*:(?&lt;sid&gt;1.{7})">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="ActorVfx" NamedCallbackParam="${_me.Address}, ${_me.Address}, vfx/common/eff/itm_sp03_c0c.avfx, -1" />
-<Action OrderNumber="2" Enabled="False" />
-</Actions>
-<Condition Enabled="true" Grouping="And">
-<ConditionGroup Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${f:localtime(MMdd):${_systemtime}}" ExpressionTypeL="String" ExpressionR="0401" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-<ConditionSingle Enabled="false" ExpressionL="${f:localtime(MMdd):${_systemtime}}" ExpressionTypeL="String" ExpressionR="0330" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</ConditionGroup>
-<ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Id="08b55b44-592e-41da-ab1a-315883ba2c7f" Name="Living Liquid" RegularExpression="^.{15}\S+ 01">
-<Actions>
-<Action OrderNumber="1" ActionType="ExecuteScript" ExecScriptExpression="using System.Threading;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu.Modules;&#xD;&#xA;&#xD;&#xA;var module = BridgeNamazu.GetModule&lt;LocalEntityModule&gt;();&#xD;&#xA;var eModule = BridgeNamazu.GetModule&lt;EntityModule&gt;();&#xD;&#xA;&#xD;&#xA;var idx = module.CreateBattleCharacter();&#xD;&#xA;var entityPtr = module.GetObjectByIndex(idx);&#xD;&#xA;module.SetupBNpc(entityPtr, 4909, 3765); // living liquid&#xD;&#xA;&#xD;&#xA;eModule.SetPos(entityPtr, -103.503f, 8.211f, 18f); // 海都市场门口&#xD;&#xA;eModule.SetDefaultPos(entityPtr, -103.503f, 8.211f, 18f);&#xD;&#xA;eModule.SetHeading(entityPtr, 1.987f);&#xD;&#xA;eModule.SetDefaultHeading(entityPtr, 1.987f);&#xD;&#xA;eModule.SetObjectScale(entityPtr, 1.5f);&#xD;&#xA;BridgeNamazu.NamazuPlugin.Memory.Write&lt;byte&gt;(entityPtr + 0x1CB, 100); // level&#xD;&#xA;BridgeNamazu.NamazuPlugin.Memory.Write&lt;byte&gt;(entityPtr + 0x90, 10); // type&#xD;&#xA;BridgeNamazu.NamazuPlugin.Memory.Write&lt;float&gt;(entityPtr + 0xD0, 1.5f); // radius&#xD;&#xA;BridgeNamazu.NamazuPlugin.Memory.Write&lt;int&gt;(entityPtr + 0x110, 61439); // 蓝！任务图标&#xD;&#xA;&#xD;&#xA;eModule.ReDraw(entityPtr);&#xD;&#xA;&#xD;&#xA;//Thread.Sleep(5000);&#xD;&#xA;//module.DeleteObjectByIndex(idx, 0);" />
-</Actions>
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="129" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="${f:localtime(MMdd):${_systemtime}}" ExpressionTypeL="String" ExpressionR="0401" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
 </Trigger>
 </Triggers>
 </Folder>
