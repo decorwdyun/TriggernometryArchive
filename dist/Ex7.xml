@@ -3954,7 +3954,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="2166503e-df71-4fc8-9e0c-5795e1d02b45" Enabled="true" Name="Ex7g 恩欧 v1.1" RawEnvironmentVariables="version = 1.1&#13;&#10;zone = 1362&#13;&#10;// CactbotTriggerSetName = _&#13;&#10;OssFolder = Ex7g">
+      <Folder Id="2166503e-df71-4fc8-9e0c-5795e1d02b45" Enabled="true" Name="Ex7g 恩欧 v1.2" RawEnvironmentVariables="version = 1.2&#13;&#10;zone = 1362&#13;&#10;// CactbotTriggerSetName = _&#13;&#10;OssFolder = Ex7g">
         <Folders>
           <Folder Id="4d97398f-4985-4eca-93fc-3e6ab0292008" Enabled="true" Name="区域限制" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1362$">
             <Folders>
@@ -3975,6 +3975,36 @@
                       <Trigger Enabled="true" Id="027131a3-cc4d-4c3f-ac3b-8f016cc47fa1" Name="场地标点" RegularExpression="^.{15}\S+ 21:.{8}:40000001" Sequential="True">
                         <Actions>
                           <Action OrderNumber="1" Enabled="False" ActionType="NamedCallback" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;A: -14, -6&#13;&#10;B:  14, -6&#13;&#10;C: -7.25, -2.02&#13;&#10;D:  7.25, -2.02&#13;&#10;1: -4.9, -15&#13;&#10;2:   4.9, -15&#13;&#10;3: -2.95, -7.6&#13;&#10;4:  2.95, -7.6&#13;&#10;Local: false"/>
+                        </Actions>
+                      </Trigger>
+                    </Triggers>
+                  </Folder>
+                  <Folder Id="a2cb6b04-1dec-49bd-aa1a-154133519074" Enabled="true" Name="打法选项">
+                    <Triggers>
+                      <Trigger Enabled="true" Id="d8929785-6110-4046-9bf6-3a99366b3967" Name="setter" RegularExpression="^Ex7g_P2_bMMW:(?&lt;bMMW&gt;[01])">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="_Ex7g_P2_bMMW" VariableExpression="${bMMW}"/>
+                          <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Build" ListVariableExpression=",${if: ${!v:_Ex7g_P2_bMMW} ? 1,2,3,4,5,6,7,8 : 4,1,3,2,8,5,7,6 }" ListVariableTarget="Ex7g_P2_pIdx至prio"/>
+                          <Action OrderNumber="3" ActionType="Placeholder" Description="构建一个用于文本播报的优先级职能顺序文本列表" DescriptionOverride="True"/>
+                          <Action OrderNumber="4" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Build" ListVariableExpression=",MT,ST,H1,H2,D1,D2,D3,D4" ListVariableTarget="tmp_desc"/>
+                          <Action OrderNumber="5" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SortByKeys" ListVariableName="tmp_desc" ListVariableExpression="n: ${!l:Ex7g_P2_pIdx至prio[${_idx}]}"/>
+                          <Action OrderNumber="6" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="command" NamedCallbackParam="/e &lt;se.10&gt;&#13;&#10;&#13;&#10;P2 已选择【${if: ${!v:_Ex7g_P2_bMMW} ? MMW : CCHH }】站位，&#13;&#10;即北侧顺时针开始优先级为：&#13;&#10;- TH 组：${!l:tmp_desc.join(&quot; &gt; &quot;, &quot;1:5&quot;)}&#13;&#10;- DPS 组：${!l:tmp_desc.join(&quot; &gt; &quot;, &quot;5:&quot;)}&#13;&#10;&#13;&#10;如需更换，可输入 &quot;/e mmw&quot; 或 &quot;/e cchh&quot;" UseTTSExclusive="False"/>
+                          <Action OrderNumber="7" ActionType="Placeholder" DescriptionOverride="True"/>
+                          <Action OrderNumber="8" ActionType="ListVariable" Asynchronous="False" ListVariableName="tmp_desc"/>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Id="1a1e9fdf-2b13-4583-b5ac-2be05ce67d94" Name="1. 进本缺省值" RegularExpression="^.{15}\S+ 01:">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="LogMessage" ExecutionDelayExpression="3000" Asynchronous="False" LogMessageText="Ex7g_P2_bMMW:1" LogProcess="True">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${ev:_Ex7g_P2_bMMW}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                            </Condition>
+                          </Action>
+                        </Actions>
+                      </Trigger>
+                      <Trigger Enabled="true" Id="dc5615a3-6b2b-4e04-9a51-c6f462f1aa82" Name="2. 接收指令" RegularExpression="^.{15}\S+ 00:0038::(?i) *(?&lt;strat&gt;mmw|cchh) *$">
+                        <Actions>
+                          <Action OrderNumber="1" ActionType="LogMessage" Asynchronous="False" LogMessageText="Ex7g_P2_bMMW:${if: ${f:tolower:${strat}} == mmw ? 1 : 0 }" LogProcess="True"/>
                         </Actions>
                       </Trigger>
                     </Triggers>
@@ -4013,20 +4043,14 @@
                 <Folders>
                   <Folder Id="21d5c4c2-25ce-4a4b-aa96-638132957889" Enabled="true" Name="缩小 Boss">
                     <Triggers>
-                      <Trigger Enabled="true" Id="8b2adc09-f0a0-4799-b602-e312cdd41730" Name="P3" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;C36D):">
-                        <Actions>
-                          <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="10000" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[${sid}].Address}, 0.5"/>
-                          <Action OrderNumber="2"/>
-                        </Actions>
-                      </Trigger>
-                      <Trigger Enabled="true" Id="d7768bcb-134a-42aa-a4b4-156b0a4ea445" Name="P1" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}(?&lt;bnpcid&gt;19905):([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                      <Trigger Enabled="true" Id="d7768bcb-134a-42aa-a4b4-156b0a4ea445" Name="P1（改完会带到 P3）" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}(?&lt;bnpcid&gt;19905):([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
                         <Actions>
                           <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="SetObjectScale" NamedCallbackParam="${_entity[${id}].Address}, 0.5"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Id="92db81d3-ce47-463d-bb39-f6da89a02eb6" Name="P2" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;C35B):">
                         <Actions>
-                          <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[${sid}].Address}, 1.5"/>
+                          <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="SetObjectScale" NamedCallbackParam="${_entity[${sid}].Address}, 1.5"/>
                         </Actions>
                       </Trigger>
                     </Triggers>
@@ -4036,20 +4060,21 @@
                   <Trigger Enabled="true" Id="97b0b010-d0aa-40b1-b92e-b26e6d978a82" Name="注册简易播报" RegularExpression="^.{15}\S+ 104:.:1:.:1">
                     <Actions>
                       <Action OrderNumber="1" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C381" DictVariableValue="_=流星雨 | tts=AoE"/>
-                      <Action OrderNumber="2" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C339" DictVariableValue="_=无之膨胀 | omen=Circle | t=7.7 | Scale=40,40,1"/>
-                      <Action OrderNumber="3" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C33A" DictVariableValue="_=无之膨胀 | omen=gl_sircle_3020bf | t=7.7 | Scale=60,60,1"/>
-                      <Action OrderNumber="4" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C33B" DictVariableValue="_=无之膨胀 | omen=Circle | t=7.7 | Scale=12,12,1"/>
-                      <Action OrderNumber="5" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C33C" DictVariableValue="_=无之膨胀 | omen=gl_circle4006_o0g | t=7.7 | Scale=40,40,1"/>
-                      <Action OrderNumber="6" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C379" DictVariableValue="_=核心熔毁 | omen=Circle | delay=1.5 | t=2.7 | Scale=5,5,1"/>
-                      <Action OrderNumber="7" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C355" DictVariableValue="_=混沌激流 | omen=Fan45 | delay=3.7 | t=3.0 | Scale=40,40,1"/>
-                      <Action OrderNumber="8" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C34B" DictVariableValue="_=奔流（曲线黑洞） | omen=Circle | t=5.3 | scale=7,7,1"/>
-                      <Action OrderNumber="9" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C34C" DictVariableValue="_=奔流（曲线黑洞） | omen=Circle | t=5.3 | scale=7,7,1"/>
-                      <Action OrderNumber="10" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C34D" DictVariableValue="_=奔流（曲线黑洞） | omen=Circle | t=5.3 | scale=7,7,1"/>
-                      <Action OrderNumber="11" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C0D9" DictVariableValue="_=虚无大冲击 | tts=防击退"/>
-                      <Action OrderNumber="12" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C341" DictVariableValue="_=聚能波动: 8 × 80 m 矩形 (12) | omen=Rect | t=6.7 | Scale=8,80,1"/>
-                      <Action OrderNumber="13" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C342" DictVariableValue="_=聚能波动: 8 × 80 m 矩形 (12) | omen=Rect | t=5.7 | Scale=8,80,1"/>
-                      <Action OrderNumber="14" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C343" DictVariableValue="_=聚能波动: 8 × 80 m 矩形 (12) | omen=Rect | t=5.7 | Scale=8,80,1"/>
-                      <Action OrderNumber="15" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C37F" DictVariableValue="_=零次元 | tts=多段直线分摊"/>
+                      <Action OrderNumber="2" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C334" DictVariableValue="_=至高无上 | tts=AoE"/>
+                      <Action OrderNumber="3" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C37F" DictVariableValue="_=零次元 | tts=多段直线分摊"/>
+                      <Action OrderNumber="4" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C339" DictVariableValue="_=无之膨胀 | omen=Circle | t=7.7 | Scale=40,40,1"/>
+                      <Action OrderNumber="5" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C33A" DictVariableValue="_=无之膨胀 | omen=gl_sircle_3020bf | t=7.7 | Scale=60,60,1"/>
+                      <Action OrderNumber="6" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C33B" DictVariableValue="_=无之膨胀 | omen=Circle | t=7.7 | Scale=12,12,1"/>
+                      <Action OrderNumber="7" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C33C" DictVariableValue="_=无之膨胀 | omen=gl_circle4006_o0g | t=7.7 | Scale=40,40,1"/>
+                      <Action OrderNumber="8" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C379" DictVariableValue="_=核心熔毁 | omen=Circle | delay=1.5 | t=2.7 | Scale=5,5,1"/>
+                      <Action OrderNumber="9" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C355" DictVariableValue="_=混沌激流 | omen=Fan45 | delay=3.7 | t=3.0 | Scale=40,40,1"/>
+                      <Action OrderNumber="10" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C34B" DictVariableValue="_=奔流（曲线黑洞） | omen=Circle | t=5.3 | scale=7,7,1"/>
+                      <Action OrderNumber="11" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C34C" DictVariableValue="_=奔流（曲线黑洞） | omen=Circle | t=5.3 | scale=7,7,1"/>
+                      <Action OrderNumber="12" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C34D" DictVariableValue="_=奔流（曲线黑洞） | omen=Circle | t=5.3 | scale=7,7,1"/>
+                      <Action OrderNumber="13" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C0D9" DictVariableValue="_=虚无大冲击 | tts=防击退"/>
+                      <Action OrderNumber="14" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C341" DictVariableValue="_=聚能波动: 8 × 80 m 矩形 (12) | omen=Rect | t=6.7 | Scale=8,80,1"/>
+                      <Action OrderNumber="15" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C342" DictVariableValue="_=聚能波动: 8 × 80 m 矩形 (12) | omen=Rect | t=5.7 | Scale=8,80,1"/>
+                      <Action OrderNumber="16" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C343" DictVariableValue="_=聚能波动: 8 × 80 m 矩形 (12) | omen=Rect | t=5.7 | Scale=8,80,1"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="478d33d7-ddfe-4a99-9ce9-92b2a0a3fc82" Name="2/4 分摊" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;C37[01]):">
@@ -4124,8 +4149,8 @@
                       <Action OrderNumber="3" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="Ex7g_塔_dirN8无" ListVariableExpression="!${!l:Ex7g_塔_dirN8塔.contain(${_this})}" ListVariableTarget="Ex7g_塔_dirN8无"/>
                       <Action OrderNumber="4" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SortNumericDesc" ListVariableName="Ex7g_塔_dirN8塔"/>
                       <Action OrderNumber="5" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SortNumericDesc" ListVariableName="Ex7g_塔_dirN8无"/>
-                      <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="Ex7g_塔_myDirN8" VariableExpression="${!l:${if: ${!v:Ex7g_塔_b点名} ? Ex7g_塔_dirN8无 : Ex7g_塔_dirN8塔 } [(${!v:myIdx} - 1) % 4 + 1]}"/>
-                      <Action OrderNumber="7" ActionType="LogMessage" Asynchronous="False" LogMessageText="Ex7g_塔:myIdx:${n: (${!v:myIdx} - 1) % 4 + 1}:myDirN8:${!v:Ex7g_塔_myDirN8}:b点名:${!v:Ex7g_塔_b点名}:塔:${!l:Ex7g_塔_dirN8塔.join(&quot;&quot;)}:无:${!l:Ex7g_塔_dirN8无.join(&quot;&quot;)}" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="Ex7g_塔_myDirN8" VariableExpression="${!l:${if: ${!v:Ex7g_塔_b点名} ? Ex7g_塔_dirN8无 : Ex7g_塔_dirN8塔 } [(${!l:Ex7g_P2_pIdx至prio[${!v:myIdx}]} - 1) % 4 + 1]}"/>
+                      <Action OrderNumber="7" ActionType="LogMessage" Asynchronous="False" LogMessageText="Ex7g_塔:myIdx:${n: (${!l:Ex7g_P2_pIdx至prio[${!v:myIdx}]} - 1) % 4 + 1}:myDirN8:${!v:Ex7g_塔_myDirN8}:b点名:${!v:Ex7g_塔_b点名}:塔:${!l:Ex7g_塔_dirN8塔.join(&quot;&quot;)}:无:${!l:Ex7g_塔_dirN8无.join(&quot;&quot;)}" LogProcess="True" LogProcessACT="True"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="16477b1b-c2f9-4e67-bae5-6cb402565e21" Name="3. 播报" RegularExpression="^Ex7g_塔:myIdx:(?&lt;myIdx&gt;[1-4]):myDirN8:(?&lt;myDirN8&gt;[0-7]):b点名:(?&lt;b点名&gt;[01]):塔:(?&lt;塔1&gt;.)(?&lt;塔2&gt;.)(?&lt;塔3&gt;.)(?&lt;塔4&gt;.):无:(?&lt;无1&gt;.)(?&lt;无2&gt;.)(?&lt;无3&gt;.)(?&lt;无4&gt;.)">
