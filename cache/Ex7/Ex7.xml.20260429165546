@@ -3984,14 +3984,13 @@
 <Trigger Enabled="true" Id="d8929785-6110-4046-9bf6-3a99366b3967" Name="setter" RegularExpression="^Ex7g_P2_bMMW:(?&lt;bMMW&gt;[01])">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="_Ex7g_P2_bMMW" VariableExpression="${bMMW}" />
-<Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Build" ListVariableExpression=",${if: ${!v:_Ex7g_P2_bMMW} ? 1,2,3,4,5,6,7,8 : 4,1,3,2,8,5,7,6 }" ListVariableTarget="_Ex7g_P2_pIdx至prio" />
+<Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Build" ListVariableExpression=",${if: ${!v:_Ex7g_P2_bMMW} ? 1,2,3,4,5,6,7,8 : 4,1,3,2,8,5,7,6 }" ListVariableTarget="Ex7g_P2_pIdx至prio" />
 <Action OrderNumber="3" ActionType="Placeholder" Description="构建一个用于文本播报的优先级职能顺序文本列表" DescriptionOverride="True" />
 <Action OrderNumber="4" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Build" ListVariableExpression=",MT,ST,H1,H2,D1,D2,D3,D4" ListVariableTarget="tmp_desc" />
-<Action OrderNumber="5" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SortByKeys" ListVariableName="tmp_desc" ListVariableExpression="n: ${!l:_Ex7g_P2_pIdx至prio[${_idx}]}" />
+<Action OrderNumber="5" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SortByKeys" ListVariableName="tmp_desc" ListVariableExpression="n: ${!l:Ex7g_P2_pIdx至prio[${_idx}]}" />
 <Action OrderNumber="6" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="command" NamedCallbackParam="/e &lt;se.10&gt;&#xD;&#xA;&#xD;&#xA;P2 已选择【${if: ${!v:_Ex7g_P2_bMMW} ? MMW : CCHH }】站位，&#xD;&#xA;即北侧顺时针开始优先级为：&#xD;&#xA;- TH 组：${!l:tmp_desc.join(&quot; &gt; &quot;, &quot;1:5&quot;)}&#xD;&#xA;- DPS 组：${!l:tmp_desc.join(&quot; &gt; &quot;, &quot;5:&quot;)}&#xD;&#xA;&#xD;&#xA;如需更换，可输入 &quot;/e mmw&quot; 或 &quot;/e cchh&quot;" UseTTSExclusive="False" />
-<Action OrderNumber="7" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="P2已选择${if: ${!v:_Ex7g_P2_bMMW} ? 猫猫窝 : No CCHH }站位" UseTTSExclusive="False" />
-<Action OrderNumber="8" ActionType="Placeholder" DescriptionOverride="True" />
-<Action OrderNumber="9" ActionType="ListVariable" Asynchronous="False" ListVariableName="tmp_desc" />
+<Action OrderNumber="7" ActionType="Placeholder" DescriptionOverride="True" />
+<Action OrderNumber="8" ActionType="ListVariable" Asynchronous="False" ListVariableName="tmp_desc" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="1a1e9fdf-2b13-4583-b5ac-2be05ce67d94" Name="1. 进本缺省值" RegularExpression="^.{15}\S+ 01:">
@@ -4127,6 +4126,12 @@
 <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: Ex7g&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;t: ${t}&#xD;&#xA;O: 100,100&#xD;&#xA;θ: DirToRad(${dir8}, 8)&#xD;&#xA;Scale: ${scaleX}, ${scaleY}, 0.1&#xD;&#xA;Color: 1,1,1,1" />
 </Actions>
 </Trigger>
+<Trigger Enabled="true" Id="4b16a227-0d86-4d0e-b2e2-a9295fb82db7" Name="提前取消转场白屏" RegularExpression="^.{15}\S+ 101:[^:]*:0200....:01">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="3000" NamedCallbackName="MapEffect" NamedCallbackParam="0x01, 0x08" />
+<Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="取消" />
+</Actions>
+</Trigger>
 </Triggers>
 </Folder>
 <Folder Id="9cc785ba-1888-4af4-bad5-d2844a0c0394" Enabled="true" Name="C. 塔">
@@ -4144,8 +4149,8 @@
 <Action OrderNumber="3" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="Ex7g_塔_dirN8无" ListVariableExpression="!${!l:Ex7g_塔_dirN8塔.contain(${_this})}" ListVariableTarget="Ex7g_塔_dirN8无" />
 <Action OrderNumber="4" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SortNumericDesc" ListVariableName="Ex7g_塔_dirN8塔" />
 <Action OrderNumber="5" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SortNumericDesc" ListVariableName="Ex7g_塔_dirN8无" />
-<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="Ex7g_塔_myDirN8" VariableExpression="${!l:${if: ${!v:Ex7g_塔_b点名} ? Ex7g_塔_dirN8无 : Ex7g_塔_dirN8塔 } [(${!l:_Ex7g_P2_pIdx至prio[${!v:myIdx}]} - 1) % 4 + 1]}" />
-<Action OrderNumber="7" ActionType="LogMessage" Asynchronous="False" LogMessageText="Ex7g_塔:myIdx:${n: (${!l:_Ex7g_P2_pIdx至prio[${!v:myIdx}]} - 1) % 4 + 1}:myDirN8:${!v:Ex7g_塔_myDirN8}:b点名:${!v:Ex7g_塔_b点名}:塔:${!l:Ex7g_塔_dirN8塔.join(&quot;&quot;)}:无:${!l:Ex7g_塔_dirN8无.join(&quot;&quot;)}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="Ex7g_塔_myDirN8" VariableExpression="${!l:${if: ${!v:Ex7g_塔_b点名} ? Ex7g_塔_dirN8无 : Ex7g_塔_dirN8塔 } [(${!l:Ex7g_P2_pIdx至prio[${!v:myIdx}]} - 1) % 4 + 1]}" />
+<Action OrderNumber="7" ActionType="LogMessage" Asynchronous="False" LogMessageText="Ex7g_塔:myIdx:${n: (${!l:Ex7g_P2_pIdx至prio[${!v:myIdx}]} - 1) % 4 + 1}:myDirN8:${!v:Ex7g_塔_myDirN8}:b点名:${!v:Ex7g_塔_b点名}:塔:${!l:Ex7g_塔_dirN8塔.join(&quot;&quot;)}:无:${!l:Ex7g_塔_dirN8无.join(&quot;&quot;)}" LogProcess="True" LogProcessACT="True" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="16477b1b-c2f9-4e67-bae5-6cb402565e21" Name="3. 播报" RegularExpression="^Ex7g_塔:myIdx:(?&lt;myIdx&gt;[1-4]):myDirN8:(?&lt;myDirN8&gt;[0-7]):b点名:(?&lt;b点名&gt;[01]):塔:(?&lt;塔1&gt;.)(?&lt;塔2&gt;.)(?&lt;塔3&gt;.)(?&lt;塔4&gt;.):无:(?&lt;无1&gt;.)(?&lt;无2&gt;.)(?&lt;无3&gt;.)(?&lt;无4&gt;.)">
