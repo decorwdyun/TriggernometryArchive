@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TriggernometryExport PluginVersion="2.0.6.2">
+<TriggernometryExport PluginVersion="2.0.7.0">
   <ExportedFolder Id="76bd5ee4-0149-4f31-b672-7826223d3b00" Enabled="true" Name="7.0 极神宝宝椅">
     <Folders>
       <Folder Id="09cbb6df-11a5-4dcb-92d0-8061477853ec" Enabled="true" Name="Ex7c 永恒女王 v1.4" RawEnvironmentVariables="version = 1.4&#13;&#10;CactbotTriggerSetName = TheMinstrelsBalladSphenesBurden&#13;&#10;OssFolder = Ex7c">
@@ -3954,7 +3954,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="2166503e-df71-4fc8-9e0c-5795e1d02b45" Enabled="true" Name="Ex7g 恩欧 v1.2" RawEnvironmentVariables="version = 1.2&#13;&#10;zone = 1362&#13;&#10;CactbotTriggerSetName = TheUnmakingExtreme&#13;&#10;OssFolder = Ex7g">
+      <Folder Id="2166503e-df71-4fc8-9e0c-5795e1d02b45" Enabled="true" Name="Ex7g 恩欧 v1.3" RawEnvironmentVariables="version = 1.3&#13;&#10;zone = 1362&#13;&#10;CactbotTriggerSetName = TheUnmakingExtreme&#13;&#10;OssFolder = Ex7g">
         <Folders>
           <Folder Id="4d97398f-4985-4eca-93fc-3e6ab0292008" Enabled="true" Name="区域限制" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1362$">
             <Folders>
@@ -3974,7 +3974,7 @@
                       </Trigger>
                       <Trigger Enabled="true" Id="027131a3-cc4d-4c3f-ac3b-8f016cc47fa1" Name="场地标点" RegularExpression="^.{15}\S+ 21:.{8}:40000001" Sequential="True">
                         <Actions>
-                          <Action OrderNumber="1" Enabled="False" ActionType="NamedCallback" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="O: 100, 100&#13;&#10;A: -14, -6&#13;&#10;B:  14, -6&#13;&#10;C: -7.25, -2.02&#13;&#10;D:  7.25, -2.02&#13;&#10;1: -4.9, -15&#13;&#10;2:   4.9, -15&#13;&#10;3: -2.95, -7.6&#13;&#10;4:  2.95, -7.6&#13;&#10;Local: false"/>
+                          <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;Waymarks: A1D4C3B2&#13;&#10;O: 100, 100&#13;&#10;R: (8 + 1.25) * √2&#13;&#10;R2:(8 + 1.15) * √2&#13;&#10;Local: false"/>
                         </Actions>
                       </Trigger>
                     </Triggers>
@@ -3988,7 +3988,7 @@
                           <Action OrderNumber="3" ActionType="Placeholder" Description="构建一个用于文本播报的优先级职能顺序文本列表" DescriptionOverride="True"/>
                           <Action OrderNumber="4" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Build" ListVariableExpression=",MT,ST,H1,H2,D1,D2,D3,D4" ListVariableTarget="tmp_desc"/>
                           <Action OrderNumber="5" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SortByKeys" ListVariableName="tmp_desc" ListVariableExpression="n: ${!l:_Ex7g_P2_pIdx至prio[${_idx}]}"/>
-                          <Action OrderNumber="6" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="command" NamedCallbackParam="/e &lt;se.10&gt;&#13;&#10;&#13;&#10;P2 已选择【${if: ${!v:_Ex7g_P2_bMMW} ? MMW : CCHH }】站位，&#13;&#10;即北侧顺时针开始优先级为：&#13;&#10;- TH 组：${!l:tmp_desc.join(&quot; &gt; &quot;, &quot;1:5&quot;)}&#13;&#10;- DPS 组：${!l:tmp_desc.join(&quot; &gt; &quot;, &quot;5:&quot;)}&#13;&#10;&#13;&#10;如需更换，可输入 &quot;/e mmw&quot; 或 &quot;/e cchh&quot;" UseTTSExclusive="False"/>
+                          <Action OrderNumber="6" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="command" NamedCallbackParam="/e &lt;se.10&gt;&#13;&#10;&#13;&#10;P2 已选择【${if: ${!v:_Ex7g_P2_bMMW} ? MMW : No CCHH }】站位，&#13;&#10;即北侧顺时针开始优先级为：&#13;&#10;- TH 组：${!l:tmp_desc.join(&quot; &gt; &quot;, &quot;1:5&quot;)}&#13;&#10;- DPS 组：${!l:tmp_desc.join(&quot; &gt; &quot;, &quot;5:&quot;)}&#13;&#10;&#13;&#10;如需更换，可输入 &quot;/e mmw&quot; 或 &quot;/e cchh&quot;" UseTTSExclusive="False"/>
                           <Action OrderNumber="7" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="P2已选择${if: ${!v:_Ex7g_P2_bMMW} ? 猫猫窝 : No CCHH }站位" UseTTSExclusive="False"/>
                           <Action OrderNumber="8" ActionType="Placeholder" DescriptionOverride="True"/>
                           <Action OrderNumber="9" ActionType="ListVariable" Asynchronous="False" ListVariableName="tmp_desc"/>
@@ -3996,11 +3996,8 @@
                       </Trigger>
                       <Trigger Enabled="true" Id="1a1e9fdf-2b13-4583-b5ac-2be05ce67d94" Name="1. 进本缺省值" RegularExpression="^.{15}\S+ 01:">
                         <Actions>
-                          <Action OrderNumber="1" ActionType="LogMessage" ExecutionDelayExpression="3000" Asynchronous="False" LogMessageText="Ex7g_P2_bMMW:1" LogProcess="True">
-                            <Condition Enabled="true" Grouping="Or">
-                              <ConditionSingle Enabled="true" ExpressionL="${ev:_Ex7g_P2_bMMW}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                            </Condition>
-                          </Action>
+                          <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="3000"/>
+                          <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="Ex7g_P2_bMMW:${n: ${ev:_Ex7g_P2_bMMW} ? 0${v:_Ex7g_P2_bMMW} : 0 }" LogProcess="True"/>
                         </Actions>
                       </Trigger>
                       <Trigger Enabled="true" Id="dc5615a3-6b2b-4e04-9a51-c6f462f1aa82" Name="2. 接收指令" RegularExpression="^.{15}\S+ 00:0038::(?i) *(?&lt;strat&gt;mmw|cchh) *$">

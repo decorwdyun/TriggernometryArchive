@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="2.0.5.0">
+<TriggernometryExport PluginVersion="2.0.8.0">
 <ExportedFolder Id="b608e8a2-adbf-4973-b08b-bda20d9e637b" Enabled="true" Name="[工具] 运行支持库 Utils.xml" RawEnvironmentVariables="w = 3">
 <Folders>
 <Folder Id="a7e8b210-6676-4804-ac0a-ce23b6f1b5b6" Enabled="true" Name="调试工具 / 实用工具">
@@ -306,21 +306,21 @@
 </Folder>
 <Folder Id="01d11a0b-fcea-4e61-bdfc-368455790827" Enabled="true" Name="日志转录" DisableRemoteExpand="True" DisableRemoteToggle="True">
 <Triggers>
-<Trigger Enabled="true" Id="1bbf5ab6-ef76-4800-a7ae-f6e3f209c6fd" Name="1B TargetIcon (LockOn)" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 1B:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]+):">
+<Trigger Enabled="true" Id="1bbf5ab6-ef76-4800-a7ae-f6e3f209c6fd" Name="1B TargetIcon (LockOn)" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 1B:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]+):" DebugLevel="Error">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${sid}" />
 <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _TargetIcon AAA:1B:${type}:${sid}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}" LogProcess="True" LogProcessACT="True" />
 <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="1958f1b5-5fd1-49b2-83eb-08a80036241e" Name="10F ActorSetPos" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 10F:(?&lt;id&gt;4.{7}):(?&lt;h&gt;[^:]+):[^:]+:[^:]+:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)$">
+<Trigger Enabled="true" Id="1958f1b5-5fd1-49b2-83eb-08a80036241e" Name="10F ActorSetPos" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 10F:(?&lt;id&gt;4.{7}):(?&lt;h&gt;[^:]+):[^:]+:[^:]+:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+)$" DebugLevel="Error">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid" DictVariableValue="${id}" />
 <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _ActorSetPos AAA:10F:${id}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid)}:${x}:${y}:${z}:${h}" LogProcess="True" LogProcessACT="True" />
 <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="8003a098-ab99-4f75-b51b-af8a9a84cc6f" Name="111 ActorControl" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 111:(?&lt;id&gt;4.{7}):(?&lt;type&gt;[^:]*):(?&lt;param1&gt;[^:]*):(?&lt;param2&gt;[^:]*)">
+<Trigger Enabled="true" Id="8003a098-ab99-4f75-b51b-af8a9a84cc6f" Name="111 ActorControl" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 111:(?&lt;id&gt;4.{7}):(?&lt;type&gt;[^:]*):(?&lt;param1&gt;[^:]*):(?&lt;param2&gt;[^:]*)" DebugLevel="Error">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="ProcessedLog_ActorControl" DictVariableValue="=&#xD;&#xA;0031=Unknown49 AAA:200:¤{param1}&#xD;&#xA;003E=AnimationState AAA:201:¤{param1}:¤{param2}&#xD;&#xA;003F=WeaponId AAA:202:¤{param1}&#xD;&#xA;0197=PlayActionTimeline AAA:203:¤{param1}&#xD;&#xA;019D=EObjAnimation AAA:204:¤{param1}:¤{param2}&#xD;&#xA;01F8=StatusUpdate AAA:205:¤{param1}&#xD;&#xA;00B8=TargetVfx AAA:206:¤{param1}">
 <Condition Enabled="true" Grouping="Or">
@@ -337,19 +337,19 @@
 <Action OrderNumber="5" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="1d44f62a-a70f-4849-b8a2-b10b9869009b" Name="110 ActorSpawnExtra" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 110:(?&lt;id&gt;4.{7}):(?!E0000000:0000:00)(?&lt;params&gt;.+)">
+<Trigger Enabled="true" Id="1d44f62a-a70f-4849-b8a2-b10b9869009b" Name="110 ActorSpawnExtra" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 110:(?&lt;id&gt;4.{7}):(?!E0000000:0000:00)(?&lt;params&gt;.+)" DebugLevel="Error">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${id}" />
 <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _ActorSpawnExtra AAA:110:${id}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}:${params}" LogProcess="True" LogProcessACT="True" />
 <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="31761d9d-e5e6-4135-8c88-d6236b5cc9fe" Name="转录指令不存在" RegularExpression="^.{15}\S+ 00:003C::(“\/(?&lt;commandCN&gt;.+?)”出现问题：该命令不存在。|The command \/(?&lt;commandEN&gt;.+?) does not exist.|そのコマンドはありません。： \/(?&lt;commandJP&gt;.+?))$">
+<Trigger Enabled="true" Id="31761d9d-e5e6-4135-8c88-d6236b5cc9fe" Name="转录指令不存在" RegularExpression="^.{15}\S+ 00:003C::(“\/(?&lt;commandCN&gt;.+?)”出现问题：该命令不存在。|The command \/(?&lt;commandEN&gt;.+?) does not exist.|そのコマンドはありません。： \/(?&lt;commandJP&gt;.+?))$" DebugLevel="Error">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="^CommandNotExist:${commandCN}${commandEN}${commandJP}" LogProcess="True" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="bdd0e432-af7a-4641-a827-32c1681d4347" Name="01 Territory" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 01:(?&lt;id&gt;[^:]*):(?&lt;name&gt;[^:]*)">
+<Trigger Enabled="true" Id="bdd0e432-af7a-4641-a827-32c1681d4347" Name="01 Territory" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 01:(?&lt;id&gt;[^:]*):(?&lt;name&gt;[^:]*)" DebugLevel="Error">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="防止 01 行在同一副本中多次产生（如看完动画时）" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _Territory AAA:01:${n: 0x${id}}:${name}:${n: 0x0${d:日志转录_01[id]}}:${d:日志转录_01[name]}" LogProcess="True" LogProcessACT="True">
@@ -363,10 +363,10 @@
 </Trigger>
 <Trigger Enabled="true" Id="86c76bd8-4fc8-4a85-a0dc-06f626d28893" Name="注册额外的 ActorControl category" RegularExpression="^.{15}\S+ 01" RefirePeriodExpression="60000">
 <Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="RegisterActorControlCategories" NamedCallbackParam="0xB8" />
+<Action OrderNumber="1" Enabled="False" ActionType="NamedCallback" NamedCallbackName="RegisterActorControlCategories" NamedCallbackParam="0xB8" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="7dcc8c3d-3192-4fa6-98a6-256793a5e2be" Name="23 Tether" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 23:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):(?&lt;tid&gt;.{8}):(?&lt;tn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]*)">
+<Trigger Enabled="true" Id="7dcc8c3d-3192-4fa6-98a6-256793a5e2be" Name="23 Tether" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 23:(?&lt;sid&gt;.{8}):(?&lt;sn&gt;[^:]*):(?&lt;tid&gt;.{8}):(?&lt;tn&gt;[^:]*):[^:]*:[^:]*:(?&lt;type&gt;[^:]*)" DebugLevel="Error">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${sid}" />
 <Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_tgt" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${tid}" />
@@ -378,7 +378,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${f:startwith(40):${sid}} || ${f:startwith(40):${tid}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="e5e46c0b-4c10-4f93-9e8f-3546a58a7705" Name="22 NameToggle" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 22:(?&lt;id&gt;4.{7}):(?&lt;name&gt;[^:]*):[^:]*:[^:]*:(?&lt;bTgtable&gt;0?[01])">
+<Trigger Enabled="true" Id="e5e46c0b-4c10-4f93-9e8f-3546a58a7705" Name="22 NameToggle" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 22:(?&lt;id&gt;4.{7}):(?&lt;name&gt;[^:]*):[^:]*:[^:]*:(?&lt;bTgtable&gt;0?[01])" DebugLevel="Error">
 <Actions>
 <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${id}" />
 <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _NameToggle AAA:22:${n: ${bTgtable}}:${id}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}" LogProcess="True" LogProcessACT="True" />
