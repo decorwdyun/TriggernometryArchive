@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TriggernometryExport PluginVersion="2.0.8.0">
+<TriggernometryExport PluginVersion="2.1.1.2">
   <ExportedFolder Id="b608e8a2-adbf-4973-b08b-bda20d9e637b" Enabled="true" Name="[工具] 运行支持库 Utils.xml" RawEnvironmentVariables="w = 3">
     <Folders>
       <Folder Id="a7e8b210-6676-4804-ac0a-ce23b6f1b5b6" Enabled="true" Name="调试工具 / 实用工具">
@@ -384,6 +384,27 @@
               <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _NameToggle AAA:22:${n: ${bTgtable}}:${id}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}" LogProcess="True" LogProcessACT="True"/>
               <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src"/>
             </Actions>
+          </Trigger>
+          <Trigger Enabled="true" Id="d3c4e63b-95fe-43a5-91bc-bba9fc90ecfd" Name="105 Combatant" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 105:Add:(?&lt;id&gt;4.{7}).*?:BNpcID:(?&lt;bnpcid&gt;[^:]+).*?:Heading:(?&lt;h&gt;[^:]+).*?(?::Name:(?&lt;name&gt;[^:]+).*?)?:PosX:(?&lt;x&gt;[^:]+):PosY:(?&lt;y&gt;[^:]+):PosZ:(?&lt;z&gt;[^:]+).*?:Type:(?&lt;type&gt;\d+)[:$]" DebugLevel="Error">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Placeholder" Description="条件：Type 不是 1（玩家）或 2（BNpc）且未记录过此实体（该日志可能重复）" DescriptionOverride="True"/>
+              <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_bSeen" VariableExpression="${d:日志转录_105.ekey(${id})}"/>
+              <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="日志转录_105" DictVariableKey="${id}">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${v:tmp_bSeen}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _SpawnObject AAA:105:${id}:${name}:${bnpcid}:${n: round(${x}, 3)}:${n: round(${y}, 3)}:${n: round(${z}, 3)}:${n: round(${h}, 3)}:${type}" LogProcess="True" LogProcessACT="True">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${v:tmp_bSeen}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="tmp_bSeen"/>
+              <Action OrderNumber="6" ActionType="DictVariable" ExecutionDelayExpression="2000" DictVariableOp="Remove" DictVariableName="日志转录_105" DictVariableKey="${id}"/>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+            </Condition>
           </Trigger>
         </Triggers>
       </Folder>
@@ -932,27 +953,6 @@
                       <Action OrderNumber="14" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_args"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="3c4ee0fa-8571-4de3-9242-235d3095bf43" Name="/e SB 10" RegularExpression="^.{15}\S+ 00:0038::(?i) *sb(?: +(?&lt;scale&gt;[\d.]+))? *$" PrevActions="Interrupt">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="x" VariableExpression="${_me.x}"/>
-                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="y" VariableExpression="${_me.y}"/>
-                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="z" VariableExpression="${_me.z}"/>
-                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="h" VariableExpression="${_me.h}"/>
-                      <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="k" VariableExpression="(${scale} ?? 1) * 0.6"/>
-                      <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="t" VariableExpression="10"/>
-                      <Action OrderNumber="7" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="gl_fan270_1005af, ${v:t}, ${n: ${v:x} - (-5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (-5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} + π/4, ${v:k} * 4"/>
-                      <Action OrderNumber="8" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="gl_fan270_1005af, ${v:t}, ${n: ${v:x} - (-5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (-5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} + 5 * π/4, ${v:k} * 4"/>
-                      <Action OrderNumber="9" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (1) * ${v:k} * cos(${v:h}) - (-7) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (1) * ${v:k} * sin(${v:h}) - (-7) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 7, ${v:k} * 2"/>
-                      <Action OrderNumber="10" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-7) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-7) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2"/>
-                      <Action OrderNumber="11" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-1) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-1) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2"/>
-                      <Action OrderNumber="12" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-13) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-13) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2"/>
-                      <Action OrderNumber="13" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 50°, ${v:k} * 4"/>
-                      <Action OrderNumber="14" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 130°, ${v:k} * 4"/>
-                      <Action OrderNumber="15" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 50°, ${v:k} * 4"/>
-                      <Action OrderNumber="16" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 130°, ${v:k} * 4"/>
-                      <Action OrderNumber="17" ActionType="Variable" ExecutionDelayExpression="1000" VariableOp="UnsetRegex" VariableName="^[xyzhkt]$"/>
-                    </Actions>
-                  </Trigger>
                   <Trigger Enabled="true" Id="ee359be4-26fa-4a0f-86be-70aea392a8d9" Name="清除所有特效" RegularExpression="^.{15}\S+ 00:0038::(?i)removevfx(?: +(?&lt;regex&gt;.+?))? *$">
                     <Actions>
                       <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove">
@@ -1048,6 +1048,27 @@
                       </Action>
                       <Action OrderNumber="14" ActionType="ListVariable" ListVariableName="Omen_args"/>
                       <Action OrderNumber="15" ActionType="DictVariable" DictVariableName="Omen_args"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="6788e355-34a1-4fc4-be5d-3d7c67ef7e36" Name="/e SB 10" RegularExpression="^.{15}\S+ 00:0038::(?i) *sb(?: +(?&lt;scale&gt;[\d.]+))? *$" PrevActions="Interrupt">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="x" VariableExpression="${_me.x}"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="y" VariableExpression="${_me.y}"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="z" VariableExpression="${_me.z}"/>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="h" VariableExpression="${_me.h}"/>
+                      <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="k" VariableExpression="(${scale} ?? 1) * 0.6"/>
+                      <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="t" VariableExpression="10"/>
+                      <Action OrderNumber="7" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="gl_fan270_1005af, ${v:t}, ${n: ${v:x} - (-5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (-5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} + π/4, ${v:k} * 4"/>
+                      <Action OrderNumber="8" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="gl_fan270_1005af, ${v:t}, ${n: ${v:x} - (-5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (-5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} + 5 * π/4, ${v:k} * 4"/>
+                      <Action OrderNumber="9" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (1) * ${v:k} * cos(${v:h}) - (-7) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (1) * ${v:k} * sin(${v:h}) - (-7) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 7, ${v:k} * 2"/>
+                      <Action OrderNumber="10" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-7) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-7) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2"/>
+                      <Action OrderNumber="11" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-1) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-1) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2"/>
+                      <Action OrderNumber="12" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_general02f, ${v:t}, ${n: ${v:x} - (3) * ${v:k} * cos(${v:h}) - (-13) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (3) * ${v:k} * sin(${v:h}) - (-13) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - π/2, ${v:k} * 1, ${v:k} * 2"/>
+                      <Action OrderNumber="13" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 50°, ${v:k} * 4"/>
+                      <Action OrderNumber="14" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-4) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-4) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 130°, ${v:k} * 4"/>
+                      <Action OrderNumber="15" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 50°, ${v:k} * 4"/>
+                      <Action OrderNumber="16" ActionType="NamedCallback" NamedCallbackName="Omen" NamedCallbackParam="er_gl_fan100_o1v, ${v:t}, ${n: ${v:x} - (5) * ${v:k} * cos(${v:h}) - (-10) * ${v:k} * sin(${v:h})}, ${n:${v:y} + (5) * ${v:k} * sin(${v:h}) - (-10) * ${v:k} * cos(${v:h})}, ${v:z}, ${v:h} - 130°, ${v:k} * 4"/>
+                      <Action OrderNumber="17" ActionType="Variable" ExecutionDelayExpression="1000" VariableOp="UnsetRegex" VariableName="^[xyzhkt]$"/>
                     </Actions>
                   </Trigger>
                 </Triggers>

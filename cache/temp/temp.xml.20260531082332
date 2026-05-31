@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="2.1.1.2">
+<TriggernometryExport PluginVersion="2.0.4.0">
 <ExportedFolder Id="dfd52a11-9997-441a-a689-601c59f74497" Enabled="true" Name="临时">
 <Folders>
 <Folder Id="b25c8548-48d4-4bcb-9d81-491c0663f233" Enabled="true" Name="风脉">
@@ -336,64 +336,6 @@
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
-</Trigger>
-</Triggers>
-</Folder>
-<Folder Id="415d1672-f82a-4052-bea2-da97e6da5bfa" Enabled="true" Name="金碟砍竹子（画图版）" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^144$" RawEnvironmentVariables="X0 = 70.5625&#xD;&#xA;Y0 = -35.9561&#xD;&#xA;Z0 = -4.474">
-<Folders>
-<Folder Id="0ca6e73c-5e67-4ff0-b24d-0ba0c979a08e" Enabled="true" Name="喷风 (临时)">
-<Triggers>
-<Trigger Enabled="false" Id="d446476b-1e55-4841-9fbe-3bb9d522f023" Name="此分组仅用于统计喷风技能位置和角度的概率分布" />
-<Trigger Enabled="true" Id="cdf51b22-ad26-41e6-b9b0-223bd9158a0b" Name="0D27-8 四个圆形" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;0D2[78]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="中心 0D27 似乎无作用，周围四个 0D28，每次全部收集位置后统一输出" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Insert" ListVariableName="四圆" ListVariableExpression="${x}:${y}" ListVariableIndex="0x${aid} = 0x0D27 ? 1 : (${l:四圆.size} + 1)" />
-<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=喷风/技能.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;四:${l:四圆.join(&quot;:&quot;)}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${l:四圆.size}" ExpressionTypeL="String" ExpressionR="5" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="ListVariable" ExecutionDelayExpression="3000" Asynchronous="False" ListVariableName="四圆" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="a0450ca7-237f-4fc1-9bfe-a32df2b80a52" Name="0D23-6 普通技能" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;0D2[3456]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=喷风/技能.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;${?d:0D23=圆, 0D24=环, 0D25=扇, 0D26=射 [${aid}]}:${x}:${y}:${h}" />
-</Actions>
-</Trigger>
-</Triggers>
-</Folder>
-</Folders>
-<Triggers>
-<Trigger Enabled="true" Id="8b4e04d2-f93b-41b3-abb1-3118cbf21216" Name="2. 直线" RegularExpression="^.{15}\S+ AAA:105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE9A):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="朝着面向两侧，宽度 5.0 m 的直线攻击" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect2&#xD;&#xA;Delay: 2.5&#xD;&#xA;T: 5&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Angle: ${h} + π/2&#xD;&#xA;Scale: 2.5, 28, 1" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="803bfe21-14aa-4cd5-a6ed-1112454a10e9" Name="3. 钢铁" RegularExpression="^.{15}\S+ AAA:105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE9B):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="以自身为中心，半径 11 m 的圆形攻击" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;Delay: 2.5&#xD;&#xA;T: 5&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Scale: 11, 11, 1" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="1a8cd306-42fa-443e-bb97-3068c41bf056" Name="1. 射线" RegularExpression="^.{15}\S+ AAA:105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE99):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
-<Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="朝着面向正左方，宽度 5.0 m 的射线攻击" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;Delay: 2.5&#xD;&#xA;T: 5&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Angle: ${h} + π/2&#xD;&#xA;Scale: 2.5, 28, 1" />
-</Actions>
-</Trigger>
-<Trigger Enabled="false" Id="1fe44f94-2132-48ac-91bb-11a68d360a77" Name="debug log" Source="None">
-<Actions>
-<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[00:00:00.000] 0 105:Add:40000000:BNpcID:1EAE99:Heading:-1.5708:PosX:70.5625:PosY:-35.9561:" LogProcess="True" />
-<Action OrderNumber="2" ActionType="LogMessage" LogMessageText="[00:00:00.000] 0 105:Add:40000000:BNpcID:1EAE9A:Heading:0:PosX:70.5625:PosY:-35.9561:" LogProcess="True" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="01adff5d-0eb3-4f7c-99d9-00caa3f9310e" Name="0. 任务提示" RegularExpression="^.{15}\S+ 00:0044:来宾接待员:由金碟游乐场主办的活动“必中一闪快刀斩魔”">
-<Actions>
-<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="砍竹子开始了" />
-<Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e 砍竹子开始了 &lt;se.10&gt;" />
-</Actions>
 </Trigger>
 </Triggers>
 </Folder>
