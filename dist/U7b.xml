@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TriggernometryExport PluginVersion="2.1.1.2">
-  <ExportedFolder Id="397aeed8-23a9-42e0-90f3-7a6aa02c46a0" Enabled="true" Name="U7b 绝妖星宝宝椅 v0.6.0 [制作中]" RawEnvironmentVariables="prefix = U7b&#13;&#10;alias = U7b,绝妖星&#13;&#10;zone = 1363&#13;&#10;version = 0.6.0">
+  <ExportedFolder Id="397aeed8-23a9-42e0-90f3-7a6aa02c46a0" Enabled="true" Name="U7b 绝妖星宝宝椅 v0.6.2 [制作中]" RawEnvironmentVariables="prefix = U7b&#13;&#10;alias = U7b,绝妖星&#13;&#10;zone = 1363&#13;&#10;version = 0.6.2">
     <Folders>
       <Folder Id="fa14eceb-0ab5-4387-bfbe-b1804a1916bb" Enabled="true" Name=".总体控制">
         <Folders>
@@ -932,6 +932,10 @@
                   <Action OrderNumber="13" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BABD" DictVariableValue="_=制裁之光 | tts=AoE"/>
                   <Action OrderNumber="14" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAE1" DictVariableValue="_=制裁之光 | tts=AoE"/>
                   <Action OrderNumber="15" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C622" DictVariableValue="_=制裁之光 | tts=AoE，三连死刑"/>
+                  <Action OrderNumber="16" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BB12" DictVariableValue="_=暴雷 | tts=钢铁 | omen=Circle | t=6.7 | Scale=14.8,14.8,1"/>
+                  <Action OrderNumber="17" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BB09" DictVariableValue="_=暴雷 | tts=死刑"/>
+                  <Action OrderNumber="18" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAEE" DictVariableValue="_=本色出演的我 | tts=躲直条 | omen=Rect | t=4.7 | Scale=8,100,1"/>
+                  <Action OrderNumber="19" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BB00" DictVariableValue="_=本影爆碎 | omen=Circle | t=4.7 | Scale=15,15,1"/>
                 </Actions>
               </Trigger>
             </Triggers>
@@ -1092,11 +1096,10 @@
                       <Action OrderNumber="10" ActionType="Placeholder" Description="剩下的四个是 B 组 pIdx [T, H, 近, 远]" DescriptionOverride="True"/>
                       <Action OrderNumber="11" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Build" ListVariableExpression=",1,2,3,4,5,6,7,8" ListVariableTarget="U7b21_pIdxB"/>
                       <Action OrderNumber="12" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Filter" ListVariableExpressionType="Numeric" ListVariableName="U7b21_pIdxB" ListVariableExpression="!${!l:U7b21_pIdxA.contain(${_this})}" ListVariableTarget="U7b21_pIdxB"/>
-                      <Action OrderNumber="13" ActionType="Placeholder" Description="【如果按照扇形钢铁分左右】排序为扇形在前：[高扇形, 低扇形, 高钢铁, 低钢铁]" DescriptionOverride="True"/>
+                      <Action OrderNumber="13" ActionType="Placeholder" Description="排序为扇形在前：[高扇形, 低扇形, 高钢铁, 低钢铁]" DescriptionOverride="True"/>
                       <Action OrderNumber="14" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Build" ListVariableExpression=":${!l:U7b21_pIdxB.join(:, &quot;3,4,1,2&quot;)}" ListVariableTarget="U7b21_pIdxB">
                         <Condition Enabled="true" Grouping="And">
                           <ConditionSingle Enabled="true" ExpressionL="${v:tmp_bTH扇}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                          <ConditionSingle Enabled="true" ExpressionL="${!pd:U7b_cfg.get(P2塔_b闲人TH左D右, 1)}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
                       <Action OrderNumber="15" ActionType="Placeholder" Description="自身相关" DescriptionOverride="True"/>
@@ -1249,11 +1252,6 @@
                       <Action OrderNumber="56" ActionType="LogMessage" LogMessageText="[01:44:26.265] ProcessedLog U7b21_塔:n:8:dir8:7" LogProcess="True" LogProcessACT="True"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="0cb8b56e-c7a1-4a8f-9186-831c13c444b8" Name="3.x Debug" RegularExpression="^U7b21_点名:n">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/${!pd:U7b_cfg[cnlDebug]} ${_event}"/>
-                    </Actions>
-                  </Trigger>
                   <Trigger Enabled="true" Id="cada32aa-027a-4f51-9b09-2512167b1c91" Name="1.x Debug 自身" RegularExpression="^.{15}\S+ U7b21_点名:n:(?&lt;n&gt;.):tid:(?&lt;tid&gt;1.{7}):type:(?&lt;type&gt;分摊|钢铁|扇形):dx:(?&lt;dx&gt;[^:]*):pIdx:(?&lt;pIdx&gt;[1-8])">
                     <Actions>
                       <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/${!pd:U7b_cfg[cnlDebug]} 自身：n = ${n} ${type}"/>
@@ -1265,6 +1263,11 @@
                   <Trigger Enabled="true" Id="c802b4e3-e02c-47cf-a205-cd9c69f34e7d" Name="4.3 中轴线" RegularExpression="^.{15}\S+ U7b21_塔:n:(?&lt;n&gt;.):dir8:(?&lt;dir8&gt;[0-7])">
                     <Actions>
                       <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b21_塔_中轴线&#13;&#10;Omen: m131om_setu0f&#13;&#10;t: 10&#13;&#10;O: 100, 100&#13;&#10;dir8: ${dir8}&#13;&#10;Pos: 0, -20&#13;&#10;Target: 0, 20&#13;&#10;Scale: 0.05, 40, 0.05&#13;&#10;Color: 1,1,1,2"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="0cb8b56e-c7a1-4a8f-9186-831c13c444b8" Name="3.x Debug" RegularExpression="^U7b21_点名:n">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/${!pd:U7b_cfg[cnlDebug]} ${_event}"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -1387,6 +1390,40 @@
             </Folders>
           </Folder>
           <Folder Id="a2aa7fd3-c8a3-4978-873f-c81636f0069d" Enabled="true" Name="P3">
+            <Folders>
+              <Folder Id="71429b8f-7532-45cb-a30b-40adcb662204" Enabled="true" Name="P31" RawEnvironmentVariables="phase = P31">
+                <Triggers>
+                  <Trigger Enabled="true" Id="5e805c62-0b54-4e07-8a35-ceea029f0ff8" Name="0. 初始化 重构" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;BAE2):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="U7b_phase" VariableExpression="${env:phase}"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^U7b31"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="dbec9f7c-97a2-4f77-8a6a-3bd6302e7a16" Name="经纬度聚爆" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BAF[DE]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b先打横" VariableExpression="0x${aid} = 0xBAFE"/>
+                      <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0:${if: ${!v:tmp_b先打横} ? 先去前后 : 先去左右 }" LogProcess="True"/>
+                      <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:5.3:穿" LogProcess="True"/>
+                      <Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31_聚爆_前&#13;&#10;delay: ${!v:tmp_b先打横} ? 5.4 : 0.0&#13;&#10;t: ${!v:tmp_b先打横} ? 2.0 : 5.4&#13;&#10;Omen: Fan90&#13;&#10;O: ${x}, ${y}&#13;&#10;θ: ${h}&#13;&#10;Angle: π&#13;&#10;Scale: 40&#13;&#10;---&#13;&#10;Tag: U7b31_聚爆_后&#13;&#10;delay: ${!v:tmp_b先打横} ? 5.4 : 0.0&#13;&#10;t: ${!v:tmp_b先打横} ? 2.0 : 5.4&#13;&#10;Omen: Fan90&#13;&#10;O: ${x}, ${y}&#13;&#10;θ: ${h}&#13;&#10;Angle: 0&#13;&#10;Scale: 40&#13;&#10;---&#13;&#10;Tag: U7b31_聚爆_左&#13;&#10;delay: ${!v:tmp_b先打横} ? 0.0 : 5.4&#13;&#10;t: ${!v:tmp_b先打横} ? 5.4 : 2.0&#13;&#10;Omen: Fan90&#13;&#10;O: ${x}, ${y}&#13;&#10;θ: ${h}&#13;&#10;Angle: π/2&#13;&#10;Scale: 40&#13;&#10;---&#13;&#10;Tag: U7b31_聚爆_左&#13;&#10;delay: ${!v:tmp_b先打横} ? 0.0 : 5.4&#13;&#10;t: ${!v:tmp_b先打横} ? 5.4 : 2.0&#13;&#10;Omen: Fan90&#13;&#10;O: ${x}, ${y}&#13;&#10;θ: ${h}&#13;&#10;Angle: -π/2&#13;&#10;Scale: 40"/>
+                      <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="tmp_b先打横"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="24a8b0c7-d640-4abf-8448-05d6b1e493e7" Name="响亮亮耳光" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BAE[67]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b打右" VariableExpression="0x${aid} = 0xBAE6"/>
+                      <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="半场刀"/>
+                      <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31_响亮亮耳光_1&#13;&#10;t: 5.5&#13;&#10;Omen: m0347_sircle_01m1&#13;&#10;O: 100, 100&#13;&#10;θ: ${h}&#13;&#10;KeepX: ${!v:tmp_b打右}&#13;&#10;Pos: 10, -10&#13;&#10;Scale: 13&#13;&#10;---&#13;&#10;Tag: U7b31_响亮亮耳光_1&#13;&#10;delay: 0.3&#13;&#10;t: 5.8&#13;&#10;Omen: m0347_sircle_01m1&#13;&#10;O: 100, 100&#13;&#10;θ: ${h}&#13;&#10;KeepX: ${!v:tmp_b打右}&#13;&#10;Pos: 10, 0&#13;&#10;Scale: 13&#13;&#10;---&#13;&#10;Tag: U7b31_响亮亮耳光_1&#13;&#10;delay: 0.6&#13;&#10;t: 6.1&#13;&#10;Omen: m0347_sircle_01m1&#13;&#10;O: 100, 100&#13;&#10;θ: ${h}&#13;&#10;KeepX: ${!v:tmp_b打右}&#13;&#10;Pos: 10, 10&#13;&#10;Scale: 13&#13;&#10;---&#13;&#10;Tag: U7b31_响亮亮耳光_1&#13;&#10;delay: 2.0&#13;&#10;t: 6.0&#13;&#10;Omen: m0347_sircle_01m1&#13;&#10;O: 100, 100&#13;&#10;θ: ${h}&#13;&#10;KeepX: ${!v:tmp_b打右}&#13;&#10;Scale: 6"/>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_b打右"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="31839015-2d4b-413d-bde6-c4f7b44b09ad" Name="究极真空波" RegularExpression="^.{15}\S+ 108:4.{7}:BAE3:[^:]*:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="UseTTS"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+            </Folders>
             <Triggers>
               <Trigger Enabled="true" Id="bf7cfb8c-d0e7-4a20-8521-9573280676f6" Name="蓝/紫多面体" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;131[78]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):">
                 <Actions>
