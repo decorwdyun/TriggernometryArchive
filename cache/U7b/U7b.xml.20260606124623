@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <TriggernometryExport PluginVersion="2.1.1.2">
-<ExportedFolder Id="397aeed8-23a9-42e0-90f3-7a6aa02c46a0" Enabled="true" Name="U7b 绝妖星宝宝椅 v0.7.4 [制作中]" RawEnvironmentVariables="prefix = U7b&#xD;&#xA;alias = U7b,绝妖星&#xD;&#xA;zone = 1363&#xD;&#xA;version = 0.7.4">
+<ExportedFolder Id="397aeed8-23a9-42e0-90f3-7a6aa02c46a0" Enabled="true" Name="U7b 绝妖星宝宝椅 v0.7.3 [制作中]" RawEnvironmentVariables="prefix = U7b&#xD;&#xA;alias = U7b,绝妖星&#xD;&#xA;zone = 1363&#xD;&#xA;version = 0.7.3">
 <Folders>
 <Folder Id="fa14eceb-0ab5-4387-bfbe-b1804a1916bb" Enabled="true" Name=".总体控制">
 <Folders>
@@ -920,8 +920,8 @@
 <Action OrderNumber="1" ActionType="DictVariable" DictVariableName="简易播报" />
 <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="1000" />
 <Action OrderNumber="3" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C403" DictVariableValue="_=恶狠狠毁荡 | tts=一二仇死刑" />
-<Action OrderNumber="4" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAD2" DictVariableValue="_=未来终结 | tts=准备对面引导分身 | ttsDelay=5.5" />
-<Action OrderNumber="5" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAD3" DictVariableValue="_=过去终结 | tts=准备同侧引导分身 | ttsDelay=5.5" />
+<Action OrderNumber="4" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAD2" DictVariableValue="_=未来终结 | tts=准备对面引导分身 | ttsDelay=7" />
+<Action OrderNumber="5" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAD3" DictVariableValue="_=过去终结 | tts=准备同侧引导分身 | ttsDelay=7" />
 <Action OrderNumber="6" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BABC" DictVariableValue="_=遗弃末世 | tts=转场AoE" />
 <Action OrderNumber="7" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C24D" DictVariableValue="_=究极 | tts=AoE" />
 <Action OrderNumber="8" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C2DA" DictVariableValue="_=超驱动 | tts=死刑" />
@@ -1063,22 +1063,19 @@
 <Trigger Enabled="true" Id="1bd04b96-129f-45c3-8c55-3363069ec50b" Name="3.1 播报奇数轮点名" RegularExpression="^U7b21_点名:n:(?&lt;n&gt;[1357]):踩塔type:(?&lt;踩塔type&gt;[0-4]):职能idx:(?&lt;职能idx&gt;[1-4])">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b踩塔" VariableExpression="${?l: 1,1,1,0,0,0,0,1 [${n}]} = ${!v:U7b21_bA组}" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_text" VariableExpression="第${n}轮，${?l:&#xD;&#xA;  踩左塔，靠后喷扇形,&#xD;&#xA;  踩右塔，靠内放钢铁,&#xD;&#xA;  踩左塔，侧面分摊,&#xD;&#xA;  踩右塔，侧面分摊&#xD;&#xA;  .get(${踩塔type}, 数据错误)&#xD;&#xA;}">
+<Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="第${n}轮，${?l:&#xD;&#xA;  踩左塔，靠后喷扇形,&#xD;&#xA;  踩右塔，靠内放钢铁,&#xD;&#xA;  踩左塔，侧面分摊,&#xD;&#xA;  踩右塔，侧面分摊&#xD;&#xA;  .get(${踩塔type}, 数据错误)&#xD;&#xA;}">
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${v:tmp_b踩塔}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_text" VariableExpression="第${n}轮，${?l:&#xD;&#xA;  左塔外，左侧参与分摊,&#xD;&#xA;  左塔外，后方引导扇形,&#xD;&#xA;  右塔外，右侧参与分摊,&#xD;&#xA;  右塔外，右侧参与分摊&#xD;&#xA;  .get(${职能idx}, 数据错误)&#xD;&#xA;}">
+<Action OrderNumber="3" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="第${n}轮，${?l:&#xD;&#xA;  左塔外，左侧参与分摊,&#xD;&#xA;  左塔外，后方引导扇形,&#xD;&#xA;  右塔外，右侧参与分摊,&#xD;&#xA;  右塔外，右侧参与分摊&#xD;&#xA;  .get(${职能idx}, 数据错误)&#xD;&#xA;}">
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${v:tmp_b踩塔}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:${if: ${n} = 1 ? 0 : 2 }:${v:tmp_text}" LogProcess="True" />
-<Action OrderNumber="5" ActionType="NamedCallback" Asynchronous="False" LogProcess="True" NamedCallbackName="hint" NamedCallbackParam="7&#xD;&#xA;${v:tmp_text}" />
-<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableName="tmp_b踩塔" />
-<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableName="tmp_text" />
-<Action OrderNumber="8" ActionType="Placeholder" Description="如果是第七轮，延后 10 s 再次生成日志用于触发第八轮播报" DescriptionOverride="True" />
-<Action OrderNumber="9" ActionType="LogMessage" ExecutionDelayExpression="10000" Asynchronous="False" LogMessageText="U7b21_点名:n:8:踩塔type:${踩塔type}:职能idx:${职能idx}" LogProcess="True" LogProcessACT="True">
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_b踩塔" />
+<Action OrderNumber="5" ActionType="Placeholder" Description="如果是第七轮，延后 10 s 再次生成日志用于触发第八轮播报" DescriptionOverride="True" />
+<Action OrderNumber="6" ActionType="LogMessage" ExecutionDelayExpression="10000" Asynchronous="False" LogMessageText="U7b21_点名:n:8:踩塔type:${踩塔type}:职能idx:${职能idx}" LogProcess="True" LogProcessACT="True">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
@@ -1182,20 +1179,17 @@
 <Trigger Enabled="true" Id="193daf91-3d5f-4fed-9add-d7c4b9629936" Name="3.2 播报偶数轮点名" RegularExpression="^U7b21_点名:n:(?&lt;n&gt;[2468]):踩塔type:(?&lt;踩塔type&gt;[0-4]):职能idx:(?&lt;职能idx&gt;[1-4])">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b踩塔" VariableExpression="${?l: 1,1,1,0,0,0,0,1 [${n}]} = ${!v:U7b21_bA组}" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_text" VariableExpression="第${n}轮，${?l:&#xD;&#xA;  左前踩塔，向后对喷扇形,&#xD;&#xA;  左后踩塔，向前对喷扇形,&#xD;&#xA;  右前踩塔，后方放钢铁,&#xD;&#xA;  右后踩塔，右侧放钢铁&#xD;&#xA;  .get(${踩塔type}, 数据错误)&#xD;&#xA;}">
+<Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="第${n}轮，${?l:&#xD;&#xA;  左前踩塔，向后对喷扇形,&#xD;&#xA;  左后踩塔，向前对喷扇形,&#xD;&#xA;  右前踩塔，后方放钢铁,&#xD;&#xA;  右后踩塔，右侧放钢铁&#xD;&#xA;  .get(${踩塔type}, 数据错误)&#xD;&#xA;}">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:tmp_b踩塔}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_text" VariableExpression="第${n}轮，${?l:&#xD;&#xA;  左前出去引导分身,&#xD;&#xA;  左塔边引导分身,&#xD;&#xA;  右前出去引导分身,&#xD;&#xA;  右塔边引导分身&#xD;&#xA;  .get(${职能idx}, 数据错误)&#xD;&#xA;}">
+<Action OrderNumber="3" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="第${n}轮，${?l:&#xD;&#xA;  左前出去引导分身,&#xD;&#xA;  左塔边引导分身,&#xD;&#xA;  右前出去引导分身,&#xD;&#xA;  右塔边引导分身&#xD;&#xA;  .get(${职能idx}, 数据错误)&#xD;&#xA;}">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:tmp_b踩塔}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0:${v:tmp_text}" LogProcess="True" />
-<Action OrderNumber="5" ActionType="NamedCallback" Asynchronous="False" LogProcess="True" NamedCallbackName="hint" NamedCallbackParam="7&#xD;&#xA;${v:tmp_text}" />
-<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableName="tmp_b踩塔" />
-<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableName="tmp_text" />
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_b踩塔" />
 </Actions>
 </Trigger>
 <Trigger Enabled="false" Id="9a88b57e-317b-4eca-b06a-67e33d20e6f5" Name="Debug Log 2026-06-05 06:48" Source="None">
