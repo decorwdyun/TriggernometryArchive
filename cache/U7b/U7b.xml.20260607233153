@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <TriggernometryExport PluginVersion="2.1.1.2">
-<ExportedFolder Id="397aeed8-23a9-42e0-90f3-7a6aa02c46a0" Enabled="true" Name="U7b 绝妖星宝宝椅 v0.7.0 [制作中]" RawEnvironmentVariables="prefix = U7b&#xD;&#xA;alias = U7b,绝妖星&#xD;&#xA;zone = 1363&#xD;&#xA;version = 0.7.0">
+<ExportedFolder Id="397aeed8-23a9-42e0-90f3-7a6aa02c46a0" Enabled="true" Name="U7b 绝妖星宝宝椅 v0.8.1 [制作中]" RawEnvironmentVariables="prefix = U7b&#xD;&#xA;alias = U7b,绝妖星&#xD;&#xA;zone = 1363&#xD;&#xA;version = 0.8.1">
 <Folders>
 <Folder Id="fa14eceb-0ab5-4387-bfbe-b1804a1916bb" Enabled="true" Name=".总体控制">
 <Folders>
@@ -17,7 +17,7 @@
 <Trigger Enabled="true" Id="2dac4c29-aec5-4d5b-b20e-183c8d651943" Name="[F] 注册并打开配置" RegularExpression="^(?&lt;prefix&gt;[^[:_]+)_cfg$" PeriodRefire="Deny" RefirePeriodExpression="5000" Sequential="True">
 <Actions>
 <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="正在开启配置" />
-<Action OrderNumber="2" ActionType="ExecuteScript" ExecScriptExpression="using System;&#xD;&#xA;using System.Drawing;&#xD;&#xA;using System.Linq;&#xD;&#xA;using System.Threading;&#xD;&#xA;using System.Windows.Forms;&#xD;&#xA;using Triggernometry.Core;&#xD;&#xA;using Triggernometry.PluginBridges;&#xD;&#xA;using Triggernometry.UI.CustomControls;&#xD;&#xA;using Triggernometry.UI.Forms;&#xD;&#xA;using static Triggernometry.UI.Forms.GameConfigForm;&#xD;&#xA;&#xD;&#xA;RealPlugin.Instance.RegisterNamedCallback(U7bEntry.Info.ConfigName, new Action&lt;object, string&gt;((_, __) =&gt; U7bEntry.Start()), null);&#xD;&#xA;&#xD;&#xA;public static class U7bEntry&#xD;&#xA;{&#xD;&#xA;    public static ConfigInfo Info = new ConfigInfo(&quot;绝妖星宝宝椅&quot;, &quot;${env:version}&quot;, &quot;阿洛&quot;, &quot;${env:prefix}_cfg&quot;);&#xD;&#xA;    static Color Blue = Color.FromArgb(0x22, 0x66, 0xff);&#xD;&#xA;    public static void RunConfigForm()&#xD;&#xA;    {&#xD;&#xA;        try { _RunConfigForm(); }&#xD;&#xA;        catch (Exception ex)&#xD;&#xA;        {&#xD;&#xA;            MessageBox.Show(&quot;配置界面运行时遇到问题：\n\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    private static void _RunConfigForm()&#xD;&#xA;    {&#xD;&#xA;        GameConfigForm form = new GameConfigForm(Info);&#xD;&#xA;        form.Shown += (sender, e) =&gt; RealPlugin.Instance.InvokeNamedCallback(&quot;command&quot;, &quot;/e &lt;se.9&gt;&quot;);&#xD;&#xA;&#xD;&#xA;        BijectDictionary&lt;string, string&gt; cbxItems;&#xD;&#xA;        Option optionCtrl;&#xD;&#xA;        Label label;&#xD;&#xA;        string hint = &quot;&quot;;&#xD;&#xA;        // 在下面倒序添加各个选项组（组内的选项正序）&#xD;&#xA;&#xD;&#xA;        /*&#xD;&#xA;         &#xD;&#xA;        // cbx：指挥模式&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;2&quot;, &quot; 为全队标点&quot;),&#xD;&#xA;            (&quot;1&quot;, &quot; 为全队标点（但标点后本地取消所有标点）&quot;),&#xD;&#xA;            (&quot;0&quot;, &quot; 不开启标点&quot;),&#xD;&#xA;            (&quot;-1&quot;, &quot; 不开启标点（且被标点后本地取消所有标点）&quot;),&#xD;&#xA;            (&quot;-2&quot;, &quot; 不开启标点（且被标点后强制非本地清除所有标点）&quot;)&#xD;&#xA;        );&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　指挥模式&quot;, &quot;标点mode&quot;, cbxItems, &quot;-1&quot;, hint);&#xD;&#xA;        form.AddOption(optionCtrl, table);&#xD;&#xA;&#xD;&#xA;        // 添加 label&#xD;&#xA;        form.AddLabel(&quot;　标签文字&quot;, table).ForeColor = Color.Aquamarine;&#xD;&#xA;&#xD;&#xA;        // 添加选项框&#xD;&#xA;        optionCtrl = new OptionChk(&quot;　选项框提示语 &quot;, &quot;keyName&quot;, true, hint);&#xD;&#xA;        form.AddOption(optionCtrl, table);&#xD;&#xA;         */&#xD;&#xA;&#xD;&#xA;        #region 配置：P2&#xD;&#xA;&#xD;&#xA;        OptionsTableLayoutPanel tableP2 = form.AddOptionGroup(&quot; P2 &quot;);&#xD;&#xA;        var link = &quot;https://docs.qq.com/doc/DTFBPRkJ0bVFoeGVV&quot;;&#xD;&#xA;        var label1 = form.AddLabel(&quot;P2 遗弃末世 参考此文档的整合解法（双击复制）：\n&quot; + link, tableP2);&#xD;&#xA;        label1.ForeColor = Blue;&#xD;&#xA;        label1.DoubleClick += (sender, e) =&gt;&#xD;&#xA;        {&#xD;&#xA;            Clipboard.SetText(link);&#xD;&#xA;            MessageBox.Show(&quot;已复制链接。&quot;, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Information);&#xD;&#xA;        };&#xD;&#xA;&#xD;&#xA;        form.AddLabel(&quot;此机制现在不会适配其他任何解法。&quot;, tableP2).ForeColor = Color.FromArgb(192, 0, 0);&#xD;&#xA;        form.AddLabel(&quot;如果你想听播报，请认准此解法。\n开队建议注明“盗火L融合 两人预分组 闲人固定站位”，或附带文档链接。&quot;, tableP2);&#xD;&#xA;&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;0&quot;, &quot; 初始扇形左 初始钢铁右&quot;),&#xD;&#xA;            (&quot;1&quot;, &quot; TH 左 DPS 右&quot;)&#xD;&#xA;        );&#xD;&#xA;        hint = &quot;文档中按照 TH 左 DPS 右固定站位，即站位只和职能相关，省去机制相关的判断；\n但也有现行攻略这里沿用左扇形右钢铁。&quot;;&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　闲人处理机制时的左右站位&quot;, &quot;P2塔_b闲人TH左D右&quot;, cbxItems, &quot;1&quot;, hint);&#xD;&#xA;        form.AddOption(optionCtrl, tableP2);&#xD;&#xA;&#xD;&#xA;        #endregion 配置：P2&#xD;&#xA;&#xD;&#xA;        #region 配置：P1&#xD;&#xA;&#xD;&#xA;        OptionsTableLayoutPanel tableP1 = form.AddOptionGroup(&quot; P1 &quot;);&#xD;&#xA;&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;0&quot;, &quot; TH 左 DPS 右&quot;),&#xD;&#xA;            (&quot;1&quot;, &quot; 闲人上 击退下&quot;)&#xD;&#xA;        );&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　真假冰火分组&quot;, &quot;P1冰火_b按击退分组&quot;, cbxItems, &quot;1&quot;, hint);&#xD;&#xA;        form.AddOption(optionCtrl, tableP1);&#xD;&#xA;&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;1A&quot;, &quot; 1A 式&quot;),&#xD;&#xA;            (&quot;1A改&quot;, &quot; 1A 改&quot;),&#xD;&#xA;            (&quot;盗火&quot;, &quot; 盗火式 大正方形&quot;)&#xD;&#xA;        );&#xD;&#xA;        hint = &quot;1A 式：同向箭头外正/外斜，异向箭头内正/内斜\n1A 改：同向箭头内斜/外斜，异向箭头内正/外正\n盗火式：大正方形逆时针转一圈&quot;;&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　箭头解法&quot;, &quot;P1箭头解法&quot;, cbxItems, &quot;1A改&quot;, hint);&#xD;&#xA;        form.AddOption(optionCtrl, tableP1);&#xD;&#xA;&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;0&quot;, &quot; 面向 Boss，TH 左 DPS 右&quot;),&#xD;&#xA;            (&quot;1&quot;, &quot; 固定式 场地基准（未适配）&quot;)&#xD;&#xA;        );&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　真假雷火站位&quot;, &quot;P1雷火_b固定&quot;, cbxItems, &quot;1&quot;, hint);&#xD;&#xA;        form.AddOption(optionCtrl, tableP1);&#xD;&#xA;&#xD;&#xA;        #endregion 配置：P1&#xD;&#xA;        /*&#xD;&#xA;        #region 配置：通用选项&#xD;&#xA;&#xD;&#xA;        OptionsTableLayoutPanel tableGeneral = form.AddOptionGroup(&quot; 通用选项 &quot;);&#xD;&#xA;&#xD;&#xA;        // 开场自动标点&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;2&quot;, &quot; 公开标点（北侧顺时针 1A2、半径 10.0 m）&quot;),&#xD;&#xA;            (&quot;1&quot;, &quot; 本地标点（同上，队里使用其他标点时可以本地覆盖掉）&quot;),&#xD;&#xA;            (&quot;0&quot;, &quot; 不开启标点&quot;)&#xD;&#xA;        );&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;开场自动应用标准场地标点（防内鬼标点）&quot;, &quot;P0场地标点mode&quot;, cbxItems, &quot;2&quot;);&#xD;&#xA;        form.AddOption(optionCtrl, tableGeneral);&#xD;&#xA;        &#xD;&#xA;        // P1 校准小队&#xD;&#xA;        hint = &quot;在……时检查全员站位，如果与设置不符则报错并自动修正。\n魔改站位时不要开。&quot;;&#xD;&#xA;        optionCtrl = new OptionChk(&quot;开场八方时检查并修正小队&quot;, &quot;P1修复小队on&quot;, true, hint);&#xD;&#xA;        form.AddOption(optionCtrl, tableGeneral);&#xD;&#xA;        &#xD;&#xA;&#xD;&#xA;        #endregion 配置：通用选项&#xD;&#xA;        */&#xD;&#xA;&#xD;&#xA;        #region 配置：文本频道&#xD;&#xA;        OptionsTableLayoutPanel tableChannel = form.AddOptionGroup(&quot; 文本频道 &quot;);&#xD;&#xA;        var cnlItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;&quot;, &quot; （禁用）&quot;), (&quot;p&quot;, &quot; 小队&quot;), (&quot;e&quot;, &quot; 默语&quot;), (&quot;fc&quot;, &quot; 部队&quot;),&#xD;&#xA;            (&quot;l1&quot;, &quot; 通讯贝1&quot;), (&quot;l2&quot;, &quot; 通讯贝2&quot;), (&quot;l3&quot;, &quot; 通讯贝3&quot;), (&quot;l4&quot;, &quot; 通讯贝4&quot;),&#xD;&#xA;            (&quot;l5&quot;, &quot; 通讯贝5&quot;), (&quot;l6&quot;, &quot; 通讯贝6&quot;), (&quot;l7&quot;, &quot; 通讯贝7&quot;), (&quot;l8&quot;, &quot; 通讯贝8&quot;),&#xD;&#xA;            (&quot;cwl1&quot;, &quot; 跨服通讯贝1&quot;), (&quot;cwl2&quot;, &quot; 跨服通讯贝2&quot;), (&quot;cwl3&quot;, &quot; 跨服通讯贝3&quot;), (&quot;cwl4&quot;, &quot; 跨服通讯贝4&quot;),&#xD;&#xA;            (&quot;cwl5&quot;, &quot; 跨服通讯贝5&quot;), (&quot;cwl6&quot;, &quot; 跨服通讯贝6&quot;), (&quot;cwl7&quot;, &quot; 跨服通讯贝7&quot;), (&quot;cwl8&quot;, &quot; 跨服通讯贝8&quot;)&#xD;&#xA;        );&#xD;&#xA;        var cnlPublicItems = cnlItems.ShallowCopy();&#xD;&#xA;        cnlPublicItems.RemoveKey(&quot;&quot;);&#xD;&#xA;        var cnlDebugItems = cnlItems.ShallowCopy();&#xD;&#xA;        cnlDebugItems.RemoveKey(&quot;p&quot;);&#xD;&#xA;        var cnlPrivateItems = cnlItems.ShallowCopy();&#xD;&#xA;        cnlPrivateItems.RemoveKey(&quot;p&quot;);&#xD;&#xA;        cnlPrivateItems.RemoveKey(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;        OptionCbx cnlPublic = new OptionCbx(&quot;公共频道&quot;, &quot;cnlPublic&quot;, cnlPublicItems, &quot;e&quot;,&#xD;&#xA;            hint: &quot;本频道用于播报部分机制、示意图、复盘信息等机制相关内容。\n\n默认设为自己可见的默语频道，\n如有需要可设为小队等。\n\n当开启了某个阶段的指挥模式时，相关播报所用的频道会无视此项设置，覆盖为小队频道。&quot;);&#xD;&#xA;        OptionCbx cnlPrivate = new OptionCbx(&quot;个人频道&quot;, &quot;cnlPrivate&quot;, cnlPrivateItems, &quot;e&quot;,&#xD;&#xA;            hint: &quot;本频道用于发送仅应自己可见的系统提示消息。\n\n本项设置不应选择任何其他人可见的频道。&quot;);&#xD;&#xA;        OptionCbx cnlDebug = new OptionCbx(&quot;调试频道&quot;, &quot;cnlDebug&quot;, cnlDebugItems, &quot;&quot;,&#xD;&#xA;            hint: &quot;本频道用于发送额外调试信息。\n\n请设置为仅自己可见的频道，或将其关闭。\n\n（测试版暂不提供关闭选项）&quot;);&#xD;&#xA;        form.AddOption(cnlPublic, tableChannel);&#xD;&#xA;        form.AddOption(cnlPrivate, tableChannel);&#xD;&#xA;        form.AddOption(cnlDebug, tableChannel);&#xD;&#xA;&#xD;&#xA;        #endregion 配置：文本频道&#xD;&#xA;&#xD;&#xA;        #region 使用须知&#xD;&#xA;&#xD;&#xA;        OptionsTableLayoutPanel tableInfo = form.AddOptionGroup(&quot; 使用须知 &quot;);&#xD;&#xA;&#xD;&#xA;        form.AddLabel(&quot;· 使用前必须查看使用说明，见此绝本触发器分组下的「使用说明」触发器。&quot;, tableInfo)&#xD;&#xA;            .ForeColor = Blue;&#xD;&#xA;&#xD;&#xA;        label = form.AddLabel(&quot;· 下方部分选项上悬停鼠标可以显示详细说明。&quot;, tableInfo);&#xD;&#xA;        label.ForeColor = Blue;&#xD;&#xA;&#xD;&#xA;        #endregion 使用须知&#xD;&#xA;&#xD;&#xA;        #region 配置：队员顺序&#xD;&#xA;        if (BridgeFFXIV.ZoneID == int.Parse(&quot;0${env:zone}&quot;) &amp;&amp; Triggernometry.FFXIV.Entity.GetEntities().Any(e =&gt; e.InParty))&#xD;&#xA;        {&#xD;&#xA;            string[] playerDescriptions = { &quot;MT&quot;, &quot;ST&quot;, &quot;H1&quot;, &quot;H2&quot;, &quot;D1&quot;, &quot;D2&quot;, &quot;D3&quot;, &quot;D4&quot; };&#xD;&#xA;            var pListPanel = new PartyListPanel(playerDescriptions);&#xD;&#xA;            form.AddPartyGroup(&quot; 队员顺序（拖拽调整） &quot;, pListPanel);&#xD;&#xA;        }&#xD;&#xA;        #endregion 配置：队员顺序&#xD;&#xA;&#xD;&#xA;        Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#xD;&#xA;        form.Run();&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    [STAThread]&#xD;&#xA;    public static void Start()&#xD;&#xA;    {&#xD;&#xA;        try&#xD;&#xA;        {&#xD;&#xA;            Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#xD;&#xA;            Thread staThread = new Thread(new ThreadStart(RunConfigForm));&#xD;&#xA;            staThread.SetApartmentState(ApartmentState.STA);&#xD;&#xA;            staThread.Start();&#xD;&#xA;            staThread.Join();&#xD;&#xA;        }&#xD;&#xA;        catch (Exception ex)&#xD;&#xA;        {&#xD;&#xA;            MessageBox.Show(&quot;用户配置表单运行错误：\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
+<Action OrderNumber="2" ActionType="ExecuteScript" ExecScriptExpression="using System;&#xD;&#xA;using System.Drawing;&#xD;&#xA;using System.Linq;&#xD;&#xA;using System.Threading;&#xD;&#xA;using System.Windows.Forms;&#xD;&#xA;using Triggernometry.Core;&#xD;&#xA;using Triggernometry.PluginBridges;&#xD;&#xA;using Triggernometry.UI.CustomControls;&#xD;&#xA;using Triggernometry.UI.Forms;&#xD;&#xA;using static Triggernometry.UI.Forms.GameConfigForm;&#xD;&#xA;&#xD;&#xA;RealPlugin.Instance.RegisterNamedCallback(U7bEntry.Info.ConfigName, new Action&lt;object, string&gt;((_, __) =&gt; U7bEntry.Start()), null);&#xD;&#xA;&#xD;&#xA;public static class U7bEntry&#xD;&#xA;{&#xD;&#xA;    public static ConfigInfo Info = new ConfigInfo(&quot;绝妖星宝宝椅&quot;, &quot;${env:version}&quot;, &quot;阿洛&quot;, &quot;${env:prefix}_cfg&quot;);&#xD;&#xA;    static Color Blue = Color.FromArgb(0x22, 0x66, 0xff);&#xD;&#xA;    public static void RunConfigForm()&#xD;&#xA;    {&#xD;&#xA;        try { _RunConfigForm(); }&#xD;&#xA;        catch (Exception ex)&#xD;&#xA;        {&#xD;&#xA;            MessageBox.Show(&quot;配置界面运行时遇到问题：\n\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    private static void _RunConfigForm()&#xD;&#xA;    {&#xD;&#xA;        GameConfigForm form = new GameConfigForm(Info);&#xD;&#xA;        form.Shown += (sender, e) =&gt; RealPlugin.Instance.InvokeNamedCallback(&quot;command&quot;, &quot;/e &lt;se.9&gt;&quot;);&#xD;&#xA;&#xD;&#xA;        BijectDictionary&lt;string, string&gt; cbxItems;&#xD;&#xA;        Option optionCtrl;&#xD;&#xA;        Label label;&#xD;&#xA;        string hint = &quot;&quot;;&#xD;&#xA;        // 在下面倒序添加各个选项组（组内的选项正序）&#xD;&#xA;&#xD;&#xA;        /*&#xD;&#xA;         &#xD;&#xA;        // cbx：指挥模式&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;2&quot;, &quot; 为全队标点&quot;),&#xD;&#xA;            (&quot;1&quot;, &quot; 为全队标点（但标点后本地取消所有标点）&quot;),&#xD;&#xA;            (&quot;0&quot;, &quot; 不开启标点&quot;),&#xD;&#xA;            (&quot;-1&quot;, &quot; 不开启标点（且被标点后本地取消所有标点）&quot;),&#xD;&#xA;            (&quot;-2&quot;, &quot; 不开启标点（且被标点后强制非本地清除所有标点）&quot;)&#xD;&#xA;        );&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　指挥模式&quot;, &quot;标点mode&quot;, cbxItems, &quot;-1&quot;, hint);&#xD;&#xA;        form.AddOption(optionCtrl, table);&#xD;&#xA;&#xD;&#xA;        // 添加 label&#xD;&#xA;        form.AddLabel(&quot;　标签文字&quot;, table).ForeColor = Color.Aquamarine;&#xD;&#xA;&#xD;&#xA;        // 添加选项框&#xD;&#xA;        optionCtrl = new OptionChk(&quot;　选项框提示语 &quot;, &quot;keyName&quot;, true, hint);&#xD;&#xA;        form.AddOption(optionCtrl, table);&#xD;&#xA;         */&#xD;&#xA;&#xD;&#xA;        #region 配置：P3&#xD;&#xA;&#xD;&#xA;        OptionsTableLayoutPanel tableP3 = form.AddOptionGroup(&quot; P3 &quot;);&#xD;&#xA;&#xD;&#xA;        form.AddLabel(&quot;P3 一运采用正攻解法。&quot;, tableP3).ForeColor = Blue;&#xD;&#xA;&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;跟随&quot;, &quot; 跟随第二轮转向&quot;),&#xD;&#xA;            (&quot;顺&quot;, &quot; 固定偏顺时针 ↻&quot;),&#xD;&#xA;            (&quot;逆&quot;, &quot; 固定偏逆时针 ↺&quot;)&#xD;&#xA;        );&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　引导麻将去自己分身对位后，偏 22.5° 的方向&quot;, &quot;P3麻将_偏向&quot;, cbxItems, &quot;跟随&quot;, hint);&#xD;&#xA;        form.AddOption(optionCtrl, tableP3);&#xD;&#xA;&#xD;&#xA;        #endregion 配置：P3&#xD;&#xA;&#xD;&#xA;        #region 配置：P2&#xD;&#xA;&#xD;&#xA;        OptionsTableLayoutPanel tableP2 = form.AddOptionGroup(&quot; P2 &quot;);&#xD;&#xA;        var link = &quot;https://docs.qq.com/doc/DTFBPRkJ0bVFoeGVV&quot;;&#xD;&#xA;        var label1 = form.AddLabel(&quot;P2 遗弃末世 参考此文档的整合解法（双击复制）：\n&quot; + link, tableP2);&#xD;&#xA;        label1.ForeColor = Blue;&#xD;&#xA;        label1.DoubleClick += (sender, e) =&gt;&#xD;&#xA;        {&#xD;&#xA;            Clipboard.SetText(link);&#xD;&#xA;            MessageBox.Show(&quot;已复制链接。&quot;, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Information);&#xD;&#xA;        };&#xD;&#xA;&#xD;&#xA;        form.AddLabel(&quot;此机制现在不会适配其他任何解法。&quot;, tableP2).ForeColor = Color.FromArgb(192, 0, 0);&#xD;&#xA;        form.AddLabel(&quot;如果你想听播报，请认准此解法。\n开队建议注明“融合优化 2222 闲人固定 不摇号”，或附带文档链接。&quot;, tableP2);&#xD;&#xA;&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;0&quot;, &quot; 初始扇形左 初始钢铁右&quot;),&#xD;&#xA;            (&quot;1&quot;, &quot; TH 左 DPS 右&quot;)&#xD;&#xA;        );&#xD;&#xA;        hint = &quot;文档中按照 TH 左 DPS 右固定站位，即站位只和职能相关，省去机制相关的判断；\n但也有现行攻略这里沿用左扇形右钢铁。&quot;;&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　闲人处理机制时的左右站位&quot;, &quot;P2塔_b闲人TH左D右&quot;, cbxItems, &quot;1&quot;, hint);&#xD;&#xA;        form.AddOption(optionCtrl, tableP2);&#xD;&#xA;&#xD;&#xA;        #endregion 配置：P2&#xD;&#xA;&#xD;&#xA;        #region 配置：P1&#xD;&#xA;&#xD;&#xA;        OptionsTableLayoutPanel tableP1 = form.AddOptionGroup(&quot; P1 &quot;);&#xD;&#xA;&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;0&quot;, &quot; TH 左 DPS 右&quot;),&#xD;&#xA;            (&quot;1&quot;, &quot; 闲人上 击退下&quot;)&#xD;&#xA;        );&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　真假冰火分组&quot;, &quot;P1冰火_b按击退分组&quot;, cbxItems, &quot;1&quot;, hint);&#xD;&#xA;        form.AddOption(optionCtrl, tableP1);&#xD;&#xA;&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;1A&quot;, &quot; 1A 式&quot;),&#xD;&#xA;            (&quot;1A改&quot;, &quot; 1A 改&quot;),&#xD;&#xA;            (&quot;方逆&quot;, &quot; 大正方形 逆时针（盗火）&quot;),&#xD;&#xA;            (&quot;方顺&quot;, &quot; 大正方形 顺时针（美服）&quot;)&#xD;&#xA;        );&#xD;&#xA;        hint = &quot;1A 式：同向箭头外正/外斜，异向箭头内正/内斜\n1A 改：同向箭头内斜/外斜，异向箭头内正/外正&quot;;&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　箭头解法&quot;, &quot;P1箭头解法&quot;, cbxItems, &quot;方逆&quot;, hint);&#xD;&#xA;        form.AddOption(optionCtrl, tableP1);&#xD;&#xA;&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;0&quot;, &quot; 面向 Boss，TH 左 DPS 右&quot;),&#xD;&#xA;            (&quot;1&quot;, &quot; 固定式 场地基准（未适配）&quot;)&#xD;&#xA;        );&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　真假雷火站位&quot;, &quot;P1雷火_b固定&quot;, cbxItems, &quot;1&quot;, hint);&#xD;&#xA;        form.AddOption(optionCtrl, tableP1);&#xD;&#xA;&#xD;&#xA;        #endregion 配置：P1&#xD;&#xA;        /*&#xD;&#xA;        #region 配置：通用选项&#xD;&#xA;&#xD;&#xA;        OptionsTableLayoutPanel tableGeneral = form.AddOptionGroup(&quot; 通用选项 &quot;);&#xD;&#xA;&#xD;&#xA;        // 开场自动标点&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;2&quot;, &quot; 公开标点（北侧顺时针 1A2、半径 10.0 m）&quot;),&#xD;&#xA;            (&quot;1&quot;, &quot; 本地标点（同上，队里使用其他标点时可以本地覆盖掉）&quot;),&#xD;&#xA;            (&quot;0&quot;, &quot; 不开启标点&quot;)&#xD;&#xA;        );&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;开场自动应用标准场地标点（防内鬼标点）&quot;, &quot;P0场地标点mode&quot;, cbxItems, &quot;2&quot;);&#xD;&#xA;        form.AddOption(optionCtrl, tableGeneral);&#xD;&#xA;        &#xD;&#xA;        // P1 校准小队&#xD;&#xA;        hint = &quot;在……时检查全员站位，如果与设置不符则报错并自动修正。\n魔改站位时不要开。&quot;;&#xD;&#xA;        optionCtrl = new OptionChk(&quot;开场八方时检查并修正小队&quot;, &quot;P1修复小队on&quot;, true, hint);&#xD;&#xA;        form.AddOption(optionCtrl, tableGeneral);&#xD;&#xA;        &#xD;&#xA;&#xD;&#xA;        #endregion 配置：通用选项&#xD;&#xA;        */&#xD;&#xA;&#xD;&#xA;        #region 配置：文本频道&#xD;&#xA;        OptionsTableLayoutPanel tableChannel = form.AddOptionGroup(&quot; 文本频道 &quot;);&#xD;&#xA;        var cnlItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;&quot;, &quot; （禁用）&quot;), (&quot;p&quot;, &quot; 小队&quot;), (&quot;e&quot;, &quot; 默语&quot;), (&quot;fc&quot;, &quot; 部队&quot;),&#xD;&#xA;            (&quot;l1&quot;, &quot; 通讯贝1&quot;), (&quot;l2&quot;, &quot; 通讯贝2&quot;), (&quot;l3&quot;, &quot; 通讯贝3&quot;), (&quot;l4&quot;, &quot; 通讯贝4&quot;),&#xD;&#xA;            (&quot;l5&quot;, &quot; 通讯贝5&quot;), (&quot;l6&quot;, &quot; 通讯贝6&quot;), (&quot;l7&quot;, &quot; 通讯贝7&quot;), (&quot;l8&quot;, &quot; 通讯贝8&quot;),&#xD;&#xA;            (&quot;cwl1&quot;, &quot; 跨服通讯贝1&quot;), (&quot;cwl2&quot;, &quot; 跨服通讯贝2&quot;), (&quot;cwl3&quot;, &quot; 跨服通讯贝3&quot;), (&quot;cwl4&quot;, &quot; 跨服通讯贝4&quot;),&#xD;&#xA;            (&quot;cwl5&quot;, &quot; 跨服通讯贝5&quot;), (&quot;cwl6&quot;, &quot; 跨服通讯贝6&quot;), (&quot;cwl7&quot;, &quot; 跨服通讯贝7&quot;), (&quot;cwl8&quot;, &quot; 跨服通讯贝8&quot;)&#xD;&#xA;        );&#xD;&#xA;        var cnlPublicItems = cnlItems.ShallowCopy();&#xD;&#xA;        cnlPublicItems.RemoveKey(&quot;&quot;);&#xD;&#xA;        var cnlDebugItems = cnlItems.ShallowCopy();&#xD;&#xA;        cnlDebugItems.RemoveKey(&quot;p&quot;);&#xD;&#xA;        var cnlPrivateItems = cnlItems.ShallowCopy();&#xD;&#xA;        cnlPrivateItems.RemoveKey(&quot;p&quot;);&#xD;&#xA;        cnlPrivateItems.RemoveKey(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;        OptionCbx cnlPublic = new OptionCbx(&quot;公共频道&quot;, &quot;cnlPublic&quot;, cnlPublicItems, &quot;e&quot;,&#xD;&#xA;            hint: &quot;本频道用于播报部分机制、示意图、复盘信息等机制相关内容。\n\n默认设为自己可见的默语频道，\n如有需要可设为小队等。\n\n当开启了某个阶段的指挥模式时，相关播报所用的频道会无视此项设置，覆盖为小队频道。&quot;);&#xD;&#xA;        OptionCbx cnlPrivate = new OptionCbx(&quot;个人频道&quot;, &quot;cnlPrivate&quot;, cnlPrivateItems, &quot;e&quot;,&#xD;&#xA;            hint: &quot;本频道用于发送仅应自己可见的系统提示消息。\n\n本项设置不应选择任何其他人可见的频道。&quot;);&#xD;&#xA;        OptionCbx cnlDebug = new OptionCbx(&quot;调试频道&quot;, &quot;cnlDebug&quot;, cnlDebugItems, &quot;&quot;,&#xD;&#xA;            hint: &quot;本频道用于发送额外调试信息。\n\n请设置为仅自己可见的频道，或将其关闭。\n\n（测试版暂不提供关闭选项）&quot;);&#xD;&#xA;        form.AddOption(cnlPublic, tableChannel);&#xD;&#xA;        form.AddOption(cnlPrivate, tableChannel);&#xD;&#xA;        form.AddOption(cnlDebug, tableChannel);&#xD;&#xA;&#xD;&#xA;        #endregion 配置：文本频道&#xD;&#xA;&#xD;&#xA;        #region 使用须知&#xD;&#xA;&#xD;&#xA;        OptionsTableLayoutPanel tableInfo = form.AddOptionGroup(&quot; 使用须知 &quot;);&#xD;&#xA;&#xD;&#xA;        form.AddLabel(&quot;· 使用前必须查看使用说明，见此绝本触发器分组下的「使用说明」触发器。&quot;, tableInfo)&#xD;&#xA;            .ForeColor = Blue;&#xD;&#xA;&#xD;&#xA;        label = form.AddLabel(&quot;· 下方部分选项上悬停鼠标可以显示详细说明。&quot;, tableInfo);&#xD;&#xA;        label.ForeColor = Blue;&#xD;&#xA;&#xD;&#xA;        #endregion 使用须知&#xD;&#xA;&#xD;&#xA;        #region 配置：队员顺序&#xD;&#xA;        if (BridgeFFXIV.ZoneID == int.Parse(&quot;0${env:zone}&quot;) &amp;&amp; Triggernometry.FFXIV.Entity.GetEntities().Any(e =&gt; e.InParty))&#xD;&#xA;        {&#xD;&#xA;            string[] playerDescriptions = { &quot;MT&quot;, &quot;ST&quot;, &quot;H1&quot;, &quot;H2&quot;, &quot;D1&quot;, &quot;D2&quot;, &quot;D3&quot;, &quot;D4&quot; };&#xD;&#xA;            var pListPanel = new PartyListPanel(playerDescriptions);&#xD;&#xA;            form.AddPartyGroup(&quot; 队员顺序（拖拽调整） &quot;, pListPanel);&#xD;&#xA;        }&#xD;&#xA;        #endregion 配置：队员顺序&#xD;&#xA;&#xD;&#xA;        Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#xD;&#xA;        form.Run();&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    [STAThread]&#xD;&#xA;    public static void Start()&#xD;&#xA;    {&#xD;&#xA;        try&#xD;&#xA;        {&#xD;&#xA;            Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#xD;&#xA;            Thread staThread = new Thread(new ThreadStart(RunConfigForm));&#xD;&#xA;            staThread.SetApartmentState(ApartmentState.STA);&#xD;&#xA;            staThread.Start();&#xD;&#xA;            staThread.Join();&#xD;&#xA;        }&#xD;&#xA;        catch (Exception ex)&#xD;&#xA;        {&#xD;&#xA;            MessageBox.Show(&quot;用户配置表单运行错误：\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${ecallback:${env:prefix}_cfg}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 <ConditionSingle Enabled="true" ExpressionL="${pd:${env:prefix}_cfg[version]}" ExpressionTypeL="String" ExpressionR="${env:version}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
@@ -535,7 +535,7 @@
 <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="beep:8:freq(E6):200" LogProcess="True" />
 <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="beep:9:freq(G6):200" LogProcess="True" />
 <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="beep:10:freq(C7):300" LogProcess="True" />
-<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_解法" VariableExpression="${!pd:U7b_cfg.get(P1箭头解法, 盗火)}" />
+<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_解法" VariableExpression="${!pd:U7b_cfg.get(P1箭头解法, 方逆)}" />
 <Action OrderNumber="6" ActionType="Placeholder" Description="dir4_1 dir4_2 分别指的是两组 buff 的方向，同 buff 可能是 0, n 或 n, 0？（未确定是否相同时固定为哪一组）" DescriptionOverride="True" />
 <Action OrderNumber="7" ActionType="Placeholder" Description="原版" DescriptionOverride="True" />
 <Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_dir4" VariableExpression="${b同} ? (max(${dir4_1}, ${dir4_2}) + 3) % 4 : ${dir4_1}">
@@ -579,7 +579,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${v:tmp_解法}" ExpressionTypeL="String" ExpressionR="1A改" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Action>
-<Action OrderNumber="17" ActionType="Placeholder" Description="盗火" DescriptionOverride="True" />
+<Action OrderNumber="17" ActionType="Placeholder" Description="方形逆时针（盗火）" DescriptionOverride="True" />
 <Action OrderNumber="18" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_dir4" VariableExpression="${b同} &#xD;&#xA;  ? (max(${dir4_1}, ${dir4_2}) + 3) % 4 &#xD;&#xA;  : (${dir4_1} + 2) % 4">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:tmp_解法}" ExpressionTypeL="String" ExpressionR="盗火" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
@@ -600,12 +600,33 @@
 <ConditionSingle Enabled="true" ExpressionL="${v:tmp_解法}" ExpressionTypeL="String" ExpressionR="盗火" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Action>
-<Action OrderNumber="22" ActionType="Placeholder" DescriptionOverride="True" />
-<Action OrderNumber="23" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b13_箭头_0至1&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;t: 7&#xD;&#xA;O: 100, 100&#xD;&#xA;Dir4: ${!v:tmp_dir4}&#xD;&#xA;Target: ${!v:tmp_pos1}&#xD;&#xA;Scale: 0.2, _d, 0.2&#xD;&#xA;Color: 1, 1, 5, 3&#xD;&#xA;---&#xD;&#xA;Tag: U7b13_箭头_1&#xD;&#xA;Omen: m0532om_don01x&#xD;&#xA;t: 7&#xD;&#xA;O: 100, 100&#xD;&#xA;Dir4: ${!v:tmp_dir4}&#xD;&#xA;Pos: ${!v:tmp_pos1}, 0.05&#xD;&#xA;Scale: 1, 1, 20&#xD;&#xA;Color: 1, 1, 5, 5&#xD;&#xA;---&#xD;&#xA;Tag: U7b13_箭头_1至2&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;delay: 3&#xD;&#xA;t: 7&#xD;&#xA;O: 100, 100&#xD;&#xA;Dir4: ${!v:tmp_dir4}&#xD;&#xA;Pos: ${!v:tmp_pos1}&#xD;&#xA;Target: ${!v:tmp_pos2}&#xD;&#xA;Scale: 0.2, _d, 0.2&#xD;&#xA;Color: 1, 3, 1, 0.8&#xD;&#xA;---&#xD;&#xA;Tag: U7b13_箭头_2&#xD;&#xA;Omen: m0532om_don01x&#xD;&#xA;delay: 3&#xD;&#xA;t: 7&#xD;&#xA;O: 100, 100&#xD;&#xA;Dir4: ${!v:tmp_dir4}&#xD;&#xA;Pos: ${!v:tmp_pos2}, 0.05&#xD;&#xA;Scale: 1, 1, 20&#xD;&#xA;Color: 1, 5, 1, 3" />
-<Action OrderNumber="24" ActionType="Variable" Asynchronous="False" VariableName="tmp_dir4" />
-<Action OrderNumber="25" ActionType="Variable" Asynchronous="False" VariableName="tmp_pos1" />
-<Action OrderNumber="26" ActionType="Variable" Asynchronous="False" VariableName="tmp_pos2" />
-<Action OrderNumber="27" ActionType="Variable" Asynchronous="False" VariableName="tmp_解法" />
+<Action OrderNumber="22" ActionType="Placeholder" Description="方形顺时针（美服）" DescriptionOverride="True" />
+<Action OrderNumber="23" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_dir4" VariableExpression="${b同} &#xD;&#xA;  ? (max(${dir4_1}, ${dir4_2}) + 1) % 4 &#xD;&#xA;  : (${dir4_2} + 2) % 4">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_解法}" ExpressionTypeL="String" ExpressionR="盗火" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="24" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_pos1" VariableExpression="${if: ${b同} ? 0,-12 : ${if: ${b1短} ? 6,-12 : 12,-12 } }">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_解法}" ExpressionTypeL="String" ExpressionR="盗火" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="25" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_pos2" VariableExpression="${if: ${b同} ? -6,-12 : ${if: ${b1短} ? 12,-12 : 6,-12 } }">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_解法}" ExpressionTypeL="String" ExpressionR="盗火" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="26" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${b同} &#xD;&#xA;  ? ${?l: 上北, 左西, 下南, 右东 [${!v:tmp_dir4} + 1]}正点放两次&#xD;&#xA;  : ${?l: 右上, 左上, 左下, 右下 [${!v:tmp_dir4} + 1]}，${if: ${b1短} ? 先角后编 : 先边后角 } &#xD;&#xA;}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_解法}" ExpressionTypeL="String" ExpressionR="盗火" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="27" ActionType="Placeholder" DescriptionOverride="True" />
+<Action OrderNumber="28" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b13_箭头_0至1&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;t: 7&#xD;&#xA;O: 100, 100&#xD;&#xA;Dir4: ${!v:tmp_dir4}&#xD;&#xA;Target: ${!v:tmp_pos1}&#xD;&#xA;Scale: 0.2, _d, 0.2&#xD;&#xA;Color: 1, 1, 5, 3&#xD;&#xA;---&#xD;&#xA;Tag: U7b13_箭头_1&#xD;&#xA;Omen: m0532om_don01x&#xD;&#xA;t: 7&#xD;&#xA;O: 100, 100&#xD;&#xA;Dir4: ${!v:tmp_dir4}&#xD;&#xA;Pos: ${!v:tmp_pos1}, 0.05&#xD;&#xA;Scale: 1, 1, 20&#xD;&#xA;Color: 1, 1, 5, 5&#xD;&#xA;---&#xD;&#xA;Tag: U7b13_箭头_1至2&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;delay: 3&#xD;&#xA;t: 7&#xD;&#xA;O: 100, 100&#xD;&#xA;Dir4: ${!v:tmp_dir4}&#xD;&#xA;Pos: ${!v:tmp_pos1}&#xD;&#xA;Target: ${!v:tmp_pos2}&#xD;&#xA;Scale: 0.2, _d, 0.2&#xD;&#xA;Color: 1, 3, 1, 0.8&#xD;&#xA;---&#xD;&#xA;Tag: U7b13_箭头_2&#xD;&#xA;Omen: m0532om_don01x&#xD;&#xA;delay: 3&#xD;&#xA;t: 7&#xD;&#xA;O: 100, 100&#xD;&#xA;Dir4: ${!v:tmp_dir4}&#xD;&#xA;Pos: ${!v:tmp_pos2}, 0.05&#xD;&#xA;Scale: 1, 1, 20&#xD;&#xA;Color: 1, 5, 1, 3" />
+<Action OrderNumber="29" ActionType="Variable" Asynchronous="False" VariableName="tmp_dir4" />
+<Action OrderNumber="30" ActionType="Variable" Asynchronous="False" VariableName="tmp_pos1" />
+<Action OrderNumber="31" ActionType="Variable" Asynchronous="False" VariableName="tmp_pos2" />
+<Action OrderNumber="32" ActionType="Variable" Asynchronous="False" VariableName="tmp_解法" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="616d547f-883f-4f4c-ad99-104ac6788590" Name="0. 初始化" RegularExpression="^.{15}\S+ AAA:204:[^:]*:(?&lt;flag&gt;80):(?&lt;id&gt;4.{7}):[^:]*:[^:]*:(?&lt;baseid&gt;2015156):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
@@ -902,13 +923,19 @@
 <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}" />
 </Actions>
 </Trigger>
+<Trigger Enabled="true" Id="b97b486f-6e48-4873-93e6-e53e288ca3b2" Name="P3 深层痛楚" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BAF2):">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="1000" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}" />
+</Actions>
+</Trigger>
 </Triggers>
 </Folder>
 <Folder Id="cb610087-ba97-4f61-915b-6abefdda0aef" Enabled="true" Name="缩小实体">
 <Triggers>
-<Trigger Enabled="true" Id="f3780e9d-189c-42b7-b302-9c7a1fc52db8" Name="_">
+<Trigger Enabled="true" Id="f3780e9d-189c-42b7-b302-9c7a1fc52db8" Name="P3 " RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}(?&lt;bnpcid&gt;1950[89]):">
 <Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" DescTextColor="26f" NamedCallbackName="ObjectScaling" NamedCallbackParam="${_entity[${sid}].Address}, 0.25" />
+<Action OrderNumber="1" ActionType="Placeholder" Description="卡奥斯 艾克斯迪司" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="NamedCallback" DescTextColor="26f" NamedCallbackName="SetObjectScale" NamedCallbackParam="${_entity[${id}].Address}, ${if: ${bnpcid} = 19508 ? 0.5 : 3 }" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -920,8 +947,8 @@
 <Action OrderNumber="1" ActionType="DictVariable" DictVariableName="简易播报" />
 <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="1000" />
 <Action OrderNumber="3" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C403" DictVariableValue="_=恶狠狠毁荡 | tts=一二仇死刑" />
-<Action OrderNumber="4" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAD2" DictVariableValue="_=未来终结 | tts=打前面" />
-<Action OrderNumber="5" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAD3" DictVariableValue="_=过去终结 | tts=打后面" />
+<Action OrderNumber="4" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAD2" DictVariableValue="_=未来终结 | tts=准备对面引导分身 | ttsDelay=5.5" />
+<Action OrderNumber="5" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAD3" DictVariableValue="_=过去终结 | tts=准备同侧引导分身 | ttsDelay=5.5" />
 <Action OrderNumber="6" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BABC" DictVariableValue="_=遗弃末世 | tts=转场AoE" />
 <Action OrderNumber="7" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C24D" DictVariableValue="_=究极 | tts=AoE" />
 <Action OrderNumber="8" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C2DA" DictVariableValue="_=超驱动 | tts=死刑" />
@@ -932,17 +959,19 @@
 <Action OrderNumber="13" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BABD" DictVariableValue="_=制裁之光 | tts=AoE" />
 <Action OrderNumber="14" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAE1" DictVariableValue="_=制裁之光 | tts=AoE" />
 <Action OrderNumber="15" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C622" DictVariableValue="_=制裁之光 | tts=AoE，三连死刑" />
-<Action OrderNumber="16" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BB12" DictVariableValue="_=暴雷 | tts=钢铁 | omen=m0611_sircle_01x | t=6.7 | Scale=14.8,14.8,1" />
-<Action OrderNumber="17" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BB09" DictVariableValue="_=暴雷 | tts=死刑" />
-<Action OrderNumber="18" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAEE" DictVariableValue="_=本色出演的我 | tts=躲直条 | omen=mdl_general_02x | t=4.7 | Scale=8,100,1" />
-<Action OrderNumber="19" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BB00" DictVariableValue="_=本影爆碎 | omen=m0611_sircle_01x | t=4.7 | Scale=15,15,1" />
+<Action OrderNumber="16" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAF2" DictVariableValue="_=深层痛楚 | tts=大AoE" />
+<Action OrderNumber="17" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BB12" DictVariableValue="_=暴雷 | tts=钢铁 | omen=m0611_sircle_01x | t=6.7 | Scale=14.8,14.8,1" />
+<Action OrderNumber="18" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BB09" DictVariableValue="_=暴雷 | tts=死刑" />
+<Action OrderNumber="19" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAEE" DictVariableValue="_=本色出演的我 | tts=躲直条 | omen=mdl_general_02x | t=4.7 | Scale=8,100,1" />
+<Action OrderNumber="20" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BB00" DictVariableValue="_=本影爆碎 | omen=m0611_sircle_01x | t=4.7 | Scale=15,15,1" />
+<Action OrderNumber="21" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C572" DictVariableValue="_=地震 | tts=大AoE" />
 </Actions>
 </Trigger>
 </Triggers>
 </Folder>
 <Folder Id="b044240f-d197-4a00-8257-c43c247e4b90" Enabled="true" Name="P2">
 <Folders>
-<Folder Id="97441679-422a-4118-9229-1fa848ac3886" Enabled="true" Name="A. 遗弃末世" RawEnvironmentVariables="phase = P21">
+<Folder Id="97441679-422a-4118-9229-1fa848ac3886" Enabled="true" Name="P2-1 遗弃末世" RawEnvironmentVariables="phase = P21">
 <Folders>
 <Folder Id="422418a6-a2ad-4b8b-8df9-b0853c69543f" Enabled="true" Name="日志转录">
 <Triggers>
@@ -1063,19 +1092,22 @@
 <Trigger Enabled="true" Id="1bd04b96-129f-45c3-8c55-3363069ec50b" Name="3.1 播报奇数轮点名" RegularExpression="^U7b21_点名:n:(?&lt;n&gt;[1357]):踩塔type:(?&lt;踩塔type&gt;[0-4]):职能idx:(?&lt;职能idx&gt;[1-4])">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b踩塔" VariableExpression="${?l: 1,1,1,0,0,0,0,1 [${n}]} = ${!v:U7b21_bA组}" />
-<Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="第${n}轮，${?l:&#xD;&#xA;  踩左塔，靠后喷扇形,&#xD;&#xA;  踩右塔，靠内放钢铁,&#xD;&#xA;  踩左塔，侧面分摊,&#xD;&#xA;  踩右塔，侧面分摊&#xD;&#xA;  .get(${踩塔type}, 数据错误)&#xD;&#xA;}">
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_text" VariableExpression="第${n}轮，${?l:&#xD;&#xA;  踩左塔，靠后喷扇形,&#xD;&#xA;  踩右塔，靠内放钢铁,&#xD;&#xA;  踩左塔，侧面分摊,&#xD;&#xA;  踩右塔，侧面分摊&#xD;&#xA;  .get(${踩塔type}, 数据错误)&#xD;&#xA;}">
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${v:tmp_b踩塔}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="3" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="第${n}轮，${?l:&#xD;&#xA;  左塔外，左侧参与分摊,&#xD;&#xA;  左塔外，后方引导扇形,&#xD;&#xA;  右塔外，右侧参与分摊,&#xD;&#xA;  右塔外，右侧参与分摊&#xD;&#xA;  .get(${职能idx}, 数据错误)&#xD;&#xA;}">
+<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_text" VariableExpression="第${n}轮，${?l:&#xD;&#xA;  左塔外，左侧参与分摊,&#xD;&#xA;  左塔外，后方引导扇形,&#xD;&#xA;  右塔外，右侧参与分摊,&#xD;&#xA;  右塔外，右侧参与分摊&#xD;&#xA;  .get(${职能idx}, 数据错误)&#xD;&#xA;}">
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${v:tmp_b踩塔}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_b踩塔" />
-<Action OrderNumber="5" ActionType="Placeholder" Description="如果是第七轮，延后 10 s 再次生成日志用于触发第八轮播报" DescriptionOverride="True" />
-<Action OrderNumber="6" ActionType="LogMessage" ExecutionDelayExpression="10000" Asynchronous="False" LogMessageText="U7b21_点名:n:8:踩塔type:${踩塔type}:职能idx:${职能idx}" LogProcess="True" LogProcessACT="True">
+<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:${if: ${n} = 1 ? 0 : 2 }:${v:tmp_text}" LogProcess="True" />
+<Action OrderNumber="5" ActionType="NamedCallback" Asynchronous="False" LogProcess="True" NamedCallbackName="hint" NamedCallbackParam="7&#xD;&#xA;${v:tmp_text}" />
+<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableName="tmp_b踩塔" />
+<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableName="tmp_text" />
+<Action OrderNumber="8" ActionType="Placeholder" Description="如果是第七轮，延后 10 s 再次生成日志用于触发第八轮播报" DescriptionOverride="True" />
+<Action OrderNumber="9" ActionType="LogMessage" ExecutionDelayExpression="10000" Asynchronous="False" LogMessageText="U7b21_点名:n:8:踩塔type:${踩塔type}:职能idx:${职能idx}" LogProcess="True" LogProcessACT="True">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
@@ -1157,7 +1189,7 @@
 <Action OrderNumber="8" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Copy" ListVariableName="U7b21_pIdx${!v:tmp_当前组名}" ListVariableTarget="tmp_pIdxOldSort" />
 <Action OrderNumber="9" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SortNumericAsc" ListVariableName="tmp_pIdxNewSort" />
 <Action OrderNumber="10" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SortNumericAsc" ListVariableName="tmp_pIdxOldSort" />
-<Action OrderNumber="11" ActionType="LogMessage" Asynchronous="False" DescBgColor="fdd" LogMessageText="踩塔人员错误：第 ${n: ${n} - 1} 轮踩塔成员（小队次序）为 [${l:tmp_pIdxNewSort.join(&quot;, &quot;)}]，但应踩塔的 ${!v:tmp_当前组名} 组为 [${l:tmp_pIdxOldSort.join(&quot;, &quot;)}]。">
+<Action OrderNumber="11" ActionType="LogMessage" Asynchronous="False" DescBgColor="fdd" LogMessageText="踩塔人员错误：第 ${n: ${n} - 1} 轮踩塔成员（小队次序）为 [${l:tmp_pIdxNewSort.join(&quot;, &quot;)}]，但应踩塔的 ${!v:tmp_当前组名} 组为 [${l:tmp_pIdxOldSort.join(&quot;, &quot;)}]。若没人处理错误，这代表你初始化时设错了小队列表。">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${l:tmp_pIdxOldSort.join()}" ExpressionTypeL="String" ExpressionR="${l:tmp_pIdxNewSort.join()}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
 </Condition>
@@ -1179,17 +1211,20 @@
 <Trigger Enabled="true" Id="193daf91-3d5f-4fed-9add-d7c4b9629936" Name="3.2 播报偶数轮点名" RegularExpression="^U7b21_点名:n:(?&lt;n&gt;[2468]):踩塔type:(?&lt;踩塔type&gt;[0-4]):职能idx:(?&lt;职能idx&gt;[1-4])">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b踩塔" VariableExpression="${?l: 1,1,1,0,0,0,0,1 [${n}]} = ${!v:U7b21_bA组}" />
-<Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="第${n}轮，${?l:&#xD;&#xA;  左前踩塔，向后对喷扇形,&#xD;&#xA;  左后踩塔，向前对喷扇形,&#xD;&#xA;  右前踩塔，后方放钢铁,&#xD;&#xA;  右后踩塔，右侧放钢铁&#xD;&#xA;  .get(${踩塔type}, 数据错误)&#xD;&#xA;}">
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_text" VariableExpression="第${n}轮，${?l:&#xD;&#xA;  左前踩塔，向后对喷扇形,&#xD;&#xA;  左后踩塔，向前对喷扇形,&#xD;&#xA;  右前踩塔，后方放钢铁,&#xD;&#xA;  右后踩塔，右侧放钢铁&#xD;&#xA;  .get(${踩塔type}, 数据错误)&#xD;&#xA;}">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:tmp_b踩塔}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="3" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="第${n}轮，${?l:&#xD;&#xA;  左前出去引导分身,&#xD;&#xA;  左塔边引导分身,&#xD;&#xA;  右前出去引导分身,&#xD;&#xA;  右塔边引导分身&#xD;&#xA;  .get(${职能idx}, 数据错误)&#xD;&#xA;}">
+<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_text" VariableExpression="第${n}轮，${?l:&#xD;&#xA;  左前出去引导分身,&#xD;&#xA;  左塔边引导分身,&#xD;&#xA;  右前出去引导分身,&#xD;&#xA;  右塔边引导分身&#xD;&#xA;  .get(${职能idx}, 数据错误)&#xD;&#xA;}">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:tmp_b踩塔}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_b踩塔" />
+<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0:${v:tmp_text}" LogProcess="True" />
+<Action OrderNumber="5" ActionType="NamedCallback" Asynchronous="False" LogProcess="True" NamedCallbackName="hint" NamedCallbackParam="7&#xD;&#xA;${v:tmp_text}" />
+<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableName="tmp_b踩塔" />
+<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableName="tmp_text" />
 </Actions>
 </Trigger>
 <Trigger Enabled="false" Id="9a88b57e-317b-4eca-b06a-67e33d20e6f5" Name="Debug Log 2026-06-05 06:48" Source="None">
@@ -1272,58 +1307,18 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="376667e5-17c1-466a-8388-d1bde7c4591a" Enabled="true" Name="B. 异三角" RawEnvironmentVariables="phase = P22">
+<Folder Id="376667e5-17c1-466a-8388-d1bde7c4591a" Enabled="true" Name="P2-2 异三角" RawEnvironmentVariables="phase = P22">
 <Triggers>
 <Trigger Enabled="true" Id="209de627-dde6-4726-9234-5bac68b72189" Name="2. 处理 =&gt; 3" RegularExpression="^_U7b22_三角_dir6:7">
 <Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="dir6 = 0-5 代表周围，6 代表中心" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SortByKeys" ListVariableName="U7b22_三角_dir6" ListVariableExpression="&quot;n: ${?l:1,1,1,2,3,3,3[${_idx}]}&quot;, n: ${_this} = 6, n: (6 - ${_this}) % 6" />
-<Action OrderNumber="3" ActionType="Placeholder" Description="中心在哪组（1/2/3）" DescriptionOverride="True" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="U7b22_中心组" VariableExpression="${?d: 3=1, 4=2, 7=3 [${l:U7b22_三角_dir6.indexof(6)}]}" />
-<Action OrderNumber="5" ActionType="Placeholder" Description="如果中心不在 1 组：" DescriptionOverride="True" />
-<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_T起始dir6" VariableExpression="6">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${!v:U7b22_中心组}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_人起始dir6" VariableExpression="6">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${!v:U7b22_中心组}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_T目标dir6" VariableExpression="${!l:U7b22_三角_dir6[1]}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${!v:U7b22_中心组}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_人目标dir6" VariableExpression="${!l:U7b22_三角_dir6[2]}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${!v:U7b22_中心组}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="10" ActionType="Placeholder" Description="如果中心在 1 组：" DescriptionOverride="True" />
-<Action OrderNumber="11" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_T目标dir6" VariableExpression="${!l:U7b22_三角_dir6[1]}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${!v:U7b22_中心组}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="12" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_人目标dir6" VariableExpression="${!l:U7b22_三角_dir6[2]}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${!v:U7b22_中心组}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="13" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_T起始dir6" VariableExpression="${!l:U7b22_三角_dir6.indexof(${n: (${v:tmp_T目标dir6} + 1) %% 6 })} &gt; 4 &#xD;&#xA;  ? (${v:tmp_T目标dir6} + 1) %% 6&#xD;&#xA;  : ${!l:U7b22_三角_dir6.indexof(${n: (${v:tmp_T目标dir6} - 1) %% 6 })} &gt; 4&#xD;&#xA;    ? (${v:tmp_T目标dir6} - 1) %% 6&#xD;&#xA;    : (${v:tmp_T目标dir6} + 1) %% 6">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${!v:U7b22_中心组}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="14" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_人起始dir6" VariableExpression="${!l:U7b22_三角_dir6.indexof(${n: (${v:tmp_人目标dir6} + 1) %% 6 })} &gt; 4 &#xD;&#xA;  ? (${v:tmp_人目标dir6} + 1) %% 6&#xD;&#xA;  : ${!l:U7b22_三角_dir6.indexof(${n: (${v:tmp_人目标dir6} - 1) %% 6 })} &gt; 4&#xD;&#xA;    ? (${v:tmp_人目标dir6} - 1) %% 6&#xD;&#xA;    : (${v:tmp_人目标dir6} + 1) %% 6">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${!v:U7b22_中心组}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="15" ActionType="Placeholder" Description="输出" DescriptionOverride="True" />
-<Action OrderNumber="16" ActionType="LogMessage" LogMessageText="U7b22_三角:dir6T:${!v:tmp_T起始dir6}:${!v:tmp_T目标dir6}:dir6人:${!v:tmp_人起始dir6}:${!v:tmp_人目标dir6}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="1" ActionType="Placeholder" Description="三角有规律：中心必定在第三轮" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Placeholder" Description="dir6 = 0-5 代表周围，6 代表中心" DescriptionOverride="True" />
+<Action OrderNumber="3" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SortByKeys" ListVariableName="U7b22_三角_dir6" ListVariableExpression="&quot;n: ${?l:1,1,1,2,3,3,3[${_idx}]}&quot;, n: ${_this} = 6, n: (6 - ${_this}) % 6" />
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_T目标dir6" VariableExpression="${!l:U7b22_三角_dir6[1]}" />
+<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_人目标dir6" VariableExpression="${!l:U7b22_三角_dir6[2]}" />
+<Action OrderNumber="6" ActionType="Placeholder" Description="输出" DescriptionOverride="True" />
+<Action OrderNumber="7" ActionType="LogMessage" Asynchronous="False" LogMessageText="U7b22_三角:dir6T:6:${!v:tmp_T目标dir6}:dir6人:6:${!v:tmp_人目标dir6}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="8" ActionType="NamedCallback" DescBgColor="fdd" LogProcess="True" LogProcessACT="True" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=stat/U7b/异三角dir6.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;${l:U7b22_三角_dir6.join(&quot;&quot;, &quot;1,2,3&quot;)} - ${l:U7b22_三角_dir6[4]} - ${l:U7b22_三角_dir6.join(&quot;&quot;, &quot;5,6,7&quot;)}" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="d5d3fc37-4297-470f-b459-103229ee97b9" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;BADF):">
@@ -1389,14 +1384,15 @@
 </Folder>
 </Folders>
 </Folder>
-<Folder Id="a2aa7fd3-c8a3-4978-873f-c81636f0069d" Enabled="true" Name="P3">
+<Folder Id="a2aa7fd3-c8a3-4978-873f-c81636f0069d" Enabled="true" Name="P3" RawEnvironmentVariables="BNpcId卡 = 19508&#xD;&#xA;BNpcId艾 = 19509">
 <Folders>
-<Folder Id="71429b8f-7532-45cb-a30b-40adcb662204" Enabled="true" Name="P31 火水风" RawEnvironmentVariables="phase = P31">
+<Folder Id="71429b8f-7532-45cb-a30b-40adcb662204" Enabled="true" Name="P3-1 火水风" RawEnvironmentVariables="phase = P31">
 <Triggers>
 <Trigger Enabled="true" Id="5e805c62-0b54-4e07-8a35-ceea029f0ff8" Name="0. 初始化 重构" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;BAE2):">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="U7b_phase" VariableExpression="${env:phase}" />
 <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^U7b31" />
+<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="U7b31_自type" VariableExpression="无" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="dbec9f7c-97a2-4f77-8a6a-3bd6302e7a16" Name="经纬度聚爆" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BAF[DE]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
@@ -1404,64 +1400,183 @@
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b先打横" VariableExpression="0x${aid} = 0xBAFE" />
 <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0:${if: ${!v:tmp_b先打横} ? 先去前后 : 先去左右 }" LogProcess="True" />
 <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:5.3:穿" LogProcess="True" />
-<Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31_聚爆_前&#xD;&#xA;delay: ${!v:tmp_b先打横} ? 5.4 : 0.0&#xD;&#xA;t: ${!v:tmp_b先打横} ? 2.0 : 5.4&#xD;&#xA;Omen: Fan90&#xD;&#xA;O: ${x}, ${y}&#xD;&#xA;θ: ${h}&#xD;&#xA;Angle: π&#xD;&#xA;Scale: 40&#xD;&#xA;---&#xD;&#xA;Tag: U7b31_聚爆_后&#xD;&#xA;delay: ${!v:tmp_b先打横} ? 5.4 : 0.0&#xD;&#xA;t: ${!v:tmp_b先打横} ? 2.0 : 5.4&#xD;&#xA;Omen: Fan90&#xD;&#xA;O: ${x}, ${y}&#xD;&#xA;θ: ${h}&#xD;&#xA;Angle: 0&#xD;&#xA;Scale: 40&#xD;&#xA;---&#xD;&#xA;Tag: U7b31_聚爆_左&#xD;&#xA;delay: ${!v:tmp_b先打横} ? 0.0 : 5.4&#xD;&#xA;t: ${!v:tmp_b先打横} ? 5.4 : 2.0&#xD;&#xA;Omen: Fan90&#xD;&#xA;O: ${x}, ${y}&#xD;&#xA;θ: ${h}&#xD;&#xA;Angle: π/2&#xD;&#xA;Scale: 40&#xD;&#xA;---&#xD;&#xA;Tag: U7b31_聚爆_左&#xD;&#xA;delay: ${!v:tmp_b先打横} ? 0.0 : 5.4&#xD;&#xA;t: ${!v:tmp_b先打横} ? 5.4 : 2.0&#xD;&#xA;Omen: Fan90&#xD;&#xA;O: ${x}, ${y}&#xD;&#xA;θ: ${h}&#xD;&#xA;Angle: -π/2&#xD;&#xA;Scale: 40" />
+<Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31_聚爆_前&#xD;&#xA;delay: ${!v:tmp_b先打横} ? 5.4 : 0.0&#xD;&#xA;t: ${!v:tmp_b先打横} ? 2.0 : 5.4&#xD;&#xA;Omen: Fan90&#xD;&#xA;O: ${x}, ${y}&#xD;&#xA;θ: ${h}&#xD;&#xA;Angle: π&#xD;&#xA;Scale: 40&#xD;&#xA;---&#xD;&#xA;Tag: U7b31_聚爆_后&#xD;&#xA;delay: ${!v:tmp_b先打横} ? 5.4 : 0.0&#xD;&#xA;t: ${!v:tmp_b先打横} ? 2.0 : 5.4&#xD;&#xA;Omen: Fan90&#xD;&#xA;O: ${x}, ${y}&#xD;&#xA;θ: ${h}&#xD;&#xA;Angle: 0&#xD;&#xA;Scale: 40&#xD;&#xA;---&#xD;&#xA;Tag: U7b31_聚爆_右&#xD;&#xA;delay: ${!v:tmp_b先打横} ? 0.0 : 5.4&#xD;&#xA;t: ${!v:tmp_b先打横} ? 5.4 : 2.0&#xD;&#xA;Omen: Fan90&#xD;&#xA;O: ${x}, ${y}&#xD;&#xA;θ: ${h}&#xD;&#xA;Angle: π/2&#xD;&#xA;Scale: 40&#xD;&#xA;---&#xD;&#xA;Tag: U7b31_聚爆_左&#xD;&#xA;delay: ${!v:tmp_b先打横} ? 0.0 : 5.4&#xD;&#xA;t: ${!v:tmp_b先打横} ? 5.4 : 2.0&#xD;&#xA;Omen: Fan90&#xD;&#xA;O: ${x}, ${y}&#xD;&#xA;θ: ${h}&#xD;&#xA;Angle: -π/2&#xD;&#xA;Scale: 40" />
 <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="tmp_b先打横" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="24a8b0c7-d640-4abf-8448-05d6b1e493e7" Name="响亮亮耳光" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BAE[67]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Trigger Enabled="true" Id="f85b9eed-c30b-4540-8bb6-59400d8e7dd3" Name="1. 获取分组 todo" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;106[02]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
 <Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b打右" VariableExpression="0x${aid} = 0xBAE6" />
-<Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="半场刀" />
-<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31_响亮亮耳光_1&#xD;&#xA;t: 5.5&#xD;&#xA;Omen: m0347_sircle_01m1&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${h}&#xD;&#xA;KeepX: ${!v:tmp_b打右}&#xD;&#xA;Pos: 10, -10&#xD;&#xA;Scale: 13&#xD;&#xA;---&#xD;&#xA;Tag: U7b31_响亮亮耳光_1&#xD;&#xA;delay: 0.3&#xD;&#xA;t: 5.8&#xD;&#xA;Omen: m0347_sircle_01m1&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${h}&#xD;&#xA;KeepX: ${!v:tmp_b打右}&#xD;&#xA;Pos: 10, 0&#xD;&#xA;Scale: 13&#xD;&#xA;---&#xD;&#xA;Tag: U7b31_响亮亮耳光_1&#xD;&#xA;delay: 0.6&#xD;&#xA;t: 6.1&#xD;&#xA;Omen: m0347_sircle_01m1&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${h}&#xD;&#xA;KeepX: ${!v:tmp_b打右}&#xD;&#xA;Pos: 10, 10&#xD;&#xA;Scale: 13&#xD;&#xA;---&#xD;&#xA;Tag: U7b31_响亮亮耳光_1&#xD;&#xA;delay: 2.0&#xD;&#xA;t: 6.0&#xD;&#xA;Omen: m0347_sircle_01m1&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${h}&#xD;&#xA;KeepX: ${!v:tmp_b打右}&#xD;&#xA;Scale: 6" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_b打右" />
+<Action OrderNumber="1" ActionType="Placeholder" Description="1060 打左侧 boss" DescriptionOverride="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="false" Id="f751282d-5902-4757-a587-a9acc0d37e69" Name="Debug Log 2026-06-06 04:44" Source="None">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[23:20:47.465] StartsCasting 14:4000A0AF:凯夫卡:BAE2:_rsv_47842_-1_4_0_0_SE2DC5B04_EE2DC5B04:4000A0AF:凯夫卡:3.700:100.00:100.00:0.00:0.00" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="500" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[23:20:57.628] StatusAdd 1A:1060:应战α:9999.00:E0000000::${l:party[7]}:队员:00:226458:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="[23:20:57.628] StatusAdd 1A:1060:应战α:9999.00:E0000000::${l:party[5]}:队员:00:227520:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="[23:20:57.628] StatusAdd 1A:1060:应战α:9999.00:E0000000::${l:party[1]}:队员:00:325133:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="[23:20:57.628] StatusAdd 1A:1060:应战α:9999.00:E0000000::${l:party[3]}:队员:00:204455:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="[23:20:57.628] StatusAdd 1A:1062:应战β:9999.00:E0000000::${l:party[4]}:队员:00:204455:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="8" ActionType="LogMessage" LogMessageText="[23:20:57.628] StatusAdd 1A:1062:应战β:9999.00:E0000000::${l:party[8]}:队员:00:205207:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="9" ActionType="LogMessage" LogMessageText="[23:20:57.628] StatusAdd 1A:1062:应战β:9999.00:E0000000::${l:party[2]}:队员:00:312276:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="10" ActionType="LogMessage" LogMessageText="[23:20:57.628] StatusAdd 1A:1062:应战β:9999.00:E0000000::${l:party[6]}:队员:00:226668:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="11" ActionType="Placeholder" ExecutionDelayExpression="2000" />
+<Action OrderNumber="12" ActionType="LogMessage" LogMessageText="[23:21:17.100] StatusAdd 1A:640:混沌之炎:19.00:E0000000::${l:party[4]}:队员:00:204455:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="13" ActionType="LogMessage" LogMessageText="[23:21:17.100] StatusAdd 1A:642:混沌之风:68.00:E0000000::${l:party[4]}:队员:00:204455:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="14" ActionType="LogMessage" LogMessageText="[23:21:17.100] StatusAdd 1A:642:混沌之风:68.00:E0000000::${l:party[3]}:队员:00:204455:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="15" ActionType="LogMessage" LogMessageText="[23:21:17.100] StatusAdd 1A:643:混沌之逆风:68.00:E0000000::${l:party[2]}:队员:00:312276:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="16" ActionType="LogMessage" LogMessageText="[23:21:17.100] StatusAdd 1A:642:混沌之风:68.00:E0000000::${l:party[6]}:队员:00:226668:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="17" ActionType="LogMessage" LogMessageText="[23:21:17.100] StatusAdd 1A:641:混沌之水:46.00:E0000000::${l:party[7]}:队员:00:226458:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="18" ActionType="LogMessage" LogMessageText="[23:21:17.100] StatusAdd 1A:642:混沌之风:68.00:E0000000::${l:party[7]}:队员:00:226458:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="19" ActionType="LogMessage" LogMessageText="[23:21:17.100] StatusAdd 1A:640:混沌之炎:19.00:E0000000::${l:party[5]}:队员:00:227520:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="20" ActionType="LogMessage" LogMessageText="[23:21:17.100] StatusAdd 1A:642:混沌之风:68.00:E0000000::${l:party[5]}:队员:00:227520:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="21" ActionType="LogMessage" LogMessageText="[23:21:17.100] StatusAdd 1A:641:混沌之水:46.00:E0000000::${l:party[1]}:队员:00:325133:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="22" ActionType="LogMessage" LogMessageText="[23:21:17.100] StatusAdd 1A:642:混沌之风:68.00:E0000000::${l:party[1]}:队员:00:325133:" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="23" ActionType="LogMessage" LogMessageText="[23:21:17.025] _SpawnObject AAA:105:4000A231::1EC03C:109.9:109.9:0:-2.356:7" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="24" ActionType="LogMessage" LogMessageText="[23:21:17.025] _SpawnObject AAA:105:4000A230::1EC03B:90.1:109.9:0:2.356:7" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="25" ActionType="LogMessage" LogMessageText="[23:21:17.025] _SpawnObject AAA:105:4000A232::1EC03A:109.9:90.1:0:-0.786:7" LogProcess="True" LogProcessACT="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="61adf710-6db2-4186-94f6-e02df78414ec" Name="3. 获取火时长 + 处理 =&gt; 4" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;640):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):" PeriodRefire="Deny" RefirePeriodExpression="1000">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b31_b先火" VariableExpression="${t} &lt; 30" />
+<Action OrderNumber="2" ActionType="Placeholder" Description="等待法阵记录" DescriptionOverride="True" />
+<Action OrderNumber="3" ActionType="Placeholder" ExecutionDelayExpression="1000" />
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b31_b左火" VariableExpression="(${!v:U7b31_dirN4火} - ${!v:U7b31_dirN4风}) %% 4 = 1" />
+<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b31_自组" VariableExpression="${!v:U7b31_自type} == 无 ? 0 : ((${!v:U7b31_自type} == 火) = ${!v:U7b31_b先火} ? 1 : 2)" />
+<Action OrderNumber="6" ActionType="LogMessage" Asynchronous="False" LogMessageText="U7b31:dirN4风:${!v:U7b31_dirN4风}:b左火:${!v:U7b31_b左火}:b先火:${!v:U7b31_b先火}:组:${!v:U7b31_自组}:type:${!v:U7b31_自type}:b逆风:${!v:U7b31_b自逆风}" LogProcess="True" LogProcessACT="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="78b7f91c-dfd2-47df-9958-2394ff4708d3" Name="2.1 获取自身点名" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;64[0123]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="火 水 风 逆；水火 19/46、风/逆 68" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b31_b自逆风" VariableExpression="0x${aid} = 0x643">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0x${aid}" ExpressionTypeL="Numeric" ExpressionR="0x642" ExpressionTypeR="Numeric" ConditionType="NumericGreaterEqual" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="U7b31_自type" VariableExpression="${if: 0x${aid} = 0x640 ? 火 : 水 }">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0x${aid}" ExpressionTypeL="Numeric" ExpressionR="0x642" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+</Condition>
+</Action>
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="471f5d45-e297-4b5f-bc01-4c27fbfb3cde" Name="2.2 获取法阵" RegularExpression="^.{15}\S+ AAA:105:4.{7}:[^:]*:(?&lt;bnpcid&gt;1EC03[ABC]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="火水风" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b31_dirN4${?d: 1EC03A = 火, 1EC03B = 水, 1EC03C = 风 [${bnpcid}]}" VariableExpression="VecToDir(${x} - 100, ${y} - 100, -4)" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="7a47e38d-8be9-43ff-ac86-b01026cf29ea" Name="4.1 时间轴" RegularExpression="^U7b31:dirN4风:(?&lt;dirN4风&gt;[0-3]):b左火:(?&lt;b左火&gt;[01]):b先火:(?&lt;b先火&gt;[01]):组:(?&lt;组&gt;[0-2]):type:(?&lt;type&gt;[火水无]):b逆风:(?&lt;b逆风&gt;[01])" Description="[-22.6] 可选&#xD;&#xA;[-19.4] 防火墙&#xD;&#xA;[-5.0] 深层痛楚读条&#xD;&#xA;[0.0] 获得属性 buff&#xD;&#xA;[0.0] 生成法阵&#xD;&#xA;[12.1] 防火墙off&#xD;&#xA;[12.2] 钢铁读条&#xD;&#xA;[19.1] 1水火一段判定&#xD;&#xA;[19.2] 钢铁判定&#xD;&#xA;[20.1] 1水火二段判定&#xD;&#xA;[21.9] 风分摊判定 * 2&#xD;&#xA;[23.3] 死刑读条&#xD;&#xA;[28.4] 死刑1&#xD;&#xA;[31.5] 死刑2&#xD;&#xA;[36.1] 幻化读条&#xD;&#xA;[36.3] 经度聚爆读条&#xD;&#xA;[42.0] 聚爆1判定&#xD;&#xA;[42.0] 聚爆2判定&#xD;&#xA;[46.1] 2水火一段判定&#xD;&#xA;[47.1] 2水火二段判定&#xD;&#xA;[48.8] 风分摊判定 * 2&#xD;&#xA;[56.5] 真空波/本影爆碎读条&#xD;&#xA;[61.6] 本影爆碎判定&#xD;&#xA;[64.5] 真空波判定&#xD;&#xA;[68.5] 风分摊判定 * 4">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="时间轴见描述；触发相比于 buff 晚 1.0 s" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0:${?d: 0 = 闲人, 1 = 第一轮${type}点名, 2 = 第二轮${type}点名 [${组}]}" LogProcess="True" />
+<Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="_U7b31_拉怪_艾:2:dirN4:${dirN4风}" LogProcess="True" />
+<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="_U7b31_拉怪_卡:30.3:dir4:${n: (${dirN4风} - 0.5 + (${b左火} &amp;&amp; ${b先火} ? -0.5 : 0.5)) %% 4}" LogProcess="True" />
+<Action OrderNumber="5" ActionType="LogMessage" Asynchronous="False" LogMessageText="_U7b31_水火_1:6.0:t:12.1:dirN4风:${dirN4风}:b当前水火左:${n: ${b先火} = ${b左火}}:b当前火:${n: ${b先火}}:当前自type:${if: ${type} == 无 ? 无 : ${if: (${type} == 火) = ${b先火} ? 同 : 异 } }:b逆风:${b逆风}" LogProcess="True" />
+<Action OrderNumber="6" ActionType="LogMessage" Asynchronous="False" LogMessageText="_U7b31_水火_2:32.5:t:12.6:dirN4风:${dirN4风}:b当前水火左:${n: ${b先火} != ${b左火}}:b当前火:${n: !${b先火}}:当前自type:${if: ${type} == 无 ? 无 : ${if: (${type} == 火) = !${b先火} ? 同 : 异 } }:b逆风:${b逆风}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="7" ActionType="LogMessage" Asynchronous="False" LogMessageText="_U7b31_超级跳:47.8:dirN4:${n: (${dirN4风} + 2) %% 4}" LogProcess="True" />
+<Action OrderNumber="8" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:58:击退分摊，${if: ${type} == 无 ? &quot;&quot; : ${if: ${b逆风} ? 背对boss : 面对boss }}" LogProcess="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="de017f9a-58b8-42f5-9aeb-cac5b5a527e8" Name="4.2 拉怪（艾）" RegularExpression="^_U7b31_拉怪_艾:(?&lt;delay&gt;[^:]*):dirN4:(?&lt;dirN4风&gt;[0-3])">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="${delay} * 1000" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_一仇" VariableExpression="(0x${_entity[BNpcId = ${env:BNpcId艾}].TargetID} = 0x${_me.id}) &amp;&amp; ${_me.IsT}" />
+<Action OrderNumber="3" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="拉怪到${?l: 左上, 左下, 右下, 右上 [${dirN4风} + 1]}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_一仇}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;t: 5&#xD;&#xA;delay: 0&#xD;&#xA;O: 100, 100&#xD;&#xA;DirN4: ${dirN4风}&#xD;&#xA;Scale: 0.3, 20, 0.2&#xD;&#xA;Color: 1, 1, 1, 2">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_一仇}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="tmp_一仇" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="450c4c27-d616-45d9-9f0c-8f67f9254d83" Name="4.5 超级跳" RegularExpression="^_U7b31_超级跳:(?&lt;delay&gt;[^:]*):dirN4:(?&lt;dirN4风对侧&gt;[0-3])">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="${delay} * 1000" />
+<Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${?l: 左上, 左下, 右下, 右上 [${dirN4风对侧} + 1]}引导超级跳" />
+<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;t: 5&#xD;&#xA;delay: 0&#xD;&#xA;O: 100, 100&#xD;&#xA;DirN4: ${dirN4风对侧}&#xD;&#xA;Scale: 0.3, 20, 0.2&#xD;&#xA;Color: 1, 1, 1, 2" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:myIdx}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="64202c6e-307c-4d44-ab50-d2baa00655f2" Name="4.4 单轮水火" RegularExpression="^_U7b31_水火_(?&lt;n&gt;[12]):(?&lt;delay&gt;[^:]*):t:(?&lt;t&gt;[^:]*):dirN4风:(?&lt;dirN4风&gt;[0-3]):b当前水火左:(?&lt;b当前水火左&gt;[01]):b当前火:(?&lt;b当前火&gt;[01]):当前自type:(?&lt;当前自type&gt;无|同|异):b逆风:(?&lt;b逆风&gt;[01])">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="${delay} * 1000" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_text" VariableExpression="${?d:&#xD;&#xA;  无 = 准备找风球，两人分摊,&#xD;&#xA;  同 = 准备找${if: ${b当前火} ? 火球，放钢铁 : 水球，放月环 },&#xD;&#xA;  异 = 准备${if: ${b当前火} ? 场中吃火月环 : 靠近水点名吃钢铁 }，${if: ${b逆风} ? 背对 : 面对 }点名&#xD;&#xA;  [${当前自type}]&#xD;&#xA;}" />
+<Action OrderNumber="3" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${!v:tmp_text}" />
+<Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="hint" NamedCallbackParam="${t}&#xD;&#xA;${!v:tmp_text}" />
+<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="tmp_text" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="1002e6ed-568a-41b7-b00a-1fa4eadbc3f8" Name="4.3 拉怪（卡）" RegularExpression="^_U7b31_拉怪_卡:(?&lt;delay&gt;[^:]*):dir4:(?&lt;dir4间&gt;[0-3])">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="${delay} * 1000" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_一仇" VariableExpression="(0x${_entity[BNpcId = ${env:BNpcId卡}].TargetID} = 0x${_me.id}) &amp;&amp; ${_me.IsT}" />
+<Action OrderNumber="3" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="拉怪回中，朝${?l: 上北, 左西, 下南, 右东 [${dir4间} + 1]}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_一仇}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31&#xD;&#xA;Omen: yazirushi_laser_o0g2&#xD;&#xA;t: 5&#xD;&#xA;delay: 0&#xD;&#xA;O: 100, 100&#xD;&#xA;Dir4: ${dir4间}&#xD;&#xA;Scale: 3, 6, 1&#xD;&#xA;Color: 1, 1, 1, 2">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_一仇}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="tmp_一仇" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="a376c7bb-0bfb-4989-86b6-84e4fa6bf4a4" Name="点名绘制" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;64[01]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+<Actions>
+<Action OrderNumber="1" ActionType="Placeholder" Description="火 水 风 逆；水火 19/46、风/逆 68" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="(${t} - 3) * 1000" />
+<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b火" VariableExpression="0x${aid} = 0x640" />
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b反" VariableExpression="${v:U7b31_自type} == 火 &amp;&amp; !${!v:tmp_b火} || ${v:U7b31_自type} == 水 &amp;&amp; ${!v:tmp_b火}" />
+<Action OrderNumber="5" ActionType="Placeholder" Description="如果与自己相同 / 是闲人：只画月环不画钢铁" DescriptionOverride="True" />
+<Action OrderNumber="6" ActionType="Placeholder" Description="如果与自己相反：先危险后安全" DescriptionOverride="True" />
+<Action OrderNumber="7" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31&#xD;&#xA;t: 3&#xD;&#xA;delay: 0&#xD;&#xA;Omen: ${if: ${!v:tmp_b火} ? m0611_sircle_01x : gl_sircle_2010bf }&#xD;&#xA;Scale: ${!v:tmp_b火} ? 5 : 10&#xD;&#xA;Pos: ${tid}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${!v:tmp_b火}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${!v:tmp_b反}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="8" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31&#xD;&#xA;t: 4&#xD;&#xA;delay: 0&#xD;&#xA;Omen: ${if: ${!v:tmp_b火} ? gl_sircle_2010bf : m0611_sircle_01x }&#xD;&#xA;Scale: ${!v:tmp_b火} ? 10 : 5&#xD;&#xA;Pos: ${tid}&#xD;&#xA;Color: ${if: ${!v:tmp_b反} ? 0.5,1,5,1 : 1,1,1,1 }">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${!v:tmp_b火}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${!v:tmp_b反}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableName="tmp_b火" />
+<Action OrderNumber="10" ActionType="Variable" Asynchronous="False" VariableName="tmp_b反" />
 </Actions>
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="9bd6ceb9-efa4-4e9e-a170-12379b3a2971" Enabled="true" Name="P32 真空波 麻将" RawEnvironmentVariables="phase = P32">
+<Folder Id="9bd6ceb9-efa4-4e9e-a170-12379b3a2971" Enabled="true" Name="P3-2 真空波 麻将" RawEnvironmentVariables="phase = P32">
 <Triggers>
-<Trigger Enabled="true" Id="31839015-2d4b-413d-bde6-c4f7b44b09ad" Name="1. 记录究极真空波方向" RegularExpression="^.{15}\S+ 108:4.{7}:BAE3:[^:]*:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Trigger Enabled="true" Id="31839015-2d4b-413d-bde6-c4f7b44b09ad" Name="2. 处理" RegularExpression="^_U7b32:初dir8:(?&lt;初dir8&gt;[0-7]):b初顺:(?&lt;b初顺&gt;[01])">
 <Actions>
-<Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="U7b32_原始dir8" ListVariableExpression="RadToDir(${h} + π, 8)" />
-<Action OrderNumber="2" ActionType="Placeholder" Description="第二次：" DescriptionOverride="True" />
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b32_b原始顺" VariableExpression="(${!l:U7b32_原始dir8[1]} - ${!l:U7b32_原始dir8[2]}) %% 8 = 1">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${l:U7b32_原始dir8.size}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="Placeholder" Description="每轮处理出引导位置的 dir8" DescriptionOverride="True" />
-<Action OrderNumber="5" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="U7b32_引导dir8" ListVariableExpression="(${!l:U7b32_原始dir8[1]} + (0${v:U7b32_b原始顺} ? 1 : -1) * (${!l:U7b32_原始dir8.size} - 1) + 4) %% 8" />
+<Action OrderNumber="1" ActionType="Placeholder" Description="每轮引导位置的 dir8（如果解法中相对于对位偏的 22.5° 固定方向）" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="U7b32_引导dir8" ListVariableExpression="(${初dir8} + (${b初顺} ? 1 : -1) * (${_idx} - 1) + 4) %% 8" ListVariableIndex="8" />
+<Action OrderNumber="3" ActionType="Placeholder" Description="每轮引导位置的 dirN8（如果解法中相对于对位偏的 22.5° 跟随最终旋转方向）" DescriptionOverride="True" />
+<Action OrderNumber="4" ActionType="ListVariable" Asynchronous="False" ListVariableOp="SetAll" ListVariableExpressionType="Numeric" ListVariableName="U7b32_引导dirN8" ListVariableExpression="(${初dir8} + (${b初顺} ? 1 : -1) * (${_idx} - 1 + 0.5) + 4 - 0.5) %% 8" ListVariableIndex="8" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="cba89c83-0065-4d4c-9667-1f32f6089785" Name="2. 麻将点名" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;015[0123]|01B[5678]):">
+<Trigger Enabled="true" Id="cba89c83-0065-4d4c-9667-1f32f6089785" Name="3.2 麻将点名" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;015[0123]|01B[5678]):">
 <Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_i" VariableExpression="${?l: 0150, 0151, 0152, 0153, 01B5, 01B6, 01B7, 01B8 .indexof(${type})}" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="U7b32_自i" VariableExpression="${!v:tmp_i}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="U7b32_自引导dir8" VariableExpression="${!l:U7b32_引导dir8[${!v:U7b32_自i}]}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Action>
-<Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b32_指向&#xD;&#xA;t: 15&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;O: 100, 100&#xD;&#xA;Dir8: ${!v:U7b32_自引导dir8} + 0.5&#xD;&#xA;Target: 0, -20&#xD;&#xA;Scale: 0.3, _d, 0.2&#xD;&#xA;Color: 1, 1, 1, 2">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Action>
-<Action OrderNumber="5" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:5:去${?l: 上北, 左上, 左西, 左下, 下南, 右下, 右东, 右上 [${!v:U7b32_自引导dir8} + 1]}引导" LogProcess="True">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Action>
-<Action OrderNumber="6" ActionType="LogMessage" Asynchronous="False" LogMessageText="cd5:13" LogProcess="True">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-</Condition>
-</Action>
-<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableName="tmp_i" />
+<Action OrderNumber="1" Enabled="False" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_i" VariableExpression="${?l: 0150, 0151, 0152, 0153, 01B5, 01B6, 01B7, 01B8 .indexof(${type})}" />
+<Action OrderNumber="2" Enabled="False" ActionType="Variable" Asynchronous="False" VariableName="tmp_i" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="c72cb07d-8a0e-4b8b-88f6-7dac2592c237" Name="0. 初始化 真空波" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;BB13):">
@@ -1470,7 +1585,59 @@
 <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^U7b32" />
 </Actions>
 </Trigger>
-<Trigger Enabled="false" Id="df381ce0-9a03-4f84-b35f-c0369d06c03c" Name="Debug Log 2026-06-06 04:20" Source="None">
+<Trigger Enabled="false" Id="df381ce0-9a03-4f84-b35f-c0369d06c03c" Name="Debug Log 2026-06-06 04:20 初始逆" Source="None">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[20:43:23.657] StartsCasting 14:40002E0C:艾克斯迪司:BB13:真空波:40002E0C:艾克斯迪司:7.700:100.63:98.77:0.00:-3.13" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="0.71 * 1000" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[20:43:38.400] 264 108:40002E03:BAE3:00003A52:1:-0.015:-0.015:-0.015:-0.785:40002E03" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="4" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="[20:43:36.395] 264 108:40002E04:BAE3:00003A4F:1:-0.015:-0.015:-0.015:0.000:40002E04" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="2.01 * 1000" />
+<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="[20:43:34.393] 264 108:40002E05:BAE3:00003A4E:1:-0.015:-0.015:-0.015:0.785:40002E05" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="2.01 * 1000" />
+<Action OrderNumber="9" ActionType="LogMessage" LogMessageText="[20:43:32.388] 264 108:40002E06:BAE3:00003A4D:1:-0.015:-0.015:-0.015:1.571:40002E06" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000" />
+<Action OrderNumber="11" ActionType="LogMessage" LogMessageText="[20:43:30.383] 264 108:40002E07:BAE3:00003A4B:1:-0.015:-0.015:-0.015:2.356:40002E07" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="12" ActionType="Placeholder" ExecutionDelayExpression="2.01 * 1000" />
+<Action OrderNumber="13" ActionType="LogMessage" LogMessageText="[20:43:28.378] 264 108:40002E08:BAE3:00003A4A:1:-0.015:-0.015:-0.015:3.142:40002E08" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="14" ActionType="LogMessage" LogMessageText="[20:43:34.393] TargetIcon 1B:${_me.id}:玩家:0000:0000:0153:${_me.id}:0000:0000" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="15" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000" />
+<Action OrderNumber="16" ActionType="LogMessage" LogMessageText="[20:43:26.371] 264 108:40002E09:BAE3:00003A49:1:-0.015:-0.015:-0.015:-2.356:40002E09" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="17" ActionType="Placeholder" ExecutionDelayExpression="2.00 * 1000" />
+<Action OrderNumber="18" ActionType="LogMessage" LogMessageText="[20:43:24.371] 264 108:40002E0A:BAE3:00003A48:1:-0.015:-0.015:-0.015:-1.571:40002E0A" LogProcess="True" LogProcessACT="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="623e16fb-4b0c-4041-ba0c-6709fe732224" Name="3.1 麻将点名（自身）" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;015[0123]|01B[5678]):">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="U7b32_自i" VariableExpression="${?l: 0150, 0151, 0152, 0153, 01B5, 01B6, 01B7, 01B8 .indexof(${type})}" />
+<Action OrderNumber="2" ActionType="Placeholder" Description="确定引导位置的不同解法" DescriptionOverride="True" />
+<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_dirN8" VariableExpression="${!l:U7b32_引导dirN8[${!v:U7b32_自i}]}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${!pd:U7b_cfg.get(P3麻将_偏向, 跟随)}" ExpressionTypeL="String" ExpressionR="跟随" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_dirN8" VariableExpression="(${!l:U7b32_引导dir8[${!v:U7b32_自i}]} - 1) %% 8">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${!pd:U7b_cfg.get(P3麻将_偏向, 跟随)}" ExpressionTypeL="String" ExpressionR="顺" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_dirN8" VariableExpression="${!l:U7b32_引导dir8[${!v:U7b32_自i}]}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${!pd:U7b_cfg.get(P3麻将_偏向, 跟随)}" ExpressionTypeL="String" ExpressionR="逆" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Action>
+<Action OrderNumber="6" ActionType="Placeholder" DescriptionOverride="True" />
+<Action OrderNumber="7" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b32_指向&#xD;&#xA;t: 13.5&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;O: 100, 100&#xD;&#xA;DirN8: ${!v:tmp_dirN8}&#xD;&#xA;Target: 0, -20&#xD;&#xA;Scale: 0.3, _d, 0.2&#xD;&#xA;Color: 1, 1, 1, 2" />
+<Action OrderNumber="8" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug]&#xD;&#xA;i = ${v:U7b32_自i}&#xD;&#xA;原始dir8 = ${l:U7b32_原始dir8.join(&quot;&quot;)}&#xD;&#xA;引导dir8 = ${l:U7b32_引导dir8.join(&quot;&quot;)}&#xD;&#xA;引导dirN8 = ${l:U7b32_引导dirN8.join(&quot;&quot;)}&#xD;&#xA;tmp_dirN8 = ${v:tmp_dirN8}&#xD;&#xA;播报方向 = ${?l: 上偏左, 左偏上, 左偏下, 下偏左, 下偏右, 右偏下, 右偏上, 上偏右 [${!v:tmp_dirN8} + 1]}&#xD;&#xA;攻略选项 = ${pd:U7b_cfg[P3麻将_偏向]}" />
+<Action OrderNumber="9" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:5:去${?l: 上偏左, 左偏上, 左偏下, 下偏左, 下偏右, 右偏下, 右偏上, 上偏右 [${!v:tmp_dirN8} + 1]}引导" LogProcess="True" />
+<Action OrderNumber="10" ActionType="LogMessage" Asynchronous="False" LogMessageText="cd5:11.8" LogProcess="True" />
+<Action OrderNumber="11" ActionType="Variable" Asynchronous="False" VariableName="tmp_dirN8" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="false" Id="9b9cd04d-40f8-4230-843f-c3cb71df88b7" Name="Debug Log 2026-06-06 04:20 初始顺" Source="None">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[20:43:23.657] StartsCasting 14:40002E0C:艾克斯迪司:BB13:真空波:40002E0C:艾克斯迪司:7.700:100.63:98.77:0.00:-3.13" LogProcess="True" LogProcessACT="True" />
 <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="0.71 * 1000" />
@@ -1492,9 +1659,49 @@
 <Action OrderNumber="18" ActionType="LogMessage" LogMessageText="[20:43:38.400] 264 108:40002E03:BAE3:00003A52:1:-0.015:-0.015:-0.015:-0.785:40002E03" LogProcess="True" LogProcessACT="True" />
 </Actions>
 </Trigger>
+<Trigger Enabled="true" Id="e75a05a5-2ce2-44aa-9900-65ffe8f9e0cc" Name="1. 记录究极真空波方向 * 2 =&gt; 2" RegularExpression="^.{15}\S+ 108:4.{7}:BAE3:[^:]*:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Actions>
+<Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="U7b32_原始dir8" ListVariableExpression="RadToDir(${h} + π, 8)" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="_U7b32:初dir8:${!l:U7b32_原始dir8[1]}:b初顺:${n: (${!l:U7b32_原始dir8[1]} - ${!l:U7b32_原始dir8[2]}) %% 8 = 1}" LogProcess="True" LogProcessACT="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${l:U7b32_原始dir8.size}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="61c5a115-0ed6-4f21-8057-dbf634dbdd0a" Enabled="true" Name="P3-3 " RawEnvironmentVariables="phase = P33">
+<Triggers>
+<Trigger Enabled="true" Id="10855268-0823-468c-87fe-4d0586a6fa67" Name="0. 初始化 地震" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;C572):">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="U7b_phase" VariableExpression="${env:phase}" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^U7b33" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="0cf64a19-1d99-4689-8f82-99358a920203" Name="1. 响亮亮耳光" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BAE[67]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b打右" VariableExpression="0x${aid} = 0xBAE6" />
+<Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${!v:tmp_b打右} ? 右侧分摊 : 左侧职能分散 }" />
+<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31_响亮亮耳光_1&#xD;&#xA;t: 5.5&#xD;&#xA;Omen: m0347_sircle_01m1&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${h}&#xD;&#xA;KeepX: ${!v:tmp_b打右}&#xD;&#xA;Pos: 10, 10&#xD;&#xA;Scale: 13&#xD;&#xA;---&#xD;&#xA;Tag: U7b31_响亮亮耳光_1&#xD;&#xA;delay: 0.3&#xD;&#xA;t: 5.8&#xD;&#xA;Omen: m0347_sircle_01m1&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${h}&#xD;&#xA;KeepX: ${!v:tmp_b打右}&#xD;&#xA;Pos: 10, 0&#xD;&#xA;Scale: 13&#xD;&#xA;---&#xD;&#xA;Tag: U7b31_响亮亮耳光_1&#xD;&#xA;delay: 0.6&#xD;&#xA;t: 6.1&#xD;&#xA;Omen: m0347_sircle_01m1&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${h}&#xD;&#xA;KeepX: ${!v:tmp_b打右}&#xD;&#xA;Pos: 10, -10&#xD;&#xA;Scale: 13&#xD;&#xA;---&#xD;&#xA;Tag: U7b31_响亮亮耳光_1&#xD;&#xA;delay: 2.0&#xD;&#xA;t: 6.0&#xD;&#xA;Omen: m0347_sircle_01m1&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${h}&#xD;&#xA;KeepX: ${!v:tmp_b打右}&#xD;&#xA;Scale: 6" />
+<Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31_响亮亮耳光_摊&#xD;&#xA;t: 8&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${h} + π&#xD;&#xA;Angle: π/2&#xD;&#xA;Scale: 0.5, 20, 0.3&#xD;&#xA;Color: 1, 1, 1, 1.5">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${!v:tmp_b打右}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="5" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31_响亮亮耳光_T&#xD;&#xA;t: 8&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${h} + π&#xD;&#xA;Angle: -150°&#xD;&#xA;Scale: 0.5, 20, 0.3&#xD;&#xA;Color: 1, 1, 2, 0.7&#xD;&#xA;---&#xD;&#xA;Tag: U7b31_响亮亮耳光_H&#xD;&#xA;t: 8&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${h} + π&#xD;&#xA;Angle: -90°&#xD;&#xA;Scale: 0.5, 20, 0.3&#xD;&#xA;Color: 1, 2, 1, 0.7&#xD;&#xA;---&#xD;&#xA;Tag: U7b31_响亮亮耳光_H&#xD;&#xA;t: 8&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;O: 100, 100&#xD;&#xA;θ: ${h} + π&#xD;&#xA;Angle: -30°&#xD;&#xA;Scale: 0.5, 20, 0.3&#xD;&#xA;Color: 2, 1, 1, 0.7">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${!v:tmp_b打右}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableName="tmp_b打右" />
+</Actions>
+</Trigger>
 </Triggers>
 </Folder>
 </Folders>
+</Folder>
+<Folder Id="4800f5ed-9dda-4dad-8b92-403b62352b2f" Enabled="true" Name="P4">
 <Triggers>
 <Trigger Enabled="true" Id="bf7cfb8c-d0e7-4a20-8521-9573280676f6" Name="蓝/紫多面体" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;131[78]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;[^:]+):">
 <Actions>
