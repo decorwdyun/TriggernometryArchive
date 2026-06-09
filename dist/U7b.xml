@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TriggernometryExport PluginVersion="2.1.1.2">
-  <ExportedFolder Id="397aeed8-23a9-42e0-90f3-7a6aa02c46a0" Enabled="true" Name="U7b 绝妖星宝宝椅 v0.9.1 [制作中]" RawEnvironmentVariables="prefix = U7b&#13;&#10;alias = U7b,绝妖星&#13;&#10;zone = 1363&#13;&#10;version = 0.9.1">
+  <ExportedFolder Id="397aeed8-23a9-42e0-90f3-7a6aa02c46a0" Enabled="true" Name="U7b 绝妖星宝宝椅 v0.10.0 [制作中]" RawEnvironmentVariables="prefix = U7b&#13;&#10;alias = U7b,绝妖星&#13;&#10;zone = 1363&#13;&#10;version = 0.10.0">
     <Folders>
       <Folder Id="fa14eceb-0ab5-4387-bfbe-b1804a1916bb" Enabled="true" Name=".总体控制">
         <Folders>
@@ -17,7 +17,7 @@
               <Trigger Enabled="true" Id="2dac4c29-aec5-4d5b-b20e-183c8d651943" Name="[F] 注册并打开配置" RegularExpression="^(?&lt;prefix&gt;[^[:_]+)_cfg$" PeriodRefire="Deny" RefirePeriodExpression="5000" Sequential="True">
                 <Actions>
                   <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="正在开启配置"/>
-                  <Action OrderNumber="2" ActionType="ExecuteScript" ExecScriptExpression="using System;&#13;&#10;using System.Drawing;&#13;&#10;using System.Linq;&#13;&#10;using System.Threading;&#13;&#10;using System.Windows.Forms;&#13;&#10;using Triggernometry.Core;&#13;&#10;using Triggernometry.PluginBridges;&#13;&#10;using Triggernometry.UI.CustomControls;&#13;&#10;using Triggernometry.UI.Forms;&#13;&#10;using static Triggernometry.UI.Forms.GameConfigForm;&#13;&#10;&#13;&#10;RealPlugin.Instance.RegisterNamedCallback(U7bEntry.Info.ConfigName, new Action&lt;object, string&gt;((_, __) =&gt; U7bEntry.Start()), null);&#13;&#10;&#13;&#10;public static class U7bEntry&#13;&#10;{&#13;&#10;    public static ConfigInfo Info = new ConfigInfo(&quot;绝妖星宝宝椅&quot;, &quot;${env:version}&quot;, &quot;阿洛&quot;, &quot;${env:prefix}_cfg&quot;);&#13;&#10;    static Color Blue = Color.FromArgb(0x22, 0x66, 0xff);&#13;&#10;    public static void RunConfigForm()&#13;&#10;    {&#13;&#10;        try { _RunConfigForm(); }&#13;&#10;        catch (Exception ex)&#13;&#10;        {&#13;&#10;            MessageBox.Show(&quot;配置界面运行时遇到问题：\n\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#13;&#10;        }&#13;&#10;    }&#13;&#10;&#13;&#10;    private static void _RunConfigForm()&#13;&#10;    {&#13;&#10;        GameConfigForm form = new GameConfigForm(Info);&#13;&#10;        form.Shown += (sender, e) =&gt; RealPlugin.Instance.InvokeNamedCallback(&quot;command&quot;, &quot;/e &lt;se.9&gt;&quot;);&#13;&#10;&#13;&#10;        BijectDictionary&lt;string, string&gt; cbxItems;&#13;&#10;        Option optionCtrl;&#13;&#10;        Label label;&#13;&#10;        string hint = &quot;&quot;;&#13;&#10;        // 在下面倒序添加各个选项组（组内的选项正序）&#13;&#10;&#13;&#10;        /*&#13;&#10;         &#13;&#10;        // cbx：指挥模式&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;2&quot;, &quot; 为全队标点&quot;),&#13;&#10;            (&quot;1&quot;, &quot; 为全队标点（但标点后本地取消所有标点）&quot;),&#13;&#10;            (&quot;0&quot;, &quot; 不开启标点&quot;),&#13;&#10;            (&quot;-1&quot;, &quot; 不开启标点（且被标点后本地取消所有标点）&quot;),&#13;&#10;            (&quot;-2&quot;, &quot; 不开启标点（且被标点后强制非本地清除所有标点）&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　指挥模式&quot;, &quot;标点mode&quot;, cbxItems, &quot;-1&quot;, hint);&#13;&#10;        form.AddOption(optionCtrl, table);&#13;&#10;&#13;&#10;        // 添加 label&#13;&#10;        form.AddLabel(&quot;　标签文字&quot;, table).ForeColor = Color.Aquamarine;&#13;&#10;&#13;&#10;        // 添加选项框&#13;&#10;        optionCtrl = new OptionChk(&quot;　选项框提示语 &quot;, &quot;keyName&quot;, true, hint);&#13;&#10;        form.AddOption(optionCtrl, table);&#13;&#10;         */&#13;&#10;&#13;&#10;        #region 配置：P3&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableP3 = form.AddOptionGroup(&quot; P3 &quot;);&#13;&#10;&#13;&#10;        form.AddLabel(&quot;P3 一运采用正攻解法。&quot;, tableP3).ForeColor = Blue;&#13;&#10;&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;跟随&quot;, &quot; 跟随第二轮转向&quot;),&#13;&#10;            (&quot;顺&quot;, &quot; 固定偏顺时针 ↻&quot;),&#13;&#10;            (&quot;逆&quot;, &quot; 固定偏逆时针 ↺&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　引导麻将去自己分身对位后，偏 22.5° 的方向&quot;, &quot;P3麻将_偏向&quot;, cbxItems, &quot;跟随&quot;, hint);&#13;&#10;        form.AddOption(optionCtrl, tableP3);&#13;&#10;&#13;&#10;        #endregion 配置：P3&#13;&#10;&#13;&#10;        #region 配置：P2&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableP2 = form.AddOptionGroup(&quot; P2 &quot;);&#13;&#10;        var link = &quot;https://docs.qq.com/doc/DTFBPRkJ0bVFoeGVV&quot;;&#13;&#10;        var label1 = form.AddLabel(&quot;P2 遗弃末世 参考此文档的整合解法（双击复制）：\n&quot; + link, tableP2);&#13;&#10;        label1.ForeColor = Blue;&#13;&#10;        label1.DoubleClick += (sender, e) =&gt;&#13;&#10;        {&#13;&#10;            Clipboard.SetText(link);&#13;&#10;            MessageBox.Show(&quot;已复制链接。&quot;, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Information);&#13;&#10;        };&#13;&#10;&#13;&#10;        form.AddLabel(&quot;此机制现在不会适配其他任何解法。&quot;, tableP2).ForeColor = Color.FromArgb(192, 0, 0);&#13;&#10;        form.AddLabel(&quot;如果你想听播报，请认准此解法。\n开队建议注明“融合优化 2222 闲人固定 不摇号”，或附带文档链接。&quot;, tableP2);&#13;&#10;&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;0&quot;, &quot; 初始扇形左 初始钢铁右&quot;),&#13;&#10;            (&quot;1&quot;, &quot; TH 左 DPS 右&quot;)&#13;&#10;        );&#13;&#10;        hint = &quot;文档中按照 TH 左 DPS 右固定站位，即站位只和职能相关，省去机制相关的判断；\n但也有现行攻略这里沿用左扇形右钢铁。&quot;;&#13;&#10;        optionCtrl = new OptionCbx(&quot;　闲人处理机制时的左右站位&quot;, &quot;P2塔_b闲人TH左D右&quot;, cbxItems, &quot;1&quot;, hint);&#13;&#10;        form.AddOption(optionCtrl, tableP2);&#13;&#10;&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;0&quot;, &quot; 正北顺时针找第一个初始三角&quot;),&#13;&#10;            (&quot;1&quot;, &quot; 正北逆时针找第一个初始三角&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　双 T 处理死刑的三角方向&quot;, &quot;P2_b逆找三角&quot;, cbxItems, &quot;0&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableP2);&#13;&#10;&#13;&#10;        #endregion 配置：P2&#13;&#10;&#13;&#10;        #region 配置：P1&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableP1 = form.AddOptionGroup(&quot; P1 &quot;);&#13;&#10;&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;0&quot;, &quot; TH 左 DPS 右&quot;),&#13;&#10;            (&quot;1&quot;, &quot; 闲人上 击退下&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　真假冰火分组&quot;, &quot;P1冰火_b按击退分组&quot;, cbxItems, &quot;1&quot;, hint);&#13;&#10;        form.AddOption(optionCtrl, tableP1);&#13;&#10;&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;1A&quot;, &quot; 1A 式&quot;),&#13;&#10;            (&quot;1A改&quot;, &quot; 1A 改&quot;),&#13;&#10;            (&quot;方逆&quot;, &quot; 大正方形 逆时针（盗火）&quot;),&#13;&#10;            (&quot;方顺&quot;, &quot; 大正方形 顺时针（美服）&quot;)&#13;&#10;        );&#13;&#10;        hint = &quot;1A 式：同向箭头外正/外斜，异向箭头内正/内斜\n1A 改：同向箭头内斜/外斜，异向箭头内正/外正&quot;;&#13;&#10;        optionCtrl = new OptionCbx(&quot;　箭头解法&quot;, &quot;P1箭头解法&quot;, cbxItems, &quot;方逆&quot;, hint);&#13;&#10;        form.AddOption(optionCtrl, tableP1);&#13;&#10;&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;0&quot;, &quot; 面向 Boss，TH 左 DPS 右&quot;),&#13;&#10;            (&quot;1&quot;, &quot; 固定式 场地基准（未适配）&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　真假雷火站位&quot;, &quot;P1雷火_b固定&quot;, cbxItems, &quot;1&quot;, hint);&#13;&#10;        form.AddOption(optionCtrl, tableP1);&#13;&#10;&#13;&#10;        #endregion 配置：P1&#13;&#10;        /*&#13;&#10;        #region 配置：通用选项&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableGeneral = form.AddOptionGroup(&quot; 通用选项 &quot;);&#13;&#10;&#13;&#10;        // 开场自动标点&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;2&quot;, &quot; 公开标点（北侧顺时针 1A2、半径 10.0 m）&quot;),&#13;&#10;            (&quot;1&quot;, &quot; 本地标点（同上，队里使用其他标点时可以本地覆盖掉）&quot;),&#13;&#10;            (&quot;0&quot;, &quot; 不开启标点&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;开场自动应用标准场地标点（防内鬼标点）&quot;, &quot;P0场地标点mode&quot;, cbxItems, &quot;2&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableGeneral);&#13;&#10;        &#13;&#10;        // P1 校准小队&#13;&#10;        hint = &quot;在……时检查全员站位，如果与设置不符则报错并自动修正。\n魔改站位时不要开。&quot;;&#13;&#10;        optionCtrl = new OptionChk(&quot;开场八方时检查并修正小队&quot;, &quot;P1修复小队on&quot;, true, hint);&#13;&#10;        form.AddOption(optionCtrl, tableGeneral);&#13;&#10;        &#13;&#10;&#13;&#10;        #endregion 配置：通用选项&#13;&#10;        */&#13;&#10;&#13;&#10;        #region 配置：文本频道&#13;&#10;        OptionsTableLayoutPanel tableChannel = form.AddOptionGroup(&quot; 文本频道 &quot;);&#13;&#10;        var cnlItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;&quot;, &quot; （禁用）&quot;), (&quot;p&quot;, &quot; 小队&quot;), (&quot;e&quot;, &quot; 默语&quot;), (&quot;fc&quot;, &quot; 部队&quot;),&#13;&#10;            (&quot;l1&quot;, &quot; 通讯贝1&quot;), (&quot;l2&quot;, &quot; 通讯贝2&quot;), (&quot;l3&quot;, &quot; 通讯贝3&quot;), (&quot;l4&quot;, &quot; 通讯贝4&quot;),&#13;&#10;            (&quot;l5&quot;, &quot; 通讯贝5&quot;), (&quot;l6&quot;, &quot; 通讯贝6&quot;), (&quot;l7&quot;, &quot; 通讯贝7&quot;), (&quot;l8&quot;, &quot; 通讯贝8&quot;),&#13;&#10;            (&quot;cwl1&quot;, &quot; 跨服通讯贝1&quot;), (&quot;cwl2&quot;, &quot; 跨服通讯贝2&quot;), (&quot;cwl3&quot;, &quot; 跨服通讯贝3&quot;), (&quot;cwl4&quot;, &quot; 跨服通讯贝4&quot;),&#13;&#10;            (&quot;cwl5&quot;, &quot; 跨服通讯贝5&quot;), (&quot;cwl6&quot;, &quot; 跨服通讯贝6&quot;), (&quot;cwl7&quot;, &quot; 跨服通讯贝7&quot;), (&quot;cwl8&quot;, &quot; 跨服通讯贝8&quot;)&#13;&#10;        );&#13;&#10;        var cnlPublicItems = cnlItems.ShallowCopy();&#13;&#10;        cnlPublicItems.RemoveKey(&quot;&quot;);&#13;&#10;        var cnlDebugItems = cnlItems.ShallowCopy();&#13;&#10;        cnlDebugItems.RemoveKey(&quot;p&quot;);&#13;&#10;        var cnlPrivateItems = cnlItems.ShallowCopy();&#13;&#10;        cnlPrivateItems.RemoveKey(&quot;p&quot;);&#13;&#10;        cnlPrivateItems.RemoveKey(&quot;&quot;);&#13;&#10;&#13;&#10;        OptionCbx cnlPublic = new OptionCbx(&quot;公共频道&quot;, &quot;cnlPublic&quot;, cnlPublicItems, &quot;e&quot;,&#13;&#10;            hint: &quot;本频道用于播报部分机制、示意图、复盘信息等机制相关内容。\n\n默认设为自己可见的默语频道，\n如有需要可设为小队等。\n\n当开启了某个阶段的指挥模式时，相关播报所用的频道会无视此项设置，覆盖为小队频道。&quot;);&#13;&#10;        OptionCbx cnlPrivate = new OptionCbx(&quot;个人频道&quot;, &quot;cnlPrivate&quot;, cnlPrivateItems, &quot;e&quot;,&#13;&#10;            hint: &quot;本频道用于发送仅应自己可见的系统提示消息。\n\n本项设置不应选择任何其他人可见的频道。&quot;);&#13;&#10;        OptionCbx cnlDebug = new OptionCbx(&quot;调试频道&quot;, &quot;cnlDebug&quot;, cnlDebugItems, &quot;&quot;,&#13;&#10;            hint: &quot;本频道用于发送额外调试信息。\n\n请设置为仅自己可见的频道，或将其关闭。\n\n（测试版暂不提供关闭选项）&quot;);&#13;&#10;        form.AddOption(cnlPublic, tableChannel);&#13;&#10;        form.AddOption(cnlPrivate, tableChannel);&#13;&#10;        form.AddOption(cnlDebug, tableChannel);&#13;&#10;&#13;&#10;        #endregion 配置：文本频道&#13;&#10;&#13;&#10;        #region 使用须知&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableInfo = form.AddOptionGroup(&quot; 使用须知 &quot;);&#13;&#10;&#13;&#10;        form.AddLabel(&quot;· 使用前必须查看使用说明，见此绝本触发器分组下的「使用说明」触发器。&quot;, tableInfo)&#13;&#10;            .ForeColor = Blue;&#13;&#10;&#13;&#10;        label = form.AddLabel(&quot;· 下方部分选项上悬停鼠标可以显示详细说明。&quot;, tableInfo);&#13;&#10;        label.ForeColor = Blue;&#13;&#10;&#13;&#10;        #endregion 使用须知&#13;&#10;&#13;&#10;        #region 配置：队员顺序&#13;&#10;        if (BridgeFFXIV.ZoneID == int.Parse(&quot;0${env:zone}&quot;) &amp;&amp; Triggernometry.FFXIV.Entity.GetEntities().Any(e =&gt; e.InParty))&#13;&#10;        {&#13;&#10;            string[] playerDescriptions = { &quot;MT&quot;, &quot;ST&quot;, &quot;H1&quot;, &quot;H2&quot;, &quot;D1&quot;, &quot;D2&quot;, &quot;D3&quot;, &quot;D4&quot; };&#13;&#10;            var pListPanel = new PartyListPanel(playerDescriptions);&#13;&#10;            form.AddPartyGroup(&quot; 队员顺序（拖拽调整） &quot;, pListPanel);&#13;&#10;        }&#13;&#10;        #endregion 配置：队员顺序&#13;&#10;&#13;&#10;        Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#13;&#10;        form.Run();&#13;&#10;    }&#13;&#10;&#13;&#10;    [STAThread]&#13;&#10;    public static void Start()&#13;&#10;    {&#13;&#10;        try&#13;&#10;        {&#13;&#10;            Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#13;&#10;            Thread staThread = new Thread(new ThreadStart(RunConfigForm));&#13;&#10;            staThread.SetApartmentState(ApartmentState.STA);&#13;&#10;            staThread.Start();&#13;&#10;            staThread.Join();&#13;&#10;        }&#13;&#10;        catch (Exception ex)&#13;&#10;        {&#13;&#10;            MessageBox.Show(&quot;用户配置表单运行错误：\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#13;&#10;        }&#13;&#10;    }&#13;&#10;}&#13;&#10;&#13;&#10;">
+                  <Action OrderNumber="2" ActionType="ExecuteScript" ExecScriptExpression="using System;&#13;&#10;using System.Drawing;&#13;&#10;using System.Linq;&#13;&#10;using System.Threading;&#13;&#10;using System.Windows.Forms;&#13;&#10;using Triggernometry.Core;&#13;&#10;using Triggernometry.PluginBridges;&#13;&#10;using Triggernometry.UI.CustomControls;&#13;&#10;using Triggernometry.UI.Forms;&#13;&#10;using static Triggernometry.UI.Forms.GameConfigForm;&#13;&#10;&#13;&#10;RealPlugin.Instance.RegisterNamedCallback(U7bEntry.Info.ConfigName, new Action&lt;object, string&gt;((_, __) =&gt; U7bEntry.Start()), null);&#13;&#10;&#13;&#10;public static class U7bEntry&#13;&#10;{&#13;&#10;    public static ConfigInfo Info = new ConfigInfo(&quot;绝妖星宝宝椅&quot;, &quot;${env:version}&quot;, &quot;阿洛&quot;, &quot;${env:prefix}_cfg&quot;);&#13;&#10;    static Color Blue = Color.FromArgb(0x22, 0x66, 0xff);&#13;&#10;    public static void RunConfigForm()&#13;&#10;    {&#13;&#10;        try { _RunConfigForm(); }&#13;&#10;        catch (Exception ex)&#13;&#10;        {&#13;&#10;            MessageBox.Show(&quot;配置界面运行时遇到问题：\n\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#13;&#10;        }&#13;&#10;    }&#13;&#10;&#13;&#10;    private static void _RunConfigForm()&#13;&#10;    {&#13;&#10;        GameConfigForm form = new GameConfigForm(Info);&#13;&#10;        form.Shown += (sender, e) =&gt; RealPlugin.Instance.InvokeNamedCallback(&quot;command&quot;, &quot;/e &lt;se.9&gt;&quot;);&#13;&#10;&#13;&#10;        BijectDictionary&lt;string, string&gt; cbxItems;&#13;&#10;        Option optionCtrl;&#13;&#10;        Label label;&#13;&#10;        string hint = &quot;&quot;;&#13;&#10;        // 在下面倒序添加各个选项组（组内的选项正序）&#13;&#10;&#13;&#10;        /*&#13;&#10;         &#13;&#10;        // cbx：指挥模式&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;2&quot;, &quot; 为全队标点&quot;),&#13;&#10;            (&quot;1&quot;, &quot; 为全队标点（但标点后本地取消所有标点）&quot;),&#13;&#10;            (&quot;0&quot;, &quot; 不开启标点&quot;),&#13;&#10;            (&quot;-1&quot;, &quot; 不开启标点（且被标点后本地取消所有标点）&quot;),&#13;&#10;            (&quot;-2&quot;, &quot; 不开启标点（且被标点后强制非本地清除所有标点）&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　指挥模式&quot;, &quot;标点mode&quot;, cbxItems, &quot;-1&quot;, hint);&#13;&#10;        form.AddOption(optionCtrl, table);&#13;&#10;&#13;&#10;        // 添加 label&#13;&#10;        form.AddLabel(&quot;　标签文字&quot;, table).ForeColor = Color.Aquamarine;&#13;&#10;&#13;&#10;        // 添加选项框&#13;&#10;        optionCtrl = new OptionChk(&quot;　选项框提示语 &quot;, &quot;keyName&quot;, true, hint);&#13;&#10;        form.AddOption(optionCtrl, table);&#13;&#10;         */&#13;&#10;&#13;&#10;        #region 配置：P3&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableP3 = form.AddOptionGroup(&quot; P3 &quot;);&#13;&#10;&#13;&#10;        form.AddLabel(&quot;P3 一运目前采用盗火正攻解法，暂不支持逃课。&quot;, tableP3).ForeColor = Blue;&#13;&#10;&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;跟随&quot;, &quot; 跟随第二轮转向&quot;),&#13;&#10;            (&quot;顺&quot;, &quot; 固定偏顺时针 ↻&quot;),&#13;&#10;            (&quot;逆&quot;, &quot; 固定偏逆时针 ↺&quot;)&#13;&#10;        );&#13;&#10;        hint = &quot;去自己麻将点名所对应的直条分身的正对面后，需要偏 22.5° 到正斜点之间，选择此偏转方向的确定方式。&quot;;&#13;&#10;        optionCtrl = new OptionCbx(&quot;　[一运麻将] 引导位置偏向&quot;, &quot;P3麻将_偏向&quot;, cbxItems, &quot;跟随&quot;, hint);&#13;&#10;        form.AddOption(optionCtrl, tableP3);&#13;&#10;&#13;&#10;        hint = &quot;优先级 MT &gt; ... &gt; D4；\n一组攻击 1-3、二组锁链 1-3、三组禁止 1-2&quot;;&#13;&#10;        optionCtrl = new OptionChk(&quot;　[二运黑洞] 自动为自己按 THD 优先级摇号&quot;, &quot;P3黑洞_b摇号&quot;, false, hint);&#13;&#10;        form.AddOption(optionCtrl, tableP3);&#13;&#10;&#13;&#10;        #endregion 配置：P3&#13;&#10;&#13;&#10;        #region 配置：P2&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableP2 = form.AddOptionGroup(&quot; P2 &quot;);&#13;&#10;        var link = &quot;https://docs.qq.com/doc/DTFBPRkJ0bVFoeGVV&quot;;&#13;&#10;        var label1 = form.AddLabel(&quot;　[遗弃末世] 参考此文档的整合解法（双击复制）：\n　&quot; + link, tableP2);&#13;&#10;        label1.ForeColor = Blue;&#13;&#10;        label1.DoubleClick += (sender, e) =&gt;&#13;&#10;        {&#13;&#10;            Clipboard.SetText(link);&#13;&#10;            MessageBox.Show(&quot;已复制链接。&quot;, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Information);&#13;&#10;        };&#13;&#10;&#13;&#10;        form.AddLabel(&quot;　此机制现在不会适配其他任何解法。&quot;, tableP2).ForeColor = Color.FromArgb(192, 0, 0);&#13;&#10;        form.AddLabel(&quot;　如果你想听播报，请认准此解法。\n　开队建议注明“融合优化 2222 闲人固定 不摇号”，或附带文档链接。&quot;, tableP2);&#13;&#10;&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;0&quot;, &quot; 初始扇形左 初始钢铁右&quot;),&#13;&#10;            (&quot;1&quot;, &quot; TH 左 DPS 右&quot;)&#13;&#10;        );&#13;&#10;        hint = &quot;文档中按照 TH 左 DPS 右固定站位，即站位只和职能相关，省去机制相关的判断；\n但也有现行攻略这里沿用左扇形右钢铁。&quot;;&#13;&#10;        optionCtrl = new OptionCbx(&quot;　[遗弃末世] 闲人处理机制时的左右站位&quot;, &quot;P2塔_b闲人TH左D右&quot;, cbxItems, &quot;1&quot;, hint);&#13;&#10;        form.AddOption(optionCtrl, tableP2);&#13;&#10;&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;0&quot;, &quot; 正北顺时针找第一个初始三角&quot;),&#13;&#10;            (&quot;1&quot;, &quot; 正北逆时针找第一个初始三角&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　[异三角] 双 T 处理死刑的方向&quot;, &quot;P2_b逆找三角&quot;, cbxItems, &quot;1&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableP2);&#13;&#10;        form.AddLabel(&quot;　注：为了给死刑留出充足位置，人群并非固定顺/逆，而是优先选择不与 T 相邻的安全区。&quot;, tableP2);&#13;&#10;        form.AddLabel(&quot;&quot;, tableP2);&#13;&#10;        #endregion 配置：P2&#13;&#10;&#13;&#10;        #region 配置：P1&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableP1 = form.AddOptionGroup(&quot; P1 &quot;);&#13;&#10;&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;0&quot;, &quot; TH 左 DPS 右&quot;),&#13;&#10;            (&quot;1&quot;, &quot; 闲人上 击退下&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　[真假冰火] 分组方式&quot;, &quot;P1冰火_b按击退分组&quot;, cbxItems, &quot;1&quot;, hint);&#13;&#10;        form.AddOption(optionCtrl, tableP1);&#13;&#10;&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;1A&quot;, &quot; 1A 式&quot;),&#13;&#10;            (&quot;1A改&quot;, &quot; 1A 改&quot;),&#13;&#10;            (&quot;方逆&quot;, &quot; 大正方形 逆时针（盗火）&quot;),&#13;&#10;            (&quot;方顺&quot;, &quot; 大正方形 顺时针（美服）&quot;)&#13;&#10;        );&#13;&#10;        hint = &quot;1A 式：同向箭头外正/外斜，异向箭头内正/内斜\n1A 改：同向箭头内斜/外斜，异向箭头内正/外正&quot;;&#13;&#10;        optionCtrl = new OptionCbx(&quot;　[箭头] 解法&quot;, &quot;P1箭头解法&quot;, cbxItems, &quot;方逆&quot;, hint);&#13;&#10;        form.AddOption(optionCtrl, tableP1);&#13;&#10;&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;0&quot;, &quot; 面向 Boss，TH 左 DPS 右&quot;),&#13;&#10;            (&quot;1&quot;, &quot; 固定式 场地基准（未适配）&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;　[真假雷火] 站位&quot;, &quot;P1雷火_b固定&quot;, cbxItems, &quot;1&quot;, hint);&#13;&#10;        form.AddOption(optionCtrl, tableP1);&#13;&#10;&#13;&#10;        #endregion 配置：P1&#13;&#10;        /*&#13;&#10;        #region 配置：通用选项&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableGeneral = form.AddOptionGroup(&quot; 通用选项 &quot;);&#13;&#10;&#13;&#10;        // 开场自动标点&#13;&#10;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;2&quot;, &quot; 公开标点（北侧顺时针 1A2、半径 10.0 m）&quot;),&#13;&#10;            (&quot;1&quot;, &quot; 本地标点（同上，队里使用其他标点时可以本地覆盖掉）&quot;),&#13;&#10;            (&quot;0&quot;, &quot; 不开启标点&quot;)&#13;&#10;        );&#13;&#10;        optionCtrl = new OptionCbx(&quot;开场自动应用标准场地标点（防内鬼标点）&quot;, &quot;P0场地标点mode&quot;, cbxItems, &quot;2&quot;);&#13;&#10;        form.AddOption(optionCtrl, tableGeneral);&#13;&#10;        &#13;&#10;        // P1 校准小队&#13;&#10;        hint = &quot;在……时检查全员站位，如果与设置不符则报错并自动修正。\n魔改站位时不要开。&quot;;&#13;&#10;        optionCtrl = new OptionChk(&quot;开场八方时检查并修正小队&quot;, &quot;P1修复小队on&quot;, true, hint);&#13;&#10;        form.AddOption(optionCtrl, tableGeneral);&#13;&#10;        &#13;&#10;&#13;&#10;        #endregion 配置：通用选项&#13;&#10;        */&#13;&#10;&#13;&#10;        #region 配置：文本频道&#13;&#10;        OptionsTableLayoutPanel tableChannel = form.AddOptionGroup(&quot; 文本频道 &quot;);&#13;&#10;        var cnlItems = new BijectDictionary&lt;string, string&gt;(&#13;&#10;            (&quot;&quot;, &quot; （禁用）&quot;), (&quot;p&quot;, &quot; 小队&quot;), (&quot;e&quot;, &quot; 默语&quot;), (&quot;fc&quot;, &quot; 部队&quot;),&#13;&#10;            (&quot;l1&quot;, &quot; 通讯贝1&quot;), (&quot;l2&quot;, &quot; 通讯贝2&quot;), (&quot;l3&quot;, &quot; 通讯贝3&quot;), (&quot;l4&quot;, &quot; 通讯贝4&quot;),&#13;&#10;            (&quot;l5&quot;, &quot; 通讯贝5&quot;), (&quot;l6&quot;, &quot; 通讯贝6&quot;), (&quot;l7&quot;, &quot; 通讯贝7&quot;), (&quot;l8&quot;, &quot; 通讯贝8&quot;),&#13;&#10;            (&quot;cwl1&quot;, &quot; 跨服通讯贝1&quot;), (&quot;cwl2&quot;, &quot; 跨服通讯贝2&quot;), (&quot;cwl3&quot;, &quot; 跨服通讯贝3&quot;), (&quot;cwl4&quot;, &quot; 跨服通讯贝4&quot;),&#13;&#10;            (&quot;cwl5&quot;, &quot; 跨服通讯贝5&quot;), (&quot;cwl6&quot;, &quot; 跨服通讯贝6&quot;), (&quot;cwl7&quot;, &quot; 跨服通讯贝7&quot;), (&quot;cwl8&quot;, &quot; 跨服通讯贝8&quot;)&#13;&#10;        );&#13;&#10;        var cnlPublicItems = cnlItems.ShallowCopy();&#13;&#10;        cnlPublicItems.RemoveKey(&quot;&quot;);&#13;&#10;        var cnlDebugItems = cnlItems.ShallowCopy();&#13;&#10;        cnlDebugItems.RemoveKey(&quot;p&quot;);&#13;&#10;        var cnlPrivateItems = cnlItems.ShallowCopy();&#13;&#10;        cnlPrivateItems.RemoveKey(&quot;p&quot;);&#13;&#10;        cnlPrivateItems.RemoveKey(&quot;&quot;);&#13;&#10;&#13;&#10;        OptionCbx cnlPublic = new OptionCbx(&quot;公共频道&quot;, &quot;cnlPublic&quot;, cnlPublicItems, &quot;e&quot;,&#13;&#10;            hint: &quot;本频道用于播报部分机制、示意图、复盘信息等机制相关内容。\n\n默认设为自己可见的默语频道，\n如有需要可设为小队等。\n\n当开启了某个阶段的指挥模式时，相关播报所用的频道会无视此项设置，覆盖为小队频道。&quot;);&#13;&#10;        OptionCbx cnlPrivate = new OptionCbx(&quot;个人频道&quot;, &quot;cnlPrivate&quot;, cnlPrivateItems, &quot;e&quot;,&#13;&#10;            hint: &quot;本频道用于发送仅应自己可见的系统提示消息。\n\n本项设置不应选择任何其他人可见的频道。&quot;);&#13;&#10;        OptionCbx cnlDebug = new OptionCbx(&quot;调试频道&quot;, &quot;cnlDebug&quot;, cnlDebugItems, &quot;&quot;,&#13;&#10;            hint: &quot;本频道用于发送额外调试信息。\n\n请设置为仅自己可见的频道，或将其关闭。\n\n（测试版暂不提供关闭选项）&quot;);&#13;&#10;        form.AddOption(cnlPublic, tableChannel);&#13;&#10;        form.AddOption(cnlPrivate, tableChannel);&#13;&#10;        form.AddOption(cnlDebug, tableChannel);&#13;&#10;&#13;&#10;        #endregion 配置：文本频道&#13;&#10;&#13;&#10;        #region 使用须知&#13;&#10;&#13;&#10;        OptionsTableLayoutPanel tableInfo = form.AddOptionGroup(&quot; 使用须知 &quot;);&#13;&#10;&#13;&#10;        form.AddLabel(&quot;· 必须在上方正确设置完整的小队列表，否则部分机制无法正常工作。&quot;, tableInfo)&#13;&#10;            .ForeColor = Blue;&#13;&#10;&#13;&#10;        form.AddLabel(&quot;· 使用前必须查看使用说明，见此绝本触发器分组下的「使用说明」触发器。&quot;, tableInfo)&#13;&#10;            .ForeColor = Blue;&#13;&#10;&#13;&#10;        form.AddLabel(&quot;· 下方部分选项上悬停鼠标可以显示详细说明。&quot;, tableInfo)&#13;&#10;            .ForeColor = Blue;&#13;&#10;&#13;&#10;        form.AddLabel(&quot;· 目前正在频繁更新，建议每次见到此页面后下拉查看是否有新内容。&quot;, tableInfo)&#13;&#10;            .ForeColor = Color.FromArgb(192, 0, 0);&#13;&#10;&#13;&#10;        #endregion 使用须知&#13;&#10;&#13;&#10;        #region 配置：队员顺序&#13;&#10;        if (BridgeFFXIV.ZoneID == int.Parse(&quot;0${env:zone}&quot;) &amp;&amp; Triggernometry.FFXIV.Entity.GetEntities().Any(e =&gt; e.InParty))&#13;&#10;        {&#13;&#10;            string[] playerDescriptions = { &quot;MT&quot;, &quot;ST&quot;, &quot;H1&quot;, &quot;H2&quot;, &quot;D1&quot;, &quot;D2&quot;, &quot;D3&quot;, &quot;D4&quot; };&#13;&#10;            var pListPanel = new PartyListPanel(playerDescriptions);&#13;&#10;            form.AddPartyGroup(&quot; 队员顺序（拖拽调整） &quot;, pListPanel);&#13;&#10;        }&#13;&#10;        #endregion 配置：队员顺序&#13;&#10;&#13;&#10;        Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#13;&#10;        form.Run();&#13;&#10;    }&#13;&#10;&#13;&#10;    [STAThread]&#13;&#10;    public static void Start()&#13;&#10;    {&#13;&#10;        try&#13;&#10;        {&#13;&#10;            Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#13;&#10;            Thread staThread = new Thread(new ThreadStart(RunConfigForm));&#13;&#10;            staThread.SetApartmentState(ApartmentState.STA);&#13;&#10;            staThread.Start();&#13;&#10;            staThread.Join();&#13;&#10;        }&#13;&#10;        catch (Exception ex)&#13;&#10;        {&#13;&#10;            MessageBox.Show(&quot;用户配置表单运行错误：\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#13;&#10;        }&#13;&#10;    }&#13;&#10;}&#13;&#10;&#13;&#10;">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${ecallback:${env:prefix}_cfg}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                       <ConditionSingle Enabled="true" ExpressionL="${pd:${env:prefix}_cfg[version]}" ExpressionTypeL="String" ExpressionR="${env:version}" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
@@ -930,7 +930,7 @@
                   </Trigger>
                   <Trigger Enabled="true" Id="ef251100-eb1b-4fa8-8f7b-a2cafd9625c3" Name="P3 深层痛楚" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BAF2):">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="1000" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}"/>
+                      <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -984,7 +984,7 @@
                   <Action OrderNumber="17" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BB12" DictVariableValue="_=暴雷 | tts=钢铁 | omen=m0611_sircle_01x | t=6.7 | Scale=14.8,14.8,1"/>
                   <Action OrderNumber="18" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BB09" DictVariableValue="_=暴雷 | tts=死刑"/>
                   <Action OrderNumber="19" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BAEE" DictVariableValue="_=本色出演的我 | tts=躲直条 | omen=mdl_general_02x | t=4.7 | Scale=8,100,1"/>
-                  <Action OrderNumber="20" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BB00" DictVariableValue="_=本影爆碎 | omen=m0611_sircle_01x | t=4.7 | Scale=15,15,1"/>
+                  <Action OrderNumber="20" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BB00" DictVariableValue="_=本影爆碎 | omen=m0611_sircle_01x | t=4.7 | Scale=20,20,1"/>
                   <Action OrderNumber="21" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C572" DictVariableValue="_=地震 | tts=大AoE"/>
                   <Action OrderNumber="22" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BB01" DictVariableValue="_=诅咒敕令 | omen=mdl_general_02x | t=4.7 | Scale=40,60,1"/>
                 </Actions>
@@ -1057,7 +1057,7 @@
                   </Folder>
                 </Folders>
                 <Triggers>
-                  <Trigger Enabled="true" Id="eb3eb2d9-78d8-4279-b44a-16dcdc74aee0" Name="未来/过去终结" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;BAD[23]):">
+                  <Trigger Enabled="true" Id="eb3eb2d9-78d8-4279-b44a-16dcdc74aee0" Name="未来/过去终结 可删？" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;BAD[23]):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Description="未来 / 过去" DescriptionOverride="True"/>
                     </Actions>
@@ -1097,18 +1097,6 @@
                       <Action OrderNumber="10" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="_U7b21_安全区_普通点:dir8:${dir8}:src:3.2:2.4" LogProcess="True"/>
                       <Action OrderNumber="11" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="_U7b21_安全区_普通点:dir8:${dir8}:src:5:-5" LogProcess="True"/>
                       <Action OrderNumber="12" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="_U7b21_安全区_普通点:dir8:${dir8}:src:-2:-4.6" LogProcess="True"/>
-                    </Actions>
-                  </Trigger>
-                  <Trigger Enabled="true" Id="2810fae5-a582-45b7-b628-71cd248fc22a" Name="注释" Source="None">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="Placeholder" Description="初始轮次为 1" DescriptionOverride="True"/>
-                      <Action OrderNumber="2" ActionType="Placeholder" Description="每轮塔出现后 7 秒 轮次++" DescriptionOverride="True"/>
-                      <Action OrderNumber="3" ActionType="Placeholder" Description="即：" DescriptionOverride="True"/>
-                      <Action OrderNumber="4" ActionType="Placeholder" Description="第 n 轮塔属于第 n 轮 (n = 1 - 8)" DescriptionOverride="True"/>
-                      <Action OrderNumber="5" ActionType="Placeholder" Description="第 2k 轮的过去未来读条属于第 2k 轮" DescriptionOverride="True"/>
-                      <Action OrderNumber="6" ActionType="Placeholder" Description="初始 buff 属于第 1 轮" DescriptionOverride="True"/>
-                      <Action OrderNumber="7" ActionType="Placeholder" Description="第 n 轮塔给的 buff 属于第 n + 1 轮" DescriptionOverride="True"/>
-                      <Action OrderNumber="8" ActionType="Placeholder" Description="A组1238轮；B组4567轮" DescriptionOverride="True"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="1bd04b96-129f-45c3-8c55-3363069ec50b" Name="3.1 播报奇数轮点名" RegularExpression="^U7b21_点名:n:(?&lt;n&gt;[1357]):踩塔type:(?&lt;踩塔type&gt;[0-4]):职能idx:(?&lt;职能idx&gt;[1-4])">
@@ -1327,6 +1315,30 @@
                       <Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/${!pd:U7b_cfg[cnlDebug]} ${_event}"/>
                     </Actions>
                   </Trigger>
+                  <Trigger Enabled="true" Id="d4c149ae-5787-48d0-adb0-c3d1de88dba3" Name="4.4 塔倒计时" RegularExpression="^.{15}\S+ U7b21_塔:n:(?&lt;n&gt;.):dir8:(?&lt;dir8&gt;[0-7])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b踩塔" VariableExpression="${?l: 1,1,1,0,0,0,0,1 [${n}]} = ${!v:U7b21_bA组}"/>
+                      <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="cd5:${n: ${!v:tmp_b踩塔} || (${n} % 2 = 1) ? 10.4 : 9.2}" LogProcess="True"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableName="tmp_b踩塔"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="544be1b5-7b4c-4a89-b7e8-cdd09b00e5bd" Name="消灭之脚" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;BADD):" PeriodRefire="Deny" RefirePeriodExpression="1000">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="走"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="false" Id="bd07ebb6-3f47-4da9-a4f0-117c4f9d394c" Name="注释" Source="None">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="初始轮次为 1" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Description="每轮塔出现后 7 秒 轮次++" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" ActionType="Placeholder" Description="即：" DescriptionOverride="True"/>
+                      <Action OrderNumber="4" ActionType="Placeholder" Description="第 n 轮塔属于第 n 轮 (n = 1 - 8)" DescriptionOverride="True"/>
+                      <Action OrderNumber="5" ActionType="Placeholder" Description="第 2k 轮的过去未来读条属于第 2k 轮" DescriptionOverride="True"/>
+                      <Action OrderNumber="6" ActionType="Placeholder" Description="初始 buff 属于第 1 轮" DescriptionOverride="True"/>
+                      <Action OrderNumber="7" ActionType="Placeholder" Description="第 n 轮塔给的 buff 属于第 n + 1 轮" DescriptionOverride="True"/>
+                      <Action OrderNumber="8" ActionType="Placeholder" Description="A组1238轮；B组4567轮" DescriptionOverride="True"/>
+                    </Actions>
+                  </Trigger>
                 </Triggers>
               </Folder>
               <Folder Id="376667e5-17c1-466a-8388-d1bde7c4591a" Enabled="true" Name="P2-2 异三角" RawEnvironmentVariables="phase = P22">
@@ -1427,21 +1439,6 @@
                       <Action OrderNumber="7" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U722_远近死刑&#13;&#10;t: 5&#13;&#10;Omen: m0611_sircle_01x&#13;&#10;Pos: ${!l:party[2]}&#13;&#10;Scale: 7&#13;&#10;Color: 0.5, 0, 0, 0.7"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="false" Id="b4221180-4e4d-459d-a64c-f6515178fe12" Name="Debug Log 2026-06-08 23:46" Source="None">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[23:14:21.196] StartsCasting 14:40007DEA:凯夫卡:BADF:异三角:40007DEA:凯夫卡:2.700:99.99:99.99:0.00:3.12" LogProcess="True" LogProcessACT="True"/>
-                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="3.77 * 1000"/>
-                      <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[23:14:24.969] _SpawnObject AAA:105:40007EEC::1EBFB3:97.113:115:0:0:7" LogProcess="True" LogProcessACT="True"/>
-                      <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="[23:14:24.969] _SpawnObject AAA:105:40007EEE::1EBFB2:111.547:110:0:0:7" LogProcess="True" LogProcessACT="True"/>
-                      <Action OrderNumber="5" ActionType="LogMessage" LogMessageText="[23:14:24.969] _SpawnObject AAA:105:40007EED::1EBFB2:102.887:85:0:0:7" LogProcess="True" LogProcessACT="True"/>
-                      <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="1.95 * 1000"/>
-                      <Action OrderNumber="7" ActionType="LogMessage" LogMessageText="[23:14:26.920] _SpawnObject AAA:105:40007EEF::1EBFB2:85.566:105:0:0:7" LogProcess="True" LogProcessACT="True"/>
-                      <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="1.98 * 1000"/>
-                      <Action OrderNumber="9" ActionType="LogMessage" LogMessageText="[23:14:28.899] _SpawnObject AAA:105:40007EF0::1EBFB3:100:100:0:0:7" LogProcess="True" LogProcessACT="True"/>
-                      <Action OrderNumber="10" ActionType="LogMessage" LogMessageText="[23:14:28.899] _SpawnObject AAA:105:40007EF1::1EBFB2:88.453:90:0:0:7" LogProcess="True" LogProcessACT="True"/>
-                      <Action OrderNumber="11" ActionType="LogMessage" LogMessageText="[23:14:28.899] _SpawnObject AAA:105:40007EF2::1EBFB3:114.434:95:0:0:7" LogProcess="True" LogProcessACT="True"/>
-                    </Actions>
-                  </Trigger>
                   <Trigger Enabled="true" Id="209de627-dde6-4726-9234-5bac68b72189" Name="2. 处理 =&gt; 3" RegularExpression="^_U7b22_三角$">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Description="三角有规律：中心必定在第三轮" DescriptionOverride="True"/>
@@ -1496,7 +1493,7 @@
           </Folder>
           <Folder Id="a2aa7fd3-c8a3-4978-873f-c81636f0069d" Enabled="true" Name="P3" RawEnvironmentVariables="BNpcId凯 = 19504&#13;&#10;BNpcId卡 = 19508&#13;&#10;BNpcId艾 = 19509&#13;&#10;BNpcId黑洞 = 19512">
             <Folders>
-              <Folder Id="71429b8f-7532-45cb-a30b-40adcb662204" Enabled="true" Name="P3-1 火水风" RawEnvironmentVariables="phase = P31">
+              <Folder Id="71429b8f-7532-45cb-a30b-40adcb662204" Enabled="true" Name="P3-1 一运 火水风" RawEnvironmentVariables="phase = P31">
                 <Triggers>
                   <Trigger Enabled="true" Id="5e805c62-0b54-4e07-8a35-ceea029f0ff8" Name="0. 初始化 重构" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;BAE2):">
                     <Actions>
@@ -1783,7 +1780,7 @@
                   </Trigger>
                 </Triggers>
               </Folder>
-              <Folder Id="61c5a115-0ed6-4f21-8057-dbf634dbdd0a" Enabled="true" Name="P3-3 地震" RawEnvironmentVariables="phase = P33">
+              <Folder Id="61c5a115-0ed6-4f21-8057-dbf634dbdd0a" Enabled="true" Name="P3-3 二运 地震" RawEnvironmentVariables="phase = P33">
                 <Triggers>
                   <Trigger Enabled="true" Id="fd2e793a-2a23-4549-9870-a58f0d0548ad" Name="1. 混沌之泥土" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;644):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
                     <Actions>
@@ -1804,13 +1801,13 @@
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b打右" VariableExpression="0x${aid} = 0xBAE6"/>
                       <Action OrderNumber="2" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${if: ${!v:tmp_b打右} ? 右侧分摊 : 左侧职能分散 }"/>
-                      <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31_响亮亮耳光_1&#13;&#10;t: 5.5&#13;&#10;Omen: m0347_sircle_01m1&#13;&#10;O: 100, 100&#13;&#10;θ: ${h}&#13;&#10;KeepX: ${!v:tmp_b打右}&#13;&#10;Pos: 10, 10&#13;&#10;Scale: 13&#13;&#10;---&#13;&#10;Tag: U7b31_响亮亮耳光_1&#13;&#10;delay: 0.3&#13;&#10;t: 5.8&#13;&#10;Omen: m0347_sircle_01m1&#13;&#10;O: 100, 100&#13;&#10;θ: ${h}&#13;&#10;KeepX: ${!v:tmp_b打右}&#13;&#10;Pos: 10, 0&#13;&#10;Scale: 13&#13;&#10;---&#13;&#10;Tag: U7b31_响亮亮耳光_1&#13;&#10;delay: 0.6&#13;&#10;t: 6.1&#13;&#10;Omen: m0347_sircle_01m1&#13;&#10;O: 100, 100&#13;&#10;θ: ${h}&#13;&#10;KeepX: ${!v:tmp_b打右}&#13;&#10;Pos: 10, -10&#13;&#10;Scale: 13&#13;&#10;---&#13;&#10;Tag: U7b31_响亮亮耳光_1&#13;&#10;delay: 2.0&#13;&#10;t: 6.0&#13;&#10;Omen: m0347_sircle_01m1&#13;&#10;O: 100, 100&#13;&#10;θ: ${h}&#13;&#10;KeepX: ${!v:tmp_b打右}&#13;&#10;Scale: 6"/>
-                      <Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31_响亮亮耳光_摊&#13;&#10;t: 8&#13;&#10;Omen: m131om_setu0f&#13;&#10;O: 100, 100&#13;&#10;θ: ${h} + π&#13;&#10;Angle: π/2&#13;&#10;Scale: 0.5, 20, 0.3&#13;&#10;Color: 1, 1, 1, 1.5">
+                      <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b33_响亮亮耳光_1&#13;&#10;t: 5.5&#13;&#10;Omen: m0347_sircle_01m1&#13;&#10;O: 100, 100&#13;&#10;θ: ${h}&#13;&#10;KeepX: ${!v:tmp_b打右}&#13;&#10;Pos: 10, 10&#13;&#10;Scale: 13&#13;&#10;---&#13;&#10;Tag: U7b33_响亮亮耳光_1&#13;&#10;delay: 0.3&#13;&#10;t: 5.8&#13;&#10;Omen: m0347_sircle_01m1&#13;&#10;O: 100, 100&#13;&#10;θ: ${h}&#13;&#10;KeepX: ${!v:tmp_b打右}&#13;&#10;Pos: 10, 0&#13;&#10;Scale: 13&#13;&#10;---&#13;&#10;Tag: U7b33_响亮亮耳光_1&#13;&#10;delay: 0.6&#13;&#10;t: 6.1&#13;&#10;Omen: m0347_sircle_01m1&#13;&#10;O: 100, 100&#13;&#10;θ: ${h}&#13;&#10;KeepX: ${!v:tmp_b打右}&#13;&#10;Pos: 10, -10&#13;&#10;Scale: 13&#13;&#10;---&#13;&#10;Tag: U7b33_响亮亮耳光_1&#13;&#10;delay: 4.5&#13;&#10;t: 3.5&#13;&#10;Omen: m0347_sircle_01m1&#13;&#10;O: 100, 100&#13;&#10;θ: ${h}&#13;&#10;KeepX: ${!v:tmp_b打右}&#13;&#10;Scale: 6"/>
+                      <Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b33_响亮亮耳光_摊&#13;&#10;t: 8&#13;&#10;Omen: m131om_setu0f&#13;&#10;O: 100, 100&#13;&#10;θ: ${h} + π&#13;&#10;Angle: π/2&#13;&#10;Scale: 0.5, 20, 0.3&#13;&#10;Color: 1, 1, 1, 1.5">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${!v:tmp_b打右}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
                       </Action>
-                      <Action OrderNumber="5" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b31_响亮亮耳光_T&#13;&#10;t: 8&#13;&#10;Omen: m131om_setu0f&#13;&#10;O: 100, 100&#13;&#10;θ: ${h} + π&#13;&#10;Angle: -150°&#13;&#10;Scale: 0.5, 20, 0.3&#13;&#10;Color: 1, 1, 2, 0.7&#13;&#10;---&#13;&#10;Tag: U7b31_响亮亮耳光_H&#13;&#10;t: 8&#13;&#10;Omen: m131om_setu0f&#13;&#10;O: 100, 100&#13;&#10;θ: ${h} + π&#13;&#10;Angle: -90°&#13;&#10;Scale: 0.5, 20, 0.3&#13;&#10;Color: 1, 2, 1, 0.7&#13;&#10;---&#13;&#10;Tag: U7b31_响亮亮耳光_H&#13;&#10;t: 8&#13;&#10;Omen: m131om_setu0f&#13;&#10;O: 100, 100&#13;&#10;θ: ${h} + π&#13;&#10;Angle: -30°&#13;&#10;Scale: 0.5, 20, 0.3&#13;&#10;Color: 2, 1, 1, 0.7">
+                      <Action OrderNumber="5" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b33_响亮亮耳光_T&#13;&#10;t: 8&#13;&#10;Omen: m131om_setu0f&#13;&#10;O: 100, 100&#13;&#10;θ: ${h} + π&#13;&#10;Angle: -150°&#13;&#10;Scale: 0.5, 20, 0.3&#13;&#10;Color: 1, 1, 2, 0.7&#13;&#10;---&#13;&#10;Tag: U7b33_响亮亮耳光_H&#13;&#10;t: 8&#13;&#10;Omen: m131om_setu0f&#13;&#10;O: 100, 100&#13;&#10;θ: ${h} + π&#13;&#10;Angle: -90°&#13;&#10;Scale: 0.5, 20, 0.3&#13;&#10;Color: 1, 2, 1, 0.7&#13;&#10;---&#13;&#10;Tag: U7b33_响亮亮耳光_H&#13;&#10;t: 8&#13;&#10;Omen: m131om_setu0f&#13;&#10;O: 100, 100&#13;&#10;θ: ${h} + π&#13;&#10;Angle: -30°&#13;&#10;Scale: 0.5, 20, 0.3&#13;&#10;Color: 2, 1, 1, 0.7">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${!v:tmp_b打右}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                         </Condition>
@@ -1824,16 +1821,469 @@
                       <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^U7b33"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="0759ea88-1b6b-47d1-aa3c-fc2e324e6d85" Name="2. 记录混沌之土分组" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;154E):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+                  <Trigger Enabled="true" Id="0759ea88-1b6b-47d1-aa3c-fc2e324e6d85" Name="2.1 记录混沌之土分组" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;154E):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Description="组1-3, 小队idx1-8, id" DescriptionOverride="True"/>
                       <Action OrderNumber="2" ActionType="Placeholder" Description="应有 1 1 1  2 2 2  3 3 " DescriptionOverride="True"/>
                       <Action OrderNumber="3" ActionType="TableVariable" Asynchronous="False" TableVariableOp="SetLine" TableVariableName="U7b33_混沌之土" TableVariableExpression=",${?l: 72, 106, 139.indexof( ${n: round(${t})} ) },${!l:party.indexof(${tid})},${tid}" TableVariableY="${t:U7b33_混沌之土.height} + 1"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="false" Id="c22a4d23-2d2c-47cf-a891-8e5092c185a0" Name="黑洞" RegularExpression="^.{15}\S+ ？">
+                  <Trigger Enabled="true" Id="c22a4d23-2d2c-47cf-a891-8e5092c185a0" Name="4.1 获取黑洞 =&gt; 5" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}(?&lt;bnpcid&gt;19512):([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="InvokeOnMultipleEntities" NamedCallbackParam="BNpcID = 19512 &amp;&amp; DistanceTo(100, 100) &gt; 16.5&#13;&#10;SetObjectScale, _address, 2"/>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="条件：distance &gt; 16" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Description="每轮 3 黑洞，四轮有初始线的分别 1 3 3 2 个，故在计数为 4 10 16 21 时代表四轮完整捕获" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" Enabled="False" ActionType="NamedCallback" NamedCallbackName="InvokeOnMultipleEntities" NamedCallbackParam="BNpcID = 19512 &amp;&amp; DistanceTo(100, 100) &gt; 16.5&#13;&#10;SetObjectScale, _address, 2"/>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="U7b33_黑洞日志计数"/>
+                      <Action OrderNumber="5" ActionType="TableVariable" Asynchronous="False" TableVariableOp="SetLine" TableVariableName="U7b33_黑洞xy" TableVariableExpression=",${x},${y}" TableVariableY="${t:U7b33_黑洞xy.height} + 1"/>
+                      <Action OrderNumber="6" ActionType="LogMessage" Asynchronous="False" LogMessageText="_U7b33_黑洞_初始:${?l: 4, 10, 16, 21.indexof(${v:U7b33_黑洞日志计数})}" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${?l: 4, 10, 16, 21.indexof(${v:U7b33_黑洞日志计数})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="Distance(${x}, ${y}, 100, 100)" ExpressionTypeL="Numeric" ExpressionR="16" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="807692a4-a7e8-4e95-86d9-21f3cdabc91d" Name="4.2 获取黑洞 Extra =&gt; 5" RegularExpression="^.{15}\S+ AAA:110:4.{7}:[^:]*:[^:]*:19512:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;tid&gt;[^:]+):0054:">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="每轮 3 黑洞，四轮有初始线的分别 1 3 3 2 个，故在计数为 4 10 16 21 时代表四轮完整捕获" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="Increment" VariableName="U7b33_黑洞日志计数"/>
+                      <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableKeyType="Numeric" DictVariableName="U7b33_黑洞_dir8至b有线" DictVariableKey="VecToDir(${x} - 100, ${y} - 100, 8)" DictVariableValue="1"/>
+                      <Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="_U7b33_黑洞_初始:${?l: 4, 10, 16, 21.indexof(${v:U7b33_黑洞日志计数})}" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${?l: 4, 10, 16, 21.indexof(${v:U7b33_黑洞日志计数})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="5" ActionType="Placeholder"/>
+                      <Action OrderNumber="6" ActionType="DictVariable" ExecutionDelayExpression="2000" DictVariableName="U7b33_黑洞_dir8至b有线"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="7438fe67-65ae-4289-916f-552f448d4382" Name="5. 处理初始黑洞 =&gt; 6" RegularExpression="^_U7b33_黑洞_初始:(?&lt;n&gt;[1-4])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="每轮 3 黑洞，四轮有初始线的分别 1 3 3 2 个，故在计数为 4 10 16 21 时代表四轮完整捕获" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_dir8" VariableExpression="VecToDir(${t:U7b33_黑洞xy.sum(1, -3:)} - 300, ${t:U7b33_黑洞xy.sum(2, -3:)} - 300, 8)"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b左有线" VariableExpression="${d:U7b33_黑洞_dir8至b有线.get(${n: (${!v:tmp_dir8} + 2) %% 8 }, 0)}"/>
+                      <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b前有线" VariableExpression="${d:U7b33_黑洞_dir8至b有线.get(${!v:tmp_dir8}, 0)}"/>
+                      <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b右有线" VariableExpression="${d:U7b33_黑洞_dir8至b有线.get(${n: (${!v:tmp_dir8} - 2) %% 8 }, 0)}"/>
+                      <Action OrderNumber="6" ActionType="LogMessage" Asynchronous="False" LogMessageText="U7b33_黑洞_初始:n:${n}:my黑洞Idx:${!v:U7b33_混沌之土_自Idx}:dir8:${n: (${!v:tmp_dir8} + 2) %% 8 }:${!v:tmp_dir8}:${n: (${!v:tmp_dir8} - 2) %% 8 }:b有线:${!v:tmp_b左有线}:${!v:tmp_b前有线}:${!v:tmp_b右有线}" LogProcess="True" LogProcessACT="True"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="56843992-cc65-4f73-878b-ce457214df49" Name="2.2 处理混沌之土分组" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;154E):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):" PeriodRefire="Deny" RefirePeriodExpression="1000">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="限制重复触发" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" Description="组1-3, 小队idx1-8, id" DescriptionOverride="True"/>
+                      <Action OrderNumber="3" ActionType="Placeholder" Description="应有 1 1 1  2 2 2  3 3 " DescriptionOverride="True"/>
+                      <Action OrderNumber="4" ActionType="TableVariable" ExecutionDelayExpression="1000" Asynchronous="False" TableVariableOp="SortLine" TableVariableName="U7b33_混沌之土" TableVariableY="n: ${_row[1]}, n: ${_row[2]}"/>
+                      <Action OrderNumber="5" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Build" ListVariableExpression=":${t:U7b33_混沌之土.hjoin(:, :, 2)}" ListVariableTarget="U7b33_混沌之土_pIdx"/>
+                      <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="U7b33_混沌之土_自Idx" VariableExpression="${!l:U7b33_混沌之土_pIdx.indexof(${!v:myIdx})}"/>
+                      <Action OrderNumber="7" ActionType="LogMessage" Asynchronous="False" LogMessageText="U7b33_mark:${?l: attack1, attack2, attack3, bind1, bind2, bind3, stop1, stop2 [${!v:U7b33_混沌之土_自Idx}]}" LogProcess="True"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="f9ac04e2-66d8-4e63-9497-f9dda4e26f30" Name="黑洞 todo" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}(?&lt;bnpcid&gt;19512):([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                    <Actions>
+                      <Action OrderNumber="1" Enabled="False" ActionType="Placeholder" Description="条件：distance &gt; 16" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" Enabled="False" ActionType="NamedCallback" NamedCallbackName="InvokeOnMultipleEntities" NamedCallbackParam="BNpcID = 19512 &amp;&amp; DistanceTo(100, 100) &gt; 16.5&#13;&#10;SetObjectScale, _address, 2"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="Distance(${x}, ${y}, 100, 100)" ExpressionTypeL="Numeric" ExpressionR="16" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="d67f2258-7f56-41b6-8534-084585138ed2" Name="6.1b 第二轮播报" RegularExpression="^U7b33_黑洞_初始:n:(?&lt;n&gt;2):my黑洞Idx:(?&lt;my黑洞Idx&gt;[1-8]):dir8:(?&lt;dir8左&gt;[0-7]):(?&lt;dir8中&gt;[0-7]):(?&lt;dir8右&gt;[0-7]):b有线:(?&lt;b左有线&gt;[01]):(?&lt;b前有线&gt;[01]):(?&lt;b右有线&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="cd5:6.9" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="[123]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="cd5:12.8" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="[234]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="cd5:17.9" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="[345]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ActionType="LogMessage" DescBgColor="def" LogMessageText="tts:0:去左侧黑洞接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="5" ActionType="LogMessage" DescBgColor="def" LogMessageText="tts:6.8:回场中挂机" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="6" ActionType="LogMessage" DescBgColor="dfd" LogMessageText="tts:0:去中间黑洞接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="7" ActionType="LogMessage" DescBgColor="dfd" LogMessageText="tts:6.8:保持连线，还剩一轮" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="8" ActionType="LogMessage" DescBgColor="dfd" LogMessageText="tts:12.7:回场中挂机" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="9" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="tts:0:去右侧黑洞接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="10" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="tts:6.8:保持连线，还剩两轮" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="11" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="tts:12.7:保持连线，还剩一轮" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="12" ActionType="LogMessage" DescBgColor="fed" LogMessageText="tts:2:下一轮左侧接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="13" ActionType="LogMessage" DescBgColor="fed" LogMessageText="tts:6.8:去左侧黑洞接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="14" ActionType="LogMessage" DescBgColor="fed" LogMessageText="tts:12.7:保持连线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="15" ActionType="LogMessage" DescBgColor="fdd" LogMessageText="tts:8.8:下一轮中间接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="5" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="16" ActionType="LogMessage" DescBgColor="fdd" LogMessageText="tts:12.7:去中间黑洞接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="5" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="17" ActionType="LogMessage" DescBgColor="ccc" LogMessageText="tts:0:闲人，中间挂机" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="18" ActionType="LogMessage" LogMessageText="tts:17.5:去背后，躲直条" LogProcess="True"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="1f64d68e-0b6e-4070-b869-09a1c6f829dc" Name="6.1c 第三轮播报" RegularExpression="^U7b33_黑洞_初始:n:(?&lt;n&gt;3):my黑洞Idx:(?&lt;my黑洞Idx&gt;[1-8]):dir8:(?&lt;dir8左&gt;[0-7]):(?&lt;dir8中&gt;[0-7]):(?&lt;dir8右&gt;[0-7]):b有线:(?&lt;b左有线&gt;[01]):(?&lt;b前有线&gt;[01]):(?&lt;b右有线&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="cd5:6.9" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="[456]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="cd5:12.8" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="[567]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="cd5:17.9" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="[678]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ActionType="LogMessage" DescBgColor="def" LogMessageText="tts:0:去左侧黑洞接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="5" ActionType="LogMessage" DescBgColor="def" LogMessageText="tts:6.8:回场中挂机" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="6" ActionType="LogMessage" DescBgColor="dfd" LogMessageText="tts:0:去中间黑洞接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="5" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="7" ActionType="LogMessage" DescBgColor="dfd" LogMessageText="tts:6.8:保持连线，还剩一轮" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="5" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="8" ActionType="LogMessage" DescBgColor="dfd" LogMessageText="tts:12.7:回场中挂机" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="5" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="9" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="tts:0:去右侧黑洞接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="10" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="tts:6.8:保持连线，还剩两轮" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="11" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="tts:12.7:保持连线，还剩一轮" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="12" ActionType="LogMessage" DescBgColor="fed" LogMessageText="tts:2:下一轮左侧接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="13" ActionType="LogMessage" DescBgColor="fed" LogMessageText="tts:6.8:去左侧黑洞接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="14" ActionType="LogMessage" DescBgColor="fed" LogMessageText="tts:12.7:保持连线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="15" ActionType="LogMessage" DescBgColor="fdd" LogMessageText="tts:8.8:下一轮中间接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="16" ActionType="LogMessage" DescBgColor="fdd" LogMessageText="tts:12.7:去中间黑洞接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="17" ActionType="LogMessage" DescBgColor="ccc" LogMessageText="tts:0:闲人，中间挂机" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="4" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="18" ActionType="LogMessage" LogMessageText="tts:18.5:准备白洞，奶满全团" LogProcess="True"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="10992d5c-0dbc-43fd-9f0b-2f20a0a11ccc" Name="6.1a 第一轮播报" RegularExpression="^U7b33_黑洞_初始:n:(?&lt;n&gt;1):my黑洞Idx:(?&lt;my黑洞Idx&gt;[1-8]):dir8:(?&lt;dir8左&gt;[0-7]):(?&lt;dir8中&gt;[0-7]):(?&lt;dir8右&gt;[0-7]):b有线:(?&lt;b左有线&gt;[01]):(?&lt;b前有线&gt;[01]):(?&lt;b右有线&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="cd5:6.9" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="[1]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="cd5:12.8" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="[12]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" ActionType="LogMessage" DescBgColor="def" LogMessageText="tts:0:出去接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ActionType="LogMessage" DescBgColor="def" LogMessageText="tts:6.8:接第二根线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="5" ActionType="LogMessage" DescBgColor="dfd" LogMessageText="tts:0:准备下一轮接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="6" ActionType="LogMessage" DescBgColor="dfd" LogMessageText="tts:6.8:出去接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="7" ActionType="LogMessage" DescBgColor="ccc" LogMessageText="tts:0:闲人，中间挂机" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="8" ActionType="LogMessage" LogMessageText="tts:18.5:去背后" LogProcess="True"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="44d2c5c8-15c0-4b21-ab89-4c349414dab4" Name="6.1d 第四轮播报" RegularExpression="^U7b33_黑洞_初始:n:(?&lt;n&gt;4):my黑洞Idx:(?&lt;my黑洞Idx&gt;[1-8]):dir8:(?&lt;dir8左&gt;[0-7]):(?&lt;dir8中&gt;[0-7]):(?&lt;dir8右&gt;[0-7]):b有线:(?&lt;b左有线&gt;[01]):(?&lt;b前有线&gt;[01]):(?&lt;b右有线&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="cd5:6.9" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="[78]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="cd5:12.8" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="[8]" ExpressionTypeR="String" ConditionType="RegexMatch"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" ActionType="LogMessage" DescBgColor="def" LogMessageText="tts:0:去${if: ${b左有线} ? 左侧 : 中间 }黑洞接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ActionType="LogMessage" DescBgColor="def" LogMessageText="tts:6.8:回场中躲直条" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="5" ActionType="LogMessage" DescBgColor="dfd" LogMessageText="tts:0:去${if: ${b右有线} ? 右侧 : 中间 }黑洞接线" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="6" ActionType="LogMessage" DescBgColor="dfd" LogMessageText="tts:6.8:接最后的线，躲直条" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="7" ActionType="LogMessage" DescBgColor="ccc" LogMessageText="tts:0:闲人，中间挂机" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="8" ActionType="LogMessage" DescBgColor="ccc" LogMessageText="tts:6.8:躲直条" LogProcess="True">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${my黑洞Idx}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="0a6f608a-f278-4919-bb60-db03f5b24737" Name="[F] 自己标点" RegularExpression="^U7b33_mark:(?&lt;type&gt;attack[123]|bind[123]|stop[12])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Loop" LoopDelayExpression="2000">
+                        <LoopCondition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${_sincems}" ExpressionTypeL="String" ExpressionR="30000" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${_entity[BNpcID = ${env:BNpcId艾}].Exist}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </LoopCondition>
+                        <LoopActions>
+                          <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="mark" NamedCallbackParam="{ &quot;ActorID&quot;: 0x${_me.id}, &quot;MarkType&quot;: &quot;${type}&quot; }">
+                            <Condition Enabled="true" Grouping="Or">
+                              <ConditionSingle Enabled="true" ExpressionL="${v:myMarker}" ExpressionTypeL="String" ExpressionR="${type}" ExpressionTypeR="String" ConditionType="StringNotEqualNocase"/>
+                            </Condition>
+                          </Action>
+                        </LoopActions>
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${pd:U7b_cfg[P3黑洞_b摇号]}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="false" Id="e2aaba18-94bc-4b1e-be40-828c5f6f2fe1" Name="Debug Log 2026-06-09 04:52" Source="None">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[21:20:15.906] StartsCasting 14:400023AF:艾克斯迪司:C572:地震:400023AF:艾克斯迪司:4.700:90.10:109.90:0.00:0.00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="500"/>
+                      <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[21:20:23.303] StatusAdd 1A:644:混沌之泥土:14.00:E0000000::${l:party[1]}:队员:00:204575:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="4" ActionType="LogMessage" LogMessageText="[21:20:23.303] StatusAdd 1A:154E:混沌之土:106.00:E0000000::${l:party[1]}:队员:00:204575:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="5" ActionType="LogMessage" LogMessageText="[21:20:23.303] StatusAdd 1A:154E:混沌之土:139.00:E0000000::${l:party[2]}:队员:00:204455:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="6" ActionType="LogMessage" LogMessageText="[21:20:23.303] StatusAdd 1A:154E:混沌之土:106.00:E0000000::${l:party[3]}:队员:00:325090:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="7" ActionType="LogMessage" LogMessageText="[21:20:23.303] StatusAdd 1A:154E:混沌之土:72.00:E0000000::${l:party[4]}:队员:00:325047:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="8" ActionType="LogMessage" LogMessageText="[21:20:23.303] StatusAdd 1A:644:混沌之泥土:14.00:E0000000::${l:party[5]}:队员:00:226588:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="9" ActionType="LogMessage" LogMessageText="[21:20:23.303] StatusAdd 1A:154E:混沌之土:72.00:E0000000::${l:party[5]}:队员:00:226588:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="10" ActionType="LogMessage" LogMessageText="[21:20:23.303] StatusAdd 1A:154E:混沌之土:139.00:E0000000::${l:party[6]}:队员:00:226578:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="11" ActionType="LogMessage" LogMessageText="[21:20:23.303] StatusAdd 1A:154E:混沌之土:106.00:E0000000::${l:party[7]}:队员:00:227520:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="12" ActionType="LogMessage" LogMessageText="[21:20:23.303] StatusAdd 1A:154E:混沌之土:72.00:E0000000::${l:party[8]}:队员:00:205177:" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="13" ActionType="Placeholder" ExecutionDelayExpression="8.06 * 1000"/>
+                      <Action OrderNumber="14" ActionType="LogMessage" LogMessageText="[21:20:31.368] 263 107:40002A12:BAE7:99.992:99.992:-0.015:-2.356" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="15" ActionType="Placeholder" ExecutionDelayExpression="8.59 * 1000"/>
+                      <Action OrderNumber="16" ActionType="LogMessage" LogMessageText="[21:20:39.956] AddCombatant 03:40002CE9:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::100.00:117.00:0.00:-3.14" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="17" ActionType="LogMessage" LogMessageText="[21:20:39.956] AddCombatant 03:40002CE8:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::83.00:100.00:0.00:1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="18" ActionType="LogMessage" LogMessageText="[21:20:39.956] AddCombatant 03:40002CEA:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::117.00:100.00:0.00:-1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="19" ActionType="Placeholder" ExecutionDelayExpression="0.41 * 1000"/>
+                      <Action OrderNumber="20" ActionType="LogMessage" LogMessageText="[21:20:40.369] _ActorSpawnExtra AAA:110:40002CE8:黑洞:8343:19512:83:100:0:1.5708:${l:party[3]}:0054:00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="21" ActionType="LogMessage" LogMessageText="[21:20:39.956] AddCombatant 03:40002CEB:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::94.83:87.53:0.00:0.39" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="22" ActionType="LogMessage" LogMessageText="[21:20:39.956] AddCombatant 03:40002CEC:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::87.53:105.17:0.00:1.96" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="23" ActionType="LogMessage" LogMessageText="[21:20:39.956] AddCombatant 03:40002CED:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::105.17:112.47:0.00:-2.75" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="24" ActionType="LogMessage" LogMessageText="[21:20:39.956] AddCombatant 03:40002CEF:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::91.00:100.00:0.00:1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="25" ActionType="LogMessage" LogMessageText="[21:20:39.956] AddCombatant 03:40002CF0:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::100.00:109.00:0.00:-3.14" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="26" ActionType="LogMessage" LogMessageText="[21:20:39.956] AddCombatant 03:40002CEE:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::112.47:94.83:0.00:-1.18" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="27" ActionType="LogMessage" LogMessageText="[21:20:39.956] AddCombatant 03:40002CF2:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::100.00:91.00:0.00:0.00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="28" ActionType="LogMessage" LogMessageText="[21:20:39.956] AddCombatant 03:40002CF1:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::109.00:100.00:0.00:-1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="29" ActionType="Placeholder" ExecutionDelayExpression="21.44 * 1000"/>
+                      <Action OrderNumber="30" ActionType="LogMessage" LogMessageText="[21:21:01.811] 263 107:40002A12:BAE7:99.992:99.992:-0.015:-1.571" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="31" ActionType="Placeholder" ExecutionDelayExpression="8.60 * 1000"/>
+                      <Action OrderNumber="32" ActionType="LogMessage" LogMessageText="[21:21:10.407] AddCombatant 03:40002D89:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::94.83:112.47:0.00:2.75" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="33" ActionType="LogMessage" LogMessageText="[21:21:10.407] AddCombatant 03:40002D8A:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::112.47:105.17:0.00:-1.96" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="34" ActionType="LogMessage" LogMessageText="[21:21:10.407] AddCombatant 03:40002D85:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::83.00:100.00:0.00:1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="35" ActionType="LogMessage" LogMessageText="[21:21:10.407] AddCombatant 03:40002D88:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::87.53:94.83:0.00:1.18" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="36" ActionType="LogMessage" LogMessageText="[21:21:10.407] AddCombatant 03:40002D87:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::100.00:83.00:0.00:0.00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="37" ActionType="LogMessage" LogMessageText="[21:21:10.407] AddCombatant 03:40002D86:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::100.00:117.00:0.00:-3.14" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="38" ActionType="Placeholder" ExecutionDelayExpression="0.45 * 1000"/>
+                      <Action OrderNumber="39" ActionType="LogMessage" LogMessageText="[21:21:10.858] _ActorSpawnExtra AAA:110:40002D85:黑洞:8343:19512:83:100:0:1.5708:${l:party[2]}:0054:00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="40" ActionType="LogMessage" LogMessageText="[21:21:10.858] _ActorSpawnExtra AAA:110:40002D86:黑洞:8343:19512:100:117:0:-3.1416:${l:party[3]}:0054:00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="41" ActionType="LogMessage" LogMessageText="[21:21:10.858] _ActorSpawnExtra AAA:110:40002D87:黑洞:8343:19512:100:83:0:0:${l:party[2]}:0054:00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="42" ActionType="LogMessage" LogMessageText="[21:21:10.504] AddCombatant 03:40002D8C:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::93.64:93.64:0.00:0.79" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="43" ActionType="LogMessage" LogMessageText="[21:21:10.504] AddCombatant 03:40002D8D:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::93.64:106.36:0.00:2.36" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="44" ActionType="LogMessage" LogMessageText="[21:21:10.504] AddCombatant 03:40002D8F:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::106.36:93.64:0.00:-0.79" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="45" ActionType="LogMessage" LogMessageText="[21:21:10.504] AddCombatant 03:40002D8E:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::106.36:106.36:0.00:-2.36" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="46" ActionType="LogMessage" LogMessageText="[21:21:10.504] AddCombatant 03:40002D8B:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::105.17:87.53:0.00:-0.39" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="47" ActionType="Placeholder" ExecutionDelayExpression="34.11 * 1000"/>
+                      <Action OrderNumber="48" ActionType="LogMessage" LogMessageText="[21:21:44.965] AddCombatant 03:40002E2A:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::100.00:83.00:0.00:0.00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="49" ActionType="LogMessage" LogMessageText="[21:21:44.965] AddCombatant 03:40002E29:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::117.00:100.00:0.00:-1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="50" ActionType="LogMessage" LogMessageText="[21:21:44.965] AddCombatant 03:40002E28:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::100.00:117.00:0.00:-3.14" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="51" ActionType="LogMessage" LogMessageText="[21:21:44.965] AddCombatant 03:40002E2C:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::87.53:105.17:0.00:1.96" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="52" ActionType="LogMessage" LogMessageText="[21:21:44.965] AddCombatant 03:40002E2D:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::105.17:112.47:0.00:-2.75" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="53" ActionType="Placeholder" ExecutionDelayExpression="0.39 * 1000"/>
+                      <Action OrderNumber="54" ActionType="LogMessage" LogMessageText="[21:21:45.360] _ActorSpawnExtra AAA:110:40002E28:黑洞:8343:19512:100:117:0:-3.1416:${l:party[8]}:0054:00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="55" ActionType="LogMessage" LogMessageText="[21:21:45.360] _ActorSpawnExtra AAA:110:40002E29:黑洞:8343:19512:117:100:0:-1.5709:${l:party[6]}:0054:00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="56" ActionType="LogMessage" LogMessageText="[21:21:45.360] _ActorSpawnExtra AAA:110:40002E2A:黑洞:8343:19512:100:83:0:0:${l:party[7]}:0054:00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="57" ActionType="LogMessage" LogMessageText="[21:21:44.965] AddCombatant 03:40002E2B:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::94.83:87.53:0.00:0.39" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="58" ActionType="LogMessage" LogMessageText="[21:21:44.965] AddCombatant 03:40002E31:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::109.00:100.00:0.00:-1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="59" ActionType="LogMessage" LogMessageText="[21:21:44.965] AddCombatant 03:40002E2E:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::112.47:94.83:0.00:-1.18" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="60" ActionType="LogMessage" LogMessageText="[21:21:44.965] AddCombatant 03:40002E30:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::100.00:109.00:0.00:-3.14" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="61" ActionType="LogMessage" LogMessageText="[21:21:44.965] AddCombatant 03:40002E2F:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::91.00:100.00:0.00:1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="62" ActionType="LogMessage" LogMessageText="[21:21:44.965] AddCombatant 03:40002E32:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::100.00:91.00:0.00:0.00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="63" ActionType="Placeholder" ExecutionDelayExpression="24.47 * 1000"/>
+                      <Action OrderNumber="64" ActionType="LogMessage" LogMessageText="[21:22:09.824] 263 107:40002A12:BAE7:99.992:99.992:-0.015:1.571" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="65" ActionType="Placeholder" ExecutionDelayExpression="8.46 * 1000"/>
+                      <Action OrderNumber="66" ActionType="LogMessage" LogMessageText="[21:22:18.288] AddCombatant 03:40002EB1:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::117.00:100.00:0.00:-1.57" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="67" ActionType="LogMessage" LogMessageText="[21:22:18.288] AddCombatant 03:40002EB2:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::87.53:94.83:0.00:1.18" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="68" ActionType="LogMessage" LogMessageText="[21:22:18.288] AddCombatant 03:40002EB0:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::100.00:117.00:0.00:-3.14" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="69" ActionType="LogMessage" LogMessageText="[21:22:18.288] AddCombatant 03:40002EB6:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::93.64:93.64:0.00:0.79" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="70" ActionType="LogMessage" LogMessageText="[21:22:18.288] AddCombatant 03:40002EB3:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::94.83:112.47:0.00:2.75" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="71" ActionType="LogMessage" LogMessageText="[21:22:18.288] AddCombatant 03:40002EB4:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::112.47:105.17:0.00:-1.96" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="72" ActionType="LogMessage" LogMessageText="[21:22:18.288] AddCombatant 03:40002EB8:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::106.36:106.36:0.00:-2.36" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="73" ActionType="LogMessage" LogMessageText="[21:22:18.288] AddCombatant 03:40002EB9:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::106.36:93.64:0.00:-0.79" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="74" ActionType="LogMessage" LogMessageText="[21:22:18.288] AddCombatant 03:40002EB7:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::93.64:106.36:0.00:2.36" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="75" ActionType="Placeholder" ExecutionDelayExpression="0.37 * 1000"/>
+                      <Action OrderNumber="76" ActionType="LogMessage" LogMessageText="[21:22:18.658] _ActorSpawnExtra AAA:110:40002EB0:黑洞:8343:19512:100:117:0:-3.1416:${l:party[4]}:0054:00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="77" ActionType="LogMessage" LogMessageText="[21:22:18.658] _ActorSpawnExtra AAA:110:40002EB1:黑洞:8343:19512:117:100:0:-1.5709:${l:party[5]}:0054:00" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="78" ActionType="LogMessage" LogMessageText="[21:22:18.288] AddCombatant 03:40002EB5:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::105.17:87.53:0.00:-0.39" LogProcess="True" LogProcessACT="True"/>
+                      <Action OrderNumber="79" ActionType="LogMessage" LogMessageText="[21:22:18.288] AddCombatant 03:40002EAF:黑洞:00:64:0000:00::8343:19512:188300:188300:10000:10000:::83.00:100.00:0.00:1.57" LogProcess="True" LogProcessACT="True"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+              <Folder Id="4fea2320-17bc-4a15-9cec-7df2808dc21e" Enabled="true" Name="P3-4 塔" RawEnvironmentVariables="phase = P33">
+                <Triggers>
+                  <Trigger Enabled="true" Id="4db9fb47-a691-40fc-84a1-0072a70410ee" Name="0. 初始化 + 时间轴" RegularExpression="^.{15}\S+ 108:4.{7}:C533:">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="U7b_phase" VariableExpression="${env:phase}"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^U7b34"/>
+                      <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0:前后站位，准备放黄圈" LogProcess="True"/>
+                      <Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:18.2:躲开场中，保持移动" LogProcess="True"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="09ce025a-af4c-4e99-96a4-9e5bdaec171c" Name="2. 记录分摊位置 + 顶起" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BB03):.{8}:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;tid&gt;1.{7})">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="U7b34_分摊xy" ListVariableExpression="${_entity[${tid}].xy}"/>
+                      <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b34_顶起&#13;&#10;t: 4.1&#13;&#10;Omen: m0611_sircle_01x&#13;&#10;Pos: ${!l:U7b34_分摊xy[1]}&#13;&#10;Scale: 6, 6, 1&#13;&#10;---&#13;&#10;Tag: U7b34_顶起&#13;&#10;t: 4.1&#13;&#10;Omen: m0611_sircle_01x&#13;&#10;Pos: ${!l:U7b34_分摊xy[2]}&#13;&#10;Scale: 6, 6, 1">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${l:U7b34_分摊xy.size}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="0da9ceeb-5666-4f56-a24a-32169913802d" Name="1. 分摊点名 + 时间轴" RegularExpression="^.{15}\S+ 1B:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;00A1):" PeriodRefire="Deny" RefirePeriodExpression="10000">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b34_bTH先分摊" VariableExpression="${!l:party.indexof(${tid})} &lt;= 4"/>
+                      <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0:准备${if: ${!v:U7b34_bTH先分摊} = (${!v:myIdx} &lt;= 4) ? 中间分摊 : 两侧踩塔 }" LogProcess="True"/>
+                      <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:6:${if: ${!v:U7b34_bTH先分摊} = (${!v:myIdx} &lt;= 4) ? 两侧踩塔 : 中间分摊 }" LogProcess="True"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -1841,15 +2291,78 @@
             </Folders>
           </Folder>
           <Folder Id="4800f5ed-9dda-4dad-8b92-403b62352b2f" Enabled="true" Name="P4">
+            <Folders>
+              <Folder Id="2d6b87e8-3121-4084-8bc5-e2f1b63ae299" Enabled="true" Name="P4-2 后半" RawEnvironmentVariables="phase = P42"/>
+              <Folder Id="d110124d-f866-4ef5-800e-1aedfc31890c" Enabled="true" Name="P4-1 前半" RawEnvironmentVariables="phase = P41">
+                <Triggers>
+                  <Trigger Enabled="true" Id="6e62c57a-7f4f-4835-8275-581ea4070bf7" Name="1.1 记录冰扇形 =&gt; 2" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BA9[8E]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)" PeriodRefire="Deny" RefirePeriodExpression="1000">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase&#13;&#10;" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b41_冰雷_b真冰" VariableExpression="0x${aid} = 0xBA98"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b41_冰雷_b冰主斜" VariableExpression="RadToDir(${h}, -4) % 2 = 0"/>
+                      <Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="_U7b41_冰雷" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${ev:U7b41_冰雷_b真冰}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${ev:U7b41_冰雷_b真雷}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="5" ActionType="Variable" ExecutionDelayExpression="2000" VariableOp="UnsetRegex" VariableName="^U7b41_冰雷"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:U7b_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="cbbfc51c-7d54-4b46-9e7d-d433c7937257" Name="1.2 记录雷直条 =&gt; 2" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BA9F|BAA1):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="phase&#13;&#10;只获取远离场中的雷" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b41_冰雷_b真雷" VariableExpression="0x${aid} = 0xBA9F"/>
+                      <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b41_冰雷_外雷dirN4" VariableExpression="VecToDir(${x} - 100 + 20 * sin(${h}), ${y} - 100 + 20 * cos(${h}), -4)"/>
+                      <Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="_U7b41_冰雷" LogProcess="True" LogProcessACT="True">
+                        <Condition Enabled="true" Grouping="And">
+                          <ConditionSingle Enabled="true" ExpressionL="${ev:U7b41_冰雷_b真冰}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                          <ConditionSingle Enabled="true" ExpressionL="${ev:U7b41_冰雷_b真雷}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                        </Condition>
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${v:U7b_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                      <ConditionSingle Enabled="true" ExpressionL="ProjectHeight(${x}, ${y}, ${h}, 100, 100)" ExpressionTypeL="Numeric" ExpressionR="10" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="ce248bf5-4e81-456f-b5ab-d43ca5d9d5a0" Name="2. 处理冰雷 =&gt; 3" RegularExpression="^_U7b41_冰雷">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" Asynchronous="False" LogMessageText="U7b41_冰雷:b真冰:${!v:U7b41_冰雷_b真冰}:b真雷:${!v:U7b41_冰雷_b真雷}:外雷dirN4:${!v:U7b41_冰雷_外雷dirN4}:b冰朝雷中点:${n: ${!v:U7b41_冰雷_b冰主斜} = (${!v:U7b41_冰雷_外雷dirN4} % 2 = 0)}" LogProcess="True" LogProcessACT="True"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="a9111ab6-9475-450f-98c5-3cf7a8dcd42b" Name="3. 播报冰雷" RegularExpression="^U7b41_冰雷:b真冰:(?&lt;b真冰&gt;[01]):b真雷:(?&lt;b真雷&gt;[01]):外雷dirN4:(?&lt;外雷dirN4&gt;[0-3]):b冰朝雷中点:(?&lt;b冰朝雷中点&gt;[01])">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Placeholder" Description="“实际冰扇形中轴线是否对准雷直条的中点”" DescriptionOverride="True"/>
+                      <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="// 中间大三角安全&#13;&#10;Tag: U7b41_冰雷&#13;&#10;Omen: m0532om_don01x&#13;&#10;t: 4.8&#13;&#10;O: 100, 100, 0&#13;&#10;DirN4: 0${外雷dirN4}&#13;&#10;Pos: 0, -5.7, 0.1&#13;&#10;Scale: 4, 4, 30&#13;&#10;Color: 1, 1, 2, 5&#13;&#10;---&#13;&#10;Tag: U7b41_冰雷&#13;&#10;Omen: m0532om_don01x&#13;&#10;t: 4.8&#13;&#10;O: 100, 100, 0&#13;&#10;DirN4: 0${外雷dirN4}&#13;&#10;Pos: 0, 14.3, 0.1&#13;&#10;Scale: 4, 4, 30&#13;&#10;Color: 1, 1, 2, 5">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${b冰朝雷中点}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="// 两侧小三角安全&#13;&#10;Tag: U7b41_冰雷&#13;&#10;Omen: m0532om_don01x&#13;&#10;t: 4.8&#13;&#10;O: 100, 100, 0&#13;&#10;DirN4: 0${外雷dirN4}&#13;&#10;Pos: polar 6, 112.5°, 0.1&#13;&#10;Scale: 2.3, 2.3, 30&#13;&#10;Color: 1, 1, 2, 5&#13;&#10;---&#13;&#10;Tag: U7b41_冰雷&#13;&#10;Omen: m0532om_don01x&#13;&#10;t: 4.8&#13;&#10;O: 100, 100, 0&#13;&#10;DirN4: 0${外雷dirN4}&#13;&#10;Pos: polar 6, -112.5°, 0.1&#13;&#10;Scale: 2.3, 2.3, 30&#13;&#10;Color: 1, 1, 2, 5">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${b冰朝雷中点}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ActionType="UseTTS" UseTTSTextExpression="去${?d: &#13;&#10;  00 = 双层危险区,&#13;&#10;  01 = 单层扇形内,&#13;&#10;  10 = 单层直条内,&#13;&#10;  11 = 安全区&#13;&#10;  [${b真冰}${b真雷}]&#13;&#10;}"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="bc470062-2e45-434a-8261-a38d98f59e3b" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;C2DC):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="U7b_phase" VariableExpression="${env:phase}"/>
+                      <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^U7b41"/>
+                    </Actions>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+            </Folders>
             <Triggers>
               <Trigger Enabled="true" Id="bf7cfb8c-d0e7-4a20-8521-9573280676f6" Name="蓝/紫多面体" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;131[78]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
                 <Actions>
                   <Action OrderNumber="1" Enabled="False" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b紫" VariableExpression="0x${aid} = 0x1317"/>
-                </Actions>
-              </Trigger>
-              <Trigger Enabled="true" Id="100e6846-4af5-4d75-be7d-442148e30847" Name="真/假 艾" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;808):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:(?&lt;type&gt;46[12]):">
-                <Actions>
-                  <Action OrderNumber="1" Enabled="False" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b真" VariableExpression="0x${type} = 0x462"/>
                 </Actions>
               </Trigger>
               <Trigger Enabled="true" Id="b3cea5a5-bbef-4d9d-aef2-405c6b4b74b6" Name="真/假 卡" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;808):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:(?&lt;type&gt;45F|460):">
@@ -1857,8 +2370,14 @@
                   <Action OrderNumber="1" Enabled="False" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b真" VariableExpression="0x${type} = 0x460"/>
                 </Actions>
               </Trigger>
+              <Trigger Enabled="true" Id="100e6846-4af5-4d75-be7d-442148e30847" Name="真/假 艾" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;808):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;4.{7}):[^:]*:(?&lt;type&gt;46[12]):">
+                <Actions>
+                  <Action OrderNumber="1" Enabled="False" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b真" VariableExpression="0x${type} = 0x462"/>
+                </Actions>
+              </Trigger>
             </Triggers>
           </Folder>
+          <Folder Id="628de0d7-0e02-489d-bb39-6d5fe04c513d" Enabled="true" Name="P5"/>
         </Folders>
       </Folder>
     </Folders>
