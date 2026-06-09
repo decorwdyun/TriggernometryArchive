@@ -1312,6 +1312,26 @@
           </Trigger>
         </Triggers>
       </Folder>
+      <Folder Id="bb459b0f-8c03-4276-a40c-45e325731b47" Enabled="true" Name="记录头顶标点">
+        <Triggers>
+          <Trigger Enabled="true" Id="c50f27b0-a3d4-459b-bee8-194ae1162d02" Name="标点+" RegularExpression="^.{15}\S+ 1D:Add:(?&lt;marker&gt;\d+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="myMarker" VariableExpression="${?d:&#13;&#10;  0 = attack1,&#13;&#10;  1 = attack2,&#13;&#10;  2 = attack3,&#13;&#10;  3 = attack4,&#13;&#10;  4 = attack5,&#13;&#10;  5 = bind1,&#13;&#10;  6 = bind2,&#13;&#10;  7 = bind3,&#13;&#10;  8 = stop1,&#13;&#10;  9 = stop2,&#13;&#10;  10 = square,&#13;&#10;  11 = circle,&#13;&#10;  12 = cross,&#13;&#10;  13 = triangle,&#13;&#10;  14 = attack6,&#13;&#10;  15 = attack7,&#13;&#10;  16 = attack8,&#13;&#10;  [${marker}]&#13;&#10;}"/>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Id="2e1425a7-5ecd-4d86-9f25-f7ebc9dfee2e" Name="标点-" RegularExpression="^.{15}\S+ 1D:Delete:(?&lt;marker&gt;\d+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableName="myMarker"/>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+            </Condition>
+          </Trigger>
+        </Triggers>
+      </Folder>
     </Folders>
     <Triggers>
       <Trigger Enabled="false" Id="fae168be-1770-4f38-b880-f2bdfca8b971" Name="使用说明" Source="None">
