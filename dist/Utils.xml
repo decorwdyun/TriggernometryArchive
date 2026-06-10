@@ -1231,14 +1231,9 @@
           </Trigger>
           <Trigger Enabled="true" Id="1d44f62a-a70f-4849-b8a2-b10b9869009b" Name="110 ActorSpawnExtra" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 110:(?&lt;id&gt;4.{7}):(?!E0000000:0000:00)(?&lt;params&gt;.+)" DebugLevel="Error">
             <Actions>
-              <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${id}"/>
+              <Action OrderNumber="1" ActionType="DictVariable" ExecutionDelayExpression="100" Asynchronous="False" DictVariableOp="GetEntity" DictVariableName="tmp_src" DictVariableKey="name, bnpcnameid, bnpcid, x, y, z, h" DictVariableValue="${id}"/>
               <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="${time} _ActorSpawnExtra AAA:110:${id}:${d:tmp_src.joinvalues(&quot;:&quot;, name, bnpcnameid, bnpcid, x, y, z, h)}:${params}" LogProcess="True" LogProcessACT="True"/>
               <Action OrderNumber="3" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_src"/>
-            </Actions>
-          </Trigger>
-          <Trigger Enabled="true" Id="31761d9d-e5e6-4135-8c88-d6236b5cc9fe" Name="转录指令不存在" RegularExpression="^.{15}\S+ 00:003C::(“\/(?&lt;commandCN&gt;.+?)”出现问题：该命令不存在。|The command \/(?&lt;commandEN&gt;.+?) does not exist.|そのコマンドはありません。： \/(?&lt;commandJP&gt;.+?))$" DebugLevel="Error">
-            <Actions>
-              <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="^CommandNotExist:${commandCN}${commandEN}${commandJP}" LogProcess="True"/>
             </Actions>
           </Trigger>
           <Trigger Enabled="true" Id="bdd0e432-af7a-4641-a827-32c1681d4347" Name="01 Territory" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 01:(?&lt;id&gt;[^:]*):(?&lt;name&gt;[^:]*)" DebugLevel="Error">
@@ -1309,6 +1304,11 @@
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericGreater"/>
             </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Id="31761d9d-e5e6-4135-8c88-d6236b5cc9fe" Name="转录指令不存在" RegularExpression="^.{15}\S+ 00:003C::(“\/(?&lt;commandCN&gt;.+?)”出现问题：该命令不存在。|The command \/(?&lt;commandEN&gt;.+?) does not exist.|そのコマンドはありません。： \/(?&lt;commandJP&gt;.+?))$" DebugLevel="Error">
+            <Actions>
+              <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="^CommandNotExist:${commandCN}${commandEN}${commandJP}" LogProcess="True"/>
+            </Actions>
           </Trigger>
         </Triggers>
       </Folder>
