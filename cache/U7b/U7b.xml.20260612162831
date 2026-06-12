@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <TriggernometryExport PluginVersion="2.1.1.2">
-<ExportedFolder Id="397aeed8-23a9-42e0-90f3-7a6aa02c46a0" Enabled="true" Name="U7b 绝妖星宝宝椅 v0.12.1 [制作中]" RawEnvironmentVariables="prefix = U7b&#xD;&#xA;alias = U7b,绝妖星&#xD;&#xA;zone = 1363&#xD;&#xA;version = 0.11.2">
+<ExportedFolder Id="397aeed8-23a9-42e0-90f3-7a6aa02c46a0" Enabled="true" Name="U7b 绝妖星宝宝椅 v0.12.0 [制作中]" RawEnvironmentVariables="prefix = U7b&#xD;&#xA;alias = U7b,绝妖星&#xD;&#xA;zone = 1363&#xD;&#xA;version = 0.11.2">
 <Folders>
 <Folder Id="fa14eceb-0ab5-4387-bfbe-b1804a1916bb" Enabled="true" Name=".总体控制">
 <Folders>
@@ -1556,6 +1556,22 @@
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b41_b真卡" VariableExpression="0x${type} = 0x460" />
 </Actions>
 </Trigger>
+<Trigger Enabled="true" Id="4b0ffe81-eb1b-450b-ad12-7c119e464d33" Name="5.1 记录雷/水" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;15A[89]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+<Actions>
+<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_轮" VariableExpression="${?d: 51 = 1, 76 = 2, 36 = 1, 61 = 2 [${n: round(${t}) }]}" />
+<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b水" VariableExpression="0x${aid} = 0x15A9" />
+<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b摊" VariableExpression="${!v:tmp_b水} = ${!v:U7b41_b真艾}" />
+<Action OrderNumber="4" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="U7b41_分摊${!v:tmp_轮}_pIdx" ListVariableExpression="${!l:party.indexof(${tid})}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b摊}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="5" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="_U7b41_雷水:n:${!v:tmp_轮}:tid:${tid}:t:${t}:b摊:${!v:tmp_b摊}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableName="tmp_b水" />
+<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableName="tmp_b摊" />
+<Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableName="tmp_轮" />
+</Actions>
+</Trigger>
 <Trigger Enabled="true" Id="9a63f87d-3710-4ef8-ae79-64620ef4c3d8" Name="5.2 记录加速度炸弹" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;15AA):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_轮" VariableExpression="${?d: 51 = 1, 76 = 2, 36 = 1, 61 = 2 [${n: round(${t}) }]}" />
@@ -1566,7 +1582,7 @@
 </Trigger>
 <Trigger Enabled="true" Id="280baef2-b55a-4b29-a499-89ee8c596b22" Name="5.4 记录水火钢铁月环" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;BB2[01]):">
 <Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="延迟等待记录真假卡奥斯　水月环 火钢铁" DescriptionOverride="True" />
+<Action OrderNumber="1" ActionType="Placeholder" Description="延迟等待记录真假卡奥斯" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="500" />
 <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_轮" VariableExpression="${ev:U7b41_b钢1} ? 2 : 1" />
 <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b火" VariableExpression="0x${aid} = 0xBB20" />
@@ -1647,22 +1663,6 @@
 <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Set" ListVariableName="U7b41_pIdx至石化${v:tmp_轮}" ListVariableExpression="${if: ${!v:U7b41_b真艾} ? 背 : 面 }" ListVariableIndex="${!l:party.indexof(${tid})}" />
 <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="_U7b41_石化:n:${!v:tmp_轮}:tid:${tid}:t:${t}:b背:${!v:U7b41_b真艾}" LogProcess="True" LogProcessACT="True" />
 <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_轮" />
-</Actions>
-</Trigger>
-<Trigger Enabled="true" Id="4b0ffe81-eb1b-450b-ad12-7c119e464d33" Name="5.1 记录雷/水" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;15A[89]):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
-<Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_轮" VariableExpression="${?d: 51 = 1, 76 = 2, 36 = 1, 61 = 2 [${n: round(${t}) }]}" />
-<Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b水" VariableExpression="0x${aid} = 0x15A9" />
-<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b摊" VariableExpression="${!v:tmp_b水} = ${!v:U7b41_b真艾}" />
-<Action OrderNumber="4" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Push" ListVariableName="U7b41_分散${!v:tmp_轮}_pIdx" ListVariableExpression="${!l:party.indexof(${tid})}">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b摊}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="5" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="_U7b41_雷水:n:${!v:tmp_轮}:tid:${tid}:t:${t}:b摊:${!v:tmp_b摊}" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableName="tmp_b水" />
-<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableName="tmp_b摊" />
-<Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableName="tmp_轮" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -1770,10 +1770,10 @@
 <Action OrderNumber="6" ActionType="NamedCallback" NamedCallbackName="hint" NamedCallbackParam="10&#xD;&#xA;${if: ${!v:U7b42_b去真紫} ? 真去紫、假去蓝 : 真去蓝、假去紫 }" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="41ae3020-4628-4f5b-a021-bc9be7019026" Name="3. 播报鸳鸯锅 + 散摊 + 石化" RegularExpression="^U7b42_鸳鸯锅:dir8艾:(?&lt;dir8艾&gt;[0-7]):b去左:(?&lt;b去左&gt;[01]):b去raw紫:(?&lt;b去raw紫&gt;[01]):b散:(?&lt;b散&gt;[01]):动静:(?&lt;动静&gt;[无动静]):石化:(?&lt;石化&gt;[无面背])">
+<Trigger Enabled="true" Id="41ae3020-4628-4f5b-a021-bc9be7019026" Name="3. 播报鸳鸯锅 + 散摊 + 石化" RegularExpression="^U7b42_鸳鸯锅:dir8艾:(?&lt;dir8艾&gt;[0-7]):b去左:(?&lt;b去左&gt;[01]):b去raw紫:(?&lt;b去raw紫&gt;[01]):b摊:(?&lt;b摊&gt;[01]):动静:(?&lt;动静&gt;[无动静]):石化:(?&lt;石化&gt;[无面背])">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0:去${if: ${b去左} ? 左侧 : 右侧 }，${if: ${b去raw紫} ? 紫色 : 蓝色 }半场" LogProcess="True" />
-<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:5.4:${?d: 11 = 左西出去分散, 10 = 上北三人分摊, 01 = 右东出去分散, 00 = 下南三人分摊 [${!v:myIdx_isTH}${b散}]}，${?d: 无=照常输出, 动=稍后保持移动, 静=稍后停手 [${动静}]}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:5.4:${?d: 11 = 上北三人分摊, 10 = 左西出去分散, 01 = 下南三人分摊, 00 = 右东出去分散 [${!v:myIdx_isTH}${b摊}]}，${?d: 无=照常输出, 动=稍后保持移动, 静=稍后停手 [${动静}]}" LogProcess="True" LogProcessACT="True" />
 <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:11.9:${?d: 动=动动动, 静=停停停 [${动静}]}" LogProcess="True" LogProcessACT="True">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${动静}" ExpressionTypeL="String" ExpressionR="无" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
@@ -1790,7 +1790,7 @@
 </Trigger>
 <Trigger Enabled="true" Id="244f95d8-dc63-4b93-8bef-6569a67d4552" Name="2. 处理鸳鸯锅 =&gt; 3" RegularExpression="^_U7b42_鸳鸯锅">
 <Actions>
-<Action OrderNumber="1" ActionType="LogMessage" Asynchronous="False" LogMessageText="U7b42_鸳鸯锅:dir8艾:${!v:U7b42_dir8艾}:b去左:${n: ${!v:U7b42_b左真紫} = ${!v:U7b42_b去真紫}}:b去raw紫:${n: ${!v:U7b42_b真艾} = ${!v:U7b42_b去真紫}}:b散:${!l:U7b41_分散1_pIdx.contain(${!v:myIdx})}:动静:${!l:U7b41_pIdx至动静1[${!v:myIdx}]}:石化:${!l:U7b41_pIdx至石化1[${!v:myIdx}]}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="1" ActionType="LogMessage" Asynchronous="False" LogMessageText="U7b42_鸳鸯锅:dir8艾:${!v:U7b42_dir8艾}:b去左:${n: ${!v:U7b42_b左真紫} = ${!v:U7b42_b去真紫}}:b去raw紫:${n: ${!v:U7b42_b真艾} = ${!v:U7b42_b去真紫}}:b摊:${!l:U7b41_分摊1_pIdx.contain(${!v:myIdx})}:动静:${!l:U7b41_pIdx至动静1[${!v:myIdx}]}:石化:${!l:U7b41_pIdx至石化1[${!v:myIdx}]}" LogProcess="True" LogProcessACT="True" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="b2da017b-7e88-4337-83e6-991e7bfccb87" Name="4. 记录雷直条 =&gt; 5" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BA9F|BAA1):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
@@ -1798,14 +1798,14 @@
 <Action OrderNumber="1" ActionType="Placeholder" Description="phase&#xD;&#xA;只获取远离场中的雷" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b42_b真雷" VariableExpression="0x${aid} = 0xBA9F" />
 <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b42_外雷dirN4" VariableExpression="VecToDir(${x} - 100 + 20 * sin(${h}), ${y} - 100 + 20 * cos(${h}), -4)" />
-<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="U7b42_雷:b真雷:${!v:U7b42_b真雷}:外雷dirN4:${!v:U7b42_外雷dirN4}:石化:${!l:U7b41_pIdx至石化1[${!v:myIdx}]}:b钢:${!v:U7b41_b钢1}:b散:${!l:U7b41_分散2_pIdx.contain(${!v:myIdx})}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="U7b42_雷:b真雷:${!v:U7b42_b真雷}:外雷dirN4:${!v:U7b42_外雷dirN4}:石化:${!l:U7b41_pIdx至石化1[${!v:myIdx}]}:b钢:${!v:U7b41_b钢1}:b摊:${!l:U7b41_分摊2_pIdx.contain(${!v:myIdx})}" LogProcess="True" LogProcessACT="True" />
 </Actions>
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${v:U7b_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 <ConditionSingle Enabled="true" ExpressionL="ProjectHeight(${x}, ${y}, ${h}, 100, 100)" ExpressionTypeL="Numeric" ExpressionR="10" ExpressionTypeR="String" ConditionType="NumericGreater" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="91f9abd2-e254-4b50-b2d0-f09154a1261e" Name="5. 播报雷直条 + 石化 + 钢月" RegularExpression="^U7b42_雷:b真雷:(?&lt;b真雷&gt;[01]):外雷dirN4:(?&lt;外雷dirN4&gt;[0-3]):石化:(?&lt;石化&gt;[无面背]):b钢:(?&lt;b钢&gt;[01]):b散:(?&lt;b散&gt;[01])">
+<Trigger Enabled="true" Id="91f9abd2-e254-4b50-b2d0-f09154a1261e" Name="5. 播报雷直条 + 石化 + 钢月" RegularExpression="^U7b42_雷:b真雷:(?&lt;b真雷&gt;[01]):外雷dirN4:(?&lt;外雷dirN4&gt;[0-3]):石化:(?&lt;石化&gt;[无面背]):b钢:(?&lt;b钢&gt;[01]):b摊:(?&lt;b摊&gt;[01])">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0.0:${if: ${b真雷} ? 真雷，进安全区 : 假雷，进危险区 }" LogProcess="True" />
 <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:4.0:${if: ${石化} == 面 ? 面对 : 背对 }" LogProcess="True" LogProcessACT="True">
@@ -1818,8 +1818,8 @@
 <ConditionSingle Enabled="true" ExpressionL="${石化}" ExpressionTypeL="String" ExpressionR="无" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:5.9:场中放${if: ${b钢} ? 钢铁 : 月环 }，稍后${if: ${b散} ? 出去分散 : 三人分摊 }" LogProcess="True" />
-<Action OrderNumber="5" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:12.7:${if: ${b钢} ? 躲开钢铁， : 留在原地，稍后 }${?d: 11 = 左西出去分散, 10 = 上北三人分摊, 01 = 右东出去分散, 00 = 下南三人分摊 [${!v:myIdx_isTH}${b散}]}" LogProcess="True" />
+<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:5.9:场中放${if: ${b钢} ? 钢铁 : 月环 }，稍后${if: ${b摊} ? 三人分摊 : 出去分散 }" LogProcess="True" />
+<Action OrderNumber="5" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:12.7:${if: ${b钢} ? 躲开钢铁， : 留在原地，稍后 }${?d: 11 = 上北三人分摊, 10 = 左西出去分散, 01 = 下南三人分摊, 00 = 右东出去分散 [${!v:myIdx_isTH}${b摊}]}" LogProcess="True" />
 <Action OrderNumber="6" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b42_雷人群&#xD;&#xA;t: 6.0&#xD;&#xA;Omen: m0532om_don01x&#xD;&#xA;O: 100, 100&#xD;&#xA;DirN4: ${外雷dirN4}&#xD;&#xA;Pos: 0, -6, 0.1&#xD;&#xA;Scale: 1.5, 1.5, 30&#xD;&#xA;Color: 1, 1, 2, 5">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${石化}" ExpressionTypeL="String" ExpressionR="无" ExpressionTypeR="String" ConditionType="StringEqualCase" />
@@ -1832,9 +1832,9 @@
 </Action>
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="c4dbddd9-c22e-4e42-9a42-fb3a282bb21a" Name="7. 播报冰扇形 + 摊散 + 动静 + 石化" RegularExpression="^U7b42_冰:b真冰:(?&lt;b真冰&gt;[01]):b冰主斜:(?&lt;b冰主斜&gt;[01]):b散:(?&lt;b散&gt;[01]):动静:(?&lt;动静&gt;[无动静]):石化:(?&lt;石化&gt;[无面背])" PeriodRefire="Deny" RefirePeriodExpression="1000">
+<Trigger Enabled="true" Id="c4dbddd9-c22e-4e42-9a42-fb3a282bb21a" Name="7. 播报冰扇形" RegularExpression="^U7b42_冰:b真冰:(?&lt;b真冰&gt;[01]):b冰主斜:(?&lt;b冰主斜&gt;[01]):b摊:(?&lt;b摊&gt;[01]):动静:(?&lt;动静&gt;[无动静]):石化:(?&lt;石化&gt;[无面背])" PeriodRefire="Deny" RefirePeriodExpression="1000">
 <Actions>
-<Action OrderNumber="1" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0.0:${if: ${b真冰} ? 真冰，安全区 : 假冰，危险区 }${if: ${b散} ? 分散 : 分摊 }，${?d: 无=正常输出, 动=动动动, 静=停停停 [${动静}]}" LogProcess="True" />
+<Action OrderNumber="1" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:0.0:${if: ${b真冰} ? 真冰，安全区 : 假冰，危险区 }${if: ${b摊} ? 分摊 : 分散 }，${?d: 无=正常输出, 动=动动动, 静=停停停 [${动静}]}" LogProcess="True" />
 <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="cd5:4.7" LogProcess="True" LogProcessACT="True">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${动静}" ExpressionTypeL="String" ExpressionR="无" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
@@ -1854,7 +1854,7 @@
 <Action OrderNumber="1" ActionType="Placeholder" Description="phase&#xD;&#xA;" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b42_b真冰" VariableExpression="0x${aid} = 0xBA98" />
 <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="U7b42_b冰主斜" VariableExpression="RadToDir(${h}, -4) % 2 = 0" />
-<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="U7b42_冰:b真冰:${!v:U7b42_b真冰}:b冰主斜:${!v:U7b42_b冰主斜}:b散:${!l:U7b41_分散2_pIdx.contain(${!v:myIdx})}:动静:${!l:U7b41_pIdx至动静2[${!v:myIdx}]}:石化:${!l:U7b41_pIdx至石化2[${!v:myIdx}]}" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="U7b42_冰:b真冰:${!v:U7b42_b真冰}:b冰主斜:${!v:U7b42_b冰主斜}:b摊:${!l:U7b41_分摊2_pIdx.contain(${!v:myIdx})}:动静:${!l:U7b41_pIdx至动静2[${!v:myIdx}]}:石化:${!l:U7b41_pIdx至石化2[${!v:myIdx}]}" LogProcess="True" LogProcessACT="True" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${v:U7b_phase}" ExpressionTypeL="String" ExpressionR="${env:phase}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
@@ -2074,7 +2074,7 @@
 <Action OrderNumber="5" ActionType="Placeholder" Description="即第一次判定延迟 4.069 s，间隔 0.513 s" DescriptionOverride="True" />
 <Action OrderNumber="6" ActionType="Placeholder" Description="（第一次初始判定结果实际早 0.1，线性拟合时没包含第一次时间）" DescriptionOverride="True" />
 <Action OrderNumber="7" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: ExaFlare&#xD;&#xA;&#xA;Omen: m0611_sircle_01x&#xD;&#xA;O: ${x}, ${y}, 0&#xD;&#xA;θ: ${h}&#xD;&#xA;delay0: 2.230&#xD;&#xA;t: 2.052&#xD;&#xA;dt: 0.513&#xD;&#xA;dPos: 0, -5√2&#xD;&#xA;n: 6&#xD;&#xA;n0: 1&#xD;&#xA;scale: 6, 6, 1" />
-<Action OrderNumber="8" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="PictoACT" NamedCallbackParam="// Debug 用，显示初始预兆 &#xD;&#xA;&#xA;Omen: yazirushi5o0c&#xD;&#xA;&#xA;t: 3.7&#xD;&#xA;O: ${x}, ${y}, 0&#xD;&#xA;θ: ${h}&#xD;&#xA;scale: 6, 6, 1" />
+<Action OrderNumber="8" Enabled="False" ActionType="NamedCallback" DescBgColor="fdd" NamedCallbackName="PictoACT" NamedCallbackParam="// Debug 用，显示初始预兆 &#xD;&#xA;&#xA;Omen: yazirushi5o0c&#xD;&#xA;&#xA;t: 3.7&#xD;&#xA;O: ${x}, ${y}, 0&#xD;&#xA;θ: ${h}&#xD;&#xA;scale: 6, 6, 1" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="c25f181e-3a57-4137-8491-2369e142f3d9" Name="0. 初始化（对 T 平 A）" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;C654):" PeriodRefire="Deny" RefirePeriodExpression="10000">
