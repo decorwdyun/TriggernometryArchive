@@ -933,17 +933,9 @@
 <Action OrderNumber="9" ActionType="DictVariable" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="Omen_args" DictVariableKey="g" DictVariableValue="${!l:Omen_args[7]} ?? 1" />
 <Action OrderNumber="10" ActionType="DictVariable" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="Omen_args" DictVariableKey="b" DictVariableValue="${!l:Omen_args[8]} ?? 1" />
 <Action OrderNumber="11" ActionType="DictVariable" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="Omen_args" DictVariableKey="a" DictVariableValue="${!l:Omen_args[9]} ?? 1" />
-<Action OrderNumber="12" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: ${!d:Omen_args[omen]}&#xD;&#xA;Tag: Omen+&#xD;&#xA;t: ${!d:Omen_args[t]}&#xD;&#xA;Pos: ${_me.Pos}&#xD;&#xA;Angle: ${_me.Heading}&#xD;&#xA;Scale: ${!d:Omen_args.joinvalues(&quot;,&quot;, scaleX, scaleY, scaleZ)}&#xD;&#xA;Color: ${!d:Omen_args.joinvalues(&quot;,&quot;, r, g, b, a)}" />
-<Action OrderNumber="13" ActionType="Loop" DescBgColor="ffd" LoopDelayExpression="10">
-<LoopCondition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${_sincems}" ExpressionTypeL="String" ExpressionR="${d:Omen_args[t]} * 1000" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
-</LoopCondition>
-<LoopActions>
-<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Change&#xD;&#xA;Tag: Omen+&#xD;&#xA;Pos: ${_me.Pos}&#xD;&#xA;Angle: ${_me.Heading}" />
-</LoopActions>
-</Action>
-<Action OrderNumber="14" ActionType="ListVariable" ListVariableName="Omen_args" />
-<Action OrderNumber="15" ActionType="DictVariable" DictVariableName="Omen_args" />
+<Action OrderNumber="12" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: ${!d:Omen_args[omen]}&#xD;&#xA;Tag: Omen+&#xD;&#xA;t: ${!d:Omen_args[t]}&#xD;&#xA;Pos: ${_me.id}&#xD;&#xA;Scale: ${!d:Omen_args.joinvalues(&quot;,&quot;, scaleX, scaleY, scaleZ)}&#xD;&#xA;Color: ${!d:Omen_args.joinvalues(&quot;,&quot;, r, g, b, a)}" />
+<Action OrderNumber="13" ActionType="ListVariable" ListVariableName="Omen_args" />
+<Action OrderNumber="14" ActionType="DictVariable" DictVariableName="Omen_args" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="6788e355-34a1-4fc4-be5d-3d7c67ef7e36" Name="/e SB 10" RegularExpression="^.{15}\S+ 00:0038::(?i) *sb(?: +(?&lt;scale&gt;[\d.]+))? *$" PrevActions="Interrupt">
@@ -1308,6 +1300,29 @@
 <Trigger Enabled="true" Id="31761d9d-e5e6-4135-8c88-d6236b5cc9fe" Name="转录指令不存在" RegularExpression="^.{15}\S+ 00:003C::(“\/(?&lt;commandCN&gt;.+?)”出现问题：该命令不存在。|The command \/(?&lt;commandEN&gt;.+?) does not exist.|そのコマンドはありません。： \/(?&lt;commandJP&gt;.+?))$" DebugLevel="Error">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="^CommandNotExist:${commandCN}${commandEN}${commandJP}" LogProcess="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="false" Id="fae77575-b742-4059-a40c-e717f25bf8eb" Name="校验重复" RegularExpression="^.{15}\S+ AAA:">
+<Actions>
+<Action OrderNumber="1" Enabled="False" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_b重复" VariableExpression="${d:日志转录_校验重复.ekey(${_event})}" />
+<Action OrderNumber="2" Enabled="False" ActionType="LogMessage" Asynchronous="False" LogMessageText="检测到重复的转录日志，会导致机制播报错误。这说明你将远程库复制到了本地并同时开启，或你导入了其他含有远程库部分内容的本地触发器。转录日志：${_event}">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${!v:tmp_b重复}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" Enabled="False" ActionType="LogMessage" Asynchronous="False" LogMessageText="日志转录_校验重复" LogProcess="True">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${!v:tmp_b重复}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="4" Enabled="False" ActionType="Variable" Asynchronous="False" VariableName="tmp_b重复" />
+<Action OrderNumber="5" Enabled="False" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="日志转录_校验重复" DictVariableKey="${_event}" />
+<Action OrderNumber="6" Enabled="False" ActionType="DictVariable" ExecutionDelayExpression="1000" Asynchronous="False" DictVariableOp="Remove" DictVariableName="日志转录_校验重复" DictVariableKey="${_event}" />
+</Actions>
+</Trigger>
+<Trigger Enabled="false" Id="0f5f6447-d7e6-401c-9f04-859f63bddd70" Name="校验重复 - 报错" RegularExpression="^日志转录_校验重复" PeriodRefire="Deny" RefirePeriodExpression="60000">
+<Actions>
+<Action OrderNumber="1" Enabled="False" ActionType="NamedCallback" NamedCallbackName="TraySliderError" NamedCallbackParam="[错误] 检测到重复的触发器&#xD;&#xA;检测到重复的转录日志。&#xD;&#xA;这会导致程序运行错误。&#xD;&#xA;请查看 Triggernometry 触发器主界面的报错排除问题。" />
 </Actions>
 </Trigger>
 </Triggers>
