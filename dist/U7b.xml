@@ -1170,9 +1170,9 @@
                       <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="2500" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="ede401ae-3e0d-4c5b-87c3-ebaa59aae061" Name="P5 洪水" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;C269):">
+                  <Trigger Enabled="true" Id="ede401ae-3e0d-4c5b-87c3-ebaa59aae061" Name="P5 洪水（直条）" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;C269):">
                     <Actions>
-                      <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="1000" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}"/>
+                      <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="500" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}"/>
                     </Actions>
                   </Trigger>
                   <Trigger Enabled="true" Id="38c39aef-5f05-4e9b-8927-b61809aa2a6a" Name="P4 火月环" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BB23):">
@@ -1188,6 +1188,11 @@
                   <Trigger Enabled="true" Id="36cab0f5-3182-48e3-9b72-035af1287129" Name="P3 地震" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;C572):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="2500" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}"/>
+                    </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="d58d68c2-008d-4679-a71e-cc3b720bddfa" Name="P5 混沌洪水（分摊）" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BB4F):">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}"/>
                     </Actions>
                   </Trigger>
                 </Triggers>
@@ -2268,7 +2273,7 @@
                         </Condition>
                       </Action>
                       <Action OrderNumber="5" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:13.9:${if: ${b石化} ? ${if: ${b面对} ? 去人群前方 : 去人群后方 } : 人群集合 }，${if: ${b面对} ? 面对 : 背对 }石化" LogProcess="True" LogProcessACT="True"/>
-                      <Action OrderNumber="6" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b42_鸳鸯锅&#13;&#10;t: 5.5&#13;&#10;Omen: mdl_general_02x&#13;&#10;O: 100, 100&#13;&#10;Dir8: ${dir8艾}&#13;&#10;// 实际是在 ±9.5 的位置、半宽 10.5；&#13;&#10;// 但是中心还有一个半宽 1 的即死区，这里合并画成一个矩形&#13;&#10;Pos: ${b去左} ? 9 : -9, -20&#13;&#10;Angle: 0&#13;&#10;Scale: 11, 40, 1"/>
+                      <Action OrderNumber="6" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: U7b42_鸳鸯锅&#13;&#10;t: 5.5&#13;&#10;Omen: mdl_general_02x&#13;&#10;O: 100, 100&#13;&#10;Dir8: ${dir8艾}&#13;&#10;// 应该是 ±9.5 位置、宽度 10.5&#13;&#10;// 但是按不明白计算器的沙卵 SE 程序员给某种情况的位置填成了 8.5&#13;&#10;// 导致某种情况下中间某侧危险区多了 1 米&#13;&#10;// 所以这里改为 ±9 宽度 11，覆盖两种情况下的可能范围&#13;&#10;Pos: ${b去左} ? 9 : -9, -20&#13;&#10;Angle: 0&#13;&#10;Scale: 11, 40, 1"/>
                       <Action OrderNumber="7" ActionType="NamedCallback" NamedCallbackName="hint" NamedCallbackParam="20&#13;&#10;${if: ${b去左} ? 左 : 右 }（${if: ${b去raw紫} ? 紫 : 蓝 }） 》  ${?d: 11 = 右分散, 10 = 上分摊, 01 = 左分散, 00 = 下分摊 [${!v:myIdx_isTH}${b散}]} + ${?d: 无=无动静, 动=动, 静=静 [${动静}]}  》  [真假雷] ${if: ${b石化} ? ${if: ${b面对} ? 点名人前 : 点名人后 } : 无点名 } + ${if: ${b面对} ? 面对 : 背对 }"/>
                     </Actions>
                   </Trigger>
