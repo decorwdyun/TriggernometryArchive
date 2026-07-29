@@ -4,10 +4,10 @@
 <Folders>
 <Folder Id="b8bf195b-d682-407d-9a3e-46141ed3aae8" Enabled="true" Name="雷达" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^(1252|1346)$">
 <Triggers>
-<Trigger Enabled="true" Id="54e68dd4-f425-4ac7-89a6-57bc23f9c3ec" Name="1a. 接收宝箱" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}):.*BNpcID:(?&lt;bnpcid&gt;6F[DEF]|7[0123].|740|7[DEF].|8[0123].):.+:Type:4(?=:|$)">
+<Trigger Enabled="true" Id="54e68dd4-f425-4ac7-89a6-57bc23f9c3ec" Name="1a. 接收宝箱" RegularExpression="^.{15}\S+ 105:Add:(?&lt;id&gt;4.{7}):.*BNpcID:(?&lt;bnpcid&gt;6F[DEF]|7[0123].|740|7[EF]..|8[0123].):.+:Type:4(?=:|$)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="南部 银 1789-1796, 铜 1797-1856" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="北部 银 2006-2013, 铜 2021-2064" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="北部 银 2006-2008, 铜 2021-2064" DescriptionOverride="True" />
 <Action OrderNumber="3" ActionType="LogMessage" LogMessageText="_新月_雷达:id:${id}:bnpcid:${n: 0x${bnpcid}}" LogProcess="True" LogLevel="Custom2" />
 </Actions>
 </Trigger>
@@ -1955,7 +1955,7 @@
 <Action OrderNumber="3" ActionType="TextAura" TextAuraOp="DeactivateAura" TextAuraAlignment="TopLeft" TextAuraEffect="Bold" TextAuraFontSize="14.25" TextAuraName="新月_CE" TextAuraFontName="微软雅黑" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="0d8b5323-6887-4003-a6c0-1a52e54c0849" Name="CE 开始 (南 1252)" RegularExpression="^.{15}\S+ 103:(?&lt;popTime&gt;.{8}):(?&lt;timeRemaining&gt;0000):[^:]*:(?&lt;ceId&gt;0[1-9A-F]):(?&lt;numPlayers&gt;[^:]*):(?&lt;status&gt;01):00:(?&lt;progress&gt;[^:]*)" Sequential="True">
+<Trigger Enabled="true" Id="0d8b5323-6887-4003-a6c0-1a52e54c0849" Name="CE 开始 (zone 1252)" RegularExpression="^.{15}\S+ 103:(?&lt;popTime&gt;.{8}):(?&lt;timeRemaining&gt;0000):[^:]*:(?&lt;ceId&gt;0[1-9A-F]):(?&lt;numPlayers&gt;[^:]*):(?&lt;status&gt;01):00:(?&lt;progress&gt;[^:]*)" Sequential="True">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="条件：自己不在塔里" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="DictVariable" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="新月_CE" DictVariableKey="startTimeStamp" DictVariableValue="0x${popTime} = 0 ? (${_systemtime} + 180) : 0x${popTime}" />
@@ -1973,26 +1973,6 @@
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="1252" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 <ConditionSingle Enabled="true" ExpressionL="${_me.z}" ExpressionTypeL="String" ExpressionR="-10" ExpressionTypeR="String" ConditionType="NumericGreater" />
-</Condition>
-</Trigger>
-<Trigger Enabled="true" Id="2d858420-f6d5-4b17-a1ec-dc0af9e79c2c" Name="CE 开始 (北 1346)" RegularExpression="^.{15}\S+ 103:(?&lt;popTime&gt;.{8}):(?&lt;timeRemaining&gt;0000):[^:]*:(?&lt;ceId&gt;0[1-9A-F]):(?&lt;numPlayers&gt;[^:]*):(?&lt;status&gt;01):00:(?&lt;progress&gt;[^:]*)" Sequential="True">
-<Actions>
-<Action OrderNumber="1" Enabled="False" ActionType="Placeholder" Asynchronous="False" Description="条件：自己不在塔里" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="DictVariable" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="新月_CE" DictVariableKey="startTimeStamp" DictVariableValue="0x${popTime} = 0 ? (${_systemtime} + 180) : 0x${popTime}" />
-<Action OrderNumber="3" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="新月_CE" DictVariableKey="name" DictVariableValue="${?d:&#xD;&#xA;  01 = 四颚斧花——提蔛, &#xD;&#xA;  02 = 魔女复制体——卡洛菲斯提莉二重身, &#xD;&#xA;  03 = 纯白守护者——雪石膏之剑, &#xD;&#xA;  04 = 禁书化形——古术魔典, &#xD;&#xA;  05 = 暗红尸骸——赤龙, &#xD;&#xA;  06 = 暴食咒鬼——阿尔戈尔, &#xD;&#xA;  07 = 残暴的母蜘蛛——新月阿剌克涅, &#xD;&#xA;  08 = 叛逆使魔——负隅宝石兽, &#xD;&#xA;  09 = 天道好轮回——魔亡灵法师, &#xD;&#xA;  0A = 求道的人造人——神木巨人, &#xD;&#xA;  0B = 诅咒的继承者——惨白魔人, &#xD;&#xA;  0C = 魔法军团——小小法师, &#xD;&#xA;  0D = 孤岛的绑架犯——诱拐魔, &#xD;&#xA;  0E = 苏醒的多头龙——魔许德拉, &#xD;&#xA;  0F = 拟态使魔——变形法师, &#xD;&#xA;  [${ceId}]&#xD;&#xA;}" />
-<Action OrderNumber="4" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="新月_CE" DictVariableKey="nameAbbrev" DictVariableValue="${?d:&#xD;&#xA;  01 = 花, &#xD;&#xA;  02 = 魔女, &#xD;&#xA;  03 = 纯白守护者, &#xD;&#xA;  04 = 魔典, &#xD;&#xA;  05 = 赤龙, &#xD;&#xA;  06 = 咒鬼, &#xD;&#xA;  07 = 蜘蛛, &#xD;&#xA;  08 = 宝石兽, &#xD;&#xA;  09 = 亡灵法师, &#xD;&#xA;  0A = 神木巨人, &#xD;&#xA;  0B = 惨白魔人, &#xD;&#xA;  0C = 魔法军团, &#xD;&#xA;  0D = 诱拐魔, &#xD;&#xA;  0E = 多头龙, &#xD;&#xA;  0F = 变形法师, &#xD;&#xA;  [${ceId}]&#xD;&#xA;}" />
-<Action OrderNumber="5" ActionType="DictVariable" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="新月_CE" DictVariableKey="initSeconds" DictVariableValue="round(${d:新月_CE[startTimeStamp]} - ${_systemtimems}/1000)" />
-<Action OrderNumber="6" ActionType="TextAura" TextAuraAlignment="TopCenter" TextAuraEffect="Bold" TextAuraFontSize="14.25" TextAuraForeground="def" TextAuraOutline="026" TextAuraName="新月_CE" TextAuraExpression="${d:新月_CE[name]}  倒计时：${n: round(${d:新月_CE[startTimeStamp]} - ${_systemtimems}/1000) // 60}:${f:padleft(0, 2):${n: round(${d:新月_CE[startTimeStamp]} - ${_systemtimems}/1000) % 60}}" TextAuraXIniExpression="0" TextAuraYIniExpression="0" TextAuraWIniExpression="${_screenwidth}" TextAuraHIniExpression="${_screenheight} * 0.1" TextAuraOIniExpression="100" TextAuraTTLTickExpression="${d:新月_CE[startTimeStamp]} - ${_systemtimems}/1000" TextAuraFontName="微软雅黑" />
-<Action OrderNumber="7" ActionType="UseTTS" UseTTSTextExpression="${d:新月_CE[nameAbbrev]}，${if: ${d:新月_CE[initSeconds]} &gt; 60 ? ${n: ${d:新月_CE[initSeconds]} // 60}分 : &quot;&quot; }${n: ${d:新月_CE[initSeconds]} % 60}秒" />
-<Action OrderNumber="8" ActionType="UseTTS" ExecutionDelayExpression="(${d:新月_CE[initSeconds]} - 60) * 1000" UseTTSTextExpression="倒计时一分钟">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${d:新月_CE[initSeconds]}" ExpressionTypeL="String" ExpressionR="80" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
-</Condition>
-</Action>
-</Actions>
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="1346" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="false" ExpressionL="${_me.z}" ExpressionTypeL="String" ExpressionR="-10" ExpressionTypeR="String" ConditionType="NumericGreater" />
 </Condition>
 </Trigger>
 </Triggers>
@@ -3285,27 +3265,10 @@
 </Triggers>
 </Folder>
 <Folder Id="625365e8-c0bd-4888-824d-c7499f38dfaa" Enabled="true" Name="CE（北）" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1346$" RawEnvironmentVariables="IsInZone = chebyshevdistance(${_me.XY}, ${env:X0}, ${env:Y0}) &lt; ${env:R}${env:L} + 20">
-<Folders>
-<Folder Id="c3a60385-4f4c-4a4d-ab79-797159c8695e" Enabled="true" Name="10. 求道的人造人——神木巨人" RawEnvironmentVariables="X0 = -390&#xD;&#xA;Y0 = 700&#xD;&#xA;&#xA;Z0 = 68&#xD;&#xA;R = 30" />
-<Folder Id="7aa4fd5d-9878-4e5f-9727-51f75f72a486" Enabled="true" Name="09. 天道好轮回——魔亡灵法师" RawEnvironmentVariables="X0 = 224&#xD;&#xA;Y0 = -860&#xD;&#xA;&#xA;Z0 = 52&#xD;&#xA;R = 25" />
-<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be361" Enabled="true" Name="01. *四颚斧花——提蔛" RawEnvironmentVariables="X0 = 0&#xD;&#xA;Y0 = 0&#xD;&#xA;&#xA;Z0 = 0&#xD;&#xA;R = 0" />
-<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be362" Enabled="true" Name="02. *魔女复制体——卡洛菲斯提莉二重身" RawEnvironmentVariables="X0 = 0&#xD;&#xA;Y0 = 0&#xD;&#xA;&#xA;Z0 = 0&#xD;&#xA;R = 0" />
-<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be363" Enabled="true" Name="03. *纯白守护者——雪石膏之剑" RawEnvironmentVariables="X0 = 0&#xD;&#xA;Y0 = 0&#xD;&#xA;&#xA;Z0 = 0&#xD;&#xA;R = 0" />
-<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be364" Enabled="true" Name="04. 禁书化形——古术魔典" RawEnvironmentVariables="X0 = 659&#xD;&#xA;Y0 = 659&#xD;&#xA;&#xA;Z0 = 132&#xD;&#xA;R = 30" />
-<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be365" Enabled="true" Name="05. *暗红尸骸——赤龙" RawEnvironmentVariables="X0 = 0&#xD;&#xA;Y0 = 0&#xD;&#xA;&#xA;Z0 = 0&#xD;&#xA;R = 0" />
-<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be366" Enabled="true" Name="06. *暴食咒鬼——阿尔戈尔" RawEnvironmentVariables="X0 = 0&#xD;&#xA;Y0 = 0&#xD;&#xA;&#xA;Z0 = 0&#xD;&#xA;R = 0" />
-<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be367" Enabled="true" Name="07. *残暴的母蜘蛛——新月阿剌克涅" RawEnvironmentVariables="X0 = 0&#xD;&#xA;Y0 = 0&#xD;&#xA;&#xA;Z0 = 0&#xD;&#xA;R = 0" />
-<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be368" Enabled="true" Name="08. *叛逆使魔——负隅宝石兽" RawEnvironmentVariables="X0 = 0&#xD;&#xA;Y0 = 0&#xD;&#xA;&#xA;Z0 = 0&#xD;&#xA;R = 0" />
-<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be369" Enabled="true" Name="11. *诅咒的继承者——惨白魔人" RawEnvironmentVariables="X0 = 0&#xD;&#xA;Y0 = 0&#xD;&#xA;&#xA;Z0 = 0&#xD;&#xA;R = 0" />
-<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be36a" Enabled="true" Name="12. *魔法军团——小小法师" RawEnvironmentVariables="X0 = 0&#xD;&#xA;Y0 = 0&#xD;&#xA;&#xA;Z0 = 0&#xD;&#xA;R = 0" />
-<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be36b" Enabled="true" Name="13. *孤岛的绑架犯——诱拐魔" RawEnvironmentVariables="X0 = 0&#xD;&#xA;Y0 = 0&#xD;&#xA;&#xA;Z0 = 0&#xD;&#xA;R = 0" />
-<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be36c" Enabled="true" Name="14. *苏醒的多头龙——魔许德拉" RawEnvironmentVariables="X0 = 0&#xD;&#xA;Y0 = 0&#xD;&#xA;&#xA;Z0 = 0&#xD;&#xA;R = 0" />
-<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be36d" Enabled="true" Name="15. *拟态使魔——变形法师" RawEnvironmentVariables="X0 = 0&#xD;&#xA;Y0 = 0&#xD;&#xA;&#xA;Z0 = 0&#xD;&#xA;R = 0" />
-</Folders>
 <Triggers>
 <Trigger Enabled="true" Id="41ad74bd-c598-4dbf-b2ed-039ffb8bb7ae" Name="CE 开始 (zone 1346)" RegularExpression="^.{15}\S+ 103:(?&lt;popTime&gt;.{8}):(?&lt;timeRemaining&gt;0000):[^:]*:(?&lt;ceId&gt;0[1-9A-F]):(?&lt;numPlayers&gt;[^:]*):(?&lt;status&gt;01):00:(?&lt;progress&gt;[^:]*)" Sequential="True">
 <Actions>
-<Action OrderNumber="1" Enabled="False" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e &lt;se.9&gt; CE ID = ${ceId}" />
+<Action OrderNumber="1" Enabled="False" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e &#xD;&#xA;剩余时间 = ${timeRemaining}&#xD;&#xA;CE ID = ${ceId}&#xD;&#xA;玩家人数 = ${numPlayers}" />
 </Actions>
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="1346" ExpressionTypeR="String" ConditionType="StringEqualCase" />
