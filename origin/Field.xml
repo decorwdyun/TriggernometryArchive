@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="2.1.2.0">
+<TriggernometryExport PluginVersion="2.1.2.1">
 <ExportedFolder Id="ed2f9a8b-0d39-47f7-be0c-5e7b2beeda92" Enabled="true" Name="新月岛" RawEnvironmentVariables="辅助骑士 = 4358&#xD;&#xA;辅助武僧 = 4360&#xD;&#xA;辅助盗贼 = 4369&#xD;&#xA;辅助武士 = 4362&#xD;&#xA;辅助狂战士 = 4359&#xD;&#xA;辅助猎人 = 4361&#xD;&#xA;辅助时魔法师 = 4365&#xD;&#xA;辅助药剂师 = 4367&#xD;&#xA;辅助风水师 = 4364&#xD;&#xA;辅助吟游诗人 = 4363&#xD;&#xA;辅助预言师 = 4368&#xD;&#xA;辅助炮击士 = 4366&#xD;&#xA;辅助自由人 = 4342">
 <Folders>
 <Folder Id="b8bf195b-d682-407d-9a3e-46141ed3aae8" Enabled="true" Name="雷达" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^(1252|1346)$">
@@ -2027,7 +2027,7 @@
 </Actions>
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="1346" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="false" ExpressionL="${_me.z}" ExpressionTypeL="String" ExpressionR="-10" ExpressionTypeR="String" ConditionType="NumericGreater" />
+<ConditionSingle Enabled="true" ExpressionL="${_me.z}" ExpressionTypeL="String" ExpressionR="-500" ExpressionTypeR="String" ConditionType="NumericGreater" />
 </Condition>
 </Trigger>
 </Triggers>
@@ -3462,7 +3462,7 @@
 <Trigger Enabled="true" Id="60d51f5e-ece2-4826-a19e-e8373579ea6f" Name="2. 读条召唤（注册简易播报）" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BF9F):" Sequential="True">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_lvl" VariableExpression="${sfunc:GetAdjustedForayLevel()}" />
-<Action OrderNumber="2" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] ForayLevel = ${!v:tmp_lvl}" />
+<Action OrderNumber="2" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] ForayLevel = ${!v:tmp_lvl}" />
 <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b三级" VariableExpression="${!v:tmp_lvl} % 3 = 0" />
 <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b四级" VariableExpression="${!v:tmp_lvl} % 4 = 0" />
 <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b五级" VariableExpression="${!v:tmp_lvl} % 5 = 0" />
@@ -3515,11 +3515,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${v:tmp_b激活}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="9" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;t: 7.4&#xD;&#xA;O: ${!l:新月_赤龙_XY[${i}]}, ${env:Z0}&#xD;&#xA;&#xD;&#xA;Scale: 5">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${v:tmp_b激活}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
+<Action OrderNumber="9" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;t: 7.4&#xD;&#xA;O: ${!l:新月_赤龙_XY[${i}]}, ${env:Z0}&#xD;&#xA;&#xD;&#xA;Scale: 5" />
 <Action OrderNumber="10" ActionType="Variable" Asynchronous="False" VariableName="tmp_b激活" />
 <Action OrderNumber="11" ActionType="Variable" Asynchronous="False" VariableName="tmp_bRel右" />
 <Action OrderNumber="12" ActionType="Variable" Asynchronous="False" VariableName="tmp_dir4" />
@@ -3532,13 +3528,7 @@
 </Trigger>
 <Trigger Enabled="true" Id="218a45c4-6cb9-492d-9ad1-784fd97139d0" Name="1. 记录毒圈" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}(?&lt;bnpcid&gt;19527):([^:]*:){6}(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
 <Actions>
-<Action OrderNumber="1" ActionType="TableVariable" TableVariableOp="SetLine" TableVariableName="新月_赤龙_IdXY" TableVariableExpression=",${id},${x},${y}" TableVariableY="${t:新月_赤龙_IdXY.height} + 1">
-<Condition Enabled="true" Grouping="And">
-<ConditionSingle Enabled="true" ExpressionL="round(${x} - ${env:X0}) % 5" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-<ConditionSingle Enabled="true" ExpressionL="round(${y} - ${env:Y0}) % 5" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
-</Action>
-<Action OrderNumber="2" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="新月_赤龙_XY" ListVariableExpression="${x},${y}">
+<Action OrderNumber="1" ActionType="ListVariable" ListVariableOp="Push" ListVariableName="新月_赤龙_XY" ListVariableExpression="${x},${y}">
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="round(${x} - ${env:X0}) % 5" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 <ConditionSingle Enabled="true" ExpressionL="round(${y} - ${env:Y0}) % 5" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
@@ -3548,7 +3538,7 @@
 </Trigger>
 <Trigger Enabled="true" Id="9ca6bbb2-828c-4078-b607-1e8db99fac38" Name="0. 初始化 墓霉" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;BC85):">
 <Actions>
-<Action OrderNumber="1" ActionType="TableVariable" TableVariableName="新月_赤龙_IdXY" />
+<Action OrderNumber="1" ActionType="ListVariable" ListVariableName="新月_赤龙_XY" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="6c8ab65e-b69e-47f1-a37d-b6e9d35becaf" Name="2. 俯冲 =&gt; 3" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BC89):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
@@ -3556,22 +3546,20 @@
 <Action OrderNumber="1" ActionType="LogMessage" Asynchronous="False" LogMessageText="_新月_赤龙_俯冲:1:${x}:${y}:${h}" LogProcess="True" LogProcessACT="True" />
 </Actions>
 </Trigger>
-<Trigger Enabled="false" Id="123d9b91-9d0e-42bd-95ec-d93883367c2f" Name="Debug Log 2026-08-01 17:49" Source="None">
+<Trigger Enabled="false" Id="29e6503f-9d06-4a99-bec6-3d2833268f9d" Name="Debug Log 2026-08-03 00:23" Source="None">
 <Actions>
-<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[17:36:52.941] StartsCasting 14:400061EE:赤龙:BC85:墓霉:400061EE:赤龙:4.700:-688.01:149.98:90.00:1.97" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="500" />
-<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[17:36:59.272] AddCombatant 03:400062CE:僵尸毒气:00:64:0000:00::14788:19527:7814450:7814450:10000:10000:::-673.00:165.00:90.00:0.00" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="[17:36:59.272] AddCombatant 03:400062CF:僵尸毒气:00:64:0000:00::14788:19527:7814450:7814450:10000:10000:::-693.00:165.00:90.00:0.00" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="[17:36:59.272] AddCombatant 03:400062D0:僵尸毒气:00:64:0000:00::14788:19527:7814450:7814450:10000:10000:::-703.00:165.00:90.00:0.00" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="[17:36:59.272] AddCombatant 03:400062D3:僵尸毒气:00:64:0000:00::14788:19527:7814450:7814450:10000:10000:::-673.00:145.00:90.00:0.00" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="[17:36:59.272] AddCombatant 03:400062D2:僵尸毒气:00:64:0000:00::14788:19527:7814450:7814450:10000:10000:::-703.00:155.00:90.00:0.00" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="8" ActionType="LogMessage" LogMessageText="[17:36:59.272] AddCombatant 03:400062D1:僵尸毒气:00:64:0000:00::14788:19527:7814450:7814450:10000:10000:::-683.00:155.00:90.00:0.00" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="9" ActionType="LogMessage" LogMessageText="[17:36:59.272] AddCombatant 03:400062D4:僵尸毒气:00:64:0000:00::14788:19527:7814450:7814450:10000:10000:::-693.00:145.00:90.00:0.00" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="10" ActionType="LogMessage" LogMessageText="[17:36:59.272] AddCombatant 03:400062D5:僵尸毒气:00:64:0000:00::14788:19527:7814450:7814450:10000:10000:::-673.00:135.00:90.00:-3.14" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="11" ActionType="LogMessage" LogMessageText="[17:36:59.272] AddCombatant 03:400062D6:僵尸毒气:00:64:0000:00::14788:19527:7814450:7814450:10000:10000:::-683.00:135.00:90.00:-3.14" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="12" ActionType="LogMessage" LogMessageText="[17:36:59.364] AddCombatant 03:400062D7:僵尸毒气:00:64:0000:00::14788:19527:7814450:7814450:10000:10000:::-703.00:135.00:90.00:-3.14" LogProcess="True" LogProcessACT="True" />
-<Action OrderNumber="13" ActionType="Placeholder" ExecutionDelayExpression="500" />
-<Action OrderNumber="14" ActionType="LogMessage" LogMessageText="[17:37:30.110] 263 107:400061F8:BC89:-668.025:139.971:89.982:-1.571" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[00:18:25.473] StartsCasting 14:40003BCA:赤龙:BC85:墓霉:40003BCA:赤龙:4.700:-688.44:147.45:90.00:-1.04" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="0.62 * 1000" />
+<Action OrderNumber="3" ActionType="LogMessage" LogMessageText="[00:18:31.639] AddCombatant 03:40003C02:僵尸毒气:00:64:0000:00::14788:19527:5950280:5950280:10000:10000:::-693.00:145.00:90.00:0.00" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="4" ActionType="LogMessage" LogMessageText="[00:18:31.639] AddCombatant 03:40003C01:僵尸毒气:00:64:0000:00::14788:19527:5950280:5950280:10000:10000:::-673.00:145.00:90.00:0.00" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="5" ActionType="LogMessage" LogMessageText="[00:18:31.639] AddCombatant 03:40003C00:僵尸毒气:00:64:0000:00::14788:19527:5950280:5950280:10000:10000:::-703.00:155.00:90.00:0.00" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="6" ActionType="LogMessage" LogMessageText="[00:18:31.639] AddCombatant 03:40003BFE:僵尸毒气:00:64:0000:00::14788:19527:5950280:5950280:10000:10000:::-693.00:165.00:90.00:0.00" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="7" ActionType="LogMessage" LogMessageText="[00:18:31.639] AddCombatant 03:40003BFF:僵尸毒气:00:64:0000:00::14788:19527:5950280:5950280:10000:10000:::-683.00:155.00:90.00:0.00" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="8" ActionType="LogMessage" LogMessageText="[00:18:31.639] AddCombatant 03:40003C03:僵尸毒气:00:64:0000:00::14788:19527:5950280:5950280:10000:10000:::-683.00:135.00:90.00:-3.14" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="9" ActionType="Placeholder" ExecutionDelayExpression="2.16 * 1000" />
+<Action OrderNumber="10" Enabled="False" ActionType="LogMessage" LogMessageText="[00:18:53.303] 263 107:40003BD4:BC89:-668.025:139.9:90:-1.571" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="11" Enabled="False" ActionType="LogMessage" LogMessageText="[00:18:53.303] 263 107:40003BD4:BC89:-708.025:139.9:90:1.571" LogProcess="True" LogProcessACT="True" />
+<Action OrderNumber="12" ActionType="LogMessage" LogMessageText="[00:18:53.303] 263 107:40003BD4:BC89:-678.025:130.1:90:0" LogProcess="True" LogProcessACT="True" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -3585,7 +3573,7 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be367" Enabled="true" Name="07. 残暴的母蜘蛛——新月阿剌克涅" RawEnvironmentVariables="X0 = 170&#xD;&#xA;Y0 = -136&#xD;&#xA;Z0 = 4&#xD;&#xA;R = 20">
+<Folder Id="d98238b4-bbf2-40c6-b7c9-2f00380be367" Enabled="true" Name="07. 残暴的母蜘蛛——新月阿剌克涅 ✓" RawEnvironmentVariables="X0 = 170&#xD;&#xA;Y0 = -136&#xD;&#xA;Z0 = 4&#xD;&#xA;R = 20">
 <Folders>
 <Folder Id="e0ee3bf5-d4b7-45e1-8668-37ce0eb1fcdf" Enabled="true" Name="蜘蛛突进">
 <Triggers>
@@ -3596,17 +3584,7 @@
 </Trigger>
 <Trigger Enabled="true" Id="004993e3-969f-4717-8921-6e2de0c39744" Name="[F] Omen" RegularExpression="^_新月_蜘蛛_突进omen:delay:(?&lt;delay&gt;[^:]*):t:(?&lt;t&gt;[^:]*):src:(?&lt;sid&gt;4.{7}):tgt:(?&lt;tid&gt;4.{7})">
 <Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="延迟 6 秒以内的动态跟踪（蝎子可能没就位），否则直接用记录位置" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;Delay: ${delay}&#xD;&#xA;t: ${t}&#xD;&#xA;Pos: ${sid}&#xD;&#xA;Target: ${tid}&#xD;&#xA;Scale: 10, _d">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${delay}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="NumericLessEqual" />
-</Condition>
-</Action>
-<Action OrderNumber="3" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;Delay: ${delay}&#xD;&#xA;t: ${t}&#xD;&#xA;Pos: ${_entity[${sid}].pos}&#xD;&#xA;Target: ${_entity[${tid}].pos}&#xD;&#xA;Scale: 10, _d">
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${delay}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="NumericGreater" />
-</Condition>
-</Action>
+<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;Delay: ${delay}&#xD;&#xA;t: ${t}&#xD;&#xA;Pos: ${sid}&#xD;&#xA;Target: ${tid}&#xD;&#xA;Scale: 10, _d" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="b76e21ba-92bb-4559-94df-262f4a9ef532" Name="1. 记录连线" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;.{8}):[^:]*:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;0198)">
@@ -3692,7 +3670,7 @@
 <ConditionSingle Enabled="true" ExpressionL="Distance(${env:X0}, ${env:Y0}, ${!d:tmp_en[x]}, ${!d:tmp_en[y]})" ExpressionTypeL="Numeric" ExpressionR="20" ExpressionTypeR="String" ConditionType="NumericLess" />
 </Condition>
 </Action>
-<Action OrderNumber="7" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" DictVariableOp="GetEntity" LogLevel="Custom" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 蝎子(!) &#xD;&#xA;(${!d:tmp_en[X]}, ${!d:tmp_en[Y]}) → ${!d:tmp_en[h]} (Dir8 = ${!v:tmp_dir8})" />
+<Action OrderNumber="7" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" DictVariableOp="GetEntity" LogLevel="Custom" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 蝎子(!) &#xD;&#xA;(${!d:tmp_en[X]}, ${!d:tmp_en[Y]}) → ${!d:tmp_en[h]} (Dir8 = ${!v:tmp_dir8})" />
 <Action OrderNumber="8" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan45&#xD;&#xA;t: 5.1&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;Dir8: ${!v:tmp_dir8}&#xD;&#xA;Pos: 0, -25&#xD;&#xA;Angle: 0&#xD;&#xA;Scale: 50" />
 <Action OrderNumber="9" ActionType="DictVariable" Asynchronous="False" DictVariableName="tmp_en" />
 <Action OrderNumber="10" ActionType="Variable" Asynchronous="False" VariableName="tmp_dir8">
@@ -3916,7 +3894,7 @@
 <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_tgtIdx" VariableExpression="${!d:新月_魔人_idx至dir4.keyof(${!v:tmp_tgtDir4})}" />
 <Action OrderNumber="7" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="新月_魔人_idx至dir4" DictVariableKey="${!v:tmp_tgtIdx}" DictVariableValue="${!v:tmp_srcDir4}" />
 <Action OrderNumber="8" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableName="新月_魔人_idx至dir4" DictVariableKey="${!v:tmp_srcIdx}" DictVariableValue="${!v:tmp_tgtDir4}" />
-<Action OrderNumber="9" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] #${v:tmp_srcIdx} (dir = ${v:tmp_srcDir4}) ←→ #${v:tmp_tgtIdx} (dir = ${v:tmp_tgtDir4})" />
+<Action OrderNumber="9" Enabled="False" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] #${v:tmp_srcIdx} (dir = ${v:tmp_srcDir4}) ←→ #${v:tmp_tgtIdx} (dir = ${v:tmp_tgtDir4})" />
 <Action OrderNumber="10" ActionType="Variable" Asynchronous="False" VariableName="tmp_srcDir4" />
 <Action OrderNumber="11" ActionType="Variable" Asynchronous="False" VariableName="tmp_tgtDir4" />
 <Action OrderNumber="12" ActionType="Variable" Asynchronous="False" VariableName="tmp_srcIdx" />
@@ -3998,7 +3976,7 @@
 <Trigger Enabled="true" Id="258a571a-68d1-42db-8f0c-4e53fcb4e160" Name="[F] 分身技能播报" RegularExpression="_新月_魔人_分身播报:delay:(?&lt;delay&gt;[^:]*):colorDelay:(?&lt;colorDelay&gt;[^:]*):end:(?&lt;end&gt;[^:]*):dir4:(?&lt;dir4&gt;[0-3]):b钢:(?&lt;b钢&gt;[01])">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: 新月_魔人_分身_${dir4}&#xD;&#xA;Omen: ${if: ${b钢} ? Circle : er_gl_fan100_o0v }&#xD;&#xA;Delay: ${delay}&#xD;&#xA;t: ${end} - ${delay}&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;Dir4: ${dir4}&#xD;&#xA;Pos: 0, -20&#xD;&#xA;Angle: 0&#xD;&#xA;Scale: ${b钢} ? 30 : 50&#xD;&#xA;// Fan100 是增亮的 减小一下亮度&#xD;&#xA;Color: 1, 1, 1, ${n: (${colorDelay} = 0 ? 1.2 : 0.4) * (${b钢} ? 1 : 0.4) }&#xD;&#xA;---&#xD;&#xA;Action: Change&#xD;&#xA;Tag: 新月_魔人_分身_${dir4}&#xD;&#xA;Delay: ${colorDelay}&#xD;&#xA;Color: 1, 1, 1, 2" />
-<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="cd5:${end}" LogProcess="True" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="cd4:${end}" LogProcess="True" />
 <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:${n: ${end} - 5}:${?l: 上北, 左西, 下南, 右东 [${dir4} + 1]}${if: ${b钢} ? 钢铁 : 扇形 }" LogProcess="True" />
 </Actions>
 </Trigger>
@@ -4327,6 +4305,12 @@
 <Action OrderNumber="95" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BF36" DictVariableValue="_=飞散 | omen=Circle | t=4.7 | Scale=10,10,1" />
 </Actions>
 </Trigger>
+<Trigger Enabled="true" Id="1f6b9d8b-ec10-4864-9adc-dfbdd0bb25cb" Name="诅咒之瞳" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;B830):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Actions>
+<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Fan90&#xD;&#xA;Delay: 2&#xD;&#xA;t: 2.7&#xD;&#xA;O: ${_me.id}&#xD;&#xA;θ: ${sid}&#xD;&#xA;Scale: 50&#xD;&#xA;Color: 0.3, 0, 1, 3" />
+<Action OrderNumber="2" ActionType="UseTTS" ExecutionDelayExpression="2000" UseTTSTextExpression="背对眼睛" />
+</Actions>
+</Trigger>
 </Triggers>
 </Folder>
 <Folder Id="d4f84e2e-98ba-4d09-9fdb-5c050d7e590b" Enabled="true" Name="区域限制" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^(1252|1346)$">
@@ -4342,7 +4326,7 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="92071777-eba8-45a3-981a-bbf89b4a06ee" Enabled="true" Name="魔之塔" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1346$" RawEnvironmentVariables="IsInZone = ${_me.z} &lt; -10&#xD;&#xA;">
+<Folder Id="92071777-eba8-45a3-981a-bbf89b4a06ee" Enabled="true" Name="魔之塔" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1346$" RawEnvironmentVariables="IsInZone = ${_me.z} &lt; -500&#xD;&#xA;">
 <Folders>
 <Folder Id="a5220fdb-a65f-4089-b01f-d7406609e705" Enabled="true" Name="0. 初始化">
 <Triggers>
@@ -4396,12 +4380,10 @@
 <Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#xD;&#xA;Delay: 0.7&#xD;&#xA;Tag: 新月_魔2_钢月_${sid}" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="73ded971-142a-48ed-bd91-80253fc3909f" Name="1. WeaponId" RegularExpression="^.{15}\S+ AAA:202:(?&lt;type&gt;4|7):(?&lt;sid&gt;4.{7}):[^:]*:[^:]*:19833:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Trigger Enabled="true" Id="73ded971-142a-48ed-bd91-80253fc3909f" Name="1. WeaponId" RegularExpression="^.{15}\S+ AAA:202:(?&lt;type&gt;4|5|7|1F):(?&lt;sid&gt;4.{7}):[^:]*:[^:]*:19833:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
 <Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b钢" VariableExpression="${type} = 7" />
-<Action OrderNumber="2" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: 新月_魔2_钢月_${sid}&#xD;&#xA;Omen: ${if: ${!v:tmp_b钢} ? Circle : gl_sircle_2005bf }&#xD;&#xA;// 时长 12（两个）或 13 s（单个），需要用后面的读条消除&#xD;&#xA;t: 13&#xD;&#xA;Pos: ${x}, ${y}, ${z}&#xD;&#xA;Scale: ${!v:tmp_b钢} ? 15 : 60&#xD;&#xA;Color: 1,1,1,2" />
-<Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:${if: ${!v:tmp_b钢} ? &quot;3.0:钢铁&quot; : &quot;3.5:月环&quot; }" LogProcess="True" />
-<Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableName="tmp_b钢" />
+<Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Tag: 新月_魔2_钢月_${sid}&#xD;&#xA;Omen: ${?d: 4=gl_sircle_2005bf, 5=gl_sircle_1505bt1, 7=Circle, 1F=Circle [${type}] }&#xD;&#xA;// 时长 12（两个）或 13 s（单个），需要用后面的读条消除&#xD;&#xA;t: 13&#xD;&#xA;Pos: ${x}, ${y}, ${z}&#xD;&#xA;Scale: ${?d: 4=60, 5=60, 7=15, 1F=20 [${type}]}&#xD;&#xA;Color: 1,1,1,2" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="tts:${?d: 4=3.5:月环, 5=3.5:月环, 7=3.0:钢铁, 1F=3.0:钢铁 [${type}] }" LogProcess="True" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -4434,7 +4416,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${aid}" ExpressionTypeL="String" ExpressionR="C1BD" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Action>
-<Action OrderNumber="6" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: m131om_setu0f&#xD;&#xA;delay: 0&#xD;&#xA;t: 9.5 + 1.1 * ${!l:新月_魔2_四连击退_XY.size}&#xD;&#xA;Pos: ${!l:新月_魔2_四连击退_XY[-2]}, ${env:Z0}&#xD;&#xA;Target: ${!l:新月_魔2_四连击退_XY[-1]}, ${env:Z0}&#xD;&#xA;Scale: 0.1, _d, 0.1&#xD;&#xA;Color: 1, 1, 1, 2">
+<Action OrderNumber="6" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: m131om_setu0f&#xD;&#xA;delay: 0&#xD;&#xA;t: 9.0 + 1.1 * ${!l:新月_魔2_四连击退_XY.size}&#xD;&#xA;Pos: ${!l:新月_魔2_四连击退_XY[-2]}, ${env:Z0}&#xD;&#xA;Target: ${!l:新月_魔2_四连击退_XY[-1]}, ${env:Z0}&#xD;&#xA;Scale: 0.1, _d, 0.1&#xD;&#xA;Color: 1, 1, 1, 2">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${aid}" ExpressionTypeL="String" ExpressionR="C1BD" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
@@ -4484,7 +4466,7 @@
 <Action OrderNumber="10" ActionType="Placeholder" Description="会有两次连续的六连，所以六个（一轮）后重置" DescriptionOverride="True" />
 <Action OrderNumber="11" ActionType="Variable" Asynchronous="False" VariableName="新月_魔4_扩散环_n">
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="新月_魔4_扩散环_n" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${v:新月_魔4_扩散环_n}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
 </Actions>
@@ -4552,19 +4534,13 @@
 <Action OrderNumber="1" ActionType="Variable" VariableOp="SetString" VariableName="新月_魔4_b连续咏唱" VariableExpression="1" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="adce6835-8f0a-4d61-b225-0e931877fdfc" Name="预言 test" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;.{8}):[^:]*:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;0058)">
+<Trigger Enabled="true" Id="adce6835-8f0a-4d61-b225-0e931877fdfc" Name="预言 钢铁月环" RegularExpression="^.{15}\S+ 23:(?&lt;sid&gt;.{8}):[^:]*:(?&lt;tid&gt;.{8}):[^:]*:[^:]*:[^:]*:(?&lt;type&gt;0058)">
 <Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="延迟 500 ms 等待实体内存数据" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 0 ms&#xD;&#xA;${tid} @ (${n: round(${_entity[${tid}].x} - ${env:X0}, 3)}, ${n: round(${_entity[${tid}].y} - ${env:Y0}, 3)})&#xD;&#xA;StatusIDs: ${_entity[${tid}].StatusIDs}&#xD;&#xA;Status 9F8: ${_entity[${tid}].StatusStack(0x9F8)}" />
-<Action OrderNumber="3" ActionType="Placeholder" ExecutionDelayExpression="100" Asynchronous="False" />
-<Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 100 ms&#xD;&#xA;${tid} @ (${n: round(${_entity[${tid}].x} - ${env:X0}, 3)}, ${n: round(${_entity[${tid}].y} - ${env:Y0}, 3)})&#xD;&#xA;StatusIDs: ${_entity[${tid}].StatusIDs}&#xD;&#xA;Status 9F8: ${_entity[${tid}].StatusStack(0x9F8)}" />
-<Action OrderNumber="5" ActionType="Placeholder" ExecutionDelayExpression="400" Asynchronous="False" />
-<Action OrderNumber="6" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 500 ms&#xD;&#xA;${tid} @ (${n: round(${_entity[${tid}].x} - ${env:X0}, 3)}, ${n: round(${_entity[${tid}].y} - ${env:Y0}, 3)})&#xD;&#xA;StatusIDs: ${_entity[${tid}].StatusIDs}&#xD;&#xA;Status 9F8: ${_entity[${tid}].StatusStack(0x9F8)}" />
-<Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b月" VariableExpression="${_entity[${tid}].StatusStack(0x9F8)} = 0x44C" />
-<Action OrderNumber="8" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: ${if: ${!v:tmp_b月} ? gl_sircle_3008bf : Circle }&#xD;&#xA;t: 9.4&#xD;&#xA;Pos: ${_entity[${sid}].Pos}&#xD;&#xA;Scale: ${!v:tmp_b月} ? 15 : 10&#xD;&#xA;Color: 1,1,1,2" />
-<Action OrderNumber="9" ActionType="Variable" Asynchronous="False" VariableName="tmp_b月" />
-<Action OrderNumber="10" ActionType="Placeholder" ExecutionDelayExpression="500" Asynchronous="False" />
-<Action OrderNumber="11" ActionType="NamedCallback" Asynchronous="False" DescBgColor="fdd" NamedCallbackName="command" NamedCallbackParam="/e [Debug] 1000 ms&#xD;&#xA;${tid} @ (${n: round(${_entity[${tid}].x} - ${env:X0}, 3)}, ${n: round(${_entity[${tid}].y} - ${env:Y0}, 3)})&#xD;&#xA;StatusIDs: ${_entity[${tid}].StatusIDs}&#xD;&#xA;Status 9F8: ${_entity[${tid}].StatusStack(0x9F8)}" />
+<Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="延迟 500 ms 等待实体内存数据（无延迟很可能读不到，100 ms 时基本可以保证能读取到）" DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="500" Asynchronous="False" />
+<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="tmp_b月" VariableExpression="${_entity[${tid}].StatusStack(0x9F8)} = 0x44C" />
+<Action OrderNumber="4" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: ${if: ${!v:tmp_b月} ? gl_sircle_3008bf : Circle }&#xD;&#xA;t: 9.4&#xD;&#xA;Pos: ${_entity[${sid}].Pos}&#xD;&#xA;Scale: ${!v:tmp_b月} ? 15 : 10&#xD;&#xA;Color: 1,1,1,2" />
+<Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="tmp_b月" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -4610,7 +4586,7 @@
 </Trigger>
 <Trigger Enabled="true" Id="6def00f1-c181-4c56-8752-f264f46181de" Name="[F] 激活" RegularExpression="^_新月_魔1_球_激活omen:t:(?&lt;t&gt;[^:]+):b冰:(?&lt;b冰&gt;[01]):xy:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):b减淡:(?&lt;b减淡&gt;[01])">
 <Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;t: ${t}&#xD;&#xA;Scale: 15&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Color: ${if: ${b减淡} ? 0.6,1,1,0.7 : 1,1,1,1 }" />
+<Action OrderNumber="1" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;t: ${t}&#xD;&#xA;Scale: 15&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Color: ${if: ${b减淡} ? 0.6,1,1,0.5 : 1,1,1,1 }" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="59bf2ac0-2fc2-4dba-99dd-1e3a6cbab1af" Name="4. AoE =&gt; 5" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BA78):">
@@ -4705,6 +4681,100 @@
 <Action OrderNumber="49" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BD18" DictVariableValue="_=召唤 | tts=准备打小怪" />
 <Action OrderNumber="50" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BD1F" DictVariableValue="_=核爆 | tts=AoE" />
 <Action OrderNumber="51" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BD22" DictVariableValue="_=全知烈火 | tts=分散" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="8752bc24-36c6-4dca-bff9-ce1b3dc0cbe5" Enabled="true" Name="魔之塔（高难）" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1346$">
+<Folders>
+<Folder Id="c4ad29e3-797b-4355-9c04-67804912d034" Enabled="true" Name="小怪" />
+<Folder Id="350da3a9-21c1-4ec0-b117-55d9eea554df" Enabled="true" Name="2. 剑舞者" RawEnvironmentVariables="X0 = 600&#xD;&#xA;Y0 = 704&#xD;&#xA;Z0 = -674&#xD;&#xA;R = 24" />
+<Folder Id="a703c249-2f91-421f-8cad-862b160dbd78" Enabled="true" Name="3. 惧死者" RawEnvironmentVariables="X0 = 100&#xD;&#xA;Y0 = 800&#xD;&#xA;Z0 = -724&#xD;&#xA;R = 24" />
+<Folder Id="261c5f32-beb7-4aac-a146-26245e24cfe9" Enabled="true" Name="4. 目录" RawEnvironmentVariables="X0 = 0&#xD;&#xA;Y0 = -628&#xD;&#xA;Z0 = -684&#xD;&#xA;R = 30" />
+<Folder Id="f5d93dee-92e1-4470-b65b-dc87200869a7" Enabled="true" Name="1. 双头怪鸟" RawEnvironmentVariables="X0 = -900&#xD;&#xA;Y0 = 700&#xD;&#xA;Z0 = -980&#xD;&#xA;R = 20" />
+<Folder Id="057fee00-0c13-4ca0-ad57-ad7415cb311a" Enabled="true" Name="取消特效" />
+</Folders>
+<Triggers>
+<Trigger Enabled="true" Id="1386df8a-6448-4911-99cb-277b846926df" Name="注册简易播报" RegularExpression="^.{15}\S+ 104:.:1:.:1">
+<Actions>
+<Action OrderNumber="1" Enabled="False" ActionType="DictVariable" DictVariableName="简易播报" />
+<Action OrderNumber="2" Enabled="False" ActionType="Placeholder" ExecutionDelayExpression="1000" />
+<Action OrderNumber="3" ActionType="Placeholder" Description="Boss 1 双头怪鸟" DescriptionOverride="True" />
+<Action OrderNumber="4" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA01" DictVariableValue="_=剧毒吐息 | tts=连线处钢铁 | omen=Circle | delay=2.7 | t=5.0 | Scale=18,18,1" />
+<Action OrderNumber="5" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BC73" DictVariableValue="_=(风暴吐息预兆) | tts=连线处击退 | omen=nockback_omen04t1 | delay=2.7 | t=4.3 | Scale=30,30,1 | Color=1,1,1,0.5" />
+<Action OrderNumber="6" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA78" DictVariableValue="_=(雷霜暴风雨) | tts=AoE" />
+<Action OrderNumber="7" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C5E0" DictVariableValue="_=(双头恐惧) | tts=去两侧列" />
+<Action OrderNumber="8" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C5E1" DictVariableValue="_=(双头恐惧) | tts=去中间列" />
+<Action OrderNumber="9" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C5E2" DictVariableValue="_=双头恐惧 | omen=Rect | t=5.7 | Scale=5,40,1" />
+<Action OrderNumber="10" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA2B" DictVariableValue="_=冰焰 | tts=钢铁接月环" />
+<Action OrderNumber="11" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA2F" DictVariableValue="_=冰焰 | tts=钢铁接月环" />
+<Action OrderNumber="12" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA30" DictVariableValue="_=冰焰 | tts=钢铁接月环" />
+<Action OrderNumber="13" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA2C" DictVariableValue="_=冰焰凝环 | omen=gl_sircle_6005at1 | t=2.2 | Scale=60,60,1" />
+<Action OrderNumber="14" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA1B" DictVariableValue="_=(雷+冰线) | tts=连线处钢铁" />
+<Action OrderNumber="15" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C609" DictVariableValue="_=雷簇 | omen=Circle | t=7.7 | Scale=15,15,1" />
+<Action OrderNumber="16" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C60A" DictVariableValue="_=冰簇 | omen=Circle | t=7.7 | Scale=15,15,1" />
+<Action OrderNumber="17" ActionType="Placeholder" Description="Boss 1 双头怪鸟" DescriptionOverride="True" />
+<Action OrderNumber="18" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA17" DictVariableValue="_=剧毒吐息 | tts=左上右上 | omen=Circle | delay=2.7 | t=5.0 | Scale=18,18,1" />
+<Action OrderNumber="19" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA18" DictVariableValue="_=雷电赋格 | omen=er_sicle_2006_n1 | delay=2.7 | t=6.0 | Scale=60,60,1" />
+<Action OrderNumber="20" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA27" DictVariableValue="_=雷电赋格 | omen=er_sicle_2006_n1 | delay=6 | t=6.0 | Scale=60,60,1" />
+<Action OrderNumber="21" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA19" DictVariableValue="_=冰柱赋格 | omen=general_1bf | delay=2.7 | t=5.0 | Scale=20,20,1" />
+<Action OrderNumber="22" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA28" DictVariableValue="_=冰柱赋格 | omen=general_1bf | delay=6 | t=5.0 | Scale=20,20,1" />
+<Action OrderNumber="23" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA16" DictVariableValue="_=(风暴吐息预兆) | tts=连线处击退 | omen=nockback_omen04t1 | delay=2.7 | t=4.3 | Scale=30,30,1 | Color=1,1,1,0.5" />
+<Action OrderNumber="24" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA57" DictVariableValue="_=双头恐惧 | omen=general02f | t=6.3 | Scale=5,40,1" />
+<Action OrderNumber="25" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA56" DictVariableValue="_=双头恐惧 | omen=general02f | t=6.3 | Scale=10,40,1" />
+<Action OrderNumber="26" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BA85" DictVariableValue="_=太古之怒 | tts=死刑" />
+<Action OrderNumber="27" ActionType="Placeholder" Description="Boss 2 剑舞者" DescriptionOverride="True" />
+<Action OrderNumber="28" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C1D1" DictVariableValue="_=剑技风暴 | tts=AoE" />
+<Action OrderNumber="29" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C1A7" DictVariableValue="_=回旋 | omen=m0943_fan90_14_9_t1 | t=3.2 | Scale=14,14,1" />
+<Action OrderNumber="30" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C1A8" DictVariableValue="_=回旋 | omen=m0943_fan90_19_14_t1 | t=3.2 | Scale=19,19,1" />
+<Action OrderNumber="31" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C1A9" DictVariableValue="_=回旋 | omen=m0943_fan90_24_19_t1 | t=3.2 | Scale=24,24,1" />
+<Action OrderNumber="32" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C1AA" DictVariableValue="_=回旋 | omen=m0943_fan65_14_9_t1 | t=3.2 | Scale=14,14,1" />
+<Action OrderNumber="33" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C1AB" DictVariableValue="_=回旋 | omen=m0943_fan57_19_14_t1 | t=3.2 | Scale=19,19,1" />
+<Action OrderNumber="34" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C1AC" DictVariableValue="_=回旋 | omen=m0943_fan54_24_19_t1 | t=3.2 | Scale=24,24,1" />
+<Action OrderNumber="35" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C1AF" DictVariableValue="_=秘法剑 | tts=去Boss左手侧" />
+<Action OrderNumber="36" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C1B0" DictVariableValue="_=秘法剑 | tts=去Boss右手侧" />
+<Action OrderNumber="37" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C1B1" DictVariableValue="_=秘法剑 | omen=Rect | t=5.2 | Scale=48,48,1 | Color=1,1,1,2" />
+<Action OrderNumber="38" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C1C9" DictVariableValue="_=剑舞 | tts=AoE，四连直条" />
+<Action OrderNumber="39" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C1D0" DictVariableValue="_=突进 | omen=Rect | t=3.7 | Scale=3,30,1 | Color=1,1,1,2" />
+<Action OrderNumber="40" ActionType="Placeholder" Description="Boss 2 剑舞者" DescriptionOverride="True" />
+<Action OrderNumber="41" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C20A" DictVariableValue="_=突进 | omen=Rect | t=3.7 | Scale=3,30,1 | Color=1,1,1,2" />
+<Action OrderNumber="42" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C1ED" DictVariableValue="_=秘法剑 | omen=Rect | t=5.2 | Scale=48,48,1 | Color=1,1,1,2" />
+<Action OrderNumber="43" ActionType="Placeholder" Description="Boss 3 惧死者" DescriptionOverride="True" />
+<Action OrderNumber="44" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B95C" DictVariableValue="_=核爆雨 | tts=AoE" />
+<Action OrderNumber="45" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B95F" DictVariableValue="_=古代爆炎 | tts=钢铁 | cd5=4.7" />
+<Action OrderNumber="46" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B960" DictVariableValue="_=古代冰封 | tts=十字 | cd5=4.7" />
+<Action OrderNumber="47" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B963" DictVariableValue="_=碎尸 | tts=死刑" />
+<Action OrderNumber="48" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B969" DictVariableValue="_=魔具联动：爆炎 | tts=远离火钢铁 | cd5=5.2 | omen=Circle | t=5.2 | Scale=18,18,1" />
+<Action OrderNumber="49" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B96A" DictVariableValue="_=魔具联动：冰封 | tts=远离冰十字 | cd5=5.2 | omen=Rect2 | t=5.2 | Scale=7.5,45,1 | cross=1" />
+<Action OrderNumber="50" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B96B" DictVariableValue="_=魔具联动：暴雷 | tts=雷去正方向 | cd5=5.2" />
+<Action OrderNumber="51" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C4B5" DictVariableValue="_=魔具联动：暴雷 | omen=Fan45 | t=5.2 | Scale=60,60,1" />
+<Action OrderNumber="52" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B96C" DictVariableValue="_=古代爆炎 | omen=Circle | t=5.2 | Scale=18,18,1" />
+<Action OrderNumber="53" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B96D" DictVariableValue="_=古代冰封 | omen=Rect2 | t=5.2 | Scale=7.5,45,1 | cross=1" />
+<Action OrderNumber="54" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B96F" DictVariableValue="_=古代暴雷 | omen=Fan45 | t=5.2 | Scale=60,60,1" />
+<Action OrderNumber="55" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B971" DictVariableValue="_=真空波 | tts=去背后" />
+<Action OrderNumber="56" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B973" DictVariableValue="_=灭亡射线 | omen=Rect | t=4.7 | Scale=3,30,1" />
+<Action OrderNumber="57" ActionType="Placeholder" Description="Boss 3 惧死者" DescriptionOverride="True" />
+<Action OrderNumber="58" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B989" DictVariableValue="_=古代暴雷 | omen=Fan45 | t=5.2 | Scale=60,60,1" />
+<Action OrderNumber="59" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B989" DictVariableValue="_=古代暴雷 | omen=Fan45 | t=5.2 | Scale=60,60,1" />
+<Action OrderNumber="60" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="C4B6" DictVariableValue="_=魔具联动：暴雷 | omen=Fan45 | t=5.2 | Scale=60,60,1" />
+<Action OrderNumber="61" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B987" DictVariableValue="_=古代冰封 | omen=Rect2 | t=5.2 | Scale=7.5,45,1 | cross=1" />
+<Action OrderNumber="62" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B9A2" DictVariableValue="_=魔具联动：冰封 | tts=远离冰十字 | cd5=5.2 | omen=Rect2 | t=5.2 | Scale=7.5,45,1 | cross=1" />
+<Action OrderNumber="63" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B983" DictVariableValue="_=魔具联动：冰封 | tts=远离冰十字 | cd5=5.2 | omen=Rect2 | t=5.2 | Scale=7.5,45,1 | cross=1" />
+<Action OrderNumber="64" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B986" DictVariableValue="_=古代爆炎 | omen=Circle | t=5.2 | Scale=18,18,1" />
+<Action OrderNumber="65" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B982" DictVariableValue="_=魔具联动：爆炎 | tts=远离火钢铁 | cd5=5.2 | omen=Circle | t=5.2 | Scale=18,18,1" />
+<Action OrderNumber="66" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B9A1" DictVariableValue="_=魔具联动：爆炎 | tts=远离火钢铁 | cd5=5.2 | omen=Circle | t=5.2 | Scale=18,18,1" />
+<Action OrderNumber="67" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B97A" DictVariableValue="_=核爆雨 | tts=AoE" />
+<Action OrderNumber="68" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B990" DictVariableValue="_=灭亡射线 | omen=Rect | t=4.7 | Scale=3,30,1" />
+<Action OrderNumber="69" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B98E" DictVariableValue="_=真空波 | omen=mdl_general_02x | t=4.2 | Scale=40,60,1" />
+<Action OrderNumber="70" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="B991" DictVariableValue="_=碎尸 | tts=死刑" />
+<Action OrderNumber="71" ActionType="Placeholder" Description="Boss 4 目录" DescriptionOverride="True" />
+<Action OrderNumber="72" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BD00" DictVariableValue="_=封印武器 | tts=准备远离Boss | cd5=6.7" />
+<Action OrderNumber="73" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BD01" DictVariableValue="_=爱之歌 | omen=Circle | t=6.7 | Scale=15,15,1 | Color=1,1,1,2" />
+<Action OrderNumber="74" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BD02" DictVariableValue="_=封印武器 | tts=准备靠近Boss | cd5=6.8" />
+<Action OrderNumber="75" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BD03" DictVariableValue="_=盯准 | omen=Circle | t=6.8 | Scale=11,11,1 | Color=1,1,1,2" />
+<Action OrderNumber="76" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BD18" DictVariableValue="_=召唤 | tts=准备打小怪" />
+<Action OrderNumber="77" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BD1F" DictVariableValue="_=核爆 | tts=AoE" />
+<Action OrderNumber="78" Enabled="False" ActionType="DictVariable" DictVariableOp="Set" DictVariableName="简易播报" DictVariableKey="BD22" DictVariableValue="_=全知烈火 | tts=分散" />
 </Actions>
 </Trigger>
 </Triggers>
