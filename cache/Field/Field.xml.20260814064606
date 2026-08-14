@@ -6185,9 +6185,9 @@
 </Trigger>
 <Trigger Enabled="true" Id="62d1901b-412b-4ab0-a886-cfed2b15f721" Name="4. 终止（移除 buff）" RegularExpression="^.{15}\S+ 1E:(?&lt;aid&gt;5FB):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
 <Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^Field_挖宝" />
-<Action OrderNumber="2" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="clear" />
-<Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="Field_挖宝_点位omen:n:0" LogProcess="True" />
+<Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="clear" />
+<Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="Field_挖宝_点位omen:n:0" LogProcess="True" />
+<Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^Field_挖宝" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
@@ -6195,9 +6195,9 @@
 </Trigger>
 <Trigger Enabled="true" Id="eaa861be-3b65-4c5a-b863-40127d1393da" Name="1a. 初始化（指引财宝buff）" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;5FB):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
 <Actions>
-<Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^Field_挖宝" />
+<Action OrderNumber="1" ActionType="Variable" ExecutionDelayExpression="2000" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^Field_挖宝" />
 <Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="_myXY" DictVariableValue="=,x=${_me.x},y=${_me.y}" />
-<Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="每行：[宝箱x 宝箱y 宝箱z] " DescriptionOverride="True" />
+<Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="每行：[宝箱x 宝箱y 宝箱z isSafe 安全点x 安全点y 安全点z]  （isSafe: 周围是否有达到等级上限的怪）" DescriptionOverride="True" />
 <Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description="注：292.912, 15.710, -640.765 我之前记录为冰岛高级，但 EurekaTracker 记录为冰岛低级（31低 29高），待考证，现同时放进两组" DescriptionOverride="True" />
 <Action OrderNumber="5" ActionType="TableVariable" Asynchronous="False" Description="冰岛低级兔子" DescBgColor="eff" DescriptionOverride="True" TableVariableOp="Build" TableVariableTarget="Field_挖宝_箱" TableVariableExpression=",&#xD;&#xA;-737.8,143.3,-677.9&#xD;&#xA;-652.0,85.2,-688.1&#xD;&#xA;-606.5,143.0,-700.6&#xD;&#xA;-589.4,15.4,-698.4&#xD;&#xA;-430.2,60.5,-680.6&#xD;&#xA;-386.3,468.2,-677.5&#xD;&#xA;-340.5,425.2,-671.3&#xD;&#xA;-298.3,450.4,-664.6&#xD;&#xA;-289.5,-178.6,-585.3&#xD;&#xA;-285.2,-245.2,-586.5&#xD;&#xA;-283.4,-337.2,-573.5&#xD;&#xA;-259.9,-139.1,-602.9&#xD;&#xA;-257.6,-67.4,-628.0&#xD;&#xA;-222.8,-370.7,-557.9&#xD;&#xA;-222.4,-69.5,-628.8&#xD;&#xA;-199.6,-154.9,-594.9&#xD;&#xA;-175.6,-237.7,-568.2&#xD;&#xA;-158.8,-200.4,-576.3&#xD;&#xA;-148.0,-282.9,-563.6&#xD;&#xA;292.9,15.7,-640.8&#xD;&#xA;351.9,115.0,-690.0&#xD;&#xA;398.6,-15.6,-678.9&#xD;&#xA;445.4,188.4,-741.9&#xD;&#xA;476.7,421.1,-739.3&#xD;&#xA;487.0,291.7,-756.6&#xD;&#xA;515.0,139.7,-702.1&#xD;&#xA;516.1,-37.8,-679.7&#xD;&#xA;530.8,230.5,-720.5&#xD;&#xA;543.9,355.8,-730.8&#xD;&#xA;631.1,317.4,-730.9&#xD;&#xA;644.0,117.7,-702.8">
 <Condition Enabled="true" Grouping="And">
@@ -6287,7 +6287,7 @@
 <Trigger Enabled="true" Id="2ecd4d4d-1041-4dd8-9b2a-97f0bee6fd01" Name="1b. 初始化（第二次机会）" RegularExpression="^.{15}\S+ 29:[^:]*:2AF2:01:35AE:">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^Field_挖宝" />
-<Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="每行：[宝箱x 宝箱y 宝箱z] " DescriptionOverride="True" />
+<Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="每行：[宝箱x 宝箱y 宝箱z isSafe 安全点x 安全点y 安全点z]  （isSafe: 周围是否有达到等级上限的怪）" DescriptionOverride="True" />
 <Action OrderNumber="3" ActionType="TableVariable" Asynchronous="False" Description="新月岛南岛（reroll）" DescBgColor="edf" DescriptionOverride="True" TableVariableOp="Build" TableVariableTarget="Field_挖宝_箱" TableVariableExpression=",&#xD;&#xA;-676.5,-769.8,5.0&#xD;&#xA;-823.9,677.7,140.0&#xD;&#xA;-886.5,712.5,107.0&#xD;&#xA;-625.8,810.9,171.0&#xD;&#xA;-814.0,-663.4,5.0&#xD;&#xA;-842.9,-125.1,75.8&#xD;&#xA;-680.0,739.9,201.0&#xD;&#xA;-793.1,-777.3,5.0&#xD;&#xA;-708.7,669.6,171.0&#xD;&#xA;-718.0,-633.9,5.0&#xD;&#xA;-868.8,-59.4,67.5&#xD;&#xA;-803.5,-602.7,3.0&#xD;&#xA;-732.2,828.8,139.0&#xD;&#xA;-659.1,-508.8,12.2&#xD;&#xA;-786.0,790.6,162.4&#xD;&#xA;-840.9,-250.3,107.3&#xD;&#xA;-708.7,-139.3,141.2&#xD;&#xA;-796.7,-228.9,114.2&#xD;&#xA;-776.6,-487.0,5.0&#xD;&#xA;-758.8,-183.2,127.7">
 <Condition Enabled="true" Grouping="And">
 <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="1252" ExpressionTypeR="String" ConditionType="StringEqualCase" />
