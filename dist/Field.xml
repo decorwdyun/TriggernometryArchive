@@ -2,7 +2,7 @@
 <TriggernometryExport PluginVersion="2.1.2.2">
   <ExportedFolder Id="65cfc9d5-ea76-4959-9911-df44f00df67d" Enabled="true" Name="特殊场景探索 field.xml">
     <Folders>
-      <Folder Id="c88390e8-b705-4679-bfd8-8da55aa48cdb" Enabled="true" Name="新月岛" RawEnvironmentVariables="辅助骑士 = 4358&#13;&#10;辅助武僧 = 4360&#13;&#10;辅助盗贼 = 4369&#13;&#10;辅助武士 = 4362&#13;&#10;辅助狂战士 = 4359&#13;&#10;辅助猎人 = 4361&#13;&#10;辅助时魔法师 = 4365&#13;&#10;辅助药剂师 = 4367&#13;&#10;辅助风水师 = 4364&#13;&#10;辅助吟游诗人 = 4363&#13;&#10;辅助预言师 = 4368&#13;&#10;辅助炮击士 = 4366&#13;&#10;辅助自由人 = 4342">
+      <Folder Id="c88390e8-b705-4679-bfd8-8da55aa48cdb" Enabled="true" Name="F7. 新月岛" RawEnvironmentVariables="辅助骑士 = 4358&#13;&#10;辅助武僧 = 4360&#13;&#10;辅助盗贼 = 4369&#13;&#10;辅助武士 = 4362&#13;&#10;辅助狂战士 = 4359&#13;&#10;辅助猎人 = 4361&#13;&#10;辅助时魔法师 = 4365&#13;&#10;辅助药剂师 = 4367&#13;&#10;辅助风水师 = 4364&#13;&#10;辅助吟游诗人 = 4363&#13;&#10;辅助预言师 = 4368&#13;&#10;辅助炮击士 = 4366&#13;&#10;辅助自由人 = 4342">
         <Folders>
           <Folder Id="8e750297-6010-453e-b685-3a78f4e6d02e" Enabled="true" Name="宝箱雷达" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^(1252|1346)$">
             <Triggers>
@@ -6109,6 +6109,197 @@
           <Trigger Enabled="true" Id="4ea1ce7b-c019-4504-981f-ddd02836e58f" Name="1a. 扫描（新月岛 猎人）" RegularExpression="^.{15}\S+ 108:1.{7}:A281:.{8}:[^:]*:(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
             <Actions>
               <Action OrderNumber="1" ActionType="NamedCallback" ExecutionDelayExpression="1300" NamedCallbackName="Field_Minesweeper_Scan" NamedCallbackParam="Pos: ${x}, ${y}, ${z}&#13;&#10;Range: 9" UseTTSExclusive="False"/>
+            </Actions>
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="8e65a14a-8845-4931-8bf6-fe61b539a26c" Enabled="true" Name="挖宝" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^(732|763|795|827|1252|1346)$">
+        <Triggers>
+          <Trigger Enabled="true" Id="5554037a-486e-4e57-804f-965eda2c515c" Name="3. 获取方向 / 距离" RegularExpression="^.{15}\S+ 29:.{8}:(?&lt;d&gt;232[BCDE]|2AE[ABCD]):01:(?&lt;dir&gt;0[1-8]):00" Description="正北顺1-8&#13;&#10;&#13;&#10;2023-12-22 22:02:28.973 用户 2 [22:17:17.309] 261 105:Add:40007AB3:BNpcID:1EA9BB:BNpcNameID:E5AD9BE5:CastBuffID:2281735068:CastDurationCurrent:0.0000:CastDurationMax:0.0000:CastGroundTargetX:79052860000000000000000000000000.0000:CastGroundTargetY:8192.0000:CastGroundTargetZ:0.0000:CastTargetID:1400BF88:Heading:0.0000:IsCasting1:229:IsCasting2:155:ModelStatus:2048:Name:白银财宝箱:PCTargetID:3C006E82:PosX:-289.5007:PosY:-178.5063:PosZ:-585.3080:Radius:0.5000:Type:7:WorldID:17920&#13;&#10;&#13;&#10;29:80040004:232A:01:1C50:00 找到了宝箱！&#13;&#10;&#13;&#10;2023-12-22 20:16:29.359 用户 2 [20:30:20.000] ChatLog 00:0839::一定时间经过，发现的财宝消失了。&#13;&#10;2023-12-22 20:16:29.359 用户 2 [20:16:29.581] SystemLogMessage 29:80040004:2334:00:00:00&#13;&#10;&#13;&#10;2023-12-22 22:37:44.556 用户 2 [00:08:13.000] ChatLog 00:0839::幸福兔倒下了……&#13;&#10;2023-12-22 22:37:44.440 用户 2 [22:37:44.276] SystemLogMessage 29:80040004:2331:01:1C50:00">
+            <Actions>
+              <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="_myXY" DictVariableValue="=,x=${_me.x},y=${_me.y}"/>
+              <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="新月岛：出现 (2AE9) - 8 - 很近 (2AEA) - 24 - 不远 (2AEB) - 100 - 稍远 (2AEC) - 200 - 很远 (2AED) - ∞" DescriptionOverride="True"/>
+              <Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="优雷卡的 25 分界线是以前测的，疑似也应为 24，待核实" DescriptionOverride="True"/>
+              <Action OrderNumber="4" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="_dir8" VariableExpression="(9 - 0x${dir}) % 8"/>
+              <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="_dMin" VariableExpression="${?d: &#13;&#10;  232B = 0, &#13;&#10;  232C = 25, &#13;&#10;  232D = 100, &#13;&#10;  232E = 200,&#13;&#10;  2AEA = 0,&#13;&#10;  2AEB = 24,&#13;&#10;  2AEC = 100,&#13;&#10;  2AED = 200&#13;&#10;  [${d}]&#13;&#10;}"/>
+              <Action OrderNumber="6" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="_dMax" VariableExpression="${?d: &#13;&#10;  232B = 25, &#13;&#10;  232C = 100, &#13;&#10;  232D = 200, &#13;&#10;  232E = 10000,&#13;&#10;  2AEA = 24,&#13;&#10;  2AEB = 100,&#13;&#10;  2AEC = 200,&#13;&#10;  2AED = 10000&#13;&#10;  [${d}]&#13;&#10;}"/>
+              <Action OrderNumber="7" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="_dMid" VariableExpression="(${!v:_dMax} + ${!v:_dMin}) / 2"/>
+              <Action OrderNumber="8" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="_dRange" VariableExpression="(${!v:_dMax} - ${!v:_dMin}) / 2"/>
+              <Action OrderNumber="9" ActionType="Placeholder" Asynchronous="False" Description="同时用 当前位置 和 使用萝卜时的位置 一起计算，以防使用萝卜到接收方位数据之间人物移动过大" DescriptionOverride="True"/>
+              <Action OrderNumber="10" ActionType="Placeholder" Asynchronous="False" Description="　　自身位置的距离✓ &amp;&amp; 自身位置的角度✓ || 道具位置的距离✓ &amp;&amp; 道具位置的角度✓" DescriptionOverride="True"/>
+              <Action OrderNumber="11" ActionType="TableVariable" Asynchronous="False" TableVariableOp="FilterLine" TableVariableName="Field_挖宝_箱" TableVariableTarget="Field_挖宝_箱" TableVariableY="abs(d(${_row[1]}, ${_row[2]}, ${!d:_myXY[x]}, ${!d:_myXY[y]}) - ${!v:_dMid}) &lt; (${!v:_dRange} + 1) &amp;&amp; &#13;&#10;abs(roundvec(${_row[1]} - ${!d:_myXY[x]}, ${_row[2]} - ${!d:_myXY[y]}, 8, -1) - ${!v:_dir8}) &lt; 0.51&#13;&#10; || &#13;&#10;abs(d(${_row[1]}, ${_row[2]}, ${!d:Field_挖宝_道具XY[x]}, ${!d:Field_挖宝_道具XY[y]}) - ${!v:_dMid}) &lt; (${!v:_dRange} + 1) &amp;&amp;&#13;&#10;abs(roundvec(${_row[1]} - ${!d:Field_挖宝_道具XY[x]}, ${_row[2]} - ${!d:Field_挖宝_道具XY[y]}, 8, -1) - ${!v:_dir8}) &lt; 0.51"/>
+              <Action OrderNumber="12" ActionType="Placeholder" Asynchronous="False" Description="剩余结果根据距离排序" DescriptionOverride="True"/>
+              <Action OrderNumber="13" ActionType="TableVariable" Asynchronous="False" TableVariableOp="SortLine" TableVariableName="Field_挖宝_箱" TableVariableY="&quot;n+: d(${_row[1]}, ${_row[2]}, ${!d:_myXY[x]}, ${!d:_myXY[y]})&quot;"/>
+              <Action OrderNumber="14" ActionType="Placeholder" Asynchronous="False" Description="输出" DescriptionOverride="True"/>
+              <Action OrderNumber="15" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="_dMin" VariableExpression="round(d(${!d:_myXY[X]}, ${!d:_myXY[Y]}, 0${!t:Field_挖宝_箱[1][1]}, 0${!t:Field_挖宝_箱[2][1]}))"/>
+              <Action OrderNumber="16" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="_dMax" VariableExpression="round(d(${!d:_myXY[X]}, ${!d:_myXY[Y]}, 0${!t:Field_挖宝_箱[1][-1]}, 0${!t:Field_挖宝_箱[2][-1]}))"/>
+              <Action OrderNumber="17" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="_dirDesc" VariableExpression="${?l:上北, 左上, 左西, 左下, 下南, 右下, 右东, 右上 [${!v:_dir8} + 1]}"/>
+              <Action OrderNumber="18" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="warn" NamedCallbackParam="2&#13;&#10;未找到符合条件的宝箱位置">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${t:Field_挖宝_箱.height}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="19" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="hint" NamedCallbackParam="2&#13;&#10;${!v:_dirDesc} ${!v:_dMin} m">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${t:Field_挖宝_箱.height}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="20" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="hint" NamedCallbackParam="2&#13;&#10;${!v:_dirDesc} ${!v:_dMin} - ${!v:_dMax} m（${!t:Field_挖宝_箱.height} 个）">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${t:Field_挖宝_箱.height}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="21" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${!v:_dirDesc}，${!v:_dMin}米">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${t:Field_挖宝_箱.height}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="22" ActionType="UseTTS" Asynchronous="False" UseTTSTextExpression="${!v:_dirDesc}${!t:Field_挖宝_箱.height}个位置，${!v:_dMin}至${!v:_dMax}米">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${t:Field_挖宝_箱.height}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="23" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="Field_挖宝_点位omen:n:0" LogProcess="True"/>
+              <Action OrderNumber="24" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="1: ${if: 0${t:Field_挖宝_箱.height} &gt;= 1 ? ${t:Field_挖宝_箱.hjoin(&quot;,&quot;, &quot;&quot;, &quot;1,2,3&quot;, &quot;1&quot;)} : clear }&#13;&#10;2: ${if: 0${t:Field_挖宝_箱.height} &gt;= 2 ? ${t:Field_挖宝_箱.hjoin(&quot;,&quot;, &quot;&quot;, &quot;1,2,3&quot;, &quot;2&quot;)} : clear }&#13;&#10;3: ${if: 0${t:Field_挖宝_箱.height} &gt;= 3 ? ${t:Field_挖宝_箱.hjoin(&quot;,&quot;, &quot;&quot;, &quot;1,2,3&quot;, &quot;3&quot;)} : clear }&#13;&#10;4: ${if: 0${t:Field_挖宝_箱.height} &gt;= 4 ? ${t:Field_挖宝_箱.hjoin(&quot;,&quot;, &quot;&quot;, &quot;1,2,3&quot;, &quot;4&quot;)} : clear }&#13;&#10;A: ${if: 0${t:Field_挖宝_箱.height} &gt;= 5 ? ${t:Field_挖宝_箱.hjoin(&quot;,&quot;, &quot;&quot;, &quot;1,2,3&quot;, &quot;5&quot;)} : clear }&#13;&#10;B: ${if: 0${t:Field_挖宝_箱.height} &gt;= 6 ? ${t:Field_挖宝_箱.hjoin(&quot;,&quot;, &quot;&quot;, &quot;1,2,3&quot;, &quot;6&quot;)} : clear }&#13;&#10;C: ${if: 0${t:Field_挖宝_箱.height} &gt;= 7 ? ${t:Field_挖宝_箱.hjoin(&quot;,&quot;, &quot;&quot;, &quot;1,2,3&quot;, &quot;7&quot;)} : clear }&#13;&#10;D: ${if: 0${t:Field_挖宝_箱.height} &gt;= 8 ? ${t:Field_挖宝_箱.hjoin(&quot;,&quot;, &quot;&quot;, &quot;1,2,3&quot;, &quot;8&quot;)} : clear }"/>
+              <Action OrderNumber="25" ActionType="Placeholder" Asynchronous="False" DescriptionOverride="True"/>
+              <Action OrderNumber="26" ActionType="Variable" Asynchronous="False" VariableName="_dir8"/>
+              <Action OrderNumber="27" ActionType="Variable" Asynchronous="False" VariableName="_dMin"/>
+              <Action OrderNumber="28" ActionType="Variable" Asynchronous="False" VariableName="_dMax"/>
+              <Action OrderNumber="29" ActionType="Variable" Asynchronous="False" VariableName="_dMid"/>
+              <Action OrderNumber="30" ActionType="Variable" Asynchronous="False" VariableName="_dRange"/>
+              <Action OrderNumber="31" ActionType="Variable" Asynchronous="False" VariableName="_dirDesc"/>
+              <Action OrderNumber="32" ActionType="DictVariable" Asynchronous="False" DictVariableName="_myXY"/>
+              <Action OrderNumber="33" ActionType="DictVariable" Asynchronous="False" DictVariableName="Field_挖宝_道具XY"/>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${t:Field_挖宝_箱.height}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericGreater"/>
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Id="66538ad3-e779-4218-ad18-6eb73acf8e12" Name="2. 使用道具（萝卜/圣灵药）" RegularExpression="^.{15}\S+ 15:(?&lt;sid&gt;1.{7}):[^:]+:C44:">
+            <Actions>
+              <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="Field_挖宝_道具XY" DictVariableValue="=,x=${_me.x},y=${_me.y}"/>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${sid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Id="62d1901b-412b-4ab0-a886-cfed2b15f721" Name="4. 终止（移除 buff）" RegularExpression="^.{15}\S+ 1E:(?&lt;aid&gt;5FB):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+            <Actions>
+              <Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="clear"/>
+              <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="Field_挖宝_点位omen:n:0" LogProcess="True"/>
+              <Action OrderNumber="3" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^Field_挖宝"/>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Id="eaa861be-3b65-4c5a-b863-40127d1393da" Name="1a. 初始化（指引财宝buff）" RegularExpression="^.{15}\S+ 1A:(?&lt;aid&gt;5FB):[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Variable" ExecutionDelayExpression="2000" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^Field_挖宝"/>
+              <Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="_myXY" DictVariableValue="=,x=${_me.x},y=${_me.y}"/>
+              <Action OrderNumber="3" ActionType="Placeholder" Asynchronous="False" Description="每行：[宝箱x 宝箱y 宝箱z isSafe 安全点x 安全点y 安全点z]  （isSafe: 周围是否有达到等级上限的怪）" DescriptionOverride="True"/>
+              <Action OrderNumber="4" ActionType="Placeholder" Asynchronous="False" Description="注：292.912, 15.710, -640.765 我之前记录为冰岛高级，但 EurekaTracker 记录为冰岛低级（31低 29高），待考证，现同时放进两组" DescriptionOverride="True"/>
+              <Action OrderNumber="5" ActionType="TableVariable" Asynchronous="False" Description="冰岛低级兔子" DescBgColor="eff" DescriptionOverride="True" TableVariableOp="Build" TableVariableTarget="Field_挖宝_箱" TableVariableExpression=",&#13;&#10;-737.8,143.3,-677.9&#13;&#10;-652.0,85.2,-688.1&#13;&#10;-606.5,143.0,-700.6&#13;&#10;-589.4,15.4,-698.4&#13;&#10;-430.2,60.5,-680.6&#13;&#10;-386.3,468.2,-677.5&#13;&#10;-340.5,425.2,-671.3&#13;&#10;-298.3,450.4,-664.6&#13;&#10;-289.5,-178.6,-585.3&#13;&#10;-285.2,-245.2,-586.5&#13;&#10;-283.4,-337.2,-573.5&#13;&#10;-259.9,-139.1,-602.9&#13;&#10;-257.6,-67.4,-628.0&#13;&#10;-222.8,-370.7,-557.9&#13;&#10;-222.4,-69.5,-628.8&#13;&#10;-199.6,-154.9,-594.9&#13;&#10;-175.6,-237.7,-568.2&#13;&#10;-158.8,-200.4,-576.3&#13;&#10;-148.0,-282.9,-563.6&#13;&#10;292.9,15.7,-640.8&#13;&#10;351.9,115.0,-690.0&#13;&#10;398.6,-15.6,-678.9&#13;&#10;445.4,188.4,-741.9&#13;&#10;476.7,421.1,-739.3&#13;&#10;487.0,291.7,-756.6&#13;&#10;515.0,139.7,-702.1&#13;&#10;516.1,-37.8,-679.7&#13;&#10;530.8,230.5,-720.5&#13;&#10;543.9,355.8,-730.8&#13;&#10;631.1,317.4,-730.9&#13;&#10;644.0,117.7,-702.8">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="763" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                  <ConditionSingle Enabled="true" ExpressionL="${d:_myXY[y]}" ExpressionTypeL="String" ExpressionR="150" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="6" ActionType="TableVariable" Asynchronous="False" Description="冰岛高级兔子" DescBgColor="cff" DescriptionOverride="True" TableVariableOp="Build" TableVariableTarget="Field_挖宝_箱" TableVariableExpression=",&#13;&#10;292.9,15.7,-640.8&#13;&#10;-834.4,-289.3,-612.3&#13;&#10;-765.3,-159.6,-612.0&#13;&#10;-693.0,35.8,-647.2&#13;&#10;-665.1,-355.9,-627.4&#13;&#10;-660.3,-221.8,-624.2&#13;&#10;-631.3,-450.9,-620.1&#13;&#10;-568.0,-580.4,-599.3&#13;&#10;-531.1,-75.7,-616.7&#13;&#10;-358.5,-195.9,-648.7&#13;&#10;-341.6,-87.6,-656.4&#13;&#10;-60.8,-346.6,-477.3&#13;&#10;-50.5,-398.8,-462.5&#13;&#10;51.2,140.7,-635.4&#13;&#10;104.6,-341.1,-475.2&#13;&#10;121.2,-416.6,-460.1&#13;&#10;147.9,196.7,-635.1&#13;&#10;258.9,171.4,-641.5&#13;&#10;300.5,89.6,-643.3&#13;&#10;383.1,-180.7,-549.3&#13;&#10;422.9,-68.5,-578.9&#13;&#10;434.7,-289.3,-531.5&#13;&#10;462.8,-230.8,-552.4&#13;&#10;536.8,-243.9,-553.6&#13;&#10;562.9,-148.2,-569.7&#13;&#10;583.9,-87.1,-579.3&#13;&#10;671.1,-243.0,-629.6&#13;&#10;713.3,-326.9,-630.7&#13;&#10;734.9,-284.3,-630.6&#13;&#10;817.2,-276.2,-629.1">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="763" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                  <ConditionSingle Enabled="true" ExpressionL="${d:_myXY[y]}" ExpressionTypeL="String" ExpressionR="150" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="7" ActionType="TableVariable" Asynchronous="False" Description="火岛低级兔子" DescBgColor="fee" DescriptionOverride="True" TableVariableOp="Build" TableVariableTarget="Field_挖宝_箱" TableVariableExpression=",&#13;&#10;-469.8,441.7,659.2&#13;&#10;-464.4,419.2,660.6&#13;&#10;-438.4,400.7,660.8&#13;&#10;-340.1,384.9,660.3&#13;&#10;-198.3,477.8,758.0&#13;&#10;-197.2,599.0,759.5&#13;&#10;-189.5,323.3,671.7&#13;&#10;-150.4,451.8,762.7&#13;&#10;-105.6,686.5,762.7&#13;&#10;-38.9,504.8,769.8&#13;&#10;-38.4,354.2,675.4&#13;&#10;-11.6,601.3,773.3&#13;&#10;2.5,411.2,764.2&#13;&#10;32.1,689.9,754.3&#13;&#10;92.8,825.1,754.3&#13;&#10;146.3,756.0,752.5&#13;&#10;157.0,704.2,751.1&#13;&#10;157.1,841.6,754.6&#13;&#10;184.5,617.3,747.6&#13;&#10;248.8,118.5,723.1&#13;&#10;280.4,754.4,746.5&#13;&#10;293.8,531.2,739.4&#13;&#10;310.4,567.2,742.0&#13;&#10;367.9,639.3,744.0&#13;&#10;371.1,491.7,737.9&#13;&#10;378.1,287.2,724.9&#13;&#10;433.0,568.8,732.0&#13;&#10;449.0,457.1,725.1&#13;&#10;460.4,311.0,723.1&#13;&#10;469.0,535.1,726.3">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="795" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                  <ConditionSingle Enabled="true" ExpressionL="${d:_myXY[y]}" ExpressionTypeL="String" ExpressionR="-100" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="8" ActionType="TableVariable" Asynchronous="False" Description="火岛高级兔子" DescBgColor="fcc" DescriptionOverride="True" TableVariableOp="Build" TableVariableTarget="Field_挖宝_箱" TableVariableExpression=",&#13;&#10;-628.2,-319.9,669.8&#13;&#10;-612.0,-232.7,683.4&#13;&#10;-518.2,-247.3,680.2&#13;&#10;-457.9,-367.9,669.8&#13;&#10;-412.5,-304.7,671.3&#13;&#10;-405.2,-700.4,666.2&#13;&#10;-404.9,-574.5,674.1&#13;&#10;-339.9,-476.6,670.3&#13;&#10;-244.1,-691.3,658.0&#13;&#10;-233.9,-374.4,668.9&#13;&#10;-222.2,-553.8,658.2&#13;&#10;-125.8,-333.9,666.0&#13;&#10;-70.9,-193.4,672.9&#13;&#10;-52.0,-299.6,660.1&#13;&#10;-43.1,-399.6,671.1&#13;&#10;-13.6,-706.9,676.6&#13;&#10;121.6,-483.3,685.3&#13;&#10;148.2,-612.5,687.8&#13;&#10;206.5,-280.9,659.5&#13;&#10;352.7,-249.7,662.5&#13;&#10;372.5,-463.6,659.9&#13;&#10;421.4,-683.5,663.7&#13;&#10;432.9,-228.3,660.4&#13;&#10;430.1,-413.4,671.8&#13;&#10;447.6,-341.6,666.0&#13;&#10;536.2,-473.7,668.1&#13;&#10;543.5,-559.8,669.0&#13;&#10;549.6,-671.2,675.0&#13;&#10;664.6,-104.6,676.5&#13;&#10;836.1,-396.2,656.5">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="795" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                  <ConditionSingle Enabled="true" ExpressionL="${d:_myXY[y]}" ExpressionTypeL="String" ExpressionR="-100" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="9" ActionType="TableVariable" Asynchronous="False" Description="水岛全部兔子" DescBgColor="cdf" DescriptionOverride="True" TableVariableOp="Build" TableVariableTarget="Field_挖宝_箱" TableVariableExpression=",&#13;&#10;-933.6,-736.6,523.2&#13;&#10;-920.3,-172.4,506.0&#13;&#10;-863.6,-440.5,513.3&#13;&#10;-812.4,-936.0,516.0&#13;&#10;-799.7,-109.4,505.5&#13;&#10;-678.8,-366.5,504.3&#13;&#10;-666.0,-589.6,509.7&#13;&#10;-614.1,-872.6,511.9&#13;&#10;-562.2,-13.7,496.7&#13;&#10;-438.5,-682.6,505.1&#13;&#10;-350.4,-108.9,500.4&#13;&#10;-323.0,-730.8,501.0&#13;&#10;-182.4,-591.3,501.4&#13;&#10;-159.1,-44.4,495.8&#13;&#10;8.4,-368.9,504.5&#13;&#10;122.1,-616.2,500.0&#13;&#10;140.4,12.4,496.1&#13;&#10;172.5,-349.6,503.0&#13;&#10;226.8,-886.2,505.5&#13;&#10;287.8,-519.0,505.2&#13;&#10;344.5,-212.6,495.1&#13;&#10;368.7,-400.7,505.9&#13;&#10;467.7,-710.7,505.1&#13;&#10;580.4,-80.4,497.1&#13;&#10;659.9,-732.7,503.0&#13;&#10;671.4,-341.6,508.3&#13;&#10;832.6,-521.0,513.6&#13;&#10;843.4,-7.4,494.4&#13;&#10;851.3,-883.7,517.5&#13;&#10;872.1,-237.9,518.5">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="827" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="10" ActionType="TableVariable" Asynchronous="False" Description="新月岛南岛（北罐子）" DescBgColor="edf" DescriptionOverride="True" TableVariableOp="Build" TableVariableTarget="Field_挖宝_箱" TableVariableExpression=",&#13;&#10;571.6,-813.2,51.5&#13;&#10;662.4,161.1,120.0&#13;&#10;606.5,184.9,108.1&#13;&#10;-312.3,-35.3,103.2&#13;&#10;587.7,-545.8,78.9&#13;&#10;891.3,-20.7,120.0&#13;&#10;878.1,-91.1,108.3&#13;&#10;803.7,-354.2,96.0&#13;&#10;341.4,194.8,96.0&#13;&#10;570.2,272.2,64.7&#13;&#10;-216.4,-510.1,5.4&#13;&#10;684.4,-165.5,96.1&#13;&#10;-188.2,-717.2,3.0&#13;&#10;-476.3,-86.7,101.4&#13;&#10;80.2,391.2,101.3&#13;&#10;-534.7,-651.6,3.0&#13;&#10;-165.2,437.5,95.3&#13;&#10;330.9,-654.5,6.7&#13;&#10;-333.3,-861.2,3.0&#13;&#10;-313.3,70.8,108.1&#13;&#10;-459.2,5.1,93.6&#13;&#10;-54.7,405.0,99.4&#13;&#10;-382.4,-378.3,109.3&#13;&#10;263.3,326.7,100.4&#13;&#10;224.7,518.7,68.7&#13;&#10;19.7,-421.0,26.0&#13;&#10;705.3,358.7,68.1&#13;&#10;-660.5,-216.8,98.0&#13;&#10;-324.3,203.2,121.0&#13;&#10;-386.6,-461.1,-0.1">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="1252" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                  <ConditionSingle Enabled="true" ExpressionL="${d:_myXY[y]}" ExpressionTypeL="String" ExpressionR="100" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="11" ActionType="TableVariable" Asynchronous="False" Description="新月岛南岛（南罐子）" DescBgColor="edf" DescriptionOverride="True" TableVariableOp="Build" TableVariableTarget="Field_挖宝_箱" TableVariableExpression=",&#13;&#10;-195.4,-287.9,110.2&#13;&#10;74.7,-394.1,110.5&#13;&#10;-386.4,-221.8,98.6&#13;&#10;-554.6,-309.1,99.0&#13;&#10;107.1,146.7,105.7&#13;&#10;826.0,772.4,70.0&#13;&#10;-836.8,597.3,107.0&#13;&#10;67.5,745.9,69.5&#13;&#10;69.7,-239.1,111.6&#13;&#10;301.9,70.6,103.8&#13;&#10;-39.0,-175.5,102.1&#13;&#10;-60.7,828.5,69.7&#13;&#10;17.6,674.6,65.9&#13;&#10;393.3,844.7,57.5&#13;&#10;393.0,-124.2,104.0&#13;&#10;-798.8,-4.8,84.2&#13;&#10;440.8,876.4,70.3&#13;&#10;-734.1,683.7,171.0&#13;&#10;423.4,578.9,70.3&#13;&#10;200.1,624.2,56.0&#13;&#10;-603.3,858.7,139.0&#13;&#10;-829.6,66.8,62.7&#13;&#10;-645.3,-73.5,135.7&#13;&#10;-836.2,770.3,107.0&#13;&#10;-676.6,1.5,128.6&#13;&#10;-713.7,710.1,203.0&#13;&#10;781.3,560.1,70.0&#13;&#10;-746.1,828.9,172.0&#13;&#10;-730.5,-371.5,107.7&#13;&#10;-810.8,-226.8,114.1">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="1252" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                  <ConditionSingle Enabled="true" ExpressionL="${d:_myXY[y]}" ExpressionTypeL="String" ExpressionR="100" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="12" ActionType="TableVariable" Asynchronous="False" Description="新月岛北岛（北罐子）" DescBgColor="edf" DescriptionOverride="True" TableVariableOp="Build" TableVariableTarget="Field_挖宝_箱" TableVariableExpression=",&#13;&#10;927.0,-155.2,54.0&#13;&#10;929.4,-1.8,54.0&#13;&#10;939.2,-273.1,80.3&#13;&#10;912.3,-461.5,61.2&#13;&#10;385.0,-177.0,33.0&#13;&#10;-536.1,149.8,87.0&#13;&#10;830.1,-148.9,77.8&#13;&#10;-530.0,-58.0,67.8&#13;&#10;-251.8,-864.4,65.9&#13;&#10;889.2,156.0,54.0&#13;&#10;-596.0,-285.0,41.9&#13;&#10;-223.8,-353.9,10.9&#13;&#10;-190.0,-763.0,61.8&#13;&#10;-498.7,128.9,11.1&#13;&#10;-86.0,-737.0,60.6&#13;&#10;32.4,-777.3,56.8&#13;&#10;948.6,-567.0,63.6&#13;&#10;-252.2,-879.6,66.6&#13;&#10;546.6,143.3,36.1&#13;&#10;321.2,-889.9,59.9&#13;&#10;928.9,-332.8,74.0&#13;&#10;593.0,34.0,39.6&#13;&#10;782.5,-56.4,70.3&#13;&#10;810.9,-278.8,78.4&#13;&#10;1.8,-872.3,71.6&#13;&#10;440.3,-926.6,60.6&#13;&#10;452.6,-310.3,57.1&#13;&#10;152.0,-842.0,61.1&#13;&#10;714.7,262.7,69.2&#13;&#10;-456.0,-365.5,39.7">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="1346" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                  <ConditionSingle Enabled="true" ExpressionL="${d:_myXY[y]}" ExpressionTypeL="String" ExpressionR="-100" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="13" ActionType="TableVariable" Asynchronous="False" Description="新月岛北岛（南罐子）" DescBgColor="edf" DescriptionOverride="True" TableVariableOp="Build" TableVariableTarget="Field_挖宝_箱" TableVariableExpression=",&#13;&#10;-113.5,-74.2,5.1&#13;&#10;-960.0,-425.8,48.0&#13;&#10;-834.0,-587.4,18.9&#13;&#10;-853.5,-323.9,58.0&#13;&#10;-586.3,-715.2,47.8&#13;&#10;71.1,942.3,81.1&#13;&#10;93.4,-114.3,3.7&#13;&#10;210.0,916.0,98.4&#13;&#10;28.1,-16.7,4.0&#13;&#10;0.9,623.3,41.8&#13;&#10;-628.4,-449.5,49.1&#13;&#10;12.0,795.7,68.2&#13;&#10;-339.9,861.5,85.5&#13;&#10;-88.4,4.9,2.4&#13;&#10;-127.0,808.4,71.5&#13;&#10;-184.5,667.8,71.2&#13;&#10;52.0,552.0,25.3&#13;&#10;-109.5,-210.2,8.0&#13;&#10;194.2,353.0,-0.3&#13;&#10;-330.0,-628.0,42.0&#13;&#10;190.4,-204.7,3.9&#13;&#10;237.9,309.4,-0.3&#13;&#10;-512.0,-389.0,42.0&#13;&#10;-975.5,-526.3,17.6&#13;&#10;47.6,-218.3,3.9&#13;&#10;-269.6,875.7,107.9&#13;&#10;-15.9,-20.3,4.0&#13;&#10;-747.4,-492.1,29.0&#13;&#10;-259.6,56.9,3.7&#13;&#10;-172.6,103.2,6.0">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="1346" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                  <ConditionSingle Enabled="true" ExpressionL="${d:_myXY[y]}" ExpressionTypeL="String" ExpressionR="-100" ExpressionTypeR="String" ConditionType="NumericGreaterEqual"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="14" ActionType="DictVariable" Asynchronous="False" DictVariableName="_myXY"/>
+              <Action OrderNumber="15" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="Field_挖宝_点位omen:n:0" LogProcess="True"/>
+              <Action OrderNumber="16" ActionType="UseTTS" UseTTSTextExpression="已加载宝箱点位"/>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Id="c47be232-0f9d-4575-b61b-0bf975830cdd" Name="新月岛：1EBE1[567]金银铜？　　优雷卡：1EA9B[ABC]" RegularExpression="^.{15}\S+ AAA:105:4.{7}:[^:]*:1EBE1[567]"/>
+          <Trigger Enabled="true" Id="53750c80-e113-4b1d-915a-16d86f4544fe" Name="[F] 循环绘图" RegularExpression="^Field_挖宝_点位omen:n:(?&lt;n&gt;\d+)">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Placeholder" Description="0 代表初始化，正数 n 代表画第 n 行的数据" DescriptionOverride="True"/>
+              <Action OrderNumber="2" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Action: Remove&#13;&#10;Tag: Field_挖宝_点位">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: hori_trap_o1v&#13;&#10;Tag: Field_挖宝_点位&#13;&#10;Delay: 0&#13;&#10;t: 60&#13;&#10;Pos: ${!t:Field_挖宝_箱.hjoin(&quot;,&quot;, &quot;&quot;, &quot;1,2,3&quot;, ${n})} - 15&#13;&#10;Scale: 2, 2, 300&#13;&#10;Color: 1,1,1,1">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="LogMessage" Asynchronous="False" LogMessageText="Field_挖宝_点位omen:n:${n: ${n} + 1}" LogProcess="True">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="${t:Field_挖宝_箱.height}" ExpressionTypeR="String" ConditionType="NumericLess"/>
+                </Condition>
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${n}" ExpressionTypeL="String" ExpressionR="${t:Field_挖宝_箱.height}" ExpressionTypeR="String" ConditionType="NumericLessEqual"/>
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Id="2ecd4d4d-1041-4dd8-9b2a-97f0bee6fd01" Name="1b. 初始化（第二次机会）" RegularExpression="^.{15}\S+ 29:[^:]*:2AF2:01:35AE:">
+            <Actions>
+              <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^Field_挖宝"/>
+              <Action OrderNumber="2" ActionType="Placeholder" Asynchronous="False" Description="每行：[宝箱x 宝箱y 宝箱z isSafe 安全点x 安全点y 安全点z]  （isSafe: 周围是否有达到等级上限的怪）" DescriptionOverride="True"/>
+              <Action OrderNumber="3" ActionType="TableVariable" Asynchronous="False" Description="新月岛南岛（reroll）" DescBgColor="edf" DescriptionOverride="True" TableVariableOp="Build" TableVariableTarget="Field_挖宝_箱" TableVariableExpression=",&#13;&#10;-676.5,-769.8,5.0&#13;&#10;-823.9,677.7,140.0&#13;&#10;-886.5,712.5,107.0&#13;&#10;-625.8,810.9,171.0&#13;&#10;-814.0,-663.4,5.0&#13;&#10;-842.9,-125.1,75.8&#13;&#10;-680.0,739.9,201.0&#13;&#10;-793.1,-777.3,5.0&#13;&#10;-708.7,669.6,171.0&#13;&#10;-718.0,-633.9,5.0&#13;&#10;-868.8,-59.4,67.5&#13;&#10;-803.5,-602.7,3.0&#13;&#10;-732.2,828.8,139.0&#13;&#10;-659.1,-508.8,12.2&#13;&#10;-786.0,790.6,162.4&#13;&#10;-840.9,-250.3,107.3&#13;&#10;-708.7,-139.3,141.2&#13;&#10;-796.7,-228.9,114.2&#13;&#10;-776.6,-487.0,5.0&#13;&#10;-758.8,-183.2,127.7">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="1252" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ActionType="TableVariable" Asynchronous="False" Description="新月岛北岛（reroll）" DescBgColor="edf" DescriptionOverride="True" TableVariableOp="Build" TableVariableTarget="Field_挖宝_箱" TableVariableExpression=",&#13;&#10;782.9,-611.8,60.4&#13;&#10;925.7,-906.2,70.2&#13;&#10;909.0,-961.8,97.1&#13;&#10;-661.0,937.0,160.0&#13;&#10;-527.0,834.0,160.1&#13;&#10;-631.9,808.9,160.0&#13;&#10;-809.0,-879.0,6.3&#13;&#10;671.2,-550.1,61.0&#13;&#10;701.0,-945.0,60.0&#13;&#10;-623.0,883.0,160.0&#13;&#10;-585.0,842.0,160.0&#13;&#10;-656.9,-799.3,23.0&#13;&#10;-840.0,740.0,160.0&#13;&#10;-487.8,-953.2,48.0&#13;&#10;-603.0,-869.0,32.0&#13;&#10;-637.2,-950.5,32.0&#13;&#10;-866.0,-775.0,-41.0&#13;&#10;626.3,-844.9,61.1&#13;&#10;943.5,-879.5,70.2&#13;&#10;-449.6,-967.0,45.7">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid}" ExpressionTypeL="String" ExpressionR="1346" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" ActionType="LogMessage" Asynchronous="False" DescBgColor="ffd" LogMessageText="Field_挖宝_点位omen:n:0" LogProcess="True"/>
+              <Action OrderNumber="6" ActionType="UseTTS" UseTTSTextExpression="已加载第二轮点位"/>
             </Actions>
           </Trigger>
         </Triggers>
