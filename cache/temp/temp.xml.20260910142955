@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<TriggernometryExport PluginVersion="2.2.0.1">
-<ExportedFolder Id="a6f38aa0-5dde-4f22-9d10-b229db9222b4" Enabled="true" Name="临时">
+<TriggernometryExport PluginVersion="2.1.1.2">
+<ExportedFolder Id="dfd52a11-9997-441a-a689-601c59f74497" Enabled="true" Name="临时">
 <Folders>
-<Folder Id="9cb8e54b-1973-4810-a978-aa6b647447aa" Enabled="true" Name="风脉">
+<Folder Id="b25c8548-48d4-4bcb-9d81-491c0663f233" Enabled="true" Name="风脉">
 <Folders>
-<Folder Id="e35d7802-efc1-4d4f-b4bc-24644cefc725" Enabled="true" Name="如果使用转圈圈标点则开启这个分组">
+<Folder Id="79aeba41-28f0-4ed7-93ca-cf1a609f429b" Enabled="true" Name="如果使用转圈圈标点则开启这个分组">
 <Triggers>
-<Trigger Enabled="true" Id="6bfd4d53-eb35-4ea6-ae59-4aff0bdae1eb" Name="循环" RegularExpression="^风脉_loop" PrevActions="Interrupt">
+<Trigger Enabled="true" Id="797b4ee9-a88d-40fb-99d9-189fe829e55a" Name="循环" RegularExpression="^风脉_loop" PrevActions="Interrupt">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="AdvWm" NamedCallbackParam="action: place&#xD;&#xA;// 每五秒标一次 A（与风脉重合）&#xD;&#xA;${if: ${_systemtimems} % 5000 &lt; 25 ? &quot;A&quot; : &quot;_&quot; }: ${v:风脉_center}&#xD;&#xA;1: ${v:风脉_center} + 5 * sin(${_systemtimems} / 314) + 5&#xD;&#xA;---&#xD;&#xA;action: circle&#xD;&#xA;center: ${v:风脉_center} + 5 * sin(${_systemtimems} / 314) + 5&#xD;&#xA;waymarks: BCD234&#xD;&#xA;r: 60 * sin(${_systemtimems} / 942)&#xD;&#xA;θ: ${_systemtimems} / 1570">
 <Condition Enabled="true" Grouping="Or">
@@ -19,14 +19,14 @@
 <ConditionSingle Enabled="true" ExpressionL="${ev:风脉_center}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="486792ae-f573-47e2-9985-8fd14af3ba0e" Name="无剩余风脉 重置" RegularExpression="^.{15}\S+ 29:00:E81:" PrevActions="Interrupt">
+<Trigger Enabled="true" Id="55d93f8b-1c77-4a9c-8659-167a20592c13" Name="无剩余风脉 重置" RegularExpression="^.{15}\S+ 29:00:E81:" PrevActions="Interrupt">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableName="风脉_center" />
 <Action OrderNumber="2" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="place" NamedCallbackParam="clear" />
 <Action OrderNumber="3" ActionType="NamedCallback" ExecutionDelayExpression="100" Asynchronous="False" DescBgColor="dff" NamedCallbackName="place" NamedCallbackParam="clear" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="02bc3daa-eec3-4b8e-979f-5c02a37a9346" Name="手动停止" RegularExpression="^.{15}\S+ 00:0038:: *(风脉|[Ff][Mm]) +[Oo][Ff][Ff]">
+<Trigger Enabled="true" Id="7ae78e52-bfb6-4757-b799-1f88fdeec740" Name="手动停止" RegularExpression="^.{15}\S+ 00:0038:: *(风脉|[Ff][Mm]) +[Oo][Ff][Ff]">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="tmp_center" VariableExpression="${v:风脉_center}" />
 <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableName="风脉_center" />
@@ -39,7 +39,7 @@
 </Folder>
 </Folders>
 <Triggers>
-<Trigger Enabled="false" Id="12e541a2-f4e2-4abb-9949-98c00e5a1df3" Name="说明" Source="None">
+<Trigger Enabled="false" Id="2f417b10-4d1b-476a-9fe7-f6740b093abe" Name="说明" Source="None">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="使用风脉仪时自动标记对应风脉的位置。" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="Placeholder" Description="需要鲶鱼精邮差及高级标点工具箱。" DescriptionOverride="True" />
@@ -54,7 +54,7 @@
 <Action OrderNumber="11" ActionType="Placeholder" Description="by 阿洛   感谢 AtmoOmen 的技术支持" DescriptionOverride="True" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="d7235b6d-8963-4d4a-87b0-fbc590be0a48" Name="1. 使用风脉仪" RegularExpression="^.{15}\S+ 29:00:E80:02:(?&lt;dir&gt;[^:]+):(?&lt;distance&gt;[^:]+)">
+<Trigger Enabled="true" Id="f726e205-af5e-41fa-88d0-2e28f376d08c" Name="1. 使用风脉仪" RegularExpression="^.{15}\S+ 29:00:E80:02:(?&lt;dir&gt;[^:]+):(?&lt;distance&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Asynchronous="False" Description="校验手动执行" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="MessageBox" Asynchronous="False" MessageBoxIconType="Error" MessageBoxText="直接用风脉仪。⏎不要手动执行。">
@@ -62,7 +62,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${_event}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="3" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="d7235b6d-8963-4d4a-87b0-fbc590be0a48">
+<Action OrderNumber="3" ActionType="Trigger" Asynchronous="False" TriggerOp="CancelTrigger" TriggerId="f726e205-af5e-41fa-88d0-2e28f376d08c">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${_event}" ExpressionTypeL="String" ExpressionR="" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
@@ -280,7 +280,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${ecallback:AdvWm}${ecallback:place}" ExpressionTypeL="String" ExpressionR="11" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="99fad479-ef97-4df1-a4e4-fa18db3dbfb7" Name="2. 摸风脉" RegularExpression="^.{15}\S+ 29:00:E83:00:00:00">
+<Trigger Enabled="true" Id="df928965-d947-454f-bf72-56635dbb9057" Name="2. 摸风脉" RegularExpression="^.{15}\S+ 29:00:E83:00:00:00">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableName="风脉_center" />
 <Action OrderNumber="2" ActionType="NamedCallback" Asynchronous="False" DescBgColor="dff" NamedCallbackName="place" NamedCallbackParam="clear" />
@@ -292,9 +292,9 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="3c5e58e8-c369-46d8-ba95-481c886d3dca" Enabled="true" Name="女儿节自动应援 By 凛子" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^130$">
+<Folder Id="f7d33878-1b08-43ef-a392-c05479e88da2" Enabled="true" Name="女儿节自动应援 By 凛子" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^130$">
 <Triggers>
-<Trigger Enabled="true" Id="9a72b8d4-cd2a-45d8-b4bb-b1a465b32437" Name="3. NPC 可选中：自动应援" RegularExpression="^.{15}\S+ 1022:1:(?&lt;tid&gt;4.{7}):[^:]*:[^:]*:(?&lt;BNpcId&gt;18859|18860|18861|18862):" PeriodRefire="Deny" RefirePeriodExpression="1000" Sequential="True" Description="开着触发器 进入观众模式在舞台面前会自己用对应的技能&#xD;&#xA;&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;https://space.bilibili.com/83429972">
+<Trigger Enabled="true" Id="2e6a9932-93ab-42e9-8aa0-176faa886cef" Name="3. NPC 可选中：自动应援" RegularExpression="^.{15}\S+ AAA:22:1:(?&lt;tid&gt;4.{7}):[^:]*:[^:]*:(?&lt;BNpcId&gt;18859|18860|18861|18862):" PeriodRefire="Deny" RefirePeriodExpression="1000" Sequential="True" Description="开着触发器 进入观众模式在舞台面前会自己用对应的技能&#xD;&#xA;&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;https://space.bilibili.com/83429972">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Target" NamedCallbackParam="${tid}" />
 <Action OrderNumber="2" ActionType="NamedCallback" ExecutionDelayExpression="random(500, 2500)" NamedCallbackName="UseAction" NamedCallbackParam="Action, ${BNpcId} - 18859 + 44501, 0x${tid}, 1" />
@@ -303,7 +303,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${_me.HasStatus(1494)}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="fd4c989b-d952-4330-944f-65836cfe4c2a" Name="1.1 活动开始 =&gt; 2" RegularExpression="^.{15}\S+ 10[23]:Add:[^:]*:000007F[ABCD]">
+<Trigger Enabled="true" Id="39dcc30f-4dd8-4830-868f-5214a28d3bb5" Name="1.1 活动开始 =&gt; 2" RegularExpression="^.{15}\S+ 10[23]:Add:[^:]*:000007F[ABCD]">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="女儿节应援" LogProcess="True" LogProcessACT="True" />
 <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="活动开始" />
@@ -312,7 +312,7 @@
 <ConditionSingle Enabled="true" ExpressionL="${_me.HasStatus(1494)}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="d4b38256-4ec3-4500-8720-b1c30a1bdd75" Name="2. 文本提示" RegularExpression="^女儿节应援">
+<Trigger Enabled="true" Id="5abfa958-5eb7-43ba-9791-5e6fbb45dd2b" Name="2. 文本提示" RegularExpression="^女儿节应援">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="isFirst" VariableExpression="${ev:UseActionEnabled} = 0" />
 <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="UseActionEnabled" VariableExpression="${ecallback:UseAction}" />
@@ -329,7 +329,7 @@
 <Action OrderNumber="5" ActionType="Variable" Asynchronous="False" VariableName="isFirst" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="aea8e384-12e9-41af-9852-72eefd53f3b7" Name="1.2 获取 buff =&gt; 2" RegularExpression="^.{15}\S+ 1A:5D6:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;23[1234]):">
+<Trigger Enabled="true" Id="c1aa5b06-bed1-4f1a-adee-8bedb67d4f0f" Name="1.2 获取 buff =&gt; 2" RegularExpression="^.{15}\S+ 1A:5D6:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;23[1234]):">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="女儿节应援" LogProcess="True" LogProcessACT="True" />
 </Actions>
@@ -339,12 +339,12 @@
 </Trigger>
 </Triggers>
 </Folder>
-<Folder Id="fdc741d6-8986-4442-bb23-8fd881882613" Enabled="true" Name="金碟砍竹子（画图版）" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^144$" RawEnvironmentVariables="X0 = 70.5625&#xD;&#xA;Y0 = -35.9561&#xD;&#xA;Z0 = -4.474">
+<Folder Id="415d1672-f82a-4052-bea2-da97e6da5bfa" Enabled="true" Name="金碟砍竹子（画图版）" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^144$" RawEnvironmentVariables="X0 = 70.5625&#xD;&#xA;Y0 = -35.9561&#xD;&#xA;Z0 = -4.474">
 <Folders>
-<Folder Id="8e483429-3b0e-42e6-841e-8886fa012b48" Enabled="true" Name="喷风 (临时)">
+<Folder Id="0ca6e73c-5e67-4ff0-b24d-0ba0c979a08e" Enabled="true" Name="喷风 (临时)">
 <Triggers>
-<Trigger Enabled="false" Id="d2e4f54f-b749-4400-a474-ab67f197b99b" Name="此分组仅用于统计喷风技能位置和角度的概率分布" />
-<Trigger Enabled="true" Id="94bc8a08-a43b-4101-bba3-df1867dd2d23" Name="0D27-8 四个圆形" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;0D2[78]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Trigger Enabled="false" Id="d446476b-1e55-4841-9fbe-3bb9d522f023" Name="此分组仅用于统计喷风技能位置和角度的概率分布" />
+<Trigger Enabled="true" Id="cdf51b22-ad26-41e6-b9b0-223bd9158a0b" Name="0D27-8 四个圆形" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;0D2[78]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="中心 0D27 似乎无作用，周围四个 0D28，每次全部收集位置后统一输出" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Insert" ListVariableName="四圆" ListVariableExpression="${x}:${y}" ListVariableIndex="0x${aid} = 0x0D27 ? 1 : (${l:四圆.size} + 1)" />
@@ -356,7 +356,7 @@
 <Action OrderNumber="4" ActionType="ListVariable" ExecutionDelayExpression="3000" Asynchronous="False" ListVariableName="四圆" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="54ca02a1-7616-4655-b1e6-4b6dd8f25e14" Name="0D23-6 普通技能" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;0D2[3456]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
+<Trigger Enabled="true" Id="a0450ca7-237f-4fc1-9bfe-a32df2b80a52" Name="0D23-6 普通技能" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;0D2[3456]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=喷风/技能.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;${?d:0D23=圆, 0D24=环, 0D25=扇, 0D26=射 [${aid}]}:${x}:${y}:${h}" />
 </Actions>
@@ -365,31 +365,31 @@
 </Folder>
 </Folders>
 <Triggers>
-<Trigger Enabled="true" Id="b97da356-8f33-49d7-a0a2-8465122bfd28" Name="2. 直线" RegularExpression="^.{15}\S+ 1105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE9A):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
+<Trigger Enabled="true" Id="8b4e04d2-f93b-41b3-abb1-3118cbf21216" Name="2. 直线" RegularExpression="^.{15}\S+ AAA:105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE9A):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="朝着面向两侧，宽度 5.0 m 的直线攻击" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect2&#xD;&#xA;Delay: 2.5&#xD;&#xA;T: 5&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Angle: ${h} + π/2&#xD;&#xA;Scale: 2.5, 28, 1" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="f72601e7-8cee-4a7d-9d4b-08c2b769d41c" Name="3. 钢铁" RegularExpression="^.{15}\S+ 1105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE9B):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
+<Trigger Enabled="true" Id="803bfe21-14aa-4cd5-a6ed-1112454a10e9" Name="3. 钢铁" RegularExpression="^.{15}\S+ AAA:105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE9B):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="以自身为中心，半径 11 m 的圆形攻击" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;Delay: 2.5&#xD;&#xA;T: 5&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Scale: 11, 11, 1" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="32d357a9-fecf-4831-9c8e-96aba3feb3a7" Name="1. 射线" RegularExpression="^.{15}\S+ 1105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE99):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
+<Trigger Enabled="true" Id="1a8cd306-42fa-443e-bb97-3068c41bf056" Name="1. 射线" RegularExpression="^.{15}\S+ AAA:105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE99):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="朝着面向正左方，宽度 5.0 m 的射线攻击" DescriptionOverride="True" />
 <Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;Delay: 2.5&#xD;&#xA;T: 5&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Angle: ${h} + π/2&#xD;&#xA;Scale: 2.5, 28, 1" />
 </Actions>
 </Trigger>
-<Trigger Enabled="false" Id="bf08a908-ccf1-4dc2-9c2d-dd82595efa82" Name="debug log" Source="None">
+<Trigger Enabled="false" Id="1fe44f94-2132-48ac-91bb-11a68d360a77" Name="debug log" Source="None">
 <Actions>
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="[00:00:00.000] 0 105:Add:40000000:BNpcID:1EAE99:Heading:-1.5708:PosX:70.5625:PosY:-35.9561:" LogProcess="True" />
 <Action OrderNumber="2" ActionType="LogMessage" LogMessageText="[00:00:00.000] 0 105:Add:40000000:BNpcID:1EAE9A:Heading:0:PosX:70.5625:PosY:-35.9561:" LogProcess="True" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="7bb8cea6-7dd3-4df6-b864-72d4c8d76d3e" Name="0. 任务提示" RegularExpression="^.{15}\S+ 00:0044:来宾接待员:由金碟游乐场主办的活动“必中一闪快刀斩魔”">
+<Trigger Enabled="true" Id="01adff5d-0eb3-4f7c-99d9-00caa3f9310e" Name="0. 任务提示" RegularExpression="^.{15}\S+ 00:0044:来宾接待员:由金碟游乐场主办的活动“必中一闪快刀斩魔”">
 <Actions>
 <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="砍竹子开始了" />
 <Action OrderNumber="2" ActionType="NamedCallback" NamedCallbackName="command" NamedCallbackParam="/e 砍竹子开始了 &lt;se.10&gt;" />
@@ -399,7 +399,7 @@
 </Folder>
 </Folders>
 <Triggers>
-<Trigger Enabled="true" Id="f6097297-c194-4e91-adcd-37bcf5a343c9" Name="自动完成探索笔记" RegularExpression="^.{15}\S+ 00:..[3B]9::(到达了探索笔记的目的地|You have arrived at a vista|探検手帳の目的地に到達した)">
+<Trigger Enabled="true" Id="b0fd98eb-a63d-4147-8449-95479edcaa1b" Name="自动完成探索笔记" RegularExpression="^.{15}\S+ 00:..[3B]9::(到达了探索笔记的目的地|You have arrived at a vista|探検手帳の目的地に到達した)">
 <Actions>
 <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="queue" NamedCallbackParam="[&#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/target &lt;1&gt;&quot; }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot; }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100}, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 1000 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100}, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 1000 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100}&#xD;&#xA;]&#xD;&#xA;" />
 </Actions>
