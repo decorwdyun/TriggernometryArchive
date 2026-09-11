@@ -50,7 +50,7 @@
                   <Action OrderNumber="1" ActionType="ExecuteScript" ExecScriptExpression="using System;&#13;&#10;using System.Collections.Generic;&#13;&#10;using System.Linq;&#13;&#10;using System.Windows.Forms;&#13;&#10;using Triggernometry.Core;&#13;&#10;&#13;&#10;List&lt;TreeNode&gt; FindTargetNodes(IEnumerable&lt;TreeNode&gt; nodes, Func&lt;TreeNode, bool&gt; filter)&#13;&#10;{&#13;&#10;    var result = new List&lt;TreeNode&gt;();&#13;&#10;    foreach (var node in nodes)&#13;&#10;    {&#13;&#10;        if (!node.Checked) continue;&#13;&#10;&#13;&#10;        if (filter(node))&#13;&#10;        {&#13;&#10;            result.Add(node);&#13;&#10;        }&#13;&#10;        else if (node.Nodes.Count &gt; 0)&#13;&#10;        {&#13;&#10;            result.AddRange(FindTargetNodes(node.Nodes.Cast&lt;TreeNode&gt;(), filter));&#13;&#10;        }&#13;&#10;    }&#13;&#10;    return result;&#13;&#10;}&#13;&#10;&#13;&#10;var detectName = &quot;异闻迷宫宝宝椅&quot;;&#13;&#10;var allNodes = RealPlugin.Instance.ui.treeView1.Nodes.Cast&lt;TreeNode&gt;();&#13;&#10;var matchedNodes = FindTargetNodes(allNodes, node =&gt; node.Tag is Folder f &amp;&amp; f.Name.Contains(detectName));&#13;&#10;&#13;&#10;if (matchedNodes.Count &gt; 1)&#13;&#10;{&#13;&#10;    MessageBox.Show($&quot;检测到多个 “{detectName}” 分组，你需要关闭至仅有一个启用。&quot;, detectName, MessageBoxButtons.OK, MessageBoxIcon.Warning);&#13;&#10;}"/>
                 </Actions>
               </Trigger>
-              <Trigger Enabled="true" Id="b12e33ef-8ac8-4bb9-bed1-5c78fb276366" Name="检查用户配置（进本/进战）" RegularExpression="^.{15}\S+ (?&lt;log&gt;01:|104:1:1)">
+              <Trigger Enabled="true" Id="b12e33ef-8ac8-4bb9-bed1-5c78fb276366" Name="检查用户配置（进本/进战）" RegularExpression="^.{15}\S+ (?&lt;log&gt;1001:|104:1:1)">
                 <Actions>
                   <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="isNotInitialized" VariableExpression="1">
                     <Condition Enabled="true" Grouping="Or">
@@ -1227,7 +1227,7 @@
                   <Action OrderNumber="3" ActionType="LogMessage" Asynchronous="False" LogMessageText="V6a3_咒_n:${!v:V6a_phase_咒_n}" LogProcess="True" LogProcessACT="True"/>
                 </Actions>
               </Trigger>
-              <Trigger Enabled="true" Id="06446a2a-3e6c-4ba9-bfe2-b4ec05b22be6" Name="石火豪打 死刑" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;74AD|76C4):([^:]| :)*:(?&lt;tid&gt;1.{7}):" Sequential="True">
+              <Trigger Enabled="true" Id="06446a2a-3e6c-4ba9-bfe2-b4ec05b22be6" Name="石火豪打 死刑" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;74AD|76C4):([^:]|: )*:(?&lt;tid&gt;1.{7}):" Sequential="True">
                 <Actions>
                   <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="死刑顺劈"/>
                   <Action OrderNumber="2" ActionType="Variable" VariableOp="SetString" VariableName="V6a2_死刑_xy" VariableExpression="${_entity[${sid}].xy}"/>
@@ -6070,7 +6070,7 @@
                           </Action>
                         </Actions>
                       </Trigger>
-                      <Trigger Enabled="true" Id="57ae0125-6b7c-4e62-88a8-2cf8c6043a24" Name="0. 初始化 四方凶兆" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B665):">
+                      <Trigger Enabled="true" Id="57ae0125-6b7c-4e62-88a8-2cf8c6043a24" Name="0. 初始化 四方凶兆" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B665):">
                         <Actions>
                           <Action OrderNumber="1" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^V7a2_灵击波"/>
                         </Actions>
@@ -6143,7 +6143,7 @@
                           <ConditionSingle Enabled="true" ExpressionL="${tid}" ExpressionTypeL="String" ExpressionR="${_me.id}" ExpressionTypeR="String" ConditionType="StringEqualNocase"/>
                         </Condition>
                       </Trigger>
-                      <Trigger Enabled="true" Id="b7705672-2fdd-4ca0-80c1-b19343b2b97f" Name="0. 初始化 四方凶兆" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B665):">
+                      <Trigger Enabled="true" Id="b7705672-2fdd-4ca0-80c1-b19343b2b97f" Name="0. 初始化 四方凶兆" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B665):">
                         <Actions>
                           <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Build" DictVariableTarget="V7a2_凶兆_dir4_b有" DictVariableValue="=,0=0,1=0,2=0,3=0"/>
                           <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableName="V7a2_凶兆_statusId"/>
@@ -6158,7 +6158,7 @@
                       <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Teleport" NamedCallbackParam="${env:X0}, ${env:Y0}+30, ${env:Z0}"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="7bf921d1-1355-4684-8e70-1de644d93bbd" Name="转轮/八叶残响" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B67[03]):">
+                  <Trigger Enabled="true" Id="7bf921d1-1355-4684-8e70-1de644d93bbd" Name="转轮/八叶残响" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B67[03]):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a2_残响_b环" VariableExpression="0x${aid} = 0xB670"/>
                       <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="${if: ${!v:V7a2_残响_b环} ? 集合放圈，稍后月环 : 集合放圈，稍后冰花 }">
@@ -6198,7 +6198,7 @@
               </Folder>
               <Folder Id="1213ff68-3756-4810-ad68-c858b7d8438d" Enabled="true" Name="X. 天界交叉斩 钢/月">
                 <Triggers>
-                  <Trigger Enabled="true" Id="533000a1-3eb3-4e31-897f-2c4bc683efc7" Name="1. 钢铁月环" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B9C[EF]|B9D[01]):">
+                  <Trigger Enabled="true" Id="533000a1-3eb3-4e31-897f-2c4bc683efc7" Name="1. 钢铁月环" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B9C[EF]|B9D[01]):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a2_钢月_b先钢" VariableExpression="0x${aid} = 0xB9CE || 0x${aid} = 0xB9D0"/>
                       <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetNumeric" VariableName="V7a2_钢月_b散" VariableExpression="0x${aid} = 0xB9CE || 0x${aid} = 0xB9CF"/>
@@ -6239,7 +6239,7 @@
                       <Action OrderNumber="5" ActionType="LogMessage" DescBgColor="ffd" LogMessageText="V7a2_钢月:b钢:${!v:V7a2_钢月_b先钢}:b先:1:tid:${tid}" LogProcess="True" LogProcessACT="True"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="9052ddac-7b67-4a78-af4f-b6c57b2f65d7" Name="2.4 无点名" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B9C[EF]|B9D[01]):">
+                  <Trigger Enabled="true" Id="9052ddac-7b67-4a78-af4f-b6c57b2f65d7" Name="2.4 无点名" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B9C[EF]|B9D[01]):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="300"/>
                       <Action OrderNumber="2" ActionType="UseTTS" UseTTSTextExpression="${if: ${!v:V7a2_钢月_b散} ? 去中心分散，无点名 : 去前方分摊，无点名 }">
@@ -6667,13 +6667,13 @@
               </Folder>
               <Folder Id="4ab5eab0-4f81-40a4-a7f3-e9c80e2b8e15" Enabled="true" Name="0. 阶段">
                 <Triggers>
-                  <Trigger Enabled="true" Id="c6953d55-fc32-42eb-87c9-a065fdbc7979" Name="四方凶兆" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B665):">
+                  <Trigger Enabled="true" Id="c6953d55-fc32-42eb-87c9-a065fdbc7979" Name="四方凶兆" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B665):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="V7a_phase" DictVariableKey="2_凶兆" DictVariableValue="${_val} + 1"/>
                       <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="V7a_phase:2_凶兆:${!d:V7a_phase[2_凶兆]}" LogProcess="True" LogProcessACT="True"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="24b70258-a63e-474a-8d4a-ba5e34c823d6" Name="剑气解放" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B680):">
+                  <Trigger Enabled="true" Id="24b70258-a63e-474a-8d4a-ba5e34c823d6" Name="剑气解放" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B680):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Description="注：开场的不是这个读条 后两次是" DescriptionOverride="True"/>
                       <Action OrderNumber="2" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="V7a_phase" DictVariableKey="2_AoE" DictVariableValue="${_val} + 1"/>
@@ -6766,7 +6766,7 @@
               </Folder>
               <Folder Id="c466923c-ad95-4aee-9c2f-0fe126a4ac38" Enabled="true" Name="A. 集火/火粉炎舞" RawEnvironmentVariables="phase = 冲">
                 <Triggers>
-                  <Trigger Enabled="true" Id="ccd2d0f2-4aa8-4f18-8c30-24ef18211f66" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B17[A-D]):">
+                  <Trigger Enabled="true" Id="ccd2d0f2-4aa8-4f18-8c30-24ef18211f66" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B17[A-D]):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Placeholder" Description="散打右 左 摊打右 左" DescriptionOverride="True"/>
                       <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^V7a3_冲"/>
@@ -6872,14 +6872,14 @@
                       <Action OrderNumber="6" ActionType="LogMessage" LogMessageText="[22:09:42.323] _TargetIcon 101B:0275:40007D72:火仙女的幻影:0:19057:-769.9998:-795.0002:-54.0000:3.1412" LogProcess="True" LogProcessACT="True"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="df0b52ca-cf0c-4082-a574-c4febc0369cc" Name="3a. 散火花" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B1E0):">
+                  <Trigger Enabled="true" Id="df0b52ca-cf0c-4082-a574-c4febc0369cc" Name="3a. 散火花" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B1E0):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="全体分散"/>
                       <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="3500" NamedCallbackName="InvokeOnMultipleEntities"/>
                       <Action OrderNumber="3" ActionType="NamedCallback" DescTextColor="26f" NamedCallbackName="InvokeOnMultipleEntities" NamedCallbackParam="IsPlayer = 1&#13;&#10;LockOn, _address, loc06sp_05ak1"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="728c7819-b009-48f7-b1f0-bf58e66edba8" Name="3b. 对火花" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B1E2):">
+                  <Trigger Enabled="true" Id="728c7819-b009-48f7-b1f0-bf58e66edba8" Name="3b. 对火花" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B1E2):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="双人分摊"/>
                       <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="3500" NamedCallbackName="InvokeOnMultipleEntities"/>
@@ -6983,7 +6983,7 @@
               </Folder>
               <Folder Id="99c54044-7212-4136-ae28-d2cb4872adb0" Enabled="true" Name="D. 火灵的诅咒" RawEnvironmentVariables="phase = 冰火&#13;&#10;吃冰颜色   = 0.4, 1.0, 4.0, 2&#13;&#10;不吃冰颜色 = 0.3, 1.0, 1.2, 2">
                 <Triggers>
-                  <Trigger Enabled="true" Id="dc9a0372-76c5-4a07-9bf7-1577f5f633a2" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B1EF):">
+                  <Trigger Enabled="true" Id="dc9a0372-76c5-4a07-9bf7-1577f5f633a2" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B1EF):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^V7a3_冰火"/>
                       <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a_phase" VariableExpression="${env:phase}"/>
@@ -7168,7 +7168,7 @@
               </Folder>
               <Folder Id="3ab465db-33b8-4c3c-b39a-6e70b301dab4" Enabled="true" Name="E. 怒炎 αβ" RawEnvironmentVariables="phase = αβ">
                 <Triggers>
-                  <Trigger Enabled="true" Id="d3150978-6b8d-4f6d-a78e-a7791283a6b4" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B1AA):">
+                  <Trigger Enabled="true" Id="d3150978-6b8d-4f6d-a78e-a7791283a6b4" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B1AA):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^V7a3_αβ"/>
                       <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a_phase" VariableExpression="${env:phase}"/>
@@ -7205,7 +7205,7 @@
               </Folder>
               <Folder Id="d6fedfb0-c217-4bec-b318-267f628cea0d" Enabled="true" Name="F. 线塔" RawEnvironmentVariables="phase = 线塔">
                 <Triggers>
-                  <Trigger Enabled="true" Id="1a9bde0f-5702-4345-9aa4-b0a8c026bcff" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B7C1):">
+                  <Trigger Enabled="true" Id="1a9bde0f-5702-4345-9aa4-b0a8c026bcff" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B7C1):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^V7a3_线塔"/>
                       <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a_phase" VariableExpression="${env:phase}"/>
@@ -7503,13 +7503,13 @@
               </Folder>
               <Folder Id="0c3807b0-5891-404f-84e6-8ef3f9dd9041" Enabled="true" Name="0. 阶段">
                 <Triggers>
-                  <Trigger Enabled="true" Id="8bd0849d-473a-4995-a597-a7572f5b6bcf" Name="呼唤家臣" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B2CB):">
+                  <Trigger Enabled="true" Id="8bd0849d-473a-4995-a597-a7572f5b6bcf" Name="呼唤家臣" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B2CB):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="V7a_phase" DictVariableKey="1_家臣" DictVariableValue="${_val} + 1"/>
                       <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="V7a_phase:1_家臣:${!d:V7a_phase[1_家臣]}" LogProcess="True" LogProcessACT="True"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="35a4b22c-6197-42e9-9ad1-988cedc86157" Name="迷人的指令" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B325):">
+                  <Trigger Enabled="true" Id="35a4b22c-6197-42e9-9ad1-988cedc86157" Name="迷人的指令" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B325):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="DictVariable" Asynchronous="False" DictVariableOp="Set" DictVariableValueType="Numeric" DictVariableName="V7a_phase" DictVariableKey="1_指令" DictVariableValue="${_val} + 1"/>
                       <Action OrderNumber="2" ActionType="LogMessage" Asynchronous="False" LogMessageText="V7a_phase:1_指令:${!d:V7a_phase[1_指令]}" LogProcess="True" LogProcessACT="True"/>
@@ -7519,7 +7519,7 @@
               </Folder>
               <Folder Id="450baa50-dd73-4955-b615-b8409ad1ce1e" Enabled="true" Name="C. 无尽的洋流" RawEnvironmentVariables="phase = 1_洋流">
                 <Triggers>
-                  <Trigger Enabled="true" Id="37d72aea-4c8c-413b-8031-c90847c95b38" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B326):">
+                  <Trigger Enabled="true" Id="37d72aea-4c8c-413b-8031-c90847c95b38" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B326):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^V7a1_洋流"/>
                       <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a_phase" VariableExpression="${env:phase}"/>
@@ -7535,7 +7535,7 @@
               </Folder>
               <Folder Id="4c8f0e90-c2cc-4de0-9162-9698d06ec3a5" Enabled="true" Name="F. 水流链" RawEnvironmentVariables="phase = 链">
                 <Triggers>
-                  <Trigger Enabled="true" Id="061a5bbc-d192-4288-a18c-c1e233fa70f1" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B320):">
+                  <Trigger Enabled="true" Id="061a5bbc-d192-4288-a18c-c1e233fa70f1" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B320):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^V7a1_链"/>
                       <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a_phase" VariableExpression="${env:phase}"/>
@@ -7644,7 +7644,7 @@
               </Folder>
               <Folder Id="2ebbbdb9-3941-4dd6-bdce-e92ec75b1e90" Enabled="true" Name="E1. 水之矛 + 家臣2" RawEnvironmentVariables="phase = 家臣2">
                 <Triggers>
-                  <Trigger Enabled="true" Id="4f622f32-9c3b-4ce6-a995-4a33c56a7b3f" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]| :)*:(?&lt;aid&gt;B31C):">
+                  <Trigger Enabled="true" Id="4f622f32-9c3b-4ce6-a995-4a33c56a7b3f" Name="0. 初始化" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;B31C):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableOp="UnsetRegexUniversal" VariableName="^V7a1_家臣2"/>
                       <Action OrderNumber="2" ActionType="Variable" Asynchronous="False" VariableOp="SetString" VariableName="V7a_phase" VariableExpression="${env:phase}"/>

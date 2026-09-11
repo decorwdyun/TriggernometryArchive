@@ -45,6 +45,20 @@
 </Trigger>
 </Triggers>
 </Folder>
+<Folder Id="4a1435da-fa41-42db-bf25-aef24ac9631d" Enabled="true" Name="用户配置">
+<Triggers>
+<Trigger Enabled="false" Id="23fe59c2-516b-43c3-8681-7a4a229d46ab" Name="记录用户配置（进本自动）" RegularExpression="^.{15}\S+ 1001:(?&lt;zoneId&gt;[^:]*):" Sequential="True">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="${env:prefix}_cfg" LogProcess="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="0456b2d9-cb5c-4ef9-8fa8-a06b7010666b" Name="记录用户配置（副本内手动 /e cfg)" RegularExpression="^.{15}\S+ 00:0038:: *(?i)cfg *$" Sequential="True">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="${env:prefix}_cfg" LogProcess="True" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
 </Folders>
 <Triggers>
 <Trigger Enabled="true" Id="c79505cc-2ffe-43f0-a3e4-97cb8038be2b" Name="进战清空变量" RegularExpression="^.{15}\S+ 104:.:1:.:1">
@@ -66,6 +80,42 @@
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${_ffxivzoneid} % 2" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="519ffa12-165e-4da3-8836-c617194d9ec9" Enabled="true" Name="无区域">
+<Folders>
+<Folder Id="b3aad0cd-5ffa-495d-a212-c41489488e0c" Enabled="true" Name="用户配置">
+<Triggers>
+<Trigger Enabled="true" Id="17833070-57cd-4c6b-8ba5-5d3898d073a7" Name="[F] 注册并打开配置" RegularExpression="^(?&lt;prefix&gt;[^[:_]+)_cfg$" PeriodRefire="Deny" RefirePeriodExpression="5000" Sequential="True">
+<Actions>
+<Action OrderNumber="1" ActionType="UseTTS" UseTTSTextExpression="正在开启配置" />
+<Action OrderNumber="2" ActionType="ExecuteScript" ExecScriptExpression="using System;&#xD;&#xA;using System.Drawing;&#xD;&#xA;using System.Linq;&#xD;&#xA;using System.Threading;&#xD;&#xA;using System.Windows.Forms;&#xD;&#xA;using Triggernometry.Core;&#xD;&#xA;using Triggernometry.UI.Forms;&#xD;&#xA;using static Triggernometry.UI.Forms.GameConfigForm;&#xD;&#xA;&#xD;&#xA;RealPlugin.Instance.RegisterNamedCallback(S7cEntry.Info.ConfigName, new Action&lt;object, string&gt;((_, __) =&gt; S7cEntry.Start()), null);&#xD;&#xA;&#xD;&#xA;public static class S7cEntry&#xD;&#xA;{&#xD;&#xA;    public static ConfigInfo Info = new ConfigInfo(&quot;阿卡狄亚重量级 M9-12 宝宝椅&quot;, null, &quot;阿洛&quot;, &quot;${env:prefix}_cfg&quot;);&#xD;&#xA;    static Color Blue = Color.FromArgb(0x22, 0x66, 0xff);&#xD;&#xA;    public static void RunConfigForm()&#xD;&#xA;    {&#xD;&#xA;        try { _RunConfigForm(); }&#xD;&#xA;        catch (Exception ex)&#xD;&#xA;        {&#xD;&#xA;            MessageBox.Show(&quot;配置界面运行时遇到问题：\n\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    private static void _RunConfigForm()&#xD;&#xA;    {&#xD;&#xA;        GameConfigForm form = new GameConfigForm(Info);&#xD;&#xA;        form.Shown += (sender, e) =&gt; RealPlugin.Instance.InvokeNamedCallback(&quot;command&quot;, &quot;/e &lt;se.9&gt;&quot;);&#xD;&#xA;&#xD;&#xA;        BijectDictionary&lt;string, string&gt; cbxItems;&#xD;&#xA;        Option optionCtrl;&#xD;&#xA;        Label label;&#xD;&#xA;        string hint = &quot;&quot;;&#xD;&#xA;        // 在下面倒序添加各个选项组（组内的选项正序）&#xD;&#xA;&#xD;&#xA;        OptionsTableLayoutPanel tableM8s = form.AddOptionGroup(&quot; 占位 &quot;);&#xD;&#xA;        /*&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;国&quot;, &quot; [国服] 斜八方固定位置&quot;),&#xD;&#xA;            (&quot;美&quot;, &quot; [美服] 浮游炮安全区方向 TH 顺 D 逆&quot;)&#xD;&#xA;        );&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　钢铁浮游炮时的分散站位&quot;, &quot;M8s_钢铁站位&quot;, cbxItems, &quot;国&quot;);&#xD;&#xA;        form.AddOption(optionCtrl, tableM8s);&#xD;&#xA;        cbxItems = new BijectDictionary&lt;string, string&gt;(&#xD;&#xA;            (&quot;1&quot;, &quot; [国服] 先撞绿色风球&quot;),&#xD;&#xA;            (&quot;0&quot;, &quot; [美服] 先撞黄色土立方体&quot;)&#xD;&#xA;        );&#xD;&#xA;        optionCtrl = new OptionCbx(&quot;　小怪阶段消除风土 debuff 顺序&quot;, &quot;M8s_b先撞绿&quot;, cbxItems, &quot;1&quot;);&#xD;&#xA;        form.AddOption(optionCtrl, tableM8s);&#xD;&#xA;        */&#xD;&#xA;       &#xD;&#xA;        #region 使用须知&#xD;&#xA;&#xD;&#xA;        OptionsTableLayoutPanel tableInfo = form.AddOptionGroup(&quot; 使用须知 &quot;);&#xD;&#xA;&#xD;&#xA;        form.AddLabel(&quot;· 使用前必须查看使用说明，见绝伊甸触发器分组下的「使用说明」触发器。&quot;, tableInfo)&#xD;&#xA;            .ForeColor = Blue;&#xD;&#xA;&#xD;&#xA;        //label = form.AddLabel(&quot;· 下方部分选项上悬停鼠标可以显示详细说明。&quot;, tableInfo);&#xD;&#xA;        //label.ForeColor = Blue;&#xD;&#xA;&#xD;&#xA;        #endregion 使用须知&#xD;&#xA;&#xD;&#xA;        Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#xD;&#xA;        form.Run();&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;    [STAThread]&#xD;&#xA;    public static void Start()&#xD;&#xA;    {&#xD;&#xA;        try&#xD;&#xA;        {&#xD;&#xA;            Application.OpenForms.OfType&lt;GameConfigForm&gt;().ToList().ForEach(f =&gt; f.Close());&#xD;&#xA;            Thread staThread = new Thread(new ThreadStart(RunConfigForm));&#xD;&#xA;            staThread.SetApartmentState(ApartmentState.STA);&#xD;&#xA;            staThread.Start();&#xD;&#xA;            staThread.Join();&#xD;&#xA;        }&#xD;&#xA;        catch (Exception ex)&#xD;&#xA;        {&#xD;&#xA;            MessageBox.Show(&quot;用户配置表单运行错误：\n&quot; + ex, Info.Name, MessageBoxButtons.OK, MessageBoxIcon.Error);&#xD;&#xA;        }&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;">
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="${ecallback:${env:prefix}_cfg}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+<ConditionSingle Enabled="true" ExpressionL="${pd:${env:prefix}_cfg[version]}" ExpressionTypeL="String" ExpressionR="${env:version}" ExpressionTypeR="String" ConditionType="StringNotEqualCase" />
+</Condition>
+</Action>
+<Action OrderNumber="3" ActionType="NamedCallback" NamedCallbackName="${env:prefix}_cfg" />
+</Actions>
+<Condition Enabled="true" Grouping="And">
+<ConditionSingle Enabled="true" ExpressionL="${prefix}" ExpressionTypeL="String" ExpressionR="${env:prefix}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="9c145e9a-6359-4135-acbc-cf847c7414a9" Name="记录用户配置（副本外手动 /e cfg m9-12/U7c）" RegularExpression="^.{15}\S+ 00:0038:: *(?i)cfg +(m9-12|U7c) *$" Sequential="True">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="${env:prefix}_cfg" LogProcess="True" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="false" Id="d5886ebf-02ea-41e8-8984-72973d5468d0" Name="导入提示" RegularExpression="^." PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="30000">
+<Actions>
+<Action OrderNumber="1" ActionType="MessageBox" MessageBoxIconType="Information" MessageBoxText="M8s 已更新：&#xD;&#xA;· 优化了门神第一次分散分摊的绘制：&#xD;&#xA;  · 初始分散分摊后预先指路自己的大致方向&#xD;&#xA;  · 分身出现后修正至实际安全区&#xD;&#xA;· 本体改为绘制蓝色安全区：&#xD;&#xA;  · 钢铁月环 + 半场刀，附加 TTS 指明露线（已修复之前第二次报错的问题）&#xD;&#xA;  · 五连转盘&#xD;&#xA;  &#xD;&#xA;【如果你导入过群里的临时版本，请删除本地版并重新开启远程版】" />
+<Action OrderNumber="2" ActionType="Trigger" TriggerOp="DisableTrigger" TriggerId="d5886ebf-02ea-41e8-8984-72973d5468d0" />
+</Actions>
 </Trigger>
 </Triggers>
 </Folder>
@@ -960,7 +1010,7 @@
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PartyList:Register:${env:zone}:Self" LogProcess="True" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${zoneid}" ExpressionTypeL="String" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+<ConditionSingle Enabled="true" ExpressionL="0x${zoneid}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Trigger>
 </Triggers>
@@ -1521,7 +1571,7 @@
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PartyList:Register:${env:zone}:Self" LogProcess="True" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${zoneid}" ExpressionTypeL="String" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+<ConditionSingle Enabled="true" ExpressionL="0x${zoneid}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Trigger>
 </Triggers>
@@ -2082,7 +2132,7 @@
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PartyList:Register:${env:zone}:Self" LogProcess="True" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${zoneid}" ExpressionTypeL="String" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+<ConditionSingle Enabled="true" ExpressionL="0x${zoneid}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Trigger>
 </Triggers>
@@ -3930,7 +3980,7 @@
 <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="PartyList:Register:${env:zone}:Self" LogProcess="True" />
 </Actions>
 <Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${zoneid}" ExpressionTypeL="String" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+<ConditionSingle Enabled="true" ExpressionL="0x${zoneid}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
 </Condition>
 </Trigger>
 </Triggers>
