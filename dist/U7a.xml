@@ -36,14 +36,6 @@
                       <ConditionSingle Enabled="true" ExpressionL="${prefix}" ExpressionTypeL="String" ExpressionR="${env:prefix}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                     </Condition>
                   </Trigger>
-                  <Trigger Enabled="true" Id="89c40908-2074-46cf-826e-adcc6f240d4b" Name="记录用户配置（自动）" RegularExpression="^.{15}\S+ 1001:(?&lt;zoneId&gt;[^:]*):" Sequential="True">
-                    <Actions>
-                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="${env:prefix}_cfg" LogProcess="True"/>
-                    </Actions>
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="0x${zoneId}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
-                    </Condition>
-                  </Trigger>
                   <Trigger Enabled="true" Id="b191106c-c992-4a1a-94c4-48790076a1db" Name="开场检查配置" RegularExpression="^.{15}\S+ 104:.:1:.:1|^.{15}\S+ 10C:[^:]*:[^:]*:(?&lt;cd&gt;[^:]*):00?:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="20000">
                     <Actions>
                       <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableName="tmp_error"/>
@@ -106,6 +98,14 @@
                     <Actions>
                       <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="${env:prefix}_cfg" LogProcess="True"/>
                     </Actions>
+                  </Trigger>
+                  <Trigger Enabled="true" Id="209a41d1-7892-41d1-8a7f-d1c5aedf36f3" Name="记录用户配置（自动）" RegularExpression="^.{15}\S+ 1001:(?&lt;zoneId&gt;[^:]*):" Sequential="True">
+                    <Actions>
+                      <Action OrderNumber="1" ActionType="LogMessage" LogMessageText="${env:prefix}_cfg" LogProcess="True"/>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${zoneId}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
+                    </Condition>
                   </Trigger>
                 </Triggers>
               </Folder>

@@ -34,6 +34,14 @@
 <ConditionSingle Enabled="true" ExpressionL="${prefix}" ExpressionTypeL="String" ExpressionR="${env:prefix}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Trigger>
+<Trigger Enabled="true" Id="2cc3b105-0842-48ce-ab9c-7eb38858b278" Name="记录用户配置（自动）" RegularExpression="^.{15}\S+ 1001:(?&lt;zoneId&gt;[^:]*):" Sequential="True">
+<Actions>
+<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="${env:prefix}_cfg" LogProcess="True" />
+</Actions>
+<Condition Enabled="true" Grouping="Or">
+<ConditionSingle Enabled="true" ExpressionL="0x${zoneId}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
+</Condition>
+</Trigger>
 <Trigger Enabled="true" Id="46eecdb2-ffc5-40fa-adb4-352bcbcbf0a8" Name="开场检查配置" RegularExpression="^.{15}\S+ 104:.:1:.:1|^.{15}\S+ 10C:[^:]*:[^:]*:(?&lt;cd&gt;[^:]*):00?:" PrevActionsRefire="Deny" PeriodRefire="Deny" RefirePeriodExpression="20000">
 <Actions>
 <Action OrderNumber="1" ActionType="Variable" Asynchronous="False" VariableName="tmp_error" />
@@ -113,14 +121,6 @@
 </Condition>
 </Action>
 </Actions>
-</Trigger>
-<Trigger Enabled="true" Id="64cee988-d4a5-409e-b6ae-d3f6c021d6a7" Name="记录用户配置（自动）" RegularExpression="^.{15}\S+ 1001:(?&lt;zoneId&gt;[^:]*):" Sequential="True">
-<Actions>
-<Action OrderNumber="1" ActionType="LogMessage" LogMessageText="${env:prefix}_cfg" LogProcess="True" />
-</Actions>
-<Condition Enabled="true" Grouping="Or">
-<ConditionSingle Enabled="true" ExpressionL="${zoneId}" ExpressionTypeL="Numeric" ExpressionR="${env:zone}" ExpressionTypeR="String" ConditionType="StringEqualCase" />
-</Condition>
 </Trigger>
 </Triggers>
 </Folder>
