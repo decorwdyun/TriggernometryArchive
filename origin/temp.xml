@@ -346,19 +346,19 @@
 <Trigger Enabled="false" Id="d2e4f54f-b749-4400-a474-ab67f197b99b" Name="此分组仅用于统计喷风技能位置和角度的概率分布" />
 <Trigger Enabled="true" Id="94bc8a08-a43b-4101-bba3-df1867dd2d23" Name="0D27-8 四个圆形" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;0D2[78]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
 <Actions>
-<Action OrderNumber="1" ActionType="Placeholder" Description="中心 0D27 似乎无作用，周围四个 0D28，每次全部收集位置后统一输出" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Insert" ListVariableName="四圆" ListVariableExpression="${x}:${y}" ListVariableIndex="0x${aid} = 0x0D27 ? 1 : (${l:四圆.size} + 1)" />
-<Action OrderNumber="3" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=喷风/技能.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;四:${l:四圆.join(&quot;:&quot;)}">
+<Action OrderNumber="1" Enabled="False" ActionType="Placeholder" Description="中心 0D27 似乎无作用，周围四个 0D28，每次全部收集位置后统一输出" DescriptionOverride="True" />
+<Action OrderNumber="2" Enabled="False" ActionType="ListVariable" Asynchronous="False" ListVariableOp="Insert" ListVariableName="四圆" ListVariableExpression="${x}:${y}" ListVariableIndex="0x${aid} = 0x0D27 ? 1 : (${l:四圆.size} + 1)" />
+<Action OrderNumber="3" Enabled="False" ActionType="NamedCallback" Asynchronous="False" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=喷风/技能.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;四:${l:四圆.join(&quot;:&quot;)}">
 <Condition Enabled="true" Grouping="Or">
 <ConditionSingle Enabled="true" ExpressionL="${l:四圆.size}" ExpressionTypeL="String" ExpressionR="5" ExpressionTypeR="String" ConditionType="StringEqualCase" />
 </Condition>
 </Action>
-<Action OrderNumber="4" ActionType="ListVariable" ExecutionDelayExpression="3000" Asynchronous="False" ListVariableName="四圆" />
+<Action OrderNumber="4" Enabled="False" ActionType="ListVariable" ExecutionDelayExpression="3000" Asynchronous="False" ListVariableName="四圆" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="54ca02a1-7616-4655-b1e6-4b6dd8f25e14" Name="0D23-6 普通技能" RegularExpression="^.{15}\S+ 107:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;0D2[3456]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+)">
 <Actions>
-<Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=喷风/技能.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;${?d:0D23=圆, 0D24=环, 0D25=扇, 0D26=射 [${aid}]}:${x}:${y}:${h}" />
+<Action OrderNumber="1" Enabled="False" ActionType="NamedCallback" NamedCallbackName="UploadText" NamedCallbackParam="APPEND path=喷风/技能.txt id=10000${f:substring(5):${_me.id}}&#xD;&#xA;${?d:0D23=圆, 0D24=环, 0D25=扇, 0D26=射 [${aid}]}:${x}:${y}:${h}" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -368,19 +368,19 @@
 <Trigger Enabled="true" Id="b97da356-8f33-49d7-a0a2-8465122bfd28" Name="2. 直线" RegularExpression="^.{15}\S+ 1105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE9A):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="朝着面向两侧，宽度 5.0 m 的直线攻击" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect2&#xD;&#xA;Delay: 2.5&#xD;&#xA;T: 5&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Angle: ${h} + π/2&#xD;&#xA;Scale: 2.5, 28, 1" />
+<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect2&#xD;&#xA;Delay: 5.0&#xD;&#xA;T: 6.0&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Angle: ${h} + π/2&#xD;&#xA;Scale: 2.5, 28, 1" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="f72601e7-8cee-4a7d-9d4b-08c2b769d41c" Name="3. 钢铁" RegularExpression="^.{15}\S+ 1105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE9B):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="以自身为中心，半径 11 m 的圆形攻击" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;Delay: 2.5&#xD;&#xA;T: 5&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Scale: 11, 11, 1" />
+<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Circle&#xD;&#xA;Delay: 5.0&#xD;&#xA;T: 6.0&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Scale: 11, 11, 1" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="32d357a9-fecf-4831-9c8e-96aba3feb3a7" Name="1. 射线" RegularExpression="^.{15}\S+ 1105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE99):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
 <Actions>
 <Action OrderNumber="1" ActionType="Placeholder" Description="朝着面向正左方，宽度 5.0 m 的射线攻击" DescriptionOverride="True" />
-<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;Delay: 2.5&#xD;&#xA;T: 5&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Angle: ${h} + π/2&#xD;&#xA;Scale: 2.5, 28, 1" />
+<Action OrderNumber="2" ActionType="NamedCallback" DescBgColor="ffd" NamedCallbackName="PictoACT" NamedCallbackParam="Omen: Rect&#xD;&#xA;Delay: 5.0&#xD;&#xA;T: 6.0&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Angle: ${h} + π/2&#xD;&#xA;Scale: 2.5, 28, 1" />
 </Actions>
 </Trigger>
 <Trigger Enabled="false" Id="bf08a908-ccf1-4dc2-9c2d-dd82595efa82" Name="debug log" Source="None">
