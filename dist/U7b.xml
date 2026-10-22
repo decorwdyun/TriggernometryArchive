@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TriggernometryExport PluginVersion="2.2.0.1">
-  <ExportedFolder Id="11cd4517-1f76-4ebf-9455-00862a617a35" Enabled="true" Name="U7b 绝妖星宝宝椅 v1.0.5" RawEnvironmentVariables="prefix = U7b&#13;&#10;alias = U7b,绝妖星&#13;&#10;zone = 1363&#13;&#10;version = 1.0.5&#13;&#10;CactbotTriggerSetName = DancingMadUltimate">
+  <ExportedFolder Id="11cd4517-1f76-4ebf-9455-00862a617a35" Enabled="true" Name="U7b 绝妖星宝宝椅 v1.0.6" RawEnvironmentVariables="prefix = U7b&#13;&#10;alias = U7b,绝妖星&#13;&#10;zone = 1363&#13;&#10;version = 1.0.6&#13;&#10;CactbotTriggerSetName = DancingMadUltimate">
     <Folders>
       <Folder Id="c2c36388-a3ed-45e9-ae20-c760f7714959" Enabled="true" Name=".总体控制">
         <Folders>
@@ -99,20 +99,6 @@
                 <Condition Enabled="true" Grouping="Or">
                   <ConditionSingle Enabled="true" ExpressionL="${?l: ${f:tolower:${env:alias}}.contain(${f:tolower:${name}}) }" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="StringEqualCase"/>
                 </Condition>
-              </Trigger>
-              <Trigger Enabled="true" Id="a9bd0622-5432-486b-9e65-7c6903b4eb80" Name="进本" RegularExpression="^.{15}\S+ 1001:" DebugLevel="None">
-                <Actions>
-                  <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="DisableCactbotTriggerSetsTts" NamedCallbackParam="${env:CactbotTriggerSetName}">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${env:CactbotTriggerSetName}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
-                    </Condition>
-                  </Action>
-                  <Action OrderNumber="2" Enabled="False" ActionType="NamedCallback" NamedCallbackName="UploadTextV2" NamedCallbackParam="user/${env:OssFolder}">
-                    <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${env:OssFolder}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
-                    </Condition>
-                  </Action>
-                </Actions>
               </Trigger>
               <Trigger Enabled="true" Id="64cee988-d4a5-409e-b6ae-d3f6c021d6a7" Name="记录用户配置（自动）" RegularExpression="^.{15}\S+ 1001:(?&lt;zoneId&gt;[^:]*):" Sequential="True">
                 <Actions>
@@ -1107,7 +1093,7 @@
                       <Action OrderNumber="2" ActionType="NamedCallback" ExecutionDelayExpression="500" NamedCallbackName="place" NamedCallbackParam="save"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="9251058b-9f05-454b-afd8-d96ab42b43d8" Name="进本/倒计时标点" RegularExpression="^.{15}\S+ 21:.{8}:40000001|^.{15}\S+ 10C" Sequential="True">
+                  <Trigger Enabled="true" Id="e0111cb0-f95c-43a5-88f3-66f1c02409b0" Name="进本/倒计时标点" RegularExpression="^.{15}\S+ 21:.{8}:40000001|^.{15}\S+ 10C" Sequential="True">
                     <Actions>
                       <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="AdvWm" NamedCallbackParam="Action: Circle&#13;&#10;O: 100, 100&#13;&#10;Waymarks: A1D4C3B2&#13;&#10;R: 12&#13;&#10;R2: 12*√2&#13;&#10;Local: ${if: ${!pd:U7b_cfg.get(P0场地标点mode, 2)} = 1 ? true : false }">
                         <Condition Enabled="true" Grouping="Or">
@@ -1132,25 +1118,39 @@
                   <Action OrderNumber="2" ActionType="Folder" FolderOp="CancelFolder" FolderId="11cd4517-1f76-4ebf-9455-00862a617a35"/>
                 </Actions>
               </Trigger>
-              <Trigger Enabled="true" Id="f7b5a1ff-6725-4826-b347-dad2ba771c41" Name="0. 初始化" RegularExpression="^.{15}\S+ 104:.:1:.:1|^.{15}\S+ 00:0038:(?i) *zone +1363 *$" Sequential="True">
+              <Trigger Enabled="true" Id="f7b5a1ff-6725-4826-b347-dad2ba771c41" Name="0. 初始化" RegularExpression="^.{15}\S+ 104:.:1:.:1|^.{15}\S+ 00:0038::(?i) *zone +1363 *$" Sequential="True">
                 <Actions>
                   <Action OrderNumber="1" ActionType="Variable" VariableOp="UnsetRegexUniversal" VariableName="^U7b\d*_|^tmp_"/>
                   <Action OrderNumber="2" ActionType="ListVariable" ListVariableOp="Build" ListVariableExpression=",ＭＴ,ＳＴ,Ｈ１,Ｈ２,Ｄ１,Ｄ２,Ｄ３,Ｄ４" ListVariableTarget="roleDesc"/>
                 </Actions>
               </Trigger>
               <Trigger Enabled="true" Id="c8ee1424-ee47-4f69-9edb-80d02ff1e87a" Name="[F] 注册回调（机制）" RegularExpression="^.{15}\S+ 1001:"/>
+              <Trigger Enabled="true" Id="59c54dc4-705b-4783-abff-acc5790e7a0e" Name="进本" RegularExpression="^.{15}\S+ 1001:" DebugLevel="None">
+                <Actions>
+                  <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="DisableCactbotTriggerSetsTts" NamedCallbackParam="${env:CactbotTriggerSetName}">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${env:CactbotTriggerSetName}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                    </Condition>
+                  </Action>
+                  <Action OrderNumber="2" Enabled="False" ActionType="NamedCallback" NamedCallbackName="UploadTextV2" NamedCallbackParam="user/${env:OssFolder}">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${env:OssFolder}" ExpressionTypeL="String" ExpressionTypeR="String" ConditionType="StringNotEqualCase"/>
+                    </Condition>
+                  </Action>
+                </Actions>
+              </Trigger>
             </Triggers>
           </Folder>
           <Folder Id="6fd906af-078e-4fa1-8de3-5d3da7034501" Enabled="true" Name="杂项">
             <Folders>
-              <Folder Id="edb49b5e-2210-44c5-8e1d-26176a386222" Enabled="true" Name="清除特效">
+              <Folder Id="22a6df34-8d57-494e-a7f9-438412306564" Enabled="true" Name="清除特效">
                 <Triggers>
                   <Trigger Enabled="true" Id="ce8585bb-cb30-4d23-9b65-dffd8608c3d7" Name="P2 光之波动（塔）" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BABE):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}"/>
                     </Actions>
                   </Trigger>
-                  <Trigger Enabled="true" Id="17d11903-e1ae-496e-a537-3e4a042582bb" Name="P2 XX终结（超级跳）" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BAD[6789]):">
+                  <Trigger Enabled="true" Id="31001614-c5c9-4bcc-b29c-5fee4825ceaa" Name="P2 XX终结（超级跳）" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;BAD[6789]):">
                     <Actions>
                       <Action OrderNumber="1" ActionType="NamedCallback" NamedCallbackName="Redraw" NamedCallbackParam="${_entity[${sid}].Address}"/>
                     </Actions>
