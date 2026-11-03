@@ -1,4 +1,4 @@
-<TriggernometryExport PluginVersion="2.4.1.2">
+<TriggernometryExport PluginVersion="2.4.3.0">
 <ExportedFolder Id="b608e8a2-adbf-4973-b08b-bda20d9e637b" Enabled="true" Name="[工具] 运行支持库 Utils.xml" RawEnvironmentVariables="w = 3">
 <Folders>
 <Folder Id="a7e8b210-6676-4804-ac0a-ce23b6f1b5b6" Enabled="true" Name="调试工具 / 实用工具">
@@ -409,22 +409,43 @@
 <Triggers>
 <Trigger Enabled="true" Id="892fba94-5283-477c-81b7-e4348547dceb" Name="command" RegularExpression="^(?i)cmd:(?&lt;sec&gt;[^:]+):(?&lt;value&gt;.+)$" Tag="延迟咏唱">
 <Actions>
-<ActionNamedCallback ExecDelay="(${sec}) * 1000" Async="True" Name="command" Parameter="${value}" />
+<ActionNamedCallback ExecDelay="(${sec}) * 1000" Name="command" Parameter="${value}" />
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="4b6194f5-7adc-4c18-bcc1-e01e93840ac2" Name="TTS" RegularExpression="^(?i)tts:(?&lt;sec&gt;[^:]+):(?&lt;value&gt;.+)$" Tag="延迟咏唱">
 <Actions>
-<ActionPlaySpeech ExecDelay="(${sec}) * 1000" Async="True" Message="${value}" />
+<ActionPlaceholder ExecDelay="(${sec}) * 1000" Async="True" />
+<ActionNamedCallback Enabled="False" DescBackColor="fdd" Name="command" Parameter="/e 播报前：${if: ${f:length:${value}} &lt;= 5 ? ${value} : ${f:slice(0:5):${value}}... } (${sec} s)">
+<Condition Grouping="Or">
+<ConditionSingle L="${ev:debug}" Op="NumericTrue" />
+</Condition>
+</ActionNamedCallback>
+<ActionPlaySpeech ExecDelay="" Message="${value}" />
+<ActionNamedCallback Enabled="False" DescBackColor="fdd" Name="command" Parameter="/e 播报后：${if: ${f:length:${value}} &lt;= 5 ? ${value} : ${f:slice(0:5):${value}}... } (${sec} s)">
+<Condition Grouping="Or">
+<ConditionSingle L="${ev:debug}" Op="NumericTrue" />
+</Condition>
+</ActionNamedCallback>
 </Actions>
 </Trigger>
 <Trigger Enabled="true" Id="5fcc6937-86e9-410d-bdc4-70fbeaa7c534" Name="log" RegularExpression="^(?i)log:(?&lt;sec&gt;[^:]+):(?&lt;value&gt;.+)$" Tag="延迟咏唱">
 <Actions>
-<ActionLogMessage ExecDelay="(${sec}) * 1000" Async="True" Message="${value}" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage ExecDelay="(${sec}) * 1000" Message="${value}" ProcessAsLogline="True" AddToACTEncounter="True" />
 </Actions>
 </Trigger>
-<Trigger Enabled="true" Id="e0437174-5255-414e-9e15-6437ee859e1a" Name="团灭中断" RegularExpression="^.{15}\S+ 21:.{8}:400000(02|03|05|11)">
+<Trigger Enabled="true" Id="e0437174-5255-414e-9e15-6437ee859e1a" Name="团灭中断" RegularExpression="^.{15}\S+ 21:.{8}:400000(02|03|05|11)|^.{15}\S+ 29:.{8}:7DE:">
 <Actions>
+<ActionNamedCallback Enabled="False" DescBackColor="fdd" Name="command" Parameter="/e 延迟咏唱：团灭/过本 打断动作前">
+<Condition Grouping="Or">
+<ConditionSingle L="${ev:debug}" Op="NumericTrue" />
+</Condition>
+</ActionNamedCallback>
 <ActionTriggerOperation Uninterruptible="True" Operation="CancelAllTrigger" TriggerId="e0437174-5255-414e-9e15-6437ee859e1a" TagRegex="^延迟咏唱$" />
+<ActionNamedCallback Enabled="False" DescBackColor="fdd" Name="command" Parameter="/e 延迟咏唱：团灭/过本 打断动作后">
+<Condition Grouping="Or">
+<ConditionSingle L="${ev:debug}" Op="NumericTrue" />
+</Condition>
+</ActionNamedCallback>
 </Actions>
 </Trigger>
 </Triggers>
@@ -941,10 +962,20 @@
 <Trigger Enabled="true" Id="dda295f5-c5c6-4d55-9e35-97766d803bda" Name="3. 团灭/过本" RegularExpression="^.{15}\S+ 21:.{8}:400000(02|03|05|11)|^.{15}\S+ 29:.{8}:7DE:">
 <Actions>
 <ActionPlaceholder Desc="条件：存在 bby._Key" DescOverride="True" />
+<ActionNamedCallback DescBackColor="fdd" Name="command" Parameter="/e 通用逻辑：团灭/过本 打断动作前">
+<Condition Grouping="Or">
+<ConditionSingle L="${ev:debug}" Op="NumericTrue" />
+</Condition>
+</ActionNamedCallback>
 <ActionActInteraction Uninterruptible="True" />
 <ActionFolderOperation Uninterruptible="True" Operation="CancelTriggersByNameRegex" FolderId="52199e0d-6a45-4974-848e-d5e5218b43a8" NameRegex="^${!reg:bby._Key}" />
 <ActionNamedCallback Uninterruptible="True" DescBackColor="ffd" Name="PictoACT" Parameter="Action: Remove&#xD;&#xA;Regex: ^${reg:bby._Key}" />
 <ActionOverlayText Uninterruptible="True" Operation="DeactivateRegex" Name="^${!reg:bby._Key}" />
+<ActionNamedCallback DescBackColor="fdd" Name="command" Parameter="/e 通用逻辑：团灭/过本 打断动作后">
+<Condition Grouping="Or">
+<ConditionSingle L="${ev:debug}" Op="NumericTrue" />
+</Condition>
+</ActionNamedCallback>
 </Actions>
 <Condition Grouping="Or">
 <ConditionSingle L="${ereg:bby._Key}" Op="NumericTrue" />
@@ -990,6 +1021,9 @@
 <ActionPlaceholder Desc="条件：旧区域的 id 有对应的注册变量" DescOverride="True" />
 <ActionPlaceholder Desc="销毁 U4a... 或 _U4a... 格式的变量" DescOverride="True" />
 <ActionVariableScalar Uninterruptible="True" Operation="UnsetRegexUniversal" Name="^_?${!reg:bby.ZoneID.${prevId}}" />
+<ActionFolderOperation Uninterruptible="True" Operation="CancelTriggersByNameRegex" FolderId="52199e0d-6a45-4974-848e-d5e5218b43a8" NameRegex="^${!reg:bby.ZoneID.${prevId}}" />
+<ActionNamedCallback Uninterruptible="True" DescBackColor="ffd" Name="PictoACT" Parameter="Action: Remove&#xD;&#xA;Regex: ^${!reg:bby.ZoneID.${prevId}}" />
+<ActionOverlayText Uninterruptible="True" Operation="DeactivateRegex" Name="^${!reg:bby.ZoneID.${prevId}}" />
 </Actions>
 <Condition Grouping="Or">
 <ConditionSingle L="${ereg:bby.ZoneID.${prevId}}" Op="NumericTrue" />
@@ -1138,7 +1172,7 @@
 <ActionVariableScalar Operation="SetNumeric" Name="myIdx_isTH" Value="${idx} &lt;= 4" />
 <ActionVariableScalar Operation="SetNumeric" Name="myIdx_isTM" Value="${?l: 1,2,5,6 .contain(${idx})}" />
 <ActionPlaceholder Desc="播报" DescOverride="True" />
-<ActionVariableScalar Operation="SetNumeric" Name="_b播报" Value="${reg:bby._PartyMode} == Self" />
+<ActionVariableScalar Operation="SetNumeric" Name="_b播报" Value="!(${reg:bby._PartyMode} == Party)" />
 <ActionLogMessage Message="PartyList_播报单人职能" ProcessAsLogline="True">
 <Condition Grouping="Or">
 <ConditionSingle L="${v:_b播报}" Op="NumericTrue" />
