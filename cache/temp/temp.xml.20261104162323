@@ -1,0 +1,810 @@
+<TriggernometryExport PluginVersion="2.4.1.2">
+<ExportedFolder Id="a1b77f06-be63-473e-98f3-d4ee9c850fbe" Enabled="true" Name="临时">
+<Folders>
+<Folder Id="0739f52b-791a-40d0-9fb6-7dae68d0226e" Enabled="true" Name="风脉">
+<Folders>
+<Folder Id="18e8a636-9795-4841-92e6-591d5df0a400" Enabled="true" Name="如果使用转圈圈标点则开启这个分组">
+<Triggers>
+<Trigger Enabled="true" Id="692d0d65-5cca-4d72-9ad2-cf7e598a9434" Name="循环" RegularExpression="^风脉_loop" PrevActions="Interrupt">
+<Actions>
+<ActionNamedCallback DescBackColor="dff" Name="AdvWm" Parameter="action: place&#xD;&#xA;// 每五秒标一次 A（与风脉重合）&#xD;&#xA;${if: ${_systemtimems} % 5000 &lt; 25 ? &quot;A&quot; : &quot;_&quot; }: ${v:风脉_center}&#xD;&#xA;1: ${v:风脉_center} + 5 * sin(${_systemtimems} / 314) + 5&#xD;&#xA;---&#xD;&#xA;action: circle&#xD;&#xA;center: ${v:风脉_center} + 5 * sin(${_systemtimems} / 314) + 5&#xD;&#xA;waymarks: BCD234&#xD;&#xA;r: 60 * sin(${_systemtimems} / 942)&#xD;&#xA;θ: ${_systemtimems} / 1570">
+<Condition Grouping="Or">
+<ConditionSingle L="${ev:风脉_center}" TypeL="String" R="1" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionNamedCallback>
+<ActionLogMessage ExecDelay="16" Message="风脉_loop" ProcessAsLogline="True" />
+</Actions>
+<Condition Grouping="Or">
+<ConditionSingle L="${ev:风脉_center}" TypeL="String" R="1" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="28de9b06-4ce1-4f2b-a617-a54b26d3d163" Name="无剩余风脉 重置" RegularExpression="^.{15}\S+ 29:00:E81:" PrevActions="Interrupt">
+<Actions>
+<ActionVariableScalar Name="风脉_center" />
+<ActionNamedCallback DescBackColor="dff" Name="place" Parameter="clear" />
+<ActionNamedCallback ExecDelay="100" DescBackColor="dff" Name="place" Parameter="clear" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="fd60eee5-3bab-414f-8954-406a2ae8fbfb" Name="手动停止" RegularExpression="^.{15}\S+ 00:0038:: *(风脉|[Ff][Mm]) +[Oo][Ff][Ff]">
+<Actions>
+<ActionVariableScalar Operation="SetString" Name="tmp_center" Value="${v:风脉_center}" />
+<ActionVariableScalar Name="风脉_center" />
+<ActionNamedCallback DescBackColor="dff" Name="AdvWm" Parameter="action: place&#xD;&#xA;A: ${v:tmp_center}&#xD;&#xA;---&#xD;&#xA;action: circle&#xD;&#xA;center: ${v:tmp_center}&#xD;&#xA;waymarks: BCD1234&#xD;&#xA;r: 25" />
+<ActionNamedCallback ExecDelay="100" DescBackColor="dff" Name="AdvWm" Parameter="action: place&#xD;&#xA;A: ${v:tmp_center}&#xD;&#xA;---&#xD;&#xA;action: circle&#xD;&#xA;center: ${v:tmp_center}&#xD;&#xA;waymarks: BCD1234&#xD;&#xA;r: 25" />
+<ActionVariableScalar Name="tmp_center" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="false" Id="30d1487c-727b-4478-b7bc-1a900d2ca7af" Name="说明" Source="None">
+<Actions>
+<ActionPlaceholder Async="True" Desc="使用风脉仪时自动标记对应风脉的位置。" DescOverride="True" />
+<ActionPlaceholder Async="True" Desc="需要鲶鱼精邮差及高级标点工具箱。" DescOverride="True" />
+<ActionPlaceholder Async="True" Desc="如果没有反应，使用远程触发器中的自检工具自行检查" DescTextColor="26f" DescOverride="True" />
+<ActionMessageBox Async="True" Desc="或右键此行 - 测试动作 - 使用实时值 检查" DescTextColor="26f" DescOverride="True" Icon="Information" Text="鲶鱼精邮差标点回调：${if: ${ecallback:place} ? 已注册 : 未注册，使用自检工具检查鲶鱼精邮差 }&#xD;&#xA;高级标点工具箱回调：${if: ${ecallback:AdvWm} ? 已注册 : 未注册，使用自检工具检查高级标点工具箱 }" />
+<ActionPlaceholder Async="True" DescOverride="True" />
+<ActionPlaceholder Async="True" Desc="使用风脉仪时根据距离和方位查找风脉。" DescOverride="True" />
+<ActionPlaceholder Async="True" Desc="会精确定位到一个风脉（偶尔可能有两个）" DescOverride="True" />
+<ActionPlaceholder Async="True" Desc="启用“转圈圈标点”的分组时会用标点转圈持续动态标记这个风脉，否则只会标记一次" DescOverride="True" />
+<ActionPlaceholder Async="True" Desc="摸风脉后自动停止转圈；也可以手动使用 &quot;/e 风脉 off&quot; 或 &quot;/e fm off&quot; 停止" DescOverride="True" />
+<ActionPlaceholder Async="True" DescOverride="True" />
+<ActionPlaceholder Async="True" Desc="by 阿洛   感谢 AtmoOmen 的技术支持" DescOverride="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="7ee7bd3e-4225-4ffd-b274-fef6536f9e9d" Name="1. 使用风脉仪" RegularExpression="^.{15}\S+ 29:00:E80:02:(?&lt;dir&gt;[^:]+):(?&lt;distance&gt;[^:]+)">
+<Actions>
+<ActionPlaceholder Desc="校验手动执行" DescOverride="True" />
+<ActionMessageBox Icon="Error" Text="直接用风脉仪。⏎不要手动执行。">
+<Condition Grouping="Or">
+<ConditionSingle L="${_event}" TypeL="String" R="" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionMessageBox>
+<ActionTriggerOperation Operation="CancelTrigger" TriggerId="7ee7bd3e-4225-4ffd-b274-fef6536f9e9d">
+<Condition Grouping="Or">
+<ConditionSingle L="${_event}" TypeL="String" R="" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionTriggerOperation>
+<ActionPlaceholder Desc="dir 正北顺1-8" DescOverride="True" />
+<ActionVariableScalar Operation="SetString" Name="tmp_zoneId" Value="${_ffxivzoneid}" />
+<ActionVariableDict Operation="GetEntity" Name="tmp_me" Value="${_me.id}" />
+<ActionPlaceholder Desc="读入地图风脉坐标" DescOverride="True" />
+<ActionVariableTable Desc="397" Name="tmp_风脉" />
+<ActionVariableTable Desc="397" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  402.029,  561.425,  191.536&#xD;&#xA;  424.958, -536.905,  164.308&#xD;&#xA; -332.888,   -29.952,  126.844&#xD;&#xA; -660.144, -376.630,  135.546">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="397" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="398" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  765.011,  289.082,  -15.852&#xD;&#xA;  433.554, -286.244,  -47.766&#xD;&#xA; -480.278,  -425.284,   -5.969&#xD;&#xA;  406.760,  686.610,  -89.794">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="398" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="399" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  729.228,  150.908,  134.966&#xD;&#xA;   98.909, -174.361,   73.094&#xD;&#xA; -487.471,  -285.335,  144.667&#xD;&#xA; -452.378,  678.215,  138.125">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="399" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="400" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  421.164,  661.768,  -43.059&#xD;&#xA;  -93.794,  223.842,   -6.754&#xD;&#xA; -775.265,   243.702,  123.763&#xD;&#xA;  340.021, -130.535,  -25.367">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="400" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="401" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA; -747.097,  163.836,  -57.098&#xD;&#xA; -759.426, -110.857,   -9.197&#xD;&#xA; -180.315,  -543.114,  -14.916&#xD;&#xA; -564.813, -349.081,  -36.685">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="401" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="612" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA; -487.266, -249.561,   76.726&#xD;&#xA;  155.842, -499.431,   53.352&#xD;&#xA;  322.591,    10.513,   88.983&#xD;&#xA;  743.033, -214.052,  181.007">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="612" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="613" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  423.562,  801.565,   15.833&#xD;&#xA;   21.286, -623.621,   24.011&#xD;&#xA;  694.769,   -53.464,    1.913&#xD;&#xA; -805.781,  235.215,   36.580">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="613" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="620" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  202.874, -753.119,  133.925&#xD;&#xA; -271.229, -280.232,  157.942&#xD;&#xA; -485.211,   247.414,  304.469&#xD;&#xA;  146.627,  460.821,  303.757">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="620" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="614" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  497.307,  402.487,   16.362&#xD;&#xA;  163.583,  -11.910,  144.635&#xD;&#xA;  457.511,  822.415,   32.383&#xD;&#xA;  -97.419,  563.723,   13.279">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="614" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="621" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA; -380.191,   16.919,   10.061&#xD;&#xA;  109.605,  788.632,   42.005&#xD;&#xA;  261.534,   69.963,   78.400&#xD;&#xA;  683.406,  521.172,   70.000">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="621" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="622" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  570.277,  438.175,  -19.508&#xD;&#xA;  232.005, -515.794,   93.392&#xD;&#xA;  105.608,  -49.699,  116.043&#xD;&#xA; -693.830,  658.899,    7.263">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="622" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="813" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  554.280,  352.102,   17.950&#xD;&#xA;  613.245, -231.128,   24.020&#xD;&#xA; -149.798, -102.495,   15.281&#xD;&#xA; -619.637, -199.096,   51.501">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="813" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="815" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  446.079, -523.687,  -60.552&#xD;&#xA;  344.683,  538.940,  -66.530&#xD;&#xA; -343.801, -235.432,   46.985&#xD;&#xA;  158.804,  674.891,  -61.095">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="815" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="816" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA; -231.414,  160.844,    4.702&#xD;&#xA;   12.854, -851.247,  110.753&#xD;&#xA;  432.481, -770.400,   90.441&#xD;&#xA;   -8.999, -247.640,   89.309">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="816" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="814" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  650.568,  556.390,    0.355&#xD;&#xA; -651.165,  588.412,    0.000&#xD;&#xA;  623.752, -555.250,  285.942&#xD;&#xA;  -62.898,  -16.533,  345.125">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="814" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="817" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA; -405.955,  506.544,    7.169&#xD;&#xA; -141.571,   49.763,   -0.882&#xD;&#xA;  338.635,  203.184,   24.147&#xD;&#xA;  681.139, -262.754,  -39.196">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="817" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="818" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  358.212, -715.900,  396.552&#xD;&#xA;   50.205, -512.073,  380.098&#xD;&#xA;  339.116, -280.016,  298.717&#xD;&#xA; -774.229,  -97.710,   63.192">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="818" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="956" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  346.529, -767.739,  209.352&#xD;&#xA;  748.562,   66.759,  106.712&#xD;&#xA; -547.726,  661.873,  -18.023&#xD;&#xA; -128.069,  676.722,  -20.523">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="956" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="957" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA; -176.104,  537.835,   21.530&#xD;&#xA;  -49.267, -710.757,   94.072&#xD;&#xA;  118.474, -343.866,    4.934&#xD;&#xA;  550.018, -159.076,   25.476">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="957" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="958" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA; -184.222,  423.606,   31.937&#xD;&#xA;  194.816,  644.311,  -12.841&#xD;&#xA;  382.184, -482.196,   25.901&#xD;&#xA; -602.030, -325.853,   34.317">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="958" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="959" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;   42.590, -167.030,  124.015&#xD;&#xA; -482.744, -595.709, -154.954&#xD;&#xA;  316.401, -595.519, -154.978&#xD;&#xA;   29.105, -550.408,  -47.739">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="959" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="961" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  628.239,  107.902,    8.317&#xD;&#xA; -754.753,  411.134,  -36.011&#xD;&#xA; -402.921, -691.323,  327.757&#xD;&#xA; -555.623,  172.429,  158.118">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="961" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="960" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA; -333.540, -361.487,  270.851&#xD;&#xA;   13.118, -756.396,  275.566&#xD;&#xA;  661.785,  411.757,  439.977&#xD;&#xA;  539.271,  239.404,  438.001">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="960" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="1187" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  353.570, -238.800, -107.702&#xD;&#xA; -458.305, -493.919,  -29.648&#xD;&#xA; -198.460,  -56.540,   23.143&#xD;&#xA; -812.893,  105.509,   57.482&#xD;&#xA; -202.800, -199.000,  -72.127&#xD;&#xA;  414.780, -681.000, -141.037&#xD;&#xA; -134.576, -582.912,  -93.055&#xD;&#xA;   70.190,  746.440,    0.659&#xD;&#xA;  368.360,   -9.230,   61.077&#xD;&#xA;  398.810,  261.390,   86.005">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="1187" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="1188" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  299.510, -688.420,    1.414&#xD;&#xA; -599.553, -179.443,    5.161&#xD;&#xA; -294.179,  640.009,  110.762&#xD;&#xA;   48.975,  287.171,  111.338&#xD;&#xA; -638.039, -486.501,    6.571&#xD;&#xA;  918.152, -404.091,   10.140&#xD;&#xA;  516.830, -348.030,   17.990&#xD;&#xA; -754.104,  122.687,  138.692&#xD;&#xA;  130.470,  522.930,  115.174&#xD;&#xA;  485.920,  831.311,  121.404">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="1188" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="1189" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA; -114.388, -527.111,    5.868&#xD;&#xA;  416.080, -544.980,   15.531&#xD;&#xA; -114.320,  623.790, -212.192&#xD;&#xA;   39.374,   -2.311, -158.612&#xD;&#xA; -550.591, -137.652,   -4.355&#xD;&#xA; -184.710, -751.675,   22.936&#xD;&#xA;  610.773,  233.051,    9.621&#xD;&#xA; -676.539,  236.164, -163.973&#xD;&#xA;  205.188,  160.998, -193.591&#xD;&#xA;  747.188,  712.672, -176.400">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="1189" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="1190" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  296.071,  504.021,    2.393&#xD;&#xA; -709.420,  -80.369,   33.407&#xD;&#xA;  -63.218, -174.853,   18.851&#xD;&#xA;  380.321, -508.157,  -16.966&#xD;&#xA; -602.930, -352.377,   37.750&#xD;&#xA; -192.187,  -53.178,   36.685&#xD;&#xA; -620.361,  323.397,   -9.057&#xD;&#xA;  645.594, -417.655,  -11.739&#xD;&#xA;  183.905,  -59.312,   11.927&#xD;&#xA;  658.289,   82.994,   21.022">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="1190" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="1191" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA;  397.890,  224.230,  145.347&#xD;&#xA;  204.578, -678.492,   58.195&#xD;&#xA; -585.410, -469.430,   20.169&#xD;&#xA; -600.090,  267.440,    2.217&#xD;&#xA;   77.550, -144.940,   93.104&#xD;&#xA;  606.856, -190.360,  127.574&#xD;&#xA;  686.000, -516.533,  139.201&#xD;&#xA; -286.150, -263.620,   59.474&#xD;&#xA;  -28.990,  335.380,   71.432&#xD;&#xA; -457.640,  693.130,  -13.396">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="1191" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableTable Desc="1192" DescOverride="True" Operation="Build" TargetVar="tmp_风脉" Value=",&#xD;&#xA; -698.848,  472.007,    1.000&#xD;&#xA;  753.370,  347.051,   45.092&#xD;&#xA;  509.700, -648.810,   36.999&#xD;&#xA; -559.590, -508.520,   -6.000&#xD;&#xA; -516.675,  681.003,    0.050&#xD;&#xA;  232.360,  544.510,    0.001&#xD;&#xA;  627.534,  637.736,    9.051&#xD;&#xA;  315.229, -539.307,   43.732&#xD;&#xA;  169.581, -308.061,   29.242&#xD;&#xA; -484.180,  -49.990,   38.000">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:tmp_zoneId}" TypeL="String" R="1192" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionPlaceholder Desc="筛选风脉" DescOverride="True" />
+<ActionVariableTable Operation="FilterLine" ValueType="Numeric" Name="tmp_风脉" TargetVar="tmp_风脉" Y="abs(d(${d:tmp_me[x]}, ${d:tmp_me[y]}, ${_row[1]}, ${_row[2]}) - 0x${distance}) &lt; 10 &#xD;&#xA;&amp;&amp; &#xD;&#xA;abs((roundvec(${_row[1]} - ${d:tmp_me[x]}, ${_row[2]} - ${d:tmp_me[y]}, 8, 1) + ${dir}) % 8 - 1) &lt; 0.6">
+<Condition Grouping="Or">
+<ConditionSingle L="${et:tmp_风脉}" TypeL="String" R="1" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableTable>
+<ActionVariableList Operation="Build" Value="&amp;${t:tmp_风脉.hjoin(&quot;, &quot;, &quot;&amp;&quot;)}&amp;clear&amp;clear&amp;clear&amp;clear&amp;clear&amp;clear&amp;clear" TargetVar="tmp_风脉">
+<Condition Grouping="Or">
+<ConditionSingle L="${t:tmp_风脉.height}" R="1" Op="NumericGreaterEqual" />
+</Condition>
+</ActionVariableList>
+<ActionPlaceholder Desc="播报" DescOverride="True" />
+<ActionPlaceholder Desc="　　有一个：标记位置 + 周围一圈，尝试触发转圈圈" DescOverride="True" />
+<ActionNamedCallback DescBackColor="dff" Name="AdvWm" Parameter="action: place&#xD;&#xA;A: ${l:tmp_风脉[1]}&#xD;&#xA;---&#xD;&#xA;action: circle&#xD;&#xA;center: ${l:tmp_风脉[1]}&#xD;&#xA;waymarks: BCD1234&#xD;&#xA;r: 0x${distance} &gt; 100 ? 50 : 20 ">
+<Condition Grouping="Or">
+<ConditionSingle L="${t:tmp_风脉.height}" TypeL="String" R="1" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionNamedCallback>
+<ActionVariableScalar Operation="SetString" Name="风脉_center" Value="${l:tmp_风脉[1]}">
+<Condition Grouping="Or">
+<ConditionSingle L="${t:tmp_风脉.height}" TypeL="String" R="1" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionVariableScalar>
+<ActionLogMessage Message="风脉_loop" ProcessAsLogline="True">
+<Condition Grouping="Or">
+<ConditionSingle L="${t:tmp_风脉.height}" TypeL="String" R="1" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionLogMessage>
+<ActionPlaceholder Desc="　　有多个：依次标记" DescOverride="True" />
+<ActionNamedCallback DescBackColor="dff" Name="AdvWm" Parameter="action: place&#xD;&#xA;A: ${l:tmp_风脉[1]}&#xD;&#xA;B: ${l:tmp_风脉[2]}&#xD;&#xA;C: ${l:tmp_风脉[3]}&#xD;&#xA;D: ${l:tmp_风脉[4]}&#xD;&#xA;1: ${l:tmp_风脉[5]}&#xD;&#xA;2: ${l:tmp_风脉[6]}&#xD;&#xA;3: ${l:tmp_风脉[7]}&#xD;&#xA;4: ${l:tmp_风脉[8]}">
+<Condition Grouping="Or">
+<ConditionSingle L="${t:tmp_风脉.height}" R="1" Op="NumericGreater" />
+</Condition>
+</ActionNamedCallback>
+<ActionPlaceholder Desc="　　没有结果：根据方位提示标记" DescOverride="True" />
+<ActionNamedCallback DescBackColor="dff" Name="AdvWm" Parameter="action: arc&#xD;&#xA;r: 0x${distance}&#xD;&#xA;θ: (5 - ${dir}) * π/4&#xD;&#xA;dθ: 45°&#xD;&#xA;center: ${d:tmp_me[x]}, ${d:tmp_me[y]}, ${d:tmp_me[z]}&#xD;&#xA;waymarks: ABCD1234">
+<Condition Grouping="Or">
+<ConditionSingle L="${t:tmp_风脉.height}" TypeL="String" R="0" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionNamedCallback>
+<ActionMessageBox Icon="Error" Text="当前地图 id 为 0，无法确认地图并标记风脉。⏎疑似 ACT 的错误，建议重启 ACT。">
+<Condition Grouping="And">
+<ConditionSingle L="${t:tmp_风脉.height}" TypeL="String" R="0" TypeR="String" Op="StringEqualCase" />
+<ConditionSingle L="${_ffxivzoneid}" TypeL="String" R="0" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionMessageBox>
+<ActionNamedCallback Name="command" Parameter="/e &lt;se.10&gt; &#xD;&#xA;尚未录入此地图的风脉：&#xD;&#xA;· 地图 id：${_ffxivzoneid}&#xD;&#xA;· 地图名：&quot;${_zone}&quot;&#xD;&#xA;在 7.0 及之前的地图中不应看到此信息。">
+<Condition Grouping="And">
+<ConditionSingle L="${t:tmp_风脉.height}" TypeL="String" R="0" TypeR="String" Op="StringEqualCase" />
+<ConditionSingle L="${_ffxivzoneid}" TypeL="String" R="0" TypeR="String" Op="StringNotEqualCase" />
+</Condition>
+</ActionNamedCallback>
+<ActionPlaceholder DescOverride="True" />
+<ActionPlaySpeech Message="${if: ${el:tmp_风脉} ? 已标记风脉 : 已标记风脉范围 }" />
+<ActionVariableScalar Name="tmp_zoneId" />
+<ActionVariableList Name="tmp_风脉" />
+<ActionVariableTable ValueType="Numeric" Name="tmp_风脉" />
+<ActionVariableDict ValueType="Numeric" Name="tmp_me" />
+</Actions>
+<Condition Grouping="Or">
+<ConditionSingle L="${ecallback:AdvWm}${ecallback:place}" TypeL="String" R="11" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="76c3ed8b-1fbd-40c1-9faf-c938b3b7b0ce" Name="2. 摸风脉" RegularExpression="^.{15}\S+ 29:00:E83:00:00:00">
+<Actions>
+<ActionVariableScalar Name="风脉_center" />
+<ActionNamedCallback DescBackColor="dff" Name="place" Parameter="clear" />
+<ActionNamedCallback ExecDelay="100" DescBackColor="dff" Name="place" Parameter="clear" />
+</Actions>
+<Condition Grouping="Or">
+<ConditionSingle L="${ecallback:AdvWm}${ecallback:place}" TypeL="String" R="11" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="9cb15219-b310-4e42-a1ee-932c4bee0d74" Enabled="true" Name="女儿节自动应援 By 凛子" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^130$">
+<Triggers>
+<Trigger Enabled="true" Id="16091ab0-cf96-41f3-9807-0ee76aee31c0" Name="3. NPC 可选中：自动应援" RegularExpression="^.{15}\S+ 1022:1:(?&lt;tid&gt;4.{7}):[^:]*:[^:]*:(?&lt;BNpcId&gt;18859|18860|18861|18862):" PeriodRefire="Deny" RefirePeriodExpression="1000" Sequential="True" Description="开着触发器 进入观众模式在舞台面前会自己用对应的技能&#xD;&#xA;&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;灌注洛可利亚奏鸣曲谢谢喵&#xD;&#xA;https://space.bilibili.com/83429972">
+<Actions>
+<ActionNamedCallback Async="True" Name="Target" Parameter="${tid}" />
+<ActionNamedCallback ExecDelay="random(500, 2500)" Async="True" Name="UseAction" Parameter="Action, ${BNpcId} - 18859 + 44501, 0x${tid}, 1" />
+</Actions>
+<Condition Grouping="And">
+<ConditionSingle L="${_me.HasStatus(1494)}" TypeL="String" R="1" TypeR="String" Op="StringEqualNocase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="eb06485d-b407-48a0-8adc-699bf8965dc0" Name="1.1 活动开始 =&gt; 2" RegularExpression="^.{15}\S+ 10[23]:Add:[^:]*:000007F[ABCD]">
+<Actions>
+<ActionLogMessage Async="True" Message="女儿节应援" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaySpeech Async="True" Message="活动开始" />
+</Actions>
+<Condition Grouping="Or">
+<ConditionSingle L="${_me.HasStatus(1494)}" TypeL="String" R="1" TypeR="String" Op="StringEqualNocase" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="06a8e46b-e840-4300-aa29-b2eca9823488" Name="2. 文本提示" RegularExpression="^女儿节应援">
+<Actions>
+<ActionVariableScalar Operation="SetNumeric" Name="isFirst" Value="${ev:UseActionEnabled} = 0" />
+<ActionVariableScalar Operation="SetString" Name="UseActionEnabled" Value="${ecallback:UseAction}" />
+<ActionNamedCallback Name="command" Parameter="/e ${if: ${v:isFirst} ? &lt;se.10&gt; : &quot;&quot; }&#xD;&#xA;———————————————&#xD;&#xA;女儿节自动应援 by 凛子&#xD;&#xA;&#xD;&#xA;应援状态下，站在区域内&#xD;&#xA;即可自动选择 NPC 并使用动作&#xD;&#xA;&#xD;&#xA;本触发器位于：远程触发器 - 临时">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:UseActionEnabled}" TypeL="String" R="1" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionNamedCallback>
+<ActionNamedCallback Name="command" Parameter="/e ${if: ${v:isFirst} ? &lt;se.10&gt; : &quot;&quot; }&#xD;&#xA;———————————————&#xD;&#xA;女儿节自动应援 by 凛子&#xD;&#xA;&#xD;&#xA;运行支持库未初始化，无法使用此功能&#xD;&#xA;&#xD;&#xA;本触发器位于：远程触发器 - 临时">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:UseActionEnabled}" TypeL="String" R="0" TypeR="String" Op="StringEqualCase" />
+</Condition>
+</ActionNamedCallback>
+<ActionVariableScalar Name="isFirst" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="ae1e39a7-1601-4a10-bf9c-b27721e0a9e8" Name="1.2 获取 buff =&gt; 2" RegularExpression="^.{15}\S+ 1A:5D6:[^:]+:(?&lt;t&gt;[^:]+):.{8}:[^:]*:(?&lt;tid&gt;1.{7}):[^:]*:(?&lt;stack&gt;23[1234]):">
+<Actions>
+<ActionLogMessage Async="True" Message="女儿节应援" ProcessAsLogline="True" AddToACTEncounter="True" />
+</Actions>
+<Condition Grouping="Or">
+<ConditionSingle L="${tid}" TypeL="String" R="${_me.id}" TypeR="String" Op="StringEqualNocase" />
+</Condition>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="098d91c4-9b62-4b04-8666-1f561569e50d" Enabled="true" Name="金碟砍竹子（加速画图版）" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^144$" RawEnvironmentVariables="X0 = 70.5625&#xD;&#xA;Y0 = -35.9561&#xD;&#xA;Z0 = -4.474&#xD;&#xA;delay = 2&#xD;&#xA;// 判定时间约为 delay + t = 10，这里留了额外时间，用 EObjAnimation 统一删除&#xD;&#xA;t = 8.5">
+<Triggers>
+<Trigger Enabled="true" Id="6f9b9ecf-4e13-429e-9625-5bb683522b73" Name="2b. 直线" RegularExpression="^.{15}\S+ 1105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE9A):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
+<Actions>
+<ActionPlaceholder Async="True" Desc="朝着面向两侧，宽度 5.0 m 的直线攻击" DescOverride="True" />
+<ActionNamedCallback ExecDelay="${env:delay} * 1000" Async="True" DescBackColor="ffd" Name="PictoACT" Parameter="Tag: 金碟_竹子_${v:金碟_竹子_轮}&#xD;&#xA;Omen: Rect2&#xD;&#xA;T: ${env:t}&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Angle: ${h} + π/2&#xD;&#xA;Scale: 2.5, 28, 1" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="0c21b1d5-f471-4bcb-8c66-8230bb4e5ad7" Name="2c. 钢铁" RegularExpression="^.{15}\S+ 1105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE9B):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
+<Actions>
+<ActionPlaceholder Async="True" Desc="以自身为中心，半径 11 m 的圆形攻击" DescOverride="True" />
+<ActionNamedCallback ExecDelay="${env:delay} * 1000" Async="True" DescBackColor="ffd" Name="PictoACT" Parameter="Tag: 金碟_竹子_${v:金碟_竹子_轮}&#xD;&#xA;Omen: Circle&#xD;&#xA;T: ${env:t}&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Scale: 11, 11, 1" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="858d79fc-5df4-4d0c-8e5c-2b7166a16baf" Name="2a. 射线" RegularExpression="^.{15}\S+ 1105:(?&lt;id&gt;4.{7}):[^:]*:(?&lt;bnpcid&gt;1EAE99):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):(?&lt;type&gt;[^:]+)">
+<Actions>
+<ActionPlaceholder Async="True" Desc="朝着面向正左方，宽度 5.0 m 的射线攻击" DescOverride="True" />
+<ActionNamedCallback ExecDelay="${env:delay} * 1000" Async="True" DescBackColor="ffd" Name="PictoACT" Parameter="Tag: 金碟_竹子_${v:金碟_竹子_轮}&#xD;&#xA;Omen: Rect&#xD;&#xA;T: ${env:t}&#xD;&#xA;Pos: ${x}, ${y}, ${env:Z0}&#xD;&#xA;Angle: ${h} + π/2&#xD;&#xA;Scale: 2.5, 28, 1" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="a335e177-e6cc-4bb9-aa9a-4823feba7361" Name="0. 任务提示" RegularExpression="^.{15}\S+ 00:0044:来宾接待员:由金碟游乐场主办的活动“必中一闪快刀斩魔”">
+<Actions>
+<ActionPlaySpeech Async="True" Message="砍竹子开始了" />
+<ActionVariableScalar Async="True" Operation="SetString" Name="金碟_竹子_轮" Value="1" />
+<ActionNamedCallback Async="True" Name="command" Parameter="/e 砍竹子开始了 &lt;se.10&gt;" />
+</Actions>
+</Trigger>
+<Trigger Enabled="false" Id="ae2f64b0-6e96-4391-9e9c-adbaeeb22869" Name="Debug Log 先用模拟器生成实体 (2010778, 2)" Source="None">
+<Actions>
+<ActionLogMessage Async="True" Message="[09:25:44.165] _EObjAnimation 1019D:${_entity[BNpcID=2010778].ID}::0:2010778:70.5625:-43.9561:-4.4987:-2.0778:10:20:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionNamedCallback Async="True" Name="EObjAnimation" Parameter="${_entity[BNpcID=2010778].Address}, 0x10, 0x20" />
+<ActionNamedCallback Async="True" Name="EObjAnimation" Parameter="${_entity[BNpcID=2010778].Address}, 0x4, 0x8" />
+<ActionNamedCallback Async="True" Name="SetModelStatus" Parameter="${_entity[BNpcID=2010778].Address}, 1024" />
+<ActionNamedCallback Async="True" Name="Redraw" Parameter="${_entity[BNpcID=2010778].Address}" />
+</Actions>
+</Trigger>
+<Trigger Enabled="false" Id="bd2b420e-0af0-4361-941f-98444a9f48a3" Name="判定时间点 test" RegularExpression="^.{15}\S+ 108:(?&lt;sid&gt;4.{7}):(?&lt;aid&gt;479[DE]):.{8}:[^:]*:(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;h&gt;[^:]*)" PeriodRefire="Deny" RefirePeriodExpression="1000">
+<Actions>
+<ActionBeep Enabled="False" Async="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="3c28f80a-de9d-4c0c-920c-a8933f54d983" Name="1. 准备开始" RegularExpression="^.{15}\S+ 00:0039::保镖老师，时辰已到">
+<Actions>
+<ActionPlaySpeech ExecDelay="15000" Async="True" Message="准备开始" />
+<ActionVariableScalar Async="True" Operation="SetString" Name="金碟_竹子_轮" Value="1" />
+</Actions>
+<Condition Grouping="Or">
+<ConditionSingle L="${_me.DistanceTo(${env:X0}, ${env:Y0})}" R="25" Op="NumericLess" />
+</Condition>
+</Trigger>
+<Trigger Enabled="false" Id="0d4eb368-9362-47af-a720-c99005b786ab" Name="Debug Log 2026-10-15 20:45" Source="None">
+<Actions>
+<ActionLogMessage Async="True" Message="[20:25:05.242] _SpawnObject 1105:4000703A::1EAE99:75.7587:-32.9561:-4.4987:2.4095:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:05.242] _SpawnObject 1105:40007038::1EAE9B:65.3663:-32.9561:-4.4987:2.6145:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:05.242] _SpawnObject 1105:4000703D::1EAE9A:70.5625:-41.9561:-4.4987:-2.5548:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="7.97 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:25:13.212] _SpawnObject 1105:40007040::1EAE99:75.7587:-38.9561:-4.4987:2.4010:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:13.212] _SpawnObject 1105:40007042::1EAE99:65.3663:-38.9561:-4.4987:-0.2911:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:13.212] _SpawnObject 1105:40007045::1EAE9A:70.5625:-29.9561:-4.4987:-2.1675:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="1.92 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:25:15.132] _EObjAnimation 1019D:4000703D::0:2010778:70.5625:-41.9561:-4.4987:-2.5548:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:15.132] _EObjAnimation 1019D:40007038::0:2010779:65.3663:-32.9561:-4.4987:2.6145:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:15.132] _EObjAnimation 1019D:4000703A::0:2010777:75.7587:-32.9561:-4.4987:2.4095:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="0.75 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:25:15.887] 264 108:40007039:479D:000064C3:1:-0.015:-0.015:-0.015:-2.303:40007039" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:15.887] 264 108:40007037:479E:000064C4:1:-0.015:-0.015:-0.015:2.614:40007037" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:15.887] 264 108:4000703B:479D:000064C5:1:-0.015:-0.015:-0.015:2.158:4000703B" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:15.887] 264 108:4000703C:479D:000064C6:1:-0.015:-0.015:-0.015:-0.984:4000703C" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="5.74 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:25:21.622] _SpawnObject 1105:40007049::1EAE9A:70.5625:-43.9561:-4.4987:2.0633:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:21.622] _SpawnObject 1105:40007047::1EAE9B:70.5597:-27.9561:-4.4987:-2.4589:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:21.622] _SpawnObject 1105:4000704A::1EAE99:78.5625:-35.9589:-4.4987:-1.4818:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:21.622] _SpawnObject 1105:4000704B::1EAE9B:62.5625:-35.9589:-4.4987:-1.3923:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="1.71 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:25:23.335] _EObjAnimation 1019D:40007045::0:2010778:70.5625:-29.9561:-4.4987:-2.1675:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:23.335] _EObjAnimation 1019D:40007042::0:2010777:65.3663:-38.9561:-4.4987:-0.2911:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:23.335] _EObjAnimation 1019D:40007040::0:2010777:75.7587:-38.9561:-4.4987:2.4010:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="0.76 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:25:24.088] 264 108:4000703F:479D:000064CD:1:-0.015:-0.015:-0.015:-2.311:4000703F" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:24.088] 264 108:40007041:479D:000064CE:1:-0.015:-0.015:-0.015:1.280:40007041" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:24.088] 264 108:40007043:479D:000064CF:1:-0.015:-0.015:-0.015:2.545:40007043" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:24.088] 264 108:40007044:479D:000064D0:1:-0.015:-0.015:-0.015:-0.597:40007044" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="5.86 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:25:29.953] _SpawnObject 1105:4000704F::1EAE99:64.9037:-30.3012:-4.4987:1.3103:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:29.953] _SpawnObject 1105:40007053::1EAE99:64.9076:-41.6149:-4.4987:3.1083:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:29.953] _SpawnObject 1105:40007052::1EAE9B:76.2174:-41.6149:-4.4987:-1.0317:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:29.953] _SpawnObject 1105:40007051::1EAE9A:76.2194:-30.2993:-4.4987:-1.1250:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="1.59 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:25:31.541] _EObjAnimation 1019D:4000704B::0:2010779:62.5625:-35.9589:-4.4987:-1.3923:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:31.541] _EObjAnimation 1019D:40007049::0:2010778:70.5625:-43.9561:-4.4987:2.0633:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:31.541] _EObjAnimation 1019D:40007047::0:2010779:70.5597:-27.9561:-4.4987:-2.4589:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:31.541] _EObjAnimation 1019D:4000704A::0:2010777:78.5625:-35.9589:-4.4987:-1.4818:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="0.75 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:25:32.294] 264 108:40007039:479D:000064D6:1:-0.015:-0.015:-0.015:0.089:40007039" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:32.294] 264 108:40007046:479E:000064D7:1:-0.015:-0.015:-0.015:-2.459:40007046" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:32.294] 264 108:40007037:479D:000064D9:1:-0.015:-0.015:-0.015:-2.649:40007037" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:32.294] 264 108:40007048:479D:000064D8:1:-0.015:-0.015:-0.015:0.492:40007048" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:32.294] 264 108:4000703C:479E:000064DA:1:-0.015:-0.015:-0.015:-1.392:4000703C" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="5.70 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:25:37.989] _SpawnObject 1105:40007056::1EAE9B:70.5597:-27.9561:-4.4987:0.9537:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:37.989] _SpawnObject 1105:40007058::1EAE99:78.5625:-35.9589:-4.4987:2.0216:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:37.989] _SpawnObject 1105:40007059::1EAE9B:62.5625:-35.9589:-4.4987:0.2018:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:37.989] _SpawnObject 1105:40007057::1EAE9A:70.5625:-43.9561:-4.4987:1.7584:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="1.75 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:25:39.745] _EObjAnimation 1019D:40007053::0:2010777:64.9076:-41.6149:-4.4987:3.1083:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:39.745] _EObjAnimation 1019D:40007051::0:2010778:76.2194:-30.2993:-4.4987:-1.1250:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:39.745] _EObjAnimation 1019D:4000704F::0:2010777:64.9037:-30.3012:-4.4987:1.3103:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:39.745] _EObjAnimation 1019D:40007052::0:2010779:76.2174:-41.6149:-4.4987:-1.0317:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="0.76 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:25:40.501] 264 108:4000704E:479D:000064E0:1:-0.015:-0.015:-0.015:2.881:4000704E" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:40.501] 264 108:4000703F:479D:000064E1:1:-0.015:-0.015:-0.015:0.446:4000703F" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:40.501] 264 108:40007041:479E:000064E2:1:-0.015:-0.015:-0.015:-1.032:40007041" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:40.501] 264 108:40007044:479D:000064E3:1:-0.015:-0.015:-0.015:-1.604:40007044" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:40.501] 264 108:40007050:479D:000064E4:1:-0.015:-0.015:-0.015:-2.696:40007050" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="7.32 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:25:47.823] _EObjAnimation 1019D:40007059::0:2010779:62.5625:-35.9589:-4.4987:0.2018:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:47.823] _EObjAnimation 1019D:40007057::0:2010778:70.5625:-43.9561:-4.4987:1.7584:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:47.823] _EObjAnimation 1019D:40007058::0:2010777:78.5625:-35.9589:-4.4987:2.0216:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:47.823] _EObjAnimation 1019D:40007056::0:2010779:70.5597:-27.9561:-4.4987:0.9537:4:8:0:0" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="0.76 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:25:48.578] 264 108:40007039:479D:000064EA:1:-0.015:-0.015:-0.015:-2.691:40007039" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:48.578] 264 108:40007048:479D:000064EC:1:-0.015:-0.015:-0.015:0.188:40007048" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:48.578] 264 108:40007046:479E:000064EB:1:-0.015:-0.015:-0.015:0.954:40007046" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:48.578] 264 108:40007037:479D:000064ED:1:-0.015:-0.015:-0.015:-2.954:40007037" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionLogMessage Async="True" Message="[20:25:48.578] 264 108:4000703C:479E:000064EE:1:-0.015:-0.015:-0.015:0.202:4000703C" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="268.89 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:30:17.474] _SpawnObject 1105:40FF0011::1EAE9A:63.7433:-50.1282:-7.5000:0.0483:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+<ActionPlaceholder ExecDelay="97.00 * 1000" Async="True" />
+<ActionLogMessage Async="True" Message="[20:31:54.477] _SpawnObject 1105:40FF0012::1EAE9A:58.9144:-51.3740:-7.1958:1.7910:7" ProcessAsLogline="True" AddToACTEncounter="True" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="e7607a1a-856e-4b9d-bfde-632430597f7f" Name="3. 竹子碎裂动画" RegularExpression="^.{15}\S+ 1019D:(?&lt;sid&gt;4.{7}):[^:]*:[^:]*:(?&lt;baseid&gt;201077[789]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):10:20">
+<Actions>
+<ActionPlaceholder Async="True" Desc="10:20 和后续 4:8 的间隔为 3.63 s，以此微调动画的显示时间，使落地时刻和判定时刻对齐" DescOverride="True" />
+<ActionNamedCallback ExecDelay="(3.65 - 0.65) * 1000" Async="True" Name="EObjAnimation" Parameter="${_entity[${sid}].Address}, 4, 8" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="4800d732-3959-4ac5-970a-6c76f1fb0233" Name="4. 竹子落地动画（整组）" RegularExpression="^.{15}\S+ 1019D:(?&lt;sid&gt;4.{7}):[^:]*:[^:]*:(?&lt;baseid&gt;201077[789]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):4:8" PeriodRefire="Deny" RefirePeriodExpression="3000">
+<Actions>
+<ActionPlaceholder Async="True" Desc="由于 105 时间有偏差，也用这个日志定时清除 omen" DescOverride="True" />
+<ActionPlaceholder Async="True" Desc="先标记要清的 omen，再递增变量，延迟后清除" DescOverride="True" />
+<ActionNamedCallback DescBackColor="ffd" Name="PictoACT" Parameter="Action: Remove&#xD;&#xA;Delay: 0.45&#xD;&#xA;Tag: 金碟_竹子_${v:金碟_竹子_轮}" />
+<ActionVariableScalar Operation="Increment" Name="金碟_竹子_轮" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="fa20763f-0487-4c00-97eb-ea532b6c179a" Name="4. 竹子落地动画（单个）" RegularExpression="^.{15}\S+ 1019D:(?&lt;sid&gt;4.{7}):[^:]*:[^:]*:(?&lt;baseid&gt;201077[789]):(?&lt;x&gt;[^:]+):(?&lt;y&gt;[^:]+):(?&lt;z&gt;[^:]+):(?&lt;h&gt;[^:]+):4:8">
+<Actions>
+<ActionPlaceholder Async="True" Desc="判定时间点约为动画竹子落地前一点（4:8 动画后 0.6 s），竹子落地动画在判定后地面还有 ~2 s 特效残留" DescOverride="True" />
+<ActionPlaceholder ExecDelay="600" Async="True" />
+<ActionNamedCallback Name="Redraw" Parameter="${_entity[${sid}].Address}" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="bce71138-a14d-4140-b2bd-63b4a87835d8" Enabled="true" Name="金碟喷风" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^144$" RawEnvironmentVariables="X0 = 70.5625&#xD;&#xA;Y0 = -35.9561&#xD;&#xA;Z0 = -4.474&#xD;&#xA;t = 186&#xD;&#xA;color圆 = 0,0,0,3.5">
+<Triggers>
+<Trigger Enabled="true" Id="b54333d1-4832-4683-be26-bd84f3ec05da" Name="1. 开始" RegularExpression="^.{15}\S+ 03:(?&lt;id&gt;4.{7}):([^:]*:){7}(?&lt;bnpcid&gt;3663):" Description="统计基于约 6000 场完整技能记录。&#xD;&#xA;每场共 5 轮，每轮从五种技能中随机选择一种。&#xD;&#xA;统计结果符合五种技能各 20% 概率、各轮独立的模型，前后轮选择的技能不存在关联。&#xD;&#xA;以下提及的随机均为等概率随机抽样。&#xD;&#xA;&#xD;&#xA;圆（0D23）&#xD;&#xA;半径 8 m，从 20 个固定位置中等概率选择，方向从 360 种整数角度随机选取（不影响攻击范围）。&#xD;&#xA;&#xD;&#xA;环（0D24）&#xD;&#xA;内径 12 m、外径 15 m，圆心固定场中，方向从 360 种整数角度随机选取（不影响攻击范围）。&#xD;&#xA;&#xD;&#xA;扇（0D25）&#xD;&#xA;半径 16 m、120°，圆心固定场中，方向从 360 种整数角度随机选取。&#xD;&#xA;任意位置被覆盖的概率均为 1/3。&#xD;&#xA;&#xD;&#xA;射（0D26）&#xD;&#xA;长度 31 m、半宽 4.5 m，从 3 个固定起点（左上、~上、右上，不对称）中随机选取，固定朝南。&#xD;&#xA;&#xD;&#xA;四圆（0D28）&#xD;&#xA;从 2 套固定阵型中随机选取 1 套，每套同时出现 4 个半径 4.5 m 的圆（大致为正/斜方向，但并不对称）。&#xD;&#xA;&#xD;&#xA;【圆：20个候选圆心】&#xD;&#xA;(-6.1845, -5.8689)&#xD;&#xA;(-5.2385, -3.2139)&#xD;&#xA;(-4.9645, 3.2251)&#xD;&#xA;(-4.0175, 3.5311)&#xD;&#xA;(-3.0415, -4.6179)&#xD;&#xA;(-2.3395, -6.3569)&#xD;&#xA;(-2.0955, 2.6761)&#xD;&#xA;(-2.0645, -6.4789)&#xD;&#xA;(-1.4235, 6.3691)&#xD;&#xA;(-1.3625, 3.2861)&#xD;&#xA;(1.8105, -5.7769)&#xD;&#xA;(1.9335, 4.3551)&#xD;&#xA;(2.7875, 3.3781)&#xD;&#xA;(2.9095, 1.7911)&#xD;&#xA;(4.1305, 3.2561)&#xD;&#xA;(4.4055, 3.5311)&#xD;&#xA;(4.5275, 0.9981)&#xD;&#xA;(4.7405, 4.2931)&#xD;&#xA;(4.9235, -0.3449)&#xD;&#xA;(7.0905, 0.8141)&#xD;&#xA;&#xD;&#xA;【射：3个候选起点】&#xD;&#xA;(-8.2295, -12.0339)&#xD;&#xA;(-0.0505, -14.6889)&#xD;&#xA;(8.2505, -12.3689)&#xD;&#xA;&#xD;&#xA;【四：2套候选阵型】&#xD;&#xA;&#xD;&#xA;A：正方向四圆&#xD;&#xA;(9.2265, -0.2839)&#xD;&#xA;(-0.1115, -8.3409)&#xD;&#xA;(-0.0505, 7.0401)&#xD;&#xA;(-7.8635, 0.2351)&#xD;&#xA;&#xD;&#xA;B：斜方向四圆&#xD;&#xA;(8.3415, -6.7539)&#xD;&#xA;(8.5555, 6.6741)&#xD;&#xA;(-7.8935, -7.3639)&#xD;&#xA;(-7.7715, 6.9791)&#xD;&#xA;&#xD;&#xA;提供的两个安全点是两个曲边三角形安全区的内切圆。&#xD;&#xA;这两个安全区分别只被 3 种射线中的一种、20 种圆中的 1 种、1/3 的扇形所覆盖。">
+<Actions>
+<ActionPlaceholder Async="True" Desc="https://www.geogebra.org/classic/fdugwwjj" DescOverride="True" />
+<ActionPlaceholder Async="True" Desc="单次成功率 (1 - 0.2 * 1/20 - 0.4 * 1/3) = 257/300，总胜率 46.14%（高于传统点位 38.60%）" DescOverride="True" />
+<ActionPlaceholder Async="True" Desc="详见触发器描述" DescOverride="True" />
+<ActionNamedCallback Async="True" DescBackColor="ffd" Name="PictoACT" Parameter="Tag: 喷风_线1&#xD;&#xA;t: 186&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;Target: -2.095, 11.560&#xD;&#xA;Scale: 0.03, _d, 0.03&#xD;&#xA;Color: 1, 1, 1, 1&#xD;&#xA;---&#xD;&#xA;Tag: 喷风_点1&#xD;&#xA;t: 186&#xD;&#xA;Omen: m0532om_don01x&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;Pos: -2.095, 11.560, 0.05&#xD;&#xA;ScaleCyl: 0.27, 10&#xD;&#xA;Color: 1,1,5,5" />
+<ActionNamedCallback Async="True" DescBackColor="ffd" Name="PictoACT" Parameter="Tag: 喷风_线2&#xD;&#xA;t: 186&#xD;&#xA;Omen: m131om_setu0f&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;Target: 5.247, -10.442&#xD;&#xA;Scale: 0.03, _d, 0.03&#xD;&#xA;Color: 1, 1, 1, 1&#xD;&#xA;---&#xD;&#xA;Tag: 喷风_点2&#xD;&#xA;t: 186&#xD;&#xA;Omen: m0532om_don01x&#xD;&#xA;O: ${env:X0}, ${env:Y0}, ${env:Z0}&#xD;&#xA;Pos: 5.247, -10.442, 0.05&#xD;&#xA;ScaleCyl: 0.31, 10&#xD;&#xA;Color: 1,1,5,5" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="8c1563db-4694-4fb8-8a51-0e046ed3a242" Name="2. 结束" RegularExpression="^.{15}\S+ 04:(?&lt;id&gt;4.{7}):([^:]*:){7}(?&lt;bnpcid&gt;3663):">
+<Actions>
+<ActionNamedCallback Async="True" DescBackColor="ffd" Name="PictoACT" Parameter="Action: Remove&#xD;&#xA;Regex: ^喷风_" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="2cd08cad-c5a1-49d6-bfd7-c6f721089334" Name="0. 任务提示" RegularExpression="^.{15}\S+ 00:0044:来宾接待员:由金碟游乐场主办的活动“喷风中的幸存者”">
+<Actions>
+<ActionPlaySpeech Async="True" Message="喷风开始了" />
+<ActionNamedCallback Async="True" Name="command" Parameter="/e 喷风开始了 &lt;se.10&gt;" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="e1c91358-dbe8-41e1-b272-153b3ae0fd5a" Enabled="true" Name="魔光键影">
+<Folders>
+<Folder Id="cbb06408-5c7e-4f34-be5a-32ed3856ed0c" Enabled="true" Name="区域" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^(1359|1360)$">
+<Folders>
+<Folder Id="b0764917-840b-48ea-ad3e-af1c7d16c370" Enabled="true" Name="小怪状态">
+<Triggers>
+<Trigger Enabled="true" Id="944c5953-cb70-4e47-96f8-dff7d5572426" Name="1. 获取词" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 21:8003DEA9:10000008:(?&lt;sid&gt;4.{7}):(?&lt;poolId&gt;[^:]*):(?&lt;poolRow&gt;[^:]*):(?&lt;wordId&gt;[^:]*)(?:$|:)">
+<Actions>
+<ActionVariableDict Operation="Build" TargetVar="魔光键影_pool0" Value="=&#xD;&#xA;0=神罗&#xD;&#xA;1=蒂法&#xD;&#xA;2=克劳德&#xD;&#xA;3=巴雷特&#xD;&#xA;4=杰西&#xD;&#xA;5=雪崩&#xD;&#xA;6=猎敌者&#xD;&#xA;7=海德格&#xD;&#xA;8=第捌区&#xD;&#xA;9=艾丝特&#xD;&#xA;10=乔&#xD;&#xA;11=蜜娜&#xD;&#xA;12=玛琳&#xD;&#xA;13=爱丽丝&#xD;&#xA;14=扎克斯&#xD;&#xA;15=菲拉&#xD;&#xA;16=第壹区&#xD;&#xA;17=玛蕾&#xD;&#xA;18=怀默&#xD;&#xA;19=乔尼&#xD;&#xA;20=逗你的&#xD;&#xA;21=罗榭&#xD;&#xA;22=五台&#xD;&#xA;23=雷诺&#xD;&#xA;24=麦子&#xD;&#xA;25=路德&#xD;&#xA;26=塔克斯&#xD;&#xA;27=艾米娜&#xD;&#xA;28=再结合&#xD;&#xA;29=打扰了&#xD;&#xA;30=阿尼安&#xD;&#xA;31=贝格&#xD;&#xA;32=巴德&#xD;&#xA;33=索奇&#xD;&#xA;34=柯奇&#xD;&#xA;35=雷兹利&#xD;&#xA;36=普裘&#xD;&#xA;37=帕尔默&#xD;&#xA;38=地狱屋&#xD;&#xA;39=第陆区&#xD;&#xA;40=阿勃祖&#xD;&#xA;41=鱼人&#xD;&#xA;42=里维&#xD;&#xA;43=埃力格&#xD;&#xA;44=曾&#xD;&#xA;45=强盗&#xD;&#xA;46=琪里耶&#xD;&#xA;47=哈特&#xD;&#xA;48=赛特拉&#xD;&#xA;49=杰诺瓦&#xD;&#xA;50=宝条&#xD;&#xA;51=剑舞&#xD;&#xA;52=路法斯&#xD;&#xA;53=赞甘&#xD;&#xA;54=娜瑶&#xD;&#xA;55=尼禄&#xD;&#xA;56=拉姆&#xD;&#xA;57=分会&#xD;&#xA;58=莫古力&#xD;&#xA;59=吉杰&#xD;&#xA;60=魏斯&#xD;&#xA;61=五字辈&#xD;&#xA;62=龟大叔&#xD;&#xA;63=巨蜈蚣&#xD;&#xA;64=波尔可&#xD;&#xA;65=梅菲&#xD;&#xA;66=尤菲&#xD;&#xA;67=索侬&#xD;&#xA;68=复活&#xD;&#xA;69=祈祷&#xD;&#xA;70=希瓦&#xD;&#xA;71=自爆&#xD;&#xA;72=解毒&#xD;&#xA;73=催眠&#xD;&#xA;74=沉默&#xD;&#xA;75=狂暴&#xD;&#xA;76=停止&#xD;&#xA;77=驱魔&#xD;&#xA;78=解毒药&#xD;&#xA;79=伊弗利特&#xD;&#xA;80=巴哈姆特&#xD;&#xA;81=怪鼠&#xD;&#xA;82=魅影&#xD;&#xA;83=查德利&#xD;&#xA;84=臭气&#xD;&#xA;85=五轮棍&#xD;&#xA;86=歪歪&#xD;&#xA;87=提神剂&#xD;&#xA;88=第柒区&#xD;&#xA;89=混战&#xD;&#xA;90=翼蜥&#xD;&#xA;91=姆姆&#xD;&#xA;92=蹦扎&#xD;&#xA;93=剧毒鼠&#xD;&#xA;94=砂鱼人&#xD;&#xA;95=海龙&#xD;&#xA;96=狮鹫&#xD;&#xA;97=食人魔&#xD;&#xA;98=海魔鱼&#xD;&#xA;99=毒帽妖&#xD;&#xA;100=机甲龟&#xD;&#xA;101=奇美拉&#xD;&#xA;102=触返蛙&#xD;&#xA;103=巨蛙&#xD;&#xA;104=阿拉克兰&#xD;&#xA;105=瓦隆&#xD;&#xA;106=安托士&#xD;&#xA;107=探测眼&#xD;&#xA;108=恶灵&#xD;&#xA;109=伊莉娜&#xD;&#xA;110=戴因&#xD;&#xA;111=红龙&#xD;&#xA;112=恶魔门&#xD;&#xA;113=泰坦&#xD;&#xA;114=奥丁&#xD;&#xA;115=彗星&#xD;&#xA;116=勇气&#xD;&#xA;117=信心&#xD;&#xA;118=阻勇气&#xD;&#xA;119=阻信心&#xD;&#xA;120=重力&#xD;&#xA;121=魔人棍&#xD;&#xA;122=突击炮&#xD;&#xA;123=巨炮&#xD;&#xA;124=破流者&#xD;&#xA;125=龙爪&#xD;&#xA;126=耳环&#xD;&#xA;127=头巾&#xD;&#xA;128=头冠&#xD;&#xA;129=慧眼&#xD;&#xA;130=塔罗牌&#xD;&#xA;131=缎带&#xD;&#xA;132=祈安珠&#xD;&#xA;133=义族护符&#xD;&#xA;134=金针&#xD;&#xA;135=坐垫&#xD;&#xA;136=草地钛&#xD;&#xA;137=木材&#xD;&#xA;138=岩槭木&#xD;&#xA;139=猢狲木&#xD;&#xA;140=梣木&#xD;&#xA;141=恢复&#xD;&#xA;142=时间&#xD;&#xA;143=消灭&#xD;&#xA;144=治疗&#xD;&#xA;145=中毒&#xD;&#xA;146=属性&#xD;&#xA;147=计步&#xD;&#xA;148=挑衅&#xD;&#xA;149=幸运&#xD;&#xA;150=变化&#xD;&#xA;151=跳跃&#xD;&#xA;152=暗黑&#xD;&#xA;153=扔钱&#xD;&#xA;154=狐火&#xD;&#xA;155=突击喇叭&#xD;&#xA;156=围剿&#xD;&#xA;157=狱门&#xD;&#xA;158=残心&#xD;&#xA;159=忍术&#xD;&#xA;160=旋风&#xD;&#xA;161=血祭&#xD;&#xA;162=骰子&#xD;&#xA;163=打气鼓舞&#xD;&#xA;164=蓄力&#xD;&#xA;165=绝空&#xD;&#xA;166=卡姆&#xD;&#xA;167=布洛德&#xD;&#xA;168=格林&#xD;&#xA;169=哔可&#xD;&#xA;170=可琳&#xD;&#xA;171=罗德娜&#xD;&#xA;172=普莉希拉&#xD;&#xA;173=艾米利欧&#xD;&#xA;174=格伦&#xD;&#xA;175=季托夫&#xD;&#xA;176=海温德&#xD;&#xA;177=蕾吉&#xD;&#xA;178=法兹&#xD;&#xA;179=怀兹&#xD;&#xA;180=卡波诺&#xD;&#xA;181=纳纳奇&#xD;&#xA;182=芙兰&#xD;&#xA;183=诺艾米&#xD;&#xA;184=约达&#xD;&#xA;185=刺猬头&#xD;&#xA;186=爱之卡&#xD;&#xA;187=克劳啾&#xD;&#xA;188=迪欧&#xD;&#xA;189=碟下区&#xD;&#xA;190=越野车&#xD;&#xA;191=西斯妮&#xD;&#xA;192=格尔尼卡&#xD;&#xA;193=芳格&#xD;&#xA;194=小野马&#xD;&#xA;195=义族&#xD;&#xA;196=文森特&#xD;&#xA;197=村崎&#xD;&#xA;198=忍者&#xD;&#xA;199=楔石&#xD;&#xA;200=露莎&#xD;&#xA;201=小丑&#xD;&#xA;202=陨石&#xD;&#xA;203=弗雷沙&#xD;&#xA;204=呵嘻，呵嘻！&#xD;&#xA;205=遵命！&#xD;&#xA;206=华勒斯&#xD;&#xA;207=卖花女&#xD;&#xA;208=菲尔&#xD;&#xA;209=杜耶斯提&#xD;&#xA;210=如月">
+<Condition Grouping="Or">
+<ConditionSingle L="${ed:魔光键影_pool0}" Op="NumericFalse" />
+</Condition>
+</ActionVariableDict>
+<ActionVariableDict Operation="Build" TargetVar="魔光键影_pool1" Value="=&#xD;&#xA;0=神罗战士&#xD;&#xA;1=星球的哀号&#xD;&#xA;2=我没兴趣&#xD;&#xA;3=神罗总裁&#xD;&#xA;4=胖莫古力&#xD;&#xA;5=宇宙骑士团&#xD;&#xA;6=孤狼盖斯&#xD;&#xA;7=葛斯老弟&#xD;&#xA;8=陆行鸟房&#xD;&#xA;9=艾蕾诺雅&#xD;&#xA;10=你真直接！&#xD;&#xA;11=萨菲罗斯&#xD;&#xA;12=神罗兵&#xD;&#xA;13=尼福尔海姆&#xD;&#xA;14=星球的生命&#xD;&#xA;15=军事猎犬&#xD;&#xA;16=收下这朵花吧&#xD;&#xA;17=第柒区贫民窟&#xD;&#xA;18=不会屈服于胁迫&#xD;&#xA;19=第捌区车站&#xD;&#xA;20=我会扛起一切！&#xD;&#xA;21=警备兵&#xD;&#xA;22=万能帮手&#xD;&#xA;23=陷入了困境&#xD;&#xA;24=瓦砾大街&#xD;&#xA;25=第七天堂&#xD;&#xA;26=星殒峡谷&#xD;&#xA;27=暴力是不对的！&#xD;&#xA;28=激光扫射机&#xD;&#xA;29=暴风破坏者&#xD;&#xA;30=克劳蒂亚·斯特莱夫&#xD;&#xA;31=史卡蕾特&#xD;&#xA;32=绿叶之家&#xD;&#xA;33=第伍区贫民窟&#xD;&#xA;34=赭红猎犬&#xD;&#xA;35=陆行鸟&#xD;&#xA;36=下流人渣&#xD;&#xA;37=就捏烂哦&#xD;&#xA;38=巨刀机械&#xD;&#xA;39=蜜蜂之馆&#xD;&#xA;40=干脆扭断好了&#xD;&#xA;41=绿意公园&#xD;&#xA;42=克里普歇&#xD;&#xA;43=闪光鬼魂&#xD;&#xA;44=列车墓地&#xD;&#xA;45=演技真是差劲&#xD;&#xA;46=幼年阿勃祖&#xD;&#xA;47=古代种&#xD;&#xA;48=神罗大厦&#xD;&#xA;49=应许之地&#xD;&#xA;50=科学部门&#xD;&#xA;51=多米诺市长&#xD;&#xA;52=贫民窟的卖花女&#xD;&#xA;53=都市开发部门&#xD;&#xA;54=命运守望者&#xD;&#xA;55=兵器开发部门&#xD;&#xA;56=宇宙开发部门&#xD;&#xA;57=星球的未来&#xD;&#xA;58=拥抱梦想&#xD;&#xA;59=快过来，克劳德&#xD;&#xA;60=命运的分歧点&#xD;&#xA;61=我克制不住我自己&#xD;&#xA;62=高等警备兵&#xD;&#xA;63=女王蠕蛾&#xD;&#xA;64=不是莫古力&#xD;&#xA;65=大窍豆&#xD;&#xA;66=龟纵乐&#xD;&#xA;67=绯红梦魇&#xD;&#xA;68=没错，莫古力！&#xD;&#xA;69=来自五台的使者&#xD;&#xA;70=是谁在妨碍我？&#xD;&#xA;71=擦剑爆燃&#xD;&#xA;72=混沌星云&#xD;&#xA;73=五台的斗志&#xD;&#xA;74=杰涅涅&#xD;&#xA;75=消除护盾&#xD;&#xA;76=无名者&#xD;&#xA;77=玛姆女士&#xD;&#xA;78=小陆行鸟&#xD;&#xA;79=幻象&#xD;&#xA;80=猛烈枪击&#xD;&#xA;81=风暴扫击&#xD;&#xA;82=小型翼蜥&#xD;&#xA;83=匿名者&#xD;&#xA;84=列伏利恐鸟&#xD;&#xA;85=凶斩&#xD;&#xA;86=陆行鸟·山姆&#xD;&#xA;87=冰晶冻结&#xD;&#xA;88=胖陆行鸟&#xD;&#xA;89=加快节奏&#xD;&#xA;90=变异鼠&#xD;&#xA;91=独眼权杖&#xD;&#xA;92=公牛马达&#xD;&#xA;93=生化鼠&#xD;&#xA;94=防御长杖&#xD;&#xA;95=治愈微风&#xD;&#xA;96=星辰守护&#xD;&#xA;97=秘技解放&#xD;&#xA;98=正拳&#xD;&#xA;99=坚忍不拔&#xD;&#xA;100=光之盾&#xD;&#xA;101=爆裂拳&#xD;&#xA;102=重火力兵&#xD;&#xA;103=掷弹兵&#xD;&#xA;104=镇压兵&#xD;&#xA;105=战斗员&#xD;&#xA;106=怪异虫&#xD;&#xA;107=兴奋剂&#xD;&#xA;108=镇静剂&#xD;&#xA;109=万能药&#xD;&#xA;110=星命学&#xD;&#xA;111=琪里耶·卡南&#xD;&#xA;112=雷兹利·凯尔&#xD;&#xA;113=枪榴炸弹&#xD;&#xA;114=大地重击&#xD;&#xA;115=勇猛模式&#xD;&#xA;116=进攻模式&#xD;&#xA;117=壹号激光炮&#xD;&#xA;118=瞬移诡锤&#xD;&#xA;119=电击扫射机&#xD;&#xA;120=狂怒猎犬&#xD;&#xA;121=棘刺蓝鱼&#xD;&#xA;122=墨绿海马&#xD;&#xA;123=巨口噬蝎&#xD;&#xA;124=榭札蟹&#xD;&#xA;125=窃贼阿勃祖&#xD;&#xA;126=穿透狂眼&#xD;&#xA;127=尾针爆怪&#xD;&#xA;128=飞天爆怪&#xD;&#xA;129=堆尘机&#xD;&#xA;130=失落之牙&#xD;&#xA;131=加特林机枪&#xD;&#xA;132=皮革手套&#xD;&#xA;133=忍者射击&#xD;&#xA;134=斗气幻光球&#xD;&#xA;135=少女之吻&#xD;&#xA;136=重逢之花&#xD;&#xA;137=欲望之地&#xD;&#xA;138=落日之城&#xD;&#xA;139=空中兵&#xD;&#xA;140=扎克斯·菲尔&#xD;&#xA;141=尤菲·如月&#xD;&#xA;142=奋力快攻&#xD;&#xA;143=凌空破&#xD;&#xA;144=海豚疾风&#xD;&#xA;145=高速连斩&#xD;&#xA;146=爆燃射击&#xD;&#xA;147=原型猎敌者&#xD;&#xA;148=电能刽子手&#xD;&#xA;149=红蟆刺猬&#xD;&#xA;150=巨无霸噬蝎&#xD;&#xA;151=镰足蠕蛾&#xD;&#xA;152=废气制造机&#xD;&#xA;153=毒气制造机&#xD;&#xA;154=鱼人王子&#xD;&#xA;155=漆黑猎犬&#xD;&#xA;156=生命之流&#xD;&#xA;157=魔晶石猎人&#xD;&#xA;158=兀鹰堡垒&#xD;&#xA;159=神罗公司&#xD;&#xA;160=掌掴快攻&#xD;&#xA;161=贫民窟的太阳&#xD;&#xA;162=寻求希望&#xD;&#xA;163=治安维护部门&#xD;&#xA;164=反击架式&#xD;&#xA;165=驯兽师&#xD;&#xA;166=迷宫之犬&#xD;&#xA;167=玛琳·华勒斯&#xD;&#xA;168=阿尼安·库尼昂&#xD;&#xA;169=里维·杜耶斯提&#xD;&#xA;170=零距离射击&#xD;&#xA;171=圣洁之力&#xD;&#xA;172=审判光线&#xD;&#xA;173=魔法使徒&#xD;&#xA;174=导弹发射器&#xD;&#xA;175=榴弹扫射机&#xD;&#xA;176=红蟆刺猬王&#xD;&#xA;177=黄斑蠕蛾&#xD;&#xA;178=突变爆怪&#xD;&#xA;179=巨角克里普歇&#xD;&#xA;180=雪崩精神&#xD;&#xA;181=神圣魔法阵&#xD;&#xA;182=部队长贡嘉&#xD;&#xA;183=深夜追逐战&#xD;&#xA;184=毁灭的世界&#xD;&#xA;185=亡灵的恶作剧&#xD;&#xA;186=十字手里剑&#xD;&#xA;187=吸收灵气&#xD;&#xA;188=克劳德·斯特莱夫&#xD;&#xA;189=巴雷特·华勒斯&#xD;&#xA;190=杰西·莱兹贝利&#xD;&#xA;191=查德利报告&#xD;&#xA;192=异端蕾莉&#xD;&#xA;193=米德加高速公路&#xD;&#xA;194=无尽终结&#xD;&#xA;195=巨汉强盗&#xD;&#xA;196=直纹叶翼蜥&#xD;&#xA;197=百炮战车&#xD;&#xA;198=第捌区的邂逅&#xD;&#xA;199=激励魔法阵&#xD;&#xA;200=潜入神罗大厦&#xD;&#xA;201=命运的奇点&#xD;&#xA;202=究极魔晶石&#xD;&#xA;203=特殊战斗员&#xD;&#xA;204=强魔战斗员&#xD;&#xA;205=蒂法·洛克哈特&#xD;&#xA;206=五台临时政府&#xD;&#xA;207=特殊空中兵&#xD;&#xA;208=爱丽丝·盖恩斯伯勒&#xD;&#xA;209=逃离混沌&#xD;&#xA;210=高级掷弹兵&#xD;&#xA;211=高等镇压兵&#xD;&#xA;212=特殊作战兵&#xD;&#xA;213=隐密步伐者&#xD;&#xA;214=变异蕾莉&#xD;&#xA;215=贪婪者&#xD;&#xA;216=恶魔乘具&#xD;&#xA;217=卡姆之牙&#xD;&#xA;218=电击之牙&#xD;&#xA;219=白色之牙&#xD;&#xA;220=尼福尔狼&#xD;&#xA;221=振翅翼蜥&#xD;&#xA;222=风暴翼蜥&#xD;&#xA;223=热带棘刺蓝鱼&#xD;&#xA;224=漂浮豚鱼&#xD;&#xA;225=普墨绿海马&#xD;&#xA;226=稀墨绿海马&#xD;&#xA;227=南瓜幽鬼刺猬&#xD;&#xA;228=响板蟹&#xD;&#xA;229=锤钳陆蟹&#xD;&#xA;230=鱼人勇士&#xD;&#xA;231=列伏利恫鸟&#xD;&#xA;232=双脑者&#xD;&#xA;233=龙旋鸟&#xD;&#xA;234=音旋鸟&#xD;&#xA;235=战机鸟&#xD;&#xA;236=飓风鸟&#xD;&#xA;237=音速鸟&#xD;&#xA;238=丘比尔狄努斯&#xD;&#xA;239=快刀处刑者&#xD;&#xA;240=灌顶象怪&#xD;&#xA;241=凯泽尔科亚特尔&#xD;&#xA;242=瑟雅科亚特尔&#xD;&#xA;243=鹰头狮&#xD;&#xA;244=尼德霍格&#xD;&#xA;245=圣柜龙&#xD;&#xA;246=神秘龙&#xD;&#xA;247=上古龙&#xD;&#xA;248=软糊怪&#xD;&#xA;249=暴乱食人魔&#xD;&#xA;250=赛姆泽雷特巨枭&#xD;&#xA;251=怀兹雷特巨枭&#xD;&#xA;252=尖喙兽&#xD;&#xA;253=考特尖喙兽&#xD;&#xA;254=旋索草&#xD;&#xA;255=热炎旋索草&#xD;&#xA;256=精神吸取者&#xD;&#xA;257=古兰迦兰&#xD;&#xA;258=小古兰迦兰&#xD;&#xA;259=迷你古兰迦兰&#xD;&#xA;260=海滩插头怪&#xD;&#xA;261=螺贝插头怪&#xD;&#xA;262=魔魂美杜莎&#xD;&#xA;263=针吻鸟&#xD;&#xA;264=剑吻鸟&#xD;&#xA;265=冠帽搜索者&#xD;&#xA;266=投捕帽妖&#xD;&#xA;267=虫型龟&#xD;&#xA;268=蛇鸡兽&#xD;&#xA;269=杀手烙印&#xD;&#xA;270=双面相&#xD;&#xA;271=沙丘蠕虫&#xD;&#xA;272=巨型蠕虫&#xD;&#xA;273=史宾赛飞鱼&#xD;&#xA;274=银色奇美拉&#xD;&#xA;275=巨角兽&#xD;&#xA;276=护角兽&#xD;&#xA;277=狂暴巨角兽&#xD;&#xA;278=石化蜥龙&#xD;&#xA;279=黄褐巨蜥&#xD;&#xA;280=下级蜥蜴&#xD;&#xA;281=帕亚帕亚蛙&#xD;&#xA;282=岔枝花&#xD;&#xA;283=盛开花&#xD;&#xA;284=混成昆虫&#xD;&#xA;285=混成拟态怪&#xD;&#xA;286=混成恶魔&#xD;&#xA;287=重型坦克&#xD;&#xA;288=憎恨号角&#xD;&#xA;289=奇奇奇亚秋&#xD;&#xA;290=杜杜杜亚秋&#xD;&#xA;291=巨岩魔像&#xD;&#xA;292=太古魔像&#xD;&#xA;293=石化翼蜥&#xD;&#xA;294=胆怯翼蜥&#xD;&#xA;295=贾巴沃克&#xD;&#xA;296=义族的亡灵&#xD;&#xA;297=刺针蜘蛛&#xD;&#xA;298=海盗恶魔&#xD;&#xA;299=颈囊獠牙&#xD;&#xA;300=森林獠牙&#xD;&#xA;301=杀人蜂&#xD;&#xA;302=女王蜂&#xD;&#xA;303=巴拔维拉缪&#xD;&#xA;304=黑蝙蝠&#xD;&#xA;305=虫团&#xD;&#xA;306=盖修梅泽&#xD;&#xA;307=百目怪&#xD;&#xA;308=铁金甲&#xD;&#xA;309=赭红浮游死神&#xD;&#xA;310=浮游死神&#xD;&#xA;311=尖叫者&#xD;&#xA;312=新尾针爆怪&#xD;&#xA;313=马杜万诛&#xD;&#xA;314=未知生命体&#xD;&#xA;315=欢乐怪&#xD;&#xA;316=审判者&#xD;&#xA;317=迦瑞安野兽&#xD;&#xA;318=星座蜗牛&#xD;&#xA;319=进化巨蛙&#xD;&#xA;320=作废实验体&#xD;&#xA;321=秘银魔像&#xD;&#xA;322=摆尾龙鱼&#xD;&#xA;323=义·纳塔塔克&#xD;&#xA;324=灵魂火焰&#xD;&#xA;325=亚历山大&#xD;&#xA;326=神秘剑豪&#xD;&#xA;327=广阔的世界&#xD;&#xA;328=新时代的号炮&#xD;&#xA;329=太阳乐园&#xD;&#xA;330=星球守护者&#xD;&#xA;331=峡谷战士&#xD;&#xA;332=陌生的故乡&#xD;&#xA;333=寻找楔石&#xD;&#xA;334=太阳海岸&#xD;&#xA;335=海滨乔尼&#xD;&#xA;336=魔幻绽放&#xD;&#xA;337=闹鬼酒店&#xD;&#xA;338=奇迹广场&#xD;&#xA;339=战斗广场&#xD;&#xA;340=速度广场&#xD;&#xA;341=燃烧弹&#xD;&#xA;342=星殒地区&#xD;&#xA;343=星殒天文台&#xD;&#xA;344=送星仪式&#xD;&#xA;345=义族的洞窟&#xD;&#xA;346=义族的村落&#xD;&#xA;347=青蛙跳跃&#xD;&#xA;348=战略机兵&#xD;&#xA;349=射击飞艇&#xD;&#xA;350=狂野奔驰&#xD;&#xA;351=卡片嘉年华&#xD;&#xA;352=陆行鸟钻圈&#xD;&#xA;353=沙漠狂袭&#xD;&#xA;354=矿车射击&#xD;&#xA;355=平衡车约会&#xD;&#xA;356=莫古力追逐赛&#xD;&#xA;357=打击仙人掌&#xD;&#xA;358=肌肉竞技场&#xD;&#xA;359=海盗暴乱&#xD;&#xA;360=皇家演奏会&#xD;&#xA;361=陆行鸟冲刺&#xD;&#xA;362=回旋镖&#xD;&#xA;363=风车镖&#xD;&#xA;364=金属棍&#xD;&#xA;365=钢铁剑&#xD;&#xA;366=秘银剑&#xD;&#xA;367=破甲大剑&#xD;&#xA;368=狼牙棒&#xD;&#xA;369=加农弹&#xD;&#xA;370=原子铁钳&#xD;&#xA;371=搏动炮&#xD;&#xA;372=软羽手套&#xD;&#xA;373=音速拳套&#xD;&#xA;374=金属指虎&#xD;&#xA;375=高级手套&#xD;&#xA;376=银制长杖&#xD;&#xA;377=魔法长杖&#xD;&#xA;378=强击长杖&#xD;&#xA;379=丝滑剑&#xD;&#xA;380=原力吞噬者&#xD;&#xA;381=水晶剑&#xD;&#xA;382=火山剑&#xD;&#xA;383=大口径枪&#xD;&#xA;384=破敌发射器&#xD;&#xA;385=破甲机炮&#xD;&#xA;386=法夫纳枪&#xD;&#xA;387=坚实火箭炮&#xD;&#xA;388=高声嘶吼&#xD;&#xA;389=风精手套&#xD;&#xA;390=水晶手套&#xD;&#xA;391=雅恩格利佩尔&#xD;&#xA;392=永恒长杖&#xD;&#xA;393=女帝长杖&#xD;&#xA;394=智者长杖&#xD;&#xA;395=棱镜长杖&#xD;&#xA;396=秘银项圈&#xD;&#xA;397=反叛项圈&#xD;&#xA;398=银制项圈&#xD;&#xA;399=黄金项圈&#xD;&#xA;400=布里希嘉曼&#xD;&#xA;401=魔法项圈&#xD;&#xA;402=回旋匕首&#xD;&#xA;403=双生毒蛇&#xD;&#xA;404=水晶十字剑&#xD;&#xA;405=风魔手里剑&#xD;&#xA;406=黄色扩音器&#xD;&#xA;407=钢铁扩音器&#xD;&#xA;408=水晶扩音器&#xD;&#xA;409=红色扩音器&#xD;&#xA;410=回声扩音器&#xD;&#xA;411=黄金扩音器&#xD;&#xA;412=加拉尔号角&#xD;&#xA;413=青铜手镯&#xD;&#xA;414=铁手镯&#xD;&#xA;415=神秘护腕&#xD;&#xA;416=机械手镯&#xD;&#xA;417=力量手环&#xD;&#xA;418=哥特手镯&#xD;&#xA;419=星辰手环&#xD;&#xA;420=钛手镯&#xD;&#xA;421=皮革护腕&#xD;&#xA;422=铆钉护腕&#xD;&#xA;423=漆黑手环&#xD;&#xA;424=巫师手环&#xD;&#xA;425=魔力护腕&#xD;&#xA;426=法师护腕&#xD;&#xA;427=钢板护腕&#xD;&#xA;428=重金属护腕&#xD;&#xA;429=高级护腕&#xD;&#xA;430=几何手环&#xD;&#xA;431=符文护腕&#xD;&#xA;432=链接手镯&#xD;&#xA;433=米德加手镯&#xD;&#xA;434=神罗手镯&#xD;&#xA;435=忍者护腕&#xD;&#xA;436=魔翔护腕&#xD;&#xA;437=鬼神护腕&#xD;&#xA;438=凤凰护腕&#xD;&#xA;439=金属护臂&#xD;&#xA;440=皮革手镯&#xD;&#xA;441=铜制护臂&#xD;&#xA;442=木灵护身符&#xD;&#xA;443=坚硬手镯&#xD;&#xA;444=骨制手环&#xD;&#xA;445=猫头鹰护臂&#xD;&#xA;446=兽人护腕&#xD;&#xA;447=水手护臂&#xD;&#xA;448=象皮手镯&#xD;&#xA;449=野性手环&#xD;&#xA;450=女王手镯&#xD;&#xA;451=堡垒护臂&#xD;&#xA;452=幻惑护身符&#xD;&#xA;453=深渊手镯&#xD;&#xA;454=巨兽手环&#xD;&#xA;455=奇术护腕&#xD;&#xA;456=飞燕护臂&#xD;&#xA;457=合金护臂&#xD;&#xA;458=魔女护身符&#xD;&#xA;459=法外之徒手镯&#xD;&#xA;460=鳄鱼手环&#xD;&#xA;461=贤者护腕&#xD;&#xA;462=大角手环&#xD;&#xA;463=陆行鸟护腕&#xD;&#xA;464=司令护臂&#xD;&#xA;465=冥界护身符&#xD;&#xA;466=螺纹手环&#xD;&#xA;467=谷神星手镯&#xD;&#xA;468=脊骨手环&#xD;&#xA;469=荣耀护臂&#xD;&#xA;470=迦姆手镯&#xD;&#xA;471=沃瓦道斯手环&#xD;&#xA;472=女武神手镯&#xD;&#xA;473=哈迪斯护身符&#xD;&#xA;474=赛特拉护臂&#xD;&#xA;475=赛特拉护身符&#xD;&#xA;476=赛特拉手镯&#xD;&#xA;477=赛特拉护腕&#xD;&#xA;478=威力护腕&#xD;&#xA;479=疗愈颈链&#xD;&#xA;480=全力护腕&#xD;&#xA;481=精灵耳环&#xD;&#xA;482=辟邪护符&#xD;&#xA;483=防弹背心&#xD;&#xA;484=白金耳环&#xD;&#xA;485=远古护身符&#xD;&#xA;486=星之坠饰&#xD;&#xA;487=青蛙戒指&#xD;&#xA;488=疾风领巾&#xD;&#xA;489=救赎徽章&#xD;&#xA;490=新月幸运符&#xD;&#xA;491=防御长靴&#xD;&#xA;492=诸神黄昏&#xD;&#xA;493=冠军腰带&#xD;&#xA;494=莫古力护符&#xD;&#xA;495=神奇水晶&#xD;&#xA;496=愤怒戒指&#xD;&#xA;497=魔法戒指&#xD;&#xA;498=魔法齿轮&#xD;&#xA;499=怒气传导器&#xD;&#xA;500=幻兽护符&#xD;&#xA;501=明星腰带&#xD;&#xA;502=赤鬼内存&#xD;&#xA;503=青鬼内存&#xD;&#xA;504=强力辟邪护符&#xD;&#xA;505=魔力耳环&#xD;&#xA;506=高威力护腕&#xD;&#xA;507=精神幸运符&#xD;&#xA;508=友爱耳环&#xD;&#xA;509=行人徽章&#xD;&#xA;510=罗榭钥匙圈&#xD;&#xA;511=邪龙戒指&#xD;&#xA;512=海盗王的罗盘&#xD;&#xA;513=源氏护手&#xD;&#xA;514=怨恨围巾&#xD;&#xA;515=幸运护符&#xD;&#xA;516=宝石戒指&#xD;&#xA;517=雪白披肩&#xD;&#xA;518=全劲护腕&#xD;&#xA;519=战斗装甲&#xD;&#xA;520=法师耳环&#xD;&#xA;521=赛特拉护符&#xD;&#xA;522=极限增幅器&#xD;&#xA;523=不屈之戒&#xD;&#xA;524=盗贼护手&#xD;&#xA;525=彻甲手榴弹&#xD;&#xA;526=苔纹玛瑙&#xD;&#xA;527=绯红石&#xD;&#xA;528=月长石&#xD;&#xA;529=秘银矿石&#xD;&#xA;530=魔法粉末&#xD;&#xA;531=星魔石&#xD;&#xA;532=芳醇橡木&#xD;&#xA;533=兀鹰杉木&#xD;&#xA;534=贡加松木&#xD;&#xA;535=魔雾种子&#xD;&#xA;536=圣露榭&#xD;&#xA;537=珍珠姜&#xD;&#xA;538=墨角兰&#xD;&#xA;539=星星碎片&#xD;&#xA;540=海盗遗物&#xD;&#xA;541=星之恩赐&#xD;&#xA;542=星之果实&#xD;&#xA;543=星之恩惠&#xD;&#xA;544=星之奥秘&#xD;&#xA;545=星之祝福&#xD;&#xA;546=星之启示&#xD;&#xA;547=范围化&#xD;&#xA;548=魔法追击&#xD;&#xA;549=敌方招式&#xD;&#xA;550=道具高手&#xD;&#xA;551=自动疗伤&#xD;&#xA;552=强化防御&#xD;&#xA;553=闪避斩&#xD;&#xA;554=提升经验值&#xD;&#xA;555=先发制人&#xD;&#xA;556=招式高手&#xD;&#xA;557=魔晶石跃升&#xD;&#xA;558=自动魔法&#xD;&#xA;559=强化魔法&#xD;&#xA;560=快速咏唱&#xD;&#xA;561=道具大师&#xD;&#xA;562=极限结合&#xD;&#xA;563=联手连锁&#xD;&#xA;564=极限共享&#xD;&#xA;565=吉尔伽美什&#xD;&#xA;566=莫古力团&#xD;&#xA;567=花俏陆行鸟&#xD;&#xA;568=惩戒串联&#xD;&#xA;569=追击之友&#xD;&#xA;570=迅雷风烈&#xD;&#xA;571=背猫之刑&#xD;&#xA;572=甜蜜匪徒&#xD;&#xA;573=天堂弹珠台&#xD;&#xA;574=行星咆哮&#xD;&#xA;575=热情搏动炮&#xD;&#xA;576=雪崩混战&#xD;&#xA;577=猫咪加农炮&#xD;&#xA;578=忍者机关枪&#xD;&#xA;579=和谐回旋&#xD;&#xA;580=猛虎快攻&#xD;&#xA;581=莫古力灌顶&#xD;&#xA;582=联合狂暴&#xD;&#xA;583=傀儡马戏团&#xD;&#xA;584=飞跃野兽&#xD;&#xA;585=野蛮搭档&#xD;&#xA;586=猫咪冲撞&#xD;&#xA;587=云外苍天&#xD;&#xA;588=超绝分身术&#xD;&#xA;589=螺旋台风&#xD;&#xA;590=巨大莫古力&#xD;&#xA;591=转转木马&#xD;&#xA;592=嚼嚼弹跳&#xD;&#xA;593=交叉螺旋&#xD;&#xA;594=空洞爆发&#xD;&#xA;595=反击射击&#xD;&#xA;596=猛烈爆发&#xD;&#xA;597=魔法爆发&#xD;&#xA;598=变换防御&#xD;&#xA;599=知音支援&#xD;&#xA;600=光耀爆发&#xD;&#xA;601=双重防御&#xD;&#xA;602=超级冲撞&#xD;&#xA;603=友谊射击&#xD;&#xA;604=摩天翔&#xD;&#xA;605=天升击&#xD;&#xA;606=摇摆捷舞&#xD;&#xA;607=狂野驰骋&#xD;&#xA;608=魅影撕咬&#xD;&#xA;609=锁定手里剑&#xD;&#xA;610=进攻冲刺&#xD;&#xA;611=双剑乱舞&#xD;&#xA;612=闪光烈焰&#xD;&#xA;613=空中驱动&#xD;&#xA;614=画龙点睛&#xD;&#xA;615=招架反击&#xD;&#xA;616=蓄积气场&#xD;&#xA;617=八刀一闪&#xD;&#xA;618=反击之刃&#xD;&#xA;619=时间之力&#xD;&#xA;620=闪光魔法阵&#xD;&#xA;621=神圣蓄积&#xD;&#xA;622=愤怒烙印&#xD;&#xA;623=旋风俯冲&#xD;&#xA;624=天堂部落&#xD;&#xA;625=连续斩&#xD;&#xA;626=陨石乱击&#xD;&#xA;627=额外弹药&#xD;&#xA;628=灵魂爆发&#xD;&#xA;629=血腥轰炸&#xD;&#xA;630=回旋利牙&#xD;&#xA;631=超级防御&#xD;&#xA;632=星尘射线&#xD;&#xA;633=月牙爪击&#xD;&#xA;634=癫狂快感&#xD;&#xA;635=战士疗愈&#xD;&#xA;636=战士鼓舞&#xD;&#xA;637=致命挥击&#xD;&#xA;638=穿刺獠牙&#xD;&#xA;639=血腥獠牙&#xD;&#xA;640=大地狂啸&#xD;&#xA;641=投掷手里剑&#xD;&#xA;642=风林火山&#xD;&#xA;643=雾锁云埋&#xD;&#xA;644=忍术变化&#xD;&#xA;645=出其不意&#xD;&#xA;646=飞毛腿功&#xD;&#xA;647=邪鬼退散&#xD;&#xA;648=吸收邪气&#xD;&#xA;649=疾风迅雷&#xD;&#xA;650=生者必灭&#xD;&#xA;651=头奖杀戮&#xD;&#xA;652=抚猫光束&#xD;&#xA;653=全体破坏&#xD;&#xA;654=猫盆攻击&#xD;&#xA;655=猫咪攻击&#xD;&#xA;656=呼叫莫古力&#xD;&#xA;657=运势攻击&#xD;&#xA;658=莫古力爆炸&#xD;&#xA;659=莫古力地雷&#xD;&#xA;660=莫古力召唤术&#xD;&#xA;661=莫古力拳击&#xD;&#xA;662=莫古力突击&#xD;&#xA;663=莫古箱&#xD;&#xA;664=百万莫古箱&#xD;&#xA;665=十亿莫古箱&#xD;&#xA;666=前坠踢&#xD;&#xA;667=守护鼓舞&#xD;&#xA;668=狂暴鼓舞&#xD;&#xA;669=沉默撞击&#xD;&#xA;670=时间撞击&#xD;&#xA;671=中毒撞击&#xD;&#xA;672=石化撞击&#xD;&#xA;673=快速蓄力&#xD;&#xA;674=攻击蓄力&#xD;&#xA;675=猛爆快攻&#xD;&#xA;676=疗愈之风&#xD;&#xA;677=最后轮盘&#xD;&#xA;678=仙人掌炸弹&#xD;&#xA;679=超级臭气&#xD;&#xA;680=怒发冲冠爆击&#xD;&#xA;681=大家的怨恨&#xD;&#xA;682=怨恨爆炸&#xD;&#xA;683=阴生气了&#xD;&#xA;684=莫古炸弹&#xD;&#xA;685=陆行鸟踢&#xD;&#xA;686=塔克斯俯冲&#xD;&#xA;687=命运宣告&#xD;&#xA;688=无心天使&#xD;&#xA;689=斩铁剑&#xD;&#xA;690=莫古力紧急出动&#xD;&#xA;691=钻石星尘&#xD;&#xA;692=大地之怒&#xD;&#xA;693=转生之炎&#xD;&#xA;694=神圣审判&#xD;&#xA;695=三重灾祸&#xD;&#xA;696=魔晶耳环&#xD;&#xA;697=水塔广场&#xD;&#xA;698=尼福尔山&#xD;&#xA;699=神罗公馆&#xD;&#xA;700=贾斯德博士&#xD;&#xA;701=杰诺瓦计划&#xD;&#xA;702=罗夏·赞甘&#xD;&#xA;703=我要去见母亲&#xD;&#xA;704=技能书&#xD;&#xA;705=制作终端机&#xD;&#xA;706=快速移动&#xD;&#xA;707=秘银矿坑&#xD;&#xA;708=奥利弗牧场&#xD;&#xA;709=格林牧场&#xD;&#xA;710=格林葛林&#xD;&#xA;711=黄金羽毛&#xD;&#xA;712=格拉斯兰&#xD;&#xA;713=世界报告&#xD;&#xA;714=莫古力奖牌&#xD;&#xA;715=黄金点数&#xD;&#xA;716=战斗报告&#xD;&#xA;717=生命点&#xD;&#xA;718=古代物质&#xD;&#xA;719=陆行鸟笛&#xD;&#xA;720=史夫尔总督&#xD;&#xA;721=伊弗利特阵形&#xD;&#xA;722=巴哈姆特阵形&#xD;&#xA;723=拉姆阵形&#xD;&#xA;724=希瓦阵形&#xD;&#xA;725=巨型魔晶石&#xD;&#xA;726=第八神罗丸&#xD;&#xA;727=蕾吉·肯尼金&#xD;&#xA;728=神罗度假村&#xD;&#xA;729=黑斗篷&#xD;&#xA;730=在海岸遇见爱&#xD;&#xA;731=平衡车&#xD;&#xA;732=太阳海岸·海滩&#xD;&#xA;733=席隆医生&#xD;&#xA;734=活动广场&#xD;&#xA;735=鬼魂广场&#xD;&#xA;736=乐园中心&#xD;&#xA;737=黄金剧场&#xD;&#xA;738=黄金乐园&#xD;&#xA;739=超越极限&#xD;&#xA;740=别怨我&#xD;&#xA;741=黄金护照&#xD;&#xA;742=星球的血液&#xD;&#xA;743=真的很抱歉&#xD;&#xA;744=不，香草不行&#xD;&#xA;745=钩索枪&#xD;&#xA;746=贡加加村&#xD;&#xA;747=贡加菇&#xD;&#xA;748=这次我会保护你&#xD;&#xA;749=野马航空&#xD;&#xA;750=盖泽尔·布根哈根&#xD;&#xA;751=布根哈根&#xD;&#xA;752=星球的子民&#xD;&#xA;753=星命学习器&#xD;&#xA;754=漆黑的宝珠&#xD;&#xA;755=文森特·瓦伦丁&#xD;&#xA;756=迦尔帝亚&#xD;&#xA;757=阿尔弗雷德&#xD;&#xA;758=沃瓦道斯&#xD;&#xA;759=我今天不加班&#xD;&#xA;760=不必悲伤&#xD;&#xA;761=忘却之都&#xD;&#xA;762=正宗&#xD;&#xA;763=坠落的英雄&#xD;&#xA;764=杰诺瓦再临&#xD;&#xA;765=片刻假期&#xD;&#xA;766=逃离乐园&#xD;&#xA;767=查德利计算溢出&#xD;&#xA;768=星球的悲鸣&#xD;&#xA;769=钢琴巨匠&#xD;&#xA;770=超越一切者&#xD;&#xA;771=复仇之旅启程&#xD;&#xA;772=逃离第捌区&#xD;&#xA;773=瓮中之鳖&#xD;&#xA;774=飞镖高手&#xD;&#xA;775=舞蹈皇后&#xD;&#xA;776=传说剑豪&#xD;&#xA;777=连打重击&#xD;&#xA;778=制裁之雷&#xD;&#xA;779=冰柱咆哮&#xD;&#xA;780=双刺剑&#xD;&#xA;781=猎鹰人&#xD;&#xA;782=走了，新来的！&#xD;&#xA;783=哈，非常好！&#xD;&#xA;784=爸爸，欢迎回来！&#xD;&#xA;785=咻咻咻咻！&#xD;&#xA;786=喂！你干什么啊！&#xD;&#xA;787=兴致勃勃！&#xD;&#xA;788=干劲十足！&#xD;&#xA;789=来比一场吧！&#xD;&#xA;790=忍法，晴天霹雳！&#xD;&#xA;791=招待不周！&#xD;&#xA;792=劲歌热舞吧！&#xD;&#xA;793=请多指教！&#xD;&#xA;794=神罗去吃屎吧！&#xD;&#xA;795=处以撸猫之刑！&#xD;&#xA;796=洛克哈特&#xD;&#xA;797=斯特莱夫&#xD;&#xA;798=盖恩斯伯勒&#xD;&#xA;799=放马过来吧！&#xD;&#xA;800=宗达村长&#xD;&#xA;801=忍者后裔&#xD;&#xA;802=第肆圆盘&#xD;&#xA;803=把握当下&#xD;&#xA;804=萨菲罗斯">
+<Condition Grouping="Or">
+<ConditionSingle L="${ed:魔光键影_pool1}" Op="NumericFalse" />
+</Condition>
+</ActionVariableDict>
+<ActionVariableDict Operation="Build" TargetVar="魔光键影_pool2" Value="=&#xD;&#xA;0=别擅自把我当成一伙的&#xD;&#xA;1=单手是枪的男人&#xD;&#xA;2=那是我的工作，不需要谢礼&#xD;&#xA;3=神罗治安维护部队&#xD;&#xA;4=我们的星球即将消失&#xD;&#xA;5=无法违逆既定的轨道&#xD;&#xA;6=贫民窟生活守则&#xD;&#xA;7=米德加特制总汇&#xD;&#xA;8=我想多跟你在一起嘛&#xD;&#xA;9=围墙商店街&#xD;&#xA;10=不错，我有点心动&#xD;&#xA;11=我第一个喜欢上的人&#xD;&#xA;12=让你成为最棒的新娘&#xD;&#xA;13=克劳德，我可以叫你大哥吗？&#xD;&#xA;14=克劳德，我可以动粗吗？&#xD;&#xA;15=对付鬼不是我的专长&#xD;&#xA;16=捉迷藏就到此为止了&#xD;&#xA;17=竟然搞错该回去的地方&#xD;&#xA;18=但你不要喜欢上我哦&#xD;&#xA;19=失去会使你变强&#xD;&#xA;20=螺旋飞行重炮&#xD;&#xA;21=热身运动结束了&#xD;&#xA;22=我会给你一个难忘的夜晚&#xD;&#xA;23=这是感人的重逢&#xD;&#xA;24=然后，回到应许之地&#xD;&#xA;25=妈妈，一起取回这个星球吧&#xD;&#xA;26=天空感觉真不舒服&#xD;&#xA;27=自由的代价果然很高&#xD;&#xA;28=夺取究极魔晶石&#xD;&#xA;29=令人焦急的水路&#xD;&#xA;30=能量上钩拳&#xD;&#xA;31=原型机关枪&#xD;&#xA;32=雪崩的殊死战斗&#xD;&#xA;33=强化战斗员&#xD;&#xA;34=重魔装战斗员&#xD;&#xA;35=重装甲战斗员&#xD;&#xA;36=特装型猎敌者&#xD;&#xA;37=棘刺蓝鱼指挥官&#xD;&#xA;38=有翼列伏利恐鸟&#xD;&#xA;39=冠帽长矛水母&#xD;&#xA;40=飞翔开膛手&#xD;&#xA;41=魔晶石看守者&#xD;&#xA;42=英雄萨菲罗斯&#xD;&#xA;43=黑斗篷的去向&#xD;&#xA;44=狂乱的海上旅行&#xD;&#xA;45=充满懊悔的归乡&#xD;&#xA;46=迈向终结的世界&#xD;&#xA;47=我要替搭档找你们算账&#xD;&#xA;48=召唤兽的祠堂&#xD;&#xA;49=古代种的神殿&#xD;&#xA;50=野兽战斗广场&#xD;&#xA;51=仙人掌手里剑&#xD;&#xA;52=全金属长杖&#xD;&#xA;53=紫水晶项圈&#xD;&#xA;54=道路之星手镯&#xD;&#xA;55=世界之树护身符&#xD;&#xA;56=野外求生背心&#xD;&#xA;57=自动重生耳环&#xD;&#xA;58=宇宙骑士团从军勋章&#xD;&#xA;59=破坏专家钥匙圈&#xD;&#xA;60=陆行鸟王的斗篷&#xD;&#xA;61=强化精准防御&#xD;&#xA;62=轰隆轰隆炮&#xD;&#xA;63=神罗战士的尊严&#xD;&#xA;64=真勇猛解放&#xD;&#xA;65=高度英勇斩击&#xD;&#xA;66=仙人掌魔法护盾&#xD;&#xA;67=超电磁幻光球&#xD;&#xA;68=阳露出了笑容&#xD;&#xA;69=吉尔伽美什光束&#xD;&#xA;70=尼福尔海姆是我的故乡&#xD;&#xA;71=我一直认为自己是特别的&#xD;&#xA;72=时代变了啊，克劳德&#xD;&#xA;73=要对剑祈祷就趁现在&#xD;&#xA;74=是你喜欢的发展呢&#xD;&#xA;75=我现在就去接你&#xD;&#xA;76=我是天选之人&#xD;&#xA;77=让人梦寐以求的休假&#xD;&#xA;78=爱丽丝就拜托你们了&#xD;&#xA;79=是你们挑起战争的&#xD;&#xA;80=下次就推心置腹地聊聊吧&#xD;&#xA;81=要比腹肌我是不会输的&#xD;&#xA;82=丧尽天良的神罗公司&#xD;&#xA;83=格伦·洛斯布鲁克上校&#xD;&#xA;84=巨型魔晶石之争&#xD;&#xA;85=闪耀吧，磨亮吧，我的太阳&#xD;&#xA;86=来吧，新时代即将揭开序幕&#xD;&#xA;87=米德加第七步兵连队&#xD;&#xA;88=新总裁就任庆祝游行&#xD;&#xA;89=来吧，表演时间到了&#xD;&#xA;90=太阳海岸度假村&#xD;&#xA;91=像海螺一样卷卷的&#xD;&#xA;92=海岸的英雄乔尼&#xD;&#xA;93=下次就是雪耻之战了&#xD;&#xA;94=巨型魔晶石计划&#xD;&#xA;95=能和家人在一起是最好的&#xD;&#xA;96=摩天轮广场&#xD;&#xA;97=陆行鸟广场&#xD;&#xA;98=这是我的……我们之间的问题&#xD;&#xA;99=幸运食物是蘑菇&#xD;&#xA;100=黑迷利翁或红溪里&#xD;&#xA;101=毕竟我没有讨厌他的理由嘛&#xD;&#xA;102=天空不属于任何人&#xD;&#xA;103=愿星球与各位同在&#xD;&#xA;104=克劳德，我想得到黑魔晶石&#xD;&#xA;105=搭档，说一下平常那句&#xD;&#xA;106=你可别小看塔克斯&#xD;&#xA;107=得活着才能是塔克斯&#xD;&#xA;108=我可爱的空壳人偶&#xD;&#xA;109=用愤怒填满你空虚的心&#xD;&#xA;110=充满回忆的地方&#xD;&#xA;111=我想重拾我的人生&#xD;&#xA;112=让我把祝福送给你吧&#xD;&#xA;113=生命循环于这颗星球&#xD;&#xA;114=于我们的世界再结合&#xD;&#xA;115=劣化的神罗战士&#xD;&#xA;116=充满回忆的约会&#xD;&#xA;117=钟爱莫古力的神罗战士&#xD;&#xA;118=星球涌泉的战略大师&#xD;&#xA;119=兀鹰堡垒名将&#xD;&#xA;120=第七步兵连队全体集合&#xD;&#xA;121=获得最优秀表演奖&#xD;&#xA;122=万能帮手的工作&#xD;&#xA;123=神罗战士的热身&#xD;&#xA;124=神罗摩托车骑手&#xD;&#xA;125=乔尼的超级死党&#xD;&#xA;126=这是上级的命令&#xD;&#xA;127=宇宙不是我的对口专业&#xD;&#xA;128=我们似乎特别走运呢&#xD;&#xA;129=你很大胆嘛，我的朋友！&#xD;&#xA;130=全都讨厌得不得了！&#xD;&#xA;131=可别忘了微笑啊&#xD;&#xA;132=肮脏的鼠辈，欢迎你们！&#xD;&#xA;133=我们会立刻彻底铲除你们！&#xD;&#xA;134=来吧小猫咪，投入我的怀抱！&#xD;&#xA;135=万事通琪里耶的特大新闻哦！&#xD;&#xA;136=米德加的市长最棒了！&#xD;&#xA;137=来吧，展现你华丽的姿态&#xD;&#xA;138=开始卡片对战！&#xD;&#xA;139=火辣辣、痒痒的对吧！&#xD;&#xA;140=实验秀要揭开序幕了！&#xD;&#xA;141=有时是华丽的刺客！&#xD;&#xA;142=就是大家最喜欢的尤菲哦！&#xD;&#xA;143=人生就是战斗！&#xD;&#xA;144=我的手已经沾满鲜血了啊！&#xD;&#xA;145=立刻停止抵抗并投降&#xD;&#xA;146=美丽是不分男女的&#xD;&#xA;147=小心翼翼、忍耐安静……&#xD;&#xA;148=只是回归星球而已&#xD;&#xA;149=好好享受吧，克劳德">
+<Condition Grouping="Or">
+<ConditionSingle L="${ed:魔光键影_pool2}" Op="NumericFalse" />
+</Condition>
+</ActionVariableDict>
+<ActionVariableDict Operation="Build" TargetVar="魔光键影_pool3" Value="=&#xD;&#xA;0=强硬和愚蠢只有一线之隔&#xD;&#xA;1=来吧，期待已久的表演时间到了！&#xD;&#xA;2=它瞄准的敌人，没有一个跑得掉&#xD;&#xA;3=我居然忘记猪油已经用完了&#xD;&#xA;4=神罗会在我手中脱胎换骨&#xD;&#xA;5=未来正掌握在你的手中&#xD;&#xA;6=人生是永无止境的迷宫&#xD;&#xA;7=特装型螺旋飞行重炮&#xD;&#xA;8=继承了伟大科学家工作的凡人&#xD;&#xA;9=宝条那家伙，居然真这么做&#xD;&#xA;10=日后将成为星球的支配者&#xD;&#xA;11=未来的最强卡片对战者&#xD;&#xA;12=用两只脚站立还真难啊&#xD;&#xA;13=陷入困境时，得到英雄拯救&#xD;&#xA;14=星命学的圣地星殒峡谷&#xD;&#xA;15=看来我的罪行又增加了一条&#xD;&#xA;16=过去被称为英雄的男人&#xD;&#xA;17=我得狠狠揍你这家伙一下才行&#xD;&#xA;18=不管发生什么都要在一起哦&#xD;&#xA;19=选择之后就会出现新世界&#xD;&#xA;20=雷诺前辈不在，就由我来补上！&#xD;&#xA;21=有时是高超的魔晶石猎人！&#xD;&#xA;22=有时是出手相助的美少女忍者！&#xD;&#xA;23=塔克斯的制服为什么是黑色的啊！&#xD;&#xA;24=双人……是指那种双人吗？&#xD;&#xA;25=因为我是来自星殒峡谷的纳纳奇！&#xD;&#xA;26=我高薪聘请你，你可别让我失望">
+<Condition Grouping="Or">
+<ConditionSingle L="${ed:魔光键影_pool3}" Op="NumericFalse" />
+</Condition>
+</ActionVariableDict>
+<ActionPlaceholder Desc="词语池 poolRow (KTGTypeWordProgram 表里的索引)：4C4B4A (5000010) - 4C4B4D (5000013)，对应 poolId 00-03" DescOverride="True" />
+<ActionPlaceholder Desc="pool 0 = 小怪，1 = Boss 2，2 = Boss 3，3 = 护盾充能" DescOverride="True" />
+<ActionVariableScalar Operation="SetNumeric" Name="_poolId" Value="0x${poolId}" />
+<ActionPlaceholder Desc="wordId：词语在每个池中的索引，0 开始" DescOverride="True" />
+<ActionVariableScalar Operation="SetNumeric" Name="_wordId" Value="0x${wordId}" />
+<ActionPlaceholder Desc="记录" DescOverride="True" />
+<ActionVariableDict Operation="Set" ValueType="Numeric" Name="魔光键影_id至可打时间" Key="${sid}" Value="${_systemtimems} + ${pd:魔光键影_cfg.get(tMin, 1.0)} * 1000">
+<Condition Grouping="Or">
+<ConditionSingle L="${d:魔光键影_id至可打时间.ekey(${sid})}" Op="NumericFalse" />
+</Condition>
+</ActionVariableDict>
+<ActionVariableDict Operation="Set" Name="魔光键影_id至词" Key="${sid}" Value="${!d:魔光键影_pool${!v:_poolId}.get(${!v:_wordId})}" />
+<ActionVariableList Operation="Push" Name="魔光键影_pool${!v:_poolId}" Value="${sid}">
+<Condition Grouping="Or">
+<ConditionSingle L="${l:魔光键影_pool${!v:_poolId}.contain(${sid})}" Op="NumericFalse" />
+</Condition>
+</ActionVariableList>
+<ActionVariableList DescBackColor="fdd" Operation="Push" Name="魔光键影_Debug" Value="${time} 词语池 ${!v:_poolId} 索引 ${!v:_wordId}: ${!d:魔光键影_pool${!v:_poolId}.get(${!v:_wordId}, 【错误】未找到词汇)} (${sid})">
+<Condition Grouping="And">
+<ConditionSingle L="${ev:debug}" Op="NumericTrue" />
+</Condition>
+</ActionVariableList>
+<ActionVariableScalar Name="_poolId" />
+<ActionVariableScalar Name="_wordId" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="0ac28c91-4f6e-4c45-9ea1-b25f99d36458" Name="5. 移除小怪" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 21:8003DEA9:1000000B:(?&lt;sid&gt;4.{7}):">
+<Actions>
+<ActionVariableDict Operation="Remove" Name="魔光键影_id至词" Key="${sid}" />
+<ActionVariableDict Operation="Remove" Name="魔光键影_id至可打时间" Key="${sid}" />
+<ActionVariableList Operation="Remove" Name="魔光键影_优先id" Index="${l:魔光键影_优先id.indexof(${sid})}" />
+<ActionVariableList Operation="Remove" Name="魔光键影_pool0" Index="${l:魔光键影_pool0.indexof(${sid})}" />
+<ActionVariableList Operation="Remove" Name="魔光键影_pool1" Index="${l:魔光键影_pool1.indexof(${sid})}" />
+<ActionVariableList Operation="Remove" Name="魔光键影_pool2" Index="${l:魔光键影_pool2.indexof(${sid})}" />
+<ActionVariableList Operation="Remove" Name="魔光键影_pool3" Index="${l:魔光键影_pool3.indexof(${sid})}" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="a8b48ab8-0663-4bf0-a0b7-210bd2096d44" Name="2a. 狂暴读条 / 可打断读条" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;C174|C182|C227):">
+<Actions>
+<ActionPlaceholder Desc="默认不会有两个怪同时放此类技能" DescOverride="True" />
+<ActionPlaceholder Desc="C174 ？针刺　　C182 主加农炮　　C227 霹雳炸弹" DescOverride="True" />
+<ActionVariableList Operation="Push" Name="魔光键影_优先id" Value="${sid}">
+<Condition Grouping="Or">
+<ConditionSingle L="${l:魔光键影_优先id.contain(${sid})}" Op="NumericFalse" />
+</Condition>
+</ActionVariableList>
+<ActionPlaceholder ExecDelay="${?d: C174=7000, C182=12000, C227=12000 [${aid}]}" />
+<ActionVariableList ExecDelay="" Operation="Remove" Name="魔光键影_优先id" Index="${l:魔光键影_优先id.indexof(${sid})}" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="99722c7a-33b4-48c3-917d-7030f2882dc3" Name="2b. 可打断读条被打断" RegularExpression="^.{15}\S+ 17:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;C174|C182|C227):">
+<Actions>
+<ActionVariableList Operation="Remove" Name="魔光键影_优先id" Index="${l:魔光键影_优先id.indexof(${sid})}" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="44c0cb81-4eca-49dc-a7ed-9cc184951f29" Name="4a. 停手读条" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;C179|C226):">
+<Actions>
+<ActionPlaceholder Desc="默认不会有两个怪同时放此类技能" DescOverride="True" />
+<ActionPlaceholder Desc="C179 诅咒视线　　C226 运动体探知干扰器" DescOverride="True" />
+<ActionVariableScalar ExecDelay="3700" Operation="SetString" Name="魔光键影_b停手" Value="1" />
+<ActionVariableScalar ExecDelay="1300" Name="魔光键影_b停手" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="54d9398e-b802-41f3-8e07-de487c9f4d70" Name="4b. 停手读条被打断" RegularExpression="^.{15}\S+ 17:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;C179|C226):">
+<Actions>
+<ActionVariableScalar ExecDelay="" Name="魔光键影_b停手" />
+<ActionTriggerOperation Operation="CancelTrigger" TriggerId="44c0cb81-4eca-49dc-a7ed-9cc184951f29" />
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="78ecdbce-7114-4602-8723-43f37ca8ffa6" Name="3. 狂暴读条" RegularExpression="^.{15}\S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;C18[6789]|C17[678]):">
+<Actions>
+<ActionPlaceholder Desc="C18[6789] 出芽　　C17[678] 自爆" DescOverride="True" />
+<ActionVariableList Operation="Push" Name="魔光键影_优先id" Value="${sid}">
+<Condition Grouping="Or">
+<ConditionSingle L="${l:魔光键影_优先id.contain(${sid})}" Op="NumericFalse" />
+</Condition>
+</ActionVariableList>
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="7e767dc9-1a5d-4c7b-b01d-8660656b0091" Enabled="true" Name="Debug">
+<Triggers>
+<Trigger Enabled="true" Id="53f865f1-6a9d-4a74-8eea-573abe1d05f9" Name="cast" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 14:(?&lt;sid&gt;4.{7}):([^:]|: )*:(?&lt;aid&gt;[^:]*):(?&lt;an&gt;[^:]+):">
+<Actions>
+<ActionVariableList Operation="Push" Name="魔光键影_Debug" Value="${time} Cast ${sid} ${aid} ${an}" />
+</Actions>
+<Condition Grouping="Or">
+<ConditionSingle L="${ev:debug}" Op="NumericTrue" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="317d15b4-2b63-4481-9228-068a36f62adb" Name="debug all" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 21:(?&lt;directorId&gt;8003DEA9):(?&lt;command&gt;[14].{7}):(?&lt;a1&gt;[0-9A-Fa-f]+):(?&lt;a2&gt;[0-9A-Fa-f]+):(?&lt;a3&gt;[0-9A-Fa-f]+):(?&lt;a4&gt;[0-9A-Fa-f]+)(?:$|:)">
+<Actions>
+<ActionVariableList Enabled="False" Name="魔光键影_Debug" />
+<ActionVariableList Operation="Push" Name="魔光键影_Debug" Value="${time} ${command} (${?d:&#xD;&#xA;  10000003=护盾复原,&#xD;&#xA;  10000004=护盾受损,&#xD;&#xA;  10000007=玩家状态,&#xD;&#xA;  10000008=词语刷新,&#xD;&#xA;  1000000A=分数更新,&#xD;&#xA;  1000000B=目标死亡,&#xD;&#xA;  1000000D=任务计数,&#xD;&#xA;  10000012=自身击杀,&#xD;&#xA;  10000013=副本状态,&#xD;&#xA;  10000014=通过阶段,&#xD;&#xA;  10000016=自身击中,&#xD;&#xA;  40000001=副本开始,&#xD;&#xA;  40000002=副本胜利&#xD;&#xA;  .get(${command}, &quot;未知　　&quot;)&#xD;&#xA;}): ${a1}, ${a2}, ${a3}, ${a4}">
+<Condition Grouping="And">
+<ConditionSingle L="${command}" TypeL="String" R="1000000A" TypeR="String" Op="StringNotEqualCase" />
+<ConditionSingle L="${command}" TypeL="String" R="1000000B" TypeR="String" Op="StringNotEqualCase" />
+<ConditionSingle L="${command}" TypeL="String" R="10000012" TypeR="String" Op="StringNotEqualCase" />
+<ConditionSingle L="${command}" TypeL="String" R="10000016" TypeR="String" Op="StringNotEqualCase" />
+<ConditionSingle L="${command}" TypeL="String" R="10000008" TypeR="String" Op="StringNotEqualCase" />
+</Condition>
+</ActionVariableList>
+<ActionOverlayText Alignment="TopLeft" FontSize="15" TextColor="fff" OutlineColor="000" Name="魔光键影_Debug" Text="${l:魔光键影_Debug.join(&quot;⏎&quot;, &quot;-30:&quot;)}" X_0="21" Y_0="93" W_0="1172" H_0="1256" O_0="100" Font="等距更纱黑体 SC" />
+<ActionClipboard Enabled="False" Value="${l:魔光键影_Debug.join(&quot;⏎&quot;)}" />
+</Actions>
+<Condition Grouping="Or">
+<ConditionSingle L="${ev:debug}" Op="NumericTrue" />
+</Condition>
+</Trigger>
+</Triggers>
+</Folder>
+<Folder Id="206acee6-193c-4a35-9755-d3e82ce8b733" Enabled="true" Name="主循环">
+<Triggers>
+<Trigger Enabled="true" Id="5f07cf74-e993-4337-a809-e289e3a5adf4" Name="获取可输入状态" RegularExpression="^(?&lt;time&gt;.{14}) \S+ 21:8003DEA9:10000013:(?&lt;status&gt;0[01234]):">
+<Actions>
+<ActionPlaceholder Desc="00: 准备　　01: 开始倒计时　　02: 可输入　　03: ？　　04: 结束" DescOverride="True" />
+<ActionVariableScalar Operation="SetNumeric" Name="魔光键影_b可输入" Value="0x${status} = 2" />
+<ActionLogMessage Message="魔光键影_Loop:0" ProcessAsLogline="True">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:魔光键影_b可输入}" Op="NumericTrue" />
+</Condition>
+</ActionLogMessage>
+<ActionFolderOperation Uninterruptible="True" Operation="CancelTriggers" FolderId="cbb06408-5c7e-4f34-be5a-32ed3856ed0c">
+<Condition Grouping="Or">
+<ConditionSingle L="0x${status}" R="4" Op="NumericEqual" />
+</Condition>
+</ActionFolderOperation>
+<ActionVariableScalar Uninterruptible="True" Operation="UnsetRegexUniversal" Name="^魔光键影">
+<Condition Grouping="Or">
+<ConditionSingle L="0x${status}" R="4" Op="NumericEqual" />
+</Condition>
+</ActionVariableScalar>
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="a483b321-d674-43d0-bf32-b4aace64c741" Name="【主循环】" RegularExpression="^魔光键影_Loop" PrevActionsRefire="Deny">
+<Actions>
+<ActionPlaceholder Desc="循环条件：当前可输入，且没有即将判定的停手读条" DescOverride="True" />
+<ActionPlaceholder Desc="禁止重复触发" DescOverride="True" />
+<ActionPlaceholder Desc="优先级：优先列表（仙人掌等读条） &gt; 词库0（小怪） &gt; 词库3（护盾）" DescOverride="True" />
+<ActionVariableList Name="_ids" />
+<ActionVariableList Operation="InsertList" Name="魔光键影_优先id" Index="${l:_ids.size} + 1" TargetVar="_ids" />
+<ActionVariableList Operation="InsertList" Name="魔光键影_pool0" Index="${l:_ids.size} + 1" TargetVar="_ids" />
+<ActionVariableList Operation="InsertList" Name="魔光键影_pool3" Index="${l:_ids.size} + 1" TargetVar="_ids" />
+<ActionVariableList Operation="InsertList" Name="魔光键影_pool1" Index="${l:_ids.size} + 1" TargetVar="_ids" />
+<ActionVariableList Operation="InsertList" Name="魔光键影_pool2" Index="${l:_ids.size} + 1" TargetVar="_ids" />
+<ActionPlaceholder Desc="筛选合法的候选对象" DescOverride="True" />
+<ActionVariableList Operation="Filter" ValueType="Numeric" Name="_ids" Value="${d:魔光键影_id至词.ekey(${_this})} &amp;&amp;&#xD;&#xA;${_systemtimems} &gt;= ${d:魔光键影_id至可打时间.get(${_this}, 0)}" TargetVar="_ids" />
+<ActionVariableScalar Name="_id" />
+<ActionVariableScalar Operation="SetString" Name="_id" Value="${!l:_ids[1]}">
+<Condition Grouping="Or">
+<ConditionSingle L="${l:_ids.size} &gt;= 1" Op="NumericTrue" />
+</Condition>
+</ActionVariableScalar>
+<ActionPlaceholder Desc="复制词" DescOverride="True" />
+<ActionVariableScalar Operation="SetString" Name="_词" Value="${!d:魔光键影_id至词[${!v:_id}]}">
+<Condition Grouping="And">
+<ConditionSingle L="${ev:_id}" Op="NumericTrue" />
+</Condition>
+</ActionVariableScalar>
+<ActionVariableScalar Operation="SetNumeric" Name="_bCopy" Value="${pd:魔光键影_cfg.get(bCopy, 0)} &amp;&amp; ${ev:_词} &amp;&amp; !(${v:魔光键影_copied} == ${v:_词})" />
+<ActionVariableScalar Operation="SetString" Name="魔光键影_copied" Value="${!v:_词}">
+<Condition Grouping="And">
+<ConditionSingle L="${v:_bCopy}" Op="NumericTrue" />
+</Condition>
+</ActionVariableScalar>
+<ActionClipboard Value="${!v:_词}">
+<Condition Grouping="And">
+<ConditionSingle L="${v:_bCopy}" Op="NumericTrue" />
+</Condition>
+</ActionClipboard>
+<ActionPlaceholder Desc="如果本轮开火：" DescOverride="True" />
+<ActionVariableScalar Operation="SetNumeric" Name="_bFire" Value="${pd:魔光键影_cfg.get(bFire, 1)} &amp;&amp; !0${v:魔光键影_b停手} &amp;&amp; ${ev:_id} &amp;&amp; ${_systemtimems} &gt;= 0${v:魔光键影_timeMs}" />
+<ActionNamedCallback Name="魔光键影" Parameter="${!v:_id}">
+<Condition Grouping="And">
+<ConditionSingle L="${v:_bFire}" Op="NumericTrue" />
+</Condition>
+</ActionNamedCallback>
+<ActionVariableScalar Operation="SetNumeric" Name="魔光键影_timeMs" Value="${_systemtimems} + random(&#xD;&#xA;  ${pd:魔光键影_cfg.get(tMin, 1.0)} * 1000, &#xD;&#xA;  max(${pd:魔光键影_cfg.get(tMin, 1.0)}, ${pd:魔光键影_cfg.get(tMax, 2.0)}) * 1000 + 1&#xD;&#xA;)">
+<Condition Grouping="And">
+<ConditionSingle L="${v:_bFire}" Op="NumericTrue" />
+</Condition>
+</ActionVariableScalar>
+<ActionPlaceholder DescOverride="True" />
+<ActionVariableScalar Name="_bFire" />
+<ActionVariableScalar Name="_bCopy" />
+<ActionVariableScalar Name="_id" />
+<ActionVariableScalar Name="_词" />
+<ActionVariableList Name="_ids" />
+<ActionLogMessage ExecDelay="50" Message="魔光键影_Loop" ProcessAsLogline="True">
+<Condition Grouping="And">
+<ConditionSingle L="${v:魔光键影_b可输入}" Op="NumericTrue" />
+</Condition>
+</ActionLogMessage>
+</Actions>
+<Condition Grouping="And">
+<ConditionSingle L="${v:魔光键影_b可输入}" Op="NumericTrue" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="261cbc02-edda-4b42-8829-189cc3f6f0b0" Name="0. 初始化" RegularExpression="^.{15}\S+ 1001:1360:">
+<Actions>
+<ActionVariableScalar Operation="UnsetRegexUniversal" Name="^魔光键影" />
+<ActionExecuteScript Script="using System;&#xD;&#xA;using Triggernometry.FFXIV;&#xD;&#xA;using Triggernometry.Expressions.String.Utils;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu.Modules;&#xD;&#xA;using static Triggernometry.Expressions.String.Utils.DataStringHelper;&#xD;&#xA;&#xD;&#xA;var m = new 魔光键影Module();&#xD;&#xA;m.Scan();&#xD;&#xA;m.RegisterAnnotatedMethods();&#xD;&#xA;&#xD;&#xA;public class 魔光键影Module : ModuleBase&#xD;&#xA;{&#xD;&#xA;    public IntPtr EventFrameworkPtrPtr;&#xD;&#xA;    public IntPtr GetInstanceDirectorFuncPtr;&#xD;&#xA;    public IntPtr FireFuncPtr;&#xD;&#xA;&#xD;&#xA;    public 魔光键影Module()&#xD;&#xA;    {&#xD;&#xA;        ScanMethod = () =&gt;&#xD;&#xA;        {&#xD;&#xA;            EventFrameworkPtrPtr = Scanner.TryScan(&#xD;&#xA;                &quot;48 83 3D * * * * * 74 ? E8 ? ? ? ? &quot; +&#xD;&#xA;                &quot;48 8B C8 E8 ? ? ? ? 3C&quot;,&#xD;&#xA;                nameof(EventFrameworkPtrPtr));&#xD;&#xA;&#xD;&#xA;            GetInstanceDirectorFuncPtr = Scanner.TryScan(&#xD;&#xA;                &quot;E8 * * * * 41 8B 5E 18 48 8B F8&quot;,&#xD;&#xA;                nameof(GetInstanceDirectorFuncPtr));&#xD;&#xA;&#xD;&#xA;            FireFuncPtr = Scanner.TryScan(&#xD;&#xA;                &quot;48 89 5C 24 ? 56 57 41 56 48 83 EC ? 48 8B 1D&quot;,&#xD;&#xA;                nameof(FireFuncPtr));&#xD;&#xA;&#xD;&#xA;            CheckIfAnyZeroPtr(&#xD;&#xA;                EventFrameworkPtrPtr,&#xD;&#xA;                GetInstanceDirectorFuncPtr,&#xD;&#xA;                FireFuncPtr);&#xD;&#xA;        };&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    [CallbackMethod(&quot;魔光键影&quot;)]&#xD;&#xA;    public void CbFire(string command)&#xD;&#xA;    {&#xD;&#xA;        uint entityId = command.ParseData&lt;HexOrDecId&gt;();&#xD;&#xA;        Fire(entityId);&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public IntPtr GetInstanceDirectorPtr()&#xD;&#xA;    {&#xD;&#xA;        CheckIfAnyZeroPtr(EventFrameworkPtrPtr, GetInstanceDirectorFuncPtr);&#xD;&#xA;&#xD;&#xA;        var framework = Memory.Read&lt;IntPtr&gt;(EventFrameworkPtrPtr);&#xD;&#xA;        if (framework == IntPtr.Zero)&#xD;&#xA;            return IntPtr.Zero;&#xD;&#xA;&#xD;&#xA;        return Plugin.Call&lt;IntPtr&gt;(GetInstanceDirectorFuncPtr, framework);&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public void Fire(uint targetId)&#xD;&#xA;    {&#xD;&#xA;        var target = Entity.GetEntityByID(targetId);&#xD;&#xA;        if (target.Address != IntPtr.Zero)&#xD;&#xA;            Fire(GetInstanceDirectorPtr(), target.Address, true);&#xD;&#xA;        else&#xD;&#xA;            Fire(GetInstanceDirectorPtr(), IntPtr.Zero, false);&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    private void Fire(IntPtr director, IntPtr targetPtr, bool success)&#xD;&#xA;    {&#xD;&#xA;        CheckBeforeExecution(&quot;魔光键影.Fire&quot;);&#xD;&#xA;        CheckIfAnyZeroPtr(FireFuncPtr, director);&#xD;&#xA;        var successArg = success ? (byte)1 : (byte)0;&#xD;&#xA;        _ = Plugin.Call&lt;byte&gt;(FireFuncPtr, director, targetPtr, successArg);&#xD;&#xA;    }&#xD;&#xA;}">
+<Condition Grouping="Or">
+<ConditionSingle L="${ecallback:command}" Op="NumericTrue" />
+</Condition>
+</ActionExecuteScript>
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+<RegisteredVariables>
+<Variable Name="bby._Key" Value="魔光键影" LoadWhenActive="true" />
+<Variable Name="bby._PartyMode" Value="None" LoadWhenActive="true" />
+<Variable Name="bby.ZoneID.1359" Value="魔光键影" />
+<Variable Name="bby.ZoneID.1360" Value="魔光键影" />
+</RegisteredVariables>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="true" Id="e5b16387-311d-46f9-b68b-24026f689915" Name="配置" RegularExpression="^.{15}\S+ (?&lt;line&gt;1001):(1359|1360):|^.{15}\S+ (?&lt;line&gt;00):0038::(?i) *cfg *$" Sequential="True">
+<Actions>
+<ActionNamedCallback Async="True" Uninterruptible="True" Name="command" Parameter="/e &#xD;&#xA;&#xD;&#xA;已推送 魔光键影宝宝椅：&#xD;&#xA;在键斗大厅输入 /e cfg 查看说明和配置">
+<Condition Grouping="Or">
+<ConditionSingle L="${v:_魔光键影_b已提示}" Op="NumericFalse" />
+</Condition>
+</ActionNamedCallback>
+<ActionNamedCallback Async="True" Uninterruptible="True" Name="hint" Parameter="10&#xD;&#xA;已推送 魔光键影宝宝椅&#xD;&#xA;在键斗大厅输入 /e cfg&#xD;&#xA;查看说明和配置">
+<Condition Grouping="And">
+<ConditionSingle L="${v:_魔光键影_b已提示}" Op="NumericFalse" />
+<ConditionSingle L="${epd:魔光键影_cfg}" Op="NumericFalse" />
+</Condition>
+</ActionNamedCallback>
+<ActionExecuteScript Async="True" Uninterruptible="True" Script="using System.Drawing;&#xD;&#xA;using System.Windows.Forms;&#xD;&#xA;using Triggernometry.UI.Forms;&#xD;&#xA;using Triggernometry.Core.Actions;&#xD;&#xA;using static Triggernometry.UI.Forms.GameConfigForm;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;var info = new ConfigInfo(&quot;魔光键影宝宝椅&quot;, null, &quot;阿洛&quot;, $&quot;魔光键影_cfg&quot;);&#xD;&#xA;ShowConfig(info, 魔光键影Entry.Setup);&#xD;&#xA;&#xD;&#xA;public static class 魔光键影Entry&#xD;&#xA;{&#xD;&#xA;    static readonly Color Blue = Color.FromArgb(0x22, 0x66, 0xff);&#xD;&#xA;&#xD;&#xA;    public static void Setup(GameConfigForm form)&#xD;&#xA;    {&#xD;&#xA;        OptionsTableLayoutPanel table = form.AddOptionGroup(&quot; 致谢 &quot;);&#xD;&#xA;        form.AddLabel(&quot;　参考项目：&quot;, table);&#xD;&#xA;&#xD;&#xA;        var link = form.AddLabel(&quot;　 · AtmoOmen/DailyRoutines&quot;, table);&#xD;&#xA;        link.ForeColor = Blue;&#xD;&#xA;        link.Cursor = Cursors.Hand;&#xD;&#xA;        link.Click += async(_, __) =&gt; await new ActionLaunchProcess { Path = &quot;https://github.com/Dalamud-DailyRoutines/&quot; }.ExecuteAsync();&#xD;&#xA;&#xD;&#xA;        link = form.AddLabel(&quot;　 · geedama/moguang-typing&quot;, table);&#xD;&#xA;        link.ForeColor = Blue;&#xD;&#xA;        link.Cursor = Cursors.Hand;&#xD;&#xA;        link.Click += async (_, __) =&gt; await new ActionLaunchProcess { Path = &quot;https://github.com/geedama/moguang-typing&quot; }.ExecuteAsync();&#xD;&#xA;&#xD;&#xA;        form.AddLabel(&quot;　如需更方便地使用此功能，请下载安装 Daily Routines。&quot;, table);&#xD;&#xA;&#xD;&#xA;        table = form.AddOptionGroup(&quot; 选项 &quot;);&#xD;&#xA;        var autoFire = new OptionChk(&quot;　全自动开火&quot;, &quot;bFire&quot;, true);&#xD;&#xA;        var minTime  = new OptionNud(&quot;　 · 最短间隔 / 秒&quot;, &quot;tMin&quot;, 1.00m, 0.01m, 5m, 2, 0.01m);&#xD;&#xA;        var maxTime  = new OptionNud(&quot;　 · 最长间隔 / 秒&quot;, &quot;tMax&quot;, 2.00m, 0.01m, 10m, 2, 0.01m);&#xD;&#xA;        var copy     = new OptionChk(&quot;　将词汇复制至剪贴板&quot;, &quot;bCopy&quot;, false);&#xD;&#xA;&#xD;&#xA;        form.AddOptions(table, autoFire, minTime, maxTime, copy);&#xD;&#xA;&#xD;&#xA;        autoFire.Chk.CheckedChanged += (s, e) =&gt; Toggle();&#xD;&#xA;        Toggle();&#xD;&#xA;&#xD;&#xA;        void Toggle()&#xD;&#xA;        {&#xD;&#xA;            minTime.Visible = autoFire.Chk.Checked;&#xD;&#xA;            maxTime.Visible = autoFire.Chk.Checked;&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        table = form.AddOptionGroup(&quot; 说明 &quot;);&#xD;&#xA;        form.AddLabel(&quot;　 · 在键斗广场输入 /e cfg 可开启此界面。&quot;, table).ForeColor = Blue;&#xD;&#xA;        form.AddLabel(&quot;　 · 全自动模式需要鲶鱼精邮差，否则仅能使用剪贴板模式（但可能无法粘贴）。&quot;, table);&#xD;&#xA;        form.AddLabel(&quot;　 · 设置临时标量变量 debug = 1 可开启调试模式。&quot;, table);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;        form.MinimumSize = new Size(600, 300);&#xD;&#xA;    }&#xD;&#xA;}">
+<Condition Grouping="Or">
+<ConditionSingle L="${epd:魔光键影_cfg}" Op="NumericFalse" />
+<ConditionSingle L="${line} = 0" Op="NumericTrue" />
+</Condition>
+</ActionExecuteScript>
+<ActionVariableScalar Async="True" Uninterruptible="True" Operation="SetString" Name="_魔光键影_b已提示" Value="1" />
+</Actions>
+<Condition Grouping="Or">
+<ConditionSingle L="${?l: 1359, 1360 .contain(${_ffxivzoneid})}" Op="NumericTrue" />
+</Condition>
+</Trigger>
+<Trigger Enabled="true" Id="62b5b531-02c6-43ee-8204-ac1a05426ecd" Name="退本" RegularExpression="^.{15}\S+ 1001:[^:]*:[^:]*:1360:">
+<Actions>
+<ActionFolderOperation Uninterruptible="True" Operation="CancelTriggers" FolderId="cbb06408-5c7e-4f34-be5a-32ed3856ed0c" />
+<ActionVariableScalar Uninterruptible="True" Operation="UnsetRegexUniversal" Name="^魔光键影" />
+</Actions>
+</Trigger>
+</Triggers>
+</Folder>
+</Folders>
+<Triggers>
+<Trigger Enabled="true" Id="e1897be0-abfb-48a6-94a7-1ee526276a9d" Name="自动完成探索笔记" RegularExpression="^.{15}\S+ 00:..[3B]9::(到达了探索笔记的目的地|You have arrived at a vista|探検手帳の目的地に到達した)">
+<Actions>
+<ActionNamedCallback Async="True" Name="queue" Parameter="[&#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/target &lt;1&gt;&quot; }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot; }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/lookout motion&quot;, &quot;d&quot;: 100}, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 1000 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/pray motion&quot;, &quot;d&quot;: 100}, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 1000 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100 }, &#xD;&#xA;  {&quot;c&quot;: &quot;command&quot;, &quot;p&quot;: &quot;/sit motion&quot;, &quot;d&quot;: 100}&#xD;&#xA;]&#xD;&#xA;" />
+</Actions>
+</Trigger>
+</Triggers>
+</ExportedFolder>
+</TriggernometryExport>

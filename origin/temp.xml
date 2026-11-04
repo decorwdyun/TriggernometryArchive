@@ -1,4 +1,4 @@
-<TriggernometryExport PluginVersion="2.4.1.2">
+<TriggernometryExport PluginVersion="2.4.3.0">
 <ExportedFolder Id="a1b77f06-be63-473e-98f3-d4ee9c850fbe" Enabled="true" Name="临时">
 <Folders>
 <Folder Id="0739f52b-791a-40d0-9fb6-7dae68d0226e" Enabled="true" Name="风脉">
@@ -518,7 +518,7 @@
 </Folder>
 <Folder Id="e1c91358-dbe8-41e1-b272-153b3ae0fd5a" Enabled="true" Name="魔光键影">
 <Folders>
-<Folder Id="cbb06408-5c7e-4f34-be5a-32ed3856ed0c" Enabled="true" Name="区域" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^(1359|1360)$">
+<Folder Id="cbb06408-5c7e-4f34-be5a-32ed3856ed0c" Enabled="true" Name="游戏区域" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1359$">
 <Folders>
 <Folder Id="b0764917-840b-48ea-ad3e-af1c7d16c370" Enabled="true" Name="小怪状态">
 <Triggers>
@@ -667,6 +667,7 @@
 <ConditionSingle L="${v:魔光键影_b可输入}" Op="NumericTrue" />
 </Condition>
 </ActionLogMessage>
+<ActionPlaceholder Desc="结束：" DescOverride="True" />
 <ActionFolderOperation Uninterruptible="True" Operation="CancelTriggers" FolderId="cbb06408-5c7e-4f34-be5a-32ed3856ed0c">
 <Condition Grouping="Or">
 <ConditionSingle L="0x${status}" R="4" Op="NumericEqual" />
@@ -704,7 +705,7 @@
 <ConditionSingle L="${ev:_id}" Op="NumericTrue" />
 </Condition>
 </ActionVariableScalar>
-<ActionVariableScalar Operation="SetNumeric" Name="_bCopy" Value="${pd:魔光键影_cfg.get(bCopy, 0)} &amp;&amp; ${ev:_词} &amp;&amp; !(${v:魔光键影_copied} == ${v:_词})" />
+<ActionVariableScalar Operation="SetNumeric" Name="_bCopy" Value="!${pd:魔光键影_cfg.get(bFire, 1)} &amp;&amp; ${ev:_词} &amp;&amp; !(${v:魔光键影_copied} == ${v:_词})" />
 <ActionVariableScalar Operation="SetString" Name="魔光键影_copied" Value="${!v:_词}">
 <Condition Grouping="And">
 <ConditionSingle L="${v:_bCopy}" Op="NumericTrue" />
@@ -743,14 +744,16 @@
 <ConditionSingle L="${v:魔光键影_b可输入}" Op="NumericTrue" />
 </Condition>
 </Trigger>
-<Trigger Enabled="true" Id="261cbc02-edda-4b42-8829-189cc3f6f0b0" Name="0. 初始化" RegularExpression="^.{15}\S+ 1001:1360:">
+<Trigger Enabled="true" Id="261cbc02-edda-4b42-8829-189cc3f6f0b0" Name="0. 初始化" RegularExpression="^.{15}\S+ 1001:1359:">
 <Actions>
-<ActionVariableScalar Operation="UnsetRegexUniversal" Name="^魔光键影" />
-<ActionExecuteScript Script="using System;&#xD;&#xA;using Triggernometry.FFXIV;&#xD;&#xA;using Triggernometry.Expressions.String.Utils;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu.Modules;&#xD;&#xA;using static Triggernometry.Expressions.String.Utils.DataStringHelper;&#xD;&#xA;&#xD;&#xA;var m = new 魔光键影Module();&#xD;&#xA;m.Scan();&#xD;&#xA;m.RegisterAnnotatedMethods();&#xD;&#xA;&#xD;&#xA;public class 魔光键影Module : ModuleBase&#xD;&#xA;{&#xD;&#xA;    public IntPtr EventFrameworkPtrPtr;&#xD;&#xA;    public IntPtr GetInstanceDirectorFuncPtr;&#xD;&#xA;    public IntPtr FireFuncPtr;&#xD;&#xA;&#xD;&#xA;    public 魔光键影Module()&#xD;&#xA;    {&#xD;&#xA;        ScanMethod = () =&gt;&#xD;&#xA;        {&#xD;&#xA;            EventFrameworkPtrPtr = Scanner.TryScan(&#xD;&#xA;                &quot;48 83 3D * * * * * 74 ? E8 ? ? ? ? &quot; +&#xD;&#xA;                &quot;48 8B C8 E8 ? ? ? ? 3C&quot;,&#xD;&#xA;                nameof(EventFrameworkPtrPtr));&#xD;&#xA;&#xD;&#xA;            GetInstanceDirectorFuncPtr = Scanner.TryScan(&#xD;&#xA;                &quot;E8 * * * * 41 8B 5E 18 48 8B F8&quot;,&#xD;&#xA;                nameof(GetInstanceDirectorFuncPtr));&#xD;&#xA;&#xD;&#xA;            FireFuncPtr = Scanner.TryScan(&#xD;&#xA;                &quot;48 89 5C 24 ? 56 57 41 56 48 83 EC ? 48 8B 1D&quot;,&#xD;&#xA;                nameof(FireFuncPtr));&#xD;&#xA;&#xD;&#xA;            CheckIfAnyZeroPtr(&#xD;&#xA;                EventFrameworkPtrPtr,&#xD;&#xA;                GetInstanceDirectorFuncPtr,&#xD;&#xA;                FireFuncPtr);&#xD;&#xA;        };&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    [CallbackMethod(&quot;魔光键影&quot;)]&#xD;&#xA;    public void CbFire(string command)&#xD;&#xA;    {&#xD;&#xA;        uint entityId = command.ParseData&lt;HexOrDecId&gt;();&#xD;&#xA;        Fire(entityId);&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public IntPtr GetInstanceDirectorPtr()&#xD;&#xA;    {&#xD;&#xA;        CheckIfAnyZeroPtr(EventFrameworkPtrPtr, GetInstanceDirectorFuncPtr);&#xD;&#xA;&#xD;&#xA;        var framework = Memory.Read&lt;IntPtr&gt;(EventFrameworkPtrPtr);&#xD;&#xA;        if (framework == IntPtr.Zero)&#xD;&#xA;            return IntPtr.Zero;&#xD;&#xA;&#xD;&#xA;        return Plugin.Call&lt;IntPtr&gt;(GetInstanceDirectorFuncPtr, framework);&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public void Fire(uint targetId)&#xD;&#xA;    {&#xD;&#xA;        var target = Entity.GetEntityByID(targetId);&#xD;&#xA;        if (target.Address != IntPtr.Zero)&#xD;&#xA;            Fire(GetInstanceDirectorPtr(), target.Address, true);&#xD;&#xA;        else&#xD;&#xA;            Fire(GetInstanceDirectorPtr(), IntPtr.Zero, false);&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    private void Fire(IntPtr director, IntPtr targetPtr, bool success)&#xD;&#xA;    {&#xD;&#xA;        CheckBeforeExecution(&quot;魔光键影.Fire&quot;);&#xD;&#xA;        CheckIfAnyZeroPtr(FireFuncPtr, director);&#xD;&#xA;        var successArg = success ? (byte)1 : (byte)0;&#xD;&#xA;        _ = Plugin.Call&lt;byte&gt;(FireFuncPtr, director, targetPtr, successArg);&#xD;&#xA;    }&#xD;&#xA;}">
+<ActionVariableScalar Uninterruptible="True" Operation="UnsetRegexUniversal" Name="^魔光键影" />
+<ActionPlaceholder Desc="注册开火回调；禁用计时器" DescOverride="True" />
+<ActionExecuteScript Async="True" Uninterruptible="True" Script="using System;&#xD;&#xA;using System.Linq;&#xD;&#xA;using Triggernometry.Expressions.String.Utils;&#xD;&#xA;using Triggernometry.FFXIV;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu.Modules;&#xD;&#xA;using static Triggernometry.Expressions.String.Utils.DataStringHelper;&#xD;&#xA;&#xD;&#xA;var m = new 魔光键影Module();&#xD;&#xA;m.Scan();&#xD;&#xA;m.RegisterAnnotatedMethods();&#xD;&#xA;m.DisableTimers();&#xD;&#xA;&#xD;&#xA;public class 魔光键影Module : ModuleBase&#xD;&#xA;{&#xD;&#xA;    public IntPtr EventFrameworkPtrPtr;&#xD;&#xA;    public IntPtr GetInstanceDirectorFuncPtr;&#xD;&#xA;    public IntPtr FireFuncPtr;&#xD;&#xA;&#xD;&#xA;    public 魔光键影Module()&#xD;&#xA;    {&#xD;&#xA;        ScanMethod = () =&gt;&#xD;&#xA;        {&#xD;&#xA;            EventFrameworkPtrPtr = Scanner.TryScan(&#xD;&#xA;                &quot;48 83 3D * * * * * 74 ? E8 ? ? ? ? &quot; +&#xD;&#xA;                &quot;48 8B C8 E8 ? ? ? ? 3C&quot;,&#xD;&#xA;                nameof(EventFrameworkPtrPtr));&#xD;&#xA;&#xD;&#xA;            GetInstanceDirectorFuncPtr = Scanner.TryScan(&#xD;&#xA;                &quot;E8 * * * * 41 8B 5E 18 48 8B F8&quot;,&#xD;&#xA;                nameof(GetInstanceDirectorFuncPtr));&#xD;&#xA;&#xD;&#xA;            FireFuncPtr = Scanner.TryScan(&#xD;&#xA;                &quot;48 89 5C 24 ? 56 57 41 56 48 83 EC ? 48 8B 1D&quot;,&#xD;&#xA;                nameof(FireFuncPtr));&#xD;&#xA;&#xD;&#xA;            CheckIfAnyZeroPtr(&#xD;&#xA;                EventFrameworkPtrPtr,&#xD;&#xA;                GetInstanceDirectorFuncPtr,&#xD;&#xA;                FireFuncPtr);&#xD;&#xA;        };&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    [CallbackMethod(&quot;魔光键影&quot;)]&#xD;&#xA;    public void CbFire(string command)&#xD;&#xA;    {&#xD;&#xA;        uint entityId = command.ParseData&lt;HexOrDecId&gt;();&#xD;&#xA;        Fire(entityId);&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public IntPtr GetInstanceDirectorPtr()&#xD;&#xA;    {&#xD;&#xA;        CheckIfAnyZeroPtr(EventFrameworkPtrPtr, GetInstanceDirectorFuncPtr);&#xD;&#xA;&#xD;&#xA;        var framework = Memory.Read&lt;IntPtr&gt;(EventFrameworkPtrPtr);&#xD;&#xA;        if (framework == IntPtr.Zero)&#xD;&#xA;            return IntPtr.Zero;&#xD;&#xA;&#xD;&#xA;        return Plugin.Call&lt;IntPtr&gt;(GetInstanceDirectorFuncPtr, framework);&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public void Fire(uint targetId)&#xD;&#xA;    {&#xD;&#xA;        var target = Entity.GetEntityByID(targetId);&#xD;&#xA;        if (target.Address != IntPtr.Zero)&#xD;&#xA;            Fire(GetInstanceDirectorPtr(), target.Address, true);&#xD;&#xA;        else&#xD;&#xA;            Fire(GetInstanceDirectorPtr(), IntPtr.Zero, false);&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    private void Fire(IntPtr director, IntPtr targetPtr, bool success)&#xD;&#xA;    {&#xD;&#xA;        CheckBeforeExecution(&quot;魔光键影.Fire&quot;);&#xD;&#xA;        CheckIfAnyZeroPtr(FireFuncPtr, director);&#xD;&#xA;        var successArg = success ? (byte)1 : (byte)0;&#xD;&#xA;        _ = Plugin.Call&lt;byte&gt;(FireFuncPtr, director, targetPtr, successArg);&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    public void DisableTimers()&#xD;&#xA;    {&#xD;&#xA;        CheckBeforeExecution(&quot;魔光键影.禁用挂机计时&quot;);&#xD;&#xA;&#xD;&#xA;        // 前四条共 0x14 字节，仅用于定位：&#xD;&#xA;        // F3 0F 58 47 ??          addss xmm0, [rdi+??] (50)&#xD;&#xA;        // F3 0F 58 77 ??          addss xmm6, [rdi+??] (54)&#xD;&#xA;        // 48 8D 8D ?? ?? ?? ??    lea rcx, [rbp+????????]&#xD;&#xA;        // 41 8B DF                mov ebx, r15d&#xD;&#xA;        var start = Scanner.TryScan(&#xD;&#xA;            &quot;F3 0F 58 47 ? F3 0F 58 77 ? 48 8D 8D ? ? ? ? 41 8B DF&quot;,&#xD;&#xA;            &quot;魔光键影挂机计时&quot;);&#xD;&#xA;&#xD;&#xA;        if (start == IntPtr.Zero)&#xD;&#xA;        {&#xD;&#xA;            WarningLog(&quot;[魔光键影] 未找到挂机计时器内存特征。&quot;);&#xD;&#xA;            return;&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        var address = start + 0x14;&#xD;&#xA;&#xD;&#xA;        // 后两条各 5 字节，rdi 为 AgentKTGInput：&#xD;&#xA;        // F3 0F 11 47 50    movss [rdi+50], xmm0  ; 与输入框交互（回车、输入）时清零&#xD;&#xA;        // F3 0F 11 77 54    movss [rdi+54], xmm6  ; 发送时清零&#xD;&#xA;        // NOP 冻结计时器&#xD;&#xA;        var original = new byte[]&#xD;&#xA;        {&#xD;&#xA;            0xF3, 0x0F, 0x11, 0x47, 0x50,&#xD;&#xA;            0xF3, 0x0F, 0x11, 0x77, 0x54&#xD;&#xA;        };&#xD;&#xA;&#xD;&#xA;        var patch = Enumerable.Repeat((byte)0x90, 10).ToArray();&#xD;&#xA;        var current = Memory.ReadBytes(address, 10);&#xD;&#xA;&#xD;&#xA;        if (current.SequenceEqual(patch))&#xD;&#xA;            return;&#xD;&#xA;&#xD;&#xA;        if (!current.SequenceEqual(original))&#xD;&#xA;        {&#xD;&#xA;            WarningLog(&quot;[魔光键影] 挂机计时器相关内存特征疑似已被其他插件修改：&quot; + BitConverter.ToString(current));&#xD;&#xA;            return;&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        Memory.WriteBytes(address, patch);&#xD;&#xA;    }&#xD;&#xA;}">
 <Condition Grouping="Or">
 <ConditionSingle L="${ecallback:command}" Op="NumericTrue" />
 </Condition>
 </ActionExecuteScript>
+<ActionExecuteScript Enabled="False" Desc="debug: 找两个timer的ptr" DescOverride="True" Script="using System;&#xD;&#xA;using Triggernometry.PluginBridges.BridgeNamazu.Modules;&#xD;&#xA;&#xD;&#xA;var plugin = ModuleBase.Plugin;&#xD;&#xA;var memory = ModuleBase.Memory;&#xD;&#xA;var scanner = ModuleBase.Scanner;&#xD;&#xA;&#xD;&#xA;if (plugin == null || !plugin.IsReady)&#xD;&#xA;{&#xD;&#xA;    Triggernometry.Debug.Log(&quot;鲶鱼精邮差未就绪。&quot;);&#xD;&#xA;    return;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;var getUiModule = scanner.TryScan(&#xD;&#xA;    &quot;E8 * * * * 80 7B 1D 01&quot;, &quot;GetUIModule&quot;);&#xD;&#xA;&#xD;&#xA;var getAgent = scanner.TryScan(&#xD;&#xA;    &quot;E8 * * * * 83 7B 48 00&quot;, &quot;GetAgentByInternalId&quot;);&#xD;&#xA;&#xD;&#xA;if (getUiModule == IntPtr.Zero || getAgent == IntPtr.Zero)&#xD;&#xA;    return;&#xD;&#xA;&#xD;&#xA;var framework = plugin.FrameworkPtr;&#xD;&#xA;if (framework == IntPtr.Zero)&#xD;&#xA;    return;&#xD;&#xA;&#xD;&#xA;var uiModule = plugin.Call&lt;IntPtr&gt;(getUiModule, framework);&#xD;&#xA;if (uiModule == IntPtr.Zero)&#xD;&#xA;    return;&#xD;&#xA;&#xD;&#xA;var agentModule = plugin.CallVirtualFunction&lt;IntPtr&gt;(uiModule, 37);&#xD;&#xA;if (agentModule == IntPtr.Zero)&#xD;&#xA;    return;&#xD;&#xA;&#xD;&#xA;var inputAgent = plugin.Call&lt;IntPtr&gt;(&#xD;&#xA;    getAgent, agentModule, (uint)398);&#xD;&#xA;&#xD;&#xA;Triggernometry.Debug.Log(&#xD;&#xA;    $&quot;AgentKTGInput = 0x{inputAgent.ToInt64():X}&quot;);&#xD;&#xA;&#xD;&#xA;if (inputAgent == IntPtr.Zero)&#xD;&#xA;    return;&#xD;&#xA;&#xD;&#xA;var hud = memory.Read&lt;IntPtr&gt;(inputAgent + 0x28);&#xD;&#xA;&#xD;&#xA;string text = &quot;AgentKTGInput = 0x&quot; + inputAgent.ToInt64().ToString(&quot;X&quot;);&#xD;&#xA;&#xD;&#xA;if (inputAgent != IntPtr.Zero)&#xD;&#xA;{&#xD;&#xA;    text += &quot;\r\nAgentKTGHud = 0x&quot;&#xD;&#xA;        + memory.Read&lt;IntPtr&gt;(inputAgent + 0x28).ToInt64().ToString(&quot;X&quot;)&#xD;&#xA;        + &quot;\r\nIdleSeconds：地址 0x&quot;&#xD;&#xA;        + (inputAgent + 0x50).ToInt64().ToString(&quot;X&quot;)&#xD;&#xA;        + &quot;，值 &quot; + memory.Read&lt;float&gt;(inputAgent + 0x50)&#xD;&#xA;        + &quot;\r\nKeyHoldSeconds：地址 0x&quot;&#xD;&#xA;        + (inputAgent + 0x54).ToInt64().ToString(&quot;X&quot;)&#xD;&#xA;        + &quot;，值 &quot; + memory.Read&lt;float&gt;(inputAgent + 0x54);&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;Triggernometry.Debug.Show(text);" />
 </Actions>
 </Trigger>
 </Triggers>
@@ -760,43 +763,39 @@
 <Variable Name="bby._Key" Value="魔光键影" LoadWhenActive="true" />
 <Variable Name="bby._PartyMode" Value="None" LoadWhenActive="true" />
 <Variable Name="bby.ZoneID.1359" Value="魔光键影" />
-<Variable Name="bby.ZoneID.1360" Value="魔光键影" />
 </RegisteredVariables>
 </Folder>
-</Folders>
+<Folder Id="4a93f8fe-3a27-4cab-bb44-f9c2b20cdee2" Enabled="true" Name="配置">
 <Triggers>
-<Trigger Enabled="true" Id="e5b16387-311d-46f9-b68b-24026f689915" Name="配置" RegularExpression="^.{15}\S+ (?&lt;line&gt;1001):(1359|1360):|^.{15}\S+ (?&lt;line&gt;00):0038::(?i) *cfg *$" Sequential="True">
+<Trigger Enabled="true" Id="e5b16387-311d-46f9-b68b-24026f689915" Name="[F] 配置" RegularExpression="^魔光键影_cfg$|^魔光键影$" Sequential="True">
 <Actions>
-<ActionNamedCallback Async="True" Uninterruptible="True" Name="command" Parameter="/e &#xD;&#xA;&#xD;&#xA;已推送 魔光键影宝宝椅：&#xD;&#xA;在键斗大厅输入 /e cfg 查看说明和配置">
-<Condition Grouping="Or">
-<ConditionSingle L="${v:_魔光键影_b已提示}" Op="NumericFalse" />
-</Condition>
-</ActionNamedCallback>
-<ActionNamedCallback Async="True" Uninterruptible="True" Name="hint" Parameter="10&#xD;&#xA;已推送 魔光键影宝宝椅&#xD;&#xA;在键斗大厅输入 /e cfg&#xD;&#xA;查看说明和配置">
-<Condition Grouping="And">
-<ConditionSingle L="${v:_魔光键影_b已提示}" Op="NumericFalse" />
-<ConditionSingle L="${epd:魔光键影_cfg}" Op="NumericFalse" />
-</Condition>
-</ActionNamedCallback>
-<ActionExecuteScript Async="True" Uninterruptible="True" Script="using System.Drawing;&#xD;&#xA;using System.Windows.Forms;&#xD;&#xA;using Triggernometry.UI.Forms;&#xD;&#xA;using Triggernometry.Core.Actions;&#xD;&#xA;using static Triggernometry.UI.Forms.GameConfigForm;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;var info = new ConfigInfo(&quot;魔光键影宝宝椅&quot;, null, &quot;阿洛&quot;, $&quot;魔光键影_cfg&quot;);&#xD;&#xA;ShowConfig(info, 魔光键影Entry.Setup);&#xD;&#xA;&#xD;&#xA;public static class 魔光键影Entry&#xD;&#xA;{&#xD;&#xA;    static readonly Color Blue = Color.FromArgb(0x22, 0x66, 0xff);&#xD;&#xA;&#xD;&#xA;    public static void Setup(GameConfigForm form)&#xD;&#xA;    {&#xD;&#xA;        OptionsTableLayoutPanel table = form.AddOptionGroup(&quot; 致谢 &quot;);&#xD;&#xA;        form.AddLabel(&quot;　参考项目：&quot;, table);&#xD;&#xA;&#xD;&#xA;        var link = form.AddLabel(&quot;　 · AtmoOmen/DailyRoutines&quot;, table);&#xD;&#xA;        link.ForeColor = Blue;&#xD;&#xA;        link.Cursor = Cursors.Hand;&#xD;&#xA;        link.Click += async(_, __) =&gt; await new ActionLaunchProcess { Path = &quot;https://github.com/Dalamud-DailyRoutines/&quot; }.ExecuteAsync();&#xD;&#xA;&#xD;&#xA;        link = form.AddLabel(&quot;　 · geedama/moguang-typing&quot;, table);&#xD;&#xA;        link.ForeColor = Blue;&#xD;&#xA;        link.Cursor = Cursors.Hand;&#xD;&#xA;        link.Click += async (_, __) =&gt; await new ActionLaunchProcess { Path = &quot;https://github.com/geedama/moguang-typing&quot; }.ExecuteAsync();&#xD;&#xA;&#xD;&#xA;        form.AddLabel(&quot;　如需更方便地使用此功能，请下载安装 Daily Routines。&quot;, table);&#xD;&#xA;&#xD;&#xA;        table = form.AddOptionGroup(&quot; 选项 &quot;);&#xD;&#xA;        var autoFire = new OptionChk(&quot;　全自动开火&quot;, &quot;bFire&quot;, true);&#xD;&#xA;        var minTime  = new OptionNud(&quot;　 · 最短间隔 / 秒&quot;, &quot;tMin&quot;, 1.00m, 0.01m, 5m, 2, 0.01m);&#xD;&#xA;        var maxTime  = new OptionNud(&quot;　 · 最长间隔 / 秒&quot;, &quot;tMax&quot;, 2.00m, 0.01m, 10m, 2, 0.01m);&#xD;&#xA;        var copy     = new OptionChk(&quot;　将词汇复制至剪贴板&quot;, &quot;bCopy&quot;, false);&#xD;&#xA;&#xD;&#xA;        form.AddOptions(table, autoFire, minTime, maxTime, copy);&#xD;&#xA;&#xD;&#xA;        autoFire.Chk.CheckedChanged += (s, e) =&gt; Toggle();&#xD;&#xA;        Toggle();&#xD;&#xA;&#xD;&#xA;        void Toggle()&#xD;&#xA;        {&#xD;&#xA;            minTime.Visible = autoFire.Chk.Checked;&#xD;&#xA;            maxTime.Visible = autoFire.Chk.Checked;&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        table = form.AddOptionGroup(&quot; 说明 &quot;);&#xD;&#xA;        form.AddLabel(&quot;　 · 在键斗广场输入 /e cfg 可开启此界面。&quot;, table).ForeColor = Blue;&#xD;&#xA;        form.AddLabel(&quot;　 · 全自动模式需要鲶鱼精邮差，否则仅能使用剪贴板模式（但可能无法粘贴）。&quot;, table);&#xD;&#xA;        form.AddLabel(&quot;　 · 设置临时标量变量 debug = 1 可开启调试模式。&quot;, table);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;        form.MinimumSize = new Size(600, 300);&#xD;&#xA;    }&#xD;&#xA;}">
-<Condition Grouping="Or">
-<ConditionSingle L="${epd:魔光键影_cfg}" Op="NumericFalse" />
-<ConditionSingle L="${line} = 0" Op="NumericTrue" />
-</Condition>
-</ActionExecuteScript>
-<ActionVariableScalar Async="True" Uninterruptible="True" Operation="SetString" Name="_魔光键影_b已提示" Value="1" />
+<ActionExecuteScript Async="True" Uninterruptible="True" Script="using System.Drawing;&#xD;&#xA;using System.Windows.Forms;&#xD;&#xA;using Triggernometry.Core.Actions;&#xD;&#xA;using Triggernometry.Expressions.String.Utils;&#xD;&#xA;using Triggernometry.UI.Forms;&#xD;&#xA;using static Triggernometry.UI.Forms.GameConfigForm;&#xD;&#xA;&#xD;&#xA;var info = new ConfigInfo(&quot;魔光键影宝宝椅&quot;, null, &quot;阿洛&quot;, $&quot;魔光键影_cfg&quot;);&#xD;&#xA;ShowConfig(info, 魔光键影Entry.Setup);&#xD;&#xA;&#xD;&#xA;public static class 魔光键影Entry&#xD;&#xA;{&#xD;&#xA;    static readonly Color Blue = Color.FromArgb(0x22, 0x66, 0xff);&#xD;&#xA;&#xD;&#xA;    public static void Setup(GameConfigForm form)&#xD;&#xA;    {&#xD;&#xA;        OptionsTableLayoutPanel table = form.AddOptionGroup(&quot; 致谢 &quot;);&#xD;&#xA;        form.AddLabel(&quot;　参考项目：&quot;, table);&#xD;&#xA;&#xD;&#xA;        var link = form.AddLabel(&quot;　 · AtmoOmen/DailyRoutines&quot;, table);&#xD;&#xA;        link.ForeColor = Blue;&#xD;&#xA;        link.Cursor = Cursors.Hand;&#xD;&#xA;        link.Click += async (_, __) =&gt; await new ActionLaunchProcess { Path = &quot;https://github.com/Dalamud-DailyRoutines/&quot; }.ExecuteAsync();&#xD;&#xA;&#xD;&#xA;        link = form.AddLabel(&quot;　 · geedama/moguang-typing&quot;, table);&#xD;&#xA;        link.ForeColor = Blue;&#xD;&#xA;        link.Cursor = Cursors.Hand;&#xD;&#xA;        link.Click += async (_, __) =&gt; await new ActionLaunchProcess { Path = &quot;https://github.com/geedama/moguang-typing&quot; }.ExecuteAsync();&#xD;&#xA;&#xD;&#xA;        form.AddLabel(&quot;　如需更方便地使用此功能，请下载安装 Daily Routines。&quot;, table);&#xD;&#xA;&#xD;&#xA;        table = form.AddOptionGroup(&quot; 选项 &quot;);&#xD;&#xA;        var options = new BijectDictionary&lt;string, string&gt;((&quot;1&quot;, &quot;全自动开火&quot;), (&quot;0&quot;, &quot;剪贴板模式&quot;));&#xD;&#xA;        var optionCbx = new OptionCbx(&quot;　模式&quot;, &quot;bFire&quot;, options, &quot;1&quot;);&#xD;&#xA;        var minTime   = new OptionNud(&quot;　 · 最短间隔 / 秒&quot;, &quot;tMin&quot;, 1.00m, 0.01m, 5m, 2, 0.01m);&#xD;&#xA;        var maxTime   = new OptionNud(&quot;　 · 最长间隔 / 秒&quot;, &quot;tMax&quot;, 2.00m, 0.01m, 10m, 2, 0.01m);&#xD;&#xA;&#xD;&#xA;        form.AddOptions(table, optionCbx, minTime, maxTime);&#xD;&#xA;&#xD;&#xA;        optionCbx.Cbx.SelectedIndexChanged += (s, e) =&gt; Toggle();&#xD;&#xA;        Toggle();&#xD;&#xA;&#xD;&#xA;        void Toggle()&#xD;&#xA;        {&#xD;&#xA;            var bFire = optionCbx.Data.ParseData&lt;bool&gt;();&#xD;&#xA;            minTime.Visible = bFire;&#xD;&#xA;            maxTime.Visible = bFire;&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;        table = form.AddOptionGroup(&quot; 说明 &quot;);&#xD;&#xA;        form.AddLabel(&quot;　 · 在键斗广场输入 /e cfg 可开启此界面。&quot;, table).ForeColor = Blue;&#xD;&#xA;        form.AddLabel(&quot;　 · 也可在触发器中 Ctrl+T 输入 魔光键影 开启。&quot;, table).ForeColor = Blue;&#xD;&#xA;        form.AddLabel(&quot;　 · 进本后会自动禁用挂机计时器。&quot;, table);&#xD;&#xA;        form.AddLabel(&quot;　 · 全自动模式需要鲶鱼精邮差，否则仅能使用剪贴板模式（但可能无法粘贴）。&quot;, table);&#xD;&#xA;        form.AddLabel(&quot;　 · 设置临时标量变量 debug = 1 可开启调试模式。&quot;, table);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;        form.MinimumSize = new Size(600, 300);&#xD;&#xA;    }&#xD;&#xA;}" />
 </Actions>
-<Condition Grouping="Or">
-<ConditionSingle L="${?l: 1359, 1360 .contain(${_ffxivzoneid})}" Op="NumericTrue" />
-</Condition>
 </Trigger>
-<Trigger Enabled="true" Id="62b5b531-02c6-43ee-8204-ac1a05426ecd" Name="退本" RegularExpression="^.{15}\S+ 1001:[^:]*:[^:]*:1360:">
+<Trigger Enabled="true" Id="033d57b3-dd69-4101-9904-36da8a7898ef" Name="进入游戏区域（无配置时弹出配置）" RegularExpression="^.{15}\S+ (?&lt;line&gt;1001):1359:">
 <Actions>
-<ActionFolderOperation Uninterruptible="True" Operation="CancelTriggers" FolderId="cbb06408-5c7e-4f34-be5a-32ed3856ed0c" />
-<ActionVariableScalar Uninterruptible="True" Operation="UnsetRegexUniversal" Name="^魔光键影" />
+<ActionPlaceholder Desc="不存在配置时直接弹窗" DescOverride="True" />
+<ActionLogMessage Uninterruptible="True" Message="魔光键影_cfg" ProcessAsLogline="True">
+<Condition Grouping="Or">
+<ConditionSingle L="${epd:魔光键影_cfg}" Op="NumericFalse" />
+</Condition>
+</ActionLogMessage>
+</Actions>
+</Trigger>
+<Trigger Enabled="true" Id="26eea0ae-adc3-470a-b58a-e4e539db461b" Name="进入键斗广场（文本提示）" RegularExpression="^.{15}\S+ (?&lt;line&gt;1001):1360:">
+<Actions>
+<ActionNamedCallback Uninterruptible="True" Name="command" Parameter="/e ${if: ${epd:魔光键影_cfg} ? &quot;&quot; : &quot;&lt;se.9&gt;&quot; }&#xD;&#xA;&#xD;&#xA;· 魔光键影宝宝椅 打开方式：&#xD;&#xA;　· 触发器内 Ctrl + T 输入 魔光键影&#xD;&#xA;　· 或在键斗广场地图输入 /e cfg&#xD;&#xA;· 新增屏蔽挂机计时器" />
 </Actions>
 </Trigger>
 </Triggers>
+</Folder>
+<Folder Id="d0ddb725-bb02-428b-b39e-790f330e763a" Enabled="true" Name="键斗广场" FFXIVZoneFilterEnabled="True" FfxivZoneFilterRegularExpression="^1360$">
+<RegisteredVariables>
+<Variable Name="bby._Key" Value="魔光键影" LoadWhenActive="true" />
+<Variable Name="bby._PartyMode" Value="None" LoadWhenActive="true" />
+</RegisteredVariables>
+</Folder>
+</Folders>
 </Folder>
 </Folders>
 <Triggers>

@@ -1108,12 +1108,13 @@
 </Trigger>
 <Trigger Enabled="true" Id="c23521d2-9791-4693-9d4f-6951a04b26ca" Name="记录用户配置（进本自动）" RegularExpression="^.{15}\S+ 1001:" Sequential="True">
 <Actions>
-<ActionPlaceholder Desc="条件：存在 bby._Key" DescOverride="True" />
+<ActionPlaceholder Desc="条件：存在 bby._Key 及 bby.{Key}.CfgScript" DescOverride="True" />
 <ActionPlaceholder Desc="等待是为了防止有些情况下有人没加载出来 导致显示的小队列表缺人" DescOverride="True" />
 <ActionLogMessage ExecDelay="1000" Async="True" Message="${reg:bby._Key}_cfg" ProcessAsLogline="True" />
 </Actions>
-<Condition Grouping="Or">
+<Condition Grouping="And">
 <ConditionSingle L="${ereg:bby._Key}" Op="NumericTrue" />
+<ConditionSingle L="${ereg:bby.${reg:bby._Key}.CfgScript}" Op="NumericTrue" />
 </Condition>
 </Trigger>
 <Trigger Enabled="true" Id="0a8f50c4-a0ad-4b7d-9dd1-d716774eef4f" Name="记录用户配置（副本外手动 /e cfg Name）" RegularExpression="^.{15}\S+ 00:0038:: *(?i)cfg +(?&lt;name&gt;.+?) *$" Sequential="True">
